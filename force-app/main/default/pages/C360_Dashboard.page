@@ -1,0 +1,9 @@
+<apex:page controller="C360_DashboardController" action="{!countClick}">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11"/>
+
+    <apex:pageMessages escape="true"/>
+    <apex:outputPanel rendered="{!recordAccess}">
+        <apex:iframe src="{!dashboardLink}"></apex:iframe>        
+        <!--<apex:outputLabel value="{!dashboardLink}"></apex:outputLabel>-->
+    </apex:outputPanel> 
+</apex:page>

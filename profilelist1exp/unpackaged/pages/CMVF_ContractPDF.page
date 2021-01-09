@@ -1,0 +1,743 @@
+<!-- 
+REVISION HISTORY
+================
+Version     Author      Date            Release#    CR#     Description
+-------     ------      ----            --------    ---     -----------
+1.0                                                  
+1.1         Ninie       1-July-2013     Sprint 2    8007    Comment out Dell_Company_Number__c,Effective_date__c,Expiration_date__c,Evergreen__c 
+.
+ -->
+
+<apex:page standardController="Contract" extensions="CMContractPDFController" renderAs="pdf">
+  <html>
+    <head>
+        <style type="text/css">
+            td.label{
+
+                  font-size:10px;
+
+                  vertical-align:top;              
+
+                  text-align:right;
+
+                  padding-right:5px;                  
+
+                  width:25%;
+
+                  align:right;
+
+                  border-bottom :solid 0.5px #DFDFDF;                   
+            }
+            
+            td.nonStdLabel{
+                  font-size:10px;
+                  vertical-align:top;              
+                  text-align:left;
+                  padding-right:5px;                  
+                  width:3%;
+                  align:left;
+                  border-bottom :solid 0.5px #DFDFDF;                   
+             }
+                
+            td.data{
+
+                    font-size:10px;
+
+                    vertical-align:top;
+
+                    text-align:left; 
+
+                    padding-left:5px;                                 
+
+                    width:25%;
+
+                    align:left;
+
+                    border-bottom: solid 0.5px #DFDFDF;                   
+
+            }
+            td.subHeaderData{
+
+                  font-size:10px;
+
+                  color:#14130E;
+
+            }
+
+            table.Mainheader{
+
+                  font-size:12px;
+
+                  height:20px;
+
+                  width:100%;
+
+                  background-color:#8FBC8F;
+
+                  border-bottom: solid 3px #FFFFFF;               
+
+            }
+
+            table.subHeader{          
+
+                  height:16px;
+
+                  width:100%;              
+
+                  background-color:#C6E0D3; 
+
+                  border-top: solid 3px #319431;                                                                             
+
+            }
+
+            table.detail{          
+
+                   width:100%;
+
+                   border:1;                                                     
+
+                   border-bottom:solid 1px #319431;                    
+
+                   background-color:#FFFFFF;
+
+                   cell-spacing :0px;                     
+
+                   border-collapse: separate;
+
+                   border-spacing: 4pt;                                           
+
+            } 
+           .columnData{
+                  width:100%;
+
+                   border:1;                                                     
+
+                   border-bottom:solid 1px #319431;                    
+
+                   background-color:#FFFFFF;
+
+                   cell-spacing :0px;                     
+
+                   border-collapse: separate;
+
+                   border-spacing: 4pt;
+            }           
+
+          .divbreak {display block; page-break-before auto;page-break-inside avoid;}
+            
+            
+        </style>
+    </head>
+    <body>
+        <div class="divbreak">
+            <table class="Mainheader">
+                <th>Contract Information</th>
+            </table>
+            <div class="divbreak">
+                <table class="detail" COLSPAN="2">
+                    <tr>
+                        <td class="label">Contract Owner  </td>
+                        <td class="data">{!Contract.owner.firstName}{!Contract.owner.lastName}</td>
+                        <td class="label">Status </td>
+                        <td class="data">{!Contract.status}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">CSMB Support Request </td>
+                        <td class="data">{!Contract.CSMB_Support_Request__r.name}</td>
+                        <td class="label">Contract Number </td>
+                        <td class="data">{!Contract.ContractNumber}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Account Name</td>
+                        <td class="data">{!Contract.Account.name}</td>
+                        <td class="label">Account Country</td>
+                        <td class="data">{!Contract.Account_Country__c}</td>
+                    </tr>
+                    <tr>                        
+                        <td class="label">Opportunity</td>
+                        <td class="data">{!Contract.Opportunity__r.name}</td>
+                        <td class="label">Corporate Parent Name</td>
+                        <td class="data">{!Contract.Corporate_Parent_Name__c}</td> 
+                                              
+                    </tr>
+                    <tr>                        
+                        <td class="label">Contract Entity Name</td>
+                        <td class="data">{!Contract.Contract_Entity_Name__c}</td>
+                        <td class="label">Historical CC#</td>
+                        <td class="data">{!Contract.Historical_CC__c}</td>  
+                                               
+                    </tr>
+                  
+                </table>
+            </div>
+           </div>
+           <div class="divbreak">
+            <table class="Mainheader">
+                <th>Customer/ partner Info/ Contract Type</th>
+            </table>
+            <div class="divbreak">
+             
+                <table class="detail" COLSPAN="2">
+                    
+                    <tr>
+                        <td class="label">Contact Name</td>
+                        <td class="data">{!Contract.Contact_Name_SR__c}</td>
+                        <td class="label">Mailing Street</td>
+                        <td class="data">{!Contract.Street_Address__c}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Title</td>
+                        <td class="data">{!Contract.title__c}</td>
+                        <td class="label">Mailing City</td>
+                        <td class="data">{!Contract.City_SR__c}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Email Addess</td>
+                        <td class="data">{!Contract.Email_Address__c}</td>                        
+                        <td class="label">Mailing Strate/Province</td>
+                        <td class="data">{!Contract.State_SR__c}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Phone</td>
+                        <td class="data">{!Contract.Phone_SR__c}</td>                        
+                        <td class="label">Mailing Zip/Postal Code</td>
+                        <td class="data">{!Contract.Zip_Code_SR__c}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Mobile</td>
+                        <td class="data">{!Contract.Mobile_SR__c}</td>                        
+                        <td class="label">Mailing Country</td>
+                        <td class="data">{!Contract.Customerinfocountry__c}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Business</td>
+                        <td class="data">{!Contract.Business__c}</td>                        
+                        <td class="label">Business</td>
+                        <td class="data">{!Contract.Business1__c}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Notice</td>
+                        <td class="data">{!Contract.Notice__c}</td>
+                        <td class="label">Notice</td>
+                        <td class="data">{!Contract.Notice1__c}</td>
+                    </tr>                    
+                </table>
+             </div>
+        </div>
+        <div class="divbreak">
+            <table class="Mainheader">
+                <th>Customer Contact Data</th>
+            </table>
+            <div class="divbreak">
+             
+                <table class="detail" COLSPAN="2">
+                    
+                    <tr>
+                        <td class="label">Customer Contact1</td>
+                        <td class="data">{!Contract.Contact_1__r.FirstName}{!Contract.Contact_1__r.lastName}</td>
+                        <td class="label">Customer Contact2</td>
+                        <td class="data">{!Contract.Contact_2__r.FirstName}{!Contract.Contact_2__r.LastName}</td>
+                    </tr>                    
+                </table>
+             </div>
+        </div>
+        <div class="divbreak">
+            <table class="Mainheader">
+                <th>Request Detail</th>
+  <!-- Version 1.1 --> 
+           </table>
+            <div class="divbreak">
+             
+                <table class="detail" COLSPAN="2">
+                    
+                  <tr>
+                        <td class="label">Business Unit Primary</td>
+                        <td class="data">{!Contract.Business_Unit_Primary_SR1__c}</td>
+                   <!-- <td class="label">Dell Company Number</td>
+                        <td class="data">{!Contract.Dell_Company_Number__c}</td> -->
+                        <td class="label">Region</td>
+                        <td class="data">{!Contract.Region_SR__c}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Business Unit Secondary</td>
+                        <td class="data">{!Contract.Business_Unit_Secandary_SR1__c}</td>
+                        <td class="label">Sub Region</td>
+                        <td class="data">{!Contract.Sub_Region_SR__c}</td>
+                    </tr>
+                    <tr>
+                        
+            <td class="label"></td>
+                        <td class="data"></td> 
+                        <td class="label">Country</td>
+                        <td class="data">{!Contract.Country_SR__c}</td>
+                    </tr>                  
+                </table> 
+   <!-- Version 1.1 -->               
+             </div>
+        </div>
+        <div class="divbreak">
+            <table class="Mainheader">
+                <th>Business Case Information</th>
+            </table>
+            <div class="divbreak">
+             
+                <table class="detail" COLSPAN="2">
+                    
+                    <tr>
+                        <td class="label">Anticipated Annuval Revenue $</td>
+                        <td class="data">{!Contract.Anticipated_Annual_Revenue__c}</td>
+                        <td class="label">Business Case Summary</td>
+                        <td class="data">{!Contract.Summary__c}</td>
+                    </tr>                   
+                </table>
+             </div>
+        </div>
+        <div class="divbreak">
+            <table class="Mainheader">
+                <th>Products</th>
+            </table>
+            <div class="divbreak">
+             
+                <table class="detail" COLSPAN="2">
+                    
+                    <tr>
+                        <td class="label">Products</td>
+                        <td class="data">{!Contract.Products__c}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>                  
+                </table>
+             </div>
+        </div>
+        <div class="divbreak">
+            <table class="Mainheader">
+                <th>Additional Case Information</th>
+            </table>
+            <div class="divbreak">
+             
+                <table class="detail" COLSPAN="2">
+                    
+                    <tr>
+                        <td class="label">Contract Template Type</td>
+                        <td class="data">{!Contract.Contract_Type_mainData__c}</td>
+                        <td class="label">Initial Contract Term Requested?</td>
+                        <td class="data">{!Contract.Initial_Contract_Term_Requested__c}</td>
+                    </tr> 
+                    <tr>
+                        <td class="label">Prior Contract Agreement?</td>
+                        <td class="data">{!Contract.Prior_Contact_Agreement__c}</td>
+                        <td class="label">Renew</td>
+                        <td class="data">{!Contract.Renew__c}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">If Yes, Prior Contract Agreement Name or CC#</td>
+                        <td class="data">{!Contract.If_Yes_Prior_Agreement_Name_or_CC__c}</td>
+                        <td class="label">Termination for Convenience Days Notice</td>
+                        <td class="data">{!Contract.Termination_for_Convenience_Days_Notice__c}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Amend or Terminate prior Agreement?</td>
+                        <td class="data">{!Contract.Amend_or_Terminate_prior_Agreement__c}</td>
+                        <td class="label">Payment Terms</td>
+                        <td class="data">{!Contract.Payment_Terms__c}</td>
+                    </tr>                 
+                </table>
+             </div>
+        </div>
+        <div class="divbreak">
+            <table class="Mainheader">
+                <th>Risk and Complexity Information</th>
+            </table>
+            <div class="divbreak">
+             
+                <table class="detail" COLSPAN="2">
+                    
+                    <tr>
+                        <td class="label">Risk Level</td>
+                        <td class="data">{!Contract.Risk_Level__c}</td>
+                        <td class="label">RRC Required</td>
+                        <td class="data">{!Contract.RRC_Required__c}</td>
+                    </tr> 
+                    <tr>
+                        <td class="label">Complexity</td>
+                        <td class="data">{!Contract.Complexity__c}</td>
+                        <td class="label">Vetting Required</td>
+                        <td class="data">{!Contract.Vetting_Required__c}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Estimated Hours</td>
+                        <td class="data">{!Contract.Estimated_Hours1__c}</td>
+                        <td class="label"></td>
+                        <td class="data"></td>
+                    </tr>                                    
+                </table>
+             </div>
+        </div>
+        <div class="divbreak">
+            <table class="Mainheader">
+                <th>Approvals</th>
+            </table>
+            <div class="divbreak">
+             
+                <table class="detail" COLSPAN="2">
+                    
+                    <tr>
+                        <td class="label">Accounting</td>
+                        <td class="data">{!Contract.Accounting__r.firstName}{!Contract.Accounting__r.LastName}</td>
+                        <td class="label">No Approval Required</td>
+                        <td class="data">{!Contract.No_Approval_Required__c}</td>
+                    </tr> 
+                    <tr>
+                        <td class="label">Legal</td>
+                        <td class="data">{!Contract.Legal1__r.FirstName}{!Contract.Legal1__r.LastName}</td>
+                        <td class="label">Add Approver1</td>
+                        <td class="data">{!Contract.Add_Approver_1__r.FirstName}{!Contract.Add_Approver_1__r.LastName}</td>
+                    </tr> 
+                    <tr>
+                        <td class="label">Credit</td>
+                        <td class="data">{!Contract.Credit__r.FirstName}{!Contract.Credit__r.LastName}</td>
+                        <td class="label">Add Approver2</td>
+                        <td class="data">{!Contract.Add_Approver_2__r.FirstName}{!Contract.Add_Approver_2__r.LastName}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Finance</td>
+                        <td class="data">{!Contract.Finance1__r.FirstName}{!Contract.Finance1__r.LastName}</td>
+                       
+                    </tr>
+                    <tr>
+                        <td class="label">Sales GM/VP</td>
+                        <td class="data">{!Contract.Sales_GM_VP__r.FirstName}{!Contract.Sales_GM_VP__r.LastName}</td>                        
+                    </tr>                 
+                </table>
+             </div>
+        </div>
+        <br/><br/><br/><br/><br/>
+        <div class="divbreak"/>
+        <apex:pageblock rendered="{!isNotCM}">
+           <div class="divbreak">
+               <table class="Mainheader">
+                   <th>Signature Information</th>
+               </table>
+               <div class="divbreak">
+                
+                   <table class="detail" COLSPAN="2">
+                       
+                       <tr>
+                           <td class="label">Customer Signed By</td>
+                           <td class="data">{!Contract.Customer_Signed_By__c}</td>
+                           <td class="label">Customer Signed Title</td>
+                           <td class="data">{!Contract.CustomerSignedTitle}</td> 
+                           
+                       </tr>  
+                       <tr>
+                           <td class="label">Company Signed By</td>
+                           <td class="data">{!Contract.Company_Signed_By__c}</td>                                                     
+                           <td class="label">Company Signed Date</td>
+                           <td class="data">
+                                <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                     <apex:param value="{!Contract.CompanySignedDate}" />
+                               </apex:outputText>
+                            </td>                           
+                       </tr>                
+                   </table>
+                </div>
+           </div> 
+          <div class="divbreak">
+                <table class="Mainheader">
+                    <th>Assigned Dell Person</th>
+                </table>
+                <div class="divbreak">
+                 
+                    <table class="detail" COLSPAN="2">
+                        
+                        <tr>
+                            <td class="label">Account Executive</td>
+                            <td class="data">{!Contract.Account_Executive__r.FirstName}{!Contract.Account_Executive__r.LastName}</td>
+                            <td class="label">Service Solution Manager</td>
+                            <td class="data">{!Contract.Service_Solution_Manager__r.FirstName}{!Contract.Service_Solution_Manager__r.LastName}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Contract Manager</td>
+                            <td class="data">{!Contract.Contract_Manager__r.FirstName}{!Contract.Contract_Manager__r.LastName}</td>
+                            <td class="label">Proposal Manager</td>
+                            <td class="data">{!Contract.Proposal_Manager__r.FirstName}{!Contract.Proposal_Manager__r.LastName}</td>
+                        </tr>                  
+                    </table>
+                 </div>
+            </div>
+            <div class="divbreak">
+                <table class="Mainheader">
+                    <th>Main Data</th>
+ <!-- Version 1.1 -->                     
+                </table>
+                <div class="divbreak">
+                 
+                    <table class="detail" COLSPAN="2">
+                        
+                        <tr>
+                            <td class="label">Contract Status</td>
+                            <td class="data">{!Contract.Contract_Status__c}</td>
+                            <td class="label">Effective Date</td>
+                            <td class="data">{!MONTH(Contract.StartDate)}/{!DAY(Contract.StartDate)}/{!YEAR(Contract.StartDate)}</td>                            
+                        </tr> 
+                        <tr>
+                            <td class="label">Contract Type</td>
+                            <td class="data">{!Contract.Contract_Type_mainData__c}</td>
+                          <td class="label">Expiration Date</td>
+                          <td class="data">
+                              <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                     <apex:param value="{!Contract.Expiration_mainData__c}" />
+                               </apex:outputText>
+                          </td>
+                        </tr> 
+                        <tr>
+                            <td class="label">Dell Company#</td>
+                            <td class="data">{!Contract.Dell_Company_mainData__c}</td>
+                            <td class="label">Form Version</td>
+                            <td class="data">{!Contract.Form_Version_mainData__c}</td>
+                        </tr> 
+                        <tr>
+                           <!-- <td class="label">Evergreen</td>
+                           <td class="data">{!Contract.Evergreen__c}</td> -->
+                            <td class="label">Cust.Agreement Number</td>
+                            <td class="data">{!Contract.Cust_Agreement_Number__c}</td>
+                            <td class="label">Non-Standard</td>
+                            <td class="data">{!Contract.Non_Standard_mainData__c}</td>
+                        </tr> 
+  <!-- Version 1.1 -->                                        
+                    </table>
+                 </div>
+            </div>
+            <div class="divbreak">
+                <table class="Mainheader">
+                    <th>Compliance Data Information</th>
+  <!-- Version 1.1 -->                           
+                             </table>
+                <div class="divbreak">
+                 
+                    <table class="detail" COLSPAN="2">
+                        
+                        <tr>
+                        <td class="label">Dell Contracting Entity</td>
+                            <td class="data">{!Contract.Dell_Contracting_Entity__c}</td>
+                    <!--    <td class="label">Effective Date</td>                            
+                            <td class="data">
+                                <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                     <apex:param value="{!Contract.Effective_date__c}" />
+                               </apex:outputText>
+                            </td> -->
+                            <td class="label">Due Diligence Renewal Date</td>
+                            <td class="data">
+                                <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                     <apex:param value="{!Contract.Due_Diligence_Renewal_Date__c}" />
+                               </apex:outputText>
+                            </td>
+                        </tr> 
+                        <tr>
+                          <!--  <td class="label">Expiration Date</td>
+                            <td class="data">
+                                <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                   <apex:param value="{!Contract.Expiration_date__c}" /> 
+                               </apex:outputText>  
+                            </td> -->
+                            <td class="label">Renewal Alert Date(Vetting)</td>
+                            <td class="data">
+                                <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                     <apex:param value="{!Contract.Renewal_Alert_Date_Vetting__c}" />
+                               </apex:outputText>
+                            </td>
+                            <td class="label">Due Diligence (Vetting Flags)</td>
+                            <td class="data">{!Contract.Vetting_Status__c}</td>
+                        </tr> 
+                        <tr>
+                            <td class="label"></td>
+                            <td class="data"></td> 
+                            <td class="label">Due Diligence Summary</td>
+                            <td class="data">{!Contract.Vetting_Comments__c}</td>
+                        </tr> 
+ <!-- Version 1.1 -->                                          
+                    </table>
+                 </div>
+            </div>
+            <div class="divbreak">
+                <table class="Mainheader">
+                    <th>Revenue Recognition Flag?</th>
+                </table>
+                <div class="divbreak">               
+                    <table class="detail" COLSPAN="2">
+                        <tr>
+                            <td class="label">Revenue Recognition Flag</td>
+                            <td class="data">{!Contract.Revenue_Recognition_Flag__c}</td>                            
+                            <td></td>
+                            <td></td>
+                        </tr>                      
+                        <tr>
+                            <td class="label">Revenue Recognition Flag (If Yes then) ?</td>
+                            <td class="data">{!Contract.Revenue_Recognition_Flag_If_Yes_then__c}</td>                            
+                            <td></td>
+                            <td></td>
+                        </tr>                  
+                    </table>
+                 </div>
+            </div>
+            <div class="divbreak">
+                <table class="Mainheader">
+                    <th>Rebate Fee's Fee%</th>
+                </table>
+                <div class="divbreak">
+                 
+                    <table class="detail" COLSPAN="2">
+                        
+                        <tr>
+                            <td class="label">Rebate Alert Frequency</td>
+                            <td class="data">{!Contract.Rebates__c}</td>
+                            <td class="label">Fee Alert Frequency</td>
+                            <td class="data">{!Contract.Fee__c}</td>
+                        </tr> 
+                        <tr>
+                            <td class="label">Rebate Amount</td>
+                            <td class="data">{!Contract.Rebate_Amount__c}</td>
+                            <td class="label">Fee Amount</td>
+                            <td class="data">{!Contract.Fee_Amount__c}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Rebate %</td>
+                            <td class="data">{!Contract.Rebate__c}</td>
+                            <td class="label">Fee %</td>
+                            <td class="data">{!Contract.Fee1__c}</td>
+                        </tr>                 
+                    </table>
+                 </div>
+            </div>
+           
+            <!-- ************************ -->
+        </apex:pageblock>
+        <br/><br/><br/>
+        <!-- ADDEDNDUM DATA -->
+        <apex:pageBlock rendered="{!showAddendum}">
+            <!--  SECTION FOR STANDARD TERMS AND CONDITIONS  -->
+            <div class="divbreak">
+                <table class="Mainheader">
+                    <th><center>Addendum Data</center></th>
+                </table>
+            </div>
+            <apex:repeat value="{!addendumList}" var="addendum">
+                <table class="detail">
+                     <tr>
+                         <td class="label">Addendum Data Name</td>
+                         <td class="data"><b>{!addendum.name}</b></td> 
+                         <td class="label">Addendum Summary</td>
+                         <td class="data">{!addendum.Addendum_Summary__c}</td>                
+                     </tr> 
+                      <tr>
+                         <td class="label">Addendum Contract Relation</td>
+                         <td class="data">{!addendum.Addendum_Contract_Relation__r.contractNumber}</td>
+                         <td class="label">Addendum Effective Date</td>
+                         <td class="data">
+                            <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                 <apex:param value="{!addendum.Addendum_Effective_Date__c}" />
+                           </apex:outputText>
+                        </td>                                  
+                     </tr> 
+                      <tr>
+                         <td class="label">Addendum/ Amendment Status</td>
+                         <td class="data">{!addendum.Addendum_status__c}</td>  
+                         <td class="label">Addendum Expiration</td>
+                         <td class="data">
+                            <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                 <apex:param value="{!addendum.Addendum_Expiration__c}" />
+                           </apex:outputText>
+                        </td>
+                     </tr> 
+                      <tr>
+                         <td class="label">Addendum Form Version</td>
+                         <td class="data">{!addendum.Addendum_Form_Version__c}</td>
+                         <td class="label">Addendum Non-Standard</td>
+                         <td class="data">{!addendum.Addendum_Non_Standard__c}</td>               
+                     </tr> 
+                       
+                 </table>
+            </apex:repeat>
+        </apex:pageBlock>
+        <apex:pageblock rendered="{!addendumMessage}">
+            <div class="divbreak">
+                <table class="Mainheader">
+                    <th><center>Addendum Data</center></th>
+                </table>
+            </div>
+            <table class="detail">
+                     <tr>
+                         <td class="data">Addendum datas are not defined for this contract</td>               
+                     </tr>  
+             </table> 
+     </apex:pageblock>
+        <br/><br/><br/><br/>
+        <!--  SECTION FOR STANDARD TERMS AND CONDITIONS  -->
+        <div class="divbreak">
+            <table class="Mainheader">
+                <th><center>Standard Terms and Conditions</center></th>
+            </table>
+        </div>
+        <apex:repeat value="{!viewContract.stdTermsandConditionsViewList}" var="mainList">
+             <div class="divbreak">
+                 <table class="Mainheader">
+                     <th>{!mainList.repositoryName.name}</th>
+                 </table>
+             </div>
+             <apex:repeat value="{!mainList.ConTermsandConditionsList}" var="tandCList">
+                 <table class="detail">
+                     <tr>
+                         <td class="data">{!tandCList.Terms_and_conditions_Content__c}</td>               
+                     </tr>  
+                 </table>          
+            </apex:repeat>
+            <br/>
+        </apex:repeat>
+       
+        <apex:pageblock rendered="{!viewContract.noStdTermdefined}">
+            <table class="detail">
+                     <tr>
+                         <td class="data">Standard Terms are not defined for this contract</td>               
+                     </tr>  
+             </table> 
+        </apex:pageblock>
+        <br/><br/>
+        <div class="divbreak">
+            <table class="Mainheader">
+                <th><center>Non Standard Terms and Conditions</center></th>
+            </table>
+       </div>
+        <apex:repeat value="{!viewContract.nonStdTermsandConditionsViewList}" var="mainList">
+             <div class="divbreak">
+                 <table class="Mainheader">
+                     <th>{!mainList.repositoryName.name}</th>
+                 </table>
+             </div> 
+             <apex:repeat value="{!mainList.ConTermsandConditionsList}" var="tandCList">
+                 <table class="detail">
+                     <tr>
+                         <td class="nonStdLabel">Section</td>
+                         <td class="data">{!tandCList.Section__c}</td>               
+                     </tr>  
+                 </table>
+                 <table class="detail">
+                     <tr>
+                         <td class="nonStdLabel">Term Content</td>
+                         <td class="data">{!tandCList.Terms_and_conditions_Content__c}</td>               
+                     </tr>  
+                 </table>          
+            </apex:repeat> 
+            <br/>
+        </apex:repeat>
+        
+        <apex:pageblock rendered="{!viewContract.noNonStdTermdefined}">
+            <table class="detail">
+                     <tr>
+                         <td class="data">Non Standard Terms are not defined for this contract</td>               
+                     </tr>  
+             </table> 
+        </apex:pageblock>
+    </body>
+  </html>
+  
+</apex:page>

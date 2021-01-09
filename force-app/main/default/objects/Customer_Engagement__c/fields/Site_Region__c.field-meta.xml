@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Site_Region__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF($RecordType.Name=&apos;Executive Briefing Center&apos;,Calendar_Management__r.Region__c,TEXT(Dell_Solution_Center_Site__r.Region__c))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Site Region</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

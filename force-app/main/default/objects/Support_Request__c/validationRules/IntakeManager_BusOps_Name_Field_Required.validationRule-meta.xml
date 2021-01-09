@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IntakeManager_BusOps_Name_Field_Required</fullName>
+    <active>true</active>
+    <description>Intake Manager / Bus Ops PM Name field is required if Intake Manager / Bus Ops PM = Assigned</description>
+    <errorConditionFormula>AND( 
+RecordType.DeveloperName=&apos;Request_OEM_Customized_Solution_Support&apos;, 
+ISBLANK( Intake_Manager_Bus_Ops_PM_Name__c ), 
+ISPICKVAL( Intake_Manager_Bus_Ops_PM__c , &apos;Assigned&apos;))</errorConditionFormula>
+    <errorDisplayField>Intake_Manager_Bus_Ops_PM_Name__c</errorDisplayField>
+    <errorMessage>You must enter a value</errorMessage>
+</ValidationRule>

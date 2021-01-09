@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Citrix_If_yes_what_is_the_name</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF( AND( If_yes_what_is_the_name_of_Citrix_Rep__c =&quot;&quot;, ISPICKVAL( Already_work_with_Citrix_on_this_Oppty__c , &quot;Yes&quot;) ) , TRUE, FALSE)</errorConditionFormula>
+    <errorDisplayField>If_yes_what_is_the_name_of_Citrix_Rep__c</errorDisplayField>
+    <errorMessage>If &quot;Already work with Citrix on this Oppty.?&quot; is Yes, then &quot;If yes, what is the name of Citrix Rep?&quot; field must be specified.</errorMessage>
+</ValidationRule>

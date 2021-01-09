@@ -1,0 +1,32 @@
+<apex:page controller="opptyProjectTagCtlr" lightningStyleSheets="true" id="thePage" >
+ <apex:form id="theForm">
+    <apex:pageMessages ></apex:pageMessages>
+     <apex:pageBlock id="thePB">
+         <h2 class="mainTitle">Update Opportunity Project Tag</h2><br/><br/>
+          <apex:pageBlockButtons location="bottom">
+              <apex:commandButton value="Save" action="{!doSave}"/>
+               <apex:commandButton value="Cancel" action="{!doCancel}"/>
+         </apex:pageBlockButtons>
+         <apex:pageBlockSection columns="1">
+              <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Deal Id" />
+                      <apex:outputField value="{!oppRecord.Deal_ID__c}"/>
+              </apex:pageBlockSectionItem>
+              
+              <apex:pageBlockSectionItem >
+              <apex:define name="t">
+               <span class="helpButtonOn" id="Opportunity.{!oppRecord.Id}-_help">     <apex:outputLabel value="Project Tag" />
+                           <img src="/s.gif" alt="" class="helpOrb" title=""/>
+                           <script>sfdcPage.setHelp('Opportunity.{!oppRecord.Id}', 'Free Text field to identify deals that are related to a project.');</script></span>
+                           </apex:define>
+                     <apex:inputText value="{!projectTag}"  style="width: 500px;"/>
+              </apex:pageBlockSectionItem>
+             
+         </apex:pageBlockSection>
+        
+       
+        
+         
+     </apex:pageBlock>
+ </apex:form>
+</apex:page>

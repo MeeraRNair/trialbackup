@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Alliance_Excel_Template__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( AND( ISPICKVAL(System_Partner_Name__c, &apos;Intel&apos;), ISPICKVAL(Client_Enterprise__c, &apos;Enterprise&apos;), ISPICKVAL(Part_Requested__c, &apos;CPU&apos;), ISPICKVAL(Status__c, &apos;Draft&apos;) ), 
+HYPERLINK(LEFT($Api.Partner_Server_URL_140,FIND(&apos;.com&apos;,$Api.Partner_Server_URL_140)+4)+$Label.Alliance_Template_ID, &quot;Download Template&quot;), 
+IF(AND( ISPICKVAL(System_Partner_Name__c, &apos;Intel&apos;), ISPICKVAL(Client_Enterprise__c, &apos;Enterprise&apos;), ISPICKVAL(Part_Requested__c, &apos;OPA&apos;), ISPICKVAL(Status__c, &apos;Draft&apos;) ),
+HYPERLINK(LEFT($Api.Partner_Server_URL_140,FIND(&apos;.com&apos;,$Api.Partner_Server_URL_140)+4)+$Label.Alliance_OPA_Template_ID, &quot;Download Template&quot;), &apos;&apos; ) )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Intel Meetcomp Request Form</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

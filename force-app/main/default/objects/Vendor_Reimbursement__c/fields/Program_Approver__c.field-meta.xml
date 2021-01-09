@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Program_Approver__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>This field will automatically get populated based on MDF Program Program Approver field.
+STORY 5132858: Viper - BR86.0 - Reimbursement Form - Approval Workflow</description>
+    <externalId>false</externalId>
+    <label>Program Approver</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Associated_Reimbursement_Vendors</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,21 @@
+<apex:page id="thePage" standardController="Customer_Engagement__c" extensions="CustomerEngagementSubmitCtrl" 
+title="Submit Customer Engagement Record" action="{!validateRelatedLists}">
+    <apex:form id="theForm">
+        <!--  To show info message -->
+        <apex:pageBlock rendered="{!Info}">
+            <apex:pageMessages />
+            <apex:pageBlockButtons location="Bottom">
+                <apex:commandButton value="Back" action="{!Cancel}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        
+         <!--  To show error message -->
+        <apex:pageBlock rendered="{!Error}">
+            <apex:pageMessages />
+            <apex:pageBlockButtons location="Bottom">
+                <apex:commandButton value="Back" action="{!Cancel}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        
+    </apex:form>
+</apex:page>

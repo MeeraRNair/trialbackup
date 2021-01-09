@@ -1,0 +1,14 @@
+<apex:page showHeader="false">
+    <apex:includeLightning />
+    <div id="lightning" />
+    <script>
+    $Lightning.use("c:PR_Email_Approval_SponsoringDistributorApp", function() {
+        $Lightning.createComponent("c:PR_Email_Approval_SponsoringDistributor",
+                                   { id : "{!$CurrentPage.parameters.id}" },
+                                   "lightning",
+                                   function(cmp) { 
+                                       // do some stuff
+                                   });
+    });
+    </script>
+</apex:page>

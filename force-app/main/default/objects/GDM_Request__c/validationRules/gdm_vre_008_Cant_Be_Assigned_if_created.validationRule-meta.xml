@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>gdm_vre_008_Cant_Be_Assigned_if_created</fullName>
+    <active>true</active>
+    <description>The Assigned To field can&apos;t be set during initial request creation</description>
+    <errorConditionFormula>TEXT(New_Request_Status__c) == &quot;&quot; &amp;&amp;
+NOT ISBLANK(Assigned_To__c) &amp;&amp;
+ISNEW()</errorConditionFormula>
+    <errorDisplayField>Assigned_To__c</errorDisplayField>
+    <errorMessage>(008) You can&apos;t assign someone at this time.</errorMessage>
+</ValidationRule>

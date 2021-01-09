@@ -1,0 +1,56 @@
+<apex:page standardController="Customer_Engagement__c" extensions="ToEmailPopulateCtrlExt">
+    <apex:form >
+        <apex:pageBlock title="List of Email's">
+            <apex:pageBlockSection title="Message" collapsible="false" columns="1" rendered="{!attendeesIteratedList.size>0}">
+                Please <b>select</b> the Email ID's that you would like to populate to "Additional To:".
+            </apex:pageBlockSection>
+
+            <!--Customer Email's-->
+            <apex:pageBlockSection collapsible="false" title="Customer Email ID's" columns="1" rendered="{!customerAttendeesList.size>0}" >
+                <apex:pageBlockTable value="{!attendeesIteratedList}" var="cail">
+                    <apex:column headerValue="Select" rendered="{!IF(cail.AttendeesRecord.RecordType.Name != 'Account Team' && cail.AttendeesRecord.RecordType.Name != 'Topic Expert' ,'TRUE','FALSE')}">
+                        <apex:inputCheckbox value="{!cail.selected}"/>
+                    </apex:column>
+                    <apex:column headerValue="Email Address" value="{!cail.AttendeesRecord.Email__c}" rendered="{!IF(cail.AttendeesRecord.RecordType.Name != 'Account Team' && cail.AttendeesRecord.RecordType.Name != 'Topic Expert' ,'TRUE','FALSE')}"/>
+                    <apex:column headerValue="Attendee Name" value="{!cail.AttendeesRecord.Attendee_Name__c}" rendered="{!IF(cail.AttendeesRecord.RecordType.Name != 'Account Team' && cail.AttendeesRecord.RecordType.Name != 'Topic Expert' ,'TRUE','FALSE')}"/>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+
+            <!--Account Team Email's-->
+            <apex:pageBlockSection collapsible="false" title="Account Team Email ID's" columns="1" rendered="{!accntTeamAttendeesList.size>0}" >
+                <apex:pageBlockTable value="{!attendeesIteratedList}" var="ail">
+                    <apex:column headerValue="Select" rendered="{!IF(ail.AttendeesRecord.RecordType.Name != 'Customer' && ail.AttendeesRecord.RecordType.Name != 'Topic Expert' ,'TRUE','FALSE')}">
+                        <apex:inputCheckbox value="{!ail.selected}"/>
+                    </apex:column>
+                    <apex:column headerValue="Email Address" value="{!ail.AttendeesRecord.Email__c}" rendered="{!IF(ail.AttendeesRecord.RecordType.Name != 'Customer' && ail.AttendeesRecord.RecordType.Name != 'Topic Expert' ,'TRUE','FALSE')}"/>
+                    <apex:column headerValue="Attendee Name" value="{!ail.AttendeesRecord.Attendee_Name__c}" rendered="{!IF(ail.AttendeesRecord.RecordType.Name != 'Customer' && ail.AttendeesRecord.RecordType.Name != 'Topic Expert' ,'TRUE','FALSE')}"/>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+
+            <!--Topic Experts Email's-->
+            <apex:pageBlockSection collapsible="false" title="Topic Experts Email ID's" columns="1" rendered="{!topicExpertAttendeesList.size>0}" >
+                <apex:pageBlockTable value="{!attendeesIteratedList}" var="tail" >
+                    <apex:column headerValue="Select" rendered="{!IF(tail.AttendeesRecord.RecordType.Name != 'Customer' && tail.AttendeesRecord.RecordType.Name != 'Account Team' ,'TRUE','FALSE')}">
+                        <apex:inputCheckbox value="{!tail.selected}"/>
+                    </apex:column>
+                    <apex:column headerValue="Email Address" value="{!tail.AttendeesRecord.Email__c}" rendered="{!IF(tail.AttendeesRecord.RecordType.Name != 'Customer' && tail.AttendeesRecord.RecordType.Name != 'Account Team' ,'TRUE','FALSE')}"/>
+                    <apex:column headerValue="Attendee Name" value="{!tail.AttendeesRecord.Attendee_Name__c}" rendered="{!IF(tail.AttendeesRecord.RecordType.Name != 'Customer' && tail.AttendeesRecord.RecordType.Name != 'Account Team' ,'TRUE','FALSE')}"/>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Message" collapsible="false" columns="1" rendered="{!attendeesIteratedList.size=0}">
+                There are no Email's to select.<br/> 
+                Please click <b>"Continue"</b> to select email's through lookup or <b>"Cancel"</b> to return back.
+            </apex:pageBlockSection> 
+
+            <apex:pageBlockButtons location="Bottom">
+                <apex:commandButton value="Select" action="{!selectMail}" rendered="{!attendeesIteratedList.size>0}"/>
+                <apex:commandButton value="Continue" action="{!continueTo}" rendered="{!attendeesIteratedList.size=0}"/>
+                <apex:commandButton value="Cancel" action="{!cancel}"/>
+            </apex:pageBlockButtons>                    
+            
+            <apex:pageMessage summary="Please Select Email to add to 'To' address" severity="error" rendered="{!nullEmailList}"></apex:pageMessage><br></br>
+            
+        </apex:pageBlock>
+    </apex:form>        
+</apex:page>

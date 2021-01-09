@@ -1,0 +1,242 @@
+<apex:page standardController="Territory_Plan__c" extensions="TP_PageNavCtrlExt" sidebar="false" lightningStylesheets="true">
+    <style type="text/css">  
+        .tb{
+            border:0px solid black; 
+            width:100%;
+            background-color:#007db9 !important;    
+        }         
+  
+        <!-- style header text -->
+        .tb .tg-hdr{
+            font-size:26px;
+            font-family:"Arial White", Gadget, sans-serif !important;
+            color:white; 
+            text-align:left;
+            padding:30px 0px 10px 15px;
+            text-indent:15px;             
+        }
+      
+        <!-- style heading and input field boxes - Row 1 -->
+        .tb .tg-tdContent{       
+            border:0px solid black;        
+            width:82%; 
+            float:left;
+            margin-bottom:5px;
+        }           
+   
+        .tb .tg-tdContent-parg{
+            width:15%;
+        }          
+        
+        .tb .tg-tdContent .tg-tdContent-inputFld{
+            border:0px solid black;
+            float:left; 
+            font-size:15px;
+            width:100%;
+            height:186px;
+            background-color:#FFFFFF;
+            color:#000000;
+            resize:none;
+        }           
+              
+        <!-- Row 1 left spacing -->
+        .tb .leftspace1{
+            width:4%;
+        }   
+         
+        <!-- Row 1 right spacing -->
+        .tb .rightspace1{
+            width:4%;
+        }     
+                
+        .tb1{
+            border: 0px solid black; 
+            width:100%;
+	        border-spacing: 0;
+            background-color:#000000 !important;   
+        }
+        
+        <!-- style heading and input field boxes - Row 2 -->
+        .tb1 .tg-tdContent1{       
+            border:0px solid black;       
+            width:82%; 
+            float:left;
+        }
+        
+        .tb1 .tg-tdContent-parg1{
+            width:15%;
+            margin-right:-2px;
+            font-size:20px;
+            color:white;
+            text-align:center;
+            text-indent:8px;
+            padding:11px 0px 0px 0px;        
+            min-height:130px;
+            max-height:185px;   
+            margin-top:7px;           
+        }          
+        
+        .tb1 .tg-tdContent1 .tg-tdContent-inputFld1{
+            border:0px solid black; 
+            float:left; 
+            font-size:15px;
+            width:100%;
+            height:186px;
+            margin-top:6px;
+            background-color:#FFFFFF;
+            color:#000000;
+            resize:none;
+        }       
+        
+        <!-- Style Footer -->
+        .tb1 .footer{
+            width:100%;
+            color:white;
+            text-align:center;
+            padding:0px;
+            font-size:12px;
+        }
+        
+         <!-- Row 2 left spacing -->
+        .tb1 .leftspace2{
+            width:4%;
+        }         
+        
+        <!-- Row 2 right spacing -->
+        .tb1 .rightspace2{
+            width:4%;
+         }      
+        
+        <!-- Style hint section -->
+        .Bulb-logo{
+            position:relative; 
+            top:15px; 
+            left:0px;
+        }
+        
+        .underLine-logo{
+            position:relative; 
+            padding:5px 0 0 0;
+            top:12px; 
+            left:17px; 
+            border-bottom:1px solid #888888; 
+            border-left:1px solid #888888; 
+            width:85%; 
+            height:20px;
+        }
+        
+        .DellEMC-logo{ 
+            position:relative; 
+            top:-15px;
+            float:right;
+            margin:0px 10px;
+        }
+                
+        .hintText{
+            font-style:normal; 
+            font-size:12px;
+            position: relative;
+            color:#FFFFFF;
+            top:-25px;
+            left:15px;
+            margin:5px;
+        }                
+         
+        .tg-tdBtns{
+            text-align:right;
+            padding:5px 10px 5px 0px;             
+        }
+        
+        .tg-tdBtns .btn{
+            margin-left:3px;
+            margin-right:3px;        
+        }        
+        tr#content-tr1Id, tr#hd-trId {
+        	background-color: #007db9 !important;
+        }
+        .legend{
+        	margin-right:-2px;
+            font-size:20px;
+            color:white;
+            text-align:center;
+            text-indent:8px;
+            background-color:#aaabaa;
+            margin-top:-4px;                
+            height: 182px;
+        }
+    </style>  
+    
+    <apex:pageBlock mode="maindetail" id="pbId">
+        <apex:pageMessages id="showmsg"></apex:pageMessages>
+            <apex:form > 
+                <!-- Header -->
+                <table class="tb tb1" id="tblId">
+                    <tr id="hd-trId">
+                        <th class="tg-hdr" id = "hdrId" colspan="4">Summary Actions and Requests</th>
+                    </tr>
+                    
+                    <!-- First Row -->
+                    <tr id="content-tr1Id">
+                        <td class="leftspace1" id="leftspace1Id"></td> 
+                        <td class="tg-tdContent-parg" id="content-td1Id"> 
+                            <div class="legend">
+                                <div style="padding: 50px 0; display: block;">
+                                    Closing: <br/> Executive<br/> Engagement<br/> Needed
+                                </div>
+                            </div>
+                        </td>
+                        <td class="tg-tdContent" id="content-td2Id">
+                            <apex:inputfield value="{!Territory_Plan__c.Executive_Engagement_Needed__c}" styleclass="tg-tdContent-inputFld" id="input1Id"/>
+                        </td>
+                        <td class="rightspace1" id="rightspace1id"></td>
+                    </tr> 
+                    <tr id="content-tr2Id">
+                        <td class="leftspace2" id="leftspace2id"></td>           
+                        <td class="tg-tdContent-parg1" id="content-td3Id">
+                            <div class="legend">
+                                <div style="padding: 50px 0; display: block;">
+                                    Challenges <br/> &amp; Requests<br/>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="tg-tdContent1" id="content-td4Id">
+                            <apex:inputfield value="{!Territory_Plan__c.Closing_Challenges_Requests__c}" styleclass="tg-tdContent-inputFld1" id="input2Id"/>
+                        </td>
+                        <td class="rightspace2" id="rightspace2id"></td>         
+                    </tr>
+                    
+                    <!-- Helpful Hint -->
+                    <tr id="hint-trId">
+                        <td class="tg-tdHint" id="hint-tdId" colspan="3">
+                        <div class="Bulb-logo" id="bulb-divId">
+                            <apex:image url="{!URLFOR($Resource.TP_PPT_Images, 'TP_PPT_Images/Bulbicon_hint_White.png')}" width="35" height="35" alt="Description of image here" id="bulb-logoId"/>
+                        </div>
+                        <div class="underLine-logo" id="underlineDivId">
+                            <apex:outputtext styleClass="hintText" id="hintTextId" value="Document specific executive engagements that would get you closer to a customer/account. Can you leverage exec engagement on Dell site or at events? What challenges do you need help with? Document any specific requests for engagement from other BUs/Peers."/>
+                        </div>
+                            <apex:image styleClass="DellEMC-logo" url="{!URLFOR($Resource.TP_PPT_Images, 'TP_PPT_Images/DellEMC_White.png')}" width="90" height="20" alt="Description of image here" id="dellEMClogoId"/>
+                        </td> 
+                    </tr>
+                    
+                    <!-- Buttons -->
+                    <tr id="btn-tr">
+                        <td class="tg-tdBtns" colspan="4" id="btn-td" >
+                            <apex:commandButton action="{!saveRecord}" value="Save" id="save-ID"/> 
+                            <apex:commandButton action="{!goToPrevPage}" value="Previous" id="back-ID"/>
+                            <apex:commandButton action="{!goToNextPage}" value="Next" id="next-ID"/>
+                            <apex:commandButton action="{!cancel}" value="Cancel" id="cancel-ID"/>
+                        </td>
+                    </tr>
+                    
+                    <!-- Footer -->
+                    <tfoot>
+                        <tr>
+                            <td class="footer" colspan ="3">
+                                [ {!currentPageNum} of {!totalPages} ]
+                            </td>
+                        </tr>
+                    </tfoot>
+            </table> 
+        </apex:form> 
+     </apex:pageBlock>  
+</apex:page>

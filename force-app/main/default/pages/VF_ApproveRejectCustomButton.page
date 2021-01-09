@@ -1,0 +1,10 @@
+<apex:page sidebar="true" StandardController="Opportunity" extensions="Approve_Reject_Action" lightningStylesheets="true"
+            action="{!Approve_Reject_Action}">
+ <apex:form > 
+     <apex:pageblock >
+     <apex:pageMessages escape="false" / >
+     <apex:commandButton value="Back to opportunity page"  action="{!cancel}">
+    </apex:commandButton>
+    </apex:pageblock>
+ </apex:form>
+</apex:page>

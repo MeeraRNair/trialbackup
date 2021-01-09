@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>If_JSITEAutoRenew_Selected_Dates_Reqrd</fullName>
+    <active>true</active>
+    <description>If JSITE Auto-Renew is set to &quot;Yes&quot; or &quot;No&quot;, the corresponding Start Date and End Date must be filled</description>
+    <errorConditionFormula>AND(OR(ISBLANK(JSITE_Start_Date__c),ISBLANK(JSITE_EndDate__c)),NOT(ISPICKVAL(JSITE_Auto_Renew__c,&quot;&quot;)))</errorConditionFormula>
+    <errorDisplayField>JSITE_Auto_Renew__c</errorDisplayField>
+    <errorMessage>If JSITE Auto-Renew is set to &quot;Yes&quot; or &quot;No&quot;, the corresponding Start Date and End Date must be filled</errorMessage>
+</ValidationRule>

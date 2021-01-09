@@ -1,0 +1,17 @@
+<apex:page sidebar="false" showHeader="true" > 
+    <apex:includeLightning />
+
+    <div id="lightning" />
+
+    <script>
+    // var urlParams = new URLSearchParams(window.location.search);
+        $Lightning.use("c:SuggestionSearchApp", function() {
+          $Lightning.createComponent("c:SelectLeadData",
+          { },
+          "lightning",
+          function(cmp) {
+            // do some stuff
+          });
+        });
+    </script>
+</apex:page>

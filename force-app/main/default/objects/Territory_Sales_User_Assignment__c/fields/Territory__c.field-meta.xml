@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Territory__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Territory</label>
+    <lookupFilter>
+        <active>true</active>
+        <errorMessage>Value does not exist or the record is inactive.</errorMessage>
+        <filterItems>
+            <field>Territory__c.Is_Active__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <filterItems>
+            <field>$Source.Group__c</field>
+            <operation>equals</operation>
+            <valueField>Territory__c.Group__c</valueField>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Territory__c</referenceTo>
+    <relationshipLabel>Territory Sales User Assignments</relationshipLabel>
+    <relationshipName>Territory_Sales_User_Assignments</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

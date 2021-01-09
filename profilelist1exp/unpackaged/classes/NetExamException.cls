@@ -1,0 +1,1 @@
+public virtual class NetExamException extends Exception {}

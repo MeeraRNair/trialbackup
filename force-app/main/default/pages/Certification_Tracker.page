@@ -1,0 +1,162 @@
+<!-- * 
+* Revision CR Number   Release No      Date            Modified By     Description
+* -------- ---------   ----------      -----------     ------------    -----------
+* 1.0 -    CR16418     FY19-DCS-1002   3-Sep-2018:     manip4          added 'lightningStylesheets' attribute for apex component to make the page lightening friendly for the story 5537222
+*/-->
+
+<apex:page id="pg" sidebar="false" standardController="Certification_Tracker__c" extensions="VFCntrlr_Certification_Tracker" lightningStylesheets="true">
+  <apex:form >  
+  <script language="javascript">        
+        function checkAll(chkSelectAll,chkName){
+            var inputElem = document.getElementsByTagName("input");
+            for(var i=0; i<inputElem.length; i++){
+                if(inputElem[i].id.indexOf(chkName)!=-1)
+                    inputElem[i].checked = chkSelectAll.checked;    
+            }
+        }        
+        function unCheckSelectAll(chkSelectAll, chk){
+            var inputElem = document.getElementsByTagName("input");            
+            if (chk.checked == false){
+                for(var i=0; i<inputElem.length; i++){                   
+                    if(inputElem[i].id.indexOf(chkSelectAll)!=-1)
+                        inputElem[i].checked = false;    
+                }
+            }
+        }
+      </script>
+      
+    <apex:pageBlock title="Competency Tracker" rendered="{! NOT(OR(Begins($Profile.Name,'System Administrator'),Begins($Profile.Name,'GBL PRM Certification Admin')))}">
+        <apex:pageMessage summary="{!$Label.NetExam_AccessError}" severity="Error" strength="1" />
+        <apex:pageBlockButtons location="bottom">          
+            <apex:commandButton value="Cancel" action="{!cancel}"/>
+        </apex:pageBlockButtons>    
+    </apex:pageBlock>
+   
+    <apex:pageBlock rendered="{! OR(Begins($Profile.Name,'System Administrator'),Begins($Profile.Name,'GBL PRM Certification Admin'))}" title="Competency Tracker" mode="edit" id="pgBlkRegion" >
+        <apex:pageMessages id="pgmsg" />
+        <apex:pageBlockButtons location="bottom" >          
+            <apex:commandButton rendered="{!NoOfRecords>0}" value="Save" action="{!saveTracker}" />
+            <apex:commandButton value="Cancel" action="{!cancel}"/>
+        </apex:pageBlockButtons>    
+           
+        <div style="text-align: left;" >
+            <apex:actionStatus id="status" startText="Searching..."/>    
+        </div>
+        
+        <apex:outputPanel style="margin-top: 5px;"  id="pageNavTop" rendered="{!lastPage > 0}">              
+            <div style="font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: left;">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Page {!currentPage} of {!lastPage}
+            </div>
+            <div style="font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: left; ">                
+                <apex:commandLink action="{!previous}" rendered="{!hasPrevious}" rerender="pgBlkRegion" status="searchStatus">
+                    &lt; Save &amp; Previous
+                </apex:commandLink>                 
+                <apex:outputText rendered="{!hasPreviousAndNext}">&nbsp;|&nbsp;</apex:outputText>
+                <apex:commandLink action="{!next}" rendered="{!hasNext}" rerender="pgBlkRegion" status="searchStatus">
+                    Save &amp; Next &gt;
+                </apex:commandLink>
+            </div>  
+        </apex:outputPanel> 
+    
+        <apex:pageMessage rendered="{!NoOfRecords<=0}" summary="{!$Label.NetExam_NoRecs}" severity="warning" strength="3" />
+        
+        <apex:pageBlockSection rendered="{!NoOfRecords>0}" id="pgblkCT" columns="1" collapsible="false">
+            <apex:pageBlockTable style="font-size: 90%; " width="900px" id="pgBlkTable" value="{!CTracker}" var="tr" columnsWidth="20%">
+            <apex:column headervalue="Account Name">
+                <apex:outputlink target="_parent" value="/{!tr.Account_Name__c}">
+                    <apex:outputtext value="{!tr.Account_Name__r.name}" />
+                </apex:outputlink>
+             
+             </apex:column>
+                <apex:column value="{!tr.Account_Id__c}" /> 
+                <apex:column value="{!tr.Account_Country__c}" />
+                <apex:column value="{!tr.Training_Criteria_Met__c}"  style="text-align:center;" />
+                <apex:column value="{!tr.Demo_Unit_Criteria_Met__c}" style="text-align:center;" />                               
+                <apex:column value="{!tr.Dell_Certification_Areas__c}" />
+                <apex:column value="{!tr.Demo_Units_Purchased__c}" />
+                <apex:column value="{!tr.Current_QTR__c}" />
+                <apex:column value="{!tr.CurrencyIsoCode}" />
+                <apex:column value="{!tr.Current_QTD_Ent_Rev__c}" />
+                <apex:column value="{!tr.Current_QTD_Total_Rev__c}" />
+                <apex:column value="{!tr.Back_4_QTRs_Ent_Rev__c}" />
+                <apex:column value="{!tr.Back_3_QTRs_Ent_Rev__c}" />
+                <apex:column value="{!tr.Back_2_QTRs_Ent_Rev__c}" />
+                <apex:column value="{!tr.Back_1_QTRs_Ent_Rev__c}" />
+                <apex:column value="{!tr.Back_4_QTRs_Total_Rev__c}" />
+                <apex:column value="{!tr.Back_3_QTRs_Total_Rev__c}" />
+                <apex:column value="{!tr.Back_2_QTRs_Total_Rev__c}" />
+                <apex:column value="{!tr.Back_1_QTRs_Total_Rev__c}" />
+                
+                <apex:column style="text-align:center;" headervalue="Approved Business Plan" rendered="{!BEGINS(Region,'APJ')}" > <!-- rendered="{!if(tr.Account_Name__r.Regional_Parent_Name_lookup__c='APJ',True,False)}" -->
+                    <apex:facet name="header"> 
+                          <apex:outputPanel >
+                            <apex:inputCheckbox id="SelectAll_App" value="{!chkSelectAll}" rendered="{!OR(BEGINS(Region,'EMEA'),BEGINS(Region,'EC-EMEA'))}" onclick="{checkAll(this,'chkApp');}" />                                                      
+                            <apex:outputLabel >Approved Business Plan</apex:outputLabel>
+                          </apex:outputPanel>                        
+                    </apex:facet>
+                   
+                    <apex:inputField id="chkApp" rendered="{!OR(BEGINS(Region,'EMEA'),BEGINS(Region,'EC-EMEA'))}" value="{!tr.Approved_Business_Plan__c}" onclick="{unCheckSelectAll('SelectAll_App',this);}" />
+                    <apex:outputField rendered="{!NOT(OR(BEGINS(Region,'EMEA'),BEGINS(Region,'EC-EMEA')))}" value="{!tr.Approved_Business_Plan__c}" />          
+                </apex:column>
+                <apex:column style="text-align:center;" headervalue="Contractual Agreement" rendered="{!BEGINS(Region,'APJ')}" >
+                    <apex:facet name="header"> 
+                          <apex:outputPanel >
+                            <apex:inputCheckbox id="SelectAll_CA"  value="{!chkSelectAll}" rendered="{!OR(BEGINS(Region,'EMEA'),Begins(Region,'EC-EMEA'))}" onclick="{checkAll(this,'chkCA');}" />                                                      
+                            <apex:outputLabel >Contractual Agreement</apex:outputLabel>
+                          </apex:outputPanel>                        
+                    </apex:facet>                               
+                    <apex:inputField id="chkCA" rendered="{!OR(BEGINS(Region,'EMEA'),Begins(Region,'EC-EMEA'))}" value="{!tr.Contractual_Agreement__c}" onclick="{unCheckSelectAll('SelectAll_CA',this);}"/>
+                    <apex:outputField rendered="{!NOT(OR(Begins(Region,'EMEA'),Begins(Region,'EC-EMEA')))}" value="{!tr.Contractual_Agreement__c}" />
+                </apex:column>
+                <apex:column value="{!tr.Premier_Criteria_Enable__c}" style="text-align:center;" />
+                <apex:column style="text-align:center;" headervalue="Qualified As Dell Preferred Partner">
+                    <apex:facet name="header"> 
+                          <apex:outputPanel >
+                            <apex:inputCheckbox id="SelectAll_preferred" value="{!chkSelectAll}" rendered="{!enablePreferredHeader}"  onclick="{checkAll(this,'chkPreferred');}" />                                                      
+                            <apex:outputLabel >Qualified As Dell Preferred Partner</apex:outputLabel>
+                          </apex:outputPanel>                        
+                    </apex:facet>
+                    <apex:inputField id="chkPreferred" rendered="{!IF(AND(OR(tr.Account_Name__r.Partner_Relationship__c == 'Registered',tr.Account_Name__r.Partner_Relationship__c == 'Authorized Reseller'),allowRegisterToPreferred),true,false)}" value="{!tr.Qualified_as_Dell_Preferred_Partner__c}" onclick="{unCheckSelectAll('SelectAll_preferred',this);}" />
+                    <apex:outputField rendered="{!IF(AND(OR(tr.Account_Name__r.Partner_Relationship__c == 'Registered',tr.Account_Name__r.Partner_Relationship__c == 'Authorized Reseller'),allowRegisterToPreferred),false,true)}" value="{!tr.Qualified_as_Dell_Preferred_Partner__c}" />
+                    <!--
+                    <apex:inputField id="chkPreferred" value="{!tr.Qualified_as_Dell_Preferred_Partner__c}" onclick="{unCheckSelectAll('SelectAll_preferred',this);}" />
+                    <apex:outputField value="{!tr.Qualified_as_Dell_Preferred_Partner__c}" />
+                    // -->                    
+                </apex:column>
+                <apex:column style="text-align:center;" headervalue="Qualified As Dell Premier Partner">
+                    <apex:facet name="header"> 
+                          <apex:outputPanel >
+                            <apex:inputCheckbox id="SelectAll_premier" rendered="{!enablePremierHeader}"  value="{!chkSelectAll}" onclick="{checkAll(this,'chkPremier');}" />                                                      
+                            <apex:outputLabel >Qualified As Dell Premier Partner</apex:outputLabel>
+                          </apex:outputPanel>                        
+                    </apex:facet> 
+                                      
+                    <apex:inputfield id="chkPremier" rendered="{!IF(OR(AND(OR(tr.Account_Name__r.Partner_Relationship__c == 'Registered',tr.Account_Name__r.Partner_Relationship__c == 'Authorized Reseller'),allowRegisterToPremier),AND(OR(tr.Account_Name__r.Partner_Relationship__c == 'Preferred',tr.Account_Name__r.Partner_Relationship__c == 'Gold'),allowPreferredToPremier )),true,false)}" value="{!tr.Qualified_as_Dell_Premier_Partner__c}" onclick="{unCheckSelectAll('SelectAll_premier',this);}"/>
+                    <apex:outputfield rendered="{!IF(OR(AND(OR(tr.Account_Name__r.Partner_Relationship__c == 'Registered',tr.Account_Name__r.Partner_Relationship__c == 'Authorized Reseller'),allowRegisterToPremier),AND(OR(tr.Account_Name__r.Partner_Relationship__c == 'Preferred',tr.Account_Name__r.Partner_Relationship__c == 'Gold'),allowPreferredToPremier )),false,true)}" value="{!tr.Qualified_as_Dell_Premier_Partner__c}" />
+                    <!--
+                    <apex:inputfield id="chkPremier" value="{!tr.Qualified_as_Dell_Premier_Partner__c}" onclick="{unCheckSelectAll('SelectAll_premier',this);}"/>
+                    <apex:outputfield value="{!tr.Qualified_as_Dell_Premier_Partner__c}" />
+                    // -->
+                </apex:column>                
+            </apex:pageBlockTable>   
+        </apex:pageBlockSection>
+        
+        <!-- previous and next links --> 
+        <apex:outputPanel style="margin-top: 5px"  id="pageNavBottom" rendered="{!lastPage>0}">               
+            <div style="font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: left;">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Page {!currentPage} of {!lastPage} 
+            </div>
+
+            <div style="font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: left;">                
+                <apex:commandLink action="{!previous}" rendered="{!hasPrevious}" rerender="pgBlkTable,pageNavTop,pageNavBottom" status="searchStatus">
+                    &lt; Save &amp; Previous
+                </apex:commandLink>                 
+                <apex:outputText rendered="{!hasPreviousAndNext}">&nbsp;|&nbsp;</apex:outputText>
+                <apex:commandLink action="{!next}" rendered="{!hasNext}" rerender="pgBlkTable,pageNavTop,pageNavBottom" status="searchStatus">
+                    Save &amp; Next &gt;
+                </apex:commandLink>
+            </div>              
+        </apex:outputPanel> 
+    </apex:pageBlock>    
+    </apex:form>
+</apex:page>

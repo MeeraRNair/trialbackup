@@ -1,0 +1,63 @@
+<apex:page standardController="CustomerInteraction__c" title="Creating new Trip Report" tabStyle="CustomerInteraction__c">
+
+<script type="text/javascript">
+
+function gotoTripReport() {
+    
+    if( (typeof sforce != 'undefined') && (sforce != null) ) {
+       // var eventId = '{!$CurrentPage.parameters.EventId}';
+       // alert(eventId);
+        
+      //  if (eventId != ''){
+        
+            sforce.one.createRecord('CustomerInteraction__c');
+    
+      //  }else{
+        
+      //      window.open("/apex/NewTripReportPage?retURL=%2Fa00%2Fo&save_new=1&sfdc.override=1{!IF($CurrentPage.parameters.EventId==null, '', '&EventId=' + $CurrentPage.parameters.EventId + '&retUrl=%2F' + $CurrentPage.parameters.EventId)}");
+          
+      //}  
+        
+    } else {
+    
+       var accountId = '{!CustomerInteraction__c.Account__c}';
+       var oppId = '{!CustomerInteraction__c.Related_Opportunity__c}';
+       var apId = '{!CustomerInteraction__c.Related_Account_Plans__c}';
+       var strategyId = '{!CustomerInteraction__c.Related_Strategy__c}';
+       var contactId = '{!CustomerInteraction__c.Customer_Attendee1__c}';
+       
+       var retUROri = '{!$CurrentPage.parameters.retURL}';
+       
+       var retUrl;
+       
+       if(retUROri !=''){
+           retUrl = encodeURI(retUROri);
+       }
+       
+       /*if(accountId != '')
+           retUrl = accountId;
+       
+       if(oppId !='')
+           retUrl = oppId ;
+       
+       if(apId !='')
+           retUrl = apId;
+           
+       if(strategyId != '')
+           retUrl = strategyId;
+           
+       if(contactId !=null){
+           retUrl = contactId;
+       }    */
+       //CR13476 - fix : delete parent.
+        location.assign("/apex/NewTripReportPage?retURL=" + retUrl  + "&save_new=1&sfdc.override=1&{!IF($CurrentPage.parameters.EventId==null, '', '&EventId=' + $CurrentPage.parameters.EventId + '&retUrl=%2F' + $CurrentPage.parameters.EventId)}");
+        
+    }
+      
+}
+ 
+gotoTripReport();
+
+</script> 
+
+</apex:page>

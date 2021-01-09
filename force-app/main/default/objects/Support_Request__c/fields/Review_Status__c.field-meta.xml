@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Review_Status__c</fullName>
+    <description>Status of Support Request in CSMB</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Changes Review Status of Support Request for CSMB Business Only</inlineHelpText>
+    <label>Review Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Segment_Business_Unit__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Info Provided</fullName>
+                <default>false</default>
+                <label>Info Provided</label>
+            </value>
+            <value>
+                <fullName>Info Required</fullName>
+                <default>false</default>
+                <label>Info Required</label>
+            </value>
+            <value>
+                <fullName>Review Completed</fullName>
+                <default>false</default>
+                <label>Review Completed</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>CSMB</controllingFieldValue>
+            <valueName>Info Provided</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CSMB</controllingFieldValue>
+            <valueName>Info Required</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CSMB</controllingFieldValue>
+            <valueName>Review Completed</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

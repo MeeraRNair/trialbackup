@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PR_Queue_LATAM</fullName>
+    <columns>NAME</columns>
+    <columns>Status__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Company__c</columns>
+    <columns>Primary_Channel_Model__c</columns>
+    <columns>Does_Business_As__c</columns>
+    <columns>Reseller_Tax_ID__c</columns>
+    <columns>Email__c</columns>
+    <columns>Website__c</columns>
+    <columns>Other_Reason__c</columns>
+    <columns>Account__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Region__c</field>
+        <operation>equals</operation>
+        <value>LATAM</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Partner_Request__c.New_Partner,Partner_Request__c.Existing_Partner</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>Rejected,Completed,Complete,Duplicate,Aborted By Partner</value>
+    </filters>
+    <filters>
+        <field>Primary_Channel_Model__c</field>
+        <operation>contains</operation>
+        <value>csp,solution provider,oem,distributor</value>
+    </filters>
+    <filters>
+        <field>OWNER.ALIAS</field>
+        <operation>notEqual</operation>
+        <value>GData007</value>
+    </filters>
+    <label>PR Queue - LATAM</label>
+    <language>en_US</language>
+</ListView>

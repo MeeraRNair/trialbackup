@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Related_To_field_Only_One_Can_Be_Filled</fullName>
+    <active>true</active>
+    <description>Only 1 of 3 Related To field can be filled at any one time.</description>
+    <errorConditionFormula>IF( 
+    NOT(
+        OR(
+             AND(
+                 ISBLANK( Related_Opportunity__c ),
+                 ISBLANK( Related_Account_Plans__c ),
+                 ISBLANK( Related_Strategy__c ) 
+             )
+        ,
+            AND(
+                NOT(ISBLANK( Related_Opportunity__c )),
+                ISBLANK( Related_Account_Plans__c ),
+                ISBLANK( Related_Strategy__c ) 
+            )
+        ,
+            AND(
+                ISBLANK(Related_Opportunity__c ),
+                NOT(ISBLANK(Related_Account_Plans__c )),
+                ISBLANK(Related_Strategy__c )
+            )
+        ,
+            AND(
+                ISBLANK(Related_Opportunity__c ),
+                ISBLANK(Related_Account_Plans__c ),
+                NOT(ISBLANK(Related_Strategy__c ))
+            )
+        ) 
+    )
+    , true, false
+)</errorConditionFormula>
+    <errorMessage>Please fill in one and only one Related To field (Related Opportunity, Related Account Plans or Related Strategy).</errorMessage>
+</ValidationRule>

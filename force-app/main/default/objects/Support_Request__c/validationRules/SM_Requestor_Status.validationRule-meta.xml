@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SM_Requestor_Status</fullName>
+    <active>true</active>
+    <description>Requestor not allowed to set Status to other value beside &quot;New&quot; and &quot;Engagement completed&quot;</description>
+    <errorConditionFormula>AND(RecordTypeId = &apos;012A0000000ViNJ&apos;, NOT(ISPICKVAL( Status__c , &apos;New&apos;)), NOT(ISPICKVAL( Status__c , &apos;Engagement complete&apos;)), OR( ISNEW(), $User.Id = CreatedById) )</errorConditionFormula>
+    <errorDisplayField>Status__c</errorDisplayField>
+    <errorMessage>Requestor are not allowed to change the Status to other value beside New and Engagement completed.</errorMessage>
+</ValidationRule>

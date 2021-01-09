@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Days_Spent_Current_Stage__c</fullName>
+    <externalId>false</externalId>
+    <formula>(TODAY() - LastStageChanged__c) + 
+IF(Stage__c = $Setup.OWD__c.Oppty_Stage1__c, Stage_Plan__c, 0) + 
+IF(Stage__c = $Setup.OWD__c.Oppty_Stage10__c, Stage_Discover__c, 0) +
+IF(Stage__c = $Setup.OWD__c.Oppty_Stage30__c, Stage_Qualify__c, 0) + 
+IF(Stage__c = $Setup.OWD__c.Oppty_Stage60__c, Stage_Propose__c, 0) + 
+IF(Stage__c = $Setup.OWD__c.Oppty_Stage90__c, Stage_Commit__c, 0) + 
+IF(Stage__c = $Setup.OWD__c.Oppty_Stage99__c, Stage_Order_Submitted__c, 0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Days Spent in Current Stage</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

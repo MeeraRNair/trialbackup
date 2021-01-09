@@ -1,0 +1,49 @@
+<apex:page standardController="Attendees__c" showHeader="true" tabStyle="Attendees__c" extensions="NavigationController" title="Navigation Page">
+     <style>
+        .header1 {
+            font-weight: bold;
+        }
+        .header2{
+            font-weight: bold;
+        }
+        .column1{
+            font-weight: bold;
+            padding: 2em
+        }
+        .column2{
+            padding: 4em
+        }
+    </style>
+
+    <apex:form id="formId"  >
+        <apex:pageMessages ></apex:pageMessages>
+        <apex:outputLabel value="New Attendees" styleClass="header2"/>
+        <br/>
+        <br/>
+        <apex:outputLabel value="Select Attendees Record Type" styleClass="header1"/>
+        <br/>
+        <br/>
+        <apex:outputText value="Select a record type for the new attendees. To skip this page in the future, change your record type settings on your personal setup page."/>
+        <br/>
+        <br/>
+        <apex:pageBlock title="Select Attendees Record Type " id="pageBlkId1">
+             <apex:outputLabel value="Record Type of New Record"/>
+             <apex:selectList value="{!recordTypename}" multiselect="false" size="1">
+                  <apex:selectOptions value="{!recordTypenames}"/>
+             </apex:selectList>
+             <apex:pageBlockButtons location="bottom">
+                  <apex:commandButton value="Continue" action="{!Continuebutton}"/>
+                  <apex:commandButton value="Cancel" action="{!Cancelbutton}"/>
+             </apex:pageBlockButtons>
+        </apex:pageBlock>
+        <apex:outputLabel value="Available Attendees Record Types" styleClass="header1"/>
+        <br/>
+        <br/>
+        <apex:pageBlock >
+            <apex:pageBlockTable value="{!recordTypelist}" var="rt" >
+                 <apex:column headerValue="Record Type Name" value="{!rt.Name}"/> 
+                 <apex:column headerValue="Description" value="{!rt.Description}"/>
+             </apex:pageBlockTable>
+         </apex:pageBlock>
+    </apex:form>
+</apex:page>

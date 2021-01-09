@@ -1,0 +1,41 @@
+<apex:page standardCOntroller="Lead" extensions="RedirectRouteToChannelExtension">
+  <!-- Previously the Route To channel button on lead was js button but we creted this page to make button Lex ready 
+  script backup is as follows:
+          {!REQUIRESCRIPT("/soap/ajax/33.0/connection.js")}
+        {!REQUIRESCRIPT("/soap/ajax/33.0/apex.js")}
+
+        var partnerCanContact = "{!Lead.Dell_Partner_can_contact_me__c}";
+
+        if(partnerCanContact == false) {
+        alert("{!$Label.LM2_R2C_EntryCriteria}");
+        }
+        else {
+        window.location.href = encodeURI('/apex/RouteLeads?id={!Lead.Id}&action=Route To Channel');
+        }
+  -->
+         <script src="/soap/ajax/33.0/connection.js"> </script >
+
+        <script src="/soap/ajax/33.0/apex.js"> </script >
+        <apex:form id="frm">
+				
+				<apex:actionFunction name="callRedirect" action="{!doRedirect}" reRender="xyz"/> 
+		</apex:form>
+          <script>
+  
+            var partnerCanContact = "{!Lead.Dell_Partner_can_contact_me__c}";
+            
+            if(partnerCanContact == "false") {
+                alert("{!$Label.LM2_R2C_EntryCriteria}");
+                //   alert("testing direct lead");
+            //window.location.href = encodeURI('/{!Lead.Id}');
+            window.history.go(-1);
+                //return false;
+            }
+            else {
+             //window.location.href = encodeURI('/apex/RouteLeads?id={!Lead.Id}&action=Route To Channel');
+            	callRedirect();
+            }
+  
+          </script>
+  			
+</apex:page>

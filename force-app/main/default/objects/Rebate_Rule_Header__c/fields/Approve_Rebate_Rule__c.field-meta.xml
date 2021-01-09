@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approve_Rebate_Rule__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( AND ( $Profile.Id =&apos;00eA0000000hNqj&apos; ||$Profile.Id =&apos;00e30000000nJ6K&apos;  , ISPICKVAL( Status__c , &apos;Pending&apos;) )  ,  
+ HYPERLINK( &apos;/apex/RRAutoApprovePage?id=&apos; &amp; Id , 
+IMAGE( &quot;/resource/1298546011000/ApproveRebateRule&quot;, &apos;Approve Rebate Rule&apos;),&apos;_parent&apos;)  , &apos; None&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Available Action</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

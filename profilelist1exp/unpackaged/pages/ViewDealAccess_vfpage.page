@@ -1,0 +1,74 @@
+<apex:page standardController="contact" extensions="ViewDealAccesscls" showHeader="false" sidebar="false">
+    
+    <head>
+     <style type="text/css">
+        .italicText 
+        { 
+          
+            font-weight: bold;
+            font-size:15px
+        }
+         
+         .relative {
+           position: relative;
+           left: 400px;
+         
+           
+     }
+         .relative1 {
+           position: relative;
+           left: 150px;
+           
+     }
+    </style>
+    </head>
+    
+    <apex:form >
+        
+    <apex:pageBlock dir="ltr" >
+       
+        <div>
+           <apex:outputLink value="/{!con.Id}">Back to Contact</apex:outputLink>
+        </div>
+         <div class="relative">
+             <h3>Select the account to view the details</h3>
+             
+        </div><br/><br/>
+        <apex:pageBlockSection id="wrapper">
+            <strong><apex:outputLabel value="Account" styleClass="italicText">  &nbsp;
+                <apex:selectList value="{!straccountName}"  multiselect="false" size="1">
+                    <apex:actionSupport event="onchange" action="{!showOppStages}"  rerender="lab,showPie,showCount" />
+                 <apex:selectOptions value="{!AccountList}"/>
+             </apex:selectList> 
+                </apex:outputLabel> </strong>
+        </apex:pageBlockSection>
+       
+         <apex:pageBlockSection columns="2">
+             <apex:pageBlockSectionItem >
+          <apex:outputPanel id="lab" styleClass="relative1">
+              <apex:outputText value="Opportunity Count by Stage:" />  <!-- rendered="{!bshowLabel}" -->
+                 </apex:outputPanel>      
+                 
+         <apex:outputPanel id="showPie"> 
+             <apex:chart height="250" width="450" data="{!PieData}" >
+                 <apex:pieSeries dataField="intdata" labelField="strName" />
+                 <apex:legend position="right" spacing="8"/>
+             </apex:chart>           
+          
+           </apex:outputPanel>   
+         </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem >
+            <apex:outputPanel id="showCount"> 
+                  <apex:outputText value="Select stages:"/> 
+                {!intcountstgs}
+             <apex:inputField value="{!conopps.Opportunity_Stage__c }"/>
+                  </apex:outputPanel> 
+            </apex:pageBlockSectionItem>
+             
+         </apex:pageBlockSection>
+        
+        
+
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

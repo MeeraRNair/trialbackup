@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tour__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Tour</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Event_Location__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Tours</value>
+        </filterItems>
+        <filterItems>
+            <field>Event_Location__c.Select_Site__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.Site__c</valueField>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Event_Location__c</referenceTo>
+    <relationshipLabel>Calendar Management (Tour)</relationshipLabel>
+    <relationshipName>Calendar_Management1</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

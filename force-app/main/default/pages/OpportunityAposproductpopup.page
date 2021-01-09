@@ -1,0 +1,14 @@
+<apex:page standardController="Opportunity" showHeader="false" id="pg" sidebar="false" extensions="Vf_OpportunityAposproductpopup" action="{!popupDisplay}">
+<apex:form id="frm">
+      <!--   <apex:outputlabel value="{!$Label.APOS_popup}" id="msg"/> -->
+      <script>
+    window.document.onload = new function(e)
+    {
+           if('{!showPopup}' == 'true'){
+              //alert(document.getElementById("pg:frm:msg").innerHTML);                       
+                alert("{!$Label.APOS_popup}");
+           }           
+    }    
+    </script>    
+</apex:form>
+</apex:page>

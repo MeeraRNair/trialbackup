@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>R12_1_Cant_uncheck_submit_to_boomi_field</fullName>
+    <active>true</active>
+    <description>This field shouldn&apos;t be unchecked once it is checked and saved</description>
+    <errorConditionFormula>AND(ISCHANGED(Submit_to_Boomi__c), PRIORVALUE(Submit_to_Boomi__c)=TRUE)</errorConditionFormula>
+    <errorDisplayField>Submit_to_Boomi__c</errorDisplayField>
+    <errorMessage>This field shouldn&apos;t be unchecked once it is checked and saved</errorMessage>
+</ValidationRule>

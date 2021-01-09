@@ -1,0 +1,170 @@
+<apex:page standardController="Contract" extensions="CMVFTermsandConditionsViewController" renderAs="pdf">
+    <html>
+        <head>
+            <style type="text/css">
+                td.label{
+                  font-size:10px;
+                  vertical-align:top;              
+                  text-align:right;
+                  padding-right:5px;                  
+                  width:25%;
+                  align:right;
+                  border-bottom :solid 0.5px #DFDFDF;                   
+                }
+                
+                td.nonStdLabel{
+                  font-size:10px;
+                  vertical-align:top;              
+                  text-align:left;
+                  padding-right:5px;                  
+                  width:3%;
+                  align:left;
+                  border-bottom :solid 0.5px #DFDFDF;                   
+                }
+                
+                td.data{
+                    font-size:10px;
+                    vertical-align:top;
+                    text-align:left; 
+                    padding-left:5px;                                 
+                    width:25%;
+                    align:left;
+                    border-bottom: solid 0.5px #DFDFDF;                   
+                }
+
+                table.Mainheader{
+                      font-size:12px;    
+                      height:20px;
+                      width:100%;
+                      background-color:#8FBC8F;    
+                      border-bottom: solid 3px #FFFFFF;               
+                }
+                table.detail{          
+                   width:100%;
+                   border:1;                                                     
+                   border-bottom:solid 1px #319431;                    
+                   background-color:#FFFFFF;
+                   cell-spacing :0px;                     
+                   border-collapse: separate;
+                   border-spacing: 4pt;                                           
+                } 
+                .divbreak {display block; page-break-before auto;page-break-inside avoid;}
+
+            </style>
+        </head>
+        <body>
+           <!-- <div class="divbreak">
+                <table class="Mainheader">
+                    <th>Contract Information</th>
+                </table>
+                <div class="divbreak">
+                    <table class="detail" COLSPAN="2">
+                        <tr>
+                            <td class="label">Contract Owner  </td>
+                            <td class="data">{!Contract.owner.firstName}{!Contract.owner.lastName}</td>
+                            <td class="label">Contract Status </td>
+                            <td class="data">{!Contract.status}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">CSMB Support Request </td>
+                            <td class="data">{!Contract.CSMB_Support_Request__r.name}</td>
+                            <td class="label">ContractNumber </td>
+                            <td class="data">{!Contract.ContractNumber}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Account Name</td>
+                            <td class="data">{!Contract.Account.name}</td>
+                            <td class="label">Account Country</td>
+                            <td class="data">{!Contract.Account_Country__c}</td>
+                        </tr>
+                        <tr>                        
+                            <td class="label">Opportunity</td>
+                            <td class="data">{!Contract.Opportunity__r.name}</td>
+                                                  
+                        </tr>
+                        <tr>                        
+                            <td class="label">Contract Entity Name</td>
+                            <td class="data">{!Contract.Contract_Entity_Name__c}</td>
+                                                   
+                        </tr>
+                        <tr>
+                            <td class="label">Corporate Parent Name</td>
+                            <td class="data">{!Contract.Corporate_Parent_Name__c}</td> 
+                        </tr>
+                        <tr>
+                            <td class="label">Historical CC#</td>
+                            <td class="data">{!Contract.Historical_CC__c}</td>  
+                        </tr>
+                    </table>
+                </div>
+               </div>
+            <BR/><BR/><BR/><BR/><BR/> -->
+            <!--  TERMS AND CONDITIONS SECTION -->
+            <div class="divbreak">
+                <table class="Mainheader">
+                    <th><center>Standard Terms and Conditions</center></th>
+                </table>
+            </div>
+            <apex:repeat value="{!stdTermsandConditionsViewList}" var="mainList">
+                 <div class="divbreak">
+                     <table class="Mainheader">
+                         <th>{!mainList.repositoryName.name}</th>
+                     </table>
+                 </div>
+                 <apex:repeat value="{!mainList.ConTermsandConditionsList}" var="tandCList">
+                     <table class="detail">
+                         <tr>
+                             <td class="data">{!tandCList.Terms_and_conditions_Content__c}</td>               
+                         </tr>  
+                     </table>          
+                </apex:repeat>
+                <br/>
+            </apex:repeat>
+            <apex:pageblock rendered="{!noStdTermdefined}">
+                <table class="detail">
+                         <tr>
+                             <td class="data">Standard Terms are not defined for this contract</td>               
+                         </tr>  
+                 </table> 
+            </apex:pageblock>
+            <br/><br/>
+            <div class="divbreak">
+                <table class="Mainheader">
+                    <th><center>Non Standard Terms and Conditions</center></th>
+                </table>
+            </div>
+            <apex:repeat value="{!nonStdTermsandConditionsViewList}" var="mainList">
+                 <div class="divbreak">
+                     <table class="Mainheader">
+                         <th>{!mainList.repositoryName.name}</th>
+                     </table>
+                 </div> 
+                 <apex:repeat value="{!mainList.ConTermsandConditionsList}" var="tandCList">
+                     <table class="detail">
+                         <tr>
+                             <td class="nonStdLabel">Section</td>
+                             <td class="data">{!tandCList.Section__c}</td>               
+                         </tr>  
+                     </table>
+                     <table class="detail">
+                         <tr>
+                             <td class="nonStdLabel">Term Content</td>
+                             <td class="data">{!tandCList.Terms_and_conditions_Content__c}</td>               
+                         </tr>  
+                     </table>          
+            </apex:repeat> 
+                <br/>
+            </apex:repeat>
+            <apex:pageblock rendered="{!noNonStdTermdefined}">
+                <table class="detail">
+                         <tr>
+                             <td class="data">Non Standard Terms are not defined for this contract</td>               
+                         </tr>  
+                 </table> 
+            </apex:pageblock>
+    
+        </body>
+    </html>   
+    
+    
+</apex:page>

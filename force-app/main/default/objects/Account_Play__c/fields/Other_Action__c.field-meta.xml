@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Other_Action__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( 
+AND( 
+ISPICKVAL(Lead_Quality__c, &apos;Qualified&apos;), 
+ISPICKVAL(Opportunity_Status__c,&apos;APOS Opportunity&apos;), 
+Opportunity__c=null ), 
+
+HYPERLINK(&apos;006/e?retURL=/&apos; &amp; Id &amp; &apos;&amp;RecordType=012A0000000UvEp&amp;00NA0000000bC8S=&apos; &amp; Id&amp;&apos;&amp;opp4=&apos;&amp; Account__r.Name &amp;&apos;&amp;opp4_lkid=&apos; &amp; Account__r.Id&amp;&apos;&amp;opp17=&apos;&amp; Campaign__r.Name&amp;&apos;&amp;00NA0000000b8l9=1&amp;opp5=Deal/Bid - Direct&amp;00N700000028ArQ=APOS&amp;00N30000001O7vL=APOS&amp;opp14=&apos;&amp; Name &amp;&apos;&amp;opp11=Discover - 10%25&amp;nooverride=1&apos; , IMAGE(&quot;resource/1298094458000/APOS_RT&quot;, &apos;APOS&apos;),&apos;_parent&apos;) &amp; &apos; &apos; &amp; 
+
+HYPERLINK(&apos;apex/MarketingExistingOppAssn?retURL=%2F&apos; &amp; Id &amp; &apos;&amp;accountPlayId=&apos; &amp; Id &amp; &apos;&amp;accid=&apos; &amp; Account__r.Id &amp; &apos;&amp;campaignid=&apos; &amp; Campaign__c , IMAGE(&quot;resource/1268544881000/MA_ExistingOpptys&quot;, &apos;Existing Opportunity&apos;),&apos;_parent&apos;) , 
+
+IF(AND( ISPICKVAL(Lead_Quality__c, &apos;Qualified&apos;),(ISPICKVAL(Opportunity_Status__c,&apos;SMB Opportunity&apos;)), Opportunity__c=null ), 
+
+HYPERLINK(&apos;006/e?retURL=/&apos; &amp; Id &amp; &apos;&amp;RecordType=012A0000000Vhy7&amp;00NA0000000bC8S=&apos; &amp; Id&amp;&apos;&amp;opp4=&apos;&amp; Account__r.Name &amp;&apos;&amp;opp4_lkid=&apos; &amp; Account__r.Id&amp;&apos;&amp;opp17=&apos;&amp; Campaign__r.Name&amp;&apos;&amp;00NA0000000b8l9=1&amp;opp5=Deal/Bid - Direct&amp;opp11=Plan - 1%25&amp;nooverride=1&apos; , IMAGE(&quot;resource/1352358599000/MA_NewSMBOpptys&quot;, &apos;New SMB Opportunity&apos;),&apos;_parent&apos;), 
+
+&apos;[No Action Available]&apos;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Other Action</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

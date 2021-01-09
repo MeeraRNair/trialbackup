@@ -1,0 +1,18 @@
+<apex:page standardController="Lead" tabStyle="Lead" recordSetVar="leads" lightningStylesheets="{!$User.UITheme != 'Theme3'}" action="{!PerformMassLeadUpdate}" extensions="AcceptChannelLeadExtension"  >
+  
+  <apex:form >
+    <apex:pageBlock title="">
+        <apex:pagemessages id="messageId" />
+        
+        <apex:outputPanel rendered="{!isFilterEmpty}">
+        <apex:commandButton value="Yes" action="{!Yes}" />
+        <apex:commandButton value="No" action="{!No}" />
+        </apex:outputpanel>
+        
+        <apex:pageBlockButtons location="top">
+            <apex:commandButton value="Cancel" action="{!cancel}"/>
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+  </apex:form>
+  
+</apex:page>

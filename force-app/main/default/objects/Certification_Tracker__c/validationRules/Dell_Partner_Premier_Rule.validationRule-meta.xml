@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Dell_Partner_Premier_Rule</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF(Premier_Criteria_Enable__c = false  &amp;&amp;  Qualified_as_Dell_Premier_Partner__c = true &amp;&amp; NOT($Setup.System_Behavior_Bypasser__c.Bypass_Competency_Tracker_VRs__c),true,false)</errorConditionFormula>
+    <errorMessage>The account is not qualified to be promoted to Premier.</errorMessage>
+</ValidationRule>

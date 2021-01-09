@@ -1,0 +1,178 @@
+<apex:page standardController="Vendor_Reimbursement__c" recordSetVar="VR" extensions="UpdateDeleteVendorReimbrsementscontrlr" lightningStylesheets="true">
+ <script type="text/javascript">
+        function selectAllCheckboxes(obj,receivedInputID){
+            var inputCheckBox = document.getElementsByTagName("input");                  
+            for(var i=0; i<inputCheckBox.length; i++){          
+                if(inputCheckBox[i].id.indexOf(receivedInputID)!=-1){                                     
+                    inputCheckBox[i].checked = obj.checked;
+                }
+            }
+        }
+    </script>
+ 
+ 
+ <html>
+        <head>
+            <style>
+                .headerRow .displayStyle{display:none;}            
+                .headerRow .columnStyleAction{width:50px;} 
+                .headerRow .columnStyleName{width:150px;}            
+                .headerRow .columnStyleAccount{width:150px;} 
+                .headerRow .columnStylePhone{width:150px;} 
+                .headerRow .columnStyleMobile{width:150px;}            
+                .headerRow .columnStyleEmail{width:150px;}
+                
+                .headerRow .columnStyle75{width:75px;} 
+                .headerRow .columnStyle100{width:100px;} 
+                .headerRow .columnStyle200{width:200px;}
+                .columnRow .showStyle{display:none;}
+            </style>
+                          
+        </head>
+        <body>
+    
+    <apex:form id="mainform">
+    
+        <apex:sectionHeader subtitle="{!mdfProgram.Name}" title="Program Name" rendered="true"/>
+        
+        
+        <apex:pageBlock title="Delete Sub Vendors"> 
+            
+            <table width="100%"><tr><td align="center">
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">A
+                <apex:param name="selected" value="A" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">B
+                <apex:param name="selected" value="B" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">C
+                <apex:param name="selected" value="C" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">D
+                <apex:param name="selected" value="D" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">E
+                <apex:param name="selected" value="E" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">F
+                <apex:param name="selected" value="F" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">G
+                <apex:param name="selected" value="G" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">H
+                <apex:param name="selected" value="H" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">I
+                <apex:param name="selected" value="I" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">J
+                <apex:param name="selected" value="J" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">K
+                <apex:param name="selected" value="K" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">L
+                <apex:param name="selected" value="L" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">M
+                <apex:param name="selected" value="M" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">N
+                <apex:param name="selected" value="N" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">O
+                <apex:param name="selected" value="O" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">P
+                <apex:param name="selected" value="P" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">Q
+                <apex:param name="selected" value="Q" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">R
+                <apex:param name="selected" value="R" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">S
+                <apex:param name="selected" value="S" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">T
+                <apex:param name="selected" value="T" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">U
+                <apex:param name="selected" value="U" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">V
+                <apex:param name="selected" value="V" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">W
+                <apex:param name="selected" value="W" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">X
+                <apex:param name="selected" value="X" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">Y
+                <apex:param name="selected" value="Y" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">Z
+                <apex:param name="selected" value="Z" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">All
+                <apex:param name="selected" value="All" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>&nbsp;|&nbsp; 
+                <apex:commandLink action="{!sortByAlphabet}" reRender="mainform">Other
+                <apex:param name="selected" value="Other" assignTo="{!searchAlphabet}"/>
+                </apex:commandLink>
+            </td></tr></table>
+                        
+            <div style="position:static;width:1250px;height:340px;overflow:auto;overflow-x:hidden;">
+            <apex:pageMessages ></apex:pageMessages>
+            <apex:pageBlockTable value="{!wrapperList}" var="apv" style="width:1250px" >
+                
+                <apex:column style="width:10px;align:center">
+                    <apex:facet name="header">
+                        <apex:inputCheckbox onclick="selectAllCheckboxes(this,'inputId')"/>
+                    </apex:facet>
+                    <apex:inputCheckbox value="{!apv.selected}" id="inputId"/>
+                </apex:column>   
+                <apex:column headerValue="Sub Vendor" style="width:200px;align:center">
+                <apex:outputtext value="{!apv.vrRecord.SubVendor__c}"  />
+                </apex:column>
+                <apex:column headerValue="Program" style="width:200px;align:center">
+                <apex:outputtext value="{!apv.vrRecord.MdfProgram__c}"  />
+                </apex:column>
+                <apex:column headerValue="Program ID" style="width:90px;align:center">
+                <apex:outputtext value="{!apv.vrRecord.MdfProgram_ID__c}"  />
+                </apex:column>
+                <apex:column headerValue="LOB" style="width:100px;align:center">
+                <apex:outputtext value="{!apv.vrRecord.VendorLOB__c}"  />
+                </apex:column>
+                <apex:column headerValue="Contract Status" style="width:110px;align:center">
+                <apex:outputtext value="{!apv.vrRecord.Contractstatus__c}"  />
+                </apex:column>
+                <apex:column headerValue="POP Status" style="width:90px;align:center">
+                <apex:outputtext value="{!apv.vrRecord.POPStatus__c}"  />
+                </apex:column>         
+                               
+                <apex:column headerValue="Budgeted Price" style="width:100px;align:center">
+                <apex:outputtext value="{!apv.vrRecord.BudgetedPrice__c}"  />
+                </apex:column>
+                <apex:column headerValue="Distributed Expense Amount" style="width:100px;align:center">
+                <apex:outputtext value="{!apv.vrRecord.Distributed_Price__c}"  />
+                </apex:column>
+                
+            </apex:pageBlockTable>
+            </div>          
+            
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="Delete" action="{!deleteVendorReimbRecords}"/>
+                <apex:commandButton value="Cancel" action="{!cancel}"/>                
+            </apex:pageBlockButtons>
+             
+        </apex:pageBlock>
+        
+        
+    </apex:form>
+    </body>
+    </html>   
+</apex:page>

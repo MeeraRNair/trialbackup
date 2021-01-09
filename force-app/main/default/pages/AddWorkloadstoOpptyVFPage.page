@@ -1,0 +1,26 @@
+<apex:page standardController="Opportunity_Workload__c" extensions="AddWorkloadstoOpptyExtension" sidebar="false" >
+    
+    <apex:outputPanel rendered="{! $User.UIThemeDisplayed == 'Theme3' }">
+        <apex:includeLightning />
+        <div id="lightning" />
+        <script>
+        $Lightning.use("c:AddWorkloadstoOpptyApp", function() {
+            $Lightning.createComponent("c:AddWorkloadstoOppty",
+                                       {
+                                           recordId : '{!strOppId}',
+                                           ClassicView: 'true',
+                                           UIThemeDisplayed: 'Theme3',
+                                           BaseUrl: '{!strOrgBaseURL}'
+                                       },
+                                       "lightning",
+                                       function(component) {
+                                           //component.set("v.recordId" , '{!strOppId}');
+                                       });
+        });
+        </script> 
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{! $User.UIThemeDisplayed == 'Theme4d' }">
+        <apex:outputText value="This is Lightning Experience."/>
+    </apex:outputPanel>
+    
+</apex:page>

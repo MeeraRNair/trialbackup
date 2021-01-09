@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Auxiliary_Amount__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF (
+OR ( 
+MP_Contract_Type__c = &apos;Ala Carte&apos;, 
+MP_Contract_Type__c = &apos;Headcount&apos;), Budgeted_Price__c  ,0 )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Auxiliary Amount</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

@@ -1,0 +1,881 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Acquisition__c</fullName>
+        <externalId>false</externalId>
+        <label>Acquisition</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Check to keep Requirement Active.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check to keep Requirement Active.</inlineHelpText>
+        <label>Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Alert__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(AND( Prerequisites__c, Prerequisite_Count__c =0), IMAGE(&quot;/img/samples/flag_red.gif&quot;, &quot;red&quot;, 12, 12)+&apos; &apos; + &apos;ALERT : This Competency Requirement has Prerequisites checked but Prerequisites are not added.&apos; + BR() +&apos;Please complete the Competency Prerequisites Setup.&apos;,&apos;&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>&lt;font color=&quot;#fff&quot;&gt;</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Apply_Requirement_To__c</fullName>
+        <description>Choose Global or Country or Region</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Choose Global or Country or Region</inlineHelpText>
+        <label>Apply Requirement To</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>Country</fullName>
+                    <default>false</default>
+                    <label>Country</label>
+                </value>
+                <value>
+                    <fullName>Global</fullName>
+                    <default>false</default>
+                    <label>Global</label>
+                </value>
+                <value>
+                    <fullName>Region</fullName>
+                    <default>false</default>
+                    <label>Region</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Certification_Name__c</fullName>
+        <description>Choose Name</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Choose Competency Name</inlineHelpText>
+        <label>Competency Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Region__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Storage</fullName>
+                    <default>false</default>
+                    <label>Storage</label>
+                </value>
+                <value>
+                    <fullName>Server</fullName>
+                    <default>false</default>
+                    <label>Server</label>
+                </value>
+                <value>
+                    <fullName>Data Center Networking</fullName>
+                    <default>false</default>
+                    <label>Data Center Networking</label>
+                </value>
+                <value>
+                    <fullName>Cloud Client-Computing</fullName>
+                    <default>false</default>
+                    <label>Cloud Client-Computing</label>
+                </value>
+                <value>
+                    <fullName>Cloud Solutions</fullName>
+                    <default>false</default>
+                    <label>Cloud Solutions</label>
+                </value>
+                <value>
+                    <fullName>Client Solutions</fullName>
+                    <default>false</default>
+                    <label>Client Solutions</label>
+                </value>
+                <value>
+                    <fullName>Workstation</fullName>
+                    <default>false</default>
+                    <label>Workstation</label>
+                </value>
+                <value>
+                    <fullName>Microsoft Platform Management</fullName>
+                    <default>false</default>
+                    <label>Microsoft Platform Management</label>
+                </value>
+                <value>
+                    <fullName>Endpoint Management</fullName>
+                    <default>false</default>
+                    <label>Endpoint Management</label>
+                </value>
+                <value>
+                    <fullName>Network Security</fullName>
+                    <default>false</default>
+                    <label>Network Security</label>
+                </value>
+                <value>
+                    <fullName>Identity and Access Management</fullName>
+                    <default>false</default>
+                    <label>Identity and Access Management</label>
+                </value>
+                <value>
+                    <fullName>Data Protection</fullName>
+                    <default>false</default>
+                    <label>Data Protection</label>
+                </value>
+                <value>
+                    <fullName>PS Series Storage Deployment</fullName>
+                    <default>false</default>
+                    <label>PS Series Storage Deployment</label>
+                </value>
+                <value>
+                    <fullName>SC Series Storage Deployment</fullName>
+                    <default>false</default>
+                    <label>SC Series Storage Deployment</label>
+                </value>
+                <value>
+                    <fullName>Networking</fullName>
+                    <default>false</default>
+                    <label>Networking</label>
+                </value>
+                <value>
+                    <fullName>Big Data and Analytics</fullName>
+                    <default>false</default>
+                    <label>Big Data and Analytics</label>
+                </value>
+                <value>
+                    <fullName>Solutions</fullName>
+                    <default>false</default>
+                    <label>Solutions</label>
+                </value>
+                <value>
+                    <fullName>EMEA-EM - Preferred Partner</fullName>
+                    <default>false</default>
+                    <label>EMEA-EM - Preferred Partner</label>
+                </value>
+                <value>
+                    <fullName>Onboarding - LA English</fullName>
+                    <default>false</default>
+                    <label>Onboarding - LA English</label>
+                </value>
+                <value>
+                    <fullName>Onboarding - LA Portuguese</fullName>
+                    <default>false</default>
+                    <label>Onboarding - LA Portuguese</label>
+                </value>
+                <value>
+                    <fullName>Onboarding - LA Spanish</fullName>
+                    <default>false</default>
+                    <label>Onboarding - LA Spanish</label>
+                </value>
+                <value>
+                    <fullName>Data Protection Adv Comp</fullName>
+                    <default>false</default>
+                    <label>Data Protection Adv Comp</label>
+                </value>
+                <value>
+                    <fullName>Info Mgmnt–Application&amp;DataIntegration</fullName>
+                    <default>false</default>
+                    <label>Info Mgmnt–Application&amp;DataIntegration</label>
+                </value>
+                <value>
+                    <fullName>Info Mgmnt–Biz Inteligence&amp;DataAnalytics</fullName>
+                    <default>false</default>
+                    <label>Info Mgmnt–Biz Inteligence&amp;DataAnalytics</label>
+                </value>
+                <value>
+                    <fullName>Security–Identity&amp;Access Mgmnt Adv Comp</fullName>
+                    <default>false</default>
+                    <label>Security–Identity&amp;Access Mgmnt Adv Comp</label>
+                </value>
+                <value>
+                    <fullName>Storage Adv Comp</fullName>
+                    <default>false</default>
+                    <label>Storage Adv Comp</label>
+                </value>
+                <value>
+                    <fullName>Client Deployment Services Competency</fullName>
+                    <default>false</default>
+                    <label>Client Deployment Services Competency</label>
+                </value>
+                <value>
+                    <fullName>PowerEdge Servers Deployment Services Competency</fullName>
+                    <default>false</default>
+                    <label>PowerEdge Servers Deployment Services Competency</label>
+                </value>
+                <value>
+                    <fullName>Client Data Security</fullName>
+                    <default>false</default>
+                    <label>Client Data Security</label>
+                </value>
+                <value>
+                    <fullName>OEM Solutions</fullName>
+                    <default>false</default>
+                    <label>OEM Solutions</label>
+                </value>
+                <value>
+                    <fullName>Modular Infrastructure Deployment Services Competency</fullName>
+                    <default>false</default>
+                    <label>Modular Infrastructure Deployment Services Competency</label>
+                </value>
+                <value>
+                    <fullName>Entry Level Storage</fullName>
+                    <default>false</default>
+                    <label>Entry Level Storage</label>
+                </value>
+                <value>
+                    <fullName>Campus Networking</fullName>
+                    <default>false</default>
+                    <label>Campus Networking</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>APJ</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>EMEA-EM</controllingFieldValue>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <controllingFieldValue>US</controllingFieldValue>
+                <valueName>Storage</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>APJ</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <controllingFieldValue>US</controllingFieldValue>
+                <valueName>Server</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>APJ</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>EMEA-EM</controllingFieldValue>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <controllingFieldValue>US</controllingFieldValue>
+                <valueName>Data Center Networking</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>APJ</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>EMEA-EM</controllingFieldValue>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <controllingFieldValue>US</controllingFieldValue>
+                <valueName>Cloud Client-Computing</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>APJ</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>EMEA-EM</controllingFieldValue>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>US</controllingFieldValue>
+                <valueName>Cloud Solutions</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>APJ</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>EMEA-EM</controllingFieldValue>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <controllingFieldValue>US</controllingFieldValue>
+                <valueName>Client Solutions</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>APJ</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>EMEA-EM</controllingFieldValue>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <controllingFieldValue>US</controllingFieldValue>
+                <valueName>Workstation</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>APJ</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>EMEA-EM</controllingFieldValue>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <controllingFieldValue>US</controllingFieldValue>
+                <valueName>Microsoft Platform Management</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>APJ</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>EMEA-EM</controllingFieldValue>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <controllingFieldValue>US</controllingFieldValue>
+                <valueName>Endpoint Management</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>APJ</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>EMEA-EM</controllingFieldValue>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <controllingFieldValue>US</controllingFieldValue>
+                <valueName>Network Security</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>APJ</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>EMEA-EM</controllingFieldValue>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <controllingFieldValue>US</controllingFieldValue>
+                <valueName>Identity and Access Management</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>APJ</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>EMEA-EM</controllingFieldValue>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <controllingFieldValue>US</controllingFieldValue>
+                <valueName>Data Protection</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>APJ</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>EMEA-EM</controllingFieldValue>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <controllingFieldValue>US</controllingFieldValue>
+                <valueName>PS Series Storage Deployment</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>APJ</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>EMEA-EM</controllingFieldValue>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <controllingFieldValue>US</controllingFieldValue>
+                <valueName>SC Series Storage Deployment</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>APJ</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>EMEA-EM</controllingFieldValue>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <controllingFieldValue>US</controllingFieldValue>
+                <valueName>Networking</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>APJ</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>EMEA-EM</controllingFieldValue>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <controllingFieldValue>US</controllingFieldValue>
+                <valueName>Big Data and Analytics</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>APJ</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>US</controllingFieldValue>
+                <valueName>Solutions</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>APJ</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>EMEA-EM</controllingFieldValue>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <controllingFieldValue>US</controllingFieldValue>
+                <valueName>EMEA-EM - Preferred Partner</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <valueName>Onboarding - LA English</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <valueName>Onboarding - LA Portuguese</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <valueName>Onboarding - LA Spanish</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>APJ</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>EMEA-EM</controllingFieldValue>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <controllingFieldValue>US</controllingFieldValue>
+                <valueName>Client Deployment Services Competency</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>APJ</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>EMEA-EM</controllingFieldValue>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <controllingFieldValue>US</controllingFieldValue>
+                <valueName>PowerEdge Servers Deployment Services Competency</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>APJ</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>EMEA-EM</controllingFieldValue>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <controllingFieldValue>US</controllingFieldValue>
+                <valueName>Client Data Security</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>APJ</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>EMEA-EM</controllingFieldValue>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <controllingFieldValue>US</controllingFieldValue>
+                <valueName>OEM Solutions</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>APJ</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>EMEA-EM</controllingFieldValue>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <controllingFieldValue>US</controllingFieldValue>
+                <valueName>Modular Infrastructure Deployment Services Competency</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>APJ</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>EMEA-EM</controllingFieldValue>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <controllingFieldValue>US</controllingFieldValue>
+                <valueName>Entry Level Storage</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>---None---</controllingFieldValue>
+                <controllingFieldValue>APJ</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>EMEA-EM</controllingFieldValue>
+                <controllingFieldValue>EMEA</controllingFieldValue>
+                <controllingFieldValue>LATAM</controllingFieldValue>
+                <controllingFieldValue>US</controllingFieldValue>
+                <valueName>Campus Networking</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Country__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Choose Country</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Choose Country</inlineHelpText>
+        <label>Country</label>
+        <referenceTo>Country__c</referenceTo>
+        <relationshipName>Certification_Requirement_Setups</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Criteria_Rule__c</fullName>
+        <externalId>false</externalId>
+        <label>Criteria Rule</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>DuplicateApplyRequirement__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>false</externalId>
+        <label>DuplicateApplyRequirement</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Name_ToolTip__c</fullName>
+        <defaultValue>&apos;Enter a Value which will be updated with &quot;Competency Name - Apply Requirement&quot; on saving&apos;</defaultValue>
+        <description>Tool tip for Competency Requirement Setup Name</description>
+        <externalId>false</externalId>
+        <label>&lt;font color=&quot;#fff&quot;&gt;</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Prerequisite_Count__c</fullName>
+        <description>Count of related Competency Prerequisites records</description>
+        <externalId>false</externalId>
+        <label>Prerequisite_Count</label>
+        <summaryForeignKey>Certification_Prerequisites_Setup__c.Certification_Requirement_Setup__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Prerequisites__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Competencies consist of Prerequisites</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check if requirement consist of prerequisites courses/competencies</inlineHelpText>
+        <label>Prerequisites</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Region__c</fullName>
+        <description>Choose Region. Duplicate value of Region should not be allowed.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Choose Region.</inlineHelpText>
+        <label>Region</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Apply_Requirement_To__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>---None---</fullName>
+                    <default>true</default>
+                    <label>---None---</label>
+                </value>
+                <value>
+                    <fullName>APJ</fullName>
+                    <default>false</default>
+                    <label>APJ</label>
+                </value>
+                <value>
+                    <fullName>Canada</fullName>
+                    <default>false</default>
+                    <label>Canada</label>
+                </value>
+                <value>
+                    <fullName>EMEA-EM</fullName>
+                    <default>false</default>
+                    <label>EMEA-EM</label>
+                </value>
+                <value>
+                    <fullName>EMEA</fullName>
+                    <default>false</default>
+                    <label>EMEA</label>
+                </value>
+                <value>
+                    <fullName>LATAM</fullName>
+                    <default>false</default>
+                    <label>LATAM</label>
+                </value>
+                <value>
+                    <fullName>US</fullName>
+                    <default>false</default>
+                    <label>US</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Global</controllingFieldValue>
+                <controllingFieldValue>Country</controllingFieldValue>
+                <valueName>---None---</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Region</controllingFieldValue>
+                <valueName>APJ</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Region</controllingFieldValue>
+                <valueName>Canada</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Region</controllingFieldValue>
+                <valueName>EMEA-EM</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Region</controllingFieldValue>
+                <valueName>EMEA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Region</controllingFieldValue>
+                <valueName>LATAM</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Region</controllingFieldValue>
+                <valueName>US</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <label>Competency Requirement Setup</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Certification_Name__c</columns>
+        <columns>Apply_Requirement_To__c</columns>
+        <columns>Country__c</columns>
+        <columns>Active__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <label>Competency Requirement Setup Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Competency Requirement Setups</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Certification_Name__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Apply_Requirement_To__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Country__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Active__c</customTabListAdditionalFields>
+        <listViewButtons>Delete_Selected_Certification_Requirements</listViewButtons>
+        <lookupDialogsAdditionalFields>Certification_Name__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Apply_Requirement_To__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Country__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Active__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Certification_Name__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Apply_Requirement_To__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Country__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Active__c</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>Certification_Name__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Apply_Requirement_To__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Country__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Active__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>CountryBlank_validation</fullName>
+        <active>true</active>
+        <errorConditionFormula>IF(OR(AND(ISPICKVAL(Apply_Requirement_To__c , &quot;Region&quot;), ISPICKVAL( Region__c , &apos;&apos;)),AND(ISPICKVAL(Apply_Requirement_To__c , &quot;Region&quot;), TEXT(Region__c) &lt;&gt; &apos;&apos;) ,AND(ISPICKVAL(Apply_Requirement_To__c , &quot;Global&quot;))),IF( LEN(Country__c) &gt;0, true, false),false)</errorConditionFormula>
+        <errorDisplayField>Country__c</errorDisplayField>
+        <errorMessage>The Country field should be blank when the Apply Requirement To is &apos;Region&apos; or &apos;Global&apos;.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Country_Validation</fullName>
+        <active>true</active>
+        <description>If &apos;Apply Requirement To&apos; is chosen as country, its mandetory to choose a country.</description>
+        <errorConditionFormula>AND(ISPICKVAL(Apply_Requirement_To__c , &apos;Country&apos;),ISBLANK ( Country__c ))</errorConditionFormula>
+        <errorDisplayField>Country__c</errorDisplayField>
+        <errorMessage>Choose a country.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>Delete_Selected_Certification_Requirements</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Delete Selected Competency Requirements</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>// Include and initialize the AJAX Toolkit javascript library
+//
+{!REQUIRESCRIPT(&quot;/soap/ajax/10.0/connection.js&quot;)}
+
+var idsToDelete = {!GETRECORDIDS( $ObjectType.Certification_Requirement_Setup__c )};
+var deleteWarning = &apos;Are you sure you wish to delete &apos; +
+                    idsToDelete.length + &apos; Requirement Setup records?&apos;;
+
+if (idsToDelete.length &amp;&amp; (window.confirm(deleteWarning))) {
+
+   sforce.connection.deleteIds(idsToDelete,
+          function() {navigateToUrl(window.location.href);});
+
+} else if (idsToDelete.length == 0) {
+   alert(&quot;Please select the records you wish to delete.&quot;);
+}</url>
+    </webLinks>
+</CustomObject>

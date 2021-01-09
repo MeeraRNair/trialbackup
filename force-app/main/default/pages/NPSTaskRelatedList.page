@@ -1,0 +1,19 @@
+<apex:page standardController="Case" lightningStyleSheets="true" extensions="NPSTasksRelatedListCntrl" showHeader="true" sidebar="true">
+<apex:messages />
+<apex:form >
+    <apex:outputPanel layout="block" style="overflow:auto; height:200px;">
+    <apex:pageBlock title="Open Activities" >        
+            <apex:commandLink value="New Task" action="/apex/CreateTaskManually?Caseid={!caseId}" styleClass="btn" immediate="true" target="_parent" style="text-decoration:none; margin-left:40%;" />
+        <apex:pageBlockTable value="{!NPSTask}" var="t" style="margin-top:1%; overflow:auto;">
+            <apex:column headerValue="Action"><apex:outputlink value="/apex/EditNPSTask?scontrolCaching=1&id={!t.Id}" target="_parent" style="color: blue;">Edit</apex:outputlink></apex:column>
+            <!--<apex:column headerValue="Subject"><apex:outputlink id="Activity" value="/{!t.Id}" target="_blank" style="text-decoration:none;">{!t.subject}</apex:outputlink></apex:column> -->
+            <apex:column headerValue="NSS Category" value="{!t.NSS_Category__c}"/>
+            <apex:column headerValue="Due Date" value="{!t.ActivityDate}"/>
+            <apex:column headerValue="Status" value="{!t.Status}"/>
+            <apex:column headerValue="Priority" value="{!t.Priority }"/>
+            <apex:column headerValue="Assigned To" value="{!t.OwnerId}"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    </apex:outputPanel>
+</apex:form>    
+</apex:page>

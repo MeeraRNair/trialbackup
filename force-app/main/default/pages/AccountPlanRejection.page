@@ -1,0 +1,31 @@
+<apex:page standardController="SFDC_Acct_Plan__c" extensions="AccountPlanRejectionController" title="Reject Account Plan" lightningStylesheets="true">
+    <body>
+        <apex:form id="theform">
+            <!-- error block that will prevent (entire UI block) action to proceed -->
+            <apex:pageBlock id="errorBlock" title="Reject Account Plan" rendered="{!IF(canProceed, false, true)}">
+                <apex:pageMessages />
+                <br/>
+                <apex:commandButton value="Back" action="{!back}" immediate="true"/>
+            </apex:pageBlock>
+
+            <apex:pageBlock id="submitBlock" title="Reject Account Plan" rendered="{!IF(canProceed, true, false)}">
+                <apex:pageMessages />
+                <apex:PageBlockSection >
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Reason for Rejection" />
+                        <apex:outputPanel layout="block">
+                            <div class="requiredInput">
+                                <div class="requiredBlock"></div>
+                                <apex:inputTextArea value="{!accPlan.Reason_for_Rejection__c}" style="width:300px" rows="5"/>
+                            </div>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                </apex:PageBlockSection>
+                <apex:pageBlockButtons location="both">
+                    <apex:commandButton value="Back" action="{!back}" immediate="true"/>
+                    <apex:commandButton value="Reject" action="{!reject}"/>
+                </apex:pageBlockButtons>
+            </apex:pageBlock>
+        </apex:form>
+    </body>
+</apex:page>

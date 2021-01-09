@@ -1,0 +1,116 @@
+<!--<apex:page standardController="Attendees__c" showHeader="true"  extensions="CustomerController">-->
+<apex:page controller="CustomerController">
+
+  <style>
+        .fontstyle {
+            font-weight: bold;
+        }
+        .centre{
+            text-decoration:underline;
+            font-weight: bold;
+        }
+        .locationError{
+            font-weight: bold;
+            color:Red; 
+         }
+   </style>
+   
+    <apex:form id="formId"  >
+       <apex:pageMessages />
+       <apex:pageBlock title="Attendees Selection - Customer" id="pageBlkId1">
+           <apex:outputLabel value="Select Account: "   styleClass="fontstyle"/>
+           <apex:selectList value="{!accountName}" multiselect="false" size="1">
+                  <apex:selectOptions value="{!accountNames}"/>
+           </apex:selectList>
+           <apex:pageBlockButtons location="bottom">
+                  <apex:commandButton value="Next" action="{!Next}" reRender=""/>
+                  <apex:commandButton action="{!Cancel}" value="Cancel"/>
+           </apex:pageBlockButtons>
+           <apex:pageBlockSection rendered="{!errorfornoaccountteam}" id="errorfornoaccountteamsel">
+                  <apex:pageMessage id="errorfornoaccountteam" severity="Error"  strength="3"   title="Customer not available!" summary="There is no Customer corresponding to this account.">
+                  </apex:pageMessage>
+            </apex:pageBlockSection>
+       </apex:pageBlock>
+       <br/>    
+
+       <!--CR 6372 : Search function for Customer and Account Team Attendees : Start-->
+        <apex:pageBlock rendered="{!contactPresent}" title="Customer Attendee Search" id="pageBlkId4">
+            <apex:outputLabel value="Customer Attendee: "   styleClass="fontstyle"/>
+            <apex:inputText value="{!customerAttendee}"/>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton action="{!Search}" value="Search"/>
+            </apex:pageBlockButtons>
+           <apex:pageBlockSection rendered="{!searcherrorfornoaccountteam}" id="searcherrorfornoaccountteamsel">
+                  <apex:pageMessage id="searcherrorfornoaccountteam" severity="Error"  strength="3"   title="Customer not available!" summary="There is no Customer with this name to this Account.">
+                  </apex:pageMessage>
+            </apex:pageBlockSection>            
+        </apex:pageBlock>
+        <br/>       
+       <!--CR 6372 : Search function for Customer and Account Team Attendees : End-->
+       
+        <!--<apex:pageBlock rendered="{!contactPresent}" title="Customer Attendee Selection" id="pageBlkId2"> -->
+        <apex:pageBlock rendered="{!contactPresent && searchListSizeNotZero}" title="Customer Attendee Selection" id="pageBlkId2">
+                <!--<apex:pageBlockTable value="{!CustomerTeamMember}" var="team">-->
+                <apex:pageBlockTable value="{!contactWrappers}" var="team" id="thePageBlockTable" >
+                    
+                    <apex:column headerValue="Contact" value="{!team.con.Name}"/>
+                    <apex:column headerValue="Title" value="{!team.con.Title}"/>
+                    <apex:column width="25px" headerValue="Add to Attendees">
+                        <apex:inputCheckbox value="{!team.selected}"/>
+                    </apex:column>
+
+                    <apex:facet name="footer">
+                        <apex:outputPanel id="outputpan">
+                            <apex:outputText value="Page {!paginator.pageNumberDisplayFriendly} of {!paginator.pageCount} in {!paginator.recordCount} Results"/>
+                            <apex:outputPanel >    </apex:outputPanel>
+                            <apex:commandLink value="Previous" action="{!paginator.previous}" rendered="{!IF(paginator.hasPrevious,'true','false')}"/>
+                            &nbsp;
+                            <apex:outputText value="Previous" rendered="{!IF(NOT(paginator.hasPrevious),'true','false')}" />
+                            <apex:outputPanel > | &nbsp;</apex:outputPanel>
+                            <apex:commandLink value="Next" action="{!paginator.next}"
+                                rendered="{!IF(paginator.hasNext,'true','false')}" />
+                            <apex:outputText value="Next" rendered="{!IF(NOT(paginator.hasNext),'true','false')}"/>
+                        </apex:outputPanel>
+                    </apex:facet>
+                    
+                </apex:pageBlockTable>
+               <apex:pageBlockButtons location="bottom">
+                    <apex:commandButton action="{!addNewContact}" value="Add External Contact?"/>
+               </apex:pageBlockButtons>
+        </apex:pageBlock>
+       <apex:pageBlock rendered="{!externalContactPresent }" title="Add External Contact" id="pageBlkId3">
+           <apex:outputText value="Please enter the Contact name, Role, Email and Phone number of the external Customer" styleClass="locationError"/> 
+           <br/>
+           <br/>
+           <apex:pageBlockTable value="{!attendee}" var="team1" id="external">
+                    <apex:column headerValue="Contact">
+                        <apex:inputField value="{!team1.Attendee_Name__c}" required="true" id="name_Id"/>
+                        <apex:Message for="name_Id" styleClass="locationError"/>
+                    </apex:column>
+                    <apex:column headerValue="Title">
+                        <apex:inputField value="{!team1.Role__c}" required="true" id="Role_Id"/>
+                        <apex:Message for="Role_Id" styleClass="locationError"/>
+                    </apex:column>
+                    <apex:column headerValue="Email">
+                        <apex:inputField value="{!team1.Email__c}" required="true" Id="Email_Id"/>
+                        <apex:Message for="Email_Id" styleClass="locationError"/>
+                    </apex:column>
+                    <apex:column headerValue="Phone">
+                        <apex:inputField value="{!team1.Phone__c}" required="true" id="Phone_Id"/>
+                        <apex:Message for="Phone_Id" styleClass="locationError"/>
+                    </apex:column>
+           </apex:pageBlockTable> 
+           <apex:pageBlockButtons location="bottom">
+                    <apex:commandButton action="{!addNew}" reRender="external" value="Add Another External Contact?"/>
+           </apex:pageBlockButtons>
+           </apex:pageBlock>
+           <apex:pageBlock rendered="{!contactPresent && searchListSizeNotZero}" id="id3">
+           <!--<apex:pageBlock rendered="{!contactPresent}" id="id3">-->
+                   <apex:pageBlockButtons location="bottom">
+                        <apex:commandButton action="{!Save}" value="Save"/>
+                        <apex:commandButton action="{!Cancel}" value="Cancel"/>
+                   </apex:pageBlockButtons>
+           </apex:pageBlock>        
+    </apex:form>
+
+</apex:page>

@@ -1,0 +1,123 @@
+<apex:page extensions="SendAttendeesInviteCtrlExt" standardStylesheets="true" standardController="Customer_Engagement__c">
+   <!-- <html>
+        <body>-->
+            <apex:form >
+
+                <apex:pageBlock rendered="{!showInvite}">
+                    <apex:pageMessages showDetail="true"></apex:pageMessages>
+                    <apex:pageBlockSection collapsible="false" title="Send an invite"></apex:pageBlockSection><br/>
+                    Separate multiple emails with semicolon<br></br>
+                    <table align="center" width="100%"> 
+                        <tr>
+                            <td width="10%" align="right"><b> From </b>&nbsp;&nbsp;</td>
+                            <td width="90%">
+                                <apex:OutputText style="width:100px;bgColor:#FFFFFF;">{!AnalystEmail}</apex:OutputText>
+                            </td>
+                        </tr> 
+                        <tr>
+                            <td width="10%" align="right"><b> To </b>&nbsp;&nbsp;</td>
+                            <td width="90%">                
+                                <apex:inputTextarea rows="1" cols="100" value="{!email}"/>
+                            </td>
+                        </tr>                                                              
+                        <tr>
+                            <td width="10%" align="right"><b> CC </b>&nbsp;&nbsp;</td>
+                            <td width="90%">
+                                <apex:inputTextarea rows="1" cols="100" value="{!ccemail}"/>                               
+                            </td>
+                        </tr>                     
+                        <tr>
+                            <td width="10%" align="right"><b>Subject </b>&nbsp;&nbsp;</td>
+                            <td width="90%">
+                                <apex:inputTextarea rows="2" cols="100" value="{!SubjectEdit}"/>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td width="10%" align="right"><b>Analyst Comments</b>&nbsp;&nbsp;</td>
+                            <td width="90%">
+                                <apex:inputTextarea rows="8" cols="100" value="{!Comments}"/>
+                            </td>
+                        </tr>  
+                                                                                     
+                        <tr>
+                            <td width="10%" align="right"><b>Body</b>&nbsp;&nbsp;</td>
+                            
+                            <td width="90%" bgcolor="#CCCCCC">
+                                <div style="position:static;width:99%;height:300px;overflow:auto;overflow-x:hidden;border-style:solid;border-width: 1px 1px 1px 1px;border-color:#4682B4;">  
+                                    <font size="2.95" face="verdana">You or your Manager have been invited to participate in the upcoming {!customerEngagement.name} <br/> 
+                                    Briefing on {!DateOfEvent} in the {!Site}.<br/>
+                                    <br/>
+                                    If you are a calendar manager, please note that you will need to follow these steps: <br/> 
+                                    &nbsp;&nbsp;- Open the attached invite and accept to your calendar.<br/>
+                                    &nbsp;&nbsp;- Please then go into your calendar and forward to your manager’s calendar and accept.<br/>
+                                    <br/><br/>
+CUSTOMER ENGAGEMENT: {!customerEngagement.name}<br/><br/>
+
+EVENT DATE: {!DateOfEvent}<br/><br/>
+
+EVENT LOCATION: {!Site}<br/><br/>
+
+BRIEFING CENTER ANALYST: {!customerEngagement.Owner.name} <br/><br/>
+
+----------------------------------------------------------<br/>
+<b>ATTENDEES</b><br/>
+----------------------------------------------------------<br/><br/>
+{!IF(CustomerAttFlag==true,'Customer Attendees','')}<br/>
+{!IF(CustomerAttFlag==true,'-------------------','')}<br/>
+<apex:repeat value="{!custAttendeeMap}" var="cust">
+CUSTOMER COMPANY: {!cust}<br/>
+    <apex:repeat value="{!custAttendeeMap[cust]}" var="count">
+{!count.Attendee_Name__c}{!IF(count.Role__c!=null,', ','')}{!count.Role__c}<br/>
+    </apex:repeat>
+</apex:repeat>
+<apex:repeat value="{!AttendeeCustomerList}" var="cus">
+{!cus.Attendee_Name__c}{!IF(cus.Role__c!=null,', ','')}{!cus.Role__c}<br/>
+</apex:repeat><br/>
+{!IF(AccTeamAttFlag==true,'Account team Attendees','')}<br/>
+{!IF(AccTeamAttFlag==true,'------------------------','')}<br/>
+<apex:repeat value="{!accTeamAttendeeMap}" var="acnt">
+CUSTOMER COMPANY: {!acnt}<br/>
+    <apex:repeat value="{!accTeamAttendeeMap[acnt]}" var="acc">
+{!acc.Attendee_Name__c}{!IF(acc.Role__c!=null,', ','')}{!acc.Role__c} <br/>
+    </apex:repeat>
+</apex:repeat>
+<apex:repeat value="{!AttendeeAccTeamList}" var="accTeam">
+{!accTeam.Attendee_Name__c}{!IF(accTeam.Role__c!=null,', ','')}{!accTeam.Role__c}<br/>
+</apex:repeat>
+<br/>
+{!IF(DellIntAttFlag==true,'Dell Internal Attendees','')}<br/>
+{!IF(DellIntAttFlag==true,'------------------------','')}<br/>
+<apex:repeat value="{!AttendeeDellIntList}" var="DellInt">
+{!DellInt.Attendee_Name__c}{!IF(DellInt.Role__c!=null,', ','')}{!DellInt.Role__c}<br/>
+</apex:repeat>
+<br/>
+{!IF(VendorAttFlag==true,'Vendor/Partner Attendees','')}<br/>
+{!IF(VendorAttFlag==true,'-----------------------------','')}<br/>
+<apex:repeat value="{!AttendeeVendorList }" var="vend">
+{!vend.Attendee_Name__c}{!IF(vend.Role__c!=null,', ','')}{!vend.Role__c}<br></br>
+</apex:repeat><br/>
+                                    </font>
+                                </div> 
+                            </td>
+                        </tr>
+                    </table> 
+                    <!--<apex:pageMessage summary="'To' E-Mail ID is missing.Please Enter an E-Mail ID" severity="error" rendered="{!nullEmail}"></apex:pageMessage>-->
+                    <apex:pageBlockButtons >
+                        <apex:commandButton action="{!sendinvite}" value="Send Email"/>
+                        <apex:commandButton action="{!cancel}" value="Cancel"/>
+                    </apex:pageBlockButtons>
+
+                    <apex:pageMessage summary="'To' E-Mail ID is missing.Please Enter an E-Mail ID" severity="error" rendered="{!nullEmail}"></apex:pageMessage>
+                    <apex:pageMessage summary="Please Enter Valid 'To' E-Mail ID's" severity="error" rendered="{!invalidEmail}"></apex:pageMessage>
+                    <apex:pageMessage summary="Please Enter Valid 'CC' E-Mail ID's" severity="error" rendered="{!invalidCCEmail}"></apex:pageMessage>
+                                      
+                </apex:pageBlock>
+                <apex:pageblock rendered="{!showmessage}">
+                    <apex:pagemessages showdetail="false"></apex:pagemessages>        
+                    <apex:commandButton action="{!cancel}" value="Cancel"/>      
+                </apex:pageblock>
+            </apex:form>
+  <!--          </body>
+    </html>  -->
+</apex:page>

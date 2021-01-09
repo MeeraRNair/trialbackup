@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CMAP_Cant_Associate_RL_to_Channel_Camp</fullName>
+    <active>true</active>
+    <description>R14.2 CMAP Validation Rule to prevent user from creating a new Relationship Lead when RT is Channel Campaign.</description>
+    <errorConditionFormula>Campaign__r.RecordTypeId = &quot;012A00000012Xt5&quot;</errorConditionFormula>
+    <errorMessage>Cannot associate a Relationship Lead to a Channel Campaign.</errorMessage>
+</ValidationRule>

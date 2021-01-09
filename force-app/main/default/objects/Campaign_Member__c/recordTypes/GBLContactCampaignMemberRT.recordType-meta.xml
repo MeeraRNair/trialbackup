@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GBLContactCampaignMemberRT</fullName>
+    <active>true</active>
+    <description>Used when the campaign member is a Contact</description>
+    <label>GBL Contact Campaign Member RT</label>
+    <picklistValues>
+        <picklist>Campaign_Type__c</picklist>
+        <values>
+            <fullName>Advisory Councils</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Assessment %28HW%2FServices%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CXO Events</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dell Day</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Door Opener %28High Value%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Door Opener %28Value%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Multiple Vehicles</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Online Advertising</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Online Inbound</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Roadshow</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Touch</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Seed Unit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Seminar%2FConference</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Special Events</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standalone Telemarketing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trade Show</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Workshop</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eDM%2FEmail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eSeminar%2FWebcast%2FWebinar</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Decision_Making_Role__c</picklist>
+        <values>
+            <fullName>Business User</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Evaluator</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Buyer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Influencer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Legal Approver</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Operational Buyer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Power Sponsor %2F Decision Maker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchasing %2F Procurement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sponsor%2F Champion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technical Buyer</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Dell_Existing_Customer__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Dell_can_contact_me_in_the_future__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Detail_Status__c</picklist>
+        <values>
+            <fullName>High Priority %28Extremely hot leads%3B SLA %3D 48 hours%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Interested %28Contact attended or registered for event and self selected online properties%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Priority %28Contact requested follow up%3B SLA %3D 1 Week%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Target %28Contact attended event but did not self select online properties%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Visitor %28Contact registered for event %2F other online form but did not attend%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Employee__c</picklist>
+        <values>
+            <fullName>1 - 99</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>100 - 499</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1000 - 4999</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10000%2B</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>500 - 999</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5000 - 9999</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Purchase_Timeframe__c</picklist>
+        <values>
+            <fullName>1-6 months</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7-12 months</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Immediately</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Undecided</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>S__c</picklist>
+        <values>
+            <fullName>Accepted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Added to CTT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Agreed to Purchase</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Alternative Contact</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Attended</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bounced</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Clicked</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Completed Follow-Up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contacted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contacted%2FInvited</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dead End</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Declined</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Extended Warranty</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fully Certified</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Future Follow-up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Future Interest 3 months or longer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Future Interest within 3 months</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>General Comment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Identified</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Invited</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Decision Maker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Interested</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Offered</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opened</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opportunity created</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Profiled Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchasing Plans Identified</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Qualified</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Qualified Current Data</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quoted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quoted Extended Warranty</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quoted Hardware</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Registered</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Replaced Hardware</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requires Follow-Up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Responded</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Returned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Returned%2FBounced</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tags Sent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Viewed</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

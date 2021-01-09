@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EMC_Opportunity_Line_Item_Deleted__c</fullName>
+    <description>This picklist field is to capture either Dell Changed, EMC Changed or Has Error when an EMC Opportunity Line Item is deleted.</description>
+    <externalId>false</externalId>
+    <label>EMC Opportunity Line Item Deleted</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Completed</fullName>
+                <default>false</default>
+                <label>Completed</label>
+            </value>
+            <value>
+                <fullName>Has Error</fullName>
+                <default>false</default>
+                <label>Has Error</label>
+            </value>
+            <value>
+                <fullName>Waiting Sync</fullName>
+                <default>false</default>
+                <label>Waiting Sync</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

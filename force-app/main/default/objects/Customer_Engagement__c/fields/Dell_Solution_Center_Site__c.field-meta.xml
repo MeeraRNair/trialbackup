@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Dell_Solution_Center_Site__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <inlineHelpText>Solution Center names:
+Americas: Austin, Chicago, New York, Sao Paulo, Santa Clara, Washington D.C.
+APJ: Shanghai, Singapore, Sydney, Tokyo
+EMEA: Bracknell, Frankfurt, Limerick, Paris
+For more information please go to http://dsc.dell.com</inlineHelpText>
+    <label>Site</label>
+    <lookupFilter>
+        <active>true</active>
+        <booleanFilter>1 AND 2 AND 3</booleanFilter>
+        <filterItems>
+            <field>Event_Location__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Sites</value>
+        </filterItems>
+        <filterItems>
+            <field>Event_Location__c.Engagement_Type__c</field>
+            <operation>equals</operation>
+            <value>DSC</value>
+        </filterItems>
+        <filterItems>
+            <field>Event_Location__c.Active__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Event_Location__c</referenceTo>
+    <relationshipLabel>Customer Engagements (Dell Solution Center Site) – RETIRED</relationshipLabel>
+    <relationshipName>Customer_Engagements3</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

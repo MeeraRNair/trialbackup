@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer_Request_RTS_Date_Field_Required</fullName>
+    <active>true</active>
+    <description>Customer Requested Ready to Ship Date field  is required if &quot;Solution Type&quot; = Customization OR Pricing Only OR RFx Support OR Sell Through OR Other</description>
+    <errorConditionFormula>AND( 
+RecordType.DeveloperName=&apos;Request_OEM_Customized_Solution_Support&apos;, 
+ISBLANK(Customer_Request_Ready_to_Ship_Date__c), 
+OR( ISPICKVAL( OEM_Solution_Bundle__c , &apos;Customization&apos;), 
+ISPICKVAL( OEM_Solution_Bundle__c , &apos;Pricing Only&apos;), 
+ISPICKVAL( OEM_Solution_Bundle__c , &apos;RFx Support&apos;), 
+ISPICKVAL( OEM_Solution_Bundle__c , &apos;Sell Through&apos;), 
+ISPICKVAL( OEM_Solution_Bundle__c , &apos;Other&apos;)))</errorConditionFormula>
+    <errorDisplayField>Customer_Request_Ready_to_Ship_Date__c</errorDisplayField>
+    <errorMessage>You must enter a value</errorMessage>
+</ValidationRule>

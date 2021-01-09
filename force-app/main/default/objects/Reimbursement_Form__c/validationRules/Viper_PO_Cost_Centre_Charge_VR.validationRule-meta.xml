@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Viper_PO_Cost_Centre_Charge_VR</fullName>
+    <active>true</active>
+    <description>Purchase Order expenses: User must enter PO#.</description>
+    <errorConditionFormula>ISPICKVAL( Method_of_Purchase__c , &quot;Purchase Order&quot;) &amp;&amp;
+                                                 NOT(ISBLANK( Cost_Center_Charge_Detail__c ))</errorConditionFormula>
+    <errorMessage>The Cost Centre Charge Detail field must be blank for expense types: Purchasing Card, Purchase Order, or Corporate Card. Record not saved.</errorMessage>
+</ValidationRule>

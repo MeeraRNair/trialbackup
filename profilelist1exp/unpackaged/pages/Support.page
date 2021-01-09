@@ -1,0 +1,22 @@
+<!--        
+ * Revision Ref Number  Release No         Date            Modified By     Description
+ * -------- ----------  ----------         -----------     ------------    -----------
+ * 1.0      CR13994     DCS FY18 0302      14-02-2017      Jessie Tan      To update the new service now portal (submit TT request) and fix the broken image
+ * 2.0      CR13994     DCS FY18 0302      21-02-2017      Shahiruni       To update the new service now portal (submit TT request) and fix the broken image - latest image
+ * 3.0      CR16038     FY19-DCS-0802      26-06-2018      Syuhada         Update InfinIT name and link shown on the left side bar
+ *
+ -->
+
+<apex:page >
+   <div class="sidebarModuleBody" style="align : left; padding-left:0px" >For support,&nbsp;please submit a ticket via
+        <br/>
+        <br/>
+        <!-- 2.0 Start -->   
+        <!--<a href="https://dell.service-now.com/esp/" target="newdell2007"><img src="/servlet/servlet.FileDownload?file=015A0000005yjNc"/></a> -->
+        <!-- 2.0 End -->
+        <!-- 3.0 Start -->
+        <a href="https://dell.service-now.com/sp/"  target="newdell2007">
+        <img style = "height: 70px; width: 182px;" src="{!URLFOR($Resource.DellMyIT)}"></img></a><!-- 3.0 End -->
+        <!-- 3.0 End-->
+  </div>
+</apex:page>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>R_12_7_Closed_Objective_Details_Required</fullName>
+    <active>true</active>
+    <description>Validation rule to ensure “Closed Objective Details” is populated when “Dell Account ObjectiveClosed?” check box is selected.</description>
+    <errorConditionFormula>AND 
+( 
+Dell_Account_Objective_Achieved__c = TRUE, 
+ISBLANK(Closed_Objective_Details__c) 
+)</errorConditionFormula>
+    <errorDisplayField>Closed_Objective_Details__c</errorDisplayField>
+    <errorMessage>Please populate &quot;Closed Objective Details&quot; If &quot;Dell Account Objective Closed?&quot; is Checked.</errorMessage>
+</ValidationRule>

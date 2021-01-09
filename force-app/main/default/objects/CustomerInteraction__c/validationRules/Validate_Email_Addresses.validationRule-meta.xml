@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validate_Email_Addresses</fullName>
+    <active>false</active>
+    <description>Validation rule deactivated based on business request CR1028</description>
+    <errorConditionFormula>OR(
+AND(Not(Email_1__c=&apos;&apos;), NOT(CONTAINS(Email_1__c,&apos;@dell&apos;))),
+AND(Not(Email_2__c=&apos;&apos;), NOT(CONTAINS(Email_2__c,&apos;@dell&apos;))),
+AND(Not(Email_3__c=&apos;&apos;), NOT(CONTAINS(Email_3__c,&apos;@dell&apos;))),
+AND(Not(Email_4__c=&apos;&apos;), NOT(CONTAINS(Email_4__c,&apos;@dell&apos;))),
+AND(Not(Email_5__c=&apos;&apos;), NOT(CONTAINS(Email_5__c,&apos;@dell&apos;))),
+AND(Not(Email_6__c=&apos;&apos;), NOT(CONTAINS(Email_6__c,&apos;@dell&apos;))),
+AND(Not(Email_7__c=&apos;&apos;), NOT(CONTAINS(Email_7__c,&apos;@dell&apos;))),
+AND(Not(Email_8__c=&apos;&apos;), NOT(CONTAINS(Email_8__c,&apos;@dell&apos;))),
+AND(Not(Email_9__c=&apos;&apos;), NOT(CONTAINS(Email_9__c,&apos;@dell&apos;))),
+AND(Not(Email_10__c=&apos;&apos;), NOT(CONTAINS(Email_10__c,&apos;@dell&apos;)))
+)</errorConditionFormula>
+    <errorMessage>Invalid Email Address. Email address must be a Dell email address.</errorMessage>
+</ValidationRule>

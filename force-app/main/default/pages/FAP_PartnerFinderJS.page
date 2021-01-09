@@ -1,0 +1,508 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" contentType="text/javascript">
+
+/** 
+REVISION HISTORY
+================
+Version     Author      Date            Release#    CR#     Description
+-------     ------      ----            --------    ---     -----------
+1.0         Murphy      03-May-2012     13.7        7111    Migrate Google Maps API v2 to v3
+1.1         Sandhya     18-May-2012     13.7        7105    Change country component
+1.2         Sandhya     28-May-2012     13.7        7110    Contextual search on Location
+1.3         TK Chin     07-Dec-2012     14.2        7675    Contextual Search on Location by country
+1.4         Madhava     26-Nov-2015                 167349  Site Look and Feel: Map Functionality Update
+1.5         Niveda      25-May-2019                 17541   Search by City, Postal code and distance
+**/
+
+jQuery.noConflict();
+var countryIp = $F('thePage:theForm:ipCountry');
+//alert('START GOOGLE');
+if(countryIp != "{!JSENCODE(HTMLENCODE($Label.map_excluded_countries))}"){
+var infoWindow = new google.maps.InfoWindow();
+var overlays = [];
+}
+//alert('END GOOGLE');
+
+function addMarker(map, latLng) {
+    var marker = new google.maps.Marker({
+    position: latLng,
+    map: map
+    });
+    //Add Marker to Overlays collection
+    overlays.push(marker);
+}
+
+function clearOverlays() {
+    for (var n = 0, overlay; overlay = overlays[n]; n++) {
+        overlay.setMap(null);
+    }
+    //Clear overlays from collection
+    overlays = [];
+}
+//alert('PartnerLocationMapController Start');
+var PartnerLocationMapController = Class.create({
+    initialize: function(mapDivFieldID,locationJSONDataFieldID){
+        this.locationJSONDataFieldID = locationJSONDataFieldID; 
+        DivFieldID=mapDivFieldID;
+        this.map=null;
+        this.initializeMap();
+    },
+    initializeMap: function(){
+        if(countryIp != "{!JSENCODE(HTMLENCODE($Label.map_excluded_countries))}"){
+        if(this.map==null &amp;&amp; $('map_canvas')!=null ){
+            try{
+            //1.0 migrate to v3 
+            //this.map = new GMap2($('map_canvas'));
+                var myOptions = {
+                    zoom: 4,
+                    center: new google.maps.LatLng(0, 0),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+               map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+              
+                this.updateMap();
+            
+            }catch(err){
+            //alert(err);
+                alert('Failed to load Google Maps.  If you\'re using Internet Explorer, please ensure the permission \'Display mixed content\' is set to \'Enable\'.');
+            }
+        }
+        }
+    },
+    updateMap: function(){
+    
+        if(countryIp != "{!JSENCODE(HTMLENCODE($Label.map_excluded_countries))}"){
+        //1.0 migrate to v3 
+        //this.map.clearOverlays();
+        clearOverlays();
+        this.pointLookup = new Hash();
+        this.locationLookup = new Hash();
+        //alert('**'+ $F(this.locationJSONDataFieldID).evalJSON().locations);
+        var locations = $F(this.locationJSONDataFieldID).evalJSON().locations;
+           
+        //1.0 migrate to v3 
+        //var bounds = new GLatLngBounds();
+        var bounds = new google.maps.LatLngBounds();
+        var points = [];
+        var point;
+        var languagepath = $F('thePage:theForm:languagecode');
+         
+        var searchSerializePath = $F('thePage:theForm:searchSerialize');
+   
+
+        if(locations != null &amp;&amp; locations!='' &amp;&amp; !Object.isUndefined(locations) &amp;&amp; locations != 'undefined'){
+         
+            locations.each(function(location){
+                if(location.name!=null){
+                    
+                    //1.0 migrate to v3
+                    //v4.0 - Start: Modified below code to accomodate the new map functionality
+                    //point = new GLatLng(location.latitude, location.longitude);
+                    point = new google.maps.LatLng(location.latitude, location.longitude);
+                    point.id = location.id;
+                    point.recordNumber = location.recordNumber;
+                    point.name = location.name;
+                    point.city = location.city;
+                    point.street = location.street;
+                    point.state = location.state;
+                    point.country = location.country;
+                    point.postalCode = location.postalCode;
+                    point.partnerName = location.partnerName;
+                    points.push(point);
+                    //alert(point);
+                    bounds.extend(point);
+
+                    /*1.0 migrate to v3 
+                    var marker = new GMarker(point);
+                    marker.title=point.name;
+                    
+                    GEvent.addListener(marker,"click", function(point) {
+                        this.openInfoWindowHtml('<b>'+ point.recordNumber  + '-</b> '+ 
+                                                '<b> ' + point.name + '</b><br/>' + 
+                                                (Object.isUndefined(point.street) || (point.street==null) || point.street.blank() ?'': point.street + ', ') + 
+                                                (Object.isUndefined(point.city) || (point.city==null) || point.city.blank() ?'': point.city + ', ') + 
+                                                (Object.isUndefined(point.state) || (point.state==null) || point.state.blank() ?' ': point.state + '  ') + 
+                                                (Object.isUndefined(point.postalCode) || (point.postalCode==null) || point.postalCode.blank() ?'': point.postalCode ) + 
+                                                '<br/>' + 
+                                                point.country);
+                    */
+                    var marker = new google.maps.Marker();
+                    marker.setPosition(point);
+                    marker.setTitle(point.partnerName);
+                    
+                    google.maps.event.addListener(marker,'click', function(e) {
+                        
+                        //var infoWindow = new google.maps.InfoWindow();
+                        infoWindow.setContent('<b>' + '<a href="{!$Page.FAP_PartnerDetails}?l='+((Object.isUndefined(languagepath) || (languagepath==null) || languagepath=='undefined' || languagepath.blank() ?'': languagepath))+'&id='+e.latLng.id+'&'+((Object.isUndefined(searchSerializePath) || (searchSerializePath==null) || searchSerializePath=='undefined' ||searchSerializePath.blank() ?' ': searchSerializePath ))+'#Page:Top" target="_self" >'+e.latLng.recordNumber+'-'+e.latLng.partnerName +','+ e.latLng.name+'</a>' + '</b><br/>' + 
+                                                (Object.isUndefined(e.latLng.street) || (e.latLng.street==null) || e.latLng.street.blank() ?'': e.latLng.street + ', ') + 
+                                                (Object.isUndefined(e.latLng.city) || (e.latLng.city==null) || e.latLng.city.blank() ?'': e.latLng.city + ', ') + 
+                                                (Object.isUndefined(e.latLng.state) || (e.latLng.state==null) || e.latLng.state.blank() ?' ': e.latLng.state + '  ') + 
+                                                (Object.isUndefined(e.latLng.postalCode) || (e.latLng.postalCode==null) || e.latLng.postalCode.blank() ?'': e.latLng.postalCode ) + 
+                                                '<br/>' + e.latLng.country);
+        
+                        infoWindow.open(map,this);
+                        
+                        });
+                    this.pointLookup.set(point.id,marker);
+                    //1.0 migrate to v3 
+                    //this.map.addOverlay(marker);
+                    marker.setMap(map);
+                    this.locationLookup.set(location.id,location);
+                    
+                    //v4.0 - End: Modified below code to accomodate the new map functionality
+                }
+                
+            }.bind(this));
+            
+        }
+      
+        //Ver 1.2 Contextual search on Location
+        // var address = $('thePage:theForm:txtLocation');
+        var locationPath = $F('thePage:theForm:hiddenLocation');
+         
+        var address = $(locationPath);
+        var searchPointMarker = null;
+        if(address &amp;&amp; !address.value.blank()){
+          
+            //location specified so add point to represent search location
+            // Create our "tiny" marker icon
+            /*1.0 migrate to v3
+            var blueIcon = new GIcon(G_DEFAULT_ICON);
+            blueIcon.image = "{!$Resource.blue_dot_png}";
+            blueIcon.iconSize = new GSize(32,32);
+            blueIcon.iconSize = new google.maps.Size (32,32, 'px', 'px');
+            var searchPoint = new GLatLng(    $F('thePage:theForm:GeocodeLatitude'), 
+                              $F('thePage:theForm:GeocodeLongitude'));
+            searchPointMarker = new GMarker(searchPoint,{ icon:blueIcon });
+            */
+            var blueIcon = new google.maps.MarkerImage("{!$Resource.blue_dot_png}" , new google.maps.Size(32,32) );
+            var searchPoint = new google.maps.LatLng(    $F('thePage:theForm:GeocodeLatitude'), 
+                             $F('thePage:theForm:GeocodeLongitude'));
+
+            searchPointMarker = new google.maps.Marker();   
+            searchPointMarker.setIcon(blueIcon);
+            searchPointMarker.setPosition(searchPoint);
+            bounds.extend(searchPoint);
+            //1.0 migrate to v3 
+            //searchPointMarker.title=address.value;
+            searchPointMarker.setTitle(address.value);
+            /*1.0 migrate to v3 
+            GEvent.addListener(searchPointMarker,"click", function(point) {
+               this.openInfoWindowHtml('<b>' + address.value  + '</b>');});
+            this.map.addOverlay(searchPointMarker);
+            */
+            google.maps.event.addListener(searchPointMarker,'click', function(point) {
+                    //var infoWindow = new google.maps.InfoWindow();
+                    infoWindow.setContent('<b>' + address.value  + '</b>');
+                    infoWindow.open(map,this);
+                    });
+            searchPointMarker.setMap(map);
+        }
+        /*1.0 migrate to v3 
+        this.map.setCenter(bounds.getCenter());
+        var zoomLevel = this.map.getBoundsZoomLevel(bounds)-1;
+        if(zoomLevel > 12){
+            zoomLevel = 12;
+        }
+        this.map.setZoom(zoomLevel);
+        */
+        
+        map.fitBounds(bounds);
+        map.setCenter(bounds.getCenter());
+        var listener = google.maps.event.addListener(map, "idle", function() { 
+            if (map.getZoom() > 14) map.setZoom(14); 
+                google.maps.event.removeListener(listener); 
+        });
+
+        /*
+        map.setCenter(bounds.getCenter());
+        map.fitBounds(bounds);
+        if ( map.getZoom() > 16){
+           map.setZoom(16);
+        }
+        */
+        
+        //1.0 migrate to v3
+        //this.map.addControl(new GLargeMapControl());
+        }
+        
+    }, 
+    showLocation: function(id){
+     
+        if(countryIp != "{!JSENCODE(HTMLENCODE($Label.map_excluded_countries))}"){
+        var location = this.locationLookup.get(id);
+        /*1.0 migrate to v3
+        this.pointLookup.get(id).openInfoWindowHtml('<b>'+ location.recordNumber + '-</b> '+ '<b>' + location.name + '</b><br/>' 
+           + (Object.isUndefined(location.street)?'': location.street + ', ') + location.city + ', ' + location.state + '  ' + location.postalCode + '<br/>' + location.country);
+        */
+        //var infoWindow = new google.maps.InfoWindow();
+        infoWindow.setContent('<b>'+ location.recordNumber + '-</b> '+ '<b>' + location.name + '</b><br/>' 
+            + (Object.isUndefined(location.street)?'': location.street + ', ') + location.city + ', ' + location.state + '  ' + location.postalCode + '<br/>' + location.country);
+        infoWindow.open(map,location);
+        }
+    }
+});
+//alert('PartnerLocationMapController End');
+var controller;
+function updateMap(){
+
+    if(!Object.isUndefined(controller)){
+            controller.map=null;
+            controller.initializeMap();
+            controller.updateMap();
+    } 
+}
+
+
+function showLocation(locationId){
+    if(!Object.isUndefined(controller)){
+        controller.showLocation(locationId);
+    }   
+} 
+function address(){
+    var locationPath = $F('thePage:theForm:hiddenLocation');
+    var address = '';
+    if(locationPath != ''){
+        address = $F(locationPath);        
+    }
+   
+}
+
+function searchButtonClicked(){
+
+    triggerSearch();
+    //alert('searchButtonClicked_END');
+}
+
+function keypressed(event){
+    if(window.event){ // IE
+        keynum = event.keyCode;
+    }
+    else if(event.which){ // Netscape/Firefox/Opera
+        keynum = event.which;
+    }
+    if(keynum=='13'){
+        showBusyDialog('{!JSENCODE($Label.searching)}', '{!JSENCODE($Label.please_wait)}'); 
+        searchButtonClicked();
+    }
+}
+//Ver 1.5
+function calculateAddress(){
+   var geocoder = null;
+   geocoder = new google.maps.Geocoder();
+   var locationPath = $F('thePage:theForm:hiddenLocation');
+    var city = '';
+    if(locationPath != ''){
+        city = $F(locationPath);        
+    }
+    
+ if(city != null &amp;&amp; !city.blank()) {    
+   var countryPath =$F('thePage:theForm:hiddenCountry');
+  
+   if($(countryPath)){
+      var countryCodeParam = $F(countryPath);
+       
+      if(countryCodeParam &amp;&amp; !countryCodeParam.blank()){
+          geocoder.region = countryCodeParam;
+          city +=', ' + countryCodeParam;
+      }
+   }
+  
+    if (geocoder) { 
+         
+        geocoder.geocode({'address' : city},        
+            function(results, status) {            
+            if (status == google.maps.GeocoderStatus.OK) {
+                    $('thePage:theForm:GeocodeLatitude').value = results[0].geometry.location.lat();
+                    $('thePage:theForm:GeocodeLongitude').value = results[0].geometry.location.lng();                                   
+                    triggerSearch();
+            }
+            else{
+                    alert(city + " not found. Please select a valid city");
+                    $('thePage:theForm:GeocodeLatitude').value = 0.00;
+                    $('thePage:theForm:GeocodeLongitude').value = 0.00;                                       
+                    triggerSearch();
+                    hideBusyDialog();
+            }
+               
+            } );      
+      } 
+   }
+   else{        
+    alert("City/Postal code is empty, results are based on the country selected.");
+    triggerSearch();
+   }
+}
+
+function showAddress(address) {
+    alert('showAddress_START');   
+    var geocoder = null;
+   
+        geocoder = new google.maps.Geocoder();
+       
+            var countryPath =$F('thePage:theForm:hiddenCountry');
+            if($(countryPath)){
+            var countryCodeParam = $F(countryPath);
+            if(countryCodeParam &amp;&amp; !countryCodeParam.blank()){
+                //1.0 migrate to v3
+                //geocoder.setBaseCountryCode(countryCodeParam);
+                geocoder.region = countryCodeParam;
+                address+=', ' + countryCodeParam;
+            }
+        }
+ alert('geocoder.region'+ geocoder.region);
+   
+    if (geocoder) {
+        
+        geocoder.geocode({'address' : address},
+            function(results, status) {
+            alert('status'+ status);
+                if (status == google.maps.GeocoderStatus.OK) {
+                    $('thePage:theForm:GeocodeLatitude').value = results[0].geometry.location.lat();
+                    $('thePage:theForm:GeocodeLongitude').value = results[0].geometry.location.lng();
+                    alert('result'+ results[0].geometry.location.lat() );
+                    triggerSearch();
+                }
+                else{
+                    alert(address + " not found");
+                    hideBusyDialog();
+                }
+            } );
+    } else {
+        alert('geocoder null');
+    }
+ }
+   
+    
+
+
+function mouseOverFunc(button1){
+    button1.src = '{!$Resource.testingbutton}';
+}
+
+function showBusyDialog(title,body){
+    jQuery('#dialog').dialog('open');
+}
+
+function hideBusyDialog(){
+    jQuery('#dialog').dialog("close"); 
+}
+
+/* Ver 1.3 R14.2 CR7675 - to add country param for autocomplete */
+function autoCompleterCallBack(element, entry){
+//alert('autoCompleterCallBack_START');
+    var strHiddenCountry = document.getElementById('thePage:theForm:hiddenCountry').value;
+    if(strHiddenCountry.length > 0){
+        //alert('return with country param');
+        var ddlCountry = document.getElementById(document.getElementById('thePage:theForm:hiddenCountry').value);
+        var cCode = ddlCountry.value;
+        //alert(cCode);
+        return entry + '&amp;countryCode='+cCode;
+    }
+    //alert('return normal param'); 
+//alert('autoCompleterCallBack_END');
+    return entry;
+}
+//alert('document.readyState'+document.readyState);
+if(document.readyState != 'loading'){
+  //alert('PartnerFinderJS_IF_START');
+  controller = new PartnerLocationMapController('map_canvas','thePage:theForm:LocationData');
+        new Ajax.Autocompleter(
+        $F('thePage:theForm:hiddenCompany')+':filterRegion:txtSearchFor', 
+        $F('thePage:theForm:hiddenCompany')+':filterRegion:keywordChoices',
+        '{!$Page.FAP_PartnerSearchAutoComplete}' ,
+        {   minChars: 2,
+            frequency: 0.1,
+            tokens: ','
+        });
+        new Ajax.Autocompleter(
+        $F('thePage:theForm:hiddenLocation'), 
+        $F('thePage:theForm:hiddenAddress'), 
+        '{!$Page.FAP_PartnerSearchAutoComplete}',
+        {   callback: autoCompleterCallBack,
+            minChars: 2,
+            frequency: 0.1,
+            tokens: ','
+        });
+        jQuery('#dialog').dialog({
+        autoOpen: false,
+        bgiframe: true,
+        closeOnEscape: false,
+        dialogClass: 'dialog_style',
+        draggable: false,
+        height: 100,
+        minHeight: 100,
+        modal: true,
+        open: function(event, ui) { jQuery(".ui-dialog-titlebar-close").hide(); },
+        position: 'top',
+        resizable: false
+    });
+     //alert('PartnerFinderJS_IF_END');
+}
+else{
+document.observe('dom:loaded', function() {
+    //alert('PartnerFinderJS_ELSE_START');
+    controller = new PartnerLocationMapController('map_canvas','thePage:theForm:LocationData');
+/*Ver 1.1 - Company Name Contexual search */
+      /*new Ajax.Autocompleter(
+        'thePage:theForm:txtSearchFor', 
+        'thePage:theForm:keywordChoices',
+        '{!$Page.FAP_PartnerSearchAutoComplete}' ,
+        {   minChars: 2,
+            frequency: 0.1,
+            tokens: ','
+        });
+// 1.2 Contextual search on Location        
+        new Ajax.Autocompleter('thePage:theForm:txtLocation', 
+        'thePage:theForm:addressChoices', 
+        '{!$Page.FAP_PartnerSearchAutoComplete}' ,
+        {   minChars: 2,
+            frequency: 0.1,
+            tokens: ','
+        });
+   */
+   /* Ver 1.1 - Dynamic FAP Page */
+   new Ajax.Autocompleter(
+        $F('thePage:theForm:hiddenCompany')+':filterRegion:txtSearchFor', 
+        $F('thePage:theForm:hiddenCompany')+':filterRegion:keywordChoices',
+        '{!$Page.FAP_PartnerSearchAutoComplete}' ,
+        {   minChars: 2,
+            frequency: 0.1,
+            tokens: ','
+        });
+   
+          
+        
+    /* Ver 1.2 Contextual search on Location */
+    /* Ver 1.3 R14.2 CR7675 - Added callback to add country param for search on location */
+    new Ajax.Autocompleter(
+        $F('thePage:theForm:hiddenLocation'), 
+        $F('thePage:theForm:hiddenAddress'), 
+        '{!$Page.FAP_PartnerSearchAutoComplete}',
+        {   callback: autoCompleterCallBack,
+            minChars: 2,
+            frequency: 0.1,
+            tokens: ','
+        });
+    jQuery('#dialog').dialog({
+        autoOpen: false,
+        bgiframe: true,
+        closeOnEscape: false,
+        dialogClass: 'dialog_style',
+        draggable: false,
+        height: 100,
+        minHeight: 100,
+        modal: true,
+        open: function(event, ui) { jQuery(".ui-dialog-titlebar-close").hide(); },
+        position: 'top',
+        resizable: false
+    });
+}, false);
+//alert('PartnerFinderJS_ELSE_END');
+}
+
+function CSPSearch(){
+    triggerSearch();
+}
+
+
+</apex:page>

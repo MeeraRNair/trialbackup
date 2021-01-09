@@ -1,0 +1,112 @@
+<apex:page standardController="Contract" extensions="CMNonStdTermsController" title="NON STANDARD TERMS & CONDITIONS">
+  <style>
+        .customTableCol 
+              {
+                  vertical-align: middle;
+              }
+
+    </style>
+    <apex:form >
+        <apex:pageBlock rendered="{!showMultiPickofTandC}">            
+            <table align="Left">
+                <br/>
+                <tr>
+                   
+                   <td class="customTableCol" style="width:230px;"><b>Available</b></td>
+                   <td></td>
+                   <td class="customTableCol" style="width:230px;"><b>Selected</b></td>
+                </tr>
+                <tr>
+                    <td class="customTableCol" style="width:230px;">
+                        <!--<b>Available</b>
+                        <br/> -->
+                        <apex:selectList id="available" multiselect="True" value="{!termsToAdd}"  size="10"  style="width: 400px" >
+                            <apex:selectoptions value="{!availableTandC}"/>
+                        </apex:selectList>
+                    </td>
+                    <td style="vertical-align: middle">
+                        <apex:commandLink action="{!addCurSelectedTandC}" title="Add"><img src="/s.gif" alt="Add" class="picklistArrowRight" style="cursor: pointer; " title="Add"/></apex:commandLink>
+                        <br/>
+                        <br/>
+                        <apex:commandLink action="{!removeCurSelectedTandC}" title="Add"><img src="/s.gif" alt="Remove" class="picklistArrowLeft" style="cursor: pointer; " title="Remove"/></apex:commandLink>
+                    </td>
+                    <td class="customTableCol"  style="width:230px;">
+                       <!-- <b>Selected</b>
+                        <br/>  -->
+                        <apex:selectList id="selected" multiselect="True" value="{!termsToRemove}" size="10" style="width: 400px">
+                            <apex:selectoptions value="{!SelectedTandC}"/>
+                        </apex:selectList>
+                    </td>
+                </tr>                
+            </table> 
+        </apex:pageBlock>
+        <apex:pageBlock rendered="{!showMultiPickofTandC}">     
+            <apex:pageblockButtons location="bottom" >
+                    <apex:commandButton title="Confirm Terms"  action="{!confirmTerms}" value="Confirm Terms" style="Centre"/>                   
+            </apex:pageblockButtons>
+        </apex:pageBlock>
+        <apex:pageBlock title="NON STANDARD TERMS & CONDITIONS" rendered="{!showNonStdTandC}">
+        <apex:pageBlock rendered="{!showTandC}">
+            <apex:repeat value="{!TermsandConditionsClassList}" var="mainList">
+                <apex:sectionHeader title="{!mainList.nonSTdtermsObj.name}"/>
+                    <div align="justification">
+                        <apex:pageBlockSection columns="1" >
+                            <apex:pageblocksectionItem labelStyle="align:left">
+                                 <apex:outputLabel value="Section"/>
+                                 <apex:inputtext value="{!mainList.Section}" />
+                             </apex:pageblocksectionItem>
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Term Content"></apex:outputLabel>
+                                <apex:inputTextarea value="{!mainList.Content}" rows="2" style="width:1000px;"/>                                                            
+                            </apex:pageBlockSectionItem>                        
+                        </apex:pageBlockSection>
+                    </div>                    
+            </apex:repeat>                                                                      
+            <apex:pageblockButtons location="bottom">
+                    <apex:commandButton title="Save" value="Save" action="{!saveTerms}"  />
+                    <apex:commandButton value="Cancel" action="{!cancel}"  />
+            </apex:pageblockButtons>
+            </apex:pageBlock>
+        </apex:pageBlock>
+        <apex:pageblock rendered="{!messageClickEdit}">
+            <table width="600px" cellpadding="0" cellspacing="0" align="center" border="0">
+               <tr>
+                   <td>
+                       
+                           <div>
+                               <apex:pagemessage severity="info" strength="3" title="To Edit Non Standard Terms and Conditions" detail="No terms and conditions are selected for this contract.Please click on the 'new Contract Terms & Conditions' button to add new Terms and Conditions" />
+                               <table align="center">
+                                   <tr>
+                                       <td>
+                                           <apex:commandButton value="Back" action="{!Cancel}"/>
+                                       </td>
+                                   </tr>
+                               </table>
+                           </div>
+                       
+                   </td>
+               </tr>
+            </table>
+        </apex:pageblock>
+        <apex:pageblock rendered="{!messageClickNew}">
+            <table width="600px" cellpadding="0" cellspacing="0" align="center" border="0">
+               <tr>
+                   <td>
+                       
+                           <div>
+                               <apex:pagemessage severity="info" strength="3" title="To Add New Non Standard Terms and Conditions" detail="Non Standard Terms and conditions are already added for this contract.Please click on the 'Edit T & C' button to edit the added Terms and Conditions" />
+                               <table align="center">
+                                   <tr>
+                                       <td>
+                                           <apex:commandButton value="Back" action="{!Cancel}"/>
+                                       </td>
+                                   </tr>
+                               </table>
+                           </div>
+                       
+                   </td>
+               </tr>
+            </table>
+        </apex:pageblock>
+    </apex:form>       
+</apex:page>

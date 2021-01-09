@@ -1,0 +1,920 @@
+<!-- 
+REVISION HISTORY
+================
+Version     Author      Date            Release#        CR#     Description
+-------     ------      ----            --------        ---     -----------
+1.0         TK Chin                     13.10                   Maintenance: Simplification project. 
+1.1         TK Chin     17-Apr-2013     14.5            8202    Add Search.
+1.2         TK Chin     17-Apr-2013     14.5            8203    Add Next Steps.
+1.3         TK Chin     18-Jun-2013     14.5                    Post-release change requests
+1.4         Bikram      20-Jan-2014     15.03           8977    Search All Open Criteria added where Search Criteria can be saved and viewed
+2.0         Emily       21-Mar-2018     FY19-DCE-0502   15540   Field Trip clean up for Opportunity
+ -->
+<apex:page id="muop" controller="VFCntrlr_MassUpdateOpportunitiesPage"  tabStyle="Opportunities_VFTab__tab" cache="true" lightningStylesheets="true">
+
+    <apex:sectionHeader title="Opportunities" subtitle="Mass Update Open Opportunities"/>
+    <!--  <apex:Message severity="info" strength="2" rendered="{!Message}"/> -->
+    <apex:outputPanel >
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <apex:outputLabel style="font-weight:bold" rendered="{!SuccessMsg}">See the comments provided under the Success/Error column below:</apex:outputLabel>
+     <apex:messages style="font-weight:bold" />
+     </apex:outputPanel>
+     <br />{!StrStatusMsg}
+    <!-- <br />{!soql} -->  
+    <apex:form id="muoForm" acceptcharset="UTF-8">
+
+        <apex:actionFunction name="doNext" action="{!NextPage}"/>
+        <apex:actionFunction name="doSaveAndNext" action="{!SaveAndNextPage}"/>
+        <apex:actionFunction name="doCancelAndNext" action="{!CancelAndNextPage}"/>
+        <apex:actionFunction name="doPrevious" action="{!PreviousPage}"/>
+        <apex:actionFunction name="doSaveAndPrevious" action="{!SaveAndPreviousPage}"/>
+        <apex:actionFunction name="doCancelAndPrevious" action="{!CancelAndPreviousPage}"/>
+        <apex:actionFunction name="doFirst" action="{!FirstPage}"/>
+        <apex:actionFunction name="doSaveAndFirst" action="{!SaveAndFirstPage}"/>
+        <apex:actionFunction name="doCancelAndFirst" action="{!CancelAndFirstPage}"/>
+        <apex:actionFunction name="doLast" action="{!LastPage}"/>
+        <apex:actionFunction name="doSaveAndLast" action="{!SaveAndLastPage}"/>
+        <apex:actionFunction name="doCancelAndLast" action="{!CancelAndLastPage}"/>
+        <apex:actionFunction name="doGoToPage1" action="{!Page1}"/>
+        <apex:actionFunction name="doSaveAndGoToPage1" action="{!SaveAndPage1}"/>
+        <apex:actionFunction name="doCancelAndGoToPage1" action="{!CancelAndPage1}"/>
+        <apex:actionFunction name="doGoToPage2" action="{!Page2}"/>
+        <apex:actionFunction name="doSaveAndGoToPage2" action="{!SaveAndPage2}"/>
+        <apex:actionFunction name="doCancelAndGoToPage2" action="{!CancelAndPage2}"/>
+        <apex:actionFunction name="doGoToPage3" action="{!Page3}"/>
+        <apex:actionFunction name="doSaveAndGoToPage3" action="{!SaveAndPage3}"/>
+        <apex:actionFunction name="doCancelAndGoToPage3" action="{!CancelAndPage3}"/>
+        <apex:actionFunction name="doGoBack" action="{!GoBack}"/>
+        <apex:actionFunction name="doSaveAndGoBack" action="{!SaveAndGoBack}"/>
+        <apex:actionFunction name="doSave" action="{!SaveAndStay}"/>
+        <!-- Version 1.1 -->
+        <apex:actionFunction name="doSearch" action="{!SearchOpenOpportunities}" />
+        <!-- Version 1.3 -->
+        <!--apex:actionFunction name="doSearchOverdue" action="{!SearchOverdueOpportunities}"/-->
+        
+        <apex:actionFunction name="retainErroredRecords" action="{!retainErroredRecords}" rerender="muoTable" />
+        <apex:actionFunction name="clearfilter" action="{!clearSearch}"  />
+        <apex:actionFunction name="doSaveFilter" action="{!saveSearch}" reRender="muoPageBlockSectionSearch,popup" focus="inpSearchName" />        
+  
+
+        <script>
+            //disable enter click on text boxes
+            function noenter(ev)  {
+                if (window.event && window.event.keyCode == 13 || ev.which == 13) {                 
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        
+            function SetInitialValues() {
+                var strStages = '';
+                var strBookDates = '';
+                var strNewDescs = '';
+                //Version 1.2 - Add NextSteps
+                var strNextSteps = '';
+                
+                //Version 1.3 - Check if page contains records
+                var hasRecords = true;
+                if(document.getElementById('muop:muoForm:muoPageBlock:muoTable:0:inputStageName') == null) {
+                    hasRecords = false;
+                }
+                
+                //alert(hasRecords);
+                
+                if(hasRecords) {
+                    //get values from pageblockdatatable
+                    for(i=0; i<{!PageActualSize}; i++) {
+                        //muoPageBlockSection removed so that column width can be set.
+                        strStages = strStages + document.getElementById('muop:muoForm:muoPageBlock:muoTable:' + i + ':inputStageName').value + '|||';
+                        strBookDates = strBookDates + document.getElementById('muop:muoForm:muoPageBlock:muoTable:' + i + ':inputCloseDate').value + '|||';
+                        strNewDescs = strNewDescs + document.getElementById('muop:muoForm:muoPageBlock:muoTable:' + i + ':inputNewDescription').value + '|||';
+                        strNextSteps = strNextSteps + document.getElementById('muop:muoForm:muoPageBlock:muoTable:' + i + ':inputNextSteps').value + '|||';
+                    }
+    
+                    //set values to hidden inputs
+                    document.getElementById('initialStages').value = strStages;
+                    document.getElementById('initialBookDates').value = strBookDates;
+                    document.getElementById('initialNewDescs').value = strNewDescs;
+                    document.getElementById('initialNextSteps').value = strNextSteps;
+                    //alert(strStages);
+                    
+                    //Version 1.3 - added to have Search section collapsed by default on load.
+                    if ({!showSectionCollapsed})
+                        twistSection(document.getElementById('muop:muoForm:muoPageBlockSearch:muoPageBlockSectionSearch').childNodes[0].childNodes[0]);
+                }
+                if ({!SuccessMsg})
+                    retainErroredRecords();
+            }
+            window.onload = SetInitialValues;
+
+            function DetectChanges(actionFrom) {
+                
+                //Version 1.3 - Check if page contains records
+                var hasResults = true;
+                if(document.getElementById('muop:muoForm:muoPageBlock:muoTable:0:inputStageName') == null) {
+                    hasResults = false;
+                }
+                
+                if(hasResults) {
+                    for(i=0; i<{!PageActualSize}; i++) {
+                        
+                        //removed muoPageBlockSection so that column width can be set
+                        if(document.getElementById('muop:muoForm:muoPageBlock:muoTable:' + i + ':inputCloseDate').value == null ||
+                            document.getElementById('muop:muoForm:muoPageBlock:muoTable:' + i + ':inputCloseDate').value == '') {
+                            alert('Book Date cannot be blank. Please enter a value.');
+                            document.getElementById('muop:muoForm:muoPageBlock:muoTable:' + i + ':inputCloseDate').focus();
+                            return;
+                        }
+                        //return immediately if a book date is invalid (wrong format, non-existent dates)
+                        //if(isValidDate(document.getElementById('muop:muoForm:muoPageBlock:muoPageBlockSection:muoTable:' + i + ':inputCloseDate').value)) {
+                        //} else {
+                        //  alert('Book Date invalid. Please enter a valid date in DD/MM/YYYY format.');
+                        //  document.getElementById('muop:muoForm:muoPageBlock:muoPageBlockSection:muoTable:' + i + ':inputCloseDate').focus();
+                        //  return;
+                        //}
+                    }
+                }
+                
+                //get values stored initially
+                var strStagesBefore = document.getElementById('initialStages').value;
+                var arrStagesBefore = strStagesBefore.split('|||');
+                var strBookDatesBefore = document.getElementById('initialBookDates').value;
+                var arrBookDatesBefore = strBookDatesBefore.split('|||');
+                var strNewDescsBefore = document.getElementById('initialNewDescs').value;
+                var arrNewDescsBefore = strNewDescsBefore.split('|||');
+                var strNextStepsBefore = document.getElementById('initialNextSteps').value;
+                var arrNextStepsBefore = strNextStepsBefore.split('|||');
+
+                //look for changed row and store row id to hiddenChanged
+                document.getElementById('muop:muoForm:hiddenChanged').value = '';
+                if(hasResults) {
+                    for(i=0; i<{!PageActualSize}; i++) {
+                    
+                        //if(arrStagesBefore[i] != document.getElementById('muop:muoForm:muoPageBlock:muoPageBlockSection:muoTable:' + i + ':inputStageName').value ||
+                        //    arrBookDatesBefore[i] != document.getElementById('muop:muoForm:muoPageBlock:muoPageBlockSection:muoTable:' + i + ':inputCloseDate').value ||
+                        //    arrNewDescsBefore[i] != document.getElementById('muop:muoForm:muoPageBlock:muoPageBlockSection:muoTable:' + i + ':inputNewDescription').value ||
+                        //    arrNextStepsBefore[i] != document.getElementById('muop:muoForm:muoPageBlock:muoPageBlockSection:muoTable:' + i + ':inputNextSteps').value) {
+                        //removed muoPageBlockSection so that column width can be set
+                        if(arrStagesBefore[i] != document.getElementById('muop:muoForm:muoPageBlock:muoTable:' + i + ':inputStageName').value ||
+                            arrBookDatesBefore[i] != document.getElementById('muop:muoForm:muoPageBlock:muoTable:' + i + ':inputCloseDate').value ||
+                            arrNewDescsBefore[i] != document.getElementById('muop:muoForm:muoPageBlock:muoTable:' + i + ':inputNewDescription').value ||
+                            arrNextStepsBefore[i] != document.getElementById('muop:muoForm:muoPageBlock:muoTable:' + i + ':inputNextSteps').value) {
+                            if (document.getElementById('muop:muoForm:hiddenChanged').value == '')
+                                document.getElementById('muop:muoForm:hiddenChanged').value = i;
+                            else
+                                document.getElementById('muop:muoForm:hiddenChanged').value = document.getElementById('muop:muoForm:hiddenChanged').value + '|||' + i;
+                        }
+                    }
+                }
+                //alert(hasResults);
+                //prompt user if changes detected
+                var strChanged = document.getElementById('muop:muoForm:hiddenChanged').value;
+                if (strChanged.length > 0) {
+                    clearInvalidSearchCriteria();
+                    
+                    //var arrChanged = strChanged.split('|||');
+                    //alert('arr length ' + arrChanged.length);
+                    //for (i=0; i<arrChanged.length; i++) {
+                    //    alert('changed ' + arrChanged[i]);
+                    //}
+
+                    if (actionFrom == 'btnMassUpdate') {
+                        doSave();
+                        //alert(document.getElementById('muop:muoForm:hiddenChanged').value);
+                    }
+                    else {
+                        if (confirm('Do you want to Save and Mass Update the Opportunities that are changed on this page?\n\nClick \'OK\' to Save and Mass Update\nClick \'Cancel\' to remove all changes')) {
+                            //do save
+                            //alert('strChanged ' + strChanged);
+                            if (actionFrom == 'next') doSaveAndNext();
+                            if (actionFrom == 'previous') doSaveAndPrevious();
+                            if (actionFrom == 'first') doSaveAndFirst();
+                            if (actionFrom == 'last') doSaveAndLast();
+                            if (actionFrom == 'goToPage1') doSaveAndGoToPage1();
+                            if (actionFrom == 'goToPage2') doSaveAndGoToPage2();
+                            if (actionFrom == 'goToPage3') doSaveAndGoToPage3();
+                            if (actionFrom == 'btnCancel') doSaveAndGoBack();
+                        }
+                        else {
+                            //do redirect
+                            if (actionFrom == 'next') doCancelAndNext();
+                            if (actionFrom == 'previous') doCancelAndPrevious();
+                            if (actionFrom == 'first') doCancelAndFirst();
+                            if (actionFrom == 'last') doCancelAndLast();
+                            if (actionFrom == 'goToPage1') doCancelAndGoToPage1();
+                            if (actionFrom == 'goToPage2') doCancelAndGoToPage2();
+                            if (actionFrom == 'goToPage3') doCancelAndGoToPage3();
+                            if (actionFrom == 'btnCancel') doGoBack();
+                        }
+                    }
+                }
+                else {
+                    //do redirect
+                    if (actionFrom == 'next') doNext();
+                    if (actionFrom == 'previous') doPrevious();
+                    if (actionFrom == 'first') doFirst();
+                    if (actionFrom == 'last') doLast();
+                    if (actionFrom == 'goToPage1') doGoToPage1();
+                    if (actionFrom == 'goToPage2') doGoToPage2();
+                    if (actionFrom == 'goToPage3') doGoToPage3();
+                    if (actionFrom == 'btnCancel') doGoBack();
+                }
+            }
+            
+            // Checks a string to see if it in a valid date format
+            // of (D)D/(M)M/(YY)YY and returns true/false
+            // http://www.qodo.co.uk/blog/javascript-checking-if-a-date-is-valid/
+            function isValidDate(s) {
+                // format D(D)/M(M)/(YY)YY
+                var dateFormat = /^\d{1,4}[\.|\/|-]\d{1,2}[\.|\/|-]\d{1,4}$/;
+                if (dateFormat.test(s)) {
+                    // remove any leading zeros from date values
+                    s = s.replace(/0*(\d*)/gi,"$1");
+                    var dateArray = s.split(/[\.|\/|-]/);
+                    // correct month value
+                    dateArray[1] = dateArray[1]-1;
+                    // correct year value
+                    if (dateArray[2].length<4) {
+                        // correct year value
+                        dateArray[2] = (parseInt(dateArray[2]) < 50) ? 2000 + parseInt(dateArray[2]) : 1900 + parseInt(dateArray[2]);
+                    }
+                    var testDate = new Date(dateArray[2], dateArray[1], dateArray[0]);
+                    if (testDate.getDate()!=dateArray[0] || testDate.getMonth()!=dateArray[1] || testDate.getFullYear()!=dateArray[2]) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                } else {
+                    return false;
+                }
+            }
+            
+            // Version 1.1
+            function ValidateSearchCriteria() {
+               var strFBDStart = document.getElementById('muop:muoForm:muoPageBlockSearch:muoPageBlockSectionSearch:muoSearchPageBlockSectionItemStartingFiscalBookDate:muoSearchStartingFiscalBookDate').value;
+               var strFBDEnd = document.getElementById('muop:muoForm:muoPageBlockSearch:muoPageBlockSectionSearch:muoSearchPageBlockSectionItemEndingFiscalBookDate:muoSearchEndingFiscalBookDate').value;
+              
+               //to validate that ending fiscal book date is not empty when starting fiscal book date is not
+               if(strFBDStart!=null) strFBDStart = strFBDStart.replace(' ', '');
+               if(strFBDEnd!=null) strFBDEnd = strFBDEnd.replace(' ', '');
+               
+               if(strFBDStart!=null && strFBDStart.length>0) {
+                  if(strFBDEnd==null || strFBDEnd.length==0) {
+                     alert('Both Starting and Ending Fiscal Book Dates must be entered to complete Fiscal Book Date filter.');
+                     return false;
+                  }
+               }
+               if(strFBDEnd!=null && strFBDEnd.length>0) {
+                  if(strFBDStart==null || strFBDStart.length==0) {
+                     alert('Both Starting and Ending Fiscal Book Dates must be entered to complete Fiscal Book Date filter.');
+                     return false;
+                  }
+               }
+               
+               //these conditions must be met for the controller to parse the start date value.
+               if(strFBDStart!=null && strFBDStart.length>0) {
+                  strFBDStart = strFBDStart.toUpperCase();
+                  if(strFBDStart.substring(0,2)!='FY' || strFBDStart.match('Q')==null || strFBDStart.match('W')==null) {
+                     alert('Please enter Starting Fiscal Book Date correctly. For example: FY15 Q2W01');
+                     return false;
+                  }
+                  
+                  //further validate the start date numbers 
+                  strFBDStart = strFBDStart.replace('FY', '|');
+                  strFBDStart = strFBDStart.replace('Q', '|');
+                  strFBDStart = strFBDStart.replace('W', '|');
+                  var arrFBDStart = strFBDStart.split('|');
+                  var strSYear = arrFBDStart[1];
+                  var strSQtr = arrFBDStart[2];
+                  arrFBDStart[1] = parseInt(arrFBDStart[1], 10);
+                  arrFBDStart[2] = parseInt(arrFBDStart[2], 10);
+                  arrFBDStart[3] = parseInt(arrFBDStart[3], 10);
+                  
+                  //check if they are numbers
+                  if(arrFBDStart.length!=4 || isNaN(arrFBDStart[1]) || isNaN(arrFBDStart[2]) || isNaN(arrFBDStart[3])
+                    || strSQtr.slice(0,1)=='0' || strSYear.length!=2) {
+                     alert('Please enter Starting Fiscal Book Date correctly. For example: FY15 Q2W01');
+                     return false;
+                  }
+                  //check if quarter is 1 to 4
+                  if(arrFBDStart[2]<1 || arrFBDStart[2]>4) {
+                    alert('Please enter 1 to 4 for fiscal quarter.');
+                    return false;
+                  }
+                  //check if week is 1 to 14
+                  if(arrFBDStart[3]<1 || arrFBDStart[3]>14) {
+                    alert('Please enter 1 to 14 for starting fiscal week.');
+                    return false;
+                  }
+               }
+               
+               //these conditions must be met for the controller to parse the end date value.
+               if(strFBDEnd!=null && strFBDEnd.length>0) {
+                  strFBDEnd = strFBDEnd.toUpperCase();
+                  if(strFBDEnd.substring(0,2)!='FY' || strFBDEnd.match('Q')==null || strFBDEnd.match('W')==null) {
+                     alert('Please enter Ending Fiscal Book Date correctly. For example: FY15 Q2W13');
+                     return false;
+                  }
+                  
+                  //further validate the end date numbers              
+                  strFBDEnd = strFBDEnd.replace('FY', '|');
+                  strFBDEnd = strFBDEnd.replace('Q', '|');
+                  strFBDEnd = strFBDEnd.replace('W', '|');
+                  var arrFBDEnd = strFBDEnd.split('|');
+                  var strEYear = arrFBDEnd[1];
+                  var strEQtr = arrFBDEnd[2];
+                  arrFBDEnd[1] = parseInt(arrFBDEnd[1], 10);
+                  arrFBDEnd[2] = parseInt(arrFBDEnd[2], 10);
+                  arrFBDEnd[3] = parseInt(arrFBDEnd[3], 10);
+                  
+                  //check if they are numbers
+                  if(arrFBDEnd.length!=4 || isNaN(arrFBDEnd[1]) || isNaN(arrFBDEnd[2]) || isNaN(arrFBDEnd[3])
+                    || strEQtr.slice(0,1)=='0' || strEYear.length!=2) {
+                     alert('Please enter Ending Fiscal Book Date correctly. For example:  FY15 Q2W13');
+                     return false;
+                  }
+                  //check if quarter is 1 to 4
+                  if(arrFBDEnd[2]<1 || arrFBDEnd[2]>4) {
+                    alert('Please enter 1 to 4 for fiscal quarter.');
+                    return false;
+                  }
+                  //check if week is 1 to 14
+                  if(arrFBDEnd[3]<1 || arrFBDEnd[3]>14) {
+                    alert('Please enter 1 to 14 for ending fiscal week.');
+                    return false;
+                  }
+               }
+               
+               //Validate End date is always later than Start date when both values are present
+               if(strFBDStart!=null && strFBDStart.length>0 && strFBDEnd!=null && strFBDEnd.length>0) {
+                  
+                  if((arrFBDStart[1]>arrFBDEnd[1]) ||
+                     (arrFBDStart[1]>=arrFBDEnd[1] && arrFBDStart[2]>arrFBDEnd[2]) ||
+                     (arrFBDStart[1]>=arrFBDEnd[1] && arrFBDStart[2]>=arrFBDEnd[2] && arrFBDStart[3]>arrFBDEnd[3])) {
+                     alert('Ending Fiscal Book Date should be always greater than or equal to Starting Fiscal Book Date');
+                     return false;
+                  }
+               }
+               
+               //alert('Passed');
+               return true; 
+               //validation passed
+            }
+            function Validate_Search(){
+               /* var strBDate = document.getElementById('muop:muoForm:muoPageBlockSearch:muoPageBlockSectionSearch:muoSearchPageBlockSectionItemBookdate:muoSearchBookDate').value;
+                if (strBDate != ''){                    
+                    var sDate=Date.parse(strBDate);
+                    
+                    if (isNaN(sDate)==true){
+                        alert('Please enter a valid Book Date');
+                        return false;
+                    }
+               }*/
+               if(ValidateSearchCriteria()) {                 
+                  return true;
+               }
+               else{
+                    return false;
+                }
+            }
+            function Search() {
+                 doSearch();
+            }
+            
+            /*function SearchOverdue() {
+                //if(ValidateSearchCriteria()) {
+                    doSearchOverdue();
+                //}
+            }
+            */
+            function clearFilterCriteria(){
+                document.getElementById('muop:muoForm:muoPageBlockSearch:muoPageBlockSectionSearch:muoSearchPageBlockSectionItemBookdate:muoSearchBookDate').value='';
+                document.getElementById('muop:muoForm:muoPageBlockSearch:muoPageBlockSectionSearch:muoSearchPageBlockSectionServicesSalesOwner:muoSearchServicesSalesOwner').value='';
+                document.getElementById('muop:muoForm:muoPageBlockSearch:muoPageBlockSectionSearch:muoSearchPageBlockSectionOpportunityOwner:muoSearchOpportunityOwner').value='';
+                
+                clearfilter();
+            }
+            
+            function clearInvalidSearchCriteria(){
+                /*var strBDate = document.getElementById('muop:muoForm:muoPageBlockSearch:muoPageBlockSectionSearch:muoSearchPageBlockSectionItemBookdate:muoSearchBookDate').value;
+                if (strBDate != ''){
+                    var sDate=Date.parse(strBDate);
+                    if (isNaN(sDate)==true){
+                        document.getElementById('muop:muoForm:muoPageBlockSearch:muoPageBlockSectionSearch:muoSearchPageBlockSectionItemBookdate:muoSearchBookDate').value='';
+                    }
+                }
+                */
+                var resetFBStart = false;
+                var resetFBEnd = false;
+                
+                
+                var strFBDStart = document.getElementById('muop:muoForm:muoPageBlockSearch:muoPageBlockSectionSearch:muoSearchPageBlockSectionItemStartingFiscalBookDate:muoSearchStartingFiscalBookDate').value;
+               var strFBDEnd = document.getElementById('muop:muoForm:muoPageBlockSearch:muoPageBlockSectionSearch:muoSearchPageBlockSectionItemEndingFiscalBookDate:muoSearchEndingFiscalBookDate').value;
+              
+               //to validate that ending fiscal book date is not empty when starting fiscal book date is not
+               if(strFBDStart!=null) strFBDStart = strFBDStart.replace(' ', '');
+               if(strFBDEnd!=null) strFBDEnd = strFBDEnd.replace(' ', '');
+               
+               
+               if(strFBDEnd==null || strFBDEnd.length==0) {
+                  resetFBEnd = true;                     
+               }
+               
+                if(strFBDStart==null || strFBDStart.length==0) {
+                    resetFBStart = true;
+                }
+               
+               //these conditions must be met for the controller to parse the start date value.
+               if(strFBDStart!=null && strFBDStart.length>0) {
+                  strFBDStart = strFBDStart.toUpperCase();
+                  if(strFBDStart.substring(0,2)!='FY' || strFBDStart.match('Q')==null || strFBDStart.match('W')==null) {
+                     resetFBStart= true;
+                  }
+                  
+                  //further validate the start date numbers 
+                  strFBDStart = strFBDStart.replace('FY', '|');
+                  strFBDStart = strFBDStart.replace('Q', '|');
+                  strFBDStart = strFBDStart.replace('W', '|');
+                  var arrFBDStart = strFBDStart.split('|');
+                  var strSYear = arrFBDStart[1];
+                  var strSQtr = arrFBDStart[2];
+                  arrFBDStart[1] = parseInt(arrFBDStart[1], 10);
+                  arrFBDStart[2] = parseInt(arrFBDStart[2], 10);
+                  arrFBDStart[3] = parseInt(arrFBDStart[3], 10);
+                  
+                  //check if they are numbers
+                  if(arrFBDStart.length!=4 || isNaN(arrFBDStart[1]) || isNaN(arrFBDStart[2]) || isNaN(arrFBDStart[3])
+                    || strSQtr.slice(0,1)=='0' || strSYear.length!=2) {
+                     resetFBStart = true;  
+                  }
+                  //check if quarter is 1 to 4
+                  if(arrFBDStart[2]<1 || arrFBDStart[2]>4) {
+                    resetFBStart = true;  
+                  }
+                  //check if week is 1 to 14
+                  if(arrFBDStart[3]<1 || arrFBDStart[3]>14) {
+                    resetFBStart = true;  
+                  }
+               }
+               
+               //these conditions must be met for the controller to parse the end date value.
+               if(strFBDEnd!=null && strFBDEnd.length>0) {
+                  strFBDEnd = strFBDEnd.toUpperCase();
+                  if(strFBDEnd.substring(0,2)!='FY' || strFBDEnd.match('Q')==null || strFBDEnd.match('W')==null) {
+                     resetFBEnd = true;  
+                  }
+                  
+                  //further validate the end date numbers              
+                  strFBDEnd = strFBDEnd.replace('FY', '|');
+                  strFBDEnd = strFBDEnd.replace('Q', '|');
+                  strFBDEnd = strFBDEnd.replace('W', '|');
+                  var arrFBDEnd = strFBDEnd.split('|');
+                  var strEYear = arrFBDEnd[1];
+                  var strEQtr = arrFBDEnd[2];
+                  arrFBDEnd[1] = parseInt(arrFBDEnd[1], 10);
+                  arrFBDEnd[2] = parseInt(arrFBDEnd[2], 10);
+                  arrFBDEnd[3] = parseInt(arrFBDEnd[3], 10);
+                  
+                  //check if they are numbers
+                  if(arrFBDEnd.length!=4 || isNaN(arrFBDEnd[1]) || isNaN(arrFBDEnd[2]) || isNaN(arrFBDEnd[3])
+                    || strEQtr.slice(0,1)=='0' || strEYear.length!=2) {
+                     resetFBEnd = true; 
+                  }
+                  //check if quarter is 1 to 4
+                  if(arrFBDEnd[2]<1 || arrFBDEnd[2]>4) {
+                    resetFBEnd = true; 
+                  }
+                  //check if week is 1 to 14
+                  if(arrFBDEnd[3]<1 || arrFBDEnd[3]>14) {
+                    resetFBEnd = true; 
+                  }
+               }
+               
+               //Validate End date is always later than Start date when both values are present
+               if(strFBDStart!=null && strFBDStart.length>0 && strFBDEnd!=null && strFBDEnd.length>0) {
+                  
+                  if((arrFBDStart[1]>arrFBDEnd[1]) ||
+                     (arrFBDStart[1]>=arrFBDEnd[1] && arrFBDStart[2]>arrFBDEnd[2]) ||
+                     (arrFBDStart[1]>=arrFBDEnd[1] && arrFBDStart[2]>=arrFBDEnd[2] && arrFBDStart[3]>arrFBDEnd[3])) {
+                     resetFBEnd = true; 
+                  }
+               }
+                
+                if (resetFBEnd){
+                    document.getElementById('muop:muoForm:muoPageBlockSearch:muoPageBlockSectionSearch:muoSearchPageBlockSectionItemEndingFiscalBookDate:muoSearchEndingFiscalBookDate').value='';
+                }
+            
+                if (resetFBStart){
+                     document.getElementById('muop:muoForm:muoPageBlockSearch:muoPageBlockSectionSearch:muoSearchPageBlockSectionItemStartingFiscalBookDate:muoSearchStartingFiscalBookDate').value= '';
+                }
+                
+            }
+            
+            function ValidateSearchCriteria_Save(){
+                if(ValidateSearchCriteria()) {
+                  doSaveFilter();
+                  return true;                  
+               }
+               else
+                return false;
+            }                 
+        </script>
+        <input type="hidden" id="initialStages" name="initialStages" />
+        <input type="hidden" id="initialBookDates" name="initialBookDates" />
+        <input type="hidden" id="initialNewDescs" name="initialNewDescs" />
+        <input type="hidden" id="initialNextSteps" name="initialNextSteps" />
+        <input type="hidden" id="testChanged" name="testChanged" />
+        <apex:inputHidden id="hiddenChanged" value="{!strRecordsToSave}"/>
+
+        <apex:outputLabel style="color:red;" value="NOTE: Mass update is NOT Available for LOT/Ocean Deals or Run Rate Deals (Qualifying deals are not displayed)"></apex:outputLabel>
+        <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <apex:outputLabel style="color:red;" value="You CANNOT close a Deal via mass update"></apex:outputLabel>
+        <br /><br />
+
+        <apex:commandButton oncomplete="DetectChanges('btnMassUpdate')" value="Save and Mass Update" rendered="{!NOT(NoRecordFlag)}"/>
+        <apex:commandButton oncomplete="DetectChanges('btnCancel')" value="Cancel" immediate="true"/>
+        <!--apex:commandButton oncomplete="SearchOverdue()" value="View Only Past Due Opportunities"/-->
+        <apex:commandButton action="{!SearchOverdueOpportunities}" value="View Only Past Due Opportunities" immediate="true"/>
+        
+        <apex:commandButton action="{!goAllOpenOpportunities}" value="View All Open Opportunities" immediate="true"/>
+        <br /><br />
+
+        <!-- Version 1.1 muoPageBlockSearch -->
+        <apex:pageBlock id="muoPageBlockSearch">         
+            <apex:pageBlockSection id="muoPageBlockSectionSearch" title="Filter All Open Opportunities" collapsible="true" >
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel style="font-size:95%" value="Use Semicolon(;) as separator to filter multiple Affinity Account IDs, Account or Opportunity Names"></apex:outputLabel> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!showCancelBtnAndFilterName}" >
+                    <apex:outputLabel >Common Filter Name</apex:outputLabel>
+                    <apex:outputText value="{!searchName}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!showCancelBtnAndFilterName}" > 
+                <apex:outputLabel />                 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pageblocksectionitemaffinityid" >
+                    <apex:outputLabel value="Affinity Account ID" 
+                        for="muoSearchAccountID" />
+                    <apex:outputPanel id="AffinityIDError">    
+                      <apex:inputText id="muoSearchAccountID"
+                        value="{!SearchAccountID}" onkeypress="return noenter(event);"/>
+                         <apex:outputPanel rendered="{!LEN(errorList)!= 0}" >
+                           <div class="errorMsg"><strong>Error:</strong>&nbsp; invalid entry - please enter 9 or 10 digits</div>
+                         </apex:outputPanel>
+                 <!--        <apex:outputPanel rendered="{!LEN(accountIdError) > 0 }" >
+                           <div class="errorMsg"><strong>Error:</strong>&nbsp; Invalid Entry for {!accountIdError}- affinity id not found– please enter again</div>
+                         </apex:outputPanel>
+                         -->
+                    </apex:outputPanel>    
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Solution Type" 
+                        for="muoSearchSolutionType" />
+                   <apex:inputField id="muoSearchSolutionType"
+                        value="{!SearchOpp.Solution_Type__c}" onkeypress="return noenter(event);" />
+                </apex:pageBlockSectionItem>
+               
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Account Name" 
+                        for="muoSearchAccountName" />
+                    <apex:inputText id="muoSearchAccountName"
+                        value="{!SearchAccountName}" onkeypress="return noenter(event);"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Solution Name" 
+                      for="muoSearchSolutionName" />
+                   <apex:inputField id="muoSearchSolutionName"
+                      value="{!SearchOpp.Solution_Name__c}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Opportunity Name" 
+                        for="muoSearchOpportunityName" />
+                    <apex:inputText id="muoSearchOpportunityName"
+                        value="{!SearchOpportunityName}" onkeypress="return noenter(event);"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="muoSearchPageBlockSectionOpportunityOwner">
+                   <apex:outputLabel value="Opportunity Owner" 
+                      for="muoSearchOpportunityOwner" />
+                   <!-- a non-mandatory field used in place of Owner -->
+                   <apex:inputField id="muoSearchOpportunityOwner"
+                      value="{!SearchOpp2.Services_Sales_Owner__c}" onkeypress="return noenter(event);"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="muoSearchPageBlockSectionItemBookdate">
+                    <apex:outputLabel value="Book Date"
+                        for="muoSearchBookDate" />
+                    <!-- a non-mandatory field used in place of CloseDate -->
+                    <apex:inputField id="muoSearchBookDate"
+                        value="{!SearchOpp.Decision_Date__c}" onkeypress="return noenter(event);"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="muoSearchPageBlockSectionServicesSalesOwner">
+                   <apex:outputLabel value="Services Sales Owner" 
+                      for="muoSearchServicesSalesOwner" />
+                   <apex:inputField id="muoSearchServicesSalesOwner"
+                      value="{!SearchOpp.Services_Sales_Owner__c}" onkeypress="return noenter(event);" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Stage" 
+                        for="muoSearchStageName" />
+                    <apex:selectList id="muoSearchStageName" 
+                        value="{!SearchStageName}" size="1" required="false">
+                        <apex:selectOptions value="{!SearchListStageNames}"/>
+                   </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="muoSearchPageBlockSectionItemStartingFiscalBookDate">
+                    <apex:outputLabel value="Starting Fiscal Book Date" 
+                        for="muoSearchStartingFiscalBookDate" />
+                    <apex:outputPanel > <!-- DP --> 
+                      <apex:inputText id="muoSearchStartingFiscalBookDate"
+                        value="{!SearchStartingFiscalBookDate}" maxlength="10" onkeypress="return noenter(event);"/>
+                      <apex:outputText > e.g.  FY15 Q2W01</apex:outputText> 
+                    </apex:outputPanel>   
+                </apex:pageBlockSectionItem>
+                
+                  <apex:outputPanel >                  
+                    <apex:commandButton onclick="{if (Validate_Search()==false){return false};}" oncomplete="{Search();}" immediate="true" value="Filter" action="{!resetSearchResult}" rerender="muoPageBlock,idpageLinks,idpageLinks2" /> 
+
+                    <apex:commandButton value="Clear Filter" onclick="clearFilterCriteria()" rerender="muoPageBlockSectionSearch"/> 
+                    <apex:commandButton onclick="{ValidateSearchCriteria_Save();return false;}" value="Save Filter" />                
+                    <apex:commandButton action="{!previousSearch}" value="Previous Filter" immediate="true" rerender="popupFrm2"/> 
+                    <!--<apex:commandButton action="{!saveSearchAs}" value="Save Search As" rendered="{!editFlag}"/> -->
+                    <apex:commandButton action="{!CancelFilter}" value="Cancel" reRender="frm1,muoPageBlockSearch,muoPageBlock" rendered="{!showCancelBtnAndFilterName}" immediate="true"/>      
+                  </apex:outputPanel>
+                <!-- DP -->
+                <apex:pageBlockSectionItem id="muoSearchPageBlockSectionItemEndingFiscalBookDate">
+                    <apex:outputLabel value="Ending Fiscal Book Date" 
+                        for="muoSearchEndingFiscalBookDate" />
+                    <apex:outputPanel >
+                      <apex:inputText id="muoSearchEndingFiscalBookDate"
+                        value="{!SearchEndingFiscalBookDate}" maxlength="10" onkeypress="return noenter(event);"/> 
+                      <apex:outputLabel >e.g. FY15 Q2W13</apex:outputLabel>  
+                    </apex:outputPanel>   
+                </apex:pageBlockSectionItem>
+                
+                
+            </apex:pageBlockSection>
+           
+        </apex:pageBlock> 
+        <br />
+        <!--apex:pageMessages / -->
+        <apex:outputPanel rendered="{!NOT(NoRecordFlag)}" id="idpageLinks">
+            <apex:outputPanel style="float:left;" > 
+                <apex:outputText rendered="{!(PageNumber > 2)}">...&nbsp;&nbsp;</apex:outputText>
+                <apex:commandLink oncomplete="DetectChanges('goToPage1')" style="{!IF(PageNumber1 == PageNumber, 'font-weight:bold', '')}">{!PageNumber1}</apex:commandLink>
+                <apex:outputText rendered="{!PageTotal>1}">&nbsp;|&nbsp;</apex:outputText>
+                <apex:commandLink oncomplete="DetectChanges('goToPage2')" style="{!IF(PageNumber2 == PageNumber, 'font-weight:bold', '')}" rendered="{!PageTotal>1}">{!PageNumber2}</apex:commandLink>
+                <apex:outputText rendered="{!PageTotal>2}">&nbsp;|&nbsp;</apex:outputText>
+                <apex:commandLink oncomplete="DetectChanges('goToPage3')" style="{!IF(PageNumber3 == PageNumber, 'font-weight:bold', '')}" rendered="{!PageTotal>2}">{!PageNumber3}</apex:commandLink>&nbsp;&nbsp;
+                <apex:outputText rendered="{!(PageNumber < (PageTotal - 1))}">...&nbsp;&nbsp;</apex:outputText>
+                <apex:commandLink oncomplete="DetectChanges('next')" value="Next" rendered="{!(PageNumber<PageTotal)}"/>&nbsp;&nbsp;
+                <apex:commandLink oncomplete="DetectChanges('previous')" value="Previous" rendered="{!(PageNumber>1)}"/>&nbsp;&nbsp;
+                <apex:commandLink oncomplete="DetectChanges('first')" value="First" rendered="{!(PageNumber>1)}"/>&nbsp;&nbsp;
+                <apex:commandLink oncomplete="DetectChanges('last')" value="Last" rendered="{!(PageNumber<PageTotal)}"/>&nbsp;&nbsp;
+                Page {!PageNumber} of {!PageTotal} &nbsp;&nbsp;
+            </apex:outputPanel>
+            <apex:outputPanel style="float:right;" rendered="{!IF(PageTotal >0 ,true, false)}">     
+                <apex:outputLabel value="{!IF(PageNumber != 1,((PageNumber-1)*PageSize)+1,1)}"></apex:outputLabel>-        
+                <apex:outputLabel value="{!IF(PageNumber != 1, ((PageNumber-1)*PageSize)+ PageSize,PageSize)}" rendered="{!IF(PageSize < PageTotal,true,false)}"></apex:outputLabel>
+                <apex:outputLabel value="{!IF(totalSize > ((PageNumber-1)*PageSize)+ PageSize,((PageNumber-1)*PageSize)+ PageSize,totalSize)}" rendered="{!IF(PageSize > PageTotal,true,false)}"></apex:outputLabel>
+                of {!totalSize}
+            </apex:outputPanel>                    
+        </apex:outputPanel>    
+             
+        <apex:pageBlock id="muoPageBlock" mode="edit"  >
+        
+            <!-- <apex:pageBlockSection id="muoPageBlockSection"> -->
+
+                <apex:pageBlockTable style="width:100%"  value="{!oppWrapperList}" var="opp" id="muoTable" rendered="{!NOT(NoRecordFlag)}">
+                    <apex:column headerValue="Opportunity Name" style="{!IF(AND(opp.errorMsg != '', opp.errorMsg != 'Record Saved',showHide), 'background-color: #cccccc', '')}">
+                        <apex:outputLink value="/{!opp.opp.Id}" target="_blank">{!opp.opp.Name}</apex:outputLink>
+                    </apex:column>
+                    <apex:column headerValue="Account Name" style="{!IF(AND(opp.errorMsg != '', opp.errorMsg != 'Record Saved',showHide), 'background-color: #cccccc', '')}">
+                        <apex:outputText value="{!BLANKVALUE(opp.opp.Account.Name, 'N/A')}"></apex:outputText>
+                    </apex:column>
+                    <apex:column headerValue="Stage" style="{!IF(AND(opp.errorMsg != '', opp.errorMsg != 'Record Saved',showHide), 'background-color: #cccccc', '')}">
+                        <apex:selectList id="inputStageName" value="{!opp.opp.StageName}" size="1" required="true">
+                            <apex:selectOptions value="{!ListStageNames}"/>
+                        </apex:selectList>
+                    </apex:column>
+                    <apex:column headerValue="Book Date" style="{!IF(AND(opp.errorMsg != '', opp.errorMsg != 'Record Saved',showHide), 'background-color: #cccccc', '')}">
+                        <apex:inputField id="inputCloseDate" value="{!opp.opp.CloseDate}" required="true" onkeypress="return noenter(event);" />
+                    </apex:column>
+                    <!-- 2.0 <apex:column headerValue="New Description" style="{!IF(AND(opp.errorMsg != '', opp.errorMsg != 'Record Saved',showHide), 'background-color: #cccccc', '')}">
+                        <apex:inputTextArea rows="3" id="inputNewDescription" value="{!opp.opp.New_Description__c}"/>
+                    </apex:column>-->
+                    <!-- Version 1.2 Added NextStep and swapped associated field with New_Description__c -->
+                    <!-- Version 1.3 Change to Next Step -->
+                    <apex:column headerValue="Next Step" style="{!IF(AND(opp.errorMsg != '', opp.errorMsg != 'Record Saved',showHide), 'background-color: #cccccc', '')}">
+                        <!-- <apex:inputField id="inputNextSteps" value="{!opp.NextStep}"/> -->
+                        <apex:inputTextArea rows="3" id="inputNextSteps" value="{!opp.opp.NextStep}"/> 
+                    </apex:column>
+                    <apex:column headerValue="Unweighted Rev" value="{!opp.opp.Unweighted_Rev_Formula__c}" style="{!IF(AND(opp.errorMsg != '', opp.errorMsg != 'Record Saved',showHide), 'background-color: #cccccc', '')}"></apex:column>
+                    <apex:column headerValue="Current Description" style="{!IF(AND(opp.errorMsg != '', opp.errorMsg != 'Record Saved',showHide), 'background-color: #cccccc', '')}">
+                        <apex:outputText escape="false" value="{!IF(LEN(BLANKVALUE(opp.opp.Description, 'N/A'))>50,LEFT(BLANKVALUE(opp.opp.Description, 'N/A'),50) & '...',BLANKVALUE(opp.opp.Description, 'N/A'))}" title="{!BLANKVALUE(opp.opp.Description, 'N/A')}" />
+                    </apex:column>
+                    <!-- 
+                    <apex:column headerValue="Current Next Step">
+                        <apex:outputText id="outputNextStep" value="{!BLANKVALUE(opp.NextStep, 'N/A')}"></apex:outputText>
+                    </apex:column>
+                    -->
+                    <apex:column headerValue="Probability" value="{!opp.opp.Probability}" style="{!IF(AND(opp.errorMsg != '', opp.errorMsg != 'Record Saved',showHide), 'background-color: #cccccc', '')}"></apex:column>
+                    <apex:column headerValue="Success/Error" rendered="{!showHide}" style="{!IF(AND(opp.errorMsg != '', opp.errorMsg != 'Record Saved',showHide), 'background-color: #cccccc', '')}">
+                      <apex:outputText value="{!opp.errorMsg}" escape="false" style="{!IF(opp.errorMsg != 'Record Saved','color:red', '')}"></apex:outputText>
+                    </apex:column>
+                </apex:pageBlockTable>
+
+            <!-- </apex:pageBlockSection> -->
+            
+        </apex:pageBlock> 
+        
+        <!-- Version 1.3 - add a copy of the buttons at the bottom of the page too. -->
+      
+        <apex:outputPanel rendered="{!NOT(NoRecordFlag)}" id="idpageLinks2">
+            <apex:outputPanel style="float:left;" > 
+                <apex:outputText rendered="{!(PageNumber > 2)}">...&nbsp;&nbsp;</apex:outputText>
+                <apex:commandLink oncomplete="DetectChanges('goToPage1')" style="{!IF(PageNumber1 == PageNumber, 'font-weight:bold', '')}">{!PageNumber1}</apex:commandLink>
+                <apex:outputText rendered="{!PageTotal>1}">&nbsp;|&nbsp;</apex:outputText>
+                <apex:commandLink oncomplete="DetectChanges('goToPage2')" style="{!IF(PageNumber2 == PageNumber, 'font-weight:bold', '')}" rendered="{!PageTotal>1}">{!PageNumber2}</apex:commandLink>
+                <apex:outputText rendered="{!PageTotal>2}">&nbsp;|&nbsp;</apex:outputText>
+                <apex:commandLink oncomplete="DetectChanges('goToPage3')" style="{!IF(PageNumber3 == PageNumber, 'font-weight:bold', '')}" rendered="{!PageTotal>2}">{!PageNumber3}</apex:commandLink>&nbsp;&nbsp;
+                <apex:outputText rendered="{!(PageNumber < (PageTotal - 1))}">...&nbsp;&nbsp;</apex:outputText>
+                <apex:commandLink oncomplete="DetectChanges('next')" value="Next" rendered="{!(PageNumber<PageTotal)}"/>&nbsp;&nbsp;
+                <apex:commandLink oncomplete="DetectChanges('previous')" value="Previous" rendered="{!(PageNumber>1)}"/>&nbsp;&nbsp;
+                <apex:commandLink oncomplete="DetectChanges('first')" value="First" rendered="{!(PageNumber>1)}"/>&nbsp;&nbsp;
+                <apex:commandLink oncomplete="DetectChanges('last')" value="Last" rendered="{!(PageNumber<PageTotal)}"/>&nbsp;&nbsp;
+                Page {!PageNumber} of {!PageTotal} &nbsp;&nbsp;
+                <apex:commandButton oncomplete="DetectChanges('btnMassUpdate')" value="Save and Mass Update"/> 
+                <apex:commandButton oncomplete="DetectChanges('btnCancel')" value="Cancel" /> 
+            </apex:outputPanel>     
+                
+            <apex:outputPanel style="float:right;" rendered="{!IF(PageTotal >0 ,true, false)}">     
+                <apex:outputLabel value="{!IF(PageNumber != 1,((PageNumber-1)*PageSize)+1,1)}"></apex:outputLabel>-        
+                <apex:outputLabel value="{!IF(PageNumber != 1, ((PageNumber-1)*PageSize)+ PageSize,PageSize)}" rendered="{!IF(PageSize < PageTotal,true,false)}"></apex:outputLabel>
+                <apex:outputLabel value="{!IF(totalSize > ((PageNumber-1)*PageSize)+ PageSize,((PageNumber-1)*PageSize)+ PageSize,totalSize)}" rendered="{!IF(PageSize > PageTotal,true,false)}"></apex:outputLabel>
+                of {!totalSize}
+            </apex:outputPanel>                    
+        </apex:outputPanel>              
+      <apex:outputPanel id="PageBlockPanel" rendered="{!(NoRecordFlag)}" > 
+        <apex:outputLabel style="font-weight:bold" >No results returned  - kindly adjust your criteria and try again</apex:outputLabel><br/><br/>
+        <apex:commandButton oncomplete="DetectChanges('btnCancel')" value="Cancel" />
+      </apex:outputPanel>   
+    </apex:form>
+  
+  <!-- added pop-up windows -->
+    
+  <apex:form id="frm1">
+    <apex:outputPanel id="popup">
+        <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!displayPopUp1}"/>
+        <apex:outputPanel id="Templates11" styleClass="customPopup" layout="block" rendered="{!displayPopUp1}">
+             <apex:pageBlock rendered="{!IF(displayPopup1 == true,true,false)}">
+              <apex:pageBlockSection columns="1">
+               <b> No Filter criteria detected.</b><br/>
+               <b> Please enter at least one criteria to Save. </b><br/>
+              <apex:outputPanel styleClass="center" >
+                  <div style="text-align:center">
+                <apex:commandButton style="width:80px;" value="Ok" action="{!saveSearchRecordErr_Ok}"  reRender="popup"  />
+                  </div>
+              </apex:outputPanel>
+              </apex:pageBlockSection>
+             
+            </apex:pageBlock>
+         </apex:outputpanel>
+        <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!displayPopUp}" id="SavePanel"/>
+            <apex:outputPanel id="Templates1" styleClass="customPopup" layout="block" rendered="{!displayPopUp}">
+            <apex:pageBlock rendered="{!IF(displayPopupOk == true || displayError == true,false,true)}">
+              <apex:pageBlockSection columns="1">
+               <b> Common Filter Name </b>
+              <apex:inputText maxlength="40"  value="{!searchName}" id="inpSearchName" onkeypress="return noenter(event);"/>
+              <apex:outputLabel style="color:red;font-weight:bold" rendered="{!displayError2}">Error: You must enter a value </apex:outputLabel>
+              Enter a tag or keyword for the selected filter criteria (max. 40 characters)
+              <apex:outputPanel styleClass="center">
+              <div style="text-align:center">
+                <apex:commandButton style="width:80px;" value="Save" action="{!saveSearchRecord}" reRender="frm1"  />
+                <apex:commandButton style="width:80px;" value="Cancel" action="{!cancelSaveSearch}" reRender="frm1" immediate="true"/>
+              </div>  
+              </apex:outputPanel>
+              </apex:pageBlockSection>
+             
+            </apex:pageBlock>
+            
+            <apex:pageBlock rendered="{!displayPopupOk}">
+              <apex:pageBlockSection columns="1">
+               <b> Your Filter is saved and available under Previous Filter. </b>
+              <apex:outputPanel styleClass="center" >
+                <div style="text-align:center">
+                <apex:commandButton style="width:80px;" value="Ok" action="{!saveSearchRecord_Ok}" reRender="frm1,muoPageBlockSectionSearch"  />
+                </div>
+              </apex:outputPanel>
+              </apex:pageBlockSection>
+             
+            </apex:pageBlock>
+               
+            <apex:pageBlock rendered="{!displayError == true}">
+              <apex:pageBlockSection columns="1">
+                 <b>"{!searchName}"</b> already exists. Do you want to replace it?
+                <apex:outputPanel styleClass="center" >
+                <div style="text-align:center">
+                  <apex:commandButton style="width:80px;" value="Yes" action="{!updateRecord}" reRender="frm1"  />
+                  <apex:commandButton style="width:80px;" value="No" action="{!saveSearch_No}"  reRender="frm1"/>
+                 </div> 
+                 </apex:outputPanel>
+              </apex:pageBlockSection>
+         </apex:pageBlock>
+        </apex:outputPanel>
+    </apex:outputPanel>
+  </apex:form>
+  
+    <apex:form id="frm2" >
+        <apex:outputPanel id="popupFrm2">
+            <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!displayPopUpPrevious}"/>
+            
+            <apex:outputPanel id="Templates1" styleClass="customPopup" layout="block" rendered="{!displayPopUpPrevious}" >
+        
+                    <apex:pageBlock rendered="{!NOT(deleteFlag)}">
+                        <apex:outputPanel rendered="{!NOT(deleteFlag)}"  layout="block" style="overflow:auto; height:300px;">
+                            <apex:pageBlockTable value="{!criteriaList}" var="cList" >
+                                <apex:column headerValue="Action" >
+                                    <!--<apex:outputLink title="" value="/{!cList.id}/e?retURL=/apex/{!$CurrentPage.Name}" style="font-weight:bold">Edit</apex:outputLink> -->
+                                    <apex:commandLink action="{!populateCriteria_Edit}"  value="Edit">
+                                        <apex:param name="selectedSeachName" value="{!cList.id}" assignTo="{!searchId}" /> 
+                                        <apex:param name="selectedSeachFlag" value="true" assignTo="{!editFlag}" /> 
+                                    </apex:commandLink>
+                                    &nbsp;|&nbsp;
+                                    <!--<a href="javascript:if (window.confirm('Are you sure?')) DeleteCriteria('{!cList.Id}');" style="font-weight:bold">Del</a>-->
+                                    <apex:commandLink action="{!deleteCriterion}"  value="Del">
+                                        <apex:param name="deletedCriteria" value="{!cList.id}" assignTo="{!searchId}" /> 
+                                    </apex:commandLink>
+                                </apex:column>
+                                <apex:column >
+                                    <apex:facet name="header">Common Filter Name</apex:facet>
+                                    <apex:commandLink action="{!populateCriteria_View}"  value="{!cList.name}"  >
+                                        <apex:param name="selectedSeachName" value="{!cList.id}" assignTo="{!searchId}" /> 
+                                    </apex:commandLink>
+                                </apex:column>
+                            </apex:pageBlockTable>
+                            
+                        </apex:outputPanel>
+                        <apex:actionFunction action="{!DeleteCriteria}" name="DeleteCriteria" reRender="frm2" >
+                                <apex:param name="criteria" value="" assignTo="{!criteria}"/>
+                            </apex:actionFunction>
+                            <center><apex:commandLink value="Close" action="{!cancelSaveSearch}" reRender="frm2,muoPageBlockSectionSearch"/></center>
+                    </apex:pageBlock>
+                
+                <apex:pageBlock rendered="{!deleteFlag}">
+                    <apex:pageBlockSection columns="1">
+                        Are you sure you want to delete <b>"{!deletedSearchCriteria}"</b> ?
+                        <apex:outputPanel styleClass="center" >
+                            <div style="text-align:center">
+                                <apex:commandButton style="width:80px;" value="Yes" action="{!DeleteCriteria}"/>
+                                <apex:commandButton style="width:80px;" value="No" action="{!previousSearch}"/>
+                            </div>
+                        </apex:outputPanel>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </apex:outputPanel>
+        </apex:outputPanel>
+    </apex:form>
+
+  <style>
+        .input1{
+            width: 300px;height:35px;
+            }
+         .input2{
+            Width:450px;Height:90px;
+            }
+        .customPopup{
+            background-color:white;
+            left: 50%;
+            padding:10px;
+            position: absolute;
+            z-index: 9999;
+            /* These are the 3 css properties you will need to tweak so the pop 
+            up displays in the center of the screen. First set the width. Then set 
+            margin-left to negative half of what the width is. You can also add 
+            the height property for a fixed size pop up.*/
+            width: 400px;
+            margin-left: -250px;
+            top:100px;
+        }
+        .popupBackground{
+            background-color:black;
+            opacity: 0.2;
+            filter: alpha(opacity = 20);
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+        }  
+        .center
+        {
+            margin-left:auto;
+            margin-right:auto;
+            width:100%;
+           
+        }    
+    </style>
+</apex:page>

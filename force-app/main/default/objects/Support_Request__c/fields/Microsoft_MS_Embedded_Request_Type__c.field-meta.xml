@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Microsoft_MS_Embedded_Request_Type__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>This field is required if Tech Partner Request Type = Microsoft</inlineHelpText>
+    <label>Microsoft (MS) Embedded Request Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Tech_Partner_Request_Type__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Net New Customer (no previous CLA)</fullName>
+                <default>false</default>
+                <label>Net New Customer (no previous CLA)</label>
+            </value>
+            <value>
+                <fullName>Add Dell to Existing CLA</fullName>
+                <default>false</default>
+                <label>Add Dell to Existing CLA</label>
+            </value>
+            <value>
+                <fullName>New Registration for Existing Customer</fullName>
+                <default>false</default>
+                <label>New Registration for Existing Customer</label>
+            </value>
+            <value>
+                <fullName>OEM Pre-Installation Kit (OPK) Request</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>OEM Pre-Installation Kit (OPK) Request</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Microsoft</controllingFieldValue>
+            <valueName>Net New Customer (no previous CLA)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Microsoft</controllingFieldValue>
+            <valueName>Add Dell to Existing CLA</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Microsoft</controllingFieldValue>
+            <valueName>New Registration for Existing Customer</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

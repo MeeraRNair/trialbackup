@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Group_and_Geography_Type_are_required</fullName>
+    <active>true</active>
+    <description>This rule is to make the Group field required when created through API</description>
+    <errorConditionFormula>ISPICKVAL( Group__c , &apos;&apos;) ||  ISPICKVAL( Geography_Type__c , &apos;&apos;)</errorConditionFormula>
+    <errorMessage>Both the Group and Geography Type are required</errorMessage>
+</ValidationRule>

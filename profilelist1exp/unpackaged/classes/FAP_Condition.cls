@@ -1,0 +1,1 @@
+global virtual interface FAP_Condition extends FAP_Soqlable{}

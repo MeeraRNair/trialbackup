@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Registration_Action_s__c</fullName>
+    <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc -||
+SFA -Y/PRM-Y||
+VAL -  N||
+CR# -R10.2 # 816  ||</description>
+    <externalId>false</externalId>
+    <formula>IF( AND(OR(ISPICKVAL( Status__c , &apos;Approved&apos;),ISPICKVAL( Status__c , &apos;New&apos;),ISPICKVAL( Status__c , &apos;Incomplete&apos;)),
+	Provisioned_User__c = &quot;&quot;, 
+	$RecordType.Name &lt;&gt;&apos;New Customer&apos; ) ,
+	HYPERLINK(&apos;/apex/PartnerRegistrationProvisionUser?id=&apos; &amp; Id , &apos;Provision User&apos;,&apos;_self&apos;), 
+	IF(AND(ISPICKVAL(Status__c, &apos;Approved&apos;),$RecordType.Name =&apos;New Customer&apos;),HYPERLINK(&apos;/apex/PartnerRegistrationLinkToAcct?id=&apos; &amp; Id , &apos;Link End Customer&apos;,&apos;_self&apos;),&apos;No Actions Available&apos;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Registration Action(s)</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

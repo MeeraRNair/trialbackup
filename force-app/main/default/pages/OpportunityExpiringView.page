@@ -1,0 +1,32 @@
+<!-- 
+REVISION HISTORY
+================
+Version     Author          Date            Release#       CR#      Description
+-------     ------          ----            --------       ----     -----------
+1.0         Jessie          29 Sept 2016     1101          13461    Modified to fix defect #2463405
+ -->
+ <apex:page showHeader="false"  standardController="Opportunity">
+    <apex:includescript value="{!URLFOR( $Resource.Influence, 'jquery-1.4.4.min.js' )}" />
+    <apex:includescript value="{!URLFOR( $Resource.Influence, 'jquery-ui-1.8.7.custom.min.js' )}" />
+    <apex:stylesheet value="{!URLFOR( $Resource.Influence, 'jquery-ui-1.8.7.custom.css' )}" />
+    <script type="text/javascript">
+        var j$ = jQuery.noConflict(); 
+        j$(document).ready(function(){
+        j$('input').hide();
+        j$('input[name="newOpp"]').show();
+        j$('a').attr("target","_blank"); 
+        j$('a[href*=/apex/OpportunityExpiringView]').attr("target","_self");  
+        j$('input[name="newOpp"]').attr("onclick","");
+        var tablewidth='1088px';
+        j$('#widthfixer').width(tablewidth);
+           j$('input[name="newOpp"]').click(function(){
+              <!-- v1.0 - start-->  
+              window.open('/setup/ui/recordtypeselect.jsp?ent=Opportunity&retURL=%2F006%2Fo&save_new_url=%2Fapex%2FSales_motion_account_selection_vfp%3FretURL%3D%252F006%252Fo','_blank'); 
+              <!--v2.0 - end -->
+           });
+        });
+    </script>
+    <div id="widthfixer" style="width:100%">
+        <apex:listViews id="Opportunity_List" rendered="true" type="Opportunity"/>
+    </div>
+</apex:page>

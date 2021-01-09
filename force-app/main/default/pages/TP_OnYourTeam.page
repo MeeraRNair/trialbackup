@@ -1,0 +1,144 @@
+<apex:page standardController="Territory_Plan__c" extensions="TP_OnYourTeamCtrlExt,TP_PageNavCtrlExt" sidebar="false" title="Territory Plan" lightningStylesheets="true"> 
+
+    <style type="text/css">
+     body .bPageBlock .pbBody { 
+            padding: 5px 0 0 0;
+     }
+        <!-- To add padding on top of page -->
+        body .bPageBlock .pbBody { 
+            padding: 15px 0 0 0;
+            background-color: #444444 !important;
+        }
+        
+        <!-- to style complete page in classic and lightning and reduce bottom padding -->
+        body .bodyDiv .outerNoSidebar{  
+            padding-bottom: 0px;
+            max-height: 100%;
+            max-width: 100%;
+        } 
+        
+        <!-- To Style heading on page -->
+        .teamTitle{
+            font-size:26px;
+            max-block-size:4px;
+            font-family:'Arial White', Gadget, sans-serif !important;
+            color:white; 
+            padding: 15px 0 0 15px;
+            text-indent:15px;
+            
+        }
+        
+        <!-- To style pageblocktable data rows and header -->
+        .headerRow .TableTitle {  
+            background-color: #42AEAF !important;
+            background-image: none !important; 
+            color: #000000 !important; 
+            height:15px;
+        }
+        body .pbBody table.list tr.headerRow td, body .pbBody table.list tr.headerRow th{ 
+            background: #f2f3f3;
+            border-width: 0 0 1px 1px;
+            border-color: #42AEAF;
+            font-weight: bold;
+            font-size: 14px; 
+            padding: 5px 2px 4px 20px;
+        }
+        
+        .teamTableContainer {
+            padding: 0px 15px 0px 15px;
+            border: 0px;
+        }
+        .teamTableContainer table.list tr th {
+            border: 0.5px solid #FFD700 !important;
+        }
+        .teamTableContainer table.list tr td {
+            border: 0.5px solid #FFD700 !important;
+            padding-left: 20px;
+        }
+        
+        <!-- To style DellEmc Logo -->
+        .DellEMC-logo{ 
+            position: relative; 
+            text-align: right;
+            padding: 35px 0 10px 15px;
+        }
+        
+        .footer {
+            width: 100%;
+            color: white;
+            text-align: center;
+            padding:0px;
+            font-size:12px;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+        
+        <!-- To reduce margin-bottom at bottom of page -->      
+        body .bDetailBlock.bPageBlock, body .individualPalette .bDetailBlock.bPageBlock { 
+            border: 0;
+            background-color: transparent;
+            margin-bottom: 0px;
+        }
+                
+        <!-- To sytle buttons section -->
+        .bPageBlock .buttons{
+            text-align:right; padding:5px 0px 0px 15px;
+        }
+        
+        .bPageBlock .buttons .btn{
+            margin-left:3px;      
+            margin-right:3px; 
+        }
+    </style>
+    
+    <apex:form > 
+
+
+        <apex:pageBlock mode="maindetail" id="pbId" >    
+            <div id="topId">
+                <apex:pageMessages id="showMsgId"></apex:pageMessages>
+                
+        <apex:outputPanel rendered="{! $User.UIThemeDisplayed != 'Theme4d' }">
+    
+            <h6 class = "teamTitle" id="titleId">
+                    Who is on your Team?
+                </h6> <br/><br/><br/>
+                 </apex:outputPanel>
+                
+                <apex:outputPanel rendered="{! $User.UIThemeDisplayed == 'Theme4d' }">
+                      <h6 class = "teamTitle" id="titleId" style="margin-top: 10px;margin-bottom: 5px;">
+                    Who is on your Team?
+                </h6> <br/><br/><br/>
+                    
+                </apex:outputPanel>
+                
+                <div class="teamTableContainer" id="teamTableId">
+                    <apex:pageBlockTable value="{!listTeam1}" var="team" id="teamPBT1id" border="1">
+                        <apex:column style="width:20%; font-weight:bold;" value="{!team.sRoleName}" headerValue="ROLE/TITLE" id="role1Id" headerClass="TableTitle" />
+                        <apex:column style="width:80%" value="{!team.sTeamMembers}" headerValue="NAME(S)" id="team1Id" headerClass="TableTitle"/>
+                    </apex:pageBlockTable> 
+                    <apex:pageBlockTable value="{!listTeam2}" var="team" id="teamPBT2" >
+                        <apex:column style="width:20%;font-weight:bold;" value="{!team.sRoleName}" headerValue=" " id="role2Id" headerClass="TableTitle"/>
+                        <apex:column style="width:80%" value="{!team.sTeamMembers}" headerValue=" " id="team2Id" headerClass="TableTitle"/>
+                    </apex:pageBlockTable> 
+                    
+                    <div class="DellEMC-logo" id="logoDivId">
+                        <apex:image url="{!URLFOR($Resource.TP_PPT_Images, 'TP_PPT_Images/DellEMC_White.png')}" width="90" height="30" alt="Description of image here" id="logoId"/>
+                    </div>
+
+                    <div class="buttons" id="btnsId">
+                        <apex:commandButton action="{!saveRecord}" value="Save" id="saveId" styleClass="btn" />          
+                        <apex:commandButton action="{!doCancel}" value="Previous" id="backId" styleClass="btn" rendered="{!!bQuickSave}"/>
+                        <apex:commandButton action="{!cancel}" value="Previous" id="backStanId" styleClass="btn" rendered="{!bQuickSave}" />
+                        <apex:commandButton action="{!goToNextPage}" value="Next" id="nextId" styleClass="btn" />
+                        <apex:commandButton action="{!doCancel}" value="Cancel" id="cancelId" styleClass="btn" rendered="{!!bQuickSave}"/>
+                        <apex:commandButton action="{!cancel}" value="Cancel" id="cancelStanId" styleClass="btn" rendered="{!bQuickSave}"/>
+                    </div>
+                    <div class = "footer">
+                        [ {!currentPageNum} of {!totalPages} ]
+                    </div>
+                </div>
+            </div>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

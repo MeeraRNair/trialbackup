@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Viper_Purchase_Corporate_PO_VR</fullName>
+    <active>true</active>
+    <description>Purchasing Card &amp; Corporate Card expenses: User must enter Card Owner’s Name.</description>
+    <errorConditionFormula>(ISPICKVAL( Method_of_Purchase__c , &quot;Purchasing Card&quot;) ||
+                                                    ISPICKVAL(Method_of_Purchase__c , &quot;Corporate Card&quot;))
+                                                       &amp;&amp;
+                                                        NOT(ISBLANK( DO__c ))</errorConditionFormula>
+    <errorMessage>The PO # field must be blank for expense types: Purchasing Card, Direct Cost Centre Charge and Corporate Card. Record not saved.</errorMessage>
+</ValidationRule>

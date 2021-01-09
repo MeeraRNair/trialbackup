@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rollout_Date_From_Validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR(AND(Rollout_From__c  &lt; Today(), ISCHANGED(Rollout_From__c) ),
+
+AND(ISNEW(), Rollout_From__c  &lt; Today(), NOT(ISBLANK(Rollout_From__c)) ) )</errorConditionFormula>
+    <errorMessage>Shipment start date  should be Greater than or Equal to Today</errorMessage>
+</ValidationRule>

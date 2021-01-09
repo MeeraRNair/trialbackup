@@ -1,0 +1,55 @@
+<apex:page id="thePage" standardController="Account" extensions="LOBRegistrationController"
+action="{!generateLOBRegRecords}" title="Generation of LOBRegistration Records" tabStyle="Account">
+
+    <!--<apex:actionSupport reRender="pageId" status="processingStatus"/>-->
+    <!--<apex:actionStatus id="pageId" startText="Processing..." stopText="Done."/>-->
+    <apex:form id="theForm">
+        <apex:actionFunction name="generateLOBRegRecords"  rerender="pageId" status="processingStatus"/>
+        <apex:actionStatus startText="Processing..." id="processingStatus"/>
+        
+        <!-- Error messages are displayed here -->
+        <apex:Messages style="color:red; font-weight:bold"/>
+        
+        <apex:pageBlock rendered="{!noDuplicates}">
+            <apex:pageMessage severity="info" strength="1" title="Generate duplicate LOB records">
+                        <table align="center" width="100%">
+                            <tr>
+                                <td>The below LOBs are available NOW to be registered to a new Partner. If 
+                                    you would like to go ahead with registration, please select from the list below and click <b>“Continue”</b>.<br/>
+                                    If you want to go back to Account detail page click <b>“Back”</b>.<br/> 
+                                </td>
+                            </tr>
+                        </table>
+            </apex:pageMessage>
+        </apex:pageBlock>
+        
+        <apex:pageBlock rendered="{!noRecords}">
+            <apex:pageMessage severity="info" strength="1" title="Generate LOB records">
+                        <table align="center" width="100%">
+                            <tr>
+                                <td>All available LOB records are generated for this account. 
+                                    Click <b>“Back”</b> to go to the Account detail page.<br/> 
+                                </td>
+                            </tr>
+                        </table>
+            </apex:pageMessage>
+            <apex:pageBlockButtons location="Bottom">
+                <apex:commandButton value="Back" action="{!back}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        
+        <apex:pageBlock rendered="{!showList}">
+                <apex:pageBlockTable id="lobListTable" value="{!Lobs}" var="lobRecords"  style="width:35%">
+                    <apex:column headerValue="Action" style="width:5%">
+                           <apex:inputcheckbox id="selectChkBox" value="{!lobRecords.selected}"/> 
+                    </apex:column>  
+                    <!--  //CRQ0241 reminder : uncomment after type change  --> 
+                    <apex:column headerValue="LOB Name" style="width:30%">{!lobRecords.lobReg.LOB_Name__c}</apex:column>
+                </apex:pageBlockTable>
+                <apex:pageBlockButtons location="Bottom">
+                    <apex:commandButton value="Continue" action="{!continuePage}"/> 
+                    <apex:commandButton value="Back" action="{!back}"/>
+                </apex:pageBlockButtons>
+            </apex:pageBlock>
+    </apex:form>
+</apex:page>

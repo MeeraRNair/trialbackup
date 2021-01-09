@@ -1,0 +1,70 @@
+<!--
+* Author   : Krishnamoorthi
+* Purpose  : Form to select Services Provided records (Services Products) from Account Related List.
+*        
+* Revision  Ref Number  Release No  Date            Modified By     Description
+* --------  ----------  ----------  -----------     ------------    -----------
+* 1.0       CR 12482    R16.12      16-Dec-2015     Krishnamoorthi  Created.
+-->
+<apex:page standardController="Services_Provided__c" extensions="ServicesProvidedSearchFormCtrl" standardStylesheets="true" recordSetVar="relatedProducts" lightningStylesheets="true">
+  <apex:form >
+      <apex:pageBlock title="Manage Services Provided">
+      <apex:pageMessages id="pageMessage" />
+          <apex:pageBlockSection title="Search for Services Products to associate" columns="1">
+              <center>
+              <apex:inputText label="Brand Desc" value="{!strBrandDesc}"/>
+              <apex:inputText label="Product Group" value="{!strProductGroup}"/>
+              <apex:inputText label="Product Desc" value="{!strProductDesc}"/>
+              <apex:inputText label="Product Line Desc" value="{!strProductLineDesc}"/>
+              </center>          
+          </apex:pageBlockSection>
+          
+           <center>
+               <apex:commandButton value="Search" action="{!doSearch}"/>
+               <apex:commandButton value=" Cancel " action="{!cancel}"/>
+          </center>
+      </apex:pageBlock>
+          
+         <apex:outputPanel id="searchResultPanel">
+             <apex:pageBlock title="Show Search Results" rendered="{!(displaySearch == true)}">
+                 <apex:pageBlockTable value="{!productListWrap}" var="pr" id="prodTable" width="100%">
+                      <apex:column headerValue="SELECT" >
+                        <apex:facet name="header">
+                            <apex:inputCheckbox label="Select All" onclick="selectAll();" value="{!colCheck}" />
+                        </apex:facet>
+                        <apex:inputCheckbox value="{!pr.prodCheck}"/>
+                    </apex:column> 
+                    <apex:column headerValue="Brand Desc" value="{!pr.prodName}"/>
+                    <apex:column headerValue="Product Group" value="{!pr.prodCode}"/>
+                    <apex:column headerValue="Product Desc" value="{!pr.prodDescription}"/>
+                    <apex:column headerValue="Product Line Desc" value="{!pr.prodLineDescription}"/>
+                 </apex:pageBlockTable>
+          </apex:pageBlock>
+         
+         <apex:outputPanel style="margin-top: 5px"  id="pageNavBottom" rendered="{!(displaySearch == true)}">
+         
+         <div style="float: left;font-size: 100%; font-weight: normal; text-decoration: underlined; text-align: right; width: 52%;">
+            Page {!currentPage} of {!lastPage}
+        </div>
+         
+        <div style="float: right; font-size: 100%; font-weight: normal; text-decoration: underlined; text-align: right; width: 48%;">                
+            <apex:commandLink action="{!previous}" rendered="{!hasPrevious}" rerender="prodTable,pageNavBottom" status="searchStatus">
+                &lt; Previous Page
+            </apex:commandLink>                 
+            <apex:outputText rendered="{!hasPreviousAndNext}">&nbsp;|&nbsp;</apex:outputText>
+            <apex:commandLink action="{!next}" rendered="{!hasNext}" rerender="prodTable,pageNavBottom" status="searchStatus">
+                Next Page &gt;
+            </apex:commandLink>
+        </div>
+        
+        <div style="float: left;font-size: 100%; font-weight: normal; text-decoration: underlined; text-align: right;  width: 52%;">
+            <apex:commandButton value=" Save " action="{!Save}"/>
+            <apex:commandButton value=" Cancel " action="{!cancel}"/>          
+        </div>
+
+         </apex:outputPanel>
+         </apex:outputPanel>
+          <apex:actionFunction name="selectAll"  action="{!selectAllProducts}" rerender="searchResultPanel"/>
+
+  </apex:form>
+</apex:page>

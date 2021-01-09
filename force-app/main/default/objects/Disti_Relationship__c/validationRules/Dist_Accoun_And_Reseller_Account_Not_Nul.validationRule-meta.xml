@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Dist_Accoun_And_Reseller_Account_Not_Nul</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(ISBLANK (Disti_Account__c), ISBLANK (Reseller_Account__c))</errorConditionFormula>
+    <errorMessage>Disti Account OR  Reseller Account Should Not Be Null.</errorMessage>
+</ValidationRule>

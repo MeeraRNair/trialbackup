@@ -1,0 +1,195 @@
+<apex:page standardController="VisitOps__Visit_Control__c" extensions="VO_SFRCMultiSelect_Ctrl" >
+   <script>
+    function saveReload(){
+        var visitControlId = '{!visitConObj.Id}';
+        window.top.location.href = '/' + visitControlId;
+    }
+    </script>
+<apex:form >
+            
+  <apex:slds />
+
+  <div class="slds-scope"> 
+    <apex:pageMessages id="msg"/> 
+    <apex:outputPanel id="multiselectPanel" styleClass="duelingListBox ">
+        
+        <div class="slds-form-element slds-align_absolute-center" id="main" role="group" aria-labelledby="picklist-group-label" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <span id="picklist-group-label" class="slds-form-element__label slds-form-element__legend"></span>
+            <div class="slds-form-element__control">
+                <div class="slds-dueling-list">
+                    <div class="slds-assistive-text" id="drag-live-region" aria-live="assertive"></div>
+                    <div class="slds-assistive-text" id="option-drag-label">Press space bar when on an item, to move it within the list. CMD plus left and right arrow keys, to move items between lists.</div>
+                    <div class="slds-dueling-list__column">
+                        <apex:outputLabel value="Available Values" for="multiselectPanel:leftList" />
+                        
+
+                        <select id="{!$Component.multiselectPanel}:leftList" 
+                                class="multilist slds-dueling-list__options" multiple="multiple" size="{!strSize}"
+                                style="width: auto; height: fit-content;">
+                            <apex:repeat value="{!listAllValues}" var="option">
+                                <option value="{!option.value}">{!option.label}</option>
+                            </apex:repeat>
+                        </select>
+                        
+                    </div>
+                    
+                    
+                    <div class="slds-dueling-list__column" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <button type="button" onclick="javascript:moveSelectedOptions('{!$Component.multiselectPanel}:leftList', 
+                                         '{!$Component.multiselectPanel}:rightList', '{!$Component.leftHidden}', 
+                                         '{!$Component.rightHidden}');" class="slds-button slds-button_icon slds-button_icon-container" title="Move Selection to Second Category">
+                            <svg class="slds-button__icon" aria-hidden="true">
+                                <use xlink:href="{!URLFOR($Asset.SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#right')}"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Move Selection to Second Category</span>
+                        </button>
+                        
+                        <button type="button" onclick="javascript:moveSelectedOptions('{!$Component.multiselectPanel}:rightList', 
+                                         '{!$Component.multiselectPanel}:leftList', '{!$Component.rightHidden}', 
+                                         '{!$Component.leftHidden}');" class="slds-button slds-button_icon slds-button_icon-container" title="Move Selection to First Category">
+                            <svg class="slds-button__icon" aria-hidden="true">
+                                <use xlink:href="{!URLFOR($Asset.SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#left')}"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Move Selection to First Category</span>
+                        </button>
+                    </div>
+
+                    <div class="slds-dueling-list__column">
+                        
+                            <apex:outputLabel value="Selected Values" for="multiselectPanel:rightList" />
+                      
+                        
+                        
+                        <select id="{!$Component.multiselectPanel}:rightList"
+                                class="multilist slds-dueling-list__options" multiple="multiple" size="{!strSize}" 
+                                style="width: auto; height: fit-content;">
+                            <apex:repeat value="{!listSelectedValues}" var="option">
+                                <option value="{!option.value}">{!option.label}</option>
+                            </apex:repeat>  
+                         </select>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <apex:inputHidden value="{!strLeftOptionsHidden}" id="leftHidden"   />
+        <apex:inputHidden value="{!strRightOptionsHidden}" id="rightHidden" />        
+    </apex:outputPanel>
+    <br/>
+    <div class="slds-form-element slds-align_absolute-center">
+        <br/>
+        <apex:commandButton styleclass="slds-button slds-button_neutral" status="actStatusId" action="{!saveValues}" value="Save" style="Width:100px" reRender="msg" oncomplete="saveReload();"/>
+        &nbsp;&nbsp;
+        <apex:actionStatus id="actStatusId" >
+            <apex:facet name="start" >
+                <img src="/img/loading.gif" title="Processing..." />                    
+            </apex:facet>
+        </apex:actionStatus>
+      </div>
+    </div>
+    <script type="text/javascript">
+    if (!buildOutputString) {
+        // Create a string from the content of a listbox
+        var buildOutputString = function(listBox, hiddenInput) {
+            var str = '';
+            
+            for ( var x = 0; x < listBox.options.length; x++) {
+                //    str += encodeURIComponent(listBox.options[x].value) + '&'
+                // + encodeURIComponent(listBox.options[x].text) + '&';
+                str += encodeURIComponent(listBox.options[x].value)+';';
+            }
+            str.length--;
+            
+            hiddenInput.value = str.slice(0, -1);
+        }
+        }
+    
+    if (!moveSelectedOptions) {
+        // Move the selected options in the idFrom listbox to the idTo
+        // listbox, updating the corresponding strings in idHdnFrom and
+        // idHdnTo
+        var moveSelectedOptions = function(idFrom, idTo, idHdnFrom, idHdnTo) {
+            listFrom = document.getElementById(idFrom);
+            listTo = document.getElementById(idTo);
+            
+            for ( var x = 0; x < listTo.options.length; x++) {
+                listTo.options[x].selected = false;
+            }
+            
+            for ( var x = 0; x < listFrom.options.length; x++) {
+                if (listFrom.options[x].selected == true) {
+                    listTo.appendChild(listFrom.options[x]);
+                    x--;
+                }
+            }
+           
+            listTo.focus();
+            
+            buildOutputString(listFrom, document.getElementById(idHdnFrom));
+            buildOutputString(listTo, document.getElementById(idHdnTo));
+        }
+        }
+    
+    if (!slideSelectedOptionsUp) {
+        // Slide the selected options in the idList listbox up by one position,
+        // updating the corresponding string in idHidden
+        var slideSelectedOptionsUp = function(idList, idHidden) {
+            listBox = document.getElementById(idList);
+            
+            var len = listBox.options.length;
+            
+            if (len > 0 && listBox.options[0].selected == true) {
+                return;
+            }
+            
+            for ( var x = 1; x < len; x++) {
+                if (listBox.options[x].selected == true) {
+                    listBox.insertBefore(listBox.options[x],
+                                         listBox.options[x - 1]);
+                }
+            }
+            
+            listBox.focus();
+            
+            buildOutputString(listBox, document.getElementById(idHidden));
+        }
+        }
+    
+    if (!slideSelectedOptionsDown) {
+        // Slide the selected options in the idList listbox down by one position,
+        // updating the corresponding string in idHidden
+        var slideSelectedOptionsDown = function(idList, idHidden) {
+            listBox = document.getElementById(idList);
+            
+            var len = listBox.options.length;
+            
+            if (len > 0 && listBox.options[len - 1].selected == true) {
+                return;
+            }
+            
+            for ( var x = listBox.options.length - 2; x >= 0; x--) {
+                if (listBox.options[x].selected == true) {
+                    listBox.insertBefore(listBox.options[x + 1],
+                                         listBox.options[x]);
+                }
+            }
+            
+            listBox.focus();
+            
+            buildOutputString(listBox, document.getElementById(idHidden));
+        }
+        }
+    
+    // initialize the string representations
+    buildOutputString(document.getElementById('{!$Component.multiselectPanel}:leftList'), 
+                      document.getElementById('{!$Component.leftHidden}'));
+    buildOutputString(document.getElementById('{!$Component.multiselectPanel}:rightList'), 
+                      document.getElementById('{!$Component.rightHidden}'));
+
+    </script>
+
+</apex:form>
+     
+</apex:page>

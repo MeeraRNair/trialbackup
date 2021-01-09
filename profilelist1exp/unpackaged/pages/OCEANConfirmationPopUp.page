@@ -1,0 +1,152 @@
+<apex:page id="page" showheader="false" sidebar="false" standardController="Opportunity" extensions="OCEANConfirmationPopUpController">
+<head>
+<apex:includeScript value="{!$Resource.JavaScriptUtils}"/>
+
+<script>
+
+
+    
+    function checkflag() {
+        //alert('OCEAN--'+'Pursue - '+'{!Opportunity.Do_you_want_to_pursue_Ocean__c}\n'+'Finance - '+'{!Opportunity.Confirmed_for_Ocean_by_Finance_Gbl_Ops__c}\n'+'Eligible For Ocean - '+'{!Opportunity.Eligible_for_Ocean__c}\n'+'Notification - '+'{!Opportunity.Ocean_Opportunity_Notification_Pop_Up__c}\n'+'LOT - '+'{!Opportunity.LOT_Mandatory_Fields__c}\n'+'Quote Threshold - '+'{!Opportunity.Order_Compliance_Product__c}\n'+'Needed - '+'{!Opportunity.Needed_Quote_Notification_Pop_Up__c}');
+        var dupStageName;
+        if({!Opportunity.StageName == $Setup.OWD__c.Oppty_Stage60__c}){
+            dupStageName = 'propose60';
+        } else if({!Opportunity.StageName == $Setup.OWD__c.Oppty_Stage1__c}){
+            dupStageName = 'plan1';
+        } else if({!Opportunity.StageName == $Setup.OWD__c.Oppty_Stage10__c}){
+            dupStageName = 'discover10';
+        } else if({!Opportunity.StageName == $Setup.OWD__c.Oppty_Stage30__c}){
+            dupStageName = 'qualify30';
+        } else if({!Opportunity.StageName == $Setup.OWD__c.Oppty_Stage90__c}){
+            dupStageName = 'commit90';
+        } else if({!Opportunity.StageName == $Setup.OWD__c.Oppty_Stage99__c}){
+            dupStageName = 'ordersubmitted99';
+        }
+        var ProbStageName = {!Opportunity.Probability} + '$' + dupStageName ;
+
+        //Modifications by Shivam for defect 16533 ends here
+
+        // mohammad
+        //if({!Opportunity.Order_Compliance_Product__c}){
+        //window.parent.location = '/apex/OpportunityEditPage?id={!Opportunity.Id}&oldProbability='+ProbStageName;
+        //}
+        if({!Opportunity.Ocean_Opportunity_Notification_Pop_Up__c} && {!Opportunity.Needed_Quote_Notification_Pop_Up__c}) {
+            if({!Opportunity.Confirmed_for_Ocean_by_Finance_Gbl_Ops__c == 'Yes'} && {!Opportunity.Eligible_for_Ocean__c == 'No'}) {
+                //Modifications by Vivek for story 4985066 and CR#15760
+                if(confirm('The details of the Opportunity have been changed and it is no longer eligible for Ocean shipping (Sea Freight).\nPlease verify the details and inform the Finance personnel who approved the Opportunity for Ocean shipping.\n\n Would you like to update this opportunity?')) {
+                updateOppty();
+                
+                }
+                
+                //alert('The details of the Opportunity have been changed and it is no longer eligible for Ocean shipping (Sea Freight).\nPlease verify the details and inform the Finance personnel who approved the Opportunity for Ocean shipping.');
+                
+            } else if ({!Opportunity.Confirmed_for_Ocean_by_Finance_Gbl_Ops__c != 'Yes'} && {!Opportunity.Eligible_for_Ocean__c == 'No'}) {
+                //alert('The details of this Opportunity have been changed and it is no longer eligible for Ocean shipping.');
+                //updateOppty();
+                
+                //Modifications by Vivek for story 4985066 and CR#15760
+                if(confirm('The details of this Opportunity have been changed and it is no longer eligible for Ocean shipping.\n\n Would you like to update this opportunity?')) {
+                updateOppty();
+                
+                }
+            } else if ({!Opportunity.Confirmed_for_Ocean_by_Finance_Gbl_Ops__c == 'Yes'} && {!Opportunity.Eligible_for_Ocean__c == 'Yes'} && {!Opportunity.Do_you_want_to_pursue_Ocean__c == 'Yes'}) {
+                //alert('The details of the Opportunity have been changed.  Please revalidate the supportability of the Opportunity for Ocean shipping, with Finance and Business Operations.');
+                //updateOppty();
+                
+                //Modifications by Vivek for story 4985066 and CR#15760
+                if(confirm('The details of the Opportunity have been changed.\nPlease revalidate the supportability of the Opportunity for Ocean shipping, with Finance and Business Operations.\n\n Would you like to update this opportunity?')) {
+                updateOppty();
+                
+                }
+            } else if ({!Opportunity.Confirmed_for_Ocean_by_Finance_Gbl_Ops__c != 'Yes'} && {!Opportunity.Eligible_for_Ocean__c == 'Yes'} && {!Opportunity.Do_you_want_to_pursue_Ocean__c == 'Yes'}) {
+                
+                //Modifications by Vivek for story 4985066 and CR#15760
+                if(confirm('Would you like to update this opportunity?')) {
+                updateOppty();
+                
+                }
+                //updateOppty();
+            } 
+            else if ({!Opportunity.Confirmed_for_Ocean_by_Finance_Gbl_Ops__c != 'Yes'} && {!Opportunity.Eligible_for_Ocean__c == 'Yes'} && {!Opportunity.Do_you_want_to_pursue_Ocean__c != 'Yes'}) {
+                if(confirm('This opportunity is eligible for Ocean Shipping based on the platform and quantity entered.\n\nThe potential incremental margin recovery by pursuing ocean shipping could be ' + addCommasToNumber({!TEXT(Opportunity.Potential_Savings__c)}) + ' {!Opportunity.currencyIsoCode}.\n\nIf you would like to discuss your opportunity with the Ocean team, please contact us at \nOcean_Support_NA_and_LATAM@dell.com')) {
+                    if({!ShowConsolidatePage}){
+                        if({!$ObjectType.Opportunity.updateable}) {
+                            //Modifications by Vivek for story 4985066 and CR#15760
+                            if(confirm('Would you like to update this opportunity?')) {
+                                confirmOE(); 
+                                var url ='/apex/OpportunityEditPage?id={!Opportunity.Id}&pursue=true&oldProbability='+ProbStageName;
+                                setTimeout("window.parent.location=url",20);
+                            }
+                        } else {
+                            return null;
+                        }
+                    } 
+                } else {
+                    //Modifications by Vivek for story 4985066 and CR#15760
+                    if(confirm('Would you like to update this opportunity?')) {
+                        setTimeout(" confirmNOTOE()",30);
+                    }
+                }
+            }
+        }
+        //Modifications by Shivam for defect 16533 starts here
+        else if({!$ObjectType.Opportunity.updateable} && {!Opportunity.Needed_Quote_Notification_Pop_Up__c} && {!Opportunity.Order_Compliance_Product__c}){
+            //Modifications by Vivek for story 4985066 and CR#15760
+            if(confirm('Would you like to update this opportunity?')) {
+                window.parent.location = '/apex/OpportunityEditPage?id={!Opportunity.Id}&oldProbability='+ProbStageName;
+            }
+        }
+        //if(({!Opportunity.LOT_Mandatory_Fields__c}) && {!(Opportunity.Quote_Numbers__c == null || Opportunity.Customer_Requested_Delivery_Date__c == null || Opportunity.How_many_shipments__c == null)} && {!Opportunity.Order_Compliance_Product__c== False})  {
+        else if(({!Opportunity.LOT_Mandatory_Fields__c}) && {!Opportunity.Order_Compliance_Product__c== False} && {!Opportunity.Needed_Quote_Notification_Pop_Up__c})  {
+            //CR11453 navigate to Consolidated Ocean/LOT/Needed Quote form
+            //window.parent.location = '/apex/OceanLOTMandatoryFieldsInput?id={!Opportunity.Id}&pursue=true'; //CR11400 added param '&pursue=true'
+            if({!ShowConsolidatePage}){
+                if({!$ObjectType.Opportunity.updateable}){
+                    //Modifications by Vivek for story 4985066 and CR#15760
+                    if(confirm('Would you like to update this opportunity?')) {
+                        window.parent.location = '/apex/OpportunityEditPage?id={!Opportunity.Id}&oldProbability='+ProbStageName;       
+                    }
+                } else {
+                    return null;
+                }
+            }
+        }
+    }
+    
+    function refreshPage() {
+        setTimeout("window.parent.location.reload(true)",30);
+    }
+        
+</script>
+</head>
+<apex:form id="mainform">
+
+<apex:actionFunction action="{!setNotificationFlag}" name="updateOppty" immediate="true" oncomplete="refreshPage()"/>
+<apex:actionFunction action="{!confirmOceanEligible}" name="confirmOE" immediate="true"  oncomplete="refreshPage()"/>
+<apex:actionFunction action="{!confirmNotOceanEligible}" name="confirmNOTOE" immediate="true"  oncomplete="refreshPage()"/>
+
+<!--<apex:actionFunction action="{!setredirect}" name="updateOppty1" immediate="true" oncomplete="refreshPage()"/>  -->
+
+
+<apex:inputHidden value="{!Opportunity.Ocean_Opportunity_Notification_Pop_Up__c}"/>
+<apex:inputHidden value="{!Opportunity.Quote_Numbers__c}"/>
+<apex:inputHidden value="{!Opportunity.LOT_Mandatory_Fields__c}"/>
+<apex:inputHidden value="{!Opportunity.Customer_Requested_Delivery_Date__c}"/>
+<apex:inputHidden value="{!Opportunity.Confirmed_for_Ocean_by_Finance_Gbl_Ops__c}"/>
+<apex:inputHidden value="{!Opportunity.Eligible_for_Ocean__c}"/>
+<apex:inputHidden value="{!Opportunity.Do_you_want_to_pursue_Ocean__c}"/>
+<apex:inputHidden value="{!Opportunity.How_many_shipments__c}"/>
+<apex:inputHidden value="{!Opportunity.Potential_Savings__c}"/>
+<apex:inputHidden value="{!Opportunity.currencyIsoCode}"/>
+<apex:inputHidden value="{!Opportunity.Stagename}"/>
+<apex:inputHidden value="{!Opportunity.Account_Country__c}"/>
+<apex:inputHidden value="{!Opportunity.Order_Compliance_Product__c}"/>
+<apex:inputHidden value="{!Opportunity.Needed_Quote_Notification_Pop_Up__c}"/>
+<apex:inputHidden value="{!Opportunity.Skip_Calculate_LOT_OCEAN__c}"/>
+
+
+
+</apex:form>
+<body onload="checkflag()"/>
+
+</apex:page>

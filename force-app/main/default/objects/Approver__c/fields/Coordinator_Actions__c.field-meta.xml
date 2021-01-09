@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Coordinator_Actions__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(
+AND(
+OR(
+ISPICKVAL(Approver_Status__c, &apos;Submitted&apos;),
+ISPICKVAL(Approver_Status__c, &apos;Rejected&apos;),
+ISPICKVAL(Approver_Status__c, &apos;Cancelled&apos;)
+),
+AND(
+NOT(ISPICKVAL( Approval_Request__r.Approval_Status__c , &apos;Cancelled&apos;)),
+NOT(ISPICKVAL( Approval_Request__r.Approval_Status__c , &apos;Approved&apos;)),
+NOT(ISPICKVAL( Approval_Request__r.Approval_Status__c , &apos;Closed as Rejected&apos;))
+)
+), 
+HYPERLINK(&apos;/apex/ApprovalRequestMaintenance?approverId=&apos; &amp; Id &amp; &apos;&amp;action=reassign&apos;, &apos;Reassign&apos;, &apos;_parent&apos;) &amp; &apos; &apos;,
+&apos;&apos; 
+) &amp; 
+IF(
+AND(
+OR(
+ISPICKVAL(Approver_Status__c, &apos;Submitted&apos;),
+ISPICKVAL(Approver_Status__c, &apos;Rejected&apos;),
+ISPICKVAL(Approver_Status__c, &apos;Cancelled&apos;)
+),
+AND(
+NOT(ISPICKVAL( Approval_Request__r.Approval_Status__c , &apos;Cancelled&apos;)),
+NOT(ISPICKVAL( Approval_Request__r.Approval_Status__c , &apos;Approved&apos;)),
+NOT(ISPICKVAL( Approval_Request__r.Approval_Status__c , &apos;Closed as Rejected&apos;))
+)
+), 
+HYPERLINK(&apos;/apex/ApprovalRequestMaintenance?approverId=&apos; &amp; Id &amp; &apos;&amp;action=resend&apos;, &apos;Resend&apos;, &apos;_parent&apos;) &amp; &apos; &apos;,
+&apos;&apos; 
+) &amp; 
+IF(
+AND(
+OR(
+ISPICKVAL(Approver_Status__c, &apos;Submitted&apos;),
+ISPICKVAL(Approver_Status__c, &apos;Rejected&apos;)
+),
+AND(
+NOT(ISPICKVAL( Approval_Request__r.Approval_Status__c , &apos;Cancelled&apos;)),
+NOT(ISPICKVAL( Approval_Request__r.Approval_Status__c , &apos;Approved&apos;)),
+NOT(ISPICKVAL( Approval_Request__r.Approval_Status__c , &apos;Closed as Rejected&apos;))
+)
+), 
+HYPERLINK(&apos;/apex/ApprovalRequestMaintenance?approverId=&apos; &amp; Id &amp; &apos;&amp;action=recall&apos; , &apos;Cancel&apos;, &apos;_parent&apos;) &amp; &apos; &apos;,
+&apos;&apos;
+) &amp;
+IF(
+AND(
+Approver__r.Id != $User.Id,
+ISPICKVAL(Approver_Status__c, &apos;Submitted&apos;),
+OR(
+$User.Is_DGR_Product_Admin__c == True,
+AND(
+$User.Is_Services_Intake_Manager_DGC__c == True,
+$User.Id == Approval_Request__r.Owner__r.Id 
+)
+)
+),
+HYPERLINK(&apos;/apex/ApprovalRequestApprove?approverId=&apos; &amp; Id &amp; &apos;&amp;fromLink=EmailApproval&apos;, &apos;Email Approval&apos;, &apos;_parent&apos;), 
+&apos;&apos;
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Coordinator Actions</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

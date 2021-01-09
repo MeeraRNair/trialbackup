@@ -1,0 +1,21 @@
+<apex:page standardController="Relationship_Lead__c" extensions="VFCntrlr_RelationshipLeadAccPlayEdit">
+    <table width="600px" cellpadding="0" cellspacing="0" align="center" border="0">
+        <tr>
+            <td>
+                <apex:form >                    
+                    <div>
+                        <apex:pageMessage severity="info" strength="3"  title="You cannot Edit the record"
+                            detail="Please click on the Detail Record to review the details and click on the appropriate button in the ‘Actions Available’ section"/>
+                        <table align="center">
+                            <tr><td>
+                                <apex:commandButton value="Back" action="{!navigateToList}"/>
+                                <apex:commandButton value="Go To Detail Page" action="{!navigateToDetail}"/>
+                            </td></tr>
+                        </table>
+                    </div>                  
+                </apex:form>
+            </td>
+        </tr>
+    </table>
+    
+</apex:page>

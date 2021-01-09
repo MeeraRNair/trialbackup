@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hardware_Quote_Platform_Field_Required</fullName>
+    <active>true</active>
+    <description>Hardware Quote #(s) Per Platform field is required if &quot;Solution Type&quot; = Customization OR Pricing Only OR RFx Support OR Sell Through OR Other</description>
+    <errorConditionFormula>AND( 
+ RecordType.DeveloperName=&apos;Request_OEM_Customized_Solution_Support&apos;, 
+ ISBLANK(Hardware_Quote_s_Platform_Names__c), 
+ OR( ISPICKVAL( OEM_Solution_Bundle__c , &apos;Customization&apos;), 
+  ISPICKVAL( OEM_Solution_Bundle__c , &apos;Pricing Only&apos;), 
+  ISPICKVAL( OEM_Solution_Bundle__c , &apos;RFx Support&apos;), 
+  ISPICKVAL( OEM_Solution_Bundle__c , &apos;Sell Through&apos;), 
+  ISPICKVAL( OEM_Solution_Bundle__c , &apos;Other&apos;)))</errorConditionFormula>
+    <errorDisplayField>Hardware_Quote_s_Platform_Names__c</errorDisplayField>
+    <errorMessage>You must enter a value</errorMessage>
+</ValidationRule>

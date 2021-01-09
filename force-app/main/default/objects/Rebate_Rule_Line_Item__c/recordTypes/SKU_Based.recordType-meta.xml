@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SKU_Based</fullName>
+    <active>true</active>
+    <description>Calculation is based on specific Dell SKUs</description>
+    <label>SKU Based</label>
+    <picklistValues>
+        <picklist>Business_Segment__c</picklist>
+        <values>
+            <fullName>All Segments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CSMR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PUB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SMB</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

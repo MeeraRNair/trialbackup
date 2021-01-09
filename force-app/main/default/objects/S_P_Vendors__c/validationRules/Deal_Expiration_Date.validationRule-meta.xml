@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Deal_Expiration_Date</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF(AND( ISBLANK(Deal_Expiration_Date__c),
+OR(
+ISPICKVAL(S_P_Deal_Status__c, &quot;Approved&quot;)
+,
+ISPICKVAL(S_P_Deal_Status__c, &quot;Limited Approval&quot;)
+)),TRUE, FALSE)</errorConditionFormula>
+    <errorDisplayField>Deal_Expiration_Date__c</errorDisplayField>
+    <errorMessage>If &quot;S&amp;P Deal Status&quot; is Approved or Limited Approval, then Deal Expiration Date field must be specified.</errorMessage>
+</ValidationRule>

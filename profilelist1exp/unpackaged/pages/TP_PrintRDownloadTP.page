@@ -1,0 +1,7 @@
+<apex:page standardController="Territory_Plan__c" extensions="TP_NewContinuePrintCtrlExt" action="{!redirectToPage}" sidebar="false" lightningStylesheets="true">
+    <apex:form id="formId">
+        <apex:pageMessages id="showmsg"></apex:pageMessages>
+        <apex:commandButton value="Back" action="{!redirectPreviousPage}" rendered="{!$User.UITheme != 'Theme3'}">
+        </apex:commandButton>
+    </apex:form>
+</apex:page>

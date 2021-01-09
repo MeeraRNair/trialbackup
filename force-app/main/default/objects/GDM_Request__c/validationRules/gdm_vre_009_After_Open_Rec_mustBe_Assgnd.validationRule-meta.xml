@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>gdm_vre_009_After_Open_Rec_mustBe_Assgnd</fullName>
+    <active>true</active>
+    <description>If user had selected &apos;Assigned&apos; as the new status, make sure that Assigned To field is filled in. Does not apply if Request Status is &apos;Open&apos;</description>
+    <errorConditionFormula>AND (
+ISBLANK(Assigned_To__c),
+NOT ISNEW() ,
+TEXT( Request_Status__c ) &lt;&gt; &apos;Open&apos;,
+RecordType.Name &lt;&gt; &apos;Buddy Access&apos;
+
+)</errorConditionFormula>
+    <errorDisplayField>Assigned_To__c</errorDisplayField>
+    <errorMessage>(009) Please fill in the Assign To field with a DPT team member.</errorMessage>
+</ValidationRule>

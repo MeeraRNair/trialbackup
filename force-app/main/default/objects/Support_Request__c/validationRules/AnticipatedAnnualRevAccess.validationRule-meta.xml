@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AnticipatedAnnualRevAccess</fullName>
+    <active>false</active>
+    <errorConditionFormula>(TEXT(Segment_Business_Unit__c)  == &quot;CSMB&quot;)  &amp;&amp;  ISBLANK(Anticipated_Anual_Revenue__c)</errorConditionFormula>
+    <errorDisplayField>Anticipated_Anual_Revenue__c</errorDisplayField>
+    <errorMessage>Please add Anticipated Annual Revenue $.</errorMessage>
+</ValidationRule>

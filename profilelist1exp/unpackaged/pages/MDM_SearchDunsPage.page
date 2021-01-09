@@ -1,0 +1,248 @@
+<apex:page standardController="Account" extensions="MDM_SearchDunsCntrlr" showHeader="true" sidebar="false" id="mypage">
+    
+    <apex:outputPanel id="searchTbl">
+    <apex:form id="theform"> 
+        <apex:pageMessages id="msg" />
+    <!-- Start D&B Search block  -->
+        <apex:pageBlock id="searchBlock" >
+            <apex:pageblockbuttons location="bottom">
+                <!--<apex:commandButton action="{!callMDM}" value=" {!$Label.MDM_Button_Search} "/>--><!-- commented for loading image during search-->
+                <apex:commandButton action="{!callMDM}" value="{!$Label.MDM_Button_Search}" onclick="searchButton()" reRender="searchTbl"/><!-- Added for loading image during search-->
+                <!-- <apex:commandButton value="Search " onclick="callMDM();"/> -->
+                <!-- <apex:commandButton value="Search " onclick="searchButton()"/> -->
+                <apex:commandButton value=" {!$Label.MDM_ResetButton} " action="{!reset}"/>
+                 <apex:commandButton onclick="window.parent.box.hide();" value=" {!$Label.MDM_CloseButton} " rendered="{!showclose}"/>
+  
+                
+            </apex:pageblockbuttons>
+            <apex:pageBlockSection title="{!$Label.MDM_SectionHdr_DBSearch}" collapsible="false" id="searchDuns" columns="1">
+                <apex:pageblockSectionItem >
+                    <apex:outputLabel value="{!$Label.MDM_Message_3}"/>
+                    <apex:selectList value="{!searchMethod}" multiselect="false" size="1" onchange="selectSearch();">
+                            <apex:selectOptions value="{!searchOptions}"/>
+                    </apex:selectList>
+                </apex:pageblockSectionItem>
+                <!-- <apex:outputText ></apex:outputText> -->
+                    <apex:inputText label="{!$Label.MDM_Field_DunsNumber}" id="dunsNumber" rendered="{!showDunsNumber}" value="{!iDunsId}" /> 
+                  <!--  <apex:input type="number" label="Duns Number" id="dunsNumber" rendered="{!showDunsNumber}" value="{!iDunsId}" /> -->
+                    <apex:inputText label="{!$Label.MDM_Field_AffinityID}" id="affinityId" rendered="{!showAffinity}" value="{!iAffinityId}" /> 
+                  <!--  <apex:input type="number" label="Affinity ID" id="affinityId" rendered="{!showAffinity}" value="{!iAffinityId}" />-->
+                    <apex:inputText label="{!$Label.MDM_Field_CustomerNumber}" id="cusNum" rendered="{!showCusNum}" value="{!iCustNum}"/> 
+                  <!--  <apex:input type="number" label="Customer Number" id="cusNum" rendered="{!showCusNum}" value="{!iCustNum}"/>-->
+                    <apex:inputText label="{!$Label.MDM_Field_BUID}" id="buid" rendered="{!showBUID}" value="{!iBUID}"/> 
+                  <!--  <apex:input type="number" label="BUID" id="buid" rendered="{!showBUID}" value="{!iBUID}"/> -->
+                    <apex:inputText label="{!$Label.MDM_Field_DunsName}" id="dunsName" rendered="{!showDunsName}" value="{!iDunsName}"/>
+                    
+                    <apex:pageBlockSectionItem id="prob" rendered="{!showDunsName&&checkVal=='P'}" helpText="{!$Label.MDM_HelpText_1}" >  
+                        
+                        <apex:outputText value="P" style="display: none;"/>
+                        <input type="radio" id="probRad" name="contactRadio" value="P"  checked="checked" onclick="changeValue(this,'{!$Component.ProDeterValue}','{!$Component.ProDeterupd}');"/>
+                            <h1 style="font-size: 11.49px; width: 50%; font-weight: bold; color: #43433F; position: relative; bottom: 2px;">{!$Label.MDM_RadioButton_Probabilistic}</h1>
+                    </apex:pageBlockSectionItem>
+                            
+                    <apex:pageBlockSectionItem id="deter" rendered="{!showDunsName&&checkVal=='P'}" helpText="{!$Label.MDM_HelpText_2}" > 
+                        <apex:outputText value="D" style="display: none;"/>
+                        <input type="radio" id = "deterRad" name="contactRadio" value="D" onclick="changeValue(this,'{!$Component.ProDeterValue}','{!$Component.ProDeterupd}');"/>
+                        <h1 style="font-size: 11.49px; width: 50%; font-weight: bold; color: #43433F; position: relative; bottom: 2px;">{!$Label.MDM_RadioButton_Deterministic}</h1>
+                       
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem id="prob1" rendered="{!showDunsName&&checkVal=='D'}" helpText="{!$Label.MDM_HelpText_1}" >  
+                        
+                        <apex:outputText value="P" style="display: none;"/>
+                        <input type="radio" id="probRad1" name="contactRadio" value="P"   onclick="changeValue(this,'{!$Component.ProDeterValue}','{!$Component.ProDeterupd}');"/>
+                            <h1 style="font-size: 11.49px; width: 50%; font-weight: bold; color: #43433F; position: relative; bottom: 2px;">{!$Label.MDM_RadioButton_Probabilistic}</h1>
+                    </apex:pageBlockSectionItem>
+                            
+                    <apex:pageBlockSectionItem id="deter1" rendered="{!showDunsName&&checkVal=='D'}" helpText="{!$Label.MDM_HelpText_2}" > 
+                        <apex:outputText value="D" style="display: none;"/>
+                        <input type="radio" id = "deterRad1" name="contactRadio" value="D" checked="checked" onclick="changeValue(this,'{!$Component.ProDeterValue}','{!$Component.ProDeterupd}');"/>
+                        <h1 style="font-size: 11.49px; width: 50%; font-weight: bold; color: #43433F; position: relative; bottom: 2px;">{!$Label.MDM_RadioButton_Deterministic}</h1>
+                       
+                    </apex:pageBlockSectionItem> 
+                    
+                    
+                    <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.MDM_Field_Country}" rendered="{!showCountry}" />
+                            <apex:selectList label="{!$Label.MDM_Field_Country}" size="1" rendered="{!showCountry}" value="{!iCountry}">
+                                <apex:selectOptions value="{!items}" />
+                            </apex:selectList>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.MDM_Field_Region}" rendered="{!showRegion}" />
+                            <apex:selectList label="{!$Label.MDM_Field_Region}" size="1" rendered="{!showRegion}" value="{!iRegion}">
+                                <apex:selectOptions value="{!RegionOptions}" />
+                            </apex:selectList>
+                    </apex:pageBlockSectionItem>
+                 
+                    
+                    <apex:inputText label="{!$Label.MDM_Field_State}" id="state" rendered="{!showState}" value="{!iState}"/>
+                    <apex:inputText label="{!$Label.MDM_Field_City}" id="city" rendered="{!showCity}" value="{!iCity}" />
+                    <apex:inputText label="{!$Label.MDM_Field_PostalCd}" id="postal" rendered="{!showPostalCode}" value="{!iPostalCode}"/>
+                </apex:pageblockSection>
+        </apex:pageBlock>
+    <!-- End of D&B Search block -->
+    
+    <!-- Start of Search result  -->
+    
+    <apex:pageBlock id="DunsInfoblock" rendered="{!showResultBlock}">
+                <apex:pageBlockButtons location="bottom">
+                <apex:commandbutton value="{!$Label.MDM_Button_ViewDnBDetails}" rendered="{!showResultTable}" onclick="AccountDetailspopup('{!$Component.RadioButtonValue}');return false;">
+                </apex:commandbutton>
+                <apex:commandbutton value="{!$Label.MDM_Button_ViewHierarchy}" rendered="{!showResultTable}" onclick="Hierarchypopup('{!$Component.RadioButtonValue}');return false;">
+                </apex:commandbutton>
+            </apex:pageBlockButtons>
+            
+           
+            <apex:pageBlockSection columns="1" title="{!$Label.MDM_SectionHdr_SearchResults}" collapsible="false">
+                <apex:outputPanel id="out" styleclass="Bold">
+                <apex:actionstatus id="status" startText="Calling the result..." styleclass="Bold">
+                        <apex:facet name="stop">
+                    <apex:outputLabel style="color:red" styleclass="Bold" value="{!$Label.MDM_No_Record_Found}" rendered="{!IF( oMessage != null ,true,false)}"></apex:outputLabel>
+                        </apex:facet>
+                    </apex:actionstatus>
+                </apex:outputPanel>         
+                <apex:pageBlockTable value="{!finalList}" var="duns" id="tbl" rendered="{!showResultTable}">
+                    <apex:column >
+                        <input type="radio" name="radBut" value="{!duns.DunsId}" onclick="changeselValue(this,'{!$Component.RadioButtonValue}');"/>
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.MDM_Field_DunsNumber}">
+                        <apex:outputlabel value="{!duns.DunsId}"/>                    
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.MDM_Field_DunsName}">
+                        <apex:outputlabel value="{!duns.DunsName}"/>                    
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.MDM_Field_Country}">
+                        <apex:outputlabel value="{!duns.Country}"/>                    
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.MDM_Field_City}">
+                        <apex:outputlabel value="{!duns.City}"/>                    
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.MDM_Field_State}">
+                        <apex:outputlabel value="{!duns.State}"/>                    
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.MDM_Field_PostalCd}">
+                        <apex:outputlabel value="{!duns.PostalCode}"/>                    
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.MDM_Field_Address}">
+                        <apex:outputlabel value="{!duns.Address}"/>                    
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.MDM_Field_OOBIndicator}">
+                        <apex:outputlabel value="{!duns.OOB}"/>                    
+                    </apex:column>
+                     <apex:column headerValue="{!$Label.MDM_Field_EmployeeSize}">
+                        <apex:outputlabel value="{!duns.EmployeeSize}"/>                    
+                    </apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+   
+    
+    <!-- End of Search result -->   
+       
+        
+        
+       <apex:actionFunction name="selectSearch" action="{!selectSearch}" status="status" reRender="searchBlock,DunsInfoblock,msg,tbl,theform"/>
+       <apex:actionFunction name="searchButton" action="{!callMDM}" status="status" reRender="tbl"/> <!-- Added for loading image during search-->
+       
+       <apex:outputpanel >
+            <apex:actionstatus id="status">
+                <apex:facet name="start">
+                    <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb;
+                           height: 100%;opacity:0.65;width:100%;"> 
+                        <div class="waitingHolder" style="top: 74.2px; width: 91px;">
+                            <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                            <span class="waitingDescription">Please Wait...</span>
+                        </div>
+                    </div>
+                </apex:facet>
+            </apex:actionstatus>
+        </apex:outputpanel>
+    
+    <apex:inputText value="{!selectedDunsValue}" id="RadioButtonValue" style="display: none;"/>
+    <apex:inputText value="{!iProNDetministic}" id="ProDeterValue" style="display: none;" />
+    <apex:inputText value="{!isupdtd}" id="ProDeterupd" style="display: none;" />
+    
+    </apex:form>
+     </apex:outputPanel> 
+    
+<style type="text/css">
+        .custPopup{
+            background-color: white;
+            border-width: 2px;
+            border-style: solid;
+            z-index: 9999;
+            left: 50%;
+            padding:10px;
+            position: absolute;
+            width: 500px;
+            margin-left: -250px;
+            top:100px;
+        }
+        .popupBackground{
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+        }
+        .dunsName{
+        width:200px;
+        height:200px;
+        position: absolute;
+        
+        }
+        .bPageHeader {
+        display:none;
+    }
+    
+
+
+
+
+
+    </style>
+    <script type="text/javascript">
+        
+    function AccountDetailspopup(dunsid){
+        if(document.getElementById(dunsid).value != null && document.getElementById(dunsid).value != ''){
+            var accountwindow = window.open('/apex/MDM_DBAccountDetailsPage?dunsnumber=' +document.getElementById(dunsid).value +'&close='+ false, '', "height=600,width=900,scrollbars=yes");
+            accountwindow.focus();
+        }else {
+            alert('{!$Label.MDM_ValidationErrorMessage}');
+        }
+    }    
+
+    function Hierarchypopup(dunsid){
+        if(document.getElementById(dunsid).value != null && document.getElementById(dunsid).value != ''){
+            var Hierarchwindow = window.open('/apex/MDM_DunsTreePage?dunsnumber=' +document.getElementById(dunsid).value +'&close='+ false, '', "height=600,width=900,scrollbars=yes");
+            Hierarchwindow.focus();
+        }else {
+            alert('{!$Label.MDM_ValidationErrorMessage}');
+        }
+    }
+    
+    function changeValue(input, textid,updatedval) {
+      document.getElementById(textid).value = input.value;  
+      document.getElementById(updatedval).value = true;    
+    }
+    
+    function changeselValue(input, textid) {
+      document.getElementById(textid).value = input.value; 
+          
+    }
+    function markChecked(){
+        //alert({!iProNDetministic});
+    }
+    
+    
+    
+
+    
+    </script>
+    
+</apex:page>

@@ -1,0 +1,76 @@
+<apex:page controller="LOB_AvailableCustomers">
+
+<!--
+Column: {!ShowColumns} <br />
+Button: {!ShowBackButton} <br />
+
+opp9: {!opp9} <br />
+//-->
+
+   <apex:form > 
+    <apex:pageBlock title="Available Customers (LOB Registration)">
+     <apex:pageMessages id="errorMsg" />         
+        <div id="contentToToggle" style="display:{!if(ShowBackButton,"block","none")};">
+            <input type="button" id="backbtn" onclick="javascript:history.back()" value="Back"  /> 
+        </div>   
+        <apex:outputPanel id="table">            
+        <apex:pageBlockTable value="{!LOB_Registration}" var="o" >
+            <apex:column headerValue="Selected" rendered="{!ShowColumns}">            
+              <apex:inputCheckbox value="{!o.selected}">
+                <apex:actionSupport event="onclick" action="{!checkSelect}" reRender="button" status="renderButton"/>
+              </apex:inputCheckbox>
+            </apex:column>
+            <apex:column headerValue="LOB Name" rendered="{!ShowColumns}">
+             <apex:outputText value="{!o.lobRecord.LOB_Name__c}"></apex:outputText>
+            </apex:column>
+            <apex:column value="{!o.lobRecord.Registered_End_User__c}"/>
+            <!-- DP v4.0 CR 11900
+            <apex:column headerValue="Location" rendered="{!ShowColumns}">
+             <apex:outputText value="{!o.lobRecord.Location1__c}"></apex:outputText>
+            </apex:column>
+            -->
+            <apex:column headerValue="LOB Award Type" rendered="{!ShowColumns}">
+             <apex:outputText value="{!o.lobRecord.LOB_Award_Type__c}"></apex:outputText>
+            </apex:column>
+            <apex:column headerValue="City" rendered="{!ShowColumns}">
+             <apex:outputText value="{!o.lobRecord.City__c}"></apex:outputText>
+            </apex:column>
+            <apex:column headerValue="State/Province/Region" rendered="{!ShowColumns}">
+             <apex:outputText value="{!o.lobRecord.State_Province_Region__c}"></apex:outputText>
+            </apex:column>
+            <apex:column headerValue="Subsidiary Name" rendered="{!ShowColumns}">
+             <apex:outputText value="{!o.lobRecord.Subsidiary_Name__c}"></apex:outputText>
+            </apex:column>
+            <apex:column headerValue="LOB Registration Status" rendered="{!ShowColumns}">
+             <apex:outputText value="{!o.lobRecord.LOB_registration_status__c}"></apex:outputText>
+            </apex:column>
+            <!-- DP v6.0 Starts-->
+            <apex:column headerValue="LOB Registration Expiration Date" rendered="{!ShowColumns}">               
+              <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                <apex:param value="{!o.lobRecord.GTM_Linkage_Expiry_Date__c}" /> 
+              </apex:outputText>
+            </apex:column>                       
+            <!-- DP v6.0 Ends -->
+            <apex:column value="{!o.lobRecord.Shared_to_GTM_Partner__c}"/>
+            <!-- DP 6 Jun <apex:column headerValue=" Other Actions"  rendered="{!ShowColumns}">
+             <apex:commandLink action="{!pageRedirect}" rendered="{!IF(o.LOB_registration_status__c == 'Partner(submit for approval)',false,true)}">
+              <apex:image id="theImage" value="{!$Resource.Create_New_Deal}"/> 
+               <apex:param value="{!o.Id}" assignTo="{!selectedLOB }" name="selectedLOB "/>
+              </apex:commandLink>
+              <apex:outputText rendered="{!IF(o.LOB_registration_status__c == 'Partner(submit for approval)',true,false)}">[No Actions Available]</apex:outputText>
+            </apex:column>-->           
+        </apex:pageBlockTable>
+        </apex:outputPanel>
+        <apex:pageBlockButtons location="bottom">
+          <apex:actionStatus id="renderButton" >
+            <apex:facet name="start" >
+              <apex:image url="{!$Resource.loading}"/>        
+            </apex:facet>
+          </apex:actionStatus> 
+          <apex:outputPanel id="button">
+            <apex:commandButton value="Select" action="{!pageRedirect}" reRender="errorMsg" disabled="{!NOT(enableButton)}"/>
+          </apex:outputPanel>
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+   </apex:form>    
+</apex:page>

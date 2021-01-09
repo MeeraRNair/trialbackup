@@ -1,0 +1,56 @@
+<apex:page Controller="VFCntrlr_UpdateSalesTeamEdit" tabStyle="Opportunity" lightningStylesheets="true">
+    <apex:sectionHeader title="Opportunity"  subtitle="Edit Sales Team Member"></apex:sectionHeader>
+    
+    <apex:form >
+        <apex:pageMessages />
+        <apex:pageBlock mode="Edit" rendered="{!DataAvailable}">
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="Save" Title="Save"/>
+                <apex:commandButton action="{!Cancel}" value="Cancel" Title="Cancel"/>
+            </apex:pageBlockButtons>  
+            
+            <apex:pageBlockSection title="Team Member Information" columns="1"> 
+                
+                <!--User : Read only -->
+                <apex:inputField id="UserId" value="{!currentTeamMember.UserId}"/>                
+                
+                <!--Access level : displays only if the this Member is the owner of the opportunity -->
+                <apex:pageblockSectionItem rendered="{!IsOwner}">
+                    <apex:outputText value="Opportunity Access"/><apex:outputText value="Full Access"/>                        
+                </apex:pageblockSectionItem>
+                
+                
+                <!--Access level : for a normal sales team member-->
+                <apex:pageblockSectionItem rendered="{!NOT(IsOwner)}">
+                    <apex:outputText value="Opportunity Access"/>
+                    <apex:selectList required="true" value="{!access}" size="1"  rendered="{!NOT(IsOwner)}" > 
+                        <apex:selectOptions value="{!AccessLevels}"/>
+                    </apex:selectList>             
+                </apex:pageblockSectionItem>
+                
+                <!-- Primary/Secondary Specialty SE: STORY 7581005	-->
+                <apex:pageblockSectionItem >
+                    <apex:outputText value="Primary/Secondary Specialty SE"/>
+                    <apex:selectList required="true" value="{!currentTeamMember.Primary_Secondary_Specialty_SE__c}" size="1" > 
+                        <apex:selectOptions value="{!PrimarySecondarySEAccess}"/>
+                    </apex:selectList>             
+                </apex:pageblockSectionItem>
+                
+                <!--Team Role-->                
+                <apex:inputField id="opportunityTeamRole" value="{!currentTeamMember.teammemberrole}" required="true"/>
+                
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="Error" rendered="{!NOT(DataAvailable)}">
+            Data not available! 
+            <apex:pageBlockButtons location="bottom" > 
+                <apex:commandButton value="Back" action="{!Cancel}"/>
+            </apex:pageBlockButtons>    
+        </apex:pageBlock>
+        
+        
+    </apex:form>
+</apex:page>

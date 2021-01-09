@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VerifyEndDate</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR(
+OR( DATEVALUE( End_Time__c )&lt;Customer_Engagement__r.Calendar_Management__r.Start_Date__c ,  DATEVALUE(End_Time__c)&gt; Customer_Engagement__r.Calendar_Management__r.End_Date__c ), End_Time__c &lt; Start_Time__c )</errorConditionFormula>
+    <errorMessage>End Date is not in the date range of the CE.</errorMessage>
+</ValidationRule>

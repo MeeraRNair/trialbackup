@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_Incoming_Task_Completed</fullName>
+    <active>false</active>
+    <description>This validation rule prevents the Incoming Task checkbox to be marked TRUE if the required criteria are not met.</description>
+    <errorConditionFormula>AND (
+OR (
+ISPICKVAL (Status__c, &quot;Pending Assignment&quot;),
+ISPICKVAL (Status__c, &quot;Draft&quot;)),
+Incoming_Handover_Tasks_Completed__c = TRUE
+)</errorConditionFormula>
+    <errorDisplayField>Incoming_Handover_Tasks_Completed__c</errorDisplayField>
+    <errorMessage>The Incoming Handover Task cannot be completed when Status is still in Draft or Pending Assignment.</errorMessage>
+</ValidationRule>

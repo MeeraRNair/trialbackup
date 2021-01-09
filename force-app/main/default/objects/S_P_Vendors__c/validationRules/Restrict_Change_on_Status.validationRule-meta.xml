@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_Change_on_Status</fullName>
+    <active>true</active>
+    <description>When S&amp;P Status is Expired, No change in status should happen even when Boomi 
+    update their status.</description>
+    <errorConditionFormula>AND(
+S_P_Vendors_Name__c = &apos;VMware&apos;,
+$Profile.Id = &apos;00eA0000000hNqF&apos;, 
+ISPICKVAL(PRIORVALUE(S_P_Deal_Status__c) , &quot;Expired&quot;),
+ISCHANGED(S_P_Deal_Status__c) 
+)</errorConditionFormula>
+    <errorDisplayField>S_P_Deal_Status__c</errorDisplayField>
+    <errorMessage>Change in Status from Expired to Other status is not allowed.</errorMessage>
+</ValidationRule>

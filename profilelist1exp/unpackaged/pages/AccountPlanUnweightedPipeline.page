@@ -1,0 +1,74 @@
+<apex:page controller="AccountPlanChartController" action="{!productPipelineTotalPrice}" showHeader="false" sidebar="false">
+    <style>
+        .TitleFont{
+        text-align: left;
+        margin-top: 12px;
+        margin-left: 26px;
+        margin-bottom:20px;
+        font-size: 16px;
+        font-family: var(--lwc-fontFamily,'Salesforce Sans', Arial, sans-serif);
+        }
+       text {
+        font-size:9px !important;
+              }
+        .nodataStyle{
+        
+    	text-align: center !important;
+    	margin-top: 136px;
+        font-size: 16px;
+        font-family: var(--lwc-fontFamily,'Salesforce Sans', Arial, sans-serif);
+        }
+    </style>
+    <script type="text/javascript">
+    var reformatData = []
+  
+    <apex:repeat value="{!lstProductChartData}" var="dataset">
+        var quarterData = {name:"{!dataset.name}"}
+        var i = 1   
+        <apex:repeat value="{!dataset.numbers}" var="number">
+            quarterData["data"+i] = parseFloat("{!number}")
+              i++;
+        </apex:repeat>
+        reformatData.push(quarterData)
+      
+    </apex:repeat>
+        //    var lexOrigin = "https://dell--dit4.lightning.force.com";
+              
+       
+        function spinnerdisplay(){
+            if('{!lstProductChartData}'){
+
+           var lexOrigin = document.getElementById('theHiddenInput').value;
+            var message = 'Data Received';
+            parent.postMessage(message, lexOrigin);
+            }
+       
+          }
+    </script>
+    <apex:form >
+           <input type="hidden" value="{!urlforvf}" id="theHiddenInput"/>
+    <div class="TitleFont">Total Price Pipeline by Business Unit</div>
+        <apex:outputText value="{!callfunc}" escape="false"></apex:outputText>
+    
+ 
+    <apex:chart height="300" width="100%" data="reformatData" id="chart"  rendered="{! If(yField!=null,true,false)}">
+    <apex:legend position="right" id="legendWidth"/>
+        
+          <apex:axis type="Numeric" position="left"  fields="{!yField}"
+           grid="true"/>
+          <apex:axis type="Category" position="bottom" fields="name">
+              <apex:chartLabel rotate="-45" font="var(--lwc-fontFamily,'Salesforce Sans', Arial, sans-serif);" field="name" color="#FF0000"/>
+        </apex:axis>
+          <apex:barSeries orientation="vertical" axis="left" stacked="true"
+                          xField="name" yField="{!yField}"  title="{!productValues}">
+                          <apex:chartTips height="30" width="120" /> 
+        </apex:barSeries>
+   </apex:chart>
+        <div class="nodataStyle">
+           <apex:outputLabel rendered="{! If(yField==null,true,false)}" >No Records Found</apex:outputLabel>  
+        </div>
+       
+       
+  
+   </apex:form>
+</apex:page>

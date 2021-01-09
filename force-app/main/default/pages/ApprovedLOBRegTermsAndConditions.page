@@ -1,0 +1,99 @@
+<!--
+History Revision:
+31-Oct-2011     Fenny   R13.1 - LOB Reg - CR6656: Deal registration auto-approval process 
+ -->
+<apex:page standardController="Opportunity" extensions="LOBRegistrationAutoApprovalCtrl" action="{!pageOnLoad}" language="{!preferredLanguageCode}">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+
+<apex:form id="formId">
+<apex:outputPanel rendered="{!showError}" >
+            <apex:pageMessages id="msgg" />
+            <apex:commandButton value="{!$Label.AVS_Button_Back}" action="{!cancel}" id="backBtn" />
+        </apex:outputPanel>
+<apex:outputPanel rendered="{!!showError}">
+<script language="javascript">
+function agreedTermsAndCondition(){
+    var chkBox = document.getElementById("{!$Component.agreeTAndCCheckBox}");
+    var headerEle = document.getElementById("{!$Component.tandCHeader}");
+    var submitBtn = document.getElementById("{!$Component.submitButton}");
+    
+    if(chkBox.checked){
+        headerEle.innerHTML = "{!$Label.Deal_Auto_Approval_TandC_Header_Accepted}";
+        submitBtn.className = "btn";
+        submitBtn.disabled = false;
+    }else{
+        headerEle.innerHTML = "{!$Label.Deal_Auto_Approval_TandC_Header_Not_Acccepted}";
+        submitBtn.className = "btnDisabled";
+        submitBtn.disabled = true;
+    }
+}
+</script>
+
+    <apex:outputPanel rendered="{!hasError}">
+        <apex:pageMessages />
+    </apex:outputPanel>
+    
+    <apex:outputPanel id="messagePanel" rendered="{!showMessage}">
+        <apex:variable var="title" value="{!$Label.Deal_Auto_Approval_Not_LOB_Product_Title}" rendered="{!messageKey == MSG_KEY_NOT_LOB_PRODUCT}"/>
+        <apex:variable var="title" value="{!$Label.Deal_Auto_Approval_Submission_Succeed_Title}" rendered="{!messageKey == MSG_KEY_AUTO_APPROVED}"/>
+        <apex:variable var="title" value="{!$Label.Deal_Auto_Approval_Failed_Then_Manual_Title}" rendered="{!messageKey == MSG_KEY_AUTO_APPROVAL_FAILED}"/>
+        <apex:variable var="message" value="{!$Label.Deal_Auto_Approval_Not_LOB_Product_Message}" rendered="{!messageKey == MSG_KEY_NOT_LOB_PRODUCT}"/>
+        <apex:variable var="message" value="{!$Label.Deal_Auto_Approval_Submission_Succeed_Message}" rendered="{!messageKey == MSG_KEY_AUTO_APPROVED}"/>
+        <apex:variable var="message" value="{!$Label.Deal_Auto_Approval_Failed_Then_Manual_Message}" rendered="{!messageKey == MSG_KEY_AUTO_APPROVAL_FAILED}"/>
+
+        <table cellspacing="10">
+            <tr>
+                <td>
+                    <apex:outputText id="messageTitle" value="{!title}" style="font-weight: bold; font-size: 12pt;"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <apex:outputText id="messageContent" value="{!message}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <apex:commandButton id="yesButton" value="{!$Label.Deal_Auto_Approval_Continue_Button}" action="{!proceedManualApproval}" rendered="{!messageKey == MSG_KEY_NOT_LOB_PRODUCT}"/>&nbsp;&nbsp;
+                    <apex:commandButton id="noButton" value="{!$Label.Deal_Auto_Approval_Back_Button}" action="{!exitApproval}" rendered="{!messageKey == MSG_KEY_NOT_LOB_PRODUCT}"/>&nbsp;&nbsp;
+                    <apex:commandButton id="okButton" value="{!$Label.Deal_Auto_Approval_Ok_Button}" action="{!showCompanyProfile}" rendered="{!(messageKey == MSG_KEY_AUTO_APPROVED || messageKey == MSG_KEY_AUTO_APPROVAL_FAILED)}"/>&nbsp;&nbsp;
+                </td>
+            </tr>
+        </table>
+    </apex:outputPanel>
+    
+    <apex:outputPanel id="TandCPanel" rendered="{!NOT(showMessage) && NOT(hasError)}">
+        <table width="80%" border="1" cellspacing="0" cellpadding="6">
+            <tr><td><apex:outputLabel id="tandCHeader" value="{!$Label.Deal_Auto_Approval_TandC_Header_Not_Acccepted}"/></td></tr>
+            <tr>
+            <td>
+                <table border="0" cellspacing="10" width="100%">
+                    <tr><td><apex:outputLabel id="tandCTitle" value="{!upperCaseLOBName} {!$Label.Deal_Auto_Approval_TandC_Title}" style="font-weight: bold; font-size: 12pt; color: #FF0000;"/></td></tr>
+                    <tr><td align="center"><apex:iframe id="tandCContent" src="{!tcUrl}" scrolling="true" width="100%" height="550px"/></td></tr>
+                    <tr>
+                    <td>
+                        &nbsp;<label id="agreeNoteLbl" style="color: #FF0000;">{!$Label.Deal_Auto_Approval_TandC_Agreement_Note}</label>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td align="center">
+                        <apex:commandButton id="submitButton" value="{!$Label.Deal_Auto_Approval_Submit_Registration_Button}" action="{!submitRegistration}" disabled="false"/>&nbsp;&nbsp;
+                        <apex:commandButton id="cancelButton" value="{!$Label.Deal_Auto_Approval_Cancel_Button}" action="{!cancelSubmission}"/>&nbsp;&nbsp;
+                        <script type="text/javascript">
+                            var submitRegBtn = document.getElementById("{!$Component.submitButton}");
+                            submitRegBtn.className = "btnDisabled";
+                            submitRegBtn.disabled = true;
+                        </script>
+                    </td>
+                    </tr>
+                </table>
+            </td>
+            </tr>
+        </table>
+    </apex:outputPanel>
+  </apex:outputPanel>
+</apex:form>
+</html>
+</apex:page>

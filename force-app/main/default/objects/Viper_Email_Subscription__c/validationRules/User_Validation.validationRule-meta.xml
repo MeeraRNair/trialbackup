@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>User_Validation</fullName>
+    <active>true</active>
+    <description>This field should allow only Internal Users</description>
+    <errorConditionFormula>CONTAINS(User__r.Profile_Name__c, &quot;Portal&quot;)</errorConditionFormula>
+    <errorMessage>Partner Users and Customer Portal Users are not allowed.  Please choose a User.</errorMessage>
+</ValidationRule>

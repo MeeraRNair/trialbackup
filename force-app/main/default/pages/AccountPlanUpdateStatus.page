@@ -1,0 +1,28 @@
+<apex:page id="thePage" standardController="SFDC_Acct_Plan__c" extensions="AccountPlanUpdateStatusController"  title="Updating Account Plan Status" tabStyle="Account" action="{!updateAccountPlanStatus}" lightningStylesheets="true">
+ 
+
+     <apex:form id="theForm">
+        <apex:pageMessages />
+        <apex:inputHidden value=" {!SFDC_Acct_Plan__c.Plan_Status__c}" />
+        <apex:inputHidden value=" {!SFDC_Acct_Plan__c.Sales_Manager__c}" />
+        
+        <!-- Included for CR 11998 : Start -->
+        <apex:inputHidden value=" {!SFDC_Acct_Plan__c.Manager__c}" />
+        <apex:inputHidden value=" {!SFDC_Acct_Plan__c.RecordType.Name}" />
+        <!-- Included for CR 11998 : End-->
+        
+        <apex:inputHidden value=" {!SFDC_Acct_Plan__c.AP_Lite_Manager__c}" />   
+        <apex:inputHidden value=" {!SFDC_Acct_Plan__c.Approved_by_Sales_Management__c}" />     
+        <apex:pageBlock id="displaySection" rendered="{!!hasMessage}" title=" Updating Account Plan" >
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton action="{!redirectBack}" value="Back"/>
+            </apex:pageBlockButtons>
+            <apex:pagemessage summary="Updating Account Plan Status. Please click the 'Back' button if the page does not redirect automatically." severity="info" strength="3" ></apex:pagemessage>
+
+
+        </apex:pageBlock>
+         
+    </apex:form>
+     
+     
+</apex:page>

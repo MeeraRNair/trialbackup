@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CommVault_Federal_Formula__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( AND( LOWER(Opportunity__r.Account.Sales_Channel__r.Segment_Name__c) = LOWER(&apos;FED&apos;), OR( ISPICKVAL( Opportunity__r.Primary_Product_Delivery_Address_Country__c, &apos;UNITED STATES&apos; ), ISPICKVAL( Opportunity__r.Primary_Product_Delivery_Address_Country__c, &apos;CANADA&apos; ) ) ), &apos;TRUE&apos;, &apos;FALSE&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>CommVault Federal Formula</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Click_here_to_finish_S_P_Deal_Reg</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Click here to finish S&amp;P Deal Reg</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <requireRowSelection>false</requireRowSelection>
+    <url>{!URLFOR($Action.S_P_Vendors__c.New,null)}&amp;CF00NA00000043Q5r={!Opportunity.Name}&amp;CF00NA00000043Q5r_lkid={!Opportunity.Id}</url>
+</WebLink>

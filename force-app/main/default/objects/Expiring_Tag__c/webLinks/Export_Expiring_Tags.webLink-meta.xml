@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Export_Expiring_Tags</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Export Expiring Tags</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <requireRowSelection>false</requireRowSelection>
+    <url>window.open(&apos;/apex/ChildRecordsExporter?csn=Export_Expiring_Tags_Config__c&amp;on=Expiring_Tag__c&amp;pri={!Lead.Id}&amp;prf=Lead__c&apos;);</url>
+</WebLink>

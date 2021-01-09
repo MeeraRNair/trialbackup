@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Existing_MS_CLA_Required</fullName>
+    <active>true</active>
+    <description>&quot;Existing MS Customer License Agreement #&quot; field is required if Microsoft (MS) Embedded Request Type  =  &quot;Add Dell to Existing CLA&quot; &amp; Microsoft (MS) Embedded Request Type  =  &quot;New Registration for Existing Customer&quot;</description>
+    <errorConditionFormula>AND(RecordType.DeveloperName = &apos;Request_OEM_Tech_Partner_Support&apos;,ISBLANK(TEXT(Existing_MS_Customer_License_Agreement__c)), OR(ISPICKVAL(Microsoft_MS_Embedded_Request_Type__c, &apos;Add Dell to Existing CLA&apos;), ISPICKVAL(Microsoft_MS_Embedded_Request_Type__c, &apos;New Registration for Existing Customer&apos;)))</errorConditionFormula>
+    <errorDisplayField>Existing_MS_Customer_License_Agreement__c</errorDisplayField>
+    <errorMessage>You must enter a value</errorMessage>
+</ValidationRule>

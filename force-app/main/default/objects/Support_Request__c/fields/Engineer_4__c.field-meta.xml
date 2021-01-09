@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Engineer_4__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Engineer 4</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Sales_Motion_User_Role__c.Role__c</field>
+            <operation>equals</operation>
+            <value>Engineer</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Sales_Motion_User_Role__c</referenceTo>
+    <relationshipLabel>Support Requests (Engineer 4)</relationshipLabel>
+    <relationshipName>Support_Requests7</relationshipName>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

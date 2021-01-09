@@ -1,0 +1,31 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="true" controller="PartnerSelfServiceUpdateMessageCtrlExt" title="Thank you for the Submition" >
+
+<br/><br/><br/><br/>
+
+    <table width="600px" cellpadding="0" cellspacing="0" align="center" border="0">
+        <tr><td>
+            <apex:form >
+                <!-- SLA Message -->
+                <apex:outputPanel id="SLAmessage" rendered="{!messageType==SLA}"> 
+                    <apex:pageMessage severity="info"  strength="2"  summary="{!$Label.Self_Service_SLA}">
+                        <table align="center"><tr><td>
+                            <apex:commandButton value="{!$Label.ok}" action="{!navigateToCompanyProfile}"/>
+                        </td></tr></table>
+                    </apex:pageMessage>
+                </apex:outputPanel>
+                
+                <!-- No Change Message -->
+                <apex:outputPanel id="NoChangeMessage" rendered="{!messageType==NO_CHANGE}"> 
+                    <apex:pageMessage severity="info"  strength="2"  summary="{!$Label.No_changes_were_made}">
+                        <table align="center"><tr><td>
+                            <apex:commandButton value="{!$Label.ok}" action="{!navigateToCompanyProfile}"/>
+                        </td></tr></table>
+                    </apex:pageMessage>
+                </apex:outputPanel>       
+                
+                
+            </apex:form>    
+        </td></tr>
+    </table>
+    
+</apex:page>

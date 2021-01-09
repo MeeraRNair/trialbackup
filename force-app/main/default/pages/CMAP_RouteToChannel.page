@@ -1,0 +1,30 @@
+<apex:page standardController="Relationship_Lead__c" extensions="CMAP_LeadRoutingController">
+
+    <!-- Consent to dell Check box -->
+    <apex:form >
+        <apex:pageBlock >
+        <apex:pagemessages />
+        </apex:pageBlock>
+        <apex:pageBlock rendered="{!showFirstBlock }">
+            <apex:pageBlockSection columns="1">
+                <apex:inputField value="{!rLeadObj.Consent_to_engage_Dell_Channel_Partner__c}" required="TRUE"/>
+            </apex:pageBlockSection>
+             <apex:pageblockButtons location="bottom">
+                 <apex:commandButton value="Continue" action="{!redirect}"/>
+                 <apex:commandButton value="Cancel" action="{!cancelButton}"/>
+             </apex:pageblockButtons>
+        </apex:pageBlock>
+         <apex:pageBlock title="Please Enter the Comments" rendered="{!Show2ndBlock}">
+            <apex:pageBlockSection columns="1">
+                <apex:inputField value="{!clRecord.Questions_Comments__c}" required="TRUE" style="Width:60%"/>
+                <apex:inputField value="{!clRecord.Sales_Comments__c}" required="TRUE" style="Width:60%"/>               
+            </apex:pageBlockSection>
+            <apex:pageblockButtons location="bottom">
+                 <apex:commandButton value="Save" action="{!saveButton}"/>
+                 <!--Code Start: CRQ 0797: Remove Cancel button from PL
+                 <apex:commandButton value="Cancel" action="{!cancelButton2}"/>
+                 Code End: CRQ 0797: Remove Cancel button from PL -->
+            </apex:pageblockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

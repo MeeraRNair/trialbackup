@@ -1,0 +1,402 @@
+<apex:page showHeader="false" sidebar="false" standardController="Opportunity" extensions="OpportunityApprovalActionPannelExt">
+<apex:Form id="Id1">
+
+       <!-- CSS Attributes for Progress Bar -->
+       <!-- CR: 12081 : Hide Progress Bar : Start
+       <style>
+            .progressBar{
+                background-color: #f8f8f8;
+                border:1px solid #DDDDDD;
+                height: 15px;
+                width: 150px;
+                -moz-border-radius: 5px; 
+                -webkit-border-radius: 5px;
+            }
+            .progress{
+                background-color: #32CD32;
+                border:1px solid #E78F08;
+                height: 100%;
+                margin: -1px;
+                text-align: center;
+                -moz-border-radius: 5px; 
+                -webkit-border-radius: 5px;
+                line-height: 15px;
+            }
+       </style>
+       CR: 12081 : Hide Progress Bar : End --> 
+              
+       <apex:pageblock rendered="{!!NoError}">
+           <apex:pageMessages id="msg" />
+           <apex:pageblockButtons location="bottom">
+                <apex:commandButton value="OK" action="{!okAction}"/>
+           </apex:pageBlockButtons>
+       </apex:pageblock>
+       <apex:outputPanel rendered="{!NoError}" id="Id1"> 
+       <!-- CR: 12081 : Hide Progress Bar : Start
+       <table align="right">
+           <tr>
+               <td width="20%">
+                   <b> Progress: </b>
+               </td>
+               <td >        
+                   <div class="progressBar" id="pb">
+                        <div class="progress" style="width: {!percentComplete}%;" id="pb2">
+                            {!percentComplete}%
+                        </div>
+                   </div>   
+               </td>
+           </tr>
+       </table>
+       <br/>
+       CR: 12081 : Hide Progress Bar : End -->
+       <br/>
+       
+       <table width="75%" >
+            <tr>
+               <!-- CR: 12081 : Hide System Status column: Start 
+               <td>  
+                   <b> System Status</b>
+               </td>
+               CR: 12081 : Hide System Status : End -->
+               <td> 
+                   <b> Review Steps</b>
+               </td>
+               <!--CR: 12081 : Hide Actions column : Start 
+               <td> 
+                   <b> Action </b>
+               </td>
+               CR: 12081 : Hide Actions column : End -->
+               <td> 
+                   <b> Alert </b>
+               </td>
+           </tr>
+           <tr></tr>   
+           <tr>
+               <!-- CR: 12081 : Hide System Status : Start 
+               <td>
+                   <apex:outputField value="{!OppObj.Check_for_Cross_Border_Deals__c}"/>
+               </td>
+               CR: 12081 : Hide System Status : End -->
+               
+             <!-- Story : 5797865
+               <td>
+                   <apex:outputLabel value="{!CrossBorderLabel}"></apex:outputLabel>
+               </td> -->
+               
+               <!--CR: 12081 : Hide Actions column : Start 
+               <td>
+                   <apex:commandLink value="Mark As Complete" action="{!SaveAction}" status="Status1" rendered="{!!OppObj.Check_for_Cross_Border_Deals__c}" rerender="Id1">
+                       <apex:param name="ActionType" value="CrossBorderDeals" assignto="{!ActionType}"/>
+                       <apex:actionStatus id="Status1" startText="Loading..." layout="inline">
+                            <apex:facet name="start" >
+                                <apex:image value="/img/loading.gif" alt="Loading..."/> 
+                            </apex:facet>
+                        </apex:actionStatus>
+                   </apex:commandLink>
+               </td>
+                CR: 12081 : Hide Actions column : End -->
+               <!--
+              <td>
+                   <apex:outputText style="color:red" value="{!IF(LOWER(OppObj.Partner_Account_Country__c) <> LOWER(OppObj.End_User_Mailing_Country__c), 'Cross Border found.','')}"></apex:outputText>
+               </td> -->
+           </tr>
+           <tr>
+               <!-- CR: 12081 : Hide System Status : Start 
+               <td>
+                   <apex:outputField value="{!oppObj.Conduct_Dell_Account_Selection__c}"/>
+               </td>
+                CR: 12081 : Hide System Status : End -->
+              <!-- ST: 5797538 : Hide Conduct Dell Account Selection alert :Start
+               <td>
+                   <apex:outputLabel value="{!AccountSelectionLabel}"></apex:outputLabel>
+               </td>
+                     
+               <td> 
+                   <apex:outputText style="color:red" value="{!PartnerSelectedDunsInfoAlert}"></apex:outputText> 
+               </td>
+              ST: 5797538 : Hide Conduct Dell Account Selection alert :End -->
+               <!--CR: 12081 : Hide Actions column : Start 
+               <td>
+                   <apex:commandLink value="Mark As Complete" action="{!SaveAction}" status="Status2" rendered="{!!oppObj.Conduct_Dell_Account_Selection__c}" rerender="Id1">
+                       <apex:param name="ActionType" value="DellAccountSelection" assignto="{!ActionType}" />
+                       <apex:actionStatus id="Status2" startText="Loading..." layout="inline">
+                            <apex:facet name="start" >
+                                <apex:image value="/img/loading.gif" alt="Loading..."/> 
+                            </apex:facet>
+                        </apex:actionStatus>
+                   </apex:commandLink>
+                   
+               </td>
+               CR: 12081 : Hide Actions column : End -->
+            </tr>
+            <!-- CR: 12081 : Hide Review Steps : Start 
+            <tr>
+                 <td>
+                     <apex:outputField value="{!oppObj.Check_for_Specialty_Dell_Account__c}"/>
+                 </td>
+                 <td>
+                     <apex:outputLabel value="{!SpecialtyAccountLabel}"></apex:outputLabel></td>
+                 <td>
+                     <apex:commandLink value="Mark As Complete" action="{!SaveAction}" status="Status3" rendered="{!!oppObj.Check_for_Specialty_Dell_Account__c}" rerender="Id1">
+                         <apex:param name="ActionType" value="SpecialtyAccount" assignto="{!ActionType}" />
+                         <apex:actionStatus id="Status3" startText="Loading..." layout="inline">
+                            <apex:facet name="start" >
+                                <apex:image value="/img/loading.gif" alt="Loading..."/> 
+                            </apex:facet>
+                        </apex:actionStatus>
+                     </apex:commandLink>
+                 </td> 
+             </tr>
+            <tr>
+                 <td>
+                     <apex:outputField value="{!oppObj.Check_for_Deal_Threshold__c}"/>
+                 </td>
+                 <td>
+                     <apex:outputLabel value="{!DealThresholdLabel}"></apex:outputLabel>
+                 </td>
+                 <td>
+                     <apex:commandLink value="Mark As Complete" action="{!SaveAction}" status="Status4" rendered="{!!oppObj.Check_for_Deal_Threshold__c}" rerender="Id1">
+                         <apex:param name="ActionType" value="DealThreshold" assignto="{!ActionType}" />
+                         <apex:actionStatus id="Status4" startText="Loading..." layout="inline">
+                            <apex:facet name="start" >
+                                <apex:image value="/img/loading.gif" alt="Loading..."/> 
+                            </apex:facet>
+                        </apex:actionStatus>
+                     </apex:commandLink>
+                 </td>
+             </tr>
+             CR: 12081 : Hide Review Steps :End -->
+        <tr> 
+                 <!-- CR: 12081 : Hide System Status : Start 
+                 <td>
+                     <apex:outputField value="{!oppObj.Check_for_U_S_Fed_Mismatch__c}"/>
+                 </td>
+                 CR: 12081 : Hide System Status : End -->
+                
+                 <!-- Story: 5797873
+                 <td>
+                     <apex:outputLabel value="{!USFedMismatchLabel}"></apex:outputLabel>
+                 </td>   -->
+                 <!-- CR: 12081 : Hide Actions column : Start
+                 <td>
+                   <apex:commandLink value="Mark As Complete" action="{!SaveAction}" status="Status5" rendered="{!!oppObj.Check_for_U_S_Fed_Mismatch__c}" rerender="Id1">
+                       <apex:param name="ActionType" value="USFedMisMatch" assignto="{!ActionType}" />
+                       <apex:actionStatus id="Status5" startText="Loading..." layout="inline">
+                            <apex:facet name="start" >
+                                <apex:image value="/img/loading.gif" alt="Loading..."/> 
+                            </apex:facet>
+                        </apex:actionStatus>
+                   </apex:commandLink>
+                 </td>
+                 CR: 12081 : Hide Actions column :End -->
+                 <!-- Story: 5797873
+                <td> 
+                    <apex:outputText style="color:red" value="{!usFedmismatchDealAlert}"></apex:outputText> 
+                 </td>  -->
+             </tr> 
+           <!--  -->
+           <tr>  <!-- Story 5797872 status :start
+                 <td>
+                     <apex:outputLabel value="{!CheckforDistributionDeals}"></apex:outputLabel>
+                 </td>
+                  <!-- story 5797872 status:End-->
+                <!-- <td> 
+                    <apex:outputText style="color:red" value="{!DistributionInfoAlert}"></apex:outputText> 
+                 </td>-->
+           </tr>
+
+             <!-- CR: 12081 : Hide Review Steps :Start
+             <tr>
+                 <td>
+                     <apex:outputField value="{!oppObj.Check_for_Specialty_Partner__c}"/>
+                 </td>
+                 <td>
+                     <apex:outputLabel value="{!SpecialtyPartner}"></apex:outputLabel>
+                 </td>
+                 <td>
+                   <apex:commandLink value="Mark As Complete" action="{!SaveAction}" status="Status6" rendered="{!!oppObj.Check_for_Specialty_Partner__c}" rerender="Id1">
+                       <apex:param name="ActionType" value="SpecialtyPartner" assignto="{!ActionType}" />
+                       <apex:actionStatus id="Status6" startText="Loading..." layout="inline">
+                            <apex:facet name="start" >
+                                <apex:image value="/img/loading.gif" alt="Loading..."/> 
+                            </apex:facet>
+                        </apex:actionStatus>
+                   </apex:commandLink>
+                 </td>
+             </tr>
+             <tr>
+                 <td>
+                     <apex:outputField value="{!oppObj.Check_for_Other_Channel_Program__c}"/>
+                 </td>
+                 <td>
+                     <apex:outputLabel value="{!OtherChannelProgram}"></apex:outputLabel>
+                 </td>
+                 <td>
+                   <apex:commandLink value="Mark As Complete" action="{!SaveAction}" status="Status7" rendered="{!!oppObj.Check_for_Other_Channel_Program__c}" rerender="Id1">
+                       <apex:param name="ActionType" value="OtherChannelProgram" assignto="{!ActionType}" />
+                       <apex:actionStatus id="Status7" startText="Loading..." layout="inline">
+                            <apex:facet name="start" >
+                                <apex:image value="/img/loading.gif" alt="Loading..."/> 
+                            </apex:facet>
+                        </apex:actionStatus>
+                   </apex:commandLink>
+                 </td>
+             </tr>
+             CR: 12081 : Hide Review Steps : End -->
+             <tr>
+                 <!-- CR: 12081 : Hide System Status : Start
+                 <td>
+                     <apex:outputField value="{!oppObj.Review_Open_Opportunity__c}"/>
+                 </td>
+                 CR: 12081 : Hide System Status : End -->
+                 
+                 <td>
+                     <!--<apex:outputLabel value="{!ReviewOpenOpportunity}"></apex:outputLabel>-->
+                     <apex:outputLabel value="Review Open Opportunity"></apex:outputLabel>
+                 </td>
+                     
+                 <!-- CR: 12081 : Hide Actions : Start
+                 <td>
+                   <apex:commandLink value="Mark As Complete" action="{!SaveAction}" status="Status8" rendered="{!!oppObj.Review_Open_Opportunity__c}" rerender="Id1" >
+                       <apex:param name="ActionType" value="ReviewOpenOpportunity" assignto="{!ActionType}" />
+                       <apex:actionStatus id="Status8" startText="Loading..." layout="inline">
+                            <apex:facet name="start" >
+                                <apex:image value="/img/loading.gif" alt="Loading..."/> 
+                            </apex:facet>
+                        </apex:actionStatus>
+                   </apex:commandLink>
+                 </td>
+                 CR: 12081 : Hide Actions : End -->
+                 <td>
+                     <!-- -- CR 11830 DP  Starts - -->
+                     <apex:outputPanel rendered="{!IF(oppObj.Account != null && isUnAssignedUser = false,true,false)}">
+                     <!-- CR 12513: Start
+                     <apex:outputText style="color:green" value="No Conflict Found" rendered="{!NOT(OpptyConflictFlag) && NOT(blankChannelLOB)}"></apex:outputText>
+                     <apex:commandLink style="color:red" value="{!IF(duplicateFlag,'Duplicate Found','Conflict Found')}" onclick="window.open('/apex/OpenOpportunityConflictSelection?id={!oppId}','_blank','height=800,width=1000,scrollbars=yes,resizable=yes')"/>
+                     -->
+                     <apex:outputText style="color:green" value="No Conflict Found" rendered="{!NOT(OpptyConflictFlag) && NOT(blankChannelLOB) && NOT(duplicateFlag)}"></apex:outputText>
+                     <apex:commandLink style="color:red" value="Duplicate Found" rendered="{!duplicateFlag}" onclick="window.open('/apex/OpenOpportunityConflictSelection?id={!oppId}','_blank','height=800,width=1000,scrollbars=yes,resizable=yes')"/>
+                     <apex:commandLink style="color:red" value="Conflict Found" rendered="{!Not(duplicateFlag) && OpptyConflictFlag  && NOT(blankChannelLOB)}" onclick="window.open('/apex/OpenOpportunityConflictSelection?id={!oppId}','_blank','height=800,width=1000,scrollbars=yes,resizable=yes')"/>
+                     <!--CR 12513: End -->
+                      </apex:outputPanel>
+                     <!-- -- CR 11830 DP  Ends - -->
+                     <apex:outputPanel rendered="{!IF(oppObj.Account != null,true,false)}">
+                     <apex:commandlink style="color:red" value="Defer to Open Oppty Lookup" rendered="{!isUnAssignedUser || blankChannelLOB}" onclick="window.open('/{!ReportId}?pv2={!OpptyAccountId} ','_blank','height=800,width=1000,scrollbars=yes,resizable=yes')"/>
+                     </apex:outputPanel>
+
+                 </td>
+
+             </tr>
+             <!-- CR: 12081 : Hide Review Steps : Start
+             <tr>
+                 <td>
+                     <apex:outputField value="{!oppObj.Check_for_Specialty_Product__c}"/>
+                 </td>
+                 <td>
+                     <apex:outputLabel value="{!SpecialtyProduct}"></apex:outputLabel>
+                 </td>
+                 <td>
+                   <apex:commandLink value="Mark As Complete" action="{!SaveAction}" status="Status9" rendered="{!!oppObj.Check_for_Specialty_Product__c}" rerender="Id1">
+                       <apex:param name="ActionType" value="SpecialtyProduct" assignto="{!ActionType}" />
+                       <apex:actionStatus id="Status9" startText="Loading..." layout="inline">
+                            <apex:facet name="start" >
+                                <apex:image value="/img/loading.gif" alt="Loading..."/> 
+                            </apex:facet>
+                        </apex:actionStatus>
+                   </apex:commandLink>
+                 </td>
+             </tr>
+             CR: 12081 : Hide Review Steps : End -->
+             <tr>
+                 <!-- CR: 12081 : Hide System Status : Start
+                 <td>
+                     <apex:outputField value="{!oppObj.Review_LOB_Awards__c}"/>
+                 </td>
+                 CR: 12081 : Hide System Status : End -->
+                 <td>
+                    <!-- <apex:outputLabel value="{!ReviewLOBAwards}"></apex:outputLabel>-->
+                 </td>
+                 <!-- CR: 12081 : Hide Actions : Start
+                 <td>
+                   <apex:commandLink value="Mark As Complete" action="{!SaveAction}" status="Status10" rendered="{!!oppObj.Review_LOB_Awards__c}" rerender="Id1">
+                       <apex:param name="ActionType" value="ReviewLOBAwards" assignto="{!ActionType}" />
+                       <apex:actionStatus id="Status10" startText="Loading..." layout="inline">
+                            <apex:facet name="start" >
+                                <apex:image value="/img/loading.gif" alt="Loading..."/> 
+                            </apex:facet>
+                        </apex:actionStatus>
+                   </apex:commandLink>
+                 </td>
+                 CR: 12081 : Hide Actions : End -->
+                        
+                 <td> <!--
+                     
+                     <apex:outputPanel rendered="{!IF(oppObj.Account != null && oppObj.Number_of_Line_Items__c != 0,IF(undefinedProductFlag,false,true),false)}">
+                     <apex:outputText style="color:green" value="No Conflict Found" rendered="{!NOT(LobConflictFlag)}"></apex:outputText>
+                     <apex:commandLink style="color:red" value="Conflict Found"  rendered="{!LobConflictFlag}" onclick="window.open('/apex/LOBconflictDisplay?Oppid={!oppId}','_blank','height=800,width=1000,scrollbars=yes,resizable=yes')"/>
+                     </apex:outputPanel> -->
+                     <!---- LOBconflict  Ends --->
+
+                 </td>
+             </tr>
+             <!-- CR: 12081 : Hide Review Steps :Start 
+             <tr>
+                 <td>
+                     <apex:outputField value="{!oppObj.Check_for_Sales_Marketing_Programs__c}"/>
+                 </td>
+                 <td>
+                     <apex:outputLabel value="{!SalesMarketingPrograms}"></apex:outputLabel>
+                 </td>
+                 <td>
+                   <apex:commandLink value="Mark As Complete" action="{!SaveAction}" status="Status11" rendered="{!!oppObj.Check_for_Sales_Marketing_Programs__c}" rerender="Id1">
+                       <apex:param name="ActionType" value="SalesMarketingPrograms" assignto="{!ActionType}" />
+                       <apex:actionStatus id="Status11" startText="Loading..." layout="inline">
+                            <apex:facet name="start" >
+                                <apex:image value="/img/loading.gif" alt="Loading..."/> 
+                            </apex:facet>
+                        </apex:actionStatus>
+                   </apex:commandLink>
+                 </td>
+             </tr>
+             <tr>
+                 <td>
+                     <apex:outputField value="{!oppObj.Add_Deal_Type_Overlay_Specialist__c }"/>
+                 </td>
+                 <td>
+                     <apex:outputLabel value="{!DealTypeOverlaySpecialist}"></apex:outputLabel>
+                 </td>
+                 <td>
+                   <apex:commandLink value="Mark As Complete" action="{!SaveAction}" status="Status12" rendered="{!!oppObj.Add_Deal_Type_Overlay_Specialist__c }" rerender="Id1">
+                       <apex:param name="ActionType" value="DealTypeOverlaySpecialist" assignto="{!ActionType}" />
+                       <apex:actionStatus id="Status12" startText="Loading..." layout="inline">
+                            <apex:facet name="start" >
+                                <apex:image value="/img/loading.gif" alt="Loading..."/> 
+                            </apex:facet>
+                        </apex:actionStatus>
+                   </apex:commandLink>
+                 </td>
+             </tr>
+             <tr>
+                 <td>
+                     <apex:outputField value="{!oppObj.Approve_Reject_Deal__c}"/>
+                 </td>
+                 <td>
+                     <apex:outputLabel value="{!ApproveRejectDeal}"></apex:outputLabel>
+                 </td>
+                 <td>
+                     <apex:commandLink value="Approve/Reject" action="{!Approve_Reject_Action}" rerender="redirectPanel" rendered="{!displayApproveRejectLink}">
+                        <apex:outputPanel id="redirectPanel" >
+                            <apex:outputText rendered="{!shouldRedirect}">
+                                 <script type="text/javascript">
+                                     window.top.location.href = '{!approveRejectUrl}';
+                                 </script>
+                            </apex:outputText>
+                        </apex:outputPanel>
+                     </apex:commandLink>
+                 </td>
+             </tr>
+             CR: 12081 : Hide Review Steps :End -->
+          </table>
+       </apex:outputPanel>
+    </apex:Form>
+</apex:page>

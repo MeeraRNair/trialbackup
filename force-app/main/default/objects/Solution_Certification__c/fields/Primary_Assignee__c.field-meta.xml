@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_Assignee__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Primary Assignee</label>
+    <lookupFilter>
+        <active>true</active>
+        <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
+        <errorMessage>The User is not one of the authorized Primary Assignee for Solution Certification</errorMessage>
+        <filterItems>
+            <field>User.Username</field>
+            <operation>equals</operation>
+            <value>venkatarao_m@dell.com</value>
+        </filterItems>
+        <filterItems>
+            <field>User.Username</field>
+            <operation>equals</operation>
+            <value>bill_c_martin@dell.com</value>
+        </filterItems>
+        <filterItems>
+            <field>User.Username</field>
+            <operation>equals</operation>
+            <value>matthew_s_parker@dell.com</value>
+        </filterItems>
+        <filterItems>
+            <field>User.Username</field>
+            <operation>equals</operation>
+            <value>brenda_hunter-hanson@dell.com</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Solution_Certifications</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

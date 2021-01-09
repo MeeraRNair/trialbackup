@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Inc_Vendor_End_Point__c</fullName>
+    <description>Vendor Service end-point that salesforce uses to pass information.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Webservice end point for Vendor</inlineHelpText>
+    <label>Incentives End Point</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Inc_Vendor_Name__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>https://www.dellachievers.com</fullName>
+                <default>false</default>
+                <label>https://www.dellachievers.com</label>
+            </value>
+            <value>
+                <fullName>https://www.dellpartnerincentives.com/UserManagement/UserManagementService.svc/Process</fullName>
+                <default>false</default>
+                <label>https://www.dellpartnerincentives.com/UserManagement/UserManagementService.svc/Process</label>
+            </value>
+            <value>
+                <fullName>https://dell.performnet.com/dell/rest/accountMaintenance.biws</fullName>
+                <default>false</default>
+                <label>https://dell.performnet.com/dell/rest/accountMaintenance.biws</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Partner Direct Rewards Center</controllingFieldValue>
+            <valueName>https://dell.performnet.com/dell/rest/accountMaintenance.biws</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Partner Advantage</controllingFieldValue>
+            <valueName>https://www.dellpartnerincentives.com/UserManagement/UserManagementService.svc/Process</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dell Achievers</controllingFieldValue>
+            <valueName>https://www.dellachievers.com</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

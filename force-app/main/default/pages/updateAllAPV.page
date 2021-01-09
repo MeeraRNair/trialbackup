@@ -1,0 +1,82 @@
+<!-- * 
+* Revision CR Number   Release No      Date            Modified By     Description
+* -------- ---------   ----------      -----------     ------------    -----------
+* 1.0 -    CR16388     FY19-DCS-1002   23-Aug-2018:    manip4          added 'lightningStylesheets' attribute for apex component to make the page lightening friendly as part of story 5495955
+*/-->
+
+<apex:page controller="ViperProgramManagement" lightningStylesheets="true">
+    <html>
+    <head>
+        <style>
+            .headerRow .displayStyle{display:none;}
+            .headerRow .colStyle50{width:50px;}
+            .headerRow .colStyle75{width:75px;}
+            .headerRow .colStyle100{width:100px;}
+            .headerRow .colStyle150{width:150px;}
+            .headerRow .colStyle250{width:250px;}            
+            .columnRow .showStyle{display:none;}
+        </style>
+                      
+    </head>
+    <body>
+      <apex:form >
+     <apex:sectionHeader subtitle="{!MDFProgram.Name}" title="Program Name" rendered="true"/>
+         <apex:pageBlock title="APV List" rendered="{!ProgramOwner}"> 
+         <b> Only APVS which are not associated to any marketing plan will be displayed here</b>
+    <apex:pageBlockTable value="{!APVShowList}" var="apv" rows="1" style="width:650px;">                        
+        <apex:column style="display:none;align:center;"  headerClass="colStyle50">
+        <apex:facet name="header">Select</apex:facet>
+        </apex:column>
+        <apex:column style="display:none;align:center;"  headerClass="colStyle100">
+        <apex:facet name="header">APV Name</apex:facet>         
+        </apex:column> 
+        <!-- For CR 7318 : To add a column "Partner Name in between APV Name and Rate Card Price" -->
+        <apex:column style="display:none;align:center;"  headerClass="colStyle250">
+        <apex:facet name="header">Partner Name</apex:facet>         
+        </apex:column>       
+        <apex:column style="display:none;align:center;"  headerClass="colStyle100">
+        <apex:facet name="header">Rate card price</apex:facet>         
+        </apex:column>
+        <apex:column style="display:none;align:center;"  headerClass="colStyle150">
+        <apex:facet name="header">Budgeted price</apex:facet>         
+        </apex:column>
+    </apex:pageBlockTable>
+    <div style="position:static;width:650px;height:340px;overflow:auto;overflow-x:hidden;"> 
+        <apex:pageBlockTable value="{!APVShowList}" var="apv" style="width:650px;">
+            <apex:column headerClass="displayStyle" style="width:50px;align:center;">
+                <apex:inputCheckbox value="{!apv.selected}"/>
+            </apex:column>
+            <apex:column headerClass="displayStyle" style="width:100px;align:center;">
+                <apex:outputLink value="/{!apv.apvElt.id}">{!apv.apvElt.name}</apex:outputLink>
+            </apex:column> 
+            <!-- For CR 7318 -->
+              <apex:column headerClass="displayStyle" style="width:250px;align:center;">
+                {!apv.apvElt.Vendor__r.Name}
+            </apex:column>  
+            <apex:column headerClass="displayStyle" style="width:100px;align:center;">
+                {!apv.apvElt.Rate_Card_Price__c}
+            </apex:column>
+            <apex:column headerClass="displayStyle" style="width:150px;align:center;">
+                <apex:inputfield value="{!apv.apvElt.Budgeted_Price__c}"/>
+            </apex:column>
+        </apex:pageBlockTable>
+    </div>
+  <apex:pageBlockButtons location="bottom">
+     <apex:commandButton action="{!massUpdateAPVRecrods}" value="Save"/>
+      <apex:commandButton action="{!CancelAction}" value="Back"/>
+  </apex:pageBlockButtons>
+  </apex:pageBlock>
+      <apex:pageblock rendered="{!ProgramOwner==false}">
+       <apex:pageMessage severity="3" 
+       summary="Only program owners can mass update variable programs.Non-Variable programs cannot be mass-updated"        
+        rendered="{!ProgramOwner==false}"/> 
+        <apex:pageBlockButtons location="bottom">
+      <apex:commandButton action="{!CancelAction}" value="Back"/>
+      
+  </apex:pageBlockButtons>  
+  </apex:pageblock>
+    </apex:form>
+    </body>
+    </html>
+  
+</apex:page>

@@ -1,0 +1,379 @@
+<!-- * 
+* Revision CR Number   Release No      Date            Modified By     Description
+* -------- ---------   ----------      -----------     ------------    -----------
+* 6.0 -    CR 16007    FY19-DCS-0802    6-June-2018:   khanm37         Removed (Provisioned_in_Netexam_on__c) reference, Story# 4988554 
+* 6.1 -    CR 16000    FY19-DCS-0802    6-June-2018:   manip4          Removed 'Allow NetExam' and its logic, story# 4988531
+* 7.0      CR 17388    FY20-DCE-0802    23-Apr-2019    Vasavi.M        Added 4 new attributes to manage app screen : Create Quite & order
+*/-->
+<apex:page id="thePage" standardController="Contact" extensions="PartnerApplicationAccessCtrlExt" showheader="false" sidebar="false" action="{!checkIsUserDisabled}">    
+    <style>
+        body {
+            text-align: center;
+        }
+        #all {
+            text-align: center;
+            z-index: 0;
+        }
+        #statusPanel {
+            text-align: left;
+            margin: 0 auto;
+            width: 600px;
+            border-style: solid; 
+            border-color: #000000; 
+            border-width: 1px;
+            z-index: 0;
+        }
+        #header {
+            font-weight: bold;
+            font-family:'Verdana','Geneva',sans-serif;
+            border-bottom-style: solid; 
+            border-bottom-color: #000000; 
+            border-bottom-width: 1px; 
+            background-color: #dddddd;
+        }
+        #footer {
+            border-top-style: solid; 
+            border-top-color: #000000; 
+            border-top-width: 1px; 
+            background-color: #dddddd;
+            text-align: right;
+        }
+        #questions {
+            z-index: 5;
+        }
+        .statusContainer {
+            padding: 8px 8px 8px 12px;
+        }
+    </style>
+    
+    <script>
+        function initiaload() {
+            if({!userRecord.Enable_Partner_Deal_Registration__c}) {
+                document.getElementById('enableLeadManagementRow').style.display = "";
+            }
+            else {
+                document.getElementById('enableLeadManagementRow').style.display = "none";
+                document.getElementById('enablePartnerSuperUserRow').style.display = "none"; 
+            }
+            
+            if({!userRecord.Enable_Partner_Lead_Management__c}) {
+                document.getElementById('enablePartnerSuperUserRow').style.display = ""; 
+            }
+            else {
+                document.getElementById('enablePartnerSuperUserRow').style.display = "none";
+            }
+            
+            if({!userRecord.OSC_Create_Quote__c}){
+               document.getElementById('enableCreateOrderRow').style.display = ""; 
+            }else{
+              document.getElementById('enableCreateOrderRow').style.display = "none"; 
+            }
+            
+            if({!userRecord.OSC_Specialty_Product_Create_Quote__c}){
+               document.getElementById('enableSPLCreateOrderRow').style.display = ""; 
+            }else{
+              document.getElementById('enableSPLCreateOrderRow').style.display = "none"; 
+            }
+            
+        }
+        
+        function enableDisableLMSP(drval, lmval, suval) {
+            if(drval.value == "true") {
+                document.getElementById('enableLeadManagementRow').style.display = "";
+            }
+            else {
+                document.getElementById('enableLeadManagementRow').style.display = "none";
+                document.getElementById(lmval+":0").checked = false;
+                document.getElementById(lmval+":1").checked = true;             
+                document.getElementById('enablePartnerSuperUserRow').style.display = "none"; 
+                document.getElementById(suval+":0").checked = false;
+                document.getElementById(suval+":1").checked = true;
+            }
+        }
+        
+        function enableDisableSP(lmval, suval) {
+            if(lmval.value=="true") {
+                 document.getElementById('enablePartnerSuperUserRow').style.display = "";   
+            }
+            else {
+                document.getElementById('enablePartnerSuperUserRow').style.display = "none"; 
+                document.getElementById(suval+":0").checked = false;
+                document.getElementById(suval+":1").checked = true;         
+            }
+        }
+        
+        <!-- V7.0 Start-->
+        function enableDisableCO(cqval, coval) {
+            if(cqval.value=="true") {
+                 document.getElementById('enableCreateOrderRow').style.display = "";   
+            }
+            else {
+                document.getElementById('enableCreateOrderRow').style.display = "none"; 
+                document.getElementById(coval+":0").checked = false;
+                document.getElementById(coval+":1").checked = true;         
+            }
+        }
+        
+        function enableDisableSPLCO(cqSPLval, coSPLval) {
+            if(cqSPLval.value=="true") {
+                 document.getElementById('enableSPLCreateOrderRow').style.display = "";   
+            }
+            else {
+                document.getElementById('enableSPLCreateOrderRow').style.display = "none"; 
+                document.getElementById(coSPLval+":0").checked = false;
+                document.getElementById(coSPLval+":1").checked = true;         
+            }
+        }
+        <!-- V7.0 End-->
+    </script>        
+    
+    <div id="all">
+        <div id="statusPanel">
+            <!-- For Disabling User -->
+            <apex:form id="disablePartnerUser" rendered="{!isDisabledUser && errorMessage==null}">
+                <div id="header" class="statusContainer">Contact: {!contact.FirstName} {!contact.LastName}</div>
+                <div id="questions" class="statusContainer" >
+                    <apex:pageMessage severity="WARNING" strength="3" title="Partner Application Access" detail="No active user is linked to this contact. All partner application access will be reset. Please reprovision to create a new user. Click 'OK' to complete this process." />
+                </div>
+                <div id="footer" class="statusContainer">
+                    <apex:commandButton id="btnConfirmDisable" value="OK" action="{!syncToPartnerProfileDB}"/>                        
+                </div>  
+            </apex:form>
+
+            <apex:form id="partnerApplicationAccessForm" rendered="{!!isDisabledUser && errorMessage==null}">
+                <div id="header" class="statusContainer">Contact: {!contact.FirstName} {!contact.LastName}</div>
+                <div id="questions" class="statusContainer">
+                    <apex:pageMessages />
+                    <apex:pageMessage severity="CONFIRM" strength="3" title="Partner Application Access" detail="Allow the following application access?" />
+                    <apex:outputpanel id="dynamicview" >
+                        <!-- #5748109: Add by Varsha -->
+                        <apex:inputHidden value="{!contact.EligibleTracks__c}"/>
+                        <apex:inputHidden value="{!contact.Preferred_Track__c}"/>
+                        <apex:inputHidden value="{!contact.Selected_Track__c}"/>
+                        <table cellpadding="0" cellspacing="0" border="0" id="mytable">
+                            <tr>
+                                <td><apex:outputLabel for="enablePartnerAdmin" value="Enable as Partner Track Administrator?" /></td>
+                                <td>
+                                    <apex:selectRadio id="enablePartnerAdmin" value="{!userRecord.Enable_Partner_Admin__c}">
+                                        <apex:selectoptions value="{!YesOrNo}" />                                                                                       
+                                    </apex:selectRadio>  
+                                </td>
+                            </tr>
+                            <!--Added By Michael Khan -->
+                            <tr>
+                                <td><apex:outputLabel for="EnablePartnerGroupAdmin" value="Enable as Partner Group Administrator?" /></td>
+                                <td>
+                                    <apex:selectRadio id="EnablePartnerGroupAdmin" value="{!userRecord.Enable_as_Partner_Group_Administrator__c}">
+                                        <apex:selectoptions value="{!YesOrNo}" />                                                                                       
+                                    </apex:selectRadio>  
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><apex:outputLabel for="isPartnerCentralUser" value="Allow Partner Central User?"/></td>
+                                <td>
+                                    <apex:selectRadio id="isPartnerCentralUser" value="{!contact.Allow_Partner_Central_User__c}">
+                                        <apex:selectoptions value="{!YesOrNo}" />                                                                                                                                    
+                                    </apex:selectRadio>                        
+                                </td>
+                            </tr> 
+                            <tr>
+                                <td><apex:outputLabel for="isProgramTracker" value="Allow Program Tracker?"/></td>
+                                <td>
+                                    <apex:selectRadio id="isProgramTracker" value="{!contact.Allow_Program_Tracker__c}">
+                                        <apex:selectoptions value="{!YesOrNo}" />                                                                                                                                    
+                                    </apex:selectRadio>                        
+                                </td>
+                            </tr>
+                            <!--Michael's code end-->
+                            <tr>
+                                <td><apex:outputLabel for="enablePartnerDealRegistration" value="Allow Deal Registration?" id="dealLabel" rendered="{!IF(isDealRegEnabled, true, false)}"/></td>
+                                <td>
+                                     <apex:selectRadio id="enablePartnerDealRegistration" onclick="enableDisableLMSP(this,'{!$Component.thePage.partnerApplicationAccessForm.enableLeadManagement}','{!$Component.thePage.partnerApplicationAccessForm.enablePartnerSuperUser}')" value="{!userRecord.Enable_Partner_Deal_Registration__c}" rendered="{!IF(isDealRegEnabled, true, false)}" >
+                                         <apex:selectoptions value="{!YesOrNo}" rendered="{!IF(isDealRegEnabled, true, false)}"/>
+                                     </apex:selectRadio>              
+                                 </td>
+                            </tr>
+                            <tr id="enableLeadManagementRow">
+                                <td><apex:outputLabel for="enableLeadManagement"  value="Allow Lead Management?"  id="lmlabel"/></td>
+                                <td>
+                                    <apex:selectRadio id="enableLeadManagement"  onclick="enableDisableSP(this,'{!$Component.thePage.partnerApplicationAccessForm.enablePartnerSuperUser}');" value="{!userRecord.Enable_Partner_Lead_Management__c}" >
+                                    
+                                        <apex:selectoptions value="{!YesOrNo}" />                                                                                
+                                    </apex:selectRadio>
+                                </td>
+                            </tr>
+                            <!-- CR 7824 -->
+                            <tr id="enablePartnerSuperUserRow">
+                                <td><apex:outputLabel for="enablePartnerSuperUser" value="Enable as Lead Super User?"  id="sulabel"/></td>
+                                <td>
+                                    <apex:selectRadio id="enablePartnerSuperUser" value="{!userRecord.Enable_As_Partner_Lead_Super_User__c }" >
+                                        <apex:selectoptions value="{!YesOrNo}" />                                                                                       
+                                    </apex:selectRadio>               
+                                </td>
+                            </tr>
+                            <!-- CR 7824 -->
+                            <!-- Added by Michael-->
+                            <tr>
+                                <td><apex:outputLabel for="isSPLViewWithDistiPricing" value="Enable SPL view with Disti pricing?"/></td>
+                                <td>
+                                    <apex:selectRadio id="isSPLViewWithDistiPricing" value="{!contact.Enable_SPL_view_with_Disti_pricing__c}">
+                                        <apex:selectoptions value="{!YesOrNo}" />                                                                                                                                    
+                                    </apex:selectRadio>                        
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><apex:outputLabel for="isSPLViewWithPartnerRecommendPricing" value="SPL view with  Partner recommend Pricing?"/></td>
+                                <td>
+                                    <apex:selectRadio id="isSPLViewWithPartnerRecommendPricing" value="{!contact.SPL_view_with_partner_recommeded_pricing__c}">
+                                        <apex:selectoptions value="{!YesOrNo}" />                                                                                                                                    
+                                    </apex:selectRadio>                        
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><apex:outputLabel for="isSPLViewWithAllCountryPrice" value="Enable SPL View with All country Price?"/></td>
+                                <td>
+                                    <apex:selectRadio id="isSPLViewWithAllCountryPrice" value="{!contact.Enable_SPL_View_with_All_country_Price__c}">
+                                        <apex:selectoptions value="{!YesOrNo}" />                                                                                                                                    
+                                    </apex:selectRadio>                        
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><apex:outputLabel for="isRFPAndProposalExpressTool" value="Allow RFP and Proposal Express Tool?"/></td>
+                                <td>
+                                    <apex:selectRadio id="isRFPAndProposalExpressTool" value="{!contact.Allow_RFP_and_Proposal_Express_Tool__c}">
+                                        <apex:selectoptions value="{!YesOrNo}" />                                                                                                                                    
+                                    </apex:selectRadio>                        
+                                </td>
+                            </tr>
+                            <!-- Michael Code end -->
+                            <tr>
+                                <td><apex:outputLabel for="isCampaignBuilder" value="Allow Campaign Builder?"/></td>
+                                <td>
+                                    <apex:selectRadio id="isCampaignBuilder" value="{!contact.Campaign_Builder__c}">
+                                        <apex:selectoptions value="{!YesOrNo}" />                                                                                                                                    
+                                    </apex:selectRadio>                        
+                                </td>
+                            </tr>                        
+                            <tr>
+                                <td><apex:outputLabel for="isPremier" value="Allow Premier?"/></td>
+                                <td>
+                                    <apex:selectRadio id="isPremier" value="{!contact.Premier_Partner__c}">
+                                        <apex:selectoptions value="{!YesOrNo}" />                                                                                                                                    
+                                    </apex:selectRadio>                        
+                                </td>
+                            </tr>                            
+                            <!--V7.0 Start -->
+                            <tr id="enableCreateQuoteRow">
+                                <td><apex:outputLabel for="enableCreateQuote"  value="Solutions Configurator Quote"  id="cqlabel"/></td>
+                                <td>
+                                    <apex:selectRadio id="enableCreateQuote"  onclick="enableDisableCO(this,'{!$Component.thePage.partnerApplicationAccessForm.enableCreateOrder}');" value="{!userRecord.OSC_Create_Quote__c}" >
+                                    
+                                        <apex:selectoptions value="{!YesOrNo}" />                                                                                
+                                    </apex:selectRadio>
+                                </td>
+                            </tr>
+                            <tr id="enableCreateOrderRow">
+                                <td><apex:outputLabel for="enableCreateOrder" value="Solutions Configurator Order"  id="colabel"/></td>
+                                <td>
+                                    <apex:selectRadio id="enableCreateOrder" value="{!userRecord.OSC_Create_Order__c}" >
+                                        <apex:selectoptions value="{!YesOrNo}" />                                                                                       
+                                    </apex:selectRadio>               
+                                </td>
+                            </tr>
+                            <tr id="enableSPLCreateQuoteRow">
+                                <td><apex:outputLabel for="enableSPLCreateQuote"  value="Solutions Configurator Quote Specialty"  id="cqSPLlabel"/></td>
+                                <td>
+                                    <apex:selectRadio id="enableSPLCreateQuote"  onclick="enableDisableSPLCO(this,'{!$Component.thePage.partnerApplicationAccessForm.enableSPLCreateOrder}');" value="{!userRecord.OSC_Specialty_Product_Create_Quote__c}" >
+                                    
+                                        <apex:selectoptions value="{!YesOrNo}" />                                                                                
+                                    </apex:selectRadio>
+                                </td>
+                            </tr>
+                            <tr id="enableSPLCreateOrderRow">
+                                <td><apex:outputLabel for="enableSPLCreateOrder" value="Solutions Configurator Order Specialty"  id="coSPLlabel"/></td>
+                                <td>
+                                    <apex:selectRadio id="enableSPLCreateOrder" value="{!userRecord.OSC_Specialty_Product_Create_Order__c}" >
+                                        <apex:selectoptions value="{!YesOrNo}" />                                                                                       
+                                    </apex:selectRadio>               
+                                </td>
+                            </tr>
+                            <!--V7.0 End -->
+                            <tr>
+                                <td><apex:outputLabel for="isTransactionalStore" value="Allow Transactional Store?"/></td>
+                                <td>
+                                    <apex:selectRadio id="isTransactionalStore" value="{!contact.Transactional_Store__c}">
+                                        <apex:selectoptions value="{!YesOrNo}" />                                                                                                                                    
+                                    </apex:selectRadio>                        
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><apex:outputLabel for="isWarrantyPartsInfo" value="Allow Warranty Parts Info?"/></td>
+                                <td>
+                                    <apex:selectRadio id="isWarrantyPartsInfo" value="{!contact.Warranty_Parts_Info__c}">
+                                        <apex:selectoptions value="{!YesOrNo}" />                                                                                                                                    
+                                    </apex:selectRadio>                        
+                                </td>
+                            </tr> 
+                            <!--Added By Michael Khan -->
+                            <tr>
+                                <td><apex:outputLabel for="IsMDFUser" value="Enable MDF Access?"/></td>
+                                <td>
+                                    <apex:selectRadio id="IsMDFUser" value="{!contact.Is_MDF_User__c}">
+                                        <apex:selectoptions value="{!YesOrNo}" />                                                                                                                                    
+                                    </apex:selectRadio>                        
+                                </td>
+                            </tr>
+                            <!-- Michael Code end -->
+                            <tr>
+                                    <td><apex:outputLabel for="isRebateUser" value="Enable Access to Rebates?"/></td>
+                                    <td>
+                                        <apex:selectRadio id="isRebateUser" value="{!contact.Is_Rebate_User__c}">
+                                            <apex:selectoptions value="{!YesOrNo}" />                                                                                                                                    
+                                        </apex:selectRadio>                        
+                                    </td>
+                                </tr>
+                                
+
+                            <!-- Added by Bahar, Ariff (14.2 SSO Project) [Start]-->
+                            <!--<apex:outputPanel rendered="{!visibleIncentive}">               
+                                <tr>
+                                <td> 
+                                    <apex:outputLabel for="EnabledForIncentives" value="Enabled For Incentives"/>
+                                </td>
+                                <td>
+                                    <apex:selectRadio id="EnabledForIncentives" value="{!contact.Is_Enabled_for_Incentives__c}">
+                                        <apex:selectoptions value="{!YesOrNo}" />                                                                                                                                  
+                                    </apex:selectRadio>                     
+                                 </td>
+                                </tr>
+                            </apex:outputPanel>-->
+                            <!-- Added by Bahar, Ariff (14.2 SSO Project) [End]-->
+                            <tr>
+                                <td>
+                                </td>
+                            </tr>
+                        </table> 
+                    </apex:outputpanel>            
+                </div>   
+                <div id="footer" class="statusContainer">
+                    <apex:commandButton id="btnSave" value="Save" action="{!doSave}" oncomplete="doPermissionSetAssignment();"/>
+                    <apex:commandButton id="btnBack" value="Back" action="{!doBack}"/>
+                    <!-- [Fenny 10 Jan 2013]: CR7944 -->
+                    <apex:actionFunction id="doPermissionSetAssignment" name="doPermissionSetAssignment" action="{!doPermissionSetAssignment}" />
+                </div>
+                <apex:inputHidden value="{!Contact.Partner_My_Account_GUID__c}"/>
+            </apex:form>
+            
+            <apex:form id="error" rendered="{!errorMessage!=null}">
+                <div id="header" class="statusContainer"> </div>
+                <div id="questions" class="statusContainer">
+                    <apex:pageMessage severity="ERROR" strength="3" title="Partner Application Access" detail="{!errorMessage}" />
+                </div>
+                <div id="footer" class="statusContainer">
+                    <apex:commandButton id="btnBack" value="Back" action="{!doBack}"/>                                 
+                </div>
+            </apex:form>
+        </div>
+    </div>
+    <body onload="initiaload()" />
+</apex:page>

@@ -1,0 +1,53 @@
+<apex:page lightningStylesheets="true" >
+    <!-- <apex:includeLightning />
+    <div id="content">
+        <div id="lightningComponent" />
+    </div> -->
+    <apex:slds />
+    <apex:form >
+    <div class="slds-col slds-no-flex slds-grid slds-align-top">
+                    <apex:commandButton action="{!URLFOR('/001/o')}" value="Navigate To Default Page" styleClass="slds-button slds-button_neutral" rendered="{!$User.UIThemeDisplayed == 'Theme4t'}" />
+                </div>
+
+    </apex:form>
+    
+    <script>
+    var myUserContext = "{!$User.UITheme}";
+    var currentUser ="{!$User.Id}";
+    var accPlanId = "{!$CurrentPage.parameters.apid}";
+    var accPlanName = "{!$CurrentPage.parameters.apn}";
+    var recType = "{!$CurrentPage.parameters.rt}";
+    var objType = "{!$ObjectType.SFDC_Strategy__c}";
+    var accountId = "{!$CurrentPage.parameters.accId}";
+    var accountName = "{!$CurrentPage.parameters.accname}";
+    var strategyRecTypeId;
+    var startegyStatus;
+    
+    if(recType=='Direct Relationship Account Plan'){ 
+        strategyRecTypeId= '012A0000000GXk4';    
+    } 
+    else if(recType=='Channel/Partner Account Plan'){ 
+        strategyRecTypeId= '012A0000000zvGO';
+    } 
+    if(strategyRecTypeId!= null){
+        if(myUserContext == 'Theme3'){
+            startegyStatus = 'Created';
+            window.parent.location.href = '/apex/StrategyNewOverride?RecordType='+strategyRecTypeId+'&CF00N70000002Mez6='+accPlanName+'&CF00N70000002Mez6_lkid='+accPlanId+'&CF00N70000002Meyz='+accountName+'&CF00N70000002Meyz_lkid='+accountId+'&00N5B000004gu09='+startegyStatus+'&retURL='+accPlanId;
+          }
+        else if(myUserContext == 'Theme4t' || myUserContext == 'Theme4d' || myUserContext == 'Theme4u'){
+            sforce.one.navigateToSObject(accPlanId, 'related');
+            sforce.one.createRecord('SFDC_Strategy__c', strategyRecTypeId, {'SFDC_Acct_Plan__c' : accPlanId, 'Strategy_Owner__c' : currentUser,'Account__c' : accountId,'Strategy_Status__c' : 'Created'} );  
+            
+        }
+    }
+    else{ 
+        if(myUserContext == 'Theme3'){
+                 
+            window.parent.location.href = '/setup/ui/recordtypeselect.jsp?ent=01I7000000033VI&retURL=%2F'+accPlanId+'&save_new_url=%2F'+objType+'%2Fe%3FCF00N70000002Mez6%3D'+accPlanName+'%26CF00N70000002Mez6_lkid%3D'+accPlanId+'%26scontrolCaching%3D1%26retURL%3D%252F'+accPlanId;
+        }
+        else if(myUserContext == 'Theme4t' || myUserContext == 'Theme4d' || myUserContext == 'Theme4u'){            
+            sforce.one.navigateToURL('/setup/ui/recordtypeselect.jsp?ent=01I7000000033VI&retURL=%2F'+accPlanId+'&save_new_url=%2F'+objType+'%2Fe%3FCF00N70000002Mez6%3D'+accPlanName+'%26CF00N70000002Mez6_lkid%3D'+accPlanId+'%26scontrolCaching%3D1%26retURL%3D%252F'+accPlanId);
+        }
+    }     
+    </script>
+</apex:page>

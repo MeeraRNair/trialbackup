@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Update_Partner_Address_validation</fullName>
+    <active>true</active>
+    <description>Address validation for DST</description>
+    <errorConditionFormula>AND (
+OR (
+Org_Address_1__c &lt;&gt; NULL ,
+Org_City__c &lt;&gt; NULL ,
+Org_Postal_Code__c &lt;&gt; NULL ,
+Org_State__c &lt;&gt; NULL ,
+Org_Address_2__c &lt;&gt; NULL,
+Org_Address_3__c &lt;&gt; NULL
+),
+
+OR (
+Org_Address_1__c = NULL ,
+Org_City__c = NULL ,
+Org_Postal_Code__c = NULL ,
+Org_State__c = NULL ),
+RecordTypeId = &apos;012700000005cfd&apos;
+)</errorConditionFormula>
+    <errorMessage>For any value(s) entered in Address section Org Address 1, City, State, Postal Code are required. Otherwise please leave all fields in the section blank.</errorMessage>
+</ValidationRule>

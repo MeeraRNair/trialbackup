@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cant_uncheck_secureworks_checkbox</fullName>
+    <active>false</active>
+    <description>Once the field is checked, it shouldn&apos;t be unchecked.</description>
+    <errorConditionFormula>AND(ISCHANGED( Can_Dell_Secureworks_contact_customer__c ), PRIORVALUE( Can_Dell_Secureworks_contact_customer__c )=TRUE)</errorConditionFormula>
+    <errorDisplayField>Can_Dell_Secureworks_contact_customer__c</errorDisplayField>
+    <errorMessage>This field shouldn&apos;t be unchecked once. it is checked and saved</errorMessage>
+</ValidationRule>

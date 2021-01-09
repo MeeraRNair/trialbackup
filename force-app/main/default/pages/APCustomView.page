@@ -1,0 +1,33 @@
+<!--Name        : APCustomView
+* Description   : Controller for AccountPlayList and RelationshipLeadList
+* ---------------------------------------------------------
+* Revision  Name        Date        Description
+* 1.0       Azwanti     14.04.2011  CR5988 - added check box to filter current Fiscal Quarter AP  
+* 1.1       Azwanti     14.04.2011  CR5989 - added radio button to filter AP records based on view
+* 1.2       Azwanti     20.04.2011  CR5987 - Default AP View to 'Requires Follow Up' view
+* 1.3       Azwanti     22.04.2011  CR5988 - removed check box to filter current AP Fiscal Quarter 
+-->
+
+<apex:page title="Custom View" controller="VFCntrlr_RelationshipLeadAccPlayList" tabStyle="Account_Play__c" action="{!redirectPage}" lightningStylesheets="true">
+<apex:listViews id="enhancedApList" type="Account_Play__c"  />
+<style>
+#radioSection input{
+    margin-left: 15px;
+}
+</style>
+
+<apex:form >
+<apex:pageBlock title="Custom View">
+    <!--R1.3 apex:inputCheckbox value="{!iscurrentQuarterAP}"/>
+    <apex:outputLabel value="Current Quarter" /--> 
+    <!--R1.1-->     
+    <div id="radioSection">    
+        <apex:selectRadio value="{!selectedAPView}" >    
+            <apex:selectOptions value="{!APItems}" />
+        </apex:selectRadio>  
+    </div>   
+    <!--R1.1-->     
+    <apex:commandButton value="Go!" action="{!navigateToListAPView}" style="margin-left:15px;margin-top:5px;"/>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

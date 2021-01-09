@@ -1,0 +1,367 @@
+<apex:page standardController="Territory_Plan__c" extensions="TP_LOBRT_ObsActionsCtrlExt,TP_PageNavCtrlExt" sidebar="false" lightningStylesheets="true">
+    <style type="text/css">
+    
+    
+body .pbBody table.list tr th, body .pbBody table.list tr td {
+    border: 1px solid #ededed;
+    color: #000;
+}
+        body .bPageBlock .pbBody { 
+            padding: 15px 0 0 0;
+            
+        }
+        .tb {
+            border: 0px solid black;
+            border-spacing: 0px 1px; 
+            width:100%
+        }
+        
+        <!-- style header text -->
+        .tb .tg-hdr{
+            font-size:26px;
+            font-family:'Arial White', Gadget, sans-serif !important; 
+            padding: 0px 0px 10px 15px;
+            text-indent:15px;
+        }
+        
+        .tb .tg-tdContent1{
+            border: 0px solid black;
+            width:100%;
+            padding: 0px 0px 0px 0px;
+            vertical-align: top;
+        }
+        
+        <!-- Style table -->
+        .tb .tg-tdContent1 .firsttable{
+            position: relative;
+            border: 1px dotted #42AEAF; 
+            width: 97%;
+            height:100%;
+            padding:10px 5px 5px 5px; 
+            margin-left:20px;
+            vertical-align: top;
+        }
+        .tb .tg-tdContent1 .firsttable .colmone {
+            color: white !important; 
+            background :#007db8 !important;
+            text-align :center !important;
+        }
+        .tb .tg-tdContent1 .firsttable .colmtwo-four {
+            color: white !important; 
+            background :#42aeaf !important;
+            text-align :center !important;
+        }
+        .tb .tg-tdContent1 .firsttable .colmfive-seven {
+            color: white !important; 
+            background :#00447c !important;
+            text-align :center !important;
+        }
+        
+        .tb .tg-tdContent1 .firsttable .colmeight-ten {
+            color: white !important; 
+            background :#f2af00 !important;
+            text-align :center !important;
+        }
+        .tb .tg-tdContent1 .firsttable .colmeleven-thirteen {
+            color: white !important; 
+            background :#ce1126 !important;
+            text-align :center !important;
+        }
+        .tb .tg-tdContent1 .firsttable .colmfourteen-sixteen {
+            color: white !important; 
+            background :#6ea204 !important;
+            text-align :center !important;
+        }
+        .tb .tg-tdContent1 .firsttable .outBorder {
+            border:0px solid black !important;
+        }
+        .tb .tg-tdContent1 .firsttable .outBorder .inBorder{
+            border-top:1px solid #ffffff !important;
+            border-left:1px solid #ffffff !important;
+            border-right:1px solid #ffffff !important;
+        }
+        .tb .tg-tdContent1 .firsttable .outBorder .colm-bg-colr1-16{
+            background : #f2f2f2 !important;
+        }
+        
+        .tb .tg-tdContent1 .firsttable .chldbtndiv{
+            position: relative; 
+            padding:15px 0px 0px 0px;
+            text-align:center;
+            top:5px;
+        }
+        
+        .tb .tg-tdContent1 .firsttable .table-hint {
+            position: relative; 
+            text-align:right; 
+            font-size:8px;
+            top:0px;
+        }
+        
+        <!-- style heading and input field boxes -->
+        .tb .tg-tdContent2{
+            border: 0px solid black;
+            width:100%;
+            padding:15px 0px 0px 0px;
+            vertical-align:top;
+        }
+        .tb .tg-tdContent2 .tg-tdContent2-parg{
+            position:relative;
+            display:block;
+            float:left;
+            font-size:16px;
+            color: #FFFFFF;
+            background-color:#42AEAF; 
+            padding:15px 0 15px 0px;
+            border: 1px solid #42AEAF;
+            width:98%;
+            top:0px;
+            text-indent:20px;
+            left:20px;
+        }              
+        .tb .tg-tdContent2 .tg-tdContent2-inputFld{
+            border: 0px solid #AAAAAA;
+            width:97.85%;
+            height:120px;
+            margin-top:0px;
+            background-color:#AAAAAA;
+            color:#FFFFFF;
+            margin-left:20px;
+        }
+        
+        <!-- Style dot circle box left -->
+        .tb .dot1{
+            vertical-align:top;
+            padding:15px 0px 0px 0px;
+            float:left;
+            
+        }       
+        .rectangle1  { 
+            position:relative;  
+            border: 1px solid #444444; 
+            width: 25px; 
+            height: 25px; 
+            background: #444444; 
+        }
+        .rectangle1 div{ 
+            background: white; 
+            margin: 5px 5px 5px 5px;
+            width: 13px; 
+            height: 13px; 
+            border-radius: 64px; 
+            border : 1px solid white; 
+        } 
+        .dotConnection1{
+            border-bottom: 1px dotted #42AEAF;
+            padding: 0px 50px 0px 0px; 
+            margin:5px 2px 0px 15px; 
+        }
+        
+        <!-- Style dot circle box right -->
+        .tb .dot2{
+            vertical-align:top;
+            padding:15px 0px 0px 0px;
+            float:right;
+            margin-left:20px;
+        }
+        .rectangle2  {
+            position:relative;  
+            border: 1px solid #444444; 
+            width: 25px; 
+            height: 25px; 
+            background: #444444; 
+        }
+        .rectangle2 div{ 
+            background: white; 
+            margin: 5px 5px 5px 5px;
+            width: 13px; 
+            height: 13px; 
+            border-radius: 64px; 
+            border : 1px solid white; 
+        }
+        .dotConnection2{
+            border-bottom: 1px dotted #42AEAF; 
+            padding: 0px 0px 0px 0px; 
+            margin:5px 15px 0px -50px;
+        } 
+        
+         <!-- Style hint section -->
+        .Bulb-logo{
+            position: relative; 
+            top: 15px; 
+            left:0px;
+        }
+        .underLine-logo {
+            position: relative; 
+            padding: 5px 0 0 0;
+            top:12px; 
+            left:17px; 
+            border-bottom :1px solid #888888; 
+            border-left: 1px solid #888888; 
+            width: 85%; 
+            height: 20px;
+        }
+        .DellEMC-logo { 
+            position: relative; 
+            top:-10px;
+            float:right;
+            padding: 0px 0px 0px 0px;
+            margin: 0px 10px;
+        }        
+        .hintText{
+            font-style:italic; 
+            font-size: 12px;
+            position: relative;
+            padding:0px 0px 0px 0px;
+            top:-25px;
+            left: 15px;
+            margin:5px;
+        }
+                
+        .tb .tg-tdBtns{
+            text-align:right;
+            padding: 15px 10px 0px 0px; 
+        }
+        
+        .tb .tg-tdBtns .btn{
+            margin-left:3px;
+            margin-right:3px;        
+        }
+        
+        .tb .footer {
+            width: 100%;
+            color:black;
+            text-align: center;
+            padding:0px;
+            font-size:12px;
+        }  
+        <!-- To reduce margin-bottom at bottom of page -->      
+        body .bDetailBlock.bPageBlock, body .individualPalette .bDetailBlock.bPageBlock { 
+            border: 0;
+            background-color: transparent;
+            margin-bottom: 0px;
+        }
+        <!-- to style complete page in classic and lightning and reduce bottom padding -->
+        body .bodyDiv .outerNoSidebar{  
+            padding-bottom: 0px;
+            max-height: 100%;
+            max-width: 100%;
+        } 
+        <!-- placeholder color for different browsers -->
+        ::-webkit-input-placeholder { /* Chrome */
+            color: white;
+        }
+        :-ms-input-placeholder { /* IE 10+ */
+            color: white !important;
+        }
+        ::-moz-placeholder { /* Firefox 19+ */
+            color: white;
+        }
+        :-moz-placeholder { /* Firefox 4 - 18 */
+            color: white;
+        }
+        
+    </style>
+    <apex:pageBlock mode="maindetail" id="pbId">
+        <apex:pageMessages id="showmsg"></apex:pageMessages>
+        <table class="tb" id="tblId">
+            <tr id="hd-trId">
+                <th class="tg-hdr" id = "hdrId" colspan="3">LOB Revenue Trends</th>
+            </tr>
+            <apex:form id="formId">
+                <tr id="content-tr1Id">
+                    <td  class="dot1"></td>
+                    <td class="tg-tdContent1" id="content-td1Id" >
+                        <div class="firsttable" id="firsttabledivId">
+                            <apex:pageblocktable value="{!tp_toshow}" var="row" columns="16" styleclass="outBorder" id="pbtableId">
+                                <apex:column headervalue="Account name" value="{!row.accountName}" headerClass="colmone" styleClass="inBorder colm-bg-colr1-16" id="colmn-1Id"/>
+                                <apex:column headervalue="Desktop" value="{!row.desktop}" headerClass="colmtwo-four" styleClass="inBorder colm-bg-colr1-16" id="colmn-2Id"/>
+                                <apex:column headervalue="Q/Q" value="{!row.des_qq}" headerClass="colmtwo-four" styleClass="inBorder colm-bg-colr1-16" id="colmn-3Id"/>
+                                <apex:column headervalue="Y/Y" value="{!row.des_yy}" headerClass="colmtwo-four" styleClass="inBorder colm-bg-colr1-16" id="colmn-4Id"/>
+                                <apex:column headervalue="Notebook" value="{!row.notebook}" headerClass="colmfive-seven" styleClass="inBorder colm-bg-colr1-16" id="colmn-5Id"/>
+                                <apex:column headervalue="Q/Q" value="{!row.nb_qq}" headerClass="colmfive-seven" styleClass="inBorder colm-bg-colr1-16" id="colmn-6Id"/>
+                                <apex:column headervalue="Y/Y" value="{!row.nb_yy}" headerClass="colmfive-seven" styleClass="inBorder colm-bg-colr1-16" id="colmn-7Id"/>
+                                <apex:column headervalue="Server" value="{!row.server}" headerClass="colmeight-ten" styleClass="inBorder colm-bg-colr1-16" id="colmn-8Id"/>
+                                <apex:column headervalue="Q/Q" value="{!row.ser_qq}" headerClass="colmeight-ten" styleClass="inBorder colm-bg-colr1-16" id="colmn-9Id"/>
+                                <apex:column headervalue="Y/Y" value="{!row.ser_yy}" headerClass="colmeight-ten" styleClass="inBorder colm-bg-colr1-16" id="colmn-10Id"/>
+                                <apex:column headervalue="Storage" value="{!row.storage}" headerClass="colmeleven-thirteen" styleClass="inBorder colm-bg-colr1-16" id="colmn-11Id"/>
+                                <apex:column headervalue="Q/Q" value="{!row.stg_qq}" headerClass="colmeleven-thirteen" styleClass="inBorder colm-bg-colr1-16" id="colmn-12Id"/>
+                                <apex:column headervalue="Y/Y" value="{!row.stg_yy}" headerClass="colmeleven-thirteen" styleClass="inBorder colm-bg-colr1-16" id="colmn-13Id"/>
+                                <apex:column headervalue="NetWorking" value="{!row.netWorking}" headerClass="colmfourteen-sixteen" styleClass="inBorder colm-bg-colr1-16" id="colmn-14Id"/>
+                                <apex:column headervalue="Q/Q" value="{!row.nw_qq}" headerClass="colmfourteen-sixteen" styleClass="inBorder colm-bg-colr1-16" id="colmn-15Id"/>
+                                <apex:column headervalue="Y/Y" value="{!row.nw_yy}" headerClass="colmfourteen-sixteen" styleClass="inBorder colm-bg-colr1-16" id="colmn-16Id"/>
+                            </apex:pageblocktable>
+                            
+                            <div class="chldbtndiv" id="pgnationdivId">
+                                
+                                <apex:commandLink value="<<" action="{!first}" rendered="{!NOT(DisablePrevious)}" id="cmdlink-1Id"/> &nbsp;&nbsp;
+                                <apex:outputText label="<<" value="<<" rendered="{!DisablePrevious}" id="cmdlinktxt-1Id"/>&nbsp;&nbsp;
+                                
+                                <apex:commandLink value="previous" action="{!previous}" rendered="{!NOT(DisablePrevious)}" id="cmdlink-2Id"/>&nbsp;&nbsp;
+                                <apex:outputText label="previous" value="previous" rendered="{!DisablePrevious}" id="cmdlinktxt-2Id"/>&nbsp;&nbsp;
+                                
+                                <apex:commandLink value="next" action="{!next}" rendered="{!NOT(DisableNext)}" id="cmdlink-3Id"/>&nbsp;&nbsp;
+                                <apex:outputText label="next" value="next" rendered="{!DisableNext}" id="cmdlinktxt-3Id"/>&nbsp;&nbsp;
+                                
+                                <apex:commandLink value=">>" action="{!last}" rendered="{!NOT(DisableNext)}" id="cmdlink-4Id"/>&nbsp;&nbsp;
+                                <apex:outputText label=">>" value=">>" rendered="{!DisableNext}" id="cmdlinktxt-4Id"/>&nbsp;&nbsp;
+                                <apex:outputLabel value=" (table {!table} of {!totalTables})" id="pgnumId"/>
+                                
+                            </div> 
+                            <div class="table-hint" id="tableHintId">
+                                *L4Q Rev Total by LOB <br/> **EMC data included in storage 
+                            </div>
+                        </div>
+                    </td>
+                    <td class="dot2"></td>
+                </tr>
+                <tr>
+                    <td class="dot1" id="dot1Id">
+                        <div class="rectangle1"  id="rect1Id">
+                            <div id="circle1Id">
+                                <p class="dotConnection1" id="connect1Id"></p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="tg-tdContent2" id="content-td2Id">
+                        <apex:outputText styleclass="tg-tdContent2-parg" id="paraId" value="Observations & Actions"></apex:outputText>
+                        <apex:inputfield value="{!Territory_Plan__c.LOB_RT_Observations_Actions__c}" styleclass="tg-tdContent2-inputFld" html-placeholder="  Type observations & actions here." id="inputId"/>
+                    </td>
+                    <td class="dot2" id="dot2Id">
+                        <div class="rectangle2"  id="rect2Id">
+                            <div id="circle2Id">
+                                <p class="dotConnection2" id="connect2Id"></p>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr id="hint-trId">
+                    <td class="tg-tdHint" id="hint-tdId" colspan="3">
+                        <div class="Bulb-logo" id="bulb-divId">
+                            <apex:image url="{!URLFOR($Resource.TP_PPT_Images, 'TP_PPT_Images/Bulbicon_hint.png')}" width="35" height="35" alt="Description of image here" id="bulb-logoId"/>
+                        </div>
+                        <div class="underLine-logo" id="underlineDivId">
+                            <apex:outputtext styleClass="hintText" id="hintTextId" value="You can find LOB revenue trends by account on this slide. This is a great opportunity for you to track where your top accounts are growing and declining by LOB. This should influence your actions on your Client and Data Center deep dive slides, as you find specific accounts that may need  added attention to grow."/>
+                        </div>
+                        <apex:image styleClass="DellEMC-logo" url="{!URLFOR($Resource.TP_PPT_Images, 'TP_PPT_Images/DellEMC.png')}" width="90" height="15" alt="Description of image here" id="dellEMClogoId"/>
+                    </td> 
+                </tr>
+                <tr id ="tr-btnId">
+                    <td class="tg-tdBtns" colspan="3" id="td-btnId">
+                        <apex:commandButton action="{!saveRecord}" value="Save" id="saveId" styleClass="btn"/> 
+                        <apex:commandButton action="{!goToPrevPage}" value="Previous" id="backId" styleClass="btn"/>
+                        <apex:commandButton action="{!goToNextPage}" value="Next" id="nextId" styleClass="btn"/>
+                        <apex:commandButton action="{!cancel}" value="Cancel" id="cancelId" styleClass="btn"/>
+                    </td>
+                </tr>
+                <tfoot>
+                    <tr>
+                        <td class="footer" colspan ="3">
+                            [ {!currentPageNum} of {!totalPages} ]
+                        </td>
+                    </tr>
+                </tfoot>
+            </apex:form>
+        </table>      
+    </apex:pageBlock>
+</apex:page>

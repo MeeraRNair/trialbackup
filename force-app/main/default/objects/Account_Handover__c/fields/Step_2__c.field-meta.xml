@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Step_2__c</fullName>
+    <description>To Display the values as per &quot;Tier to Step Dependency&quot;</description>
+    <externalId>false</externalId>
+    <label>Step 2</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Tier_level__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Add transition strategy to Account Plan in SFDC</fullName>
+                <default>false</default>
+                <label>Add transition strategy to Account Plan in SFDC</label>
+            </value>
+            <value>
+                <fullName>If Account Plan is in place, add transition strategy</fullName>
+                <default>false</default>
+                <label>If Account Plan is in place, add transition strategy</label>
+            </value>
+            <value>
+                <fullName>Debrief call with prior/new owner before Customer call</fullName>
+                <default>false</default>
+                <label>Debrief call with prior/new owner before Customer call</label>
+            </value>
+            <value>
+                <fullName>No handover assigned, process handled outside SFDC.</fullName>
+                <default>false</default>
+                <label>No handover assigned, process handled outside SFDC.</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Tier 4</controllingFieldValue>
+            <controllingFieldValue>Tier 3</controllingFieldValue>
+            <controllingFieldValue>Tier 2A</controllingFieldValue>
+            <controllingFieldValue>Tier 2B</controllingFieldValue>
+            <valueName>Debrief call with prior/new owner before Customer call</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ACQ to R&amp;D</controllingFieldValue>
+            <controllingFieldValue>Tier 1A</controllingFieldValue>
+            <valueName>Add transition strategy to Account Plan in SFDC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Tier 1B</controllingFieldValue>
+            <valueName>If Account Plan is in place, add transition strategy</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

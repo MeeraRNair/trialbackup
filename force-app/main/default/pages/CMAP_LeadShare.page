@@ -1,0 +1,33 @@
+<apex:page standardController="Lead" extensions="CMAP_LeadShareCntrlr" action="{!Redirect}" lightningStylesheets="true">
+    <style>
+        .errorStyle {
+            font-Weight:bold;
+            color: #071019;
+        }
+     </style>
+     <apex:form id="frmShare">
+        <apex:pageBlock rendered="{!showPage2}">
+            <apex:pagemessages />
+            <apex:pageBlockButtons location="bottom" >                
+                <apex:commandButton value="Ok" action="{!Cancel}" id="cmdCancel"     />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        <apex:pageBlock rendered="{!showPage}">
+            <!-- CMAP: Defect 81467: Added Pagemessages -->
+            <apex:pagemessages />
+            <apex:outputText value="Lead Share" styleClass="errorStyle"/>
+            <br/>
+            <br/>
+            <apex:pageBlockSection title="Please select a user to share the Lead " columns="1" collapsible="false">
+                <apex:pageBlockSectionItem >
+                    <apex:inputField value="{!leadRecord.User__c}" required="False"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom" >
+                <apex:commandButton value="Save" action="{!save}" id="cmdSave"     />
+                <apex:commandButton value="Cancel" action="{!Cancel}" id="cmdCancel"     />
+            </apex:pageBlockButtons>
+            
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,173 @@
+<apex:page controller="VOAgendaPrintViewExtensionController" standardStylesheets="false" showHeader="false" sidebar="false" renderAs="{!renderPDF}" contentType="{!contentType}" cache="false" applyHtmlTag="false">
+
+    <apex:stylesheet value="{!URLFOR($Resource.VisitOps__VMSResources, 'css/styles.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.VisitOps__VMSResources, 'js/jquery-1.11.1.min.js')}"/>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+        <style>
+            body{
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 12px;
+            }
+            a {
+                color: black;
+            }
+            
+            
+        </style>
+        <script type="text/javascript">
+            $(document).ready(function() {
+            $("a[href^='http']").attr('target','_blank');
+            });
+            function openWebsite(url){
+                console.log('url--'+url);
+                window.open(url,'_blank');
+            }
+        </script>
+    </head>
+    <body>
+    <br/>
+        <div class="bPageBlock">
+            <div class="pbHeader">
+            <!-- <apex:image url="{!DocumentLogoUrl}" style="padding-left:12px;width:128px;height:128px"/> -->
+            
+                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr width="100%">
+                        <td width="50%" align="left">
+                            &nbsp;                       
+                        </td>
+                       <td width="50%" align="right">
+                            <apex:image url="{!DocumentLogoUrl}" style="float:right;padding-right: 75px;"/>
+                        </td>
+                    </tr>
+                </table>
+                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tbody>
+                        <tr width="100%">
+                            <td class="pbTitle" align="left">
+                              <h2>{!visitRecord.VisitOps__VisitName__c}</h2>
+                              
+                            </td>
+                        </tr>
+                        <tr width="100%">
+                            <td class="pbTitle" align="left">
+                                <h3 align="left">Agenda</h3>
+                            </td>
+                        </tr>
+                        <tr width="100%" id="attendeesRow">
+                            <td align="left"> 
+                                <apex:panelGrid columns="1" width="100%">
+                                    <apex:outputpanel rendered="{!isAttendeeContactMapNotEmpty}">
+                                    <apex:repeat value="{!AttendeeContactMap1}" var="aaKey">
+                                        <!-- <b><u><apex:outputText value="{!aaKey}" /></u></b><br/> -->
+                                        <b><u>
+                                            <!-- <apex:outputLink value="{!AttendeeContactMap1[aaKey]}" rendered="{!IF(AttendeeContactMap1[aaKey]=='NoLink',false,true)}"> -->
+                                            <apex:outputLink onclick="openWebsite('{!AttendeeContactMap1[aaKey]}');" rendered="{!IF(AttendeeContactMap1[aaKey]=='NoLink',false,true)}">
+                                                <apex:outputText value="{!aaKey}"> </apex:outputText> 
+                                            </apex:outputLink>
+                                            <apex:outputText value="{!aaKey}" rendered="{!IF(AttendeeContactMap1[aaKey]=='NoLink',true,false)}"> </apex:outputText>
+                                        </u></b>
+                                        <br/>
+                                            <apex:repeat value="{!AttendeeContactMap[aaKey]}" var="aa">
+                                                <apex:outputText value="{!aa}" /><br/>       
+                                            </apex:repeat>
+                                            <br/>
+                                    </apex:repeat>
+                                    </apex:outputpanel>
+                                    
+                                    <apex:outputpanel rendered="{!isAttendeeAdHocUserMapNotEmpty}">
+                                    <apex:repeat value="{!AttendeeAdHocUserMap }" var="aaKey">
+                                        <b><u><apex:outputText value="{!aaKey}" /></u></b><br/>
+                                            <apex:repeat value="{!AttendeeAdHocUserMap[aaKey]}" var="aa">
+                                                <apex:outputText value="{!aa}" /><br/>       
+                                            </apex:repeat>
+                                            <br/>
+                                    </apex:repeat>
+                                    </apex:outputpanel>
+                                   
+                                    <apex:outputpanel rendered="{!isAttendeeUserMapNotEmpty}"> 
+                                    <apex:repeat value="{!AttendeeUserMap }" var="aaKey">
+                                        <b><u><apex:outputText value="{!aaKey}" /></u></b><br/>
+                                            <apex:repeat value="{!AttendeeUserMap[aaKey]}" var="aa">
+                                                <apex:outputText value="{!aa}" /><br/>       
+                                            </apex:repeat>
+                                            <br/>
+                                    </apex:repeat>
+                                    </apex:outputpanel>
+                                    
+                                     <apex:outputpanel rendered="{!isOtherAttendeesMapNotEmpty}"> 
+                                    <apex:repeat rendered="{!NOT(ISBLANK(OtherAttendeesMap))}" value="{!OtherAttendeesMap}" var="aaKey">
+                                        <b><u><apex:outputText value="{!aaKey}" /></u></b><br/>
+                                            <apex:repeat value="{!OtherAttendeesMap[aaKey]}" var="aa">
+                                                <apex:outputText value="{!aa}" /><br/>       
+                                            </apex:repeat>
+                                            <br/>
+                                    </apex:repeat>
+                                    </apex:outputpanel> 
+                                    
+                                    
+                                </apex:panelgrid>
+                            
+                            </td>
+                        </tr>
+                    </tbody>
+                 </table>
+            </div>                
+        <div class="pbBody">
+                    <apex:outputPanel id="visitTeamViewId">
+                        <apex:repeat value="{!awList}" var="aw">
+                            <div style="display:block;margin-bottom:0px;"> 
+                                <apex:outputText value="{0,date,MMMM d','  yyyy}" style="font-size:150%; color:#007DB8; border-bottom:1px solid #007DB8; padding-bottom:5px; margin-bottom:25px;">
+                                    <apex:param value="{!aw.agendaDate}" /> 
+                                </apex:outputText>
+                            </div>
+                            <br/>
+
+                            <apex:dataTable value="{!aw.agendaItemsList}" var="each" id="theTable" border="1" width="100%" style="overflow:hidden;word-wrap:break-word;border-color: gray;" columnsWidth="15%,60%,25%" cellpadding="4">
+                                <apex:column style="width:15%;vertical-align:Top;">
+                                    <apex:outputText value="{!each.startTime}" style="padding: 3px;margin: 3px; "></apex:outputText>
+                                    <br/>
+                                </apex:column>
+                                <apex:column style="vertical-align:Top;width:50%;">
+                                    <b><apex:outputText value="{!each.agendaRecord.VisitOps__Agenda_Title__c}"/></b>
+                                    <apex:outputPanel rendered="{!if(view==$Label.visitops__agendacustomerview || each.agendaRecord.VisitOps__Rooms_Booked__c==null,false,true)}">
+                                        <br/>
+                                        <i><apex:outputText value="{!SUBSTITUTE(JSENCODE(each.agendaRecord.VisitOps__Rooms_Booked__c),'\\n','<br/>')}" escape="false">
+                                        </apex:outputText></i>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel rendered="{!IF(each.agendaRecord.VisitOps__Agenda_Subtopics__c!=null,true,false)}">
+                                        <br/>
+                                        <apex:outputText value="{!each.agendaRecord.VisitOps__Agenda_Subtopics__c}" escape="false" styleClass="subtopics">
+                                        </apex:outputText>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel rendered="{!if(view==$Label.visitops__agendacustomerview || each.agendaRecord.VisitOps__Objectives__c==null,false,true)}">
+                                        <br/>
+                                        <apex:outputText value="{!each.agendaRecord.VisitOps__Objectives__c}" escape="false" styleClass="objectives">
+                                        </apex:outputText>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel rendered="{!view==$Label.visitops__agendavisitteamview && each.agendaRecord.VisitOps__Catering_Menu_Item__r.VisitOps__MenuItem__c!=null}">
+                                        <br/>
+                                        <apex:outputText value="Catering: {!each.agendaRecord.VisitOps__Catering_Menu_Item__r.VisitOps__MenuItem__c}">
+                                        </apex:outputText>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel rendered="{!view==$Label.visitops__agendavisitteamview && each.agendaRecord.VisitOps__Details__c!=null}">
+                                        <br/>
+                                        <apex:outputText value="Details: {!each.agendaRecord.VisitOps__Details__c}" escape="false" styleClass="details">
+                                        </apex:outputText>
+                                    </apex:outputPanel>
+                                </apex:column>
+                                <apex:column style="vertical-align:Top;width:35%;">
+                                    <apex:repeat value="{!each.agendaRecord.VisitOps__Presenter_Agenda_Links__r}" var="apal">
+                                         <!-- <apex:outputText value="{!apal.Presenter_name_formula__c + ', ' + apal.Title_formula__c}"/> -->
+                                         <apex:outputText value="{!IF(view==$Label.visitops__agendavisitteamview,IF(apal.VisitOps__Status__c=='Invited','I - ',IF(apal.VisitOps__Status__c=='Tentative','T - ',IF(apal.VisitOps__Status__c=='New Time Proposed','P - ',''))),'')+apal.VisitOps__Presenter_name_formula__c + IF(AND(NOT(ISBLANK(apal.VisitOps__Presenter_name_formula__c)),NOT(ISBLANK(apal.VisitOps__Title_formula__c))), ', ', '') + apal.VisitOps__Title_formula__c}"/>
+                                        <br/>
+                                    </apex:repeat>
+                                    &nbsp;
+                                </apex:column>
+                            </apex:dataTable>
+                        </apex:repeat>
+                </apex:outputPanel> 
+            </div>
+        </div>
+        </body>          
+ </apex:page>

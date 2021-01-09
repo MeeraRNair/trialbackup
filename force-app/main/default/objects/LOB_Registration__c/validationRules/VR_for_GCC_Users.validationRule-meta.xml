@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR_for_GCC_Users</fullName>
+    <active>false</active>
+    <description>Refer CR 3459 -&gt;attachment &apos;VR_for_GCC_Users&apos; for the detailed description.</description>
+    <errorConditionFormula>(NOT(CONTAINS( $User.Profile_Name__c ,&apos;IT GBL Data Load&apos;)) &amp;&amp;($User.Id &lt;&gt;&quot;005A00000016v0q&quot;) &amp;&amp; ($User.Id &lt;&gt; Registered_End_User__r.OwnerId ) &amp;&amp; $User.Title &lt;&gt; &apos;GCC Program Manager&apos; ) &amp;&amp;
+(((ISPICKVAL( LOB_registration_status__c , &apos;Partner(approved)&apos;)|| ISPICKVAL( LOB_registration_status__c , &apos;Open&apos;)||ISPICKVAL( LOB_registration_status__c , &apos;Closed&apos;))&amp;&amp; NOT(ISPICKVAL(PRIORVALUE(LOB_registration_status__c), &apos;Partner(approved)&apos;)))
+)</errorConditionFormula>
+    <errorDisplayField>LOB_registration_status__c</errorDisplayField>
+    <errorMessage>Only Account Owner is allowed to select this value</errorMessage>
+</ValidationRule>

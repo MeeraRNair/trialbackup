@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Further_Explanation_is_Required</fullName>
+    <active>true</active>
+    <description>Further Explanation under Participant Feedback is Required to fill-in when any one of the Answers selected is &apos;Neutral&apos; &apos;Disagree&apos; or &apos;Strongly Disagree&apos;</description>
+    <errorConditionFormula>AND ( 
+Further_Explanation__c =&apos;&apos; , 
+(OR ( 
+ISPICKVAL(Answer1__c , &apos;Neutral&apos;), 
+ISPICKVAL(Answer1__c , &apos;Disagree&apos;), 
+ISPICKVAL(Answer1__c , &apos;Strongly Disagree&apos;), 
+ISPICKVAL(Answer2__c , &apos;Neutral&apos;), 
+ISPICKVAL(Answer2__c , &apos;Disagree&apos;), 
+ISPICKVAL(Answer2__c , &apos;Strongly Disagree&apos;), 
+ISPICKVAL(Answer3__c , &apos;Neutral&apos;), 
+ISPICKVAL(Answer3__c , &apos;Disagree&apos;), 
+ISPICKVAL(Answer3__c , &apos;Strongly Disagree&apos;) 
+)) 
+)</errorConditionFormula>
+    <errorMessage>Please Fill-in the ‘Further Explanation’ in Participant Feedback Section since one of your Answers were ‘Neutral’ or ‘Disagree’ or ‘Strongly Disagree’</errorMessage>
+</ValidationRule>

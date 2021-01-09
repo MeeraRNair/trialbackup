@@ -1,0 +1,31 @@
+<!--  Commented by Sumit
+
+<apex:page standardController="Solution_Certification__c" extensions="VFCntrlr_SolutionCertInsert"
+action="{!actionReturnUrl}">  -->
+
+<apex:page standardController="Solution_Certification__c" extensions="VFCntrlr_SolutionCertInsert">
+
+
+<table width="600px" cellpadding="0" cellspacing="0" align="center" border="0">
+        <tr>
+            <td>
+                <apex:form >                    
+                    <div>
+                        <apex:pageMessage severity="info" strength="3"  title="You cannot
+                        insert the record" detail="A Deal Certification already exists for this Opportunity"/>
+                        
+                        <table align="center">
+                            <tr><td>
+                              <!-- Commented by Sumit -->
+                              <!--  <apex:commandButton value="Back" action="{!backBtnURL}"/> -->
+                              <!-- Ends -->
+                                
+                            </td></tr>    
+                        </table>
+                    </div>                  
+                </apex:form>
+            </td>
+        </tr>
+    </table>
+
+</apex:page>

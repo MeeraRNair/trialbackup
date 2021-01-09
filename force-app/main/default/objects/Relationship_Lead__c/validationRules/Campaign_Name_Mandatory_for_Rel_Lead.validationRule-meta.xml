@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Campaign_Name_Mandatory_for_Rel_Lead</fullName>
+    <active>true</active>
+    <description>Field is mandatory even when it is coming from integration and data load.</description>
+    <errorConditionFormula>AND(
+NOT($Setup.System_Behavior_Bypasser__c.Bypass_Opportunity_VRs__c),
+ISBLANK( Campaign__c ) 
+)</errorConditionFormula>
+    <errorMessage>Campaign is mandatory for Relationship Lead records</errorMessage>
+</ValidationRule>

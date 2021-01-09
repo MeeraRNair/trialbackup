@@ -1,0 +1,77 @@
+<apex:page standardController="S_P_Vendors__c" extensions="SnPDRSubmitToVendorExtension" lightningStyleSheets="true" action="{!submitToVendor}">
+
+    <style type="text/css">
+        .messageBox {
+            background-color: #F5F5F5;
+            width: 620px;
+            height: 150px;
+            position: relative;
+            top: 10px;
+            left: 40px;
+        }
+        
+        .messageText {
+            font-size: 14px;
+            position: relative;
+            top: 20px;
+            left: 20px;
+        }
+        
+        .messageBoxButton {
+            position: relative;
+            top: -40px;
+            left: 400px;
+        }
+        
+        .loadingBox {
+            border: 0px solid white;
+            position: relative;
+            top: 50px;
+            left: 40%;
+        }
+    </style>
+    
+    <apex:outputPanel styleClass="loadingBox" rendered="{!AND(NOT(showPage), NOT(showAlreadySubmitted), NOT(showAlreadyApprovedRejected))}">
+        <apex:image url="/resource/1298550208000/echosign_dev1__Loading" style="position: relative; left: 80px;" /> <br />
+        Updating Record - {!S_P_Vendors__c.Name}
+    </apex:outputPanel>
+    
+    <apex:outputPanel >
+        <apex:form >
+            <apex:outputPanel rendered="{!showPage}" >
+                <apex:sectionHeader title="Submit to Vendor" subtitle="S&P Vendors"/>
+                    <div class="messageBox">
+                        <apex:outputText value="{!msgText}" 
+                            styleClass="messageText"/>
+                    </div>
+            </apex:outputPanel>
+        
+            <apex:outputPanel rendered="{!showAlreadySubmitted}" >
+                <apex:sectionHeader title="Submit to Vendor" subtitle="S&P Vendors"/>
+                    <div class="messageBox">
+                        <apex:outputText value="{!msgText}" 
+                            styleClass="messageText"/> 
+                    </div>
+            </apex:outputPanel>
+            
+            <apex:outputPanel rendered="{!showAlreadyApprovedRejected}" >
+                <apex:sectionHeader title="Submit to Vendor" subtitle="S&P Vendors"/>
+                    <div class="messageBox">
+                        <apex:outputText value="{!msgText} {!S_P_Vendors__c.S_P_Deal_Status__c}." 
+                            styleClass="messageText"/> 
+                    </div>
+            </apex:outputPanel>
+        <apex:commandButton value=" Go back to the previous page " styleClass="messageBoxButton" action="{!cancel}"/>
+        </apex:form>
+    </apex:outputPanel>
+    
+    <!-- List of custom fields that needs to be accessed in the extension class -->
+    <apex:outputPanel rendered="false">
+        {!S_P_Vendors__c.S_P_Vendors_Name__c}
+        {!S_P_Vendors__c.Automated__c}
+        {!S_P_Vendors__c.S_P_Deal_Status__c}
+        {!S_P_Vendors__c.Contact_Name__c}
+        {!S_P_Vendors__c.Customer_Name__c}
+        
+    </apex:outputPanel>
+</apex:page>

@@ -1,0 +1,542 @@
+<apex:page extensions="VFCntrlr_CSEPlatform" standardcontroller="Support_Request__c"  tabStyle="Support_Request__c">
+<STYLE>
+
+    .customPanel {
+
+        margin-bottom: 10px;
+
+      }     
+
+      .customHR {
+
+        color: #7eb47e;
+
+      }     
+
+      .customLinkBtn {    
+
+        background-image: url(/img/bgButton.gif);
+
+        background-repeat: repeat-x;
+
+        background-position: left top;
+
+        border-right-width-value: 1px;
+ 
+        border-right-style-value: solid;
+
+        border-right-color-value: #5c5d61;
+
+        border-bottom-width: 1px;
+
+        border-bottom-style: solid;
+
+        border-bottom-color: #5c5d61;
+
+        border-top-width: medium;
+
+        border-top-style: none;
+
+        border-top-color: -moz-use-text-color;
+
+        border-left-width-value: medium;
+
+        border-left-style-value: none;
+
+        border-left-color-value: -moz-use-text-color;
+
+        padding-top: 1px;
+
+        padding-right: 3px;
+
+        padding-bottom: 1px;
+
+        padding-left: 3px;
+
+        cursor: pointer;
+
+        display: inline;
+
+        font-size: 80%;
+
+      }
+
+      .customLinkBtnText
+
+      {
+
+        font-family: 'Verdana','Geneva',sans-serif;
+
+        color: #ffffff;
+
+        font-weight: bold;
+
+      }
+
+      a:visited, a:link {text-decoration: none;}
+
+      .customTableCol {
+
+          vertical-align: middle;
+
+      }
+
+    .cErrorMessage {
+        font-weight: bold;
+    }
+
+    .bPageTitle   
+    { 
+        margin-bottom: 1px;
+    }
+  </STYLE>
+
+<apex:form rendered="true"> 
+
+<!-- <apex:inputText value="{!Support_Request__c.Id}" id="Id"/> -->
+<apex:inputHidden value="{!Support_Request__c.Platform_List__c}" id="Platform_List__c"/> 
+<apex:inputHidden value="{!Support_Request__c.Storage_List__c}" id="Storage_List__c"/>
+<apex:inputHidden value="{!Support_Request__c.Peripherals_List__c}" id="Peripherals_List__c"/>
+<apex:inputHidden value="{!Support_Request__c.Operating_Systems_List__c}" id="Operating_Systems_List__c"/>
+<apex:inputHidden value="{!Support_Request__c.Network_Switches_List__c}" id="Network_Switches_List__c"/>
+<apex:inputHidden value="{!Support_Request__c.HBA_List__c}" id="HBA_List__c"/> 
+<apex:inputHidden value="{!Support_Request__c.Category__c}" id="Category__c"/>
+<apex:inputHidden value="{!Support_Request__c.Project_Priority__c}" id="Project_Priority__c"/>
+<apex:inputHidden value="{!Support_Request__c.Pro_Bono__c}" id="Pro_Bono__c"/>
+
+ 
+ <apex:pageBlock title="Select Platforms" id="ConPlatforms" rendered="{!passedpage=='Platforms'}">
+ 
+          <table>
+ 
+            <tr>  
+ 
+              <td class="customTableCol" style="width: 230px;">
+
+                <b>Available Platforms:</b>  
+
+                <apex:selectList multiselect="true" value="{!smPlatformsToAdd}" size="30" style="width: 300px;">
+
+                  <apex:selectOptions value="{!availablePlatforms}"/><br/> 
+
+                </apex:selectList>
+ 
+              </td>
+
+              <td style="vertical-align: middle">
+
+                <!-- <apex:commandButton action="{!addPlatforms}" reRender="ConPlatforms" status="status" styleClass="rightArrowIcon" style="border: 0px; width: 24px" title="Add"/> -->
+                <apex:commandLink action="{!addPlatforms}" reRender="ConPlatforms" status="status" title="Add"><img src="/s.gif" alt="Add" class="picklistArrowRight" style="cursor: pointer; " title="Add"/></apex:commandLink>
+
+                <br/>
+
+                <br/>
+
+                <!-- <apex:commandButton action="{!removeCountries}" reRender="ConCountries" status="status" styleClass="leftArrowIcon" style="border: 0px; width: 24px" title="Remove" /> -->
+                <apex:commandLink action="{!removePlatforms}" reRender="ConPlatforms" status="status" title="Add"><img src="/s.gif" alt="Remove" class="picklistArrowLeft" style="cursor: pointer; " title="Remove"/></apex:commandLink>
+
+              </td>
+
+              <td class="customTableCol"  style="width: 230px;">
+
+                <b>Selected Platforms:</b>
+
+                <apex:selectList multiselect="true" value="{!platformsToRemove}" size="30" style="width: 300px">
+
+                  <apex:selectOptions value="{!selectedPlatforms}"/><br/>
+
+                </apex:selectList>
+
+              </td>
+
+            </tr>
+
+            <tr>
+
+                <td style="text-align: right"><apex:commandButton reRender="ConPlatforms" value="Add All Available Platforms" action="{!addAllPlatforms}" style="margin-top: 5px"/></td>
+
+                <td></td>
+
+                <td><apex:commandButton reRender="ConPlatforms" value="Remove All Selected Platforms" action="{!removeAllPlatforms}" style="margin-top: 5px"/></td>
+
+            </tr>
+
+             <tr> 
+
+                <td style="text-align: right"><apex:commandButton value="Save" action="{!savePlatforms}"  status="status" style="margin-top: 5px" oncomplete="savePlatformsInLex();"/></td>
+
+                <td></td>
+                 <td><apex:commandButton value="Cancel" action="{!redirectBack}"  style="margin-top: 5px"/></td>
+                           </tr>
+                
+
+          </table>  
+          
+         <apex:pageMessage severity="ERROR" strength="3" Title="ERROR" detail="{!smErrMsg}" rendered="{!IF(NOT(ISNULL(smErrMsg)),true,false)}" />
+
+         <apex:pageMessage severity="ERROR" strength="3" Title="ERROR" rendered="{!isCustomError}" >
+           
+         </apex:pageMessage>
+          
+    </apex:pageBlock>
+    
+    <apex:pageBlock title="Select Storages" id="ConStorages" rendered="{!passedpage=='storage'}">
+ 
+          <table>
+ 
+            <tr>  
+ 
+              <td class="customTableCol" style="width: 230px;">
+
+                <b>Available Storages:</b>  
+
+                <apex:selectList multiselect="true" value="{!smStoragesToAdd}" size="30" style="width: 300px;">
+
+                  <apex:selectOptions value="{!availableStorages}"/><br/> 
+
+                </apex:selectList>
+ 
+              </td>
+
+              <td style="vertical-align: middle">
+
+                <!-- <apex:commandButton action="{!addStorages}" reRender="ConStorages" status="status" styleClass="rightArrowIcon" style="border: 0px; width: 24px" title="Add"/> -->
+                <apex:commandLink action="{!addStorages}" reRender="ConStorages" status="status" title="Add"><img src="/s.gif" alt="Add" class="picklistArrowRight" style="cursor: pointer; " title="Add"/></apex:commandLink>
+
+                <br/>
+
+                <br/>
+
+                <!-- <apex:commandButton action="{!removeCountries}" reRender="ConCountries" status="status" styleClass="leftArrowIcon" style="border: 0px; width: 24px" title="Remove" /> -->
+                <apex:commandLink action="{!removeStorages}" reRender="ConStorages" status="status" title="Add"><img src="/s.gif" alt="Remove" class="picklistArrowLeft" style="cursor: pointer; " title="Remove"/></apex:commandLink>
+
+              </td>
+
+              <td class="customTableCol"  style="width: 230px;">
+
+                <b>Selected Storages:</b>
+
+                <apex:selectList multiselect="true" value="{!storagesToRemove}" size="30" style="width: 300px">
+
+                  <apex:selectOptions value="{!selectedStorages}"/><br/>
+
+                </apex:selectList>
+
+              </td>
+
+            </tr>
+
+            <tr>
+
+                <td style="text-align: right"><apex:commandButton reRender="ConStorages" value="Add All Available Storages" action="{!addAllStorages}" style="margin-top: 5px"/></td>
+
+                <td></td>
+
+                <td><apex:commandButton reRender="ConStorages" value="Remove All Selected Storages" action="{!removeAllStorages}" style="margin-top: 5px"/></td>
+
+            </tr>
+
+             <tr> 
+
+                <td style="text-align: right"><apex:commandButton value="Save" action="{!saveStorages}"  status="status" style="margin-top: 5px" oncomplete="savePlatformsInLex();"/></td>
+
+                <td></td>
+                 <td><apex:commandButton value="Cancel" action="{!redirectBack}"  style="margin-top: 5px"/></td>
+                           </tr>
+                
+
+          </table>   
+         
+    </apex:pageBlock>
+    
+    <apex:pageBlock title="Select Peripherals" id="ConPeripherals" rendered="{!passedpage=='peripherals'}">
+ 
+          <table>
+ 
+            <tr>  
+ 
+              <td class="customTableCol" style="width: 230px;">
+
+                <b>Available Peripherals:</b>  
+
+                <apex:selectList multiselect="true" value="{!smPeripheralsToAdd}" size="30" style="width: 300px;">
+
+                  <apex:selectOptions value="{!availablePeripherals}"/><br/> 
+
+                </apex:selectList>
+ 
+              </td>
+
+              <td style="vertical-align: middle">
+
+                <!-- <apex:commandButton action="{!addPlatforms}" reRender="ConPlatforms" status="status" styleClass="rightArrowIcon" style="border: 0px; width: 24px" title="Add"/> -->
+                <apex:commandLink action="{!addPeripherals}" reRender="ConPeripherals" status="status" title="Add"><img src="/s.gif" alt="Add" class="picklistArrowRight" style="cursor: pointer; " title="Add"/></apex:commandLink>
+
+                <br/>
+
+                <br/>
+
+                <!-- <apex:commandButton action="{!removeCountries}" reRender="ConCountries" status="status" styleClass="leftArrowIcon" style="border: 0px; width: 24px" title="Remove" /> -->
+                <apex:commandLink action="{!removePeripherals}" reRender="ConPeripherals" status="status" title="Add"><img src="/s.gif" alt="Remove" class="picklistArrowLeft" style="cursor: pointer; " title="Remove"/></apex:commandLink>
+
+              </td>
+
+              <td class="customTableCol"  style="width: 230px;">
+
+                <b>Selected Peripherals:</b>
+
+                <apex:selectList multiselect="true" value="{!peripheralsToRemove}" size="30" style="width: 300px">
+
+                  <apex:selectOptions value="{!selectedPeripherals}"/><br/>
+
+                </apex:selectList>
+
+              </td>
+
+            </tr>
+
+            <tr>
+
+                <td style="text-align: right"><apex:commandButton reRender="ConPeripherals" value="Add All Available Peripherals" action="{!addAllPeripherals}" style="margin-top: 5px"/></td>
+
+                <td></td>
+
+                <td><apex:commandButton reRender="ConPeripherals" value="Remove All Selected Peripherals" action="{!removeAllPeripherals}" style="margin-top: 5px"/></td>
+
+            </tr>
+
+             <tr> 
+
+                <td style="text-align: right"><apex:commandButton value="Save" action="{!savePeripherals}"  status="status" style="margin-top: 5px" oncomplete="savePlatformsInLex();"/></td>
+
+                <td></td>
+                 <td><apex:commandButton value="Cancel" action="{!redirectBack}"  style="margin-top: 5px"/></td>
+                           </tr>
+                
+
+          </table>   
+    </apex:pageBlock>
+    
+    <apex:pageBlock title="Select Operating Systems" id="ConOperatingsystems" rendered="{!passedpage=='operatingsystems'}">
+ 
+          <table>
+ 
+            <tr>  
+ 
+              <td class="customTableCol" style="width: 230px;">
+
+                <b>Available Operating Systems:</b>  
+
+                <apex:selectList multiselect="true" value="{!smOperatingsystemsToAdd}" size="30" style="width: 300px;">
+
+                  <apex:selectOptions value="{!availableOperatingsystems}"/><br/> 
+
+                </apex:selectList>
+ 
+              </td>
+
+              <td style="vertical-align: middle">
+
+                <!-- <apex:commandButton action="{!addOperatingsystems}" reRender="ConOperatingsystems" status="status" styleClass="rightArrowIcon" style="border: 0px; width: 24px" title="Add"/> -->
+                <apex:commandLink action="{!addOperatingsystems}" reRender="ConOperatingsystems" status="status" title="Add"><img src="/s.gif" alt="Add" class="picklistArrowRight" style="cursor: pointer; " title="Add"/></apex:commandLink>
+
+                <br/>
+
+                <br/>
+
+                <!-- <apex:commandButton action="{!removeCountries}" reRender="ConCountries" status="status" styleClass="leftArrowIcon" style="border: 0px; width: 24px" title="Remove" /> -->
+                <apex:commandLink action="{!removeOperatingsystems}" reRender="ConOperatingsystems" status="status" title="Add"><img src="/s.gif" alt="Remove" class="picklistArrowLeft" style="cursor: pointer; " title="Remove"/></apex:commandLink>
+
+              </td>
+
+              <td class="customTableCol"  style="width: 230px;">
+
+                <b>Selected Operating Systems:</b>
+
+                <apex:selectList multiselect="true" value="{!operatingsystemsToRemove}" size="30" style="width: 300px">
+
+                  <apex:selectOptions value="{!selectedOperatingsystems}"/><br/>
+
+                </apex:selectList>
+
+              </td>
+
+            </tr>
+
+            <tr>
+
+                <td style="text-align: right"><apex:commandButton reRender="ConOperatingsystems" value="Add All Available Operating Systems" action="{!addAllOperatingsystems}" style="margin-top: 5px"/></td>
+
+                <td></td>
+
+                <td><apex:commandButton reRender="ConOperatingsystems" value="Remove All Selected Operating Systems" action="{!removeAllOperatingsystems}" style="margin-top: 5px"/></td>
+
+            </tr>
+
+             <tr> 
+
+                <td style="text-align: right"><apex:commandButton value="Save" action="{!saveOperatingsystems}"  status="status" style="margin-top: 5px" oncomplete="savePlatformsInLex();"/></td>
+
+                <td></td>
+                 <td><apex:commandButton value="Cancel" action="{!redirectBack}"  style="margin-top: 5px"/></td>
+                           </tr>
+                
+
+          </table> 
+          <apex:pageMessage severity="ERROR" strength="3" Title="ERROR" detail="{!smErrMsg}" rendered="{!IF(NOT(ISNULL(smErrMsg)),true,false)}" />
+
+           <apex:pageMessage severity="ERROR" strength="3" Title="ERROR" rendered="{!isCustomError}" >
+           
+          </apex:pageMessage>  
+    </apex:pageBlock>
+    
+    <apex:pageBlock title="Select Network Switches" id="ConNetwork" rendered="{!passedpage=='networkswitches'}">
+ 
+          <table>
+ 
+            <tr>  
+ 
+              <td class="customTableCol" style="width: 230px;">
+
+                <b>Available Network Switches:</b>  
+
+                <apex:selectList multiselect="true" value="{!smNetworkToAdd}" size="30" style="width: 300px;">
+
+                  <apex:selectOptions value="{!availableNetwork}"/><br/> 
+
+                </apex:selectList>
+ 
+              </td>
+
+              <td style="vertical-align: middle">
+
+                <!-- <apex:commandButton action="{!addNetwork}" reRender="ConNetwork" status="status" styleClass="rightArrowIcon" style="border: 0px; width: 24px" title="Add"/> -->
+                <apex:commandLink action="{!addNetwork}" reRender="ConNetwork" status="status" title="Add"><img src="/s.gif" alt="Add" class="picklistArrowRight" style="cursor: pointer; " title="Add"/></apex:commandLink>
+
+                <br/>
+
+                <br/>
+
+                <!-- <apex:commandButton action="{!removeCountries}" reRender="ConCountries" status="status" styleClass="leftArrowIcon" style="border: 0px; width: 24px" title="Remove" /> -->
+                <apex:commandLink action="{!removeNetwork}" reRender="ConNetwork" status="status" title="Add"><img src="/s.gif" alt="Remove" class="picklistArrowLeft" style="cursor: pointer; " title="Remove"/></apex:commandLink>
+
+              </td>
+
+              <td class="customTableCol"  style="width: 230px;">
+
+                <b>Selected Network Switches:</b>
+
+                <apex:selectList multiselect="true" value="{!networkToRemove}" size="30" style="width: 300px">
+
+                  <apex:selectOptions value="{!selectedNetwork}"/><br/>
+
+                </apex:selectList>
+
+              </td>
+
+            </tr>
+
+            <tr>
+
+                <td style="text-align: right"><apex:commandButton reRender="ConNetwork" value="Add All Available Network Switches" action="{!addAllNetwork}" style="margin-top: 5px"/></td>
+
+                <td></td>
+
+                <td><apex:commandButton reRender="ConNetwork" value="Remove All Selected Network Switches" action="{!removeAllNetwork}" style="margin-top: 5px"/></td>
+
+            </tr>
+
+             <tr> 
+
+                <td style="text-align: right"><apex:commandButton value="Save" action="{!saveNetwork}"  status="status" style="margin-top: 5px" oncomplete="savePlatformsInLex();"/></td>
+
+                <td></td>
+                 <td><apex:commandButton value="Cancel" action="{!redirectBack}"  style="margin-top: 5px"/></td>
+                           </tr>
+                
+
+          </table>   
+           
+
+    </apex:pageBlock>
+    
+    <apex:pageBlock title="Select HBA" id="ConHba" rendered="{!passedpage=='HBA'}">
+ 
+          <table>
+ 
+            <tr>  
+ 
+              <td class="customTableCol" style="width: 230px;">
+
+                <b>Available HBA:</b>  
+
+                <apex:selectList multiselect="true" value="{!smHbaToAdd}" size="30" style="width: 300px;">
+
+                  <apex:selectOptions value="{!availableHba}"/><br/> 
+
+                </apex:selectList>
+ 
+              </td>
+
+              <td style="vertical-align: middle">
+
+                <!-- <apex:commandButton action="{!addHba}" reRender="ConHba" status="status" styleClass="rightArrowIcon" style="border: 0px; width: 24px" title="Add"/> -->
+                <apex:commandLink action="{!addHba}" reRender="ConHba" status="status" title="Add"><img src="/s.gif" alt="Add" class="picklistArrowRight" style="cursor: pointer; " title="Add"/></apex:commandLink>
+
+                <br/>
+
+                <br/>
+
+                <!-- <apex:commandButton action="{!removeCountries}" reRender="ConCountries" status="status" styleClass="leftArrowIcon" style="border: 0px; width: 24px" title="Remove" /> -->
+                <apex:commandLink action="{!removeHba}" reRender="ConHba" status="status" title="Add"><img src="/s.gif" alt="Remove" class="picklistArrowLeft" style="cursor: pointer; " title="Remove"/></apex:commandLink>
+
+              </td>
+
+              <td class="customTableCol"  style="width: 230px;">
+
+                <b>Selected HBA:</b>
+
+                <apex:selectList multiselect="true" value="{!hbaToRemove}" size="30" style="width: 300px">
+
+                  <apex:selectOptions value="{!selectedHba}"/><br/>
+
+                </apex:selectList>
+
+              </td>
+
+            </tr>
+
+            <tr>
+
+                <td style="text-align: right"><apex:commandButton reRender="ConHba" value="Add All Available HBA" action="{!addAllHba}" style="margin-top: 5px"/></td>
+
+                <td></td>
+
+                <td><apex:commandButton reRender="ConHba" value="Remove All Selected HBA" action="{!removeAllHba}" style="margin-top: 5px"/></td>
+
+            </tr>
+
+             <tr> 
+
+                <td style="text-align: right"><apex:commandButton value="Save" action="{!saveHba}"  status="status" style="margin-top: 5px" oncomplete="savePlatformsInLex();"/></td>
+
+                <td></td>
+                 <td><apex:commandButton value="Cancel" action="{!redirectBack}"  style="margin-top: 5px"/></td>
+                           </tr>
+                
+
+          </table>   
+            </apex:pageBlock>
+</apex:form>
+<script>
+       function savePlatformsInLex(){                   
+                     
+                                if((typeof sforce != 'undefined') && sforce && (!!sforce.one)){
+                                  sforce.one.back(true);
+
+                     }
+                     else {
+                     window.parent.location = '/'+'{!strSuppRecordId}';
+                     }}
+</script>
+</apex:page>

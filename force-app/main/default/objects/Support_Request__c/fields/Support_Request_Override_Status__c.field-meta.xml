@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Support_Request_Override_Status__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Changes Status of Support Request for CSMB Business Only</inlineHelpText>
+    <label>Support Request Override Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Segment_Business_Unit__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Placed On Hold</fullName>
+                <default>false</default>
+                <label>Placed On Hold</label>
+            </value>
+            <value>
+                <fullName>Deprioritized</fullName>
+                <default>false</default>
+                <label>Deprioritized</label>
+            </value>
+            <value>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+                <label>Cancelled</label>
+            </value>
+            <value>
+                <fullName>Resume</fullName>
+                <default>false</default>
+                <label>Resume</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>CSMB</controllingFieldValue>
+            <valueName>Placed On Hold</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CSMB</controllingFieldValue>
+            <valueName>Deprioritized</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CSMB</controllingFieldValue>
+            <valueName>Cancelled</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CSMB</controllingFieldValue>
+            <valueName>Resume</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

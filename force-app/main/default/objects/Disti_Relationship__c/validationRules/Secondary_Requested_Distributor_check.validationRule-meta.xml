@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Secondary_Requested_Distributor_check</fullName>
+    <active>true</active>
+    <errorConditionFormula>CONTAINS( $Profile.Name , &quot;PRM Portal&quot;) &amp;&amp;
+Requested_Distributor__c != null &amp;&amp; Distributor_Request_Reason__c  == null &amp;&amp; ( Requested_Distributor__c == Requested_Secondary_Distributor__c )</errorConditionFormula>
+    <errorDisplayField>Requested_Secondary_Distributor__c</errorDisplayField>
+    <errorMessage>Please Request for a Different Secondary Distributor</errorMessage>
+</ValidationRule>

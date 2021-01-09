@@ -1,0 +1,296 @@
+<!--REVISION HISTORY
+Version     Author      Date            Release#    CR#     Description-
+ 1.0         Saurabh     12-Apr-2013       14.5     8180  Viper - Marketing results showing Invoice MDF field as blank                  
+                                                          and sub-total and grand-total for Headcount plans  
+-->
+<apex:page standardController="Invoice__c" Extensions="MarketingResultsCtrlExt"
+contentType="application/msword" standardStylesheets="true" >
+
+<html>
+    <head>
+        <style>
+               @page divbreak
+                 {
+                      margin:.25in .25in .25in .25in;
+                   }
+            div.divbreak {page:divbreak;}
+            td.data{border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;border-collapse:collapse;}
+            table.Bdr{border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;border-collapse:separate;empty-cells:hide;}
+
+         </style>
+      </head>
+
+    <body>
+        <div  class="divbreak">
+        <table width="100%" align="center" bgcolor="#cccccc">
+            <tr><td align="left"><font face="verdana" size="4"><b>Dell | Software &amp; Peripherals</b></font></td><td align="right"><font face="verdana" size="4"><b>Dell Vendor Marketing Result</b></font></td></tr>
+            <tr><td align="left"><font face="verdana" size="4"><b>{!InvoicePackage.Vendor__r.name}</b></font></td><td align="right"><font face="verdana" size="4"><b>{!InvoicePackage.Fiscal_Quarter__c}</b></font></td></tr>
+        </table>
+        <br></br> 
+
+        <apex:outputText rendered="{!IF(volumeBasedAPVPgmList.size>0 ,'TRUE','FALSE')}">
+            <table width="100%" align="center">
+                <tr>
+                    <td class="data" align="center"><font face="verdana" size="3"><b>Volume Based</b></font></td>
+                </tr>
+            </table>
+        </apex:outputText>
+
+        <apex:repeat value="{!volumeBasedMPList}" var="vol">
+
+                <table width="100%" align="center" bgcolor="#cccccc" >
+                    <tr><td align="left"><font face="verdana" size="2"><b>{!vol.header}</b></font></td></tr>
+                </table>
+
+                <table width="100%" align="center">
+                    <tr><td class="data" width="30%"><font face="verdana" size="2"><b>Programs</b></font></td>
+                       <td class="data" width="25%"><font face="verdana" size="2"><b>Program Notes</b></font></td>
+                       <!--<td class="data" width="10%"><font face="verdana" size="2"><b>Projected MDF</b></font></td>
+                       <td class="data" width="10%"><font face="verdana" size="2"><b>Invoice MDF</b></font></td>-->
+                       <td class="data" width="10%"><font face="verdana" size="2"><b>POP Status</b></font></td>
+                       <td class="data" width="15%"><font face="verdana" size="2"><b>POP Status Reason</b></font></td>
+                    </tr>
+                 <apex:repeat value="{!vol.associatedVendorsList}" var="mdf">
+                    <tr>
+                        <td class="data" ><font face="verdana" size="2">{!mdf.MDF_Program__r.Name}</font></td>
+                        <td class="data" ><font face="verdana" size="2">{!mdf.Program_Notes__c}</font></td>
+                        <!--<td class="data" ></td>
+                        <td class="data" ></td> -->
+                        <td class="data" ><font face="verdana" size="2">{!mdf.POP_Status__c}</font></td>
+                        <td class="data" ><font face="verdana" size="2">{!mdf.POP_Status_Reason__c}</font></td>
+                    </tr>
+                  </apex:repeat>
+                    <!--<tr>
+                        <td class="data" ></td>
+                        <td class="data" align="right"><font face="verdana" size="2"><b>Sub Total</b></font></td>
+                        <td class="data" ></td>
+                        <td class="data" ></td>
+                        <td class="data" ></td>
+                        <td class="data" ></td>
+                        </tr>-->
+                </table>
+
+            <br></br>
+
+        </apex:repeat>
+
+        <!--<apex:outputText rendered="{!IF(volumeBasedAPVPgmList.size>0 ,'TRUE','FALSE')}">
+            <table  width="100%">
+                <tr>
+                   <td class="data" width="55%" align="right"><font face="verdana" size="2"><b>Grand Total</b></font></td>
+                   <td class="data" width="12%"></td>
+                   <td class="data" width="12%"></td>
+                   <td class="data" width="12%"></td>
+                    <td class="data" width="12%"></td>
+                </tr>
+            </table>
+            <br></br><br></br>
+        </apex:outputText>-->
+
+        <!---------------------------------Non-COGS----------------------------------------------------->
+        <apex:outputText rendered="{!IF(alaCarteAPVPgmList.size>0 ,'TRUE','FALSE')}">
+            <table border="2" cellpadding="2" cellspacing="2" width="100%">
+                <tr>
+                    <td class="data" align="center"><font face="verdana" size="3"><b>Ala Carte</b></font></td>
+                </tr>
+            </table>
+        </apex:outputText>
+
+        <!--<apex:repeat value="{!alaCarteAPVPgmList}" var="alamdf">
+
+                <table width="100%" align="center" bgcolor="#cccccc" >
+                    <tr><td bgcolor="#cccccc" align="left" ><font face="verdana" size="2"><b>{!alamdf.MDF_Program__r.Region__c} - {!alamdf.MDF_Program__r.Sub_Region__c} - {!alamdf.MDF_Program__r.Business_Segment__c}</b></font></td></tr>
+                </table> -->
+                
+                <apex:repeat value="{!alaCarteMPList}" var="ala">
+
+                <table width="100%" align="center" bgcolor="#cccccc" >
+                    <tr><td align="left"><font face="verdana" size="2"><b>{!ala.header}</b></font></td></tr>
+                </table>
+
+
+                <table  width="100%">
+                    <tr><td class="data" width="30%"><font face="verdana" size="2"><b>Programs</b></font></td>
+                       <td class="data" width="25%"><font face="verdana" size="2"><b>Program Notes</b></font></td>
+                       <td class="data" width="10%"><font face="verdana" size="2"><b>Projected MDF</b></font></td>
+                       <td class="data" width="10%"><font face="verdana" size="2"><b>Invoice MDF</b></font></td>
+                       <td class="data" width="10%"><font face="verdana" size="2"><b>POP Status</b></font></td>
+                       <td class="data" width="15%"><font face="verdana" size="2"><b>POP Status Reason</b></font></td>
+                    </tr>
+
+                    <apex:repeat value="{!ala.associatedVendorsList}" var="alamdf">
+                    <tr>
+                        <td class="data"><font face="verdana" size="2">{!alamdf.MDF_Program__r.Name}</font></td>
+                        <td class="data"><font face="verdana" size="2">{!alamdf.Program_Notes__c}</font></td>
+                        <td class="data" width="12%" align="left"><font face="verdana" size="2">
+                            <apex:outputText value="${0, number, ###,###,###,##0.00}" rendered="{!alamdf.Budgeted_Price__c>0}">
+                                <apex:param value="{!alamdf.Budgeted_Price__c}"/>
+                            </apex:outputText></font>
+                        </td>
+                        <td class="data" width="12%" align="left"><font face="verdana" size="2">
+                            <!--<apex:outputText value="${0, number, ###,###,###,##0.00}" rendered="{!alamdf.Invoice_Amount__c>0}">-->
+                            <apex:outputText value="${0, number, ###,###,###,##0.00}" rendered="{!IF(AND(OR(AND(alamdf.POP_Status__c == 'Executed', alamdf.POP_Status_Reason__c != 'Vendor Dissatisfied with Program'),AND(alamdf.POP_Status__c == 'Not Executed', alamdf.POP_Status_Reason__c == 'Vendor Absent – Charge')),  alamdf.Invoice_Amount__c>0), true, false)}">
+                                <apex:param value="{!alamdf.Invoice_Amount__c}"/>
+                            </apex:outputText></font>
+                        </td>
+                        <td class="data"><font face="verdana" size="2">{!alamdf.POP_Status__c}</font></td>
+                        <td class="data"><font face="verdana" size="2" content="text/html;charset=utf-8">{!alamdf.POP_Status_Reason__c}</font></td>
+                    </tr>
+                    </apex:repeat>
+                    <tr>
+                        <td class="data"></td>
+                        <td class="data" align="right"><font face="verdana" size="2"><b>Sub Total</b></font></td>
+                        <td class="data" width="12%" align="left"><font face="verdana" size="2">
+                            <apex:outputText value="${0, number, ###,###,###,##0.00}" rendered="{!ala.budgetedPrice>0}">
+                                <apex:param value="{!ala.budgetedPrice}"/>
+                            </apex:outputText></font>
+                        </td>
+                        <td class="data" width="12%" align="left"><font face="verdana" size="2">
+                            <apex:outputText value="${0, number, ###,###,###,##0.00}" rendered="{!ala.invoiceAmount>0}">
+                                <apex:param value="{!ala.invoiceAmount}"/>
+                            </apex:outputText></font>
+                        </td>
+                        <!--<td class="data"></td>
+                        <td class="data"></td>-->
+                        <td class="data"></td>
+                        <td class="data"></td>
+                        </tr>
+                     </table>
+
+            <br></br>
+
+        </apex:repeat>
+
+        <apex:outputText rendered="{!IF(alaCarteAPVPgmList.size>0 ,'TRUE','FALSE')}">
+            <table  width="100%">
+                <tr>
+                   <td class="data" width="55%" align="right"><font face="verdana" size="2"><b>Grand Total</b></font></td>
+                   <td class="data" width="12%" align="left"><font face="verdana" size="2">
+                       <apex:outputText value="${0, number, ###,###,###,##0.00}" rendered="{!alaCarteBudgetedPrice>0}">
+                            <apex:param value="{!alaCarteBudgetedPrice}"/>
+                        </apex:outputText></font>
+                    </td>
+                    <td class="data" width="12%" align="left"><font face="verdana" size="2">
+                       <apex:outputText value="${0, number, ###,###,###,##0.00}" rendered="{!alaCarteInvoiceAmnt>0}">
+                            <apex:param value="{!alaCarteInvoiceAmnt}"/>
+                        </apex:outputText></font>
+                    </td>
+                    <!--<td class="data" width="12%"></td>-->
+                   <td class="data" width="12%"></td>
+                   <td class="data" width="12%"></td>
+                </tr>
+            </table>
+
+            <br></br><br></br>
+        </apex:outputText>
+        <!---------------------------------End Non-COGS------------------------------------------------->
+
+        <!---------------------------------Head Count----------------------------------------------------->
+        <apex:outputText rendered="{!IF(headCountAPVPgmList.size>0 ,'TRUE','FALSE')}">
+            <table border="2" cellpadding="2" cellspacing="2" width="100%">
+                <tr>
+                    <td class="data" align="center"><font face="verdana" size="3"><b>Head Count</b></font></td>
+                </tr>
+            </table>
+        </apex:outputText>
+        <apex:repeat value="{!headCountMPList}" var="headCount">
+    
+               <!-- <table width="100%" align="center" bgcolor="#cccccc" >
+                    <tr><td bgcolor="#cccccc" align="left"><font face="verdana" size="2"><b>{!hla.MDF_Program__r.Business_Segment__c}-*{!hla.MDF_Program__r.Region__c}-*{!hla.MDF_Program__r.Sub_Region__c}</b></font></td></tr>
+                </table> -->
+                <table width="100%" align="center" bgcolor="#cccccc" >
+                    <tr><td align="left"><font face="verdana" size="2"><b>{!headCount.header}</b></font></td></tr>
+                </table>
+                <table  width="100%">
+                    <tr><td class="data" width="30%"><font face="verdana" size="2"><b>Programs</b> *include but are not limited to the following</font></td>
+                       <td class="data" width="25%"><font face="verdana" size="2"><b>Program Notes</b></font></td>
+                       <td class="data" width="10%"><font face="verdana" size="2"><b>Projected MDF</b></font></td>
+                       <td class="data" width="10%"><font face="verdana" size="2"><b>Invoice MDF</b></font></td>
+                       <td class="data" width="10%"><font face="verdana" size="2"><b>POP Status</b></font></td>
+                       <td class="data" width="15%"><font face="verdana" size="2"><b>POP Status Reason</b></font></td>
+                    </tr>
+                    <apex:repeat value="{!headCount.associatedVendorsList}" var="hlamdf">
+                    <tr>
+                        <td class="data"><font face="verdana" size="2">{!hlamdf.MDF_Program__r.Name}</font></td>
+                        <td class="data"><font face="verdana" size="2">{!hlamdf.Program_Notes__c}</font></td>
+                        <td class="data" width="12%" align="left"><font face="verdana" size="2">
+                            <apex:outputText value="${0, number, ###,###,###,##0.00}" rendered="{!hlamdf.Budgeted_Price__c>0}">
+                                <apex:param value="{!hlamdf.Budgeted_Price__c}"/>
+                            </apex:outputText></font>
+                        </td>
+                        <td class="data" width="12%" align="left"><font face="verdana" size="2">
+                          <!--  <apex:outputText value="${0, number, ###,###,###,##0.00}" rendered="{!hlamdf.Invoice_Amount__c>0}">-->
+                            <apex:outputText value="${0, number, ###,###,###,##0.00}" rendered="{!IF(AND(OR(AND(hlamdf.POP_Status__c == 'Executed', hlamdf.POP_Status_Reason__c != 'Vendor Dissatisfied with Program'),AND(hlamdf.POP_Status__c == 'Not Executed', hlamdf.POP_Status_Reason__c == 'Vendor Absent – Charge')),  hlamdf.Invoice_Amount__c>0), true, false)}">
+                                <apex:param value="{!hlamdf.Invoice_Amount__c}"/>
+                            </apex:outputText></font>
+                        </td>
+                        <td class="data"><font face="verdana" size="2">{!hlamdf.POP_Status__c}</font></td>
+                        <td class="data"><font face="verdana" size="2" content="text/html;charset=utf-8">{!hlamdf.POP_Status_Reason__c}</font></td>
+                    </tr>
+                    </apex:repeat>
+                    <tr>
+                        <td class="data"></td>
+                        <td class="data" align="right"><font face="verdana" size="2"><b> Sub Total</b></font></td>
+                        <td class="data" width="12%" align="left"><font face="verdana" size="2">
+                            <apex:outputText value="${0, number, ###,###,###,##0.00}" rendered="{!headCount.budgetedPrice>0}">
+                                <apex:param value="{!headCount.budgetedPrice}"/>
+                            </apex:outputText></font>
+                        </td>
+                        <!-- Added for CR 8180,BR 019 in Release 14.5-->
+                        <td class="data" width="12%" align="left"><font face="verdana" size="2">
+                            <apex:outputText value="${0, number, ###,###,###,##0.00}" rendered="{!headCount.invoiceAmount>0}">
+                                <apex:param value="{!headCount.invoiceAmount}"/>
+                            </apex:outputText></font>
+                        </td>
+                        <!-- End CR 8180, BR 019 in Release 14.5-->
+
+                        <td class="data"></td>
+                        <td class="data"></td>
+                        </tr>
+                </table>
+
+            <br></br>
+
+        </apex:repeat>
+        <apex:outputText rendered="{!IF(headCountAPVPgmList.size>0 ,'TRUE','FALSE')}">
+            <table  width="100%">
+                <tr>
+                    <td class="data" width="55%" align="right"><font face="verdana" size="2"><b>Grand Total</b></font></td>
+                    <td class="data" width="12%"><font face="verdana" size="2">
+                        <apex:outputText value="${0, number, ###,###,###,##0.00}" rendered="{!headCountBudgetedPrice>0}">
+                            <apex:param value="{!headCountBudgetedPrice}"/>
+                        </apex:outputText></font>
+                    </td>
+                    <!-- Added for CR 8180,BR 019 in Release 14.5-->
+                    <td class="data" width="12%"><font face="verdana" size="2">
+                        <apex:outputText value="${0, number, ###,###,###,##0.00}" rendered="{!headCountInvoiceAmount>0}">
+                            <apex:param value="{!headCountInvoiceAmount}"/>
+                        </apex:outputText></font>
+                    </td>
+                    <!-- End CR 8180, BR 019 in Release 14.5-->
+                    <td class="data" width="12%"></td>
+                    <td class="data" width="12%"></td>
+                </tr>
+            </table>
+
+            <br></br><br></br>
+        </apex:outputText>
+
+        <!---------------------------------End Head Count------------------------------------------------->
+
+        <table  width="100%" align="left" style="border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;">
+            <tr>
+                <td class="data" WIDTH="50%"><font face="verdana" size="2">PM Name :  {!MDFAssociatedContact.MDF_Contact__r.Name}</font></td>
+                <td class="data" align="right"><font face="verdana" size="2">{!NOW()}</font></td>
+            </tr>
+            <tr>
+                <td class="data" WIDTH="50%"><font face="verdana" size="2">Phone :{!MDFAssociatedContact.MDF_Contact__r.Phone__c}</font></td>
+                <td class="data"></td>
+            </tr>
+        </table>
+       </div>
+    </body>
+</html>
+
+
+</apex:page>

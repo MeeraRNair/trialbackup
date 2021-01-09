@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Red_Hat_Other_field_Rule</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( OR( ISPICKVAL( Linux_Project_Details__c , &apos;Other&apos; ) ) , ISBLANK(Other_adobe__c) , S_P_Vendors_Name__c = &apos;Red Hat&apos;)</errorConditionFormula>
+    <errorDisplayField>Linux_Project_Details__c</errorDisplayField>
+    <errorMessage>If Other is selected, you must complete the “Other” field below</errorMessage>
+</ValidationRule>

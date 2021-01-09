@@ -1,0 +1,25 @@
+<apex:page controller="ViperProgramManagement" action="{!autoApproveAPVRecord}" lightningStylesheets="true">
+ 
+ 
+ <table width="600px" cellpadding="0" cellspacing="0" align="center" border="0">
+        <tr>
+            <td>
+                <apex:form >                    
+                    <div>
+                        <apex:pageMessage severity="info" strength="3"  detail="This record cannot be approved 
+                        because it does not have a Status = Pending or the Business Segment field is blank."/>
+                        
+                        <table align="center">
+                            <tr><td>
+                                <apex:commandButton value="Back" action="{!CancelAction}"/>
+                                
+                            </td></tr>
+                        </table>
+                    </div>                  
+                </apex:form>
+            </td>
+        </tr>
+    </table>
+
+
+</apex:page>

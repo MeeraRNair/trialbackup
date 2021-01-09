@@ -1,0 +1,16 @@
+<apex:page Controller="GeneralExceptionHandlerCtrl"
+showHeader="true"     
+standardStylesheets="true" 
+id="thePage"
+ lightningStylesheets="true">
+<apex:form >
+            
+        <apex:pageBlock >
+            <apex:pageMessages />
+            <apex:pageBlockButtons location="bottom">           
+                <apex:commandButton action="{!cancel}" value="Back" id="theButton"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+</apex:form>
+
+</apex:page>

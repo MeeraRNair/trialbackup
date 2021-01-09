@@ -1,0 +1,43 @@
+<!-- 
+REVISION HISTORY
+================
+Version     Author          Date            Release#       CR#      Description
+-------     ------          ----            --------       ----     -----------
+1.0         Jessie          30 Mar 2016     0403           12724    Created to remove Custom Contact Duplication Check VF (directly call Contact Create page)
+2.0         Jessie          25 Apr 2016     sprint 7       13073    Modified (CR13073) to solve lightning error ( Record Type Id : The ID isn't valid for the User) 
+
+ -->
+<apex:page standardController="Contact" title="Creating new Contact" tabStyle="Contact" extensions="NewContactOverrideCtrl">
+
+<script type="text/javascript">
+
+//v2.0 - start
+// Function to open Create Contact page 
+function gotoCreateContact() {
+     
+    var stringvalue='{!rtName}';
+    if( (typeof sforce != 'undefined') && (sforce != null) ) {
+        sforce.one.createRecord('Contact', stringvalue);        
+    } else {
+        location.assign("{!newContact}");
+    }
+      
+}
+//v2.0 - end 
+
+gotoCreateContact();
+
+
+</script> 
+
+     <!--apex:form id="theForm">  
+        <apex:pageBlock id="displaySection" >
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton action="{!cancel}" value="Back"/>
+            </apex:pageBlockButtons>
+            
+            <apex:pagemessages rendered="{!hasMessage}" />
+            <apex:pagemessage rendered="{!!hasMessage}" summary="Creating new contact. Please click the 'Back' button if the page does not redirect automatically." severity="info" strength="3" ></apex:pagemessage>
+        </apex:pageBlock>
+    </apex:form-->
+</apex:page>

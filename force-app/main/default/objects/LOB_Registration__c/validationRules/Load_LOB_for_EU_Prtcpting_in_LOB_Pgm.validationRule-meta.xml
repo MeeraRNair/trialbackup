@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Load_LOB_for_EU_Prtcpting_in_LOB_Pgm</fullName>
+    <active>true</active>
+    <description>This validation rule will restrict the load of LOB record to an account 
+if the Account is not an end user or Participating in LOB Program is FALSE for the account.</description>
+    <errorConditionFormula>OR( Registered_End_User__r.RecordTypeId =&apos;012A0000000TR6Y&apos;, Registered_End_User__r.Participating_in_LOB_Program__c =FALSE)</errorConditionFormula>
+    <errorMessage>The record cannot be created or updated becuase either the Account is not set as &apos;End User&apos; OR Account is not participating in LOB Program</errorMessage>
+</ValidationRule>

@@ -1,0 +1,12 @@
+<apex:page standardController="Opportunity" extensions="EngageChannelParnterRejection" action="{!saveOpp}">
+ <!---- Added by Rajashekar kura  ::  Defect 4454190 For Exception Handling  --->
+  <apex:form >
+    <apex:pageBlock >
+      <apex:outputPanel >
+          <apex:pageMessages />
+          <br/>
+          <apex:commandButton value="{!$Label.Deal_Auto_Approval_Back_Button}" action="{!cancel}"/>
+      </apex:outputPanel>                
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

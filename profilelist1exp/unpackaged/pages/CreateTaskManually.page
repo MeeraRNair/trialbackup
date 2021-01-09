@@ -1,0 +1,49 @@
+<apex:page controller="CreateTaskManually_Cntrl" tabStyle="Task" showHeader="true" lightningStylesheets="true">
+  
+  
+  <script>
+      function getURLParameter(name) {
+          return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+      }
+         if({!allowTask} == false){
+             myvar = getURLParameter('Caseid');
+             alert('Unknown Country, segment or subsegment. Please contact your NPS Lead');
+             window.location.href = '/'+myvar;
+         }
+         
+  </script>
+  <script>
+     var url = location.href;
+     var match = url.match(/inline=1/);
+    if (match != null) { 
+        var newUrl = url.replace(/inline=1/, '');
+        window.top.location=newUrl;
+    }
+</script>
+
+  <apex:pagemessages />
+  <apex:form >
+      <apex:pageBlock tabStyle="Task" Title="New Task">
+          <apex:pageBlockButtons >
+              <apex:commandButton value="Save" action="{!Save}" id="Save"/>
+              
+              <apex:commandButton value="Cancel" action="{!Cancel}" immediate="true"/>
+          </apex:pageBlockButtons>
+          <apex:pageBlockSection title="Task" columns="2" id="NSS">
+                  <apex:inputField value="{!NSSLookup.NSS_Category__c}" >
+                     <apex:actionSupport event="onchange" action="{!CheckTask}" reRender="errors,NSS"/>
+                  </apex:inputfield>
+                  
+                  <apex:pageBlockSectionItem helpText="Enter MAX 255 Characters">
+                      <apex:outputLabel >Root Cause Comments</apex:outputLabel>
+                      <apex:inputtextarea value="{!t.Root_Cause_Comments__c}" cols="60" rows="5"/>
+                  </apex:pageBlockSectionItem>
+                  <apex:inputHidden />
+                  <apex:pageBlockSectionItem helpText="Enter MAX 255 Characters">
+                      <apex:outputLabel >Root Cause Comments (con't)</apex:outputLabel>
+                      <apex:inputtextarea value="{!t.Root_Cause_Commentss__c}" cols="60" rows="5"/>
+                  </apex:pageBlockSectionItem>
+           </apex:pageBlockSection>
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>

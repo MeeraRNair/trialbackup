@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>JSITEStartDate_shdnt_greater_JSITEEndDat</fullName>
+    <active>true</active>
+    <description>The JSITE Start Date should not be after JSITE End Date.</description>
+    <errorConditionFormula>JSITE_Start_Date__c  &gt;  JSITE_EndDate__c</errorConditionFormula>
+    <errorDisplayField>JSITE_Start_Date__c</errorDisplayField>
+    <errorMessage>The JSITE Start Date should not be after JSITE End Date.</errorMessage>
+</ValidationRule>

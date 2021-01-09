@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>R12_10_Solution_CRM_Non_AT_RT_No_Edit</fullName>
+    <active>false</active>
+    <errorConditionFormula>AND (
+$User.Id  &lt;&gt;  CreatedBy.Id, 
+OR (
+ISCHANGED (Instruction_to_SE_Customer_Background__c),
+ISCHANGED (Requested_By_Phone__c)
+)
+)</errorConditionFormula>
+    <errorMessage>Only the Support Request creator can edit the &apos;Instructions to SE / Customer Background&apos; and &apos;Requested by Phone&apos; fields.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,50 @@
+<apex:page Controller="SalesMotion_MultiEditPageController">
+<style>
+        .customTableCol 
+              {
+                  vertical-align: middle;
+              }
+
+    </style>
+<apex:pageMessages />
+<apex:form >
+    <apex:sectionHeader subtitle="Step4: Select Stage(s)" title="step 4 of 6"/>
+    <apex:commandButton action="{!SelectAllStages}" value="Select All" />  
+        <apex:pageBlock id="SalesmotionStages" >            
+            <table Style="align:Left">
+               
+                
+                <tr>
+                    <td class="customTableCol" style="width:230px;">
+                        <b>Available</b>
+                        <apex:selectList id="stages" multiselect="True" value="{!stagesAvailable}"  size="10"  style="width: 400px" >
+                            <apex:selectoptions value="{!availableStages}"/>
+                        </apex:selectList>
+                    </td>
+                    <td style="vertical-align: middle">
+                        <apex:commandLink action="{!addCurSelectedStages}" rerender="SalesmotionStages" title="Add"><img src="/s.gif" alt="Add" class="picklistArrowRight" style="cursor: pointer; " title="Add"/></apex:commandLink>
+                        <br/>
+                        <br/>
+                        <apex:commandLink action="{!removeCurSelectedStages}" rerender="SalesmotionStages" title="Add"><img src="/s.gif" alt="Remove" class="picklistArrowLeft" style="cursor: pointer; " title="Remove"/></apex:commandLink>
+                    </td>
+
+                     <td class="customTableCol"  style="width:230px;">
+                       <b>Selected</b>
+                        <apex:selectList id="selected" multiselect="True" value="{!stagesAdded}" size="10" style="width: 400px">
+                            <apex:selectoptions value="{!selectedStages}"/>
+                        </apex:selectList>
+                    </td>
+                </tr> 
+                        
+            </table> 
+            
+            <apex:pageblockbuttons location="bottom">
+            <apex:commandButton action="{!PreviousPage4}" value="Previous" />
+                
+                 <apex:commandButton action="{!NextPage4}" value="Next" />  
+                  
+                <apex:commandButton action="{!CancelPage4}" value="Cancel" />     
+            </apex:pageblockbuttons>
+        </apex:pageBlock> 
+</apex:form>    
+</apex:page>

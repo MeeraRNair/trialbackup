@@ -1,0 +1,53 @@
+<apex:page standardController="Marketing_Plan__c" extensions="ViperContractManagement"  showHeader="False" standardStylesheets="true" lightningStyleSheets="true">
+<html>
+    <head>
+        <style>
+            .headerRow .displayStyle{display:none;}
+            .headerRow .colStyle50{width:50px;}
+            .headerRow .colStyle75{width:75px;}
+            .headerRow .colStyle100{width:100px;}
+            .headerRow .colStyle150{width:150px;}
+            .headerRow .colStyle250{width:250px;}            
+            .columnRow .showStyle{display:none;}
+            td.innerData{border-style:solid;border-width:1px 1px 1px 1px;border-color:#DCDCDC;border-collapse:collapse;align:center;}
+
+        </style>
+                      
+    </head>
+<body>
+
+<apex:pageBlock >
+    <table style="width:100%;border-style:solid;border-width: 1px 1px 1px 1px;border-color:#DCDCDC;border-collapse:collapse;" bgcolor="#ADD8E6"> 
+    <tr> 
+        <td style="width:97px;font-size:11px;" class="innerData"><b>Volume Based Rule Line Item Id</b></td>                      
+        <td style="width:97px;font-size:11px;" class="innerData"><b>Category</b></td>
+        <td style="width:111px;font-size:11px;" class="innerData"><b>Class And Sub Class</b></td>        
+        <td style="width:90px;font-size:11px;" class="innerData"><b>Accrual %</b></td>
+        <td style="width:97px;font-size:11px;" class="innerData"><b>Amount per Unit</b></td>                          
+        <td style="width:97px;font-size:11px;" class="innerData"><b>Include / Exclude</b></td>
+        <td style="width:90px;font-size:11px;" class="innerData"><b>Business Segment</b></td>                      
+        <td style="width:97px;font-size:11px;" class="innerData"><b>Additional Notes</b></td>         
+    </tr>       
+    </table>  
+    
+     <div style="position:static;width:776px;height:160px;overflow:auto;overflow-x:hidden;"> 
+        <table style="width:100%;border-style:solid;border-width: 1px 1px 1px 1px;border-color:#DCDCDC;border-collapse:collapse;" bgcolor="#FFFFFF">
+        <apex:repeat value="{!VBRHLLnList}" var="I">     
+            <tr>
+                <td class="innerData" style="width:97px;font-size:11px;">{!I.name}</td>
+                <td class="innerData" style="width:97px;font-size:11px;">{!I.Category__c}</td>
+                <td class="innerData" style="width:111px;font-size:11px;">{!I.Class_SubClass__c}</td>
+                <td class="innerData" style="width:90px;font-size:11px;">{!I.Accrual__c}</td>
+                <td class="innerData" style="width:97px;font-size:11px;">{!I.Amount_Per_Unit__c}</td>
+                <td class="innerData" style="width:97px;font-size:11px;">{!I.Include_Exclude__c}</td>
+                <td class="innerData" style="width:90px;font-size:11px;">{!I.Business_Segment__c}</td>
+                <td class="innerData" style="width:97px;font-size:11px;">{!I.Additional_Notes__c}</td>
+            
+            </tr>
+        </apex:repeat>
+</table>
+    </div> 
+</apex:pageBlock>
+</body>
+</html>
+</apex:page>

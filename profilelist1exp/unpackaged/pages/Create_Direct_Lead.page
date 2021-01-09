@@ -1,0 +1,48 @@
+<!--
+***************************************************************
+* Name          : Create_Direct_Lead
+* ---------------------------------------------------------
+* Revision    Release           Name        Date            CR        Description   
+* 1.0         FY19-DCS-0401     Jatin       25 Jan 2018     15420     To replace javascript button
+* 
+***************************************************************
+-->
+<apex:page standardController="CampaignMember" sidebar="false" showHeader="false" tabStyle="Campaign">
+    <script src="/soap/ajax/36.0/connection.js" />
+    <script src="/soap/ajax/36.0/apex.js" />
+    <script type="text/javascript">
+        var previousOnload = window.onload;
+        window.onload = function() {
+            if (previousOnload) {
+                previousOnload();
+            }
+            if ("{!CampaignMember.ContactId}" != null && "{!CampaignMember.ContactId}" != '') {
+                if (confirm("Are you sure you want to create Direct Lead 2.0 for this campaign member?")) {
+
+
+                    sforce.connection.sessionId = '{!$Api.Session_ID}';
+                    var leadId = sforce.apex.execute("CreateDirectLead", "createDirectLead2", {
+                        contactId: "{!CampaignMember.ContactId}",
+                        campaignId: "{!CampaignMember.CampaignId}"
+                    });
+
+                    if (leadId != null && leadId != '') {
+                        window.top.location = "/" + leadId;
+                        return false;
+                    } else {
+                        alert("An error occured while creating the Direct Lead 2.0 for this campaign member.");
+                        window.history.back();
+                        return false;
+                    }
+                } else {
+                    window.history.back();
+                }
+            } else {
+                alert("Direct Lead 2.0 can only created for Campaign Member of type Contact.");
+                window.history.back();
+                return false;
+
+             }
+        }
+    </script>
+</apex:page>

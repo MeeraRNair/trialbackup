@@ -1,0 +1,73 @@
+<!-- 
+REVISION HISTORY
+================
+Version     Author          Date            Release#       CR#      Description
+-------     ------          ----            --------       ----     -----------
+1.0         Jessie          5 Sept 2016     1002           13461    Created as Record Type Selection page for LEx/SF1
+2.0         Abhinav         30Sept 2019     1101           18147    Configure Save and Add Products popup for LEx/SF1
+ -->
+<apex:page showHeader="false" standardController="Opportunity" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0"> 
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ 
+    <head>
+      <apex:stylesheet value="{!URLFOR($Resource.slds203, 'assets/styles/salesforce-lightning-design-system.css')}" />
+        
+    </head> 
+    
+
+    <body>
+        <div class="slds slds-p-around--xx-large">
+            <div class="slds-grid">
+                <div class="slds-col slds-has-flexi-truncate">
+                  <nav class="slds-m-bottom--xx-small" role="navigation" aria-label="Breadcrumbs">
+                    <ol class="slds-breadcrumb slds-list--horizontal">
+                      <li class="slds-breadcrumb__item slds-text-heading--label"><a href="javascript:void(0);">CREATE NEW OPPORTUNITY</a></li>           
+                    </ol>
+                  </nav>
+                  <div class="slds-p-top--medium"> </div>
+                  <h1 class="slds-page-header__title slds-truncate" title="Select Record-Type"><a href="javascript:void(0);">Select Record-Type : </a></h1>
+                </div>
+                
+                <div class="slds-col slds-no-flex slds-grid slds-align-top">
+                 <div class="slds-button-group">
+                    <button class="slds-button slds-button--neutral" onclick="back()">BACK</button>
+                    
+                  </div>
+                </div>
+            </div>
+            
+            <div class="slds-m-top--medium"></div>
+          
+            <ul id="recordTypeList">
+                <c:LExOpportunityRecordTypeComponent />
+            </ul>
+            
+        </div>
+        
+        <script>
+        
+            var ul = document.getElementById("recordTypeList");
+        
+            ul.addEventListener("click", function(e) {
+                
+                var recordTypeId =  e.target.getAttribute("data-id");
+               
+                if(recordTypeId != null) {
+					//BOF - 2.0
+                    //sforce.one.createRecord("Opportunity", recordTypeId);
+                    sforce.one.navigateToURL('/lightning/o/Opportunity/new?recordTypeId='+recordTypeId+'&nooverride=1&navigationLocation=MRU_LIST');
+					//EOF - 2.0
+				}
+            });
+            
+           function back()
+           {
+              sforce.one.back(false);               
+              
+           }
+        </script>
+   
+    
+    </body>
+</html>
+</apex:page>

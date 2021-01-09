@@ -1,0 +1,236 @@
+<!--REVISION HISTORY
+ Version     Author      Date            Release#    CR#     Description
+ 1.0         Saurabh     8-Apr-2013       14.5      8170         Ability to “Select All” to associate Programs to Marketing plans
+ 2.0 -       manip4      30-Aug-2018  FY19-DCS-1002 16419        added 'lightningStylesheets' attribute for apex component to make the page lightening friendly for the story 5537230
+-->
+<apex:page standardController="Marketing_Plan__c" extensions="ViperContractManagement" id="thePage" lightningStylesheets="true">
+
+<!--Start Added for BR 07,CR 8170 in Release 14.5 -->
+  <script language="Javascript">
+                                function selectAllUpdate(selectFlag){
+                                    
+                                     var size='{!listOfMpWrapperRecords.size}';
+                                     for(var i=0; i<size; i++){
+                                        var elementId='thePage:frm:APVListBlock:MPWrapper:'+i+':input';
+                                       document.getElementById(elementId).checked=true; 
+                                    
+                                    }
+                                    
+                                }
+                                
+                                 function selectAllInsert(selectFlag){
+                                    
+                                  
+                                   var size='{!listOfPgmWrapperRecs.size}';
+                                  
+                                 
+                                    for(var i=0; i<size; i++){
+                                       
+                                       var elementId='thePage:frm:ProgramListBlock:PgmWrapper:'+i+':input';
+                                     
+                                       document.getElementById(elementId).checked=true; 
+                                    
+                                    }
+                                    
+                                }
+                        </script> 
+                        <!--End Added for BR 07,CR 8170 in Release 14.5 -->
+
+<html>
+    <head>
+        <style>
+            .headerRow .displayStyle{display:none;}
+            .headerRow .colStyle50{width:50px;}
+            .headerRow .colStyle75{width:75px;}
+            .headerRow .colStyle100{width:100px;}
+            .headerRow .colStyle150{width:150px;}
+            .headerRow .colStyle250{width:250px;}            
+            .columnRow .showStyle{display:none;}
+        </style>
+                      
+    </head>
+<body>
+
+<apex:sectionHeader title="Select Program(s) to be associated to the Marketing Plan :" subtitle="{!Marketing_Plan__c.name}"/>
+<apex:form id="frm">   
+   <apex:pageMessages showDetail="true"/>   
+   <apex:pageBlock rendered="{!ApvErr}">
+       <apex:pageblockSection title="Info" collapsible="false" columns="1">
+          <apex:pageMessage severity="Info" strength="3"> You are not able to add APVs to this marketing plan because of one of the following reasons <br></br>
+          1)No available programs are found for this Sub-Vendor<br></br>
+          2)If contract type of the marketing plan is 'Head Count' , the Term field may not have a value</apex:pageMessage>
+      </apex:pageblockSection>
+      <apex:pageblockbuttons location="bottom">
+          <apex:commandButton action="{!cancel}" value="Back"/>
+      </apex:pageblockbuttons>
+   </apex:pageBlock>
+   
+   <apex:pageBlock rendered="{!AlacarteErr}">
+       <apex:pageblockSection title="Info" collapsible="false" columns="1">
+          <apex:pageMessage severity="Info" strength="3">This Ala Carte Marketing Plan has a Contract Status of Signed/has APVs with signed status and new programs can no longer be associated to it. Please create a new Marketing Plan if necessary.</apex:pageMessage>
+      </apex:pageblockSection>
+      <apex:pageblockbuttons location="bottom">
+          <apex:commandButton action="{!cancel}" value="Back"/>
+      </apex:pageblockbuttons>
+   </apex:pageBlock>
+
+  <apex:pageBlock id="APVListBlock" title="APV List"  rendered="{!APVList}"> 
+  
+    <apex:pageBlockTable value="{!listOfMpWrapperRecords}" var="apv" rows="1" style="width:1100px;">                        
+        <apex:column style="display:none;align:center;"  headerClass="colStyle50">
+        <apex:facet name="header">Select</apex:facet>
+        </apex:column>
+        <apex:column style="display:none;align:center;"  headerClass="colStyle100">
+        <apex:facet name="header">APV Name</apex:facet>         
+        </apex:column>        
+        <apex:column style="display:none;align:center;"  headerClass="colStyle250">
+        <apex:facet name="header">Program</apex:facet>         
+        </apex:column>
+        <apex:column style="display:none;align:center;"  headerClass="colStyle75">
+        <apex:facet name="header">Program Type</apex:facet>         
+        </apex:column>                          
+        <apex:column style="display:none;align:center;"   headerClass="colStyle75">
+        <apex:facet name="header">Fiscal Quarter</apex:facet>
+        </apex:column>
+        <apex:column style="display:none;align:center;"   headerClass="colStyle75">
+        <apex:facet name="header">Region</apex:facet>
+        </apex:column>                      
+        <apex:column style="display:none;align:center;" headerClass="colStyle100">
+        <apex:facet name="header">Business Segment</apex:facet>
+        </apex:column>
+        <apex:column style="display:none;align:center;" headerClass="colStyle100">
+        <apex:facet name="header">Program Status</apex:facet>
+        </apex:column>                      
+        <apex:column style="display:none;align:center;"  headerClass="colStyle150">
+        <apex:facet name="header">Rate Card Price</apex:facet>
+        </apex:column>
+        <apex:column style="display:none;align:center;" headerClass="colStyle150">
+        <apex:facet name="header">Budgeted Price</apex:facet>
+        </apex:column>
+    </apex:pageBlockTable>
+    
+    <div style="position:static;width:1100px;height:340px;overflow:auto;overflow-x:hidden;"> 
+    
+        <apex:pageBlockTable id="MPWrapper" value="{!listOfMpWrapperRecords}" var="apv" style="width:1100px;">
+         
+            <apex:column headerClass="displayStyle" style="width:50px;align:center;">
+                <apex:inputCheckbox id="input" value="{!apv.selected}"  />
+            </apex:column>
+            <apex:column headerClass="displayStyle" style="width:100px;align:center;">
+                <apex:outputLink value="/{!apv.apvMpElt.id}">{!apv.apvMpElt.name}</apex:outputLink>
+            </apex:column>   
+            <apex:column headerClass="displayStyle" style="width:250px;align:center;">
+            <apex:outputLink value="/{!apv.apvMpElt.MDF_Program__c}">{!apv.apvMpElt.MDF_Program__r.name}</apex:outputLink>
+            </apex:column>
+            <apex:column headerClass="displayStyle" style="width:75px;align:center;" value="{!apv.apvMpElt.MDF_Program__r.Program_Type__c}"/>
+            <apex:column headerClass="displayStyle" style="width:75px;align:center;" value="{!apv.apvMpElt.MDF_Program__r.Fiscal_Quarter__c}"/>
+            <apex:column headerClass="displayStyle" style="width:75px;align:center;" value="{!apv.apvMpElt.MDF_Program__r.Region__c}"/>
+            <apex:column headerClass="displayStyle" style="width:100px;align:center;" value="{!apv.apvMpElt.Business_Segment__c}"/>
+            <apex:column headerClass="displayStyle" style="width:100px;align:center;" value="{!apv.apvMpElt.MDF_Program__r.Program_Status__c}"/> 
+            <apex:column headerClass="displayStyle" style="width:150px;align:center;">
+                <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                    <apex:param value="{!apv.apvMpElt.Rate_Card_Price__c}"/>
+                </apex:outputText>
+            </apex:column>
+            <apex:column headerClass="displayStyle" style="width:150px;align:center;"> 
+                <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                    <apex:param value="{!apv.apvMpElt.Budgeted_Price__c}"/>
+                </apex:outputText>
+            </apex:column> 
+            
+        </apex:pageBlockTable>
+       
+       
+    </div>
+     
+    
+    
+  <apex:pageBlockButtons location="bottom">
+  <!--Start Added for BR 07,CR 8170 in Release 14.5 -->
+    <input type ="Button" class="btn" value="Select All" onclick="javascript:selectAllUpdate('select');" />&nbsp;
+  
+                     
+
+       
+         <!-- End Added for BR 07,CR 8170 for Release 14.5 --> 
+      <apex:commandButton action="{!updateMPAPVRecords}" value="Associate Program"/>
+      <apex:commandButton action="{!Cancel}" value="Cancel"/>
+  </apex:pageBlockButtons>
+  
+  </apex:pageBlock>
+  
+  
+  
+  <apex:pageBlock id="ProgramListBlock" rendered="{!ProgramList}" title="Program list" >
+  <apex:pageBlockTable value="{!listOfPgmWrapperRecs}" var="pgm" rows="1" style="width:1025px;" >                        
+       <apex:column style="display:none;align:center;"  headerClass="colStyle50">
+        <apex:facet name="header">Select</apex:facet>
+        </apex:column>        
+        <apex:column style="display:none;align:center;"  headerClass="colStyle250">
+        <apex:facet name="header">Program</apex:facet>         
+        </apex:column>
+        <apex:column style="display:none;align:center;"  headerClass="colStyle75">
+        <apex:facet name="header">Program Type</apex:facet>         
+        </apex:column>                          
+        <apex:column style="display:none;align:center;"   headerClass="colStyle75">
+        <apex:facet name="header">Fiscal Quarter</apex:facet>
+        </apex:column>    
+        <apex:column style="display:none;align:center;"   headerClass="colStyle75">
+        <apex:facet name="header">Region</apex:facet>
+        </apex:column>                  
+        <apex:column style="display:none;align:center;" headerClass="colStyle100">
+        <apex:facet name="header">Business Segment</apex:facet>
+        </apex:column>
+        <apex:column style="display:none;align:center;" headerClass="colStyle100">
+        <apex:facet name="header">Program Status</apex:facet>
+        </apex:column>                      
+        <apex:column style="display:none;align:center;"  headerClass="colStyle150">
+        <apex:facet name="header">Rate Card Price</apex:facet>
+        </apex:column>
+        <apex:column style="display:none;align:center;" headerClass="colStyle150">
+        <apex:facet name="header">Budgeted Price</apex:facet>
+        </apex:column>
+    </apex:pageBlockTable>
+    <div style="position:static;width:1025px;height:340px;overflow:auto;overflow-x:hidden;">
+     
+        <apex:pageBlockTable id="PgmWrapper" value="{!listOfPgmWrapperRecs}" var="pgm" title="Program" style="width:1025px;"> 
+            <apex:column headerClass="displayStyle" style="width:50px;align:center;">
+                <apex:inputCheckbox id="input" value="{!pgm.selected}"  />
+            </apex:column> 
+            <apex:column headerClass="displayStyle" style="width:250px;align:center;">
+                <apex:outputLink value="/{!pgm.pgmMpElt.id}">{!pgm.pgmMpElt.Name}</apex:outputLink>
+            </apex:column>
+            <apex:column headerClass="displayStyle" style="width:75px;align:center;" value="{!pgm.pgmMpElt.Program_Type__c}"/>
+            <apex:column headerClass="displayStyle" style="width:75px;align:center;" value="{!pgm.pgmMpElt.Fiscal_Quarter__c}"/>
+            <apex:column headerClass="displayStyle" style="width:75px;align:center;" value="{!pgm.pgmMpElt.Region__c}"/>
+            <apex:column headerClass="displayStyle" style="width:100px;align:center;" value="{!pgm.pgmMpElt.Business_Segment__c}"/>
+            <apex:column headerClass="displayStyle" style="width:100px;align:center;" value="{!pgm.pgmMpElt.Program_Status__c}"/>  
+            <apex:column headerClass="displayStyle" style="width:150px;align:center;"> 
+                <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                    <apex:param value="{!pgm.pgmMpElt.Rate_Card_Price__c}"/>
+                </apex:outputText>
+            </apex:column>
+            <apex:column headerClass="displayStyle" style="width:150px;align:center;">            
+                <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                    <apex:param value="{!pgm.budgetedPriceDec}"/>
+                </apex:outputText>
+            </apex:column>
+        </apex:pageBlockTable>
+       
+    </div>  
+  <apex:pageBlockButtons location="bottom">  
+  <!-- Start Added for BR 07 ,CR 8170 for Release 14.5-->
+     <input type ="Button" class="btn" value="Select All" onclick="javascript:selectAllInsert('select');" />&nbsp;
+     
+                       
+
+      
+      <!-- End Added for BR 07 , CR 8170 in Release 14.5 -->
+      <apex:commandButton action="{!insertAPVs}" value="Associate Program" rendered="{!ProgramList}"/>
+      <apex:commandButton action="{!Cancel}" value="Cancel"/>
+  </apex:pageBlockButtons>
+  </apex:pageBlock>
+ </apex:form>
+ </body>
+ </html>
+</apex:page>

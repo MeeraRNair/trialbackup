@@ -1,0 +1,1454 @@
+<!-- 
+REVISION HISTORY
+================
+Version     Author      Date            Release#        CR#     Description
+-------     ------      ----            --------        ---     -----------
+1.0         Fenny       29-Mar-2012     13.4            7053    Disable distance and unit picklist field by default, only enable them when location has value
+1.1         Fenny       02-Apr-2012     13.4            7055    Display PartnerDirect logo respectively to partner status & type
+1.2         Murphy      03-Apr-2012     13.4            7056    Hide or display Google Map based on search result
+1.3         Fenny       04-May-2012     13.4            7053    Defect 29072: Distance enabled when 'Blank Space' in Location fields
+                                                                                                                                                                    
+2.0         Fenny       03-May-2012     13.7            7112    Show partner type at search result & Enable sort for Search results
+2.1         Hud         03-May-2012     13.7            7101    Enable highlighting for 'Premier' Partner Status in search results
+2.1         Gaithri     22-May-2012     13.7            7108    Change code for link
+2.2         Sheeba      30-May-2012     13.7            7113    Implementing Omniture Capability
+2.3         Sandhya     26-June-2012    13.7            7105    Defect 37047:"Clear" link on the screen, screen defaults to page without any FAP fields
+2.4         Fenny       29-June-2012    13.7            7219    Overlap of CompanyName in Production
+2.5         Fenny       05-Jul-2012     13.7            7112    CRQ 0397: Remove 'Partner Type' from search result
+2.6         Sheeba      05-Jul-2012     13.7                    Defect 37825 No of records listed per page in Search result
+2.7         Sheeba      06-Jul-2012     13.7                    Defect 37838: FAP - Default Records Per Page Digit appearing truncated
+2.8         Fenny       20-Jul-2012     13.7                    Defect 39014: FAP -- distance as “1E+1”
+2.9         Madhava     26-Nov-2015                     167349  Site Look and Feel: Map Functionality Update
+2.10        Madhava     14-Dec-2015                     212881  Defect: FAP Logo in IE shows error
+2.11        Ashish      21-Dec-2015                     211480  Production Defect: Web Link associated with Partner Company Name
+2.12        Kenny       11-Jan-2016                     161314  Search Results: Message if no Results
+3.0         Gan         14-Nov-2016     FY17-DCS-0103   13725   Baidu Map Implementation 
+4.0         Krishna     28-Feb-2018     FY19-DCS-0401   15447   FAP: Update/Add Competencies
+5.0         Krishna     10-Apr-2018     FY19-DCS-0502   15653   FAP: Regroup all service competencies under single classification
+6.0         Niveda      25-May-2019     FY20-DCS-0702   17541   FAP: Auto complete City. Search by City, postal code and distance.
+7.0         Vismy       13-Sep-2019     FY20-DCS-1101   18088   FAP: Tile records on searching willdisplay the account name information only once 
+8.0         Sakshi      09-OCT-2019     FY20-DCS-0102           FAP - Separate Reset button for each partner type search page
+9.0         Niveda      16-Oct-2019     FY20-DCS-0102   18222   FAP: FED - Tile record - data display
+10.0        Akshita     6-Dec-2019      FY20-DCS-0102           FAP: To resolve Defect#7757733
+
+-->
+
+    <apex:page id="thePage" 
+    showHeader="false" 
+    sidebar="false" 
+    standardStylesheets="false"
+    controller="FAP_PartnerSearchController"  
+    action="{!doOnLoad}"    
+    language="{!form.urllanguagecode}"
+    docType="html-5.0"
+    cache="false" 
+    >
+    <script> var previousOnload = window.onload; window.onload = function() { if (previousOnload) { previousOnload(); }  } </script>
+    <!-- <START> User story 171045 & 183385 - Site Look and Feel iFrame: New Header & Site Look and Feel iFrame: Logo linked to homepage by Manju Thomas on 17-AUG-2015 -->
+        <c:FAP_HeaderNewLookComponent country="{!countryCode}" id="HeaderNewLookComponent" rendered="{!IF(countryCode != null,true , false)}"/>
+        
+        <!--FOR TESTING ONLY-->
+        <!--<c:HeaderNewLookComponent country="bo" id="HeaderNewLookComponent"/>--> 
+    <!-- <END> User story 171045 & 183385 - Site Look and Feel iFrame: New Header & Site Look and Feel iFrame: Logo linked to homepage by Manju Thomas on 17-AUG-2015 -->
+     
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head>
+    <script language="JavaScript" type="text/javascript"> 
+     <!--Start - For Omniture Tool Tracking, Added By Sree on 04-Jan-2016 -->     
+    Dell = window.Dell || {};
+    Dell.Metrics = Dell.Metrics || {};
+    Dell.Metrics.sc = Dell.Metrics.sc || {};    
+    Dell.Metrics.sc.country = "{!JSENCODE(HTMLENCODE(countryCode))}";  /***dynamic value based on site***/     
+    Dell.Metrics.sc.language = "{!JSENCODE(HTMLENCODE(languageCodeOmniture))}"; /***dynamic value based on site***/
+    Dell.Metrics.sc.segment = "chn";      /***dynamic value based on site***/
+    Dell.Metrics.sc.customerset = "19";  /***dynamic value based on site***/
+    Dell.Metrics.sc.cms = "partnerdirect";     /***always set to external***/
+    Dell.Metrics.sc.pagename = "{!JSENCODE(HTMLENCODE(countryCode))}|{!JSENCODE(HTMLENCODE(languageCodeOmniture))}|chn|FAP_PartnerSearch";  /***relevant unique page name or empty string***/
+    Dell.Metrics.sc.applicationname = "Find a Partner"; /***relevant application name***/
+    
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/   
+    <!-- var s_code=s_dell.t();if(s_code)document.write(s_code);//--> -->
+    </script>
+    <!-- Naga start - to get dynamic urls based on salesforce instance-->
+    <apex:outputPanel rendered="{!IF(sandBox = false, true, false)}">
+    <script src="//nexus.ensighten.com/dell/Bootstrap.js"></script></apex:outputPanel>
+    
+    <apex:outputPanel rendered="{!IF(sandBox = true, true, false)}">
+    <script src="//nexus.ensighten.com/dell/dev/Bootstrap.js"></script></apex:outputPanel>
+    <!-- End By Naga-->
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE10"/>--><!-- Added By Sree For Logo Issue test in IE browser -->
+    <title>{!$Label.partner_finder_title}</title>
+    <!-- <apex:stylesheet value="{!$Page.PartnerFinderCSS}"/> -->
+    <!--Commented as part of sprint 11 -->
+    <!--apex:stylesheet value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css"/-->
+    <!--Commented as part of sprint 11 End -->
+    <!--Added as part of sprint 11 -->
+    <!--apex:includeScript value="{!$Resource.Jquery_UI_CSS}"/-->
+    <script src="{!$Resource.Jquery_UI_CSS}" type="text/css"></script>
+    <!--Added as part of sprint 11 End -->    
+    <apex:includeScript value="{!$Resource.prototype_js}"/>
+    <!--apex:includeScript value="{!$Resource.Bootstrap}"/-->
+    <apex:includeScript value="{!$Resource.scriptaculous_effects_js}"/>
+    <apex:includeScript value="{!$Resource.scriptaculous_controls_js}"/>
+    <apex:includeScript value="{!$Resource.scriptaculous_builder_js}"/>  
+    <!--Added as part of sprint 11 -->
+    <!--Story 2307913:FAP: Removed Unused Scripts -->
+    <apex:includeScript value="{!$Resource.Jquery_MIN_JS}"/>
+    <apex:includeScript value="{!$Resource.Jquery_MIN_UI_JS}"/>    
+    <!--Added as part of sprint 11 End -->
+    <!--Commented as part of sprint 11 -->
+    <!--apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"/-->    
+    <!--apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"/-->
+    <!--Commented as part of sprint 11 End -->
+    <!--apex:includeScript value="{!googleMapsApiURL}"/-->    
+    <!-- 
+    <apex:includeScript value="http://maps.google.com/maps?file=api&v=2&sensor=false&key={!googleMapsApiKey}"/>
+    -->
+
+    <style type="text/css">
+        .dialog_style{ font: 80% Arial; margin: 50px;}
+
+
+
+
+body{
+    margin-left:0px;
+    margin-top:0px;
+    margin-right:0px;
+    margin-bottom:0px;
+    <!--font: normal 14px Trebuchet MS, sans-serif;-->
+    font-family: Arial; 
+    font-size: 14px;
+    //color:#444444;
+    text-align:center;
+    background-color: black;
+    width:100%;
+    //margin: 0 0 60px;    
+}
+tfoot {color:red;}
+
+<!-- <START> R16.07 User story 171039 - Site Look and Feel : New Menu Items by Kenny 17-June-2015 -->
+h1 {
+    margin-top: -43px;
+    margin-right: auto;
+    margin-bottom: 0;
+    margin-left: 220px;
+    color:#e4e6e7;
+    font-family: Arial;
+    font-size: 30px;
+    font-weight: normal;
+    
+}
+
+
+<!-- <END> R16.07 User story 171039 - Site Look and Feel : New Menu Items by Kenny 17-June-2015 -->
+
+<!-- h2 {
+    width: 915px;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    font-family: Trebuchet MS Bold, Arial Bold, Sans-Serif Bold; 
+    color:#333333;
+    padding: 15px 0 15px 0;
+    
+}
+-->
+
+h2 {
+    margin-top: 30px;
+    margin-right: auto;
+    margin-bottom: -3px;
+    margin-left: 5px;
+    font: 24px Arial bold; 
+    font-size: 24px;
+    color:#007DB8;
+    <!-- padding: 30px 0px 30px 1px; -->
+    
+}
+
+<!-- <START> R16.07 User story 171039 - Site Look and Feel : New Menu Items by Kenny 17-June-2015 -->
+h3 {
+    margin-top: 30px;
+    margin-right: auto;
+    margin-bottom: 3px;
+    margin-left: 5px;
+    font: normal 14px Arial;
+    font-size: 14px;
+    color:#007DB8;
+}
+<!-- <END> R16.07 User story 171039 - Site Look and Feel : New Menu Items by Kenny 17-June-2015 -->
+
+<!-- <START> R16.07 User story 178246 - Services Banner for EMEA EM: Add banner by Syazwan 7-July-2015 -->
+h4 {
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: 5px;;
+    font: normal 14px Arial;
+    font-size: 14px;
+    color:#444444;
+}
+h5 {
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    font: normal 12px Arial; 
+    font-size: 12px;
+    color:#444444;
+}
+<!-- <END> R16.07 User story 178246 - Services Banner for EMEA EM: Add banner by Syazwan 7-July-2015 -->
+
+h6 {
+    margin-top: 30px;
+    margin-right: auto;
+    margin-bottom: -3px;
+    margin-left: 5px;
+    font: 24px Arial bold;
+    font-size: 24px;
+    color:#444444;
+    <!-- padding: 30px 0px 30px 1px; -->
+    
+}
+
+::-webkit-input-placeholder { 
+    color: White;
+}
+     
+.tablerow{
+    padding-bottom: 15px;
+}
+
+.container{
+    width:945px;
+    margin-top:0px;
+    margin-right:auto;
+    margin-bottom:0px;
+    margin-left:20px;
+    padding:0 5px;
+    background-repeat:no-repeat
+}
+
+
+.container:after{ 
+    content:"."; 
+    display:block; 
+    height:0; 
+    clear:both; 
+    visibility:hidden
+}
+
+.bottom_bar {
+    width:964px;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    clear:both;
+}
+
+a.ovalbutton{
+    background:transparent url('{!$Resource.left_button_png}') no-repeat top left;
+    display:block;
+    float:right;
+    line-height:14px;
+    height:24px;
+    padding-left:11px;
+    text-decoration:none
+}
+
+a:link.ovalbutton,a:visited.ovalbutton,a:active.ovalbutton,a:hover.avalbutton{text-decoration:none}
+
+a.ovalbutton span{
+    background:transparent url('{!$Resource.right_button_png}') no-repeat top right;
+    font:12px Arial Bold;
+    color:#FFF;
+    display:block;
+    padding:2px 11px 4px 0
+}
+
+a.ovalbutton:hover{
+    background:transparent url('{!$Resource.left_button_png_hover}') no-repeat top left;
+    display:block;
+    float:right;
+    line-height:14px;
+    height:24px;
+    padding-left:11px;
+    text-decoration:none
+}
+
+a.ovalbutton:hover span{
+    background:transparent url('{!$Resource.right_button_png_hover}') no-repeat top right;
+    font:12px Arial Bold; 
+    color:#FFF;
+    display:block;
+    padding:2px 11px 4px 0
+}
+
+.link { font: 14px, Arial; color:#007DB8; }
+
+a:link {font: 14px Arial; color:#007DB8; text-decoration:none; margin-bottom:10px;}
+a:visited {font: 14px Arial; color:#003366; text-decoration:none; margin-bottom:10px;}
+a:hover {font: 14px Arial; color:#007DB8; text-decoration:underline; margin-bottom:10px;}
+
+a.helperLink:link,a.helperLink:visited {font: 12px Arial; color:#007DB8; text-decoration:none; margin-bottom:10px;}
+a.helperLink:hover {font: 12px Arial; color:#007DB8; text-decoration:underline; margin-bottom:10px;}
+
+.tabBar {
+   <!-- background:transparent url({!$Resource.sort_round_bg_png}) no-repeat scroll 100% 50%; -->
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    color: #007DB8;
+    text-align:left;
+    
+} 
+
+.tabBar .left_round{
+   <!-- background:transparent url({!$Resource.sort_left_png}) no-repeat scroll 0 0;  -->
+    float:left;
+   <!-- padding:0 10px -->
+}
+
+table.results{
+    table-layout: fixed;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+table.results th, table.results td{   
+    table-layout: fixed;
+    padding: 12px 0 6px 12px; 
+    /*font: normal 11px/16px "Arial", sans-serif; */
+    vertical-align: top;  
+}
+table.results td{   
+    table-layout: fixed;
+    border-top: #D5D5D5 1px solid; 
+    /*color: #333333;*/  
+}
+table.results td.logo img{margin:0 auto 0 auto;}
+
+table.results th{   
+    /*color: #333;*/ 
+    font-weight: bold; 
+    text-align: left; 
+    white-space: nowrap; 
+    background-color:#CCCCCC; 
+    /*font: bold 14px "Arial", sans-serif;*/   
+}
+
+.paddingClass{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 15px;  
+}
+
+.fapPaddingClass{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 15px;
+    white-space:nowrap;
+    max-width:213px; 
+    word-wrap:break-word;
+    text-overflow: ellipsis;
+    overflow:hidden; 
+    
+}
+/*table.results .highlight{Background-color:#E5F0FB;background-repeat:repeat;}
+table.results .unhighlight{}*/
+
+table.results .highlightPremier{Background-color:#d22626;text-align:middle;border:solid 1px #d22626;}
+table.results .highlightPreferred{Background-color:#FF9900;text-align:middle;border:solid 1px #FF9900;}
+table.results .highlightRegistered{Background-color:#00E000;text-align:middle;border:solid 1px #00E000;}
+
+span.website {
+    margin-left: 15px;
+    font-weight: bold;      
+}
+
+.map {
+    width: 893px;
+    height:420px;
+    margin-top: 20px;
+    margin-right: auto;
+    margin-bottom: 20px;
+    margin-left: auto;
+}
+
+table.pagination{border-collapse: collapse;clear:both;}
+table.pagination  td{   
+    padding: 12px 2px 20px 6px; 
+  <!--  font-size: 11px; 
+    vertical-align: top;  --> 
+}
+<!--Naga table.pagination td{border-top: #D5D5D5 1px solid;} -->
+
+table.pagination select {
+    font-size:11px;
+    height:19px;
+    width:50px;
+    padding-top:0px; padding-right:0px;
+}
+
+span.isActive{
+   <!-- background:transparent url({!$Resource.active_btn_bg_pagination_left_png}) no-repeat scroll left center;
+    /*float:left;*/
+    /*margin-right:10px;*/ -->
+}
+span.isActive a{
+  <!--  background:transparent url({!$Resource.active_btn_bg_pagination_right_png}) no-repeat scroll right center;
+        /*float:left;*/ -->
+        color:#FFFFFF;
+}
+span.isActive a span{
+   <!-- background:transparent url({!$Resource.active_btn_bg_pagination_png}) repeat-x scroll left center;
+    /*float:left;*/ -->
+    margin:0 2px;
+    padding:0 5px 0 5px;    
+}
+
+<!--a.active:link, a.active:visited, a.active:hover{font-weight:bold; color:#0B0909; text-decoration:none;}
+
+a.grey_arrow:link, a.grey_arrow:visited { font-size:14px; color:#1E90FF;text-decoration:none;background-color: rgba(0, 0, 0, 0.025);}
+a.grey_arrow:hover{ font-size: none; color: #1E90FF;text-decoration:none;background-color: rgba(0, 0, 0, 0.025);}-->
+
+a.pageNumber:link, a.pageNumber:visited { font-size:14px; color:#007DB8;background-color: rgba(0, 0, 0, 0.025);}
+a.pageNumber:hover {font-size: none; color:#007DB8;background-color: rgba(0, 0, 0, 0.025);}
+
+.paginationBox {
+    font-size:11px;
+    font-weight:normal;
+    height:30px;
+    margin:0px 0 0 0;
+    padding:0;
+    clear:both;
+    text-align:left;
+}
+
+.paginationBox li {
+    float:left;
+    margin-right:10px;
+}
+
+.paginationBox li.right_link {
+    float:right;
+    margin-right:10px;  
+}
+
+.paginationBox li a, .paginationBox li.right_link a {
+    color:#3fa2c2;  
+    font-size:12px;
+    font-weight:normal;
+    text-decoration:none;   
+}
+
+.paginationBox li.isActive {
+    <!--background:transparent url({!$Resource.active_btn_bg_pagination_left_png}) no-repeat scroll left center;-->
+    
+}
+
+.paginationBox li.isActive a span {
+    <!--background:transparent url({!$Resource.active_btn_bg_pagination_png}) repeat-x scroll left center;-->
+    float:left;
+    margin:0 2px;
+    padding:0 5px 0 5px;    
+}
+
+.paginationBox li.isActive a {
+    <!--background:transparent url({!$Resource.active_btn_bg_pagination_right_png}) no-repeat scroll right center;-->
+    color:#FFFFFF;
+    float:left;
+}
+
+.message{    
+    width:945px;
+    background-color:#ffc;    
+    border-style:solid;    
+    border-width:1px;  
+    padding:6px 6px 6px 6px;    
+    margin:10px 20px 4px 20px;
+    text-align: left;
+}
+
+.message .messageTable .messageCell{vertical-align:middle}
+.errorM2,.errorS1{    border-color:#c00}
+.errorM2 .messageText,.confirmM2 .messageText,.infoM2 .messageText,.warningM2 .messageText{ margin-left:40px}
+
+.errorM2 .msgIcon,.errorLarge{
+    background-image:url(/img/msg_icons/error32.png);
+    background-position:0px 0px;
+    width:32px;
+    height:32px
+}
+.help-icon{
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    background: url('{!$Resource.HelpMe}') no-repeat;
+    border: none;
+    display: inline-block;
+    margin-left: 10px;
+    text-indent: -99999px;
+
+}
+.search-icon{
+   text-indent: -99999px; 
+   width: 25px; 
+   height: 34px; 
+   border: 1px solid #007DB8;
+   background: url('{!$Resource.Magnifying_Image}') no-repeat scroll 50%;    
+   cursor: pointer;
+   background-position-x: 5px;
+   background-position-y: 10px;     
+   border-left: none;
+   display: inline-block;
+   
+   } 
+input[type=text]::-ms-clear {  display: none; width : 0; height: 0; }
+input[type=text]::-ms-reveal {  display: none; width : 0; height: 0; }
+  
+input,select,textarea{
+    font: Arial;
+    font-size: 14px;
+    font-align:center;
+    width: 250px;
+    height: 34px;
+    border: 1px solid #007DB8;   
+    <!--background: transparent url('{!$Resource.Magnifying_Image}') no-repeat center right;-->
+    background: transparent; 
+    margin: 0px 0px;
+    color: #ffffff;
+    background-color: black
+   <!-- position: relative; -->         
+     
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  font-size: 14px;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+          background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, .15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+          box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+
+.styled-select {   
+   width: 250px;   
+   font-size: 14px;
+   overflow: hidden;
+   background:url('{!$Resource.arrow_down_png}') no-repeat right;
+   //border: 1px solid  #dadada;  
+   border: 1px solid  #007DB8;
+   font-align:center; 
+   background: #000000;
+   color: #ffffff;
+   -webkit-appearance: none; 
+}
+
+<apex:outputText value=".styled-select select{background: transparent;-moz-appearance: none;-webkit-appearance: none;height: 34px;margin: 0px 0px;border-width: 1px;background: #000000;color: #ffffff;}" rendered="{!isIE}"/>
+
+<apex:outputText value=".styled-select select{background: transparent;height: 34px;margin: 0px 0px;border-width: 0px;background: #000000;color: #ffffff;}" rendered="{!OR(isFirefox,isChrome)}"/>
+
+.helpText{
+    font-size: 11px;
+    font-style: italic;
+}
+div.fapContainer{
+position:relative;
+width:1230px;
+}
+div.autocomplete {
+  /*position: absolute;*/
+  width: 250px; /* will be adjusted by script.aculo.us */
+  background-color: white; 
+  border: 1px solid #888;
+  margin: 0px; 
+  padding: 0px;
+ 
+}
+div.autocomplete ul {
+  list-style-type: none; 
+  margin: 0px; 
+  padding: 0px;
+}
+div.autocomplete ul li.selected { background-color:  #ff9;}
+div.autocomplete ul li {
+  list-style-type: none; 
+  display: block;
+  font-family: Arial; 
+  font-size: small; 
+  color: #444;
+  margin: 0; 
+  padding: 0.1em; 
+  /*height: 1.5em;*/ /* Ver 2.4 */
+  line-height: 1.5em;
+  cursor: pointer;
+}
+table.resultHeader{
+padding-left:30px;
+clear:both;
+}
+div.fapwrapper{
+width:100%;
+}
+}
+
+</style>    
+</head>
+
+<!-- User Story: FAP search distance [RP] call the JS Search Button clicked function on load -->
+<body onLoad="javascript:searchButtonClicked();showBusyDialog();">    
+<apex:form id="theForm" enctype="application/x-www-form-urlencoded">     
+<script language="javascript">
+//alert('{!country}');
+var ipCountry = "{!JSENCODE(HTMLENCODE(country))}";
+//alert('ipCountry:'+ipCountry);
+if("{!JSENCODE(HTMLENCODE(country))}" != "{!JSENCODE(HTMLENCODE($Label.Map_Excluded_Countries))}"){
+    //Load Script and show the map
+    var html_doc = document.getElementsByTagName('head')[0];
+    js = document.createElement('script');
+    js.setAttribute('type', 'text/javascript');
+    js.setAttribute('src', "{!googleMapsApiURL}");
+    html_doc.appendChild(js);
+
+    js.onreadystatechange = function () {
+        if (js.readyState == 'complete') {
+            //alert('JS onreadystate fired');       
+        }
+    }
+    js.onload = function () {
+        //alert('JS onload fired'+"{!$Page.FAP_PartnerFinderJS}");     
+        jsMap = document.createElement('script');
+        jsMap.setAttribute('type', 'text/javascript');
+        jsMap.setAttribute('src', "{!$Page.FAP_PartnerFinderJS}");
+        html_doc.appendChild(jsMap);
+    }
+}
+else{
+    //3.0 GAN POC
+    //Load Script and show the map
+    var html_doc = document.getElementsByTagName('head')[0];
+    js = document.createElement('script');
+    js.setAttribute('type', 'text/javascript');
+    js.setAttribute('src', "{!strBaiduMapsApiUrl}");
+    html_doc.appendChild(js);
+
+    js.onreadystatechange = function () {
+        if (js.readyState == 'complete') {
+        }
+    }
+    js.onload = function () {  
+        jsMap = document.createElement('script');
+        jsMap.setAttribute('type', 'text/javascript');
+        jsMap.setAttribute('src', "{!$Page.FAP_PartnerFinderBaiduMapJS}");
+        html_doc.appendChild(jsMap);
+    }
+   
+}
+<!-- Ver 1.0 -->
+function onToggleDistanceField(){
+    var locationObj = document.getElementById("{!$Component.txtLocation}");
+    var distanceObj = document.getElementById("{!$Component.ddlDistance}");
+    var unitObj = document.getElementById("{!$Component.unitOfLength}");
+    
+    // Ver 1.3: trim the location value
+    distanceObj.disabled = trim(locationObj.value) == '';
+    unitObj.disabled = trim(locationObj.value) == '';
+}
+
+<!-- Ver 1.3 -->
+function trim(txt){
+    return txt.replace(/^\s+|\s+$/g,"");
+}
+function toggleAdvanced(hidden, newId) {
+     var ele = document.getElementById(hidden);
+     
+     var text = document.getElementById(newId);
+     if(ele.style.display == "block") {
+         ele.style.display = "none";
+         text.innerHTML = "{!$Label.show_advanced_search}";
+    }
+    else {
+         ele.style.display = "block";
+         text.innerHTML = "{!$Label.hide_advanced_search}";
+    }
+}
+
+function setParamValue(pageNumberTxt){
+    var ele = document.getElementById(pageNumberTxt);
+    alert(ele);
+    ele = {!paginator.pageNumber};
+
+}
+
+</script>
+    <apex:inputHidden id="countryCode" value="{!countryCode}" />
+    <apex:inputHidden id="LocationData" value="{!locationsJSON}" />
+    <apex:inputHidden id="GeocodeLatitude" value="{!form.latitude}" />
+    <apex:inputHidden id="GeocodeLongitude" value="{!form.longitude}" />
+    <apex:inputHidden id="hiddenRegion" value="{!regionValue}" />
+    <apex:inputHidden id="thisPageNumber" />
+    <apex:inputHidden id="ipCountry" value="{!country}" />
+    
+    
+    <apex:inputHidden id="hiddenCountry" />
+    <apex:inputHidden id="hiddenLocation" />
+    <apex:inputHidden id="hiddenCompany" />
+    <apex:inputHidden id="hiddenAddress" />
+    <apex:inputHidden id="hiddenDistance" />
+    <apex:inputHidden id="hiddenUnit" />
+    <apex:inputHidden id="hiddenCompetencies" />
+    <apex:inputHidden id="hiddenPartnerLevel" />
+    <apex:inputHidden id="hiddenFindAReseller" />
+    <apex:inputHidden id="hiddenCSPCountry" />
+    <apex:inputHidden id="hiddenCSPIndustry" />
+    
+    <!-- <apex:outputPanel rendered="false" styleClass="main_title" layout="block"><span class="main_text">{!$Label.partnersearchmaintitle}</span></apex:outputPanel> -->
+   
+    <!-- <START> R16.07 User story 171039 - Site Look and Feel : New Menu Items by Kenny 17-June-2015 -->
+    
+    <div align="center" class="fapwrapper">
+        <div class="fapContainer">
+            <div class="container" align="left">
+                <apex:outputPanel layout="block">
+                    <!-- R16.10 User story 197263 - Enable Distributors for LatAm by Kenny 30-Sept-2015 -->
+                    <h1>{!$Label.PartnerSearchFindADellResellerOrDistributor}</h1>
+                    <!-- User story 7017198 - by sakshi 10-Oct-2019 -->
+                    <h3 style="color:#FFFFFF;">{!$Label.FAP_PartnerSearchFilter}</h3>
+                </apex:outputpanel>
+    
+                <!--  <apex:outputPanel layout="block" rendered="{!IF(OR(regionValue = 'LATAM',regionValue = 'APJ',regionValue = 'NA'),true , false)}"> <!-- R16.10 User story 197263 - Enable Distributors for LatAm by Kenny 30-Sept-2015 -->
+                <!--  <h1>{!$Label.findadellpartnerordistributor}</h1>
+                    </apex:outputpanel> -->
+                <h3>{!JSENCODE(HTMLENCODE($Label.PartnerSearchRefineYourSearch))} &nbsp;&nbsp;&nbsp;<apex:outputLink id="resetLink" style="color:#007DB8;" value="{!JSENCODE(HTMLENCODE($Page.FAP_PartnerSearch))}?c={!JSENCODE(HTMLENCODE(urlCountryCode))}&l={!JSENCODE(HTMLENCODE(languageCode))}&pt={!JSENCODE(HTMLENCODE(urlpartnertype))}&partner_track__c.partner_type__c={!strResetValue}">{!JSENCODE(HTMLENCODE($Label.Reset))}
+                        <apex:actionSupport event="onclick" status="waitStatus" reRender="theForm" />
+                    </apex:outputLink>
+                </h3>
+            </div>
+            <!-- <END> R16.07 User story 171039 - Site Look and Feel : New Menu Items by Kenny 17-June-2015 -->
+            
+                <apex:outputPanel id="MessagePanel">
+                    <apex:outputPanel id="PageMessages" rendered="{!messages.size>0}" layout="block">
+                        <div align="center" class="fapwrapper">
+                
+                            <div class="message errorM2">
+                                <table border="0" cellpadding="0" cellspacing="0" class="messageTable" style="padding:0px;margin:0px;">
+                                    <tr valign="top">
+                                        <td><img alt="error" src="/s.gif" class="msgIcon" title="error" /></td>
+                                        <td class="messageCell">
+                                            <div class="messageText">
+                                                <ul>
+                                                    <apex:repeat value="{!messages}" var="msg">
+                                                        <li>{!msg}</li>
+                                                    </apex:repeat>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+             
+            <!-- CR7108 : Search form container (BEGIN) -->
+            <div class="container" id="container">
+    
+                <table width="100%" border="0" align="left">
+                    <!-- Ver 2.2 Implement dynamic search page -->
+                    <tr>
+                        <td colspan="9" align="left" valign="middle">
+                            <apex:outputPanel id="filterPanel1" style="width:100%" layout="block">
+                                <table width="1137" cellspacing="0" cellpadding="0" border="0">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4" valign="top">
+                                                <apex:outputPanel id="basicFilterPanel2" style="width:100%" rendered="true" layout="block">
+                                                  <c:FAP_SearchFields formObj="{!form}" configObj="{!config}" region="{!regionValue}" id="searchComponent" />
+    
+                                                    <!--<c:SearchFilter filterFields="{!form.formFields}" id="searchComponent"/> -->
+                                                    <script type="text/javascript">
+                                                        onToggleDistanceField();
+                                                    </script>
+                                                </apex:outputPanel>
+    
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </apex:outputPanel>
+    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" width="100%">
+                            <apex:outputPanel id="pnlBtnSearchBasic" styleClass="" layout="block">
+    
+                                <apex:outputLink id="btnSearchBasic" styleClass="ovalbutton" onclick="javascript: searchButtonClicked();showBusyDialog()" value="#" rendered="false"><span>{!$Label.btnsearch}</span>
+                                </apex:outputLink>
+                                <apex:actionFunction name="triggerSearch" action="{!searchClicked}" rerender="resetLink, resultsPanel, PageMessages, LocationData, MessagePanel" status="processingStatus" oncomplete="javascript:hideBusyDialog(); updateMap();" />
+    
+                            </apex:outputPanel>
+                        </td>
+                    </tr>
+                    <!-- Ver 2.2 Implement dynamic search page -->
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- CR7108 : Search form container (END) -->
+    
+    
+    <!-- CR7108 : Search Result (BEGIN) -->
+    <div align="center" class="fapwrapper" id="divId">
+    
+        <apex:outputPanel id="resultsPanel" layout="block">
+            <apex:outputPanel id="tabularResults" layout="block" style="width:1230px">
+                <apex:outputPanel rendered="{!IF(displaySearchResultsFlag,true,false)}" id="resultsTable" layout="block">
+    
+                    <!-- Ver 2.0: Added below <table> to show sort option picklist -->
+                    <table class="resultHeader" align="left" cellspacing="0" cellpadding="0" border="0">
+                        <tbody>
+                            <tr>
+                                <td colspan="2" style="border-top: 1pt solid lightgray; padding-bottom: 10px;width: 1165px;">
+    
+                                </td>
+                            </tr>
+    
+                            <tr>
+                                <td>
+                                    <div class="tabBar">
+                                        <span class="left_round"></span>
+                                        <apex:variable var="withinText" value=" " rendered="" />
+                                        <apex:variable var="withinText" value="" rendered="{!LEN(TRIM(form.address))==0}" />
+    
+                                        <apex:outputLabel value="{!paginator.recordCount}{!IF(hitMaxSearchResults,'+','')} {!$Label.Results}" rendered="{!paginator.recordCount > 0}" />
+                                        <!-- <START> Story 161314:Search Results: Message if no Results by Kenny 06-Jan-2015 -->
+                                        <!--  <apex:outputLabel value="{!$Label.results}: {!$Label.none2}" accesskey="" -->
+                                        <apex:outputLabel value="{!$Label.Results}: {!$Label.none2} - {!$Label.Message_if_no_results}" accesskey="" rendered="{!paginator.recordCount == 0}" />
+                                        <!-- <END> Story 161314:Search Results: Message if no Results by Kenny 06-Jan-2015 -->
+    
+    
+                                    </div>
+                                </td>
+                                <!-- <START>Defect 181722:RT_Sort By filter not fully visible on the FAP search page  by Jananii 15-July-2015 -->
+                                <td align="right">
+                                    <!-- <END>Defect 181722:RT_Sort By filter not fully visible on the FAP search page  by Jananii 15-July-2015 -->
+    
+                                    <apex:selectList value="{!form.sortOption}" size="1" style="width: auto;background:#000000" id="sort">
+                                        <apex:selectOptions value="{!sortOptions}" />
+                                        <apex:actionSupport event="onchange" status="waitStatus" reRender="theform" onsubmit="javascript:refreshSearch();searchButtonClicked();showBusyDialog();" />
+                                    </apex:selectList>
+    
+                                    <apex:actionFunction name="refreshSearch" action="{!sortByRefresh}" reRender="resultsTable" oncomplete="javascript: hideBusyDialog(); updateMap();" />
+    
+                                </td>
+    
+                            </tr>
+                        </tbody>
+                    </table>
+    
+                    <table align="left" style="border-spacing:15px 15px;padding-left:20px;table-layout:fixed;padding-left:0px; clear:both;" width="1230">
+                        <tbody>
+                            <apex:repeat value="{!hits}" var="hit" id="rep">
+      
+                                <tr style="float:left; height:451 px;border-color:black;">
+    
+                                    <td style="width: 253px;background-color: #ffffff" valign="top">
+                                        <apex:outputPanel rendered="{!IF(CONTAINS(hit.keyConfigValue,'Partner_Track'),false, true)}">
+                                        <apex:outputPanel rendered="{!IF(CONTAINS(UPPER(hit.partnerType),UPPER('Distributor')), false, true)}">
+                                            <div valign="middle" style="display:block;padding-left:20px;height:46px;background-color:#007DB8;">
+                                                <div style="{!IF(hit.dellPartnerLvlLength !=null && hit.dellPartnerLvlLength > 37, 'padding-top: 7px;word-break:normal;', 'padding-top: 15px;word-break:normal;')}">
+                                                    <font color="white">
+                                                        <!--5.0 Start-->
+                                                        <apex:outputPanel rendered="{!IF(AND(CONTAINS(UPPER(hit.partnerType),UPPER('OEM')),OR(UPPER(hit.wrapped.PartnerRelationship) == 'TITANIUM',UPPER(hit.wrapped.PartnerRelationship) == 'GOLD',UPPER(hit.wrapped.PartnerRelationship) == 'PLATINUM')), true, false)}">
+                                                            {!$Label.OEM}&nbsp;/
+                                                        </apex:outputPanel>
+                                                        <!--5.0 End-->
+                                                        {!hit.wrapped.PartnerRelationship}
+                                                        <apex:outputPanel rendered="{!IF(OR(hit.wrapped.PartnerRelationship == 'Premier',hit.wrapped.PartnerRelationship == 'Preferred',hit.wrapped.PartnerRelationship == 'Registered'), 'true', 'false')}">
+                                                            &nbsp;{!$label.PartnerSearchPartner}
+                                                        </apex:outputPanel>
+                                                    </font>
+                                                </div>
+                                            </div>
+                                        </apex:outputPanel>
+                                        </apex:outputPanel>
+                                        
+                                        <!-- Start :Added by Neeti for PAM Changes -->
+                                   <!-- Start :Added by Neeti for PAM Changes -->
+                                        <apex:outputPanel rendered="{!IF(CONTAINS(hit.keyConfigValue,'Partner_Track'), true, false)}">                                           
+                                            <apex:outputPanel rendered="{!IF(CONTAINS(hit.partnerType,'Distributor') || CONTAINS(hit.partnerType,'Federal') , true, false)}">  <!-- v9.0 -->
+                                            <div valign="middle" style="display:block;padding-left:20px;height:46px;background-color:#007DB8;">
+                                                <div style="{!IF(hit.dellPartnerLvlLength !=null && hit.dellPartnerLvlLength > 37, 'padding-top: 7px;word-break:normal;', 'padding-top: 15px;word-break:normal;')}">
+                                                    <font color="white">
+                                                        <!--5.0 Start-->
+                                                            {!hit.partnerType}
+                                                    </font>
+                                                </div>
+                                            </div>
+                                        </apex:outputPanel>                                      
+                                        <apex:outputPanel rendered="{!IF(CONTAINS(hit.partnerType,'Solution Provider') && NOT(CONTAINS(hit.partnerType,'Federal')) , true, false)}">   <!-- v9.0 -->
+                                            <div valign="middle" style="display:block;padding-left:20px;height:46px;background-color:#007DB8;">
+                                                <div style="{!IF(hit.dellPartnerLvlLength !=null && hit.dellPartnerLvlLength > 37, 'padding-top: 7px;word-break:normal;', 'padding-top: 15px;word-break:normal;')}">
+                                                    <font color="white">
+                                                        <!--5.0 Start-->
+                                                       <apex:outputPanel rendered="{!IF(hit.partnerType == 'Solution Provider', true, false)}">
+                                                            {!hit.partnerType}/{!IF(UPPER(hit.wrapped.PartnerRelationship) == 'TITANIUM BLACK','Titanium', hit.wrapped.PartnerRelationship)}
+                                                        </apex:outputPanel>
+                                                         <apex:outputPanel rendered="{!IF(hit.partnerType == 'OEM Solution Provider', true, false)}">
+                                                            OEM Solution Provider/{!IF(UPPER(hit.wrapped.PartnerRelationship) == 'TITANIUM BLACK','Titanium', hit.wrapped.PartnerRelationship)}
+                                                        </apex:outputPanel>
+                                                    </font>
+                                                </div>
+                                            </div>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!IF(hit.partnerType = 'OEM',true,false)}">
+                                            <div valign="middle" style="display:block;padding-left:20px;height:46px;background-color:#007DB8;">
+                                                <div style="{!IF(hit.dellPartnerLvlLength !=null && hit.dellPartnerLvlLength > 37, 'padding-top: 7px;word-break:normal;', 'padding-top: 15px;word-break:normal;')}">
+                                                    <font color="white">
+                                                        <!--5.0 Start-->
+                                                         <apex:outputPanel rendered="{!IF(hit.partnerType = 'OEM',true,false)}">
+                                                             {!hit.partnerType}
+                                                             
+                                                        </apex:outputPanel>
+                                                    </font>
+                                                </div>
+                                            </div>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!IF((hit.partnerType =='Cloud Service Provider'), true, false)}">
+                                            <div valign="middle" style="display:block;padding-left:20px;height:46px;background-color:#007DB8;">
+                                                <div style="{!IF(hit.dellPartnerLvlLength !=null && hit.dellPartnerLvlLength > 37, 'padding-top: 7px;word-break:normal;', 'padding-top: 15px;word-break:normal;')}">
+                                                    <font color="white">
+                                                        <!--5.0 Start-->
+                                                         <apex:outputPanel rendered="{!IF(hit.partnerType == 'Cloud Service Provider',true,false)}">
+                                                            {!hit.partnerType}/{!IF(UPPER(hit.wrapped.PartnerRelationship) == 'TITANIUM BLACK','Titanium', hit.wrapped.PartnerRelationship)}
+                                                           
+                                                        </apex:outputPanel>
+                                                    </font>
+                                                </div>
+                                            </div>
+                                        </apex:outputPanel>
+                                         <apex:outputPanel rendered="{!IF(CONTAINS(hit.partnerType,'Systems Integrator') && NOT(CONTAINS(hit.partnerType,'Federal')), true, false)}"><!-- v9.0 -->
+                                            <div valign="middle" style="display:block;padding-left:20px;height:46px;background-color:#007DB8;">
+                                                <div style="{!IF(hit.dellPartnerLvlLength !=null && hit.dellPartnerLvlLength > 37, 'padding-top: 7px;word-break:normal;', 'padding-top: 15px;word-break:normal;')}">
+                                                    <font color="white">
+                                                        <!--5.0 Start-->
+                                                         <apex:outputPanel rendered="{!IF(hit.partnerType = 'Systems Integrator',true,false)}">
+                                                             {!hit.partnerType}/{!IF(UPPER(hit.wrapped.PartnerRelationship) == 'TITANIUM BLACK','Titanium', hit.wrapped.PartnerRelationship)}
+                                                           
+                                                        </apex:outputPanel>
+                                                    </font>
+                                                </div>
+                                            </div>
+                                        </apex:outputPanel>
+                                        </apex:outputPanel>
+                                         <!-- End :Added by Neeti for PAM Changes -->
+                                         <!-- End :Added by Neeti for PAM Changes -->
+                                        
+                                        <apex:outputPanel rendered="{!IF(CONTAINS(hit.keyConfigValue,'Partner_Track'), false, true)}">
+                                        <apex:outputPanel rendered="{!IF(AND(NOT(UPPER(hit.partnerType) = UPPER('Sub-Distributor')),CONTAINS(UPPER(hit.partnerType),UPPER('Distributor'))), true, false)}">
+                                            <div valign="middle" style="display:block;padding-left:20px;height:46px;background-color:#007DB8;border-color:0px solid #737373;">
+                                                <!--div valign="middle" style="display:block;padding-left:20px;height:46px;background-color:#000000;border-color:0px solid #000000;"-->
+                                                <div style="padding-top:15px">
+                                                    <font color="white">
+                                                        {!$label.AuthorizedDistributor}
+                                                    </font>
+                                                </div>
+                                            </div>
+                                        </apex:outputPanel>
+                                        
+                                        <apex:outputPanel rendered="{!IF(UPPER(hit.partnerType) = UPPER('Sub-Distributor'), true, false)}">
+                                            <div valign="middle" style="display:block;padding-left:20px;height:46px;background-color:#007DB8;border-color:0px solid #737373;">
+                                                <!--div valign="middle" style="display:block;padding-left:20px;height:46px;background-color:#000000;border-color:0px solid #000000;"-->
+                                                <div style="padding-top:15px">
+                                                    <font color="white">
+                                                        {!hit.partnerType}
+                                                    </font>
+                                                </div>
+                                            </div>
+                                        </apex:outputPanel>
+                                        </apex:outputPanel>
+                                       <table width="260" height="{!IF(CONTAINS(UPPER(hit.partnerType),UPPER('Distributor')), '400px', '420px')}" valign="top" align="left" rowspan="4">
+                                            <thead>
+                                                <tr style="float:left">
+                                                    <td class="{!IF(isChrome,'paddingClass', '')}" style="{!IF(isChrome,'padding-top:15px;width:50px;height: 25px;',  'padding-top:15px;width:50px;height: 15px;padding-left:20px;')}">
+                                                        <div>
+                                                            <!--<div class = "dellmetrics-logo" style="display:none;" ></div>-->
+                                                            <!--v9.0 -->
+                                                            <apex:outputPanel rendered="{!IF(AND(
+                                                                CONTAINS(UPPER(hit.partnerType),UPPER('Federal')),
+                                                                OR(CONTAINS(UPPER(hit.wrapped.PartnerRelationship),UPPER('Federal Disty Managed')),
+                                                                UPPER(hit.wrapped.PartnerRelationship) == UPPER('Federal Limited GSA Authorized'))),true, false)}">
+                                                                <strong>
+                                                                    {!$Label.Federal_Authorized_Tier}
+                                                                </strong>
+                                                            </apex:outputPanel>
+                                                            <apex:outputPanel rendered="{!IF(AND(CONTAINS(UPPER(hit.partnerType),UPPER('Federal')),CONTAINS(UPPER(hit.wrapped.PartnerRelationship),UPPER('Premier +'))) ,true, false)}">
+                                                              <strong>
+                                                                    {!$Label.Premier_Plus_Tier}
+                                                               </strong>
+                                                            </apex:outputPanel>
+                                                            <apex:outputPanel rendered="{!IF(AND(CONTAINS(UPPER(hit.partnerType),UPPER('Federal')),
+                                                                NOT(CONTAINS(UPPER(hit.wrapped.PartnerRelationship),UPPER('Premier +'))),
+                                                                CONTAINS(UPPER(hit.wrapped.PartnerRelationship),UPPER('Premier'))
+                                                                ) ,true, false)}">
+                                                                <strong>
+                                                                    {!$Label.Premier_Tier}
+                                                                </strong>
+                                                            </apex:outputPanel>
+                                                            <!--End v9.0 -->
+                                                           <apex:outputPanel rendered="{!IF(CONTAINS(hit.keyConfigValue,'Partner_Track'), true, false)}">
+                                                           
+                                                                 <apex:outputPanel rendered="{!hit.wrapped.dellTechPartner }">
+                                                                    <apex:image value="{!$Resource.Dell_Technologies_Partner}"  style="border:none;height:25px;width:200px;display:block;"/>
+                                                                </apex:outputPanel>
+                                                            </apex:outputPanel> 
+                                                            <apex:outputLink value="{!$Page.FAP_PartnerDetails}?l={!form.urllanguagecode}&id={!hit.locationId}&{!searchSerialized}#Page:Top" id="logo" styleClass="dellmetrics-logo">
+                                                                <!--V2.10:Start-For fixing the IE Logo issue-->
+                                                               
+                                                                <apex:variable rendered="{!NOT(ISNULL(hit.logoId))}" var="" value="">
+                                                                    <img style="border:none;height:60px;width:100px;display:block;" onerror="this.src = '/partner/resource/1450234854000/ImageError';" src="{!URLFOR($Action.Attachment.Download,hit.logoId)}" />
+                                                                </apex:variable>
+    
+                                                                <!--V2.10:End>
+                                    
+                                    <!--<apex:image rendered="{!NOT(ISNULL(hit.logoId))}" style="border:none;height:40px;width:150px;display:block;" value="{!URLFOR($Action.Attachment.Download,hit.logoId)}"/>-->
+                                                            </apex:outputLink>
+                                                            <script>
+                                                                var val = '{!form.value}';                              
+                                                                var JSONLogo = '{"search":"'+val+'","btnname":"logo"}';
+                                                                //var str = JSONLogo.replace("%26", "&");
+                                                                var JSONViewDetails = '{"search":"'+val+'","btnname":"viewdetails"}';
+                                                                var JSONViewMore = '{"search":"'+val+'","btnname":"viewmore"}';
+                                                                var objLogo = JSON.parse(JSONLogo);                             
+                                                                var objViewDetails = JSON.parse(JSONViewDetails);
+                                                                var objViewMore = JSON.parse(JSONViewMore);                             
+                                                                jQuery('.dellmetrics-logo').data("metrics",objLogo);
+                                                                jQuery('.dellmetrics-viewdetails').data("metrics", objViewDetails);
+                                                                jQuery('.dellmetrics-viewmore').data("metrics",objViewMore);
+                                                                // If we want to reference value via vf component ID
+                                                                //jQuery('[id$=logo]').data("metrics",objLogo);                                
+                                                                </script>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                            <tfoot valign="bottom">
+                                                
+                                                <tr>
+                                                    <td class="paddingClass">
+                                                       <div align="center" style="height:34px; width:220px;background-color:#F9F9F9;">
+                                                            <apex:commandButton onclick="window.location.href='{!$Page.FAP_PartnerDetails}?l={!form.urllanguagecode}&servcomp={!form.strSubCompetency}&cpmcategory={!form.strCompCategory}&id={!hit.locationId}&{!searchSerialized}#Page:Top';" value="{!$Label.btnViewDetails}" id="theCommandLink" immediate="true" style="color:#007DB8;max-width:220px;background-color: #efefef" rerender="blank" styleClass="dellmetrics-viewdetails"></apex:commandButton>
+    
+                                                        </div>
+    
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+    
+                                            <tbody>
+                                                <tr style="{!IF(CONTAINS(UPPER(hit.partnerType),UPPER('Distributor')), 'height: 10px', IF(isChrome,'height:100px;',  'height:130px;float:left;'))}">
+                                                    <td valign="top" style="{!IF(CONTAINS(UPPER(hit.partnerType),UPPER('Distributor')), 'width: 253px;float: left;height: 50px;', 'width: 253px;float: left;')}">
+                                                        <!--<START> Defect 181519:Re 167063_competencies line being cut off by Jananii 16-July-2015-->
+                                                        <div class="paddingClass" style="{!IF(isChrome,'word-break:break-word;','word-break:normal;')}" id="partnerNameDiv">
+                                                            <!--<END> Defect 181519:Re 167063_competencies line being cut off by Jananii 16-July-2015-->
+                                                            <!-- 7.0 Added by Vismy start - FAP - Tile records on searching willdisplay the account name information only once-->
+                                                            <!-- <strong>
+                                                                <apex:outputLabel value="{!hit.partnerName}"></apex:outputLabel>
+                                                            </strong><br /> -->
+                                                            <strong>
+                                                               <apex:outputLabel value="{!hit.partnerNameLocal}"></apex:outputLabel>
+                                                            </strong>
+                                                            <!-- End By 7.0 -->
+                                                        </div>
+                                                        <apex:outputPanel rendered="{!IF(CONTAINS(hit.keyConfigValue,'Partner_Track'), false, true)}">
+                                                        <apex:outputPanel rendered="{!IF((CONTAINS(UPPER(hit.partnerType),UPPER('Distributor')) || CONTAINS(UPPER(hit.partnerType),UPPER('CSP')) || CONTAINS(UPPER(hit.partnerType),UPPER('System Integrator'))) && NOT(CONTAINS(UPPER(hit.partnerType),UPPER('Federal'))), 'false', 'true')}"> <!-- v9.0 -->
+                                                            <apex:repeat value="{!hit.customFields}" var="rsField">
+                                                                <strong>
+                                                                    <apex:outputText value="{!$Label.PartnerSearchDellCompetencies}" style="padding-left: 20px;" />
+                                                                </strong>
+                                                                <br />
+                                                                <!--<START> Defect 181519:Re 167063_competencies line being cut off by Jananii 15-July-2015-->
+                                                                <div style="{!IF(isChrome,'word-break:break-word;word-wrap: normal; padding-left:20px;padding-right:20px;overflow: hidden;
+                                                                        text-overflow: clip;
+                                                                        display: -webkit-box;
+                                                                        line-height: 16px;     /* fallback */
+                                                                        max-height: 70px;      /* fallback  */
+                                                                        -webkit-line-clamp: 3; /* number of lines to show */
+                                                                        -webkit-box-orient: vertical;',  'word-break:keep-all;word-wrap: normal; padding-left:20px;padding-right:20px;overflow: hidden;
+                                                                        text-overflow: clip;
+                                                                        display: -webkit-box;
+                                                                        line-height: 17px;     /* fallback */
+                                                                        max-height: 51px;      /* fallback  */
+                                                                        -webkit-line-clamp: 3; /* number of lines to show */
+                                                                        -webkit-box-orient: vertical;')}">
+    
+                                                                    <apex:outputPanel rendered="{!NOT(ISNULL(hit.customFields))}">
+                                                                        <apex:outputPanel rendered="{!hit.storage}"> {!$Label.Storage};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.server}"> {!$Label.Server};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.networking}"> {!$Label.Networking};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.dataProtection}"> {!$Label.Data_Protection};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.CoreClient}"> {!$Label.Core_Client};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.ClientDataSecurity}"> {!$Label.Client_Data_Security};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.workstation}"> {!$Label.Workstation}; </apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.desktopVirtul}"> {!$Label.Desktop_Virtualization};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.DigitalTransformation}"> {!$Label.Digital_Transformation};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.ITTransformation}"> {!$Label.IT_Transformation};</apex:outputPanel>
+                                                                        <!-- Start - 10.0-->
+                                                                        <apex:outputPanel rendered="{!hit.boolDellTechnologiesCloud}"> {!$Label.Dell_Technologies_Cloud};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.boolFapOEM}"> {!$Label.FAP_OEM};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.boolInternetOfThings}"> {!$Label.Internet_of_Things_IoT};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.boolUnifiedWorkspace}"> {!$Label.Unified_Workspace};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.boolWyseForVDI}"> {!$Label.Wyse_for_VDI}; </apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.boolDataAnalytics}"> {!$Label.Data_Analytics};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.boolBusinessApplications}"> {!$Label.Business_Applications};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.boolHighPerformanceCompute}"> {!$Label.High_Performance_Compute};</apex:outputPanel>
+                                                                        <!-- End -->
+                                                                        <!-- 4.0 Start -->
+                                                                        <apex:outputPanel rendered="{!hit.HyperConvergeInfa}"> {!$Label.Converged_Hyper_Converged_Infrastructure};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.HybridCloud}"> {!$Label.Hybrid_Cloud};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.SoftwDefinedInfa}"> {!$Label.Software_Defined_Infrastructure};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.ConnectedWforce}"> {!$Label.Connected_Workforce};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.StorageServices}"> {!$Label.Storage_Services};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.NetworkingServices}"> {!$Label.Networking_Services};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.ClientServices}"> {!$Label.Client_Services};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.ServerServices}"> {!$Label.Server_Services};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.HyperConvergeInfaServ}"> {!$Label.Converged_Hyper_Converged_Infrastructure_Services};</apex:outputPanel>
+                                                                        <!-- 4.0 End -->
+                                                                        <apex:outputPanel rendered="{!hit.HybridCloudPlatformServices}"> {!$Label.Hybrid_Cloud_Platform_Services};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.DataProtectionServices}"> {!$Label.Data_Protection_Services};</apex:outputPanel>
+                                                                    </apex:outputPanel>
+                                                                </div>
+                                                                <!--<END> Defect 181519:Re 167063_competencies line being cut off by Jananii 15-July-2015-->
+                                                                <div>
+                                                                    <!--<div class = "dellmetrics-viewmore" style="display:none;" data-metrics="{'search':'{!form.value}','btnname':'viewmore'}"></div>-->
+                                                                    <apex:outputLink id="linkViewMore" value="{!$Page.FAP_PartnerDetails}?l={!form.urllanguagecode}&id={!hit.locationId}&{!searchSerialized}#Page:Top" rendered="{!if((hit.dellCompLength)>75, true ,false)}" style="font-size:14px;padding-left:20px;font-family:Arial;" styleClass="dellmetrics-viewmore">{!$Label.more}</apex:outputLink>
+                                                                </div>
+                                                            </apex:repeat>
+                                                        </apex:outputPanel>
+                                                        </apex:outputPanel>
+                                                              
+                                                            <!-- Start competency change by Neeti -->
+                                                            <apex:outputPanel rendered="{!IF(CONTAINS(hit.keyConfigValue,'Partner_Track'), true, false)}">
+                                                            <apex:outputPanel rendered="{!IF(CONTAINS(hit.partnerType,'Distributor') || (hit.partnerType =='Cloud Service Provider') ||(hit.partnerType == 'Systems Integrator')|| (hit.partnerType == 'OEM'), 'false', 'true')}">
+                                                            <apex:repeat value="{!hit.customFields}" var="rsField">
+                                                                <strong>
+                                                                    <apex:outputText value="{!$Label.PartnerSearchDellCompetencies}" style="padding-left: 20px;" />
+                                                                </strong>
+                                                                <br />
+                                                                <!--<START> Defect 181519:Re 167063_competencies line being cut off by Jananii 15-July-2015-->
+                                                                <div style="{!IF(isChrome,'word-break:break-word;word-wrap: normal; padding-left:20px;padding-right:20px;overflow: hidden;
+                                                                        text-overflow: clip;
+                                                                        display: -webkit-box;
+                                                                        line-height: 16px;     /* fallback */
+                                                                        max-height: 70px;      /* fallback  */
+                                                                        -webkit-line-clamp: 3; /* number of lines to show */
+                                                                        -webkit-box-orient: vertical;',  'word-break:keep-all;word-wrap: normal; padding-left:20px;padding-right:20px;overflow: hidden;
+                                                                        text-overflow: clip;
+                                                                        display: -webkit-box;
+                                                                        line-height: 17px;     /* fallback */
+                                                                        max-height: 51px;      /* fallback  */
+                                                                        -webkit-line-clamp: 3; /* number of lines to show */
+                                                                        -webkit-box-orient: vertical;')}">
+    
+                                                                    <apex:outputPanel rendered="{!NOT(ISNULL(hit.customFields))}">
+                                                                        <apex:outputPanel rendered="{!hit.storage}"> {!$Label.Storage};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.server}"> {!$Label.Server};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.networking}"> {!$Label.Networking};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.dataProtection}"> {!$Label.Data_Protection};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.CoreClient}"> {!$Label.Core_Client};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.ClientDataSecurity}"> {!$Label.Client_Data_Security};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.workstation}"> {!$Label.Workstation}; </apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.desktopVirtul}"> {!$Label.Desktop_Virtualization};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.DigitalTransformation}"> {!$Label.Digital_Transformation};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.ITTransformation}"> {!$Label.IT_Transformation};</apex:outputPanel>
+                                                                        <!-- Start - 10.0-->
+                                                                        <apex:outputPanel rendered="{!hit.boolDellTechnologiesCloud}"> {!$Label.Dell_Technologies_Cloud};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.boolFapOEM}"> {!$Label.FAP_OEM};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.boolInternetOfThings}"> {!$Label.Internet_of_Things_IoT};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.boolUnifiedWorkspace}"> {!$Label.Unified_Workspace};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.boolWyseForVDI}"> {!$Label.Wyse_for_VDI}; </apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.boolDataAnalytics}"> {!$Label.Data_Analytics};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.boolBusinessApplications}"> {!$Label.Business_Applications};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.boolHighPerformanceCompute}"> {!$Label.High_Performance_Compute};</apex:outputPanel>
+                                                                        <!-- End -->
+                                                                        <!-- 4.0 Start -->
+                                                                        <apex:outputPanel rendered="{!hit.HyperConvergeInfa}"> {!$Label.Converged_Hyper_Converged_Infrastructure};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.HybridCloud}"> {!$Label.Hybrid_Cloud};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.SoftwDefinedInfa}"> {!$Label.Software_Defined_Infrastructure};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.ConnectedWforce}"> {!$Label.Connected_Workforce};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.StorageServices}"> {!$Label.Storage_Services};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.NetworkingServices}"> {!$Label.Networking_Services};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.ClientServices}"> {!$Label.Client_Services};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.ServerServices}"> {!$Label.Server_Services};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.HyperConvergeInfaServ}"> {!$Label.Converged_Hyper_Converged_Infrastructure_Services};</apex:outputPanel>
+                                                                        <!-- 4.0 End -->
+                                                                        <apex:outputPanel rendered="{!hit.HybridCloudPlatformServices}"> {!$Label.Hybrid_Cloud_Platform_Services};</apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!hit.DataProtectionServices}"> {!$Label.Data_Protection_Services};</apex:outputPanel>
+                                                                    </apex:outputPanel>
+                                                                </div>
+                                                                <!--<END> Defect 181519:Re 167063_competencies line being cut off by Jananii 15-July-2015-->
+                                                                <div>
+                                                                    <!--<div class = "dellmetrics-viewmore" style="display:none;" data-metrics="{'search':'{!form.value}','btnname':'viewmore'}"></div>-->
+                                                                    <apex:outputLink id="linkViewMore" value="{!$Page.FAP_PartnerDetails}?l={!form.urllanguagecode}&id={!hit.locationId}&{!searchSerialized}#Page:Top" rendered="{!if((hit.dellCompLength)>75, true ,false)}" style="font-size:14px;padding-left:20px;font-family:Arial;" styleClass="dellmetrics-viewmore">{!$Label.more}</apex:outputLink>
+                                                                </div>
+                                                            </apex:repeat>
+                                                        </apex:outputPanel>
+                                                        </apex:outputPanel>
+                                                        <!-- End competency change by Neeti -->
+                                                        
+                                                        
+                                                       <apex:outputPanel rendered="{!IF(CONTAINS(hit.keyConfigValue,'Partner_Track'), false, true)}">
+                                                        <apex:outputPanel rendered="{!IF(CONTAINS(UPPER(hit.partnerType),UPPER('Distributor')), 'true', 'false')}">
+                                                            <strong>
+                                                                <apex:outputText value="{!$Label.Authorized_to_sell}" style="padding-left:20px" /></strong>
+                                                            <br />
+                                                            <div style="{!IF(isChrome,'word-break:break-word;word-wrap: normal; padding-left:20px;padding-right:20px;overflow: hidden;
+                                                                text-overflow: clip;
+                                                                display: -webkit-box;
+                                                                line-height: 16px;     /* fallback */                                                    
+                                                                -webkit-line-clamp: 3; /* number of lines to show */
+                                                                -webkit-box-orient: vertical;',  'word-break:keep-all;word-wrap: normal; padding-left:20px;padding-right:20px;overflow: hidden;
+                                                                text-overflow: clip;
+                                                                display: -webkit-box;
+                                                                line-height: 17px;     /* fallback */
+                                                                max-height: 51px;      /* fallback  */
+                                                                padding-bottom: -5px;
+                                                                -webkit-line-clamp: 3; /* number of lines to show */
+                                                                -webkit-box-orient: vertical;')}">
+    
+                                                                <apex:outputText rendered="{!hit.wrapped.PartnerRelationship == 'Client products'}"> {!$Label.Client_products_PR};</apex:outputText>
+                                                                <apex:outputText rendered="{!hit.wrapped.PartnerRelationship == 'Client Servers and Networking'}"> {!$Label.Client_Servers_and_Networking_PR};</apex:outputText>
+                                                                <apex:outputText rendered="{!hit.wrapped.PartnerRelationship == 'Client Servers Storage and Networking'}"> {!$Label.Client_Servers_Storage_and_Networking_PR};</apex:outputText>
+                                                                <apex:outputText rendered="{!hit.wrapped.PartnerRelationship == 'Servers Storage and Networking'}"> {!$Label.Servers_Storage_and_Networking_PR};</apex:outputText>
+                                                            </div>
+                                                        </apex:outputPanel>
+                                                        </apex:outputPanel>
+                                                        
+                                                        <!-- Added by Neeti for PAM changes -->
+                                                         <apex:outputPanel rendered="{!IF(CONTAINS(hit.keyConfigValue,'Partner_Track'), true, false)}">
+                                                         <apex:outputPanel rendered="{!IF(CONTAINS(hit.partnerType,'Commercial Distributor') || CONTAINS(hit.partnerType,'Consumer Distributor') || CONTAINS(hit.partnerType,'OEM Distributor')|| CONTAINS(hit.partnerType,'Sub Distributor'), 'true', 'false')}"> 
+                                                           <!-- <apex:outputPanel rendered="{!IF(CONTAINS(hit.partnerType,'Distributor'),'true','false')}">-->
+                                                            <strong>
+                                                                <apex:outputText value="{!$Label.Authorized_to_sell}" style="padding-left:20px" /></strong>
+                                                            <br />
+                                                            <div style="{!IF(isChrome,'word-break:break-word;word-wrap: normal; padding-left:20px;padding-right:20px;overflow: hidden;
+                                                                text-overflow: clip;
+                                                                display: -webkit-box;
+                                                                line-height: 16px;     /* fallback */                                                    
+                                                                -webkit-line-clamp: 3; /* number of lines to show */
+                                                                -webkit-box-orient: vertical;',  'word-break:keep-all;word-wrap: normal; padding-left:20px;padding-right:20px;overflow: hidden;
+                                                                text-overflow: clip;
+                                                                display: -webkit-box;
+                                                                line-height: 17px;     /* fallback */
+                                                                max-height: 51px;      /* fallback  */
+                                                                padding-bottom: -5px;
+                                                                -webkit-line-clamp: 3; /* number of lines to show */
+                                                                -webkit-box-orient: vertical;')}">
+                                                                <apex:outputText value="{!hit.wrapped.PartnerRelationship}"></apex:outputText>
+                                                                
+                                                            </div>
+                                                            </apex:outputPanel>
+                                                        </apex:outputPanel>
+                                                        
+                                                        <!-- End of changes by Neeti-->
+                                                        
+                                                    </td>
+                                                </tr>
+    
+                                                <tr style="height: 105px">
+                                                    <td valign="bottom" style="float:left">
+                                                        <hr style="background-color:#dadada; border-width:0; color:#dadada; height:1px; lineheight:0; display: inline-block; text-align: center; width:220px;margin-left: 20px;margin-right: 20px;margin-top: {!IF(CONTAINS(UPPER(hit.partnerType),UPPER('Distributor')), '75px', '15px')};" />
+    
+                                                        <apex:outputPanel >
+                                                            <!--<START> Defect 181519:Re 167063_competencies line being cut off by Jananii 15-July-2015-->
+                                                            <div style="{!IF(isChrome,'padding-left:20px;padding-right:20px;padding-bottom: 15px;height:35px;-ms-word-break: break-word;text-overflow: clip;','padding-left:20px;padding-right:20px;padding-bottom: 15px;height:35px;-ms-word-break: normal;')}">
+                                                                <!--<END> Defect 181519:Re 167063_competencies line being cut off by Jananii 15-July-2015-->
+                                                                 <!--<START> Ver 6.0 Display address from Partner Location-->
+                                                                    <apex:outputText value="{!hit.street & ', '}" />                                                                 
+                                                                    <apex:outputText value="{!hit.city}" rendered="{!NOT(ISNULL(hit.city))}" />
+                                                                    <br/>
+                                                                    <apex:outputText value="{!hit.stateProvince}" rendered="{!NOT(ISNULL(hit.stateProvince))}" escape="false"/>
+                                                                    <br/>
+                                                                    <apex:outputText value="{!hit.postalCode}" rendered="{!NOT(ISNULL(hit.postalCode))}" escape="false"/>
+                                                                   <!--<END> Ver 6.0-->
+                                                                
+                                                                <apex:outputPanel rendered="{!LEN(TRIM(form.address)) > 0}">
+                                                                    <!--Ver 2.8: Invoke TEXT() after invoke ROUND()-->
+                                                                    <!--<START> R16.07 User story 169711 - Search Fields : Update Distance Field to Filter by Kenny 11-June-2015-->
+                                                                    <div style="font-size:12px;font-style:Arial;padding-right:20px;">
+                                                                        {!$Label.searchresultdistance}:&nbsp;
+                                                                        <apex:outputText value="{!IF(form.unit='miles',TEXT(ROUND(hit.distanceInMiles,0)),TEXT(ROUND(hit.distanceInKilometers,0)))}{!IF(form.unit='miles','mi','km')}" />
+                                                                    </div>
+                                                                    <!--<END> R16.07 User story 169711 - Search Fields : Update Distance Field to Filter by Kenny 11-June-2015-->
+                                                                </apex:outputPanel>&nbsp;&nbsp;
+                                                            </div>
+                                                        </apex:outputPanel>
+                                                        <!--Ver 2.0: Display the partner type if has value-->
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </apex:repeat>
+                        </tbody>
+                    </table>
+                    <!--End UserStory: 167063 - Changed For Look and Feel- By Sree-->
+    
+                </apex:outputPanel>
+    
+                <apex:outputPanel id="paginationTable" rendered="{!IF(AND(displaySearchResultsFlag,paginator.recordCount > 0),true,false)}" layout="block">
+                    <!-- pagination controls -->
+                    <table align="center" width="1230" cellspacing="0" cellpadding="10" border="0" class="pagination">
+                        <tbody>
+                            <tr>
+                                <td valign="top" align="center">
+                                    <div>
+                                        <apex:outputPanel id="pagenxt">
+                                            <apex:commandButton onclick="javascript: showBusyDialog(); paginatorPrevious();" value="{!$Label.previous}" immediate="true" style="color:#ffffff;width: auto;height: 38px;font-size: 14px;font-style: Arial;" rerender="blank" rendered="{!paginator.hasPrevious}" />
+                                            <span style="margin-left: 13px;margin-right: 10px;font-size: 14px;font-style: Arial;color:#007DB8">{!$Label.paginationpage}</span>
+                                            <apex:actionFunction name="paginatorPrevious" action="{!paginator.previous}" rerender="LocationData, resultsPanel" oncomplete="javascript: hideBusyDialog(); updateMap();" />
+    
+                                        </apex:outputPanel>
+    
+                                        <apex:outputPanel id="pagenum">
+                                            <!-- <li> -->
+    
+                                            <apex:input styleClass="pageNumber" onkeyup="javascript: handleKeyPress(event);" onchange="javascript: showBusyDialog(); skipToLocation1(); handleKeyPress(event);" style="width: 40px;height: 34px;text-align: center;background-color: rgba(0, 0, 0, 0.025);" value="{!paginator.pageNumberDisplayFriendly}" id="pageNumberTxt" type="text"></apex:input>
+    
+                                            <apex:actionFunction name="skipToLocation1" action="{!skipToLocation}" rerender="LocationData, resultsPanel" oncomplete="javascript: hideBusyDialog(); updateMap();">
+                                                <apex:param name="pageNumber" value="{!paginator.pageNumber}" />
+    
+                                            </apex:actionFunction>
+                                            <script type="text/javascript">
+                                                function handleKeyPress(event) {
+                                                    var key = event.keyCode;
+                                                    if (key == 13) {
+                                                        document.getElementById("thePage:theForm:pageNumberTxt").blur();
+                                                    }
+                                                }
+                                            </script>
+                                        </apex:outputPanel>
+                                        <span style="margin-left: 10px;margin-right: 14px;font-size: 14px;font-style: Arial;color:#007DB8">{!$Label.paginationof} {!paginator.pageCount}</span>
+                                        <apex:outputPanel id="pageprev">
+                                            <apex:commandButton onclick="javascript: showBusyDialog(); paginatorNext();" value="{!$Label.btnnext}" immediate="true" style="color:#ffffff;width: auto;height: 38px;" rerender="blank" rendered="{!paginator.hasNext}" />
+                                            <apex:actionFunction name="paginatorNext" action="{!paginator.next}" rerender="LocationData, resultsPanel" oncomplete="javascript: hideBusyDialog(); updateMap();" />
+                                        </apex:outputPanel>
+                                    </div>
+                                </td>
+    
+                            </tr>
+                        </tbody>
+                    </table>
+                </apex:outputPanel> <!-- pagination -->
+    
+    
+            </apex:outputPanel> <!-- tabularResults -->
+    
+            <!--3.0 GAN POC-->
+            <div align="center" id="mapsection">
+                <apex:outputPanel layout="block" rendered="{!paginator.recordCount > 0}">
+                    <!-- 1.2 Change displaySearchResultsFlag to displaySearchResultsFlagMap. Display Google Map if result >= to 1 -->
+                    <apex:outputPanel id="map" styleClass="map" rendered="{!displaySearchResultsFlagMap}" layout="block">
+                        <div id="legend" style="width:893px;">
+                            <table cellpadding="0" cellspacing="1" border="0" style="font-size:12px;color:#007DB8">
+                                <tr>
+                                    <td>
+                                        <b>{!$Label.legend }</b>
+                                    </td>
+                                    <td>
+                                        &nbsp;&nbsp;
+                                    </td>
+                                    <td>
+                                        <apex:image value="{!$Resource.blue_dot_small_png}" />
+                                    </td>
+                                    <td>
+                                        {!$Label.search_location}&nbsp;
+                                    </td>
+                                    <td>
+                                        <b>{!IF(LEN(TRIM(form.address))==0,$Label.none2,form.address)}</b>
+                                    </td>
+                                    <td>
+                                        &nbsp;&nbsp;
+                                    </td>
+                                    <td>
+                                        <apex:image value="{!$Resource.red_dot_small_png}" />
+                                    </td>
+                                    <td>
+                                        {!$Label.search_result}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="map_canvas" style="width:893px; height:420px;"></div>
+    
+    
+    
+                        <!-- <START> User story 173847, 173848, 173849 & 173850 - Site Look and Feel iFrame: Footer ABU, LatAm, EMEA & APJ by Manju Thomas on 17-AUG-2015 -->
+                        <div id="foot" style="height:35px;float:left"></div>
+                        <!-- <END> User story 173847, 173848, 173849 & 173850 - Site Look and Feel iFrame: Footer ABU, LatAm, EMEA & APJ by Manju Thomas on 17-AUG-2015 -->
+                    </apex:outputPanel>
+                </apex:outputPanel>
+            </div>
+    
+            <!--V2.9-Start: Added below code to get languagecode in google map-->
+    
+            <apex:inputHidden id="searchSerialize" value="{!searchSerialized}" immediate="false" />
+            <apex:inputHidden id="languagecode" value="{!form.urllanguagecode}" />
+            <apex:inputHidden id="viewDetails" value="{!viewDetails}" />
+            <!-- apex:includeScript value="{!$Page.FAP_PartnerFinderJS}" / -->
+    
+    
+            <!--V2.9-End-->
+            <apex:outputPanel rendered="{!paginator.recordCount == 0}">
+                <div style="position: fixed;bottom: 0px;width: 100%;text-align: left">
+                    <c:FAP_FooterNewLookComponent countryCode="{!urlCountryCode}" language="{!urllanguagecode}" id="FooterNewLookComponent" />
+                </div>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!paginator.recordCount > 0}">
+                <div style="bottom: 0px;width: 100%;">
+                    <c:FAP_FooterNewLookComponent countryCode="{!urlCountryCode}" language="{!urllanguagecode}" id="FooterNewLookComponent1" />
+                </div>
+            </apex:outputPanel>
+        </apex:outputPanel>
+    
+    
+    
+        <!-- CR7108 : Search Result (END) -->
+    </div>
+    
+    </apex:form>
+    
+    
+    </body>
+    
+    
+    </html>
+    <!-- <START> User story 173847, 173848, 173849 & 173850 - Site Look and Feel iFrame: Footer ABU, LatAm, EMEA & APJ by Manju Thomas on 17-AUG-2015 -->
+    
+    <!--FOR TESTING ONLY-->
+    <!--<c:FAP_FooterNewLookComponent region="emea" language="en" id="FooterNewLookComponent"/>-->
+    <!-- <END> User story 173847, 173848, 173849 & 173850 - Site Look and Feel iFrame: Footer ABU, LatAm, EMEA & APJ by Manju Thomas on 17-AUG-2015 -->
+</apex:page>

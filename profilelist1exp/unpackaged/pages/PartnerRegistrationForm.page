@@ -1,0 +1,14 @@
+<apex:page showHeader="false" sidebar="false" >
+<apex:includeScript value="{!$Site.BaseUrl}/lightning/lightning.out.js?v=2"/>
+  <!--<apex:includeScript value="/lightning/lightning.out.js" /> -->
+
+<div id="lightning"/>
+  
+<script>
+    //inject the lightning component.
+      $Lightning.use("c:PartnerRegistrationApp", function() {
+          $Lightning.createComponent("c:PartnerRegistration",{},"lightning", function(cmp) {
+          });
+        });
+</script>
+</apex:page>

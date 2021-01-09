@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Deal_Id_should_be_correct</fullName>
+    <active>true</active>
+    <errorConditionFormula>VALUE(Deal_ID__c ) &lt;&gt; Value( Opportunity__r.Deal_ID__c)</errorConditionFormula>
+    <errorDisplayField>Deal_ID__c</errorDisplayField>
+    <errorMessage>Please correct the Deal ID</errorMessage>
+</ValidationRule>

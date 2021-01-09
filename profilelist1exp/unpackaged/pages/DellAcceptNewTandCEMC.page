@@ -1,0 +1,43 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" controller="vfctrl_DellAcceptTerms">
+<!------This Page is Used in Dell Partner Portal To Accept New Terms And Conditions By Dell EMC Partner Admins------->
+<apex:form >
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<apex:outputPanel id="panel_id">
+<apex:outputText rendered="{!showCompleteSection}">
+  <div class="cmdButton"  style="display:{!if(ShowButton,'none','')}">
+<apex:outputText >
+ <span class="glyphicon glyphicon-ok"></span><apex:outputText >&nbsp;<span style="font-size: 11px;">{!$Label.ThankyouNewTerms}</span></apex:outputText>
+ </apex:outputText>
+ </div>
+ <div class = 'mybutton' style="display:{!if(ShowButton,'','none')}">
+ <div style="margin-left: 24%;"  Class="btn btn-primary termsbutton"  onclick="saveTerms()">{!$Label.TermsAndConditions}</div>
+ </div>
+</apex:outputText>
+</apex:outputPanel>
+<script>
+function saveTerms(){
+    
+ Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.vfctrl_DellAcceptTerms.newAcceptTerms}','{!con}',
+            function(result, event){
+             console.log(result);
+            if(result){
+           //location.reload();
+           $('.mybutton').hide();
+           $('.cmdButton').show();
+                   }
+            console.log(result);
+            });
+
+
+}
+</script>
+</body>
+</apex:form> 
+</apex:page>

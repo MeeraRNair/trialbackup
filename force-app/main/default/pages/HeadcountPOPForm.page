@@ -1,0 +1,80 @@
+<apex:page standardController="Proof_of_Performance_POP__c" extensions="POPFormCtrlExt"
+    showHeader="False" renderAs="pdf" cache="true">
+<!--contentType="application/msword#HeadcountPOPForm.doc"-->
+
+    <html>
+        <head>                                         
+            <style>
+                div.divbreak {page:divbreak;}
+                td.data{border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;border-collapse:collapse;}
+                table.Bdr{border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;border-collapse:collapse;}
+            </style>
+        </head>
+        <body>
+        <script>
+        var x = 0;
+    </script>
+            <apex:repeat value="{!POPLineItemList}" var="poplst">
+                <table width="100%" align="center" bgcolor="#DCDCDC">
+               
+                    <tr><td align="left"><font face="verdana" size="4"><b>Dell Software &amp; Peripherals</b></font></td><td align="right"><font face="verdana" size="4"><b>Proof of Performance</b></font></td></tr>
+                </table>
+                <br></br>
+
+                <table width="100%" align="center">
+                    <tr>
+                         <!-- Aman CR 8392 BR024 Add Region and Sub Region based on POP Form Record -->
+                        <td class="data"><font face="verdana" size="2"><b>{!POPRec.Business_Segment__c} - {!POPRec.Region__c} - {!POPRec.Sub_Region__c} </b></font></td>
+                        <td class="data"><font face="verdana" size="2"></font></td>
+                    </tr>
+                    <tr>
+                        <td class="data"><font face="verdana" size="2"><b>{!POPRec.Fiscal_Quarter__c}</b></font></td>
+                        <td class="data"><font face="verdana" size="2"><b>{!poplst.Vendor__r.Name}</b></font></td>
+                    </tr>
+                </table>
+                <br></br>                
+                
+                <table width="100%" align="center">
+                    <tr>
+                        <td class="data"><font face="verdana" size="2"><b>Program Name:</b></font></td>
+                        <td class="data"><font face="verdana" size="2">{!POPRec.MDF_Program__r.name}</font></td>
+                    </tr>
+                    <tr>
+                        <td class="data"><font face="verdana" size="2"><b>Number of weeks position was filled:</b></font></td>
+                        <td class="data"><font face="verdana" size="2"></font></td>
+                     </tr>
+                </table>
+                <br></br>
+                
+                <table width="100%" align="center">
+                    <tr>
+                        <td><font face="verdana" size="2">I certify that _________________________________ has been 100% dedicated to the marketing &amp; sale of {!poplst.Vendor__r.Name}'s products and no other product lines (including Dell).</font></td>
+                    </tr>
+                </table>
+                <br></br>
+
+                <table width="100%" align="center">
+                    <tr>
+                        <td class="data"><font face="verdana" size="2"></font></td>
+                        <td class="data"><br><font face="verdana" size="2"></font></br></td>
+                    </tr>
+                    <tr>
+                        <td class="data"><font face="verdana" size="2">Signature</font></td>
+                        <td class="data"><font face="verdana" size="2">Date</font></td>
+                    </tr>
+                </table>
+                <br></br>
+
+                <apex:outputText rendered="{!IF(LastRecId != poplst.Id ,'TRUE','FALSE')}">
+                    <div style="page-break-before: always"></div>
+                </apex:outputText>
+                
+            </apex:repeat>
+
+        </body>
+                            
+    </html>                
+
+
+
+</apex:page>

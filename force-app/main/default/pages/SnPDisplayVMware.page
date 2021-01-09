@@ -1,0 +1,70 @@
+<!--
+History:
+    
+    Version Date            Modified By       CR#                Description     
+--------------------------------------------------------------------------------------
+1.0                                                              Created
+1.1     30-Jun-2016     Syidah               CR13257             VMware: auto-display VMware Products within S&P Vendor record with additional info
+1.2     15-Jul-2016     Kenny                                    Calling standard controller in order to embed the visualforce page in VMWare_PL page layout 
+2.0     03-Jul-2017     Jessie               CR14564             VMware API – Add Discount %
+2.1     10-Jul-2017     Jessie               CR14618             Add Eligible to Lead Services field of Opp Product as one of the columns
+-->
+
+<!-- 1.2 Start -->
+<apex:page standardController="S_P_Vendors__c" extensions="Vfcontrl_VMwareSnPVendor" action="{!displayVMware}" showHeader="false" standardStylesheets="true"> 
+
+<apex:form >
+<style>
+.ct{
+text-align:center;
+}
+</style>
+
+<apex:pageBlock rendered="{!lineItems.size > 0}">
+
+<apex:pageBlockSection columns="1">
+            <apex:pageBlockTable columnsWidth="40%,15%,15%,15%" value="{!lineItems}" var="LItem">
+              <apex:column headerValue="VMware Product">
+              <apex:outputLabel value="{!LItem.Product2.Description}"></apex:outputLabel>
+              </apex:column> 
+                
+              <apex:column headerValue="Quantity" headerClass="ct">
+              <div style="text-align: center;">
+              <apex:outputLabel value="{!LItem.Quantity}"></apex:outputLabel>
+              </div>
+              </apex:column> 
+              
+              <apex:column headerValue="Approved" headerClass="ct">
+              <div style="text-align: center;">
+              <apex:outputLabel rendered="{!IF(LItem.Approved__c = true,true,false)}"><font color="black">X</font></apex:outputLabel>
+              </div>
+              </apex:column> 
+                
+              <apex:column headerValue="Rejected" headerClass="ct">
+              <div style="text-align: center;">
+              <apex:outputLabel rendered="{!IF(LItem.Rejected__c = true,true, false)}"><font color="black">X</font></apex:outputLabel>
+              </div>
+              </apex:column> 
+              
+              <apex:column headerValue="Discount %" headerClass="ct">
+              <div style="text-align: center;">
+              <apex:outputLabel value="{!LItem.Discount__c}"></apex:outputLabel>
+              </div>
+              </apex:column> 
+              
+              <!-- v2.1 - start -->
+              <apex:column headerValue="Lead on Services" headerClass="ct">
+              <div style="text-align: center;">
+              <apex:outputLabel rendered="{!IF(LItem.Eligible_to_Lead_Services__c = true,true, false)}"><font color="black">X</font></apex:outputLabel>
+              </div>
+              </apex:column> 
+              <!-- v2.1 - end --> 
+<!-- 1.2 End -->              
+              
+            </apex:pageBlockTable>  
+          </apex:pageBlockSection>
+
+ </apex:pageBlock>
+
+</apex:form> 
+</apex:page>

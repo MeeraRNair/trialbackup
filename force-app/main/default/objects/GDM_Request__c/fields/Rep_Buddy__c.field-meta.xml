@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rep_Buddy__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <inlineHelpText>Select the Rep who will be the &apos;buddy&apos;. Both Reps must have the same Manager and the Rep obtaining a buddy cannot have a buddy request that is currently open.</inlineHelpText>
+    <label>Rep Buddy</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>GDM_Requests7</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,13 @@
+<apex:page standardController="Account" extensions="VFCntrlr_FiscalYearEndDatePicker" lightningStylesheets="true">
+<apex:pageBlock title="">
+<apex:pageBlockSection >
+  <apex:form >
+    Fiscal Year End :<apex:inputField value="{! account.Fiscal_Year_End__c}"/>
+    <p><apex:commandButton action="{!doSave}" value="Save" />
+    <apex:commandButton action="{!doCancel}" value="Cancel"/>
+    </p>
+
+  </apex:form>  
+  </apex:pageBlockSection>
+ </apex:pageBlock>
+</apex:page>

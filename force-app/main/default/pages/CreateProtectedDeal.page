@@ -1,0 +1,42 @@
+<apex:page standardcontroller="Opportunity" extensions="ProtectedDealInsertCtrl"
+action="{!createProtectedDeal}" title="Insert protected deal opportunity" lightningStylesheets="true">
+  <apex:form > 
+      <apex:sectionHeader title="Parent Opportunity - " subtitle="{!Opportunity.name}"/>
+      
+        <apex:pageBlock rendered="{!DisplayProtectedDealName}" title="Protected Deal">
+            <apex:pageBlockSection columns="2" title="Protected Deal created for this Opportunity">             
+                <apex:outputLink value="/{!ProtectedDeal.id}" id="theLink">Name of the protected deal : {!ProtectedDeal.name}</apex:outputLink>             
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Back" action="{!Cancel}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        
+        <apex:pageBlock rendered="{!ErrorMessage}">
+            <apex:pageBlockSection >            
+               <apex:pageMessage title="Sorry. The opportunity cannot be extended."
+                summary="Protected deal exists for this opportunity OR opportunity doesnt satisfy required conditions"  
+               severity="Info"  strength="3"> 
+               <table width="600px" cellpadding="0" cellspacing="0" align="center" border="0">
+                    <tr>
+                        <td> <br></br>
+                              Conditions to extend the opportunity are:<br></br>
+                           1. Opprtunity is a Deal Reg pprtunity.<br></br>
+                           2. Opportunity stage=Win -100%.<br></br>
+                           3. Partner relationship=Certified.<br></br>
+                           4. Partner is not tagged as LOB registration Partner.<br></br>
+                           5. Opportunity should contain Enterprise products.<br></br>             
+                                       
+                            
+                        </td>
+                    </tr>
+                </table>
+                 
+               </apex:pageMessage>        
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Back" action="{!Cancel}"/>
+            </apex:pageBlockButtons>        
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

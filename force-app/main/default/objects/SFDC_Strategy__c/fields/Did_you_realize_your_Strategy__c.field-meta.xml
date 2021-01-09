@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Did_you_realize_your_Strategy__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Realized Strategies are measured through related Closed-Won Opportunities.
+The update of this field is done in the future when you are ready to close out this strategy.</inlineHelpText>
+    <label>Did you realize your Strategy?</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Yes, I achieved this Strategy in the committed timeframe</fullName>
+                <default>false</default>
+                <label>Yes, I achieved this Strategy in the committed timeframe</label>
+            </value>
+            <value>
+                <fullName>No, I did not achieve this Strategy</fullName>
+                <default>false</default>
+                <label>No, I did not achieve this Strategy</label>
+            </value>
+            <value>
+                <fullName>Still in Progress, I will achieve it in 2nd Half</fullName>
+                <default>false</default>
+                <label>Still in Progress, I will achieve it in 2nd Half</label>
+            </value>
+            <value>
+                <fullName>Still in Progress, Strategy to be recreated in next year&apos;s Account Plan</fullName>
+                <default>false</default>
+                <label>Still in Progress, Strategy to be recreated in next year&apos;s Account Plan</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

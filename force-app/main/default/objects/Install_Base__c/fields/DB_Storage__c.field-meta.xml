@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DB_Storage__c</fullName>
+    <externalId>false</externalId>
+    <label>DB Storage</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>DB_Infrastructure_Platform__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>CEPH</fullName>
+                <default>false</default>
+                <label>CEPH</label>
+            </value>
+            <value>
+                <fullName>Compellent</fullName>
+                <default>false</default>
+                <label>Compellent</label>
+            </value>
+            <value>
+                <fullName>Datacore</fullName>
+                <default>false</default>
+                <label>Datacore</label>
+            </value>
+            <value>
+                <fullName>Dell EMC Other</fullName>
+                <default>false</default>
+                <label>Dell EMC Other</label>
+            </value>
+            <value>
+                <fullName>EMC (SAN)</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>EMC (SAN)</label>
+            </value>
+            <value>
+                <fullName>EqualLogic</fullName>
+                <default>false</default>
+                <label>EqualLogic</label>
+            </value>
+            <value>
+                <fullName>Fujitsu</fullName>
+                <default>false</default>
+                <label>Fujitsu</label>
+            </value>
+            <value>
+                <fullName>Hitachi</fullName>
+                <default>false</default>
+                <label>Hitachi</label>
+            </value>
+            <value>
+                <fullName>HPE</fullName>
+                <default>false</default>
+                <label>HPE</label>
+            </value>
+            <value>
+                <fullName>Huawei</fullName>
+                <default>false</default>
+                <label>Huawei</label>
+            </value>
+            <value>
+                <fullName>IBM</fullName>
+                <default>false</default>
+                <label>IBM</label>
+            </value>
+            <value>
+                <fullName>Infinidat</fullName>
+                <default>false</default>
+                <label>Infinidat</label>
+            </value>
+            <value>
+                <fullName>Isilon</fullName>
+                <default>false</default>
+                <label>Isilon</label>
+            </value>
+            <value>
+                <fullName>Lenovo</fullName>
+                <default>false</default>
+                <label>Lenovo</label>
+            </value>
+            <value>
+                <fullName>N/A</fullName>
+                <default>false</default>
+                <label>N/A</label>
+            </value>
+            <value>
+                <fullName>NetApp</fullName>
+                <default>false</default>
+                <label>NetApp</label>
+            </value>
+            <value>
+                <fullName>Nexenta</fullName>
+                <default>false</default>
+                <label>Nexenta</label>
+            </value>
+            <value>
+                <fullName>Nimble</fullName>
+                <default>false</default>
+                <label>Nimble</label>
+            </value>
+            <value>
+                <fullName>Nutanix- Dell</fullName>
+                <default>false</default>
+                <label>Nutanix- Dell</label>
+            </value>
+            <value>
+                <fullName>Nutanix- Other</fullName>
+                <default>false</default>
+                <label>Nutanix- Other</label>
+            </value>
+            <value>
+                <fullName>PowerMax/VMax</fullName>
+                <default>false</default>
+                <label>PowerMax/VMax</label>
+            </value>
+            <value>
+                <fullName>PowerVault</fullName>
+                <default>false</default>
+                <label>PowerVault</label>
+            </value>
+            <value>
+                <fullName>PureStorage</fullName>
+                <default>false</default>
+                <label>PureStorage</label>
+            </value>
+            <value>
+                <fullName>S2D</fullName>
+                <default>false</default>
+                <label>S2D</label>
+            </value>
+            <value>
+                <fullName>ScaleIO</fullName>
+                <default>false</default>
+                <label>ScaleIO</label>
+            </value>
+            <value>
+                <fullName>Unity</fullName>
+                <default>false</default>
+                <label>Unity</label>
+            </value>
+            <value>
+                <fullName>VSAN</fullName>
+                <default>false</default>
+                <label>VSAN</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Hyperconverged</controllingFieldValue>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <controllingFieldValue>RISC/Mainframe</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>Isilon</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hyperconverged</controllingFieldValue>
+            <controllingFieldValue>Public Cloud</controllingFieldValue>
+            <controllingFieldValue>SaaS</controllingFieldValue>
+            <valueName>N/A</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <controllingFieldValue>RISC/Mainframe</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>CEPH</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <controllingFieldValue>RISC/Mainframe</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>Compellent</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <controllingFieldValue>RISC/Mainframe</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>Datacore</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <controllingFieldValue>RISC/Mainframe</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>Dell EMC Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <controllingFieldValue>RISC/Mainframe</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>EqualLogic</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <controllingFieldValue>RISC/Mainframe</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>Fujitsu</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <controllingFieldValue>RISC/Mainframe</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>Hitachi</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <controllingFieldValue>RISC/Mainframe</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>HPE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <controllingFieldValue>RISC/Mainframe</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>Huawei</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <controllingFieldValue>RISC/Mainframe</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>IBM</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <controllingFieldValue>RISC/Mainframe</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>Infinidat</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <controllingFieldValue>RISC/Mainframe</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>Lenovo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <controllingFieldValue>RISC/Mainframe</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>NetApp</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <controllingFieldValue>RISC/Mainframe</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>Nexenta</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <controllingFieldValue>RISC/Mainframe</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>Nimble</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <controllingFieldValue>RISC/Mainframe</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>Nutanix- Dell</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <controllingFieldValue>RISC/Mainframe</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>Nutanix- Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <controllingFieldValue>RISC/Mainframe</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>PowerMax/VMax</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <controllingFieldValue>RISC/Mainframe</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>PowerVault</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <controllingFieldValue>RISC/Mainframe</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>PureStorage</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <controllingFieldValue>RISC/Mainframe</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>S2D</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <controllingFieldValue>RISC/Mainframe</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>ScaleIO</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <controllingFieldValue>RISC/Mainframe</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>Unity</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <controllingFieldValue>RISC/Mainframe</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>VSAN</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,10 @@
+<apex:page standardController="LOB_Registration__c" extensions="LOBRegistrationAvailableActionCntrlr" action="{!redirect}">
+<apex:form >  
+    <apex:pageBlock title="LOB Registration">
+        <apex:pageMessages /> 
+        <apex:pageBlockButtons location="bottom">          
+            <apex:commandButton value="Cancel" action="{!Cancel}"  />
+        </apex:pageBlockButtons>    
+    </apex:pageBlock>   
+    </apex:form>   
+</apex:page>

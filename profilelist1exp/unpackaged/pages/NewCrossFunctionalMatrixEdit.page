@@ -1,0 +1,65 @@
+<apex:page extensions="NewCrossFunctionalMatrixCntrl" standardController="Cross_Functional_Matrix__c" tabStyle="Cross_Functional_Matrix__c" id="MyPage">
+    <style>
+   .MyRequiredInput {
+        height: 200%;
+        position: relative;
+    }
+    .MyBlock{
+        margin-left:6px;
+    }
+    .MyRequiredBlock {
+        margin-left: -3px;
+        display: inline-block;
+        background-color: #CC0000;
+        height: 100%;
+        padding-left: 0px;
+        width: 20%;
+        bottom: -24px;
+        left: 128px;
+        top: -1px;
+        width: 3px;
+        float: left;
+    }
+    </style>
+    <apex:pagemessages />
+    <apex:form id="Myform">
+        <apex:pageBlock id="MyBlock">
+            <apex:pageBlockButtons >
+                  <apex:commandButton value="Save" action="{!UpdateCFMx}" />  
+                  <apex:commandButton value="Cancel" action="{!Cancel}"/> 
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Cross Functional Matrix" columns="1" id="MySection">
+                <apex:pageBlockSectionItem id="MyItem">
+                    <apex:outputLabel value="Country"/>
+                    <apex:outputPanel styleClass="MyRequiredBlock"> 
+                        <apex:outputPanel id="thePanel" styleClass="MyRequiredBlock" />                         
+                        <apex:selectList value="{!Country}"  id="Countries" size="1" label="Country" styleClass="MyBlock">
+                                    <apex:selectOptions value="{!Countries}" />
+                        </apex:selectList>                     
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Segment"/>
+                    <apex:outputPanel styleClass="MyRequiredBlock"> 
+                        <apex:outputPanel id="thePanel" styleClass="MyRequiredBlock" /> 
+                    <apex:selectList value="{!Segment}"   size="1" label="Segment" styleClass="MyBlock">
+                        <apex:selectOptions value="{!Segments}" />
+                    </apex:selectList>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                    <apex:selectList value="{!SubSegment}"  size="1" label="Sub Segment">
+                        <apex:selectOptions value="{!SubSegments}"/>
+                    </apex:selectList>
+               
+              <apex:inputField value="{!CFMT.NSS_Category__c}"/>
+              <apex:inputField value="{!CFMT.Owner__c}" required="true"/>
+              <apex:inputField value="{!CFMT.CC_Owner__c}"  required="true"/>
+             <apex:pageBlockSectionItem >
+                      <apex:outputLabel >Functional Call to Action</apex:outputLabel>
+                      <apex:inputtextarea value="{!CFMT.Functional_Call_To_Action__c}" cols="60" rows="5"/>
+              </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SnP_Deal_Reg_Rejection_Reason_validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF( AND( Rejection_Reason__c =&quot;&quot;, ISPICKVAL(S_P_Deal_Status__c, &quot;Rejected&quot;) ) , TRUE, FALSE)</errorConditionFormula>
+    <errorDisplayField>Rejection_Reason__c</errorDisplayField>
+    <errorMessage>If S&amp;P Deal Status is Rejected, then the Rejection Reason field must be specified.</errorMessage>
+</ValidationRule>

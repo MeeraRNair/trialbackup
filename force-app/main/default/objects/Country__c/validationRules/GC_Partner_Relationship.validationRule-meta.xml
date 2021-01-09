@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GC_Partner_Relationship</fullName>
+    <active>false</active>
+    <description>Partner_Relationship__c doesnot allows GC to select the new values</description>
+    <errorConditionFormula>AND(OR(Name = &apos;CHINA&apos;, Name = &apos;TAIWAN&apos;, Name = &apos;HONG KONG&apos;), 
+(OR(INCLUDES(Partner_Relationship__c,&apos;Titanium Black&apos;), 
+INCLUDES(Partner_Relationship__c,&apos;Titanium&apos;), 
+INCLUDES(Partner_Relationship__c,&apos;Platinum&apos;), 
+INCLUDES(Partner_Relationship__c,&apos;Gold&apos;), 
+INCLUDES(Partner_Relationship__c,&apos;Authorized Reseller&apos;), 
+INCLUDES(Partner_Relationship__c,&apos;Federal Registered&apos;), 
+INCLUDES(Partner_Relationship__c,&apos;Federal Certified&apos;), 
+INCLUDES(Partner_Relationship__c,&apos;Federal GSA Authorized&apos;), 
+INCLUDES(Partner_Relationship__c,&apos;Federal System Integrator&apos;), 
+INCLUDES(Partner_Relationship__c,&apos;Client products&apos;), 
+INCLUDES(Partner_Relationship__c,&apos;Client Servers and Networking&apos;), 
+INCLUDES(Partner_Relationship__c,&apos;Servers Storage and Networking&apos;), 
+INCLUDES(Partner_Relationship__c,&apos;Client Servers Storage and Networking&apos;),
+INCLUDES(Partner_Relationship__c,&apos;All&apos;))))</errorConditionFormula>
+    <errorDisplayField>Partner_Relationship__c</errorDisplayField>
+    <errorMessage>Please select a relevant value for your country.</errorMessage>
+</ValidationRule>

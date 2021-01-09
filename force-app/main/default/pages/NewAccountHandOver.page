@@ -1,0 +1,55 @@
+<apex:page standardController="Account" extensions="VFCntrlr_NewAccountHandOver" action="{!navigate}" title="New Account Handover for {!Account.name}">
+    
+    <apex:form >
+    
+    <div style="background-color:#236FBD;"> <br/> </div>
+        
+        <apex:pageBlock title="Open Account Hand Over exists" rendered="{!openHandOverRecExists}">
+              
+           <apex:pageBlockButtons location="Bottom" > 
+                      <apex:commandButton value="Back" action="{!cancel}"/>
+           </apex:pageBlockButtons>
+           <apex:image url="/img/msg_icons/warning16.png"/> &nbsp;&nbsp;
+           
+            <!-- action="{!add}"  style="color:red;font-weight:bold"   -->
+              <apex:outputText style="font-weight:bold;"  value="You cannot create a new Account Handover because there is already an existing record in Draft / Pending Assignment status."></apex:outputText>
+                                   
+        </apex:pageBlock> 
+        
+        
+        <apex:pageBlock title="Open Account Handover records" rendered="{!openHandOverRecExists}">
+              
+          
+               <apex:pageBlockTable value="{!accountHandOverList}" var="acountHandOver" 
+                                    rendered="{!openHandOverRecExists}" border="0" title="List of existing Open Account Hand over records">
+                    <apex:column headerValue="Action"><b>
+                        <apex:outputLink value="/{!acountHandOver.Id}" Title="View">
+                            View
+                        </apex:outputLink>
+                            &nbsp;| &nbsp;
+                        <apex:outputLink value="/{!acountHandOver.Id}/e?retURL=%2F{!Account.Id}" Title="Edit">
+                            Edit
+                        </apex:outputLink>
+                        
+                        </b>
+                    </apex:column>
+                    <apex:column value="{!acountHandOver.Outgoing_rep__c}"/>
+                    <apex:column value="{!acountHandOver.Status__c}"/>
+                    <apex:column value="{!acountHandOver.Outgoing_Handover_Tasks_Completed__c}"/>
+            </apex:pageBlockTable>
+                     
+        </apex:pageBlock> 
+    
+        <!--  If error Occurred --> 
+        <apex:outputPanel id="errorPanel" rendered="{!Error}">
+            <apex:pageMessages />
+            
+            <table align="center"><tr><td>
+            <apex:commandButton value="Back" action="{!Cancel}"/>
+            </td></tr></table>
+            
+        </apex:outputPanel> 
+        
+    </apex:form>   
+    
+</apex:page>

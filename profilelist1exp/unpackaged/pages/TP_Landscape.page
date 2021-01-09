@@ -1,0 +1,227 @@
+<apex:page standardController="Territory_Plan__c" extensions="TP_PageNavCtrlExt" sidebar="false" lightningStylesheets="true">
+    <style type="text/css">
+        body .bPageBlock .pbBody { 
+            padding: 15px 0 0 0;
+            background-color: #F2F2F2 !important;
+        }
+        .tb  {
+            border: 0px solid black;
+            border-spacing: 5px 1px; 
+            width:100%
+        }
+        
+        <!-- style header text -->
+        .tb .tg-hdr{
+            font-size:26px;
+            font-family:'Arial White', Gadget, sans-serif !important;
+            color:Black; 
+            padding: 0px 0px 20px 15px;
+            text-indent:15px;
+        }
+        .tb .tg-tdContent{
+            text-align:center;
+            border: 0px solid black;
+        }
+        
+        .tb .tg-tdContent .tg-tdContent-parg1{
+            position:relative;    
+            background-color:#007db9;
+            color: white;
+            padding:10px 5px 10px 1px;
+            margin:0px 0px 0px 0px;
+            width:99%;
+            font-size:16px;
+            text-align:center;
+            top:3px;
+       `    
+        } 
+        .tb .tg-tdContent .tg-tdContent-parg2{
+            color: white;
+            padding:20px 0px 5px 0px;
+            margin: 0px 0px 10px 0px;
+            height:70px;
+            width:99%;
+            font-size:16px;
+            text-align:center;
+        } 
+        
+        .tg-tdContent-pargN{
+           color: white;
+            //padding:20px 0px 5px 0px;
+            margin: 0px 0px 10px 0px;
+            height:70px;
+            width:99%;
+            font-size:16px;
+            text-align:center; 
+        }
+        
+        .bcolor {
+            background-color:#007db9;
+        }
+        .lbcolor {
+            background-color:#aaabaa;
+        }
+        
+        
+        .tb .tg-tdContent .tg-tdContent-inputFld{
+            height:90px; 
+            width:99%;
+            margin:0px 0px 10px 0px;
+            background-color:#F2F2F2;
+            resize:none;
+        }
+        .tb .tg-tdContent .fldBrdrColor1{
+            border: 1px solid #007db9;
+        }
+        .tb .tg-tdContent .fldBrdrColor2{
+            border: 1px solid #aaabaa;
+        }
+        
+        <!-- Style hint section -->
+        .Bulb-logo{
+            position: relative; 
+            top: 15px; 
+            left:0px;
+        }
+        .underLine-logo {
+            position: relative; 
+            padding: 5px 0 0 0;
+            top:12px; 
+            left:17px; 
+            border-bottom :1px solid #888888; 
+            border-left: 1px solid #888888; 
+            width: 85%; 
+            height: 20px;
+        }
+        .DellEMC-logo { 
+            position: relative; 
+            top:-15px;
+            float:right;
+            padding: 0px 0px 0px 0px;
+            margin: 0px 10px;
+        }        
+        .hintText{
+            font-style:italic; 
+            font-size: 12px;
+            position: relative;
+            padding:0px 0px 0px 0px;
+            top:-25px;
+            left: 15px;
+            margin:5px;
+        }
+                
+        .tb .tg-tdBtns{
+            text-align:right;
+            padding: 15px 10px 0px 0px; 
+        }
+        
+        .tb .tg-tdBtns .btn{
+            margin-left:3px;
+            margin-right:3px;        
+        }
+
+        .tb .footer {
+            width: 100%;
+            color:black;
+            text-align: center;
+            padding:0px;
+            font-size:12px;
+        }        
+        <!-- To reduce margin-bottom at bottom of page -->      
+        body .bDetailBlock.bPageBlock, body .individualPalette .bDetailBlock.bPageBlock { 
+            border: 0;
+            background-color: transparent;
+            margin-bottom: 0px;
+        }
+        <!-- to style complete page in classic and lightning and reduce bottom padding -->
+        body .bodyDiv .outerNoSidebar{  
+            padding-bottom: 0px;
+            max-height: 100%;
+            max-width: 100%;
+        } 
+    </style>
+    <apex:pageBlock mode="maindetail" id="pbId">
+        <apex:pageMessages id="showmsg"></apex:pageMessages>
+        <table class="tb" id="tbl">
+            <tr id="hd-tr">
+                <th class="tg-hdr" id = "hdr" colspan="3">Territory Portfolio Landscape</th>
+            </tr>
+            <tr id = "content-tr">
+                <td id="content-td1"></td>
+                <td class="tg-tdContent" id="content-td2">
+                    <p class="tg-tdContent-parg1" id="para2">Observations</p>
+                </td>
+                <td class="tg-tdContent" id="content-td3">
+                    <p class="tg-tdContent-parg1" id="para3">Challenges</p>
+                </td>
+            </tr>
+            <apex:form >
+                <tr id="input-tr1">
+                    <td class="tg-tdContent" id="sndrowcontent-td1">
+                        <apex:outputPanel rendered="{! $User.UIThemeDisplayed != 'Theme4d' }">
+                            <p class="tg-tdContent-parg2 bcolor" id="sndrowcontent-p1">Industry &amp;<br/>Geography<br/> Observations </p>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{! $User.UIThemeDisplayed == 'Theme4d' }">
+                            <p class="tg-tdContent-pargN bcolor" id="sndrowcontent-p1">Industry &amp;<br/>Geography<br/> Observations </p>
+                        </apex:outputPanel>
+                    </td>
+                    <td class="tg-tdContent" id="input-td1">
+                        <apex:inputfield value="{!Territory_Plan__c.Industry_Geography_Observations__c}" styleclass="tg-tdContent-inputFld fldBrdrColor1" id="pr1-ID"/>
+                    </td>
+                    <td class="tg-tdContent" id="input-td2">
+                        <apex:inputfield value="{!Territory_Plan__c.Industry_Geography_Challenges__c}" styleclass="tg-tdContent-inputFld fldBrdrColor1" id="pr2-ID"/>
+                    </td>
+                </tr>
+                
+                <tr id="input-tr2">
+                    <td class="tg-tdContent" id="thrdrowcontent-td1">
+                        <p class="tg-tdContent-parg2 lbcolor" id="thrdrowcontent-p1">Customer<br/> Information </p>
+                    </td>
+                    <td class="tg-tdContent" id="input-td3">
+                        <apex:inputfield value="{!Territory_Plan__c.Customer_Information_Observations__c}" styleclass="tg-tdContent-inputFld fldBrdrColor2" id="pr3-ID"/>   
+                    </td>
+                    <td class="tg-tdContent" id="input-td4">
+                        <apex:inputfield value="{!Territory_Plan__c.Customer_Information_Challenges__c}" styleclass="tg-tdContent-inputFld fldBrdrColor2" id="pr4-ID"/>
+                    </td>
+                </tr>
+                <tr id="input-tr3">
+                    <td class="tg-tdContent" id="forthrowcontent-td1">
+                        <p class="tg-tdContent-parg2 bcolor" id="forthrowcontent-p1">Competitive<br/> Analysis </p>
+                    </td>
+                    <td class="tg-tdContent" id="input-td5">
+                        <apex:inputfield value="{!Territory_Plan__c.Competitive_Analysis_Observations__c}" styleclass="tg-tdContent-inputFld fldBrdrColor1" id="pr5-ID"/>
+                    </td>
+                    <td class="tg-tdContent" id="input-td6">
+                        <apex:inputfield value="{!Territory_Plan__c.Competitive_Analysis_Challenges__c}" styleclass="tg-tdContent-inputFld fldBrdrColor1" id="pr6-ID"/>
+                    </td>
+                </tr>
+                <tr id="hint-trId">
+                    <td class="tg-tdHint" id="hint-tdId" colspan="3">
+                        <div class="Bulb-logo" id="bulb-divId">
+                            <apex:image url="{!URLFOR($Resource.TP_PPT_Images, 'TP_PPT_Images/Bulbicon_hint.png')}" width="35" height="35" alt="Description of image here" id="bulb-logoId"/>
+                        </div>
+                        <div class="underLine-logo" id="underlineDivId">
+                            <apex:outputtext styleClass="hintText" id="hintTextId" value="This is a great opportunity to learn more about your accounts, trends in industry where applicable, geography challenges that may affect buying. For customer data, document big events or notable information such as M&A, new CEO/CIO, etc.   Resource ideas include Google analytics, Discovery.org, Hoovers, Data.com"/>
+                        </div>
+                        <apex:image styleClass="DellEMC-logo" url="{!URLFOR($Resource.TP_PPT_Images, 'TP_PPT_Images/DellEMC_Landscape.PNG')}" width="100" height="25" alt="DellEMC" id="dellEMClogoId"/>
+                    </td> 
+                </tr>
+                <tr id ="tr-btnId">
+                    <td class="tg-tdBtns" colspan="3" id="td-btnId">
+                        <apex:commandButton action="{!saveRecord}" value="Save" id="saveId" styleClass="btn"/> 
+                        <apex:commandButton action="{!goToPrevPage}" value="Previous" id="backId" styleClass="btn"/>
+                        <apex:commandButton action="{!goToNextPage}" value="Next" id="nextId" styleClass="btn"/>
+                        <apex:commandButton action="{!cancel}" value="Cancel" id="cancelId" styleClass="btn"/>
+                    </td>
+                </tr>
+                <tfoot>
+                    <tr>
+                        <td class="footer" colspan ="3">
+                            [ {!currentPageNum} of {!totalPages} ]
+                        </td>
+                    </tr>
+                </tfoot>
+            </apex:form>    
+        </table>
+    </apex:pageBlock>
+</apex:page>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Geography_Name_should_be_unique</fullName>
+    <active>true</active>
+    <description>The Validation Rule is to avoid duplicate values on Geography Name.</description>
+    <errorConditionFormula>IF(ISNEW(), IF( UPPER(Name) == UPPER(VLOOKUP($ObjectType.Geography__c.Fields.Name,$ObjectType.Geography__c.Fields.Name, Name)),true , false), 
+AND(ISCHANGED(Name), IF( UPPER(Name) == UPPER(VLOOKUP($ObjectType.Geography__c.Fields.Name,$ObjectType.Geography__c.Fields.Name, Name)),true,false)))</errorConditionFormula>
+    <errorDisplayField>Name</errorDisplayField>
+    <errorMessage>This name already exists. Geography Name should be unique.</errorMessage>
+</ValidationRule>

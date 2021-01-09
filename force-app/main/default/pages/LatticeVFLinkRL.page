@@ -1,0 +1,29 @@
+<apex:page standardController="Relationship_Lead__c"
+extensions="LatticeVFLinkExtension" tabStyle="Account">
+<!-- Must include the following so that fields are available
+to the extension object thru getRecord() -->
+<apex:outputText rendered="false"
+value="{!Relationship_Lead__c.contact__r.account.Name}{!Relationship_Lead__c.contact__r.account.Account_ID__c}{!Relationship_Lead__c.contact__r.account.POET_Leads__c}{!Relationship_Lead__c.contact__r.account.POET_Open_Leads__c}"></apex:outputText>
+<table bgcolor="#ffffff" width="100%" height="100%" border="0"
+cellspacing="0" cellpadding="0" valign="top">
+<tr valign="top" height="100%" border="0" cellspacing="0"
+cellpadding="0" >
+<td width="1" align="left" valign="top">
+<apex:outputText value="{0} ">
+<apex:param value="{!summary}"/>
+</apex:outputText>
+</td>
+<td>
+ 
+</td>
+<td/>
+<td align="left" valign="top">
+<apex:outputLink rendered="{!isPrismAccount}" target="_parent"
+value="{!linkToPrism}">
+<apex:image value="{!$Resource.PoetLogoSmall}" alt="Go
+To salesPRISM"/>
+</apex:outputLink>
+</td>
+</tr>
+</table>
+</apex:page>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SnP_Deal_Reg_VMware_Gov_Total_Net_Rule</fullName>
+    <active>false</active>
+    <description>Any deal, for any segment with a total net revenue of equal to or greater than $6,000 will transmit to VMware.</description>
+    <errorConditionFormula>AND( Total_Net_in_USD__c  &lt; 6000, S_P_Vendors_Name__c  = &apos;VMware&apos;, Customer_Name__c  &lt;&gt; &apos;&apos;)</errorConditionFormula>
+    <errorDisplayField>Total_NET__c</errorDisplayField>
+    <errorMessage>Total Net must be greater than or equal to 6,000 USD</errorMessage>
+</ValidationRule>

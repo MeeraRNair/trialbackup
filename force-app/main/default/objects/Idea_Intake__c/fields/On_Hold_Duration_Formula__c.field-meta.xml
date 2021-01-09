@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>On_Hold_Duration_Formula__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(ISPICKVAL(Status__c , &quot;On Hold&quot;),  
+IF
+(
+OR(On_Hold_Duration_Total__c  &lt;&gt; null,On_Hold_Duration_Total__c  &lt;&gt; 0), 
+(TODAY() - DATEVALUE(On_Hold_Duration_Date__c)) +  On_Hold_Duration_Total__c, 
+TODAY() - DATEVALUE(On_Hold_Duration_Date__c)
+), 
+On_Hold_Duration_Total__c)</formula>
+    <label>On Hold Duration</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

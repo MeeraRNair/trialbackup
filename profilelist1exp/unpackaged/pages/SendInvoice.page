@@ -1,0 +1,58 @@
+<apex:page standardController="Invoice__c" extensions="SendInvoiceCtrlExt" lightningStylesheets="true">
+    <apex:form >
+    <apex:pageMessages showDetail="true"/>
+       
+    <apex:outputLabel styleClass="label" rendered="{!attachmentIteratedList.size=0}">No qualified Attachments are found for this Invoice.</apex:outputLabel>
+        <apex:pageBlock title="List of Attachment">
+            <apex:pageBlockSection title="Message" collapsible="false" columns="1" rendered="{!attachmentIteratedList.size>0}">
+                Please <b>select</b> the Attachment that you would like to Send through E-mail.
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection collapsible="false" title="POP Line Item Attachments" columns="1" rendered="{!attachmentIteratedList.size>0}" >
+                <apex:pageBlockTable value="{!attachmentIteratedList}" var="pop">
+                    <apex:column headerValue="Select" rendered="{!IF(pop.AttachmentRecord.ParentId != myInvoice.Id ,'TRUE','FALSE')}">
+                        <apex:inputCheckbox value="{!pop.selected}"/>
+                    </apex:column>
+                    <apex:column headerValue="Attachment Title" value="{!pop.AttachmentRecord.Name}" rendered="{!IF(pop.AttachmentRecord.ParentId != myInvoice.Id ,'TRUE','FALSE')}"/>
+                    <!-- Mohan 20110601 BRD-8.4.1.1 -->
+                    <apex:column headerValue="Business Segment" value="{!pop.Segment}" rendered="{!IF(pop.AttachmentRecord.ParentId != myInvoice.Id ,'TRUE','FALSE')}"/>
+                    <apex:column headerValue="Program Name" value="{!pop.Program}" rendered="{!IF(pop.AttachmentRecord.ParentId != myInvoice.Id ,'TRUE','FALSE')}"/>
+                    <apex:column headerValue="POP Status" value="{!pop.Status}" rendered="{!IF(pop.AttachmentRecord.ParentId != myInvoice.Id ,'TRUE','FALSE')}"/>
+                    <!-- Mohan 20110601 BRD-8.4.1.1 -->
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection collapsible="false" title="Invoice Attachments" columns="1" rendered="{!attachmentIteratedList.size>0}" >
+                <apex:pageBlockTable value="{!attachmentIteratedList}" var="AD">
+                    <apex:column headerValue="Select" rendered="{!IF(AD.AttachmentRecord.ParentId == myInvoice.Id ,'TRUE','FALSE')}">
+                         <apex:inputCheckbox value="{!AD.selected}"/>
+                     </apex:column>
+                     <apex:column headerValue="Attachment Title" value="{!AD.AttachmentRecord.Name}" rendered="{!IF(AD.AttachmentRecord.ParentId == myInvoice.Id ,'TRUE','FALSE')}"/>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection collapsible="false" title="Enter the E-Mail Id in the given text field" columns="4" rendered="{!attachmentIteratedList.size>0}" >
+                <apex:outputLabel value="Send Mail to" for="email"/>
+                <apex:inputText value="{!email}" id="email" html-placeholder="Enter emailId"/>
+
+                <apex:outputLabel value="Select Mail"/>
+                <apex:inputfield value="{!associatedMDFContact.MDF_Contact__c}" required="false"/>
+            </apex:pageBlockSection>
+            
+            <apex:outputLabel styleClass="label" rendered="{!attachmentIteratedList.size>0}">Click on <b>"Send Mail"</b> button to send email to the Enter E-Mail ID with the attachment selected.</apex:outputLabel>
+            
+            <apex:pageBlockButtons rendered="{!attachmentIteratedList.size>0}" location="Bottom">
+                <apex:commandButton value="Send" action="{!sendMail}"/>
+                <apex:commandButton value="Cancel" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+            <script>
+                window.onload = function() {
+                jQuery('input[type=text]').blur();
+                };
+            </script>
+
+            
+        </apex:pageBlock>                
+
+    </apex:form>
+</apex:page>

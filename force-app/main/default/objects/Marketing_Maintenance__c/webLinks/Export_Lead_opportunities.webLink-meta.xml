@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Export_Lead_opportunities</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Export Lead opportunities</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <requireRowSelection>false</requireRowSelection>
+    <url>window.open(&apos;/apex/ChildRecordsExporter?csn=Export_Marketing_Maintenance_Config__c&amp;on=Marketing_Maintenance__c&amp;pri={!Account.Id}&amp;prf=Account__c&amp;fn=LeadOpportunities&apos;);</url>
+</WebLink>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approver_Request_Age_in_Days__c</fullName>
+    <description>SOM R15.10 CR10016 - To display the differences between Approver Start Time and Approver End Time</description>
+    <externalId>false</externalId>
+    <formula>IF( 
+AND(TEXT(Approver_Status__c) = &quot;Submitted&quot;, ISNULL(  Approver_End_Time__c  ), TEXT( Approver_Start_Time__c )  &lt;&gt; null ), 
+FLOOR(NOW() -  Approver_Start_Time__c) , 
+FLOOR(Approver_End_Time__c - Approver_Start_Time__c) 
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Approver Request Age (in Days)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

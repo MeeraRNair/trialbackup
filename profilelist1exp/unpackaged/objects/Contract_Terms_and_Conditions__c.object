@@ -1,0 +1,987 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>CMVF_ContractTandCEditOverride</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>To store terms and conditions associated with each contract</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Contract__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Contract</label>
+        <referenceTo>Contract</referenceTo>
+        <relationshipName>Non_Standard_Term_Repository</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Non_Standard_Term_Repository__c</fullName>
+        <externalId>false</externalId>
+        <label>Contract Standard Term</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>Acceptance</fullName>
+                    <default>false</default>
+                    <label>Acceptance</label>
+                </value>
+                <value>
+                    <fullName>Assignment</fullName>
+                    <default>false</default>
+                    <label>Assignment</label>
+                </value>
+                <value>
+                    <fullName>Audit</fullName>
+                    <default>false</default>
+                    <label>Audit</label>
+                </value>
+                <value>
+                    <fullName>Bundled Services</fullName>
+                    <default>false</default>
+                    <label>Bundled Services</label>
+                </value>
+                <value>
+                    <fullName>Confidentiality</fullName>
+                    <default>false</default>
+                    <label>Confidentiality</label>
+                </value>
+                <value>
+                    <fullName>Customer Requirements</fullName>
+                    <default>false</default>
+                    <label>Customer Requirements</label>
+                </value>
+                <value>
+                    <fullName>Delivery Requirements</fullName>
+                    <default>false</default>
+                    <label>Delivery Requirements</label>
+                </value>
+                <value>
+                    <fullName>Exclusivity</fullName>
+                    <default>false</default>
+                    <label>Exclusivity</label>
+                </value>
+                <value>
+                    <fullName>Export Compliance</fullName>
+                    <default>false</default>
+                    <label>Export Compliance</label>
+                </value>
+                <value>
+                    <fullName>Fees/Rebates</fullName>
+                    <default>false</default>
+                    <label>Fees/Rebates</label>
+                </value>
+                <value>
+                    <fullName>Hardware Service</fullName>
+                    <default>false</default>
+                    <label>Hardware Service</label>
+                </value>
+                <value>
+                    <fullName>Indemnification</fullName>
+                    <default>false</default>
+                    <label>Indemnification</label>
+                </value>
+                <value>
+                    <fullName>Insurance Requirements</fullName>
+                    <default>false</default>
+                    <label>Insurance Requirements</label>
+                </value>
+                <value>
+                    <fullName>Intellectual Property</fullName>
+                    <default>false</default>
+                    <label>Intellectual Property</label>
+                </value>
+                <value>
+                    <fullName>Invoicing</fullName>
+                    <default>false</default>
+                    <label>Invoicing</label>
+                </value>
+                <value>
+                    <fullName>Lemon / Failure</fullName>
+                    <default>false</default>
+                    <label>Lemon / Failure</label>
+                </value>
+                <value>
+                    <fullName>Limitation of Liability</fullName>
+                    <default>false</default>
+                    <label>Limitation of Liability</label>
+                </value>
+                <value>
+                    <fullName>Liquidated Damages/Penalties</fullName>
+                    <default>false</default>
+                    <label>Liquidated Damages/Penalties</label>
+                </value>
+                <value>
+                    <fullName>MDF</fullName>
+                    <default>false</default>
+                    <label>MDF</label>
+                </value>
+                <value>
+                    <fullName>MFN</fullName>
+                    <default>false</default>
+                    <label>MFN</label>
+                </value>
+                <value>
+                    <fullName>Off-Shoring</fullName>
+                    <default>false</default>
+                    <label>Off-Shoring</label>
+                </value>
+                <value>
+                    <fullName>Order Modification / Cancel</fullName>
+                    <default>false</default>
+                    <label>Order Modification / Cancel</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+                <value>
+                    <fullName>Packaging</fullName>
+                    <default>false</default>
+                    <label>Packaging</label>
+                </value>
+                <value>
+                    <fullName>Payment Terms</fullName>
+                    <default>false</default>
+                    <label>Payment Terms</label>
+                </value>
+                <value>
+                    <fullName>Price Protection</fullName>
+                    <default>false</default>
+                    <label>Price Protection</label>
+                </value>
+                <value>
+                    <fullName>Pricing/Discounts</fullName>
+                    <default>false</default>
+                    <label>Pricing/Discounts</label>
+                </value>
+                <value>
+                    <fullName>Product Quality</fullName>
+                    <default>false</default>
+                    <label>Product Quality</label>
+                </value>
+                <value>
+                    <fullName>Publicity / Press Releases / LOGOs</fullName>
+                    <default>false</default>
+                    <label>Publicity / Press Releases / LOGOs</label>
+                </value>
+                <value>
+                    <fullName>Regulatory Compliance</fullName>
+                    <default>false</default>
+                    <label>Regulatory Compliance</label>
+                </value>
+                <value>
+                    <fullName>Reporting</fullName>
+                    <default>false</default>
+                    <label>Reporting</label>
+                </value>
+                <value>
+                    <fullName>Returns</fullName>
+                    <default>false</default>
+                    <label>Returns</label>
+                </value>
+                <value>
+                    <fullName>Reverse Logistics</fullName>
+                    <default>false</default>
+                    <label>Reverse Logistics</label>
+                </value>
+                <value>
+                    <fullName>Seed Stock / Buffer Stock</fullName>
+                    <default>false</default>
+                    <label>Seed Stock / Buffer Stock</label>
+                </value>
+                <value>
+                    <fullName>Shipping</fullName>
+                    <default>false</default>
+                    <label>Shipping</label>
+                </value>
+                <value>
+                    <fullName>SIM Cards / Lock</fullName>
+                    <default>false</default>
+                    <label>SIM Cards / Lock</label>
+                </value>
+                <value>
+                    <fullName>Software License</fullName>
+                    <default>false</default>
+                    <label>Software License</label>
+                </value>
+                <value>
+                    <fullName>Software Services</fullName>
+                    <default>false</default>
+                    <label>Software Services</label>
+                </value>
+                <value>
+                    <fullName>Stock Balancing</fullName>
+                    <default>false</default>
+                    <label>Stock Balancing</label>
+                </value>
+                <value>
+                    <fullName>Sub-Contracting</fullName>
+                    <default>false</default>
+                    <label>Sub-Contracting</label>
+                </value>
+                <value>
+                    <fullName>Tax</fullName>
+                    <default>false</default>
+                    <label>Tax</label>
+                </value>
+                <value>
+                    <fullName>Tech Support</fullName>
+                    <default>false</default>
+                    <label>Tech Support</label>
+                </value>
+                <value>
+                    <fullName>Term</fullName>
+                    <default>false</default>
+                    <label>Term</label>
+                </value>
+                <value>
+                    <fullName>Termination</fullName>
+                    <default>false</default>
+                    <label>Termination</label>
+                </value>
+                <value>
+                    <fullName>Test / Cert Requirements</fullName>
+                    <default>false</default>
+                    <label>Test / Cert Requirements</label>
+                </value>
+                <value>
+                    <fullName>Title and Risk</fullName>
+                    <default>false</default>
+                    <label>Title and Risk</label>
+                </value>
+                <value>
+                    <fullName>Trade Agreement</fullName>
+                    <default>false</default>
+                    <label>Trade Agreement</label>
+                </value>
+                <value>
+                    <fullName>Trademarks</fullName>
+                    <default>false</default>
+                    <label>Trademarks</label>
+                </value>
+                <value>
+                    <fullName>Training</fullName>
+                    <default>false</default>
+                    <label>Training</label>
+                </value>
+                <value>
+                    <fullName>Venue</fullName>
+                    <default>false</default>
+                    <label>Venue</label>
+                </value>
+                <value>
+                    <fullName>Warranty/Support Requirement</fullName>
+                    <default>false</default>
+                    <label>Warranty/Support Requirement</label>
+                </value>
+                <value>
+                    <fullName>WEEE Compliance</fullName>
+                    <default>false</default>
+                    <label>WEEE Compliance</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Non_Standard_Terms_and_Conditions__c</fullName>
+        <externalId>false</externalId>
+        <label>Contract Terms and Conditions</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Section__c</fullName>
+        <externalId>false</externalId>
+        <label>Section</label>
+        <length>200</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Standard_Term__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Standard Term</label>
+        <referenceTo>CSMB_Terms_and_Conditions_Maintenance__c</referenceTo>
+        <relationshipLabel>Contract Terms and Conditions</relationshipLabel>
+        <relationshipName>Contract_Terms_and_Conditions</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Terms_and_Conditions__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Terms and Conditions</label>
+        <referenceTo>CSMB_Terms_and_Condition__c</referenceTo>
+        <relationshipLabel>Contract Terms and Conditions</relationshipLabel>
+        <relationshipName>Contract_Terms_and_Conditions</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Terms_and_conditions_Content__c</fullName>
+        <externalId>false</externalId>
+        <label>Terms and conditions Content</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <label>Contract Terms and Conditions</label>
+    <nameField>
+        <displayFormat>NS-{000000000}</displayFormat>
+        <label>Contract Terms and Conditions</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Contract Terms and Conditions</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Non_Standard_Terms_and_Conditions</fullName>
+        <active>true</active>
+        <description>To allow user to enter non- standard terms and conditions</description>
+        <label>Non-Standard Terms and Conditions</label>
+        <picklistValues>
+            <picklist>Non_Standard_Term_Repository__c</picklist>
+            <values>
+                <fullName>Acceptance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Assignment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Audit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bundled Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Confidentiality</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Requirements</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Delivery Requirements</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Exclusivity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Export Compliance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fees%2FRebates</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hardware Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Indemnification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Insurance Requirements</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Intellectual Property</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invoicing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lemon %2F Failure</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Limitation of Liability</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Liquidated Damages%2FPenalties</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MDF</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MFN</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Off-Shoring</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Order Modification %2F Cancel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Packaging</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payment Terms</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Price Protection</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pricing%2FDiscounts</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Product Quality</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Publicity %2F Press Releases %2F LOGOs</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Regulatory Compliance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reporting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Returns</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reverse Logistics</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SIM Cards %2F Lock</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Seed Stock %2F Buffer Stock</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shipping</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Software License</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Software Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Stock Balancing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sub-Contracting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tax</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tech Support</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Term</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Termination</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Test %2F Cert Requirements</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Title and Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trade Agreement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trademarks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Training</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Venue</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>WEEE Compliance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Warranty%2FSupport Requirement</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Standard_Terms_and_Conditions</fullName>
+        <active>true</active>
+        <description>Record Type to allow user to select standard terms and conditions</description>
+        <label>Standard Terms and Conditions</label>
+        <picklistValues>
+            <picklist>Non_Standard_Term_Repository__c</picklist>
+            <values>
+                <fullName>Acceptance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Assignment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Audit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bundled Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Confidentiality</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Requirements</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Delivery Requirements</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Exclusivity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Export Compliance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fees%2FRebates</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hardware Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Indemnification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Insurance Requirements</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Intellectual Property</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invoicing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lemon %2F Failure</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Limitation of Liability</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Liquidated Damages%2FPenalties</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MDF</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MFN</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Off-Shoring</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Order Modification %2F Cancel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Packaging</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payment Terms</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Price Protection</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pricing%2FDiscounts</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Product Quality</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Publicity %2F Press Releases %2F LOGOs</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Regulatory Compliance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reporting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Returns</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reverse Logistics</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SIM Cards %2F Lock</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Seed Stock %2F Buffer Stock</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shipping</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Software License</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Software Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Stock Balancing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sub-Contracting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tax</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tech Support</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Term</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Termination</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Test %2F Cert Requirements</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Title and Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trade Agreement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trademarks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Training</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Venue</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>WEEE Compliance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Warranty%2FSupport Requirement</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>Edit</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <height>600</height>
+        <linkType>url</linkType>
+        <masterLabel>Edit T&amp;C</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>/apex/CMVF_RecTypeForTandC?id={!Contract.Id}&amp;isEditButtonClicked=true&amp;isNewButtonClicked=false</url>
+    </webLinks>
+    <webLinks>
+        <fullName>New_Contract_Terms_Conditions</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <height>600</height>
+        <linkType>url</linkType>
+        <masterLabel>New Contract Terms &amp; Conditions</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>/apex/CMVF_RecTypeForTandC?id={!Contract.Id}&amp;isEditButtonClicked=false&amp;isNewButtonClicked=true</url>
+    </webLinks>
+    <webLinks>
+        <fullName>View</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <height>600</height>
+        <linkType>url</linkType>
+        <masterLabel>View T&amp;C</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>/apex/CMVF_TermsandConditionsViewPage?id={!Contract.Id}</url>
+    </webLinks>
+</CustomObject>

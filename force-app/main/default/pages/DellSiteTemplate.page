@@ -1,0 +1,45 @@
+<apex:page showHeader="false" id="DellSiteTemplate">
+ 
+ <!-- This is the standard Dell Site template, which can be used as standard template for the Site pages -->
+ <!-- The template contains the Dell logo as header and a with a group of Dell Site links as Footer -->
+ 
+ <!-- importing the stylesheet from the Static resources -->
+ <link rel="stylesheet" type="text/css" href="{!$Resource.CSS_For_Webform}" />
+ 
+  
+   <!-- Header :: Dell logo:: importing the custom component DellSiteHeader -->
+  <apex:insert name="header">
+    <c:DellSiteHeader />   
+  </apex:insert>
+ 
+   <apex:insert name="OmnitureTag">
+        <!-- SiteCatalyst code version: H.19.3.
+        Copyright 1997-2009 Omniture, Inc. More info available at
+        http://www.omniture.com -->
+        <script language="JavaScript" type="text/javascript" src="{!$Resource.js_omniture_talktodell}"></script>
+        <script language="JavaScript" type="text/javascript">
+        
+        /* You may give each page an identifying name, server, and channel on
+        the next lines. */
+        
+        s_dell.linkInternalFilters="javascript:,{!$Site.Domain}";
+        s_dell.charSet="UTF-8";
+        
+        s_dell.pageName="{!$CurrentPage.Name}";
+        s_dell.server="";
+        
+        /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+        var s_code=s_dell.t();if(s_code)document.write(s_code);//--></script>
+        <!-- End SiteCatalyst code version: H.19.3. --> 
+  </apex:insert> 
+  
+  <!-- here comes the actual body of the page. Body can be defined in the page using the component <apex:define name="body"> -->
+  <apex:insert name="body"/>
+  
+  
+  <!-- Header :: Dell Site links:: importing the custom component DellSiteFooter -->
+  <apex:insert name="footer">    
+    <c:DellSiteFooter />
+  </apex:insert>
+  
+</apex:page>

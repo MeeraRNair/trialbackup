@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SnP_Deal_Reg_Require_Shared_Storage</fullName>
+    <active>true</active>
+    <description>Require Shared Storage Vendor field if Project Focus is equal to Server Consolidation</description>
+    <errorConditionFormula>AND( ISPICKVAL( Project_Focus__c , &apos;Server Consolidation&apos; ) ,   ISPICKVAL( Shared_Storage_Vendor__c , &apos;&apos;) )</errorConditionFormula>
+    <errorDisplayField>Shared_Storage_Vendor__c</errorDisplayField>
+    <errorMessage>If Project Focus is Server Consolidation, then Shared Storage Vendor field must be specified.</errorMessage>
+</ValidationRule>

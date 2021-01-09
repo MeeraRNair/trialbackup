@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CR_5498_Contact_Email</fullName>
+    <active>true</active>
+    <description>Entered text should be a valid email address .</description>
+    <errorConditionFormula>!contains (Contact_Email__c  ,&quot;@&quot; ) || !contains (Contact_Email__c  ,&quot;.&quot; )</errorConditionFormula>
+    <errorDisplayField>Contact_Email__c</errorDisplayField>
+    <errorMessage>Invalid email address format</errorMessage>
+</ValidationRule>

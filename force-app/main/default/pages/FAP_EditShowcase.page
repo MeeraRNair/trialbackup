@@ -1,0 +1,397 @@
+<apex:page standardController="Partner_Showcase__c" 
+    extensions="FAP_EditShowcaseControllerExt"
+    sidebar="{!LEN($Site.Name)<=0}"
+    standardStylesheets="false"
+    showHeader="false"
+    action="{!doOnLoad}"
+    id="p"> 
+        
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style type="text/css">
+
+body{
+    margin-left:0px;
+    margin-top:0px;
+    margin-right:0px;
+    margin-bottom:0px;
+    background:url({!$Resource.bg_gif}) top left repeat-x;
+    font: normal 13px Trebuchet MS, Arial, Sans-Serif; 
+   }
+
+h2 {
+    width: 715px;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    font: Trebuchet MS Bold, Arial Bold, Sans-Serif Bold; 
+    color:#333333;
+    padding: 15px 0 15px 0;
+    
+}
+
+h3 {
+    width: 715px;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    font: Trebuchet MS Bold, Arial Bold, Sans-Serif Bold; 
+    color:#333333;
+    padding: 2px 0 2px 0;
+    Background-color: #dadada;
+    padding-left: 5px;
+}
+
+h4 {
+
+ width: 715px;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    
+    font: Bold 13px Trebuchet MS, Arial, sans-serif;
+
+}
+
+.container{
+    width:945px;
+    margin-top:0px;
+    margin-right:auto;
+    margin-bottom:0px;
+    margin-left: auto;
+    padding:15px 10px 10px 10px;
+    
+    background:url({!$Resource.bg_container_gif}) top center;
+    background-repeat:no-repeat;
+    font: Trebuchet MS, Arial, Sans-Serif; 
+}
+
+.container:after{ 
+    content:"."; 
+    display:block; 
+    height:0; 
+    clear:both; 
+    visibility:hidden
+}
+
+.container table th{ 
+    padding-right:40px;
+    padding-bottom: 20px;
+    padding-left:0;
+    text-align:left;
+}
+.bottom_bar {
+    width:735px;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    clear:both;
+}
+.detail_listing {
+    width: 715px;
+    padding: 15px 15px 15px 15px;
+   margin-bottom: 20px;
+}
+
+.detail_listing p {
+    margin:0 0 10px 0;
+    padding:0;
+}
+
+hr {
+  display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0; 
+}
+.detail_listing table {
+    border-collapse: collapse; margin-bottom:20px;  
+}
+
+.detail_listing table td {
+    padding: 2px 0 2px 12px;
+    vertical-align: top;
+}
+
+.detail_listing table td.border {
+    border-bottom: #D5D5D5 1px solid;
+}
+
+.detail_listing table td.field_label {
+    font: Bold 13px Trebuchet MS;
+    border-bottom: #D5D5D5 1px solid;
+}
+
+.message{    
+    background-color:#ffc;    
+    border-style:solid;    
+    border-width:1px;  
+    padding:6px 8px 6px 6px;    
+    margin:4px 20px;
+}
+
+.message .messageTable .messageCell{vertical-align:middle;}
+.errorM2,.errorS1{    border-color:#c00; }
+.errorM2 .messageText,.confirmM2 .messageText,.infoM2 .messageText,.warningM2 .messageText{ margin-left:40px; color:#c00;}
+ 
+.errorM2 .msgIcon,.errorLarge{
+    background-image:url(/img/msg_icons/error32.png);
+    background-position:0px 0px;
+    width:32px;
+    height:32px
+}
+             
+a.ovalbutton{
+    background:transparent url('{!$Resource.left_button_png}') no-repeat top left;
+    display:block;
+    float:right;
+    line-height:14px;
+    height:24px;
+    padding-left:11px;
+    text-decoration:none
+}
+
+a:link.ovalbutton,a:visited.ovalbutton,a:active.ovalbutton,a:hover.avalbutton{text-decoration:none}
+
+a.ovalbutton span{
+    background:transparent url('{!$Resource.right_button_png}') no-repeat top right;
+    font-family:12px Trebuchet MS Bold, Arial Bold, sans-serif Bold;
+    color:#FFF;
+    display:block;
+    padding:2px 11px 4px 0
+}
+
+input,select,textarea{
+    font: normal 13px Trebuchet MS, Arial, sans-serif;
+    width:600px;
+    border: 1px solid #dadada; 
+    background: transparent;
+    margin: 0px 0px;
+}
+
+.requiredExample{
+    background-color: #C00;
+}
+.pbSubsection {
+    width: 715px;
+    padding: 15px 15px 0 115px;
+    margin:0;
+}
+
+.pbSubsection p {
+    margin:0 0 10px 0;
+    padding:0;
+}
+
+.pbSubsection table {
+    border-collapse: collapse; margin-bottom:20px;  
+}
+
+.pbSubsection table td {
+
+    padding-top: 0px;
+    padding-left:0;
+    padding-bottom: 0;
+    vertical-align: top;
+}
+
+.pbSubsection table td.border {
+    border-bottom: #D5D5D5 1px solid;
+}
+
+.pbSubsection table td.labelCol {
+    font-weight: bold;
+    border-bottom: #D5D5D5 1px solid;
+    width: 250px;
+
+}
+
+.pbButton{
+    padding-left: 10px;
+}
+    
+.pbButtonb .btn, .pbButton .btn{
+    width: 80px;
+    /*background-color: #2488B9;
+    background-repeat: no-repeat;
+    background-position: top right;
+    background-image: url('{!$Resource.right_button_png}');*/
+    background: url('{!$Resource.command_button_gif}') no-repeat;
+    alignment-baseline: middle;
+    color: #FFFFFF;
+    font: bold 12px Trebuchet MS, sans-serif;
+    border-width: 0px;
+    margin: 2px 3px;
+    padding: 2px 3px 5px 3px;
+    /*border-radius :15px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    behavior: url(ie-css3.htc); */
+}
+.pbSubExtra{
+    float: right;
+    margin-right: 10em;
+}
+
+.bPageBlock .requiredInput {
+    position: relative;
+    height: 100%;
+}
+
+.bPageBlock .requiredInput .requiredBlock {
+    background-color: #C00;
+    position: absolute;
+    left: -4px;
+    width: 3px;
+    top: 1px;
+    bottom: 1px;
+}
+
+.cke_dialog { top: 200px !important; }
+
+.bEditBlock input, .bEditBlock select, .bEditBlock img, .quickCreateModule input, .quickCreateModule select, .quickCreateModule img {
+    vertical-align: middle;
+    margin-right: .25em;
+}
+
+.errorMsg{
+    color: #C00;
+}
+ 
+a.ovalbutton{
+    background:transparent url('{!$Resource.left_button_png}') no-repeat top left;
+    display:block;
+    float:right;
+    line-height:14px;
+    height:24px;
+    padding-left:11px;
+    text-decoration:none
+}
+
+a.ovalbutton,a:visited.ovalbutton,a:active.ovalbutton,a:hover.avalbutton{text-decoration:none}
+
+a.ovalbutton span{
+    background:transparent url('{!$Resource.right_button_png}') no-repeat top right;
+    <!--font:12px Trebuchet MS Bold, Arial Bold, sans-serif Bold;-->
+    font:bold 12px Trebuchet MS, sans-serif;
+    color:#FFF;
+    display:block;
+    padding:4px 11px 4px 0
+}
+
+a.ovalbutton:hover{
+    background:transparent url('{!$Resource.left_button_png_hover}') no-repeat top left;
+    display:block;
+    float:right;
+    line-height:14px;
+    height:24px;
+    padding-left:11px;
+    text-decoration:none
+}
+
+a.ovalbutton:hover span{
+    background:transparent url('{!$Resource.right_button_png_hover}') no-repeat top right;
+    <!--font:12px Trebuchet MS Bold, Arial Bold, sans-serif Bold;-->
+    font:bold 12px Trebuchet MS, sans-serif;
+    color:#FFF;
+    display:block;
+    padding:4px 11px 4px 0
+}
+
+
+<apex:outputText value=".styled-select select{background: transparent;height: 22px;margin: 0px 0px;border-width: 0px;}" rendered="{!isIE}"/>
+<apex:outputText value=".styled-select select{background: transparent;-moz-appearance: none;-webkit-appearance: none;height: 22px;margin: 0px 0px;border-width: 0px;}" rendered="{!OR(isFirefox,isChrome)}"/>
+
+    </style>
+</head>
+         <apex:pageMessages id="Messages"/>
+         <!-- DISPLAY PAGE LOAD ERROR IF ONE EXISTS -->
+            <apex:outputPanel id="PageMessages" rendered="{!errorOccurred}" layout="block">
+                <apex:variable var="errorMsg" value="{!JSENCODE(HTMLENCODE($Label.msginvalidpagestate))}" rendered="{!errorCode == eRRORNOACCOUNTID}"/>
+                <table align="Centre"><tr><td>
+                    <div class="message errorM2">
+                        <table border="0" cellpadding="0" cellspacing="0" class="messageTable" style="padding:0px;margin:0px;">
+                            <tr valign="top">
+                                <td><img alt="error" src="/s.gif" class="msgIcon" title="error" /></td>
+                                <td class="messageCell">
+                                    <div class="messageText">
+                                        <ul>
+                                            <li>{!errorMsg}</li>
+                                            <apex:repeat value="{!messages}" var="msg">
+                                                <li>{!msg}</li>
+                                            </apex:repeat>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div></td></tr></table>
+            </apex:outputPanel>
+
+        <apex:outputPanel rendered="{!NOT(errorOccurred)}">
+        
+        <apex:form id="theForm1">
+        <div class="container" layout="block" >
+                   
+            <br/>
+            <h2>{!JSENCODE(HTMLENCODE($Label.Edit_ShowCase))}</h2>
+            <h4>{!JSENCODE(HTMLENCODE($Label.Showcase_Add_Edit_Msg))}</h4>
+            <br/>
+            
+            <apex:pageBlock mode="edit" >
+                <apex:pageBlockSection title="{!JSENCODE(HTMLENCODE($Label.Showcase_Details))}" columns="1" showHeader="true" >
+                       
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="{!JSENCODE(HTMLENCODE($Label.Showcase_Title))}"> </apex:outputLabel>                               
+                                <apex:inputField value="{!showcase.Showcase_Title__c}" required="true"/>
+                            </apex:pageBlockSectionItem> 
+                                                        
+                             <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="{!JSENCODE(HTMLENCODE($Label.Showcase_Title_URL))}"> </apex:outputLabel>
+                                <apex:inputField value="{!showcase.Showcase_Title_URL__c}" />
+                            </apex:pageBlockSectionItem> 
+                            
+                           <apex:pageBlockSectionItem >
+                               <apex:outputLabel value="{!JSENCODE(HTMLENCODE($Label.Showcase_Short_Description))}"> </apex:outputLabel>
+                               <apex:inputField value="{!showcase.Short_Description__c}"  required="true"/>
+                            </apex:pageBlockSectionItem> 
+
+                            
+                 </apex:pageBlockSection>
+                     
+                <h4>{!JSENCODE(HTMLENCODE($Label.Showcase_Long_Description_Message))}</h4> 
+                
+                <apex:pageBlockSection >
+                     <apex:pageBlockSectionItem >
+                         <apex:outputLabel value="{!JSENCODE(HTMLENCODE($Label.Showcase_Long_Description))}"> </apex:outputLabel>
+                             <apex:inputField value="{!showcase.Long_Description__c}"/>                            
+                     </apex:pageBlockSectionItem> &nbsp;
+                </apex:pageBlockSection>
+                           
+                 <table border="0" cellspacing="0" cellpadding="0" width="autopx" style="padding-left: 15px;">
+                    <tr>
+                        <td style="padding-left: 110px;">
+                            <apex:commandLink action="{!saveDetail}" styleClass="ovalbutton">
+                                <span>{!JSENCODE(HTMLENCODE($Label.btnsave))}</span>
+                            </apex:commandLink>
+                        </td><td>&nbsp;</td>
+                        <td>
+                            <apex:commandLink action="{!doCancel}" immediate="true" styleClass="ovalbutton">
+                                <span>{!JSENCODE(HTMLENCODE($Label.btncancel))}</span>
+                            </apex:commandLink> 
+                        </td>
+                    </tr>
+                </table>
+            </apex:pageBlock>
+                
+        </div><div class="bottom_bar"><img src="{!$Resource.bottom_bar_gif}" /></div>
+        </apex:form>
+</apex:outputPanel>
+
+</apex:page>

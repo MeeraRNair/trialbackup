@@ -1,0 +1,34 @@
+<apex:page sidebar="false" showHeader="false" standardController="contact" extensions="LinkedPartnerTracksController" >
+    <apex:form >
+        
+        <apex:pageBlock id="Table">
+            
+            <apex:pageBlockTable value="{!mapPartnerTrackDetails}" var="co" >
+               <apex:column headervalue="{!$Label.Partner_Program_Track}">
+                    <apex:outputlink value="{!URLFOR($Action.Partner_Track__c.View, mapPartnerTrackDetails[co].Id)}" target="_blank">{!mapPartnerTrackDetails[co].Track_Name__c}</apex:outputlink>
+                </apex:column>         
+             <!--   <apex:column headervalue="Country Name" value="{!mapPartnerTrackDetails[co].Country__c}"/>-->
+                <apex:column headervalue="{!$Label.Preferred_Track}">
+                    <apex:inputCheckbox value="{!bprefferedTrue}" disabled="true" rendered="{!IF(mapPartnerTrackDetails[co].Id==conObj.Preferred_Track__c,true,false)}"/>
+                    <apex:inputCheckbox value="{!bprefferedFalse}" disabled="true" rendered="{!IF(mapPartnerTrackDetails[co].Id!=conObj.Preferred_Track__c,true,false)}" />
+                </apex:column>
+                
+                 <apex:column headervalue="{!$Label.Audit_Track}">
+                    <apex:inputCheckbox value="{!bprefferedTrue}" rendered="{!AND (NOT(ISBLANK(conObj.Audit_Track__c)),contains(conObj.Audit_Track__c,co))}" disabled="true" />
+                    <apex:inputCheckbox value="{!bprefferedFalse}" rendered="{!NOT(contains(conObj.Audit_Track__c,co))}" disabled="true" />
+                </apex:column>
+                
+            </apex:pageBlockTable>
+                <!--               <center>
+                           <apex:commandButton value="First" rerender="Table" action="{!FirstPage}" disabled="{!prev}"/>
+<apex:commandButton value="Previous" rerender="Table" action="{!previous}" disabled="{!prev}"/>
+<apex:commandButton value="Next" rerender="Table" action="{!next}" disabled="{!nxt}"/>
+<apex:commandButton value="Last" rerender="Table" action="{!LastPage}" disabled="{!nxt}"/> </center>
+ <apex:commandlink value="showAll" target="_blank" action="{!showall}"/>
+                    
+               {!inttotalrecs}
+                 {!intOffsetSize}
+                 {!intlimitSize}-->
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,132 @@
+<apex:page standardController="Volume_Based_Forecast__c" extensions="VFCntrl_AlaCarteForeCast" sidebar="false">
+<head>
+      <style>
+            .headerRow .displayStyle{display:none;}            
+      </style>
+                          
+</head>
+
+<Script>
+
+function regionSelectScriptFn(regionvalueselectedjs){
+     toggleProcessingLabel();
+     var regionvaluejs= document.getElementById(regionvalueselectedjs).value;
+     regionSelection(regionvaluejs);
+}
+
+function toggleProcessingLabel(){
+     var processingLabel= document.getElementById("PleaseWaitLabel");
+     if(processingLabel.style.visibility=="hidden"){ //visibility:hidden
+         processingLabel.style.visibility="visible";
+     }
+     else{
+         processingLabel.style.visibility="hidden";
+     }
+}
+
+</Script>
+
+<apex:sectionHeader title="New Alacarte Forecast Plan"/>
+<apex:form id="theform">
+        <apex:pagemessages ></apex:pagemessages>
+        <apex:actionFunction name="regionSelection" action="{!regionSelection}" immediate="true" reRender="theform" oncomplete="toggleProcessingLabel();">
+                    <apex:param name="firstparam" assignTo="{!regionvalueselected}" value="" />
+        </apex:actionFunction>
+        <apex:pageBlock mode="mainDetail" id="pgblk1">
+        <apex:pageBlockSection title="Information" collapsible="false" columns="1" id="titleblock">
+            
+               <apex:inputField value="{!Volume_Based_Forecast__c.Name}" required="true"/>
+               <apex:inputField value="{!Volume_Based_Forecast__c.Sub_Vendor__c}" required="true"/>
+               <apex:inputField value="{!Volume_Based_Forecast__c.Fiscal_Quarter__c}" required="true"/>
+              
+                   <apex:inputField value="{!Volume_Based_Forecast__c.Region__c}" required="true" id="regionId" onchange="regionSelectScriptFn('{!$Component.theform.pgblk1.titleblock.regionId}')"/> 
+                   
+                   <div id="PleaseWaitLabel" style="visibility:hidden;text-align:center;"> 
+                       <image src="/apexpages/devmode/img/saveStatus.gif" alt=" "/>
+                    </div>                        
+        </apex:pageBlockSection>
+         
+         <apex:pageBlockSection title="Ala Carte MDF Forecast" collapsible="false" columns="1" id="americas_mdf_forecast" rendered="{!americas_mdf_forecast_shown}">
+             <apex:pageBlockTable value="{!Volume_Based_Forecast__c}" var="a">
+                 <apex:column headerValue="CSMR">
+                     <apex:inputField value="{!a.AlaCarte_MDF_Forecast_CSMR__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="LE">
+                     <apex:inputField value="{!a.AlaCarte_MDF_Forecast_LE__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="PUB">
+                     <apex:inputField value="{!a.AlaCarte_MDF_Forecast_PUB__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="SMB">
+                     <apex:inputField value="{!a.AlaCarte_MDF_Forecast_SMB__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="ABU S&P">
+                     <apex:inputField value="{!a.AlaCarte_MDF_Forecast_ABU_S_P__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="Global Mktg">
+                     <apex:inputField value="{!a.AlaCarte_MDF_Forecast_Global_Mktg__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="ASAP">
+                     <apex:inputField value="{!a.AlaCarte_MDF_Forecast_ASAP__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="CSRM S&P">
+                     <apex:inputField value="{!a.AlaCarte_MDF_Forecast_CSRM_S_P__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="Corporate Events">
+                     <apex:inputField value="{!a.AlaCarte_MDF_Forecast_Corporate_Events__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="Int'l">
+                     <apex:inputField value="{!a.AlaCarte_MDF_Forecast_Intl__c}" style="width:60px"/>
+                 </apex:column>
+            </apex:pageBlockTable>       
+         </apex:pageBlockSection>
+         
+         <apex:pageBlockSection title="Ala Carte MDF Forecast" collapsible="false" columns="1" id="emea_mdf_forecast" rendered="{!emea_mdf_forecast_shown}">
+             <apex:pageBlockTable value="{!Volume_Based_Forecast__c}" var="a">
+                 <apex:column headerValue="CSMR">
+                     <apex:inputField value="{!a.AlaCarte_MDF_Forecast_CSMR__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="LE">
+                     <apex:inputField value="{!a.AlaCarte_MDF_Forecast_LE__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="PUB">
+                     <apex:inputField value="{!a.AlaCarte_MDF_Forecast_PUB__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="SMB Direct">
+                     <apex:inputField value="{!a.AlaCarte_MDF_Forecast_SMB_Direct__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="SMB channel">
+                     <apex:inputField value="{!a.AlaCarte_MDF_Forecast_SMB_Channel__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="All Segments">
+                     <apex:inputField value="{!a.AlaCarte_MDF_Forecast_All_Segments__c}" style="width:60px"/>
+                 </apex:column>                
+             </apex:pageBlockTable>       
+         </apex:pageBlockSection>
+         
+         <apex:pageBlockSection title="Ala Carte MDF Forecast" collapsible="false" columns="1" id="apj_mdf_forecast" rendered="{!apj_mdf_forecast_shown}">
+             <apex:pageBlockTable value="{!Volume_Based_Forecast__c}" var="a">
+                 <apex:column headerValue="CSMR">
+                     <apex:inputField value="{!a.AlaCarte_MDF_Forecast_CSMR__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="LE">
+                     <apex:inputField value="{!a.AlaCarte_MDF_Forecast_LE__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="PUB">
+                     <apex:inputField value="{!a.AlaCarte_MDF_Forecast_PUB__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="SMB">
+                     <apex:inputField value="{!a.AlaCarte_MDF_Forecast_SMB__c}" style="width:60px"/>
+                 </apex:column>               
+             </apex:pageBlockTable>       
+         </apex:pageBlockSection>
+         
+        <apex:pageBlockButtons location="bottom">
+            <apex:commandButton value="Save" action="{!saveFC}" rendered="{!button_rendered}"/>
+            <apex:commandButton value="Cancel" action="{!Cancel}" immediate="true"/>
+        </apex:pageBlockButtons> 
+    </apex:pageBlock>
+</apex:form>
+
+
+</apex:page>

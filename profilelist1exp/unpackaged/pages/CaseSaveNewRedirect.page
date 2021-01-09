@@ -1,0 +1,162 @@
+<!-- 
+Revision    CR Number   Release No      Date            Modified By     Description
+--------    ---------   ----------      -----------     ------------    -----------
+2.0         13229       FY17-DCS-0801   29-June-2016     Syuhada        Story 1616027:Update logic on NPS case record to determine category view
+3.0         18388       FY21-DCS-0202   23-Dec-2019      Yamini Kayam   Added lightning stylesheet="true" and checked Available for Lightning Experience, Lightning Communities, and the mobile app check box
+--> 
+<apex:page standardController="Case" extensions="CaseSaveNewRedirectController" action="{!CaseRedirect}" lightningStylesheets="true">
+<!-- Start 2.0 -->
+
+
+  <apex:form >
+      <apex:pageBlock title="Case Edit" >
+    <apex:pageMessages escape="true"></apex:pageMessages>
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Save" action="{!Save}"/>
+            <apex:commandButton value="Cancel" action="{!Cancel}"  immediate="true"/>
+        </apex:pageBlockButtons>
+        
+        <apex:pageBlockSection collapsible="false" title="Case Information" columns="2" >
+        
+            <apex:outputField value="{!Case.CaseNumber}" />
+            <apex:outputField value="{!Case.AccountId}"/>
+            <apex:outputField value="{!Case.OwnerId}"/>
+            <apex:outputField value="{!Case.Account_Tier__c}"/>
+            <apex:inputField value="{!Case.Status}" required="true"/>
+            <apex:outputField value="{!Case.ContactId}"/>
+            <apex:outputField value="{!Case.Due_Date__c}" />
+            <apex:outputField value="{!Case.Country__c}"/>
+            <apex:inputField value="{!Case.Priority}" required="true"/>
+            <apex:PageBlockSectionItem >
+                 <apex:outputLabel value="Segment"/>
+                     <apex:actionRegion >
+                            <apex:outputField value="{!Case.Segment__c}">
+                             <apex:actionSupport event="onchange" reRender="ajaxrequest"/>
+                          </apex:outputField>
+                     </apex:actionRegion>
+            </apex:PageBlockSectionItem>
+            <apex:outputField value="{!Case.Origin}"/>
+            <apex:outputField value="{!Case.Sub_Segment__c}"/>
+            <apex:outputField value="{!Case.Subject}"/> 
+
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection collapsible="false" title="Sales Call To Action">
+            <apex:outputfield value="{!Case.Description}" style="width:100%;"/>
+        </apex:pageBlockSection>
+        
+        <apex:outputPanel id="ajaxrequest">  
+        <!--this one for segment = channel -->
+            <apex:pageBlockSection columns="2"  rendered="{!Case.Segment__c=='Channel'}" collapsible="false" title="NPS Information">
+
+                <apex:outputField value="{!Case.NPS__c}"/> 
+                <apex:outputField value="{!Case.Recommended_Comment__c}"/>
+              
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="NPS Action Plan" for="Case_Additional_Sales_Comment__forchannel"/>
+                   <apex:inputtextarea value="{!Case.Additional_Sales_Comment__c}" cols="40" rows="4" id="Case_Additional_Sales_Comment__forchannel"/>
+                </apex:pageBlockSectionItem>
+
+                <apex:outputField value="{!Case.One_Thing_to_Improve__c}"/>
+                <apex:inputtextarea value="{!Case.Account_Relationship_Comment__c}" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.Account_Relationship__c}"/> 
+                <apex:inputtextarea value="{!Case.Client_Solution_Comment__c}" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.Client_Solution__c}"/> 
+                <apex:inputtextarea value="{!Case.Online_Comment__c}" label="Online / Partner Portal Comment" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.Online__c}"/> 
+                <apex:inputtextarea value="{!Case.Enterprise_Solution_Comment__c}" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.Enterprise_Solution__c}"/> 
+                <apex:inputtextarea value="{!Case.Order_Support_Comment__c}" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.Order_Support__c}"/> 
+                <apex:inputtextarea value="{!Case.S_P_Comment__c}" cols="40" rows="3"/> 
+                <apex:outputField value="{!Case.S_P__c}"/> 
+                <apex:inputtextarea value="{!Case.Tech_Support_Comment__c}" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.Tech_Support__c}"/>
+                <apex:inputtextarea value="{!Case.Software_Comment__c}" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.Software__c}"/>
+                <apex:inputtextarea value="{!Case.Marketing_Support_Comment__c}" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.Marketing_Support__c}"/>
+                <apex:inputtextarea value="{!Case.Training_Certification_Comment__c}" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.Training_Certification__c}"/> 
+            </apex:pageBlockSection>
+            
+             <!--this one for segment = OEM-->
+            <apex:pageBlockSection columns="2"  rendered="{!Case.Segment__c=='OEM'}" collapsible="false" title="NPS Information">
+
+                <apex:outputField value="{!Case.NPS__c}"/> 
+                <apex:outputField value="{!Case.Recommended_Comment__c}"/> 
+               
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="NPS Action Plan" for="Case_Additional_Sales_Comment__foroem"/>
+                   <apex:inputtextarea value="{!Case.Additional_Sales_Comment__c}" cols="40" rows="4" id="Case_Additional_Sales_Comment__foroem" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:outputField value="{!Case.One_Thing_to_Improve__c}"/>
+                <apex:inputtextarea value="{!Case.Account_Relationship_Comment__c}" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.Account_Relationship__c}"/> 
+                <apex:inputtextarea value="{!Case.Client_Solution_Comment__c}" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.Client_Solution__c}"/> 
+                <apex:inputtextarea value="{!Case.Enterprise_Solution_Comment__c}" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.Enterprise_Solution__c}"/> 
+                <apex:inputtextarea value="{!Case.Order_Support_Comment__c}" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.Order_Support__c}"/> 
+                <apex:inputtextarea value="{!Case.S_P_Comment__c}" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.S_P__c}"/> 
+                <apex:inputtextarea value="{!Case.Services_Comment__c}" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.Services__c}"/> 
+                <apex:inputtextarea value="{!Case.Tech_Support_Comment__c}" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.Tech_Support__c}"/>
+                <apex:inputtextarea value="{!Case.Software_Comment__c}" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.Software__c}"/>
+                <apex:inputtextarea value="{!Case.Program_Management_Comment__c}" cols="40" rows="4"/>
+                <apex:outputField value="{!Case.Program_Management__c}"/>
+                <apex:inputtextarea value="{!Case.Solution_ROI_Comment__c}" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.Solution_ROI__c}"/>
+                <apex:inputtextarea value="{!Case.Customization_Services_Comment__c}" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.Customization_Services__c}"/> 
+            </apex:pageBlockSection>
+            
+             <!--this one for segment != OEM/Channel  -->
+            <apex:pageBlockSection columns="2"  rendered="{!Case.Segment__c!='OEM' && Case.Segment__c!='Channel'}" collapsible="false" title="NPS Information">
+            
+                <apex:outputField value="{!Case.NPS__c}"/> 
+                <apex:outputField value="{!Case.Recommended_Comment__c}"/>
+ 
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="NPS Action Plan" for="Case_Additional_Sales_Comment__forothers"/>
+                   <apex:inputtextarea value="{!Case.Additional_Sales_Comment__c}" cols="40" rows="4" id="Case_Additional_Sales_Comment__forothers" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:outputField value="{!Case.One_Thing_to_Improve__c}"/>
+                <apex:inputtextarea value="{!Case.Account_Relationship_Comment__c}" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.Account_Relationship__c}"/> 
+                <apex:inputtextarea value="{!Case.Client_Solution_Comment__c}" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.Client_Solution__c}"/> 
+                <apex:inputtextarea value="{!Case.Online_Comment__c}" label="Online / Partner Portal Comment" cols="40" rows="4"/>
+                <apex:outputField value="{!Case.Online__c}"/>
+                <apex:inputtextarea value="{!Case.Enterprise_Solution_Comment__c}" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.Enterprise_Solution__c}"/> 
+                <apex:inputtextarea value="{!Case.Order_Support_Comment__c}" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.Order_Support__c}"/> 
+                <apex:inputtextarea value="{!Case.S_P_Comment__c}" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.S_P__c}"/> 
+                <apex:inputtextarea value="{!Case.Services_Comment__c}" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.Services__c}"/> 
+                <apex:inputtextarea value="{!Case.Tech_Support_Comment__c}" cols="40" rows="4"/> 
+                 <apex:outputField value="{!Case.Tech_Support__c}"/>
+                <apex:inputtextarea value="{!Case.Software_Comment__c}" cols="40" rows="4"/> 
+                <apex:outputField value="{!Case.Software__c}"/> 
+ 
+            </apex:pageBlockSection>
+        </apex:outputPanel> 
+        
+        <apex:pageBlockSection collapsible="false" title="Description Information">
+           <apex:outputField value="{!Case.RecordTypeId}"/>
+        </apex:pageBlockSection>
+        
+      </apex:pageBlock>
+      
+  </apex:form>
+  
+  <!-- End 2.0 -->
+</apex:page>

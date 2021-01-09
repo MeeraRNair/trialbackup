@@ -1,0 +1,33 @@
+<apex:page standardController="LOB_Registration__c" extensions="CreateNewLobController" sidebar="true" showHeader="true">
+  <apex:form > 
+    <apex:pageBlock title="LOB Registration">
+      <apex:pageMessages id="errorMsg" />         
+      <apex:pageBlockSection collapsible="false" title="Information">    
+        <c:MultiselectPicklist leftLabel="Available LOBs"
+                leftOption="{!allLobRecords}"
+                rightLabel="Selected LOBs"
+                rightOption="{!selectedLobRecords}"
+                size="6"
+                width="270px"/>
+      </apex:pageBlockSection>
+      <apex:pageBlockSection collapsible="false" >
+        <apex:outputLabel ></apex:outputLabel>
+        <apex:inputField value="{!LOB_Registration__c.LOB_registration_status__c}" required="true"/>      
+        <apex:inputField value="{!LOB_Registration__c.Preferred_GTM_Partner_Account__c}"/>      
+        <apex:outputField value="{!LOB_Registration__c.Registered_End_User__c}"/>      
+        <apex:inputField value="{!LOB_Registration__c.LOB_Award_Type__c}" required="true"/>      
+        <apex:inputField value="{!LOB_Registration__c.LOB_Partner_Approved_Date__c}"/>      
+        <apex:inputField value="{!LOB_Registration__c.City__c}"/>      
+        <apex:inputField value="{!LOB_Registration__c.Deal_Id__c}"/>      
+        <apex:inputField value="{!LOB_Registration__c.State_Province_Region__c}"/>      
+        <apex:inputField value="{!LOB_Registration__c.Partner_Sales_Rep_Contact__c}"/>      
+        <apex:inputField value="{!LOB_Registration__c.Subsidiary_Name__c}"/>      
+        <apex:inputField value="{!LOB_Registration__c.Notes__c}"/>      
+      </apex:pageBlockSection>
+      <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!Save}"/>
+                <apex:commandButton value="Cancel" immediate="true" action="{!Cancel}"/>
+      </apex:pageBlockButtons>      
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

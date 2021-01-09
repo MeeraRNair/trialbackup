@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>gdm_vre_024_Deactivate_AcctIdDup_Same</fullName>
+    <active>true</active>
+    <description>Account ID and Duplicated Acct ID/Parent ID are the same</description>
+    <errorConditionFormula>AND (
+       Account_ID__c ==  Duplicated_Account_ID__c ,
+       NOT ISBLANK( Account_ID__c),
+       RecordType.Name == &quot;Deactivate Account&quot;
+   )</errorConditionFormula>
+    <errorDisplayField>Duplicated_Account_ID__c</errorDisplayField>
+    <errorMessage>(024) Account ID and Duplicated ID/Parent-Account ID have the same values</errorMessage>
+</ValidationRule>

@@ -1,0 +1,122 @@
+<!-- * 
+* Revision CR Number   Release No      Date            Modified By     Description
+* -------- ---------   ----------      -----------     ------------    -----------
+
+* 1.0 -    CR16427     FY19-DCS-1002   31-Aug-2018:    manip4          added 'lightningStylesheets' attribute for apex component to make the page lightening friendly for the story 5537340
+* 2.0                  FY19-DCS-0102   11-Nov-2018     Rahul             Fixing Continue Button Defect
+*/-->
+
+<apex:page standardController="Task" extensions="VFCntrlr_CreateNewOrReassignTaskAssignee" title="Create Task" id="thePage" lightningStylesheets="true">     
+    <apex:form >
+    <apex:pageBlock title="Select Assignment Type" >
+
+         <!-- Refresh Page-->  
+         <apex:actionFunction action="{!refresh}" name="refresh" reRender="SelectAsignmentOption" status="loadingAnimation" />
+         
+         <!--
+          {!Test} <p> {!recordIdPrefix} </p> <p> {!recordId} </p>
+          {!sObjectType}
+          {!isDefaultOwner} <p></p>   
+          SelectedRecordName ={!SelectedRecordName}<p></p>
+          SelectedRecordId = {!SelectedRecordId}<p></p>
+          keyset = {!SelectedATMorSTMMapKeySet} 
+          taskId=  {!taskId}<p></p>
+          {!aTaskId }
+          {!ReassignTask}
+          SelectedAccOrSalesTeamMember ={!SelectedAccOrSalesTeamMember}<p></p>
+          AssignOptions = {!AssignOptions}<p></p>
+          URL = {!URL}
+          OwnerId = {!OwnerId} <p></p>
+          User= {!User} <p></p>
+       -->        
+
+         <!-- Select Assignment Type-->
+            <apex:selectList value="{!AssignOptions}" size="1" onchange="refresh()" id="SelectAssignmentOption">
+            <apex:selectOptions value="{!AssignmentOptions}"/>
+            </apex:selectList>
+            
+            <!-- Loading Animation-->            
+            <apex:actionStatus id="loadingAnimation">
+            <apex:facet name="start"><apex:image url="{!$Resource.loading}"/></apex:facet>
+            </apex:actionStatus>            
+            
+            <apex:outputPanel id="SelectAsignmentOption">
+            <p> 
+   
+                <!-- Display Sales Team Member-->
+                <apex:pageBlock rendered="{!AssignOptions='Sales Team Members'}"> 
+                <apex:pageBlockSection title="Name (Team Member Role)">
+                <apex:selectRadio value="{!SelectedAccOrSalesTeamMember}" layout="pageDirection"> 
+                    <apex:selectOptions value="{!SalesTeamMember}"/>
+                </apex:selectRadio> 
+                </apex:pageBlockSection>
+                </apex:pageblock>
+        
+                
+                <!-- Display Account Team Member-->
+                <apex:pageBlock rendered="{!AssignOptions='Account Team Members'}">
+                <apex:pageBlockSection title="Name(Team Member Role)">
+                <apex:selectRadio value="{!SelectedAccOrSalesTeamMember}" layout="pageDirection">
+                    <apex:selectOptions value="{!AccountTeamMember}"/>
+                </apex:selectRadio>                        
+                </apex:pageBlockSection>
+                </apex:pageblock>
+                                  
+
+                <!-- Display Default Owner-->
+                <apex:pageBlock rendered="{!AssignOptions='Default Owner'}">
+                <apex:pageBlockSection >                   
+                <apex:selectRadio value="{!isDefaultOwner}"> 
+                    <apex:selectOptions value="{!ItemsCurrentUser}"/>
+                </apex:selectRadio>                                      
+                </apex:pageBlockSection>
+                </apex:pageBlock>
+                                             
+  
+                <!--Display Others option-->                
+                <apex:pageblock rendered="{!AssignOptions='Others'}">
+                    <apex:pageBlockSection >
+                        <apex:inputField value="{! task.OwnerId}" id="OwnerId"/>   
+                    </apex:pageBlockSection>      
+                </apex:pageblock>
+            </p>
+            <script>
+                
+                function continueEdit(){
+                var stringvalue='{!parentWhatId}';
+                    function isLightningExperienceOrSalesorce1(){
+                    
+                        return((typeof sforce != 'undefined') && sforce && (!!sforce.one));
+                    }
+                    
+                    if(isLightningExperienceOrSalesorce1()){
+                        
+                        
+                         var defaultValues = {
+                               'WhatId' : stringvalue
+                             };
+                         sforce.one.createRecord("Task", null, defaultValues);
+
+                    }
+                    
+                    else{
+                        if('{!aTaskId}' != '')
+                            window.open('/{!aTaskId}/e?RecordType=012300000004ze9&ent=Task&tsk1={!SelectedRecordName}&tsk1_lkid={!SelectedRecordId}&retURL={!recordId}',"_self");
+                    
+                        else
+                            window.open('{!strURL}',"_self");
+                    }
+                }
+                
+            </script>
+            </apex:outputPanel> 
+            
+            <!-- Buttons-->
+              <apex:commandButton action="{! doCancel}" value="Cancel"/>
+              <apex:commandButton action="{! doSaveClose}" value="Save & Close" rendered="{!showSaveNClosebutton}" oncomplete="window.opener.location.refresh();"/>
+              <apex:commandButton action="{!doContinue}" value="Continue" rerender="SelectAsignmentOption" oncomplete="continueEdit();"/>
+
+              
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

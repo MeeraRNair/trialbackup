@@ -1,0 +1,205 @@
+<apex:page id="pgCCSetup" title="Competency Criteria Setup" standardController="Certification_Criteria_Setup__c" extensions="VFCntrlr_CertCriteria_AddEdit" showHeader="True" lightningStylesheets="true">
+    <apex:form id="frmccSetup">
+    <style>
+    
+    
+.testSLDS {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid rgb(221, 219, 218);
+    transition: border .15s linear;
+    border-color: rgb(221, 219, 218);
+    background-color: rgb(255, 255, 255);
+}
+</style>
+    <apex:actionFunction name="callControler" action="{!saveClose}" rerender="frmccSetup"/>
+        <script language="javascript">
+        
+             var gotoLightningView = function() {
+             callControler();
+            window.parent.location = '/'+'{!ccSetup.Id}';
+  
+        }; 
+        function openCoursePopup(mode,cnt){
+            var criteria   = document.getElementById("pgCCSetup:frmccSetup:pgBlk:pgBlkSection:idCriteriaValue");
+            var criteriaId = document.getElementById("pgCCSetup:frmccSetup:pgBlk:pgBlkSection:idCriteriaValueIds");
+            
+            var popupstyle = "center:yes;resizable:yes;dialogHeight:550px;dialogWidth:950px";                                    
+            var strURL  ='/apex/CertCriteria_AddEditTraining?mode='+mode+'&crValue='+ encodeURIComponent(criteria.value)+'&crId=' + criteriaId.value;
+            
+            if (cnt != 0)
+                strURL = strURL + '&cnt=' + cnt;
+            
+            var getTraining = window.showModalDialog(strURL,'Course_Details?',popupstyle);           
+            if (getTraining == null)
+                getTraining = window.returnValue;
+                
+            if(getTraining != null){
+                
+                var s = getTraining.split("@@",2)               
+                criteria.value = s[0]; 
+                criteriaId.value = s[1];
+            }
+            refreshCriteria();
+        }
+        function openDemoPopup(mode,cnt){
+            var criteria   = document.getElementById("pgCCSetup:frmccSetup:pgBlk:pgBlkSection:idCriteriaValue");
+            var criteriaId = document.getElementById("pgCCSetup:frmccSetup:pgBlk:pgBlkSection:idCriteriaValueIds");
+            
+            var popupstyle = "center:yes;resizable:yes;dialogHeight:550px;dialogWidth:950px";                                    
+            var strURL  ='/apex/CertCriteria_AddEditDemo?mode=' + mode + '&crValue=' + encodeURIComponent(criteria.value) + '&crId=' + criteriaId.value;
+            
+            if (cnt != 0)
+                strURL = strURL + '&cnt=' + cnt;
+            
+            var getTraining = window.showModalDialog(strURL,'',popupstyle);           
+            if (getTraining == null)
+                getTraining = window.returnValue;
+                
+            if(getTraining != null){
+                
+                var s = getTraining.split("@@",2)               
+                criteria.value = s[0]; 
+                criteriaId.value = s[1];
+            }
+            refreshCriteria();    
+        }
+
+       /* function clearTraining(){
+             document.getElementById("pgCCSetup:frmccSetup:pgBlk:pgBlkSection:idCriteriaValue").value='';
+             document.getElementById("pgCCSetup:frmccSetup:pgBlk:pgBlkSection:idCriteriaValueIds").value='';
+             
+             return false;
+        }*/                 
+      /*  function chkCriteriaName(){
+             var OptionsId = document.getElementById("pgCCSetup:frmccSetup:pgBlk:pgBlkSection:idCriteriaName");
+             var optName = OptionsId.value ;
+             var cmdAddEdit = document.getElementById("pgCCSetup:frmccSetup:pgBlk:pgBlkSection:blkSectionItem:blkSectionItem2:cmdAddEdit");
+             var cmdClear = document.getElementById("pgCCSetup:frmccSetup:pgBlk:pgBlkSection:blkSectionItem:blkSectionItem2:cmdClear");
+
+             var txtCSValue= document.getElementById("pgCCSetup:frmccSetup:pgBlk:pgBlkSection:idCriteriaValue");
+             //var txtCond = document.getElementById("pgCCSetup:frmccSetup:pgBlk:pgBlkSection:crCondition");
+             var txtNoOfDemo = document.getElementById("pgCCSetup:frmccSetup:pgBlk:pgBlkSection:noofdemounits");
+             
+
+             if(optName == 'First Sales Training' || optName == 'Second Sales Training'
+                    || optName == 'First Technical Training' || optName == 'Second Technical Training'
+                    || optName == 'General Training Criteria')
+             {
+                 cmdAddEdit.disabled = false; 
+                 cmdClear.disabled = false;
+                 txtCSValue.setAttribute('readonly'); 
+                // txtCond.disabled = false;
+                 txtNoOfDemo.disabled = true;
+                 txtNoOfDemo.value = '';                  
+             }
+             else if(optName == 'Demo Unit')
+             {
+                 cmdAddEdit.disabled = true; 
+                 cmdClear.disabled = true;                 
+                 txtCSValue.removeAttribute('readonly'); 
+                // txtCond.disabled = true;
+                 txtNoOfDemo.disabled = false;
+                               
+             }
+             else{
+                 cmdAddEdit.disabled = true;                
+                 cmdClear.disabled = true;                             
+                 txtCSValue.removeAttribute('readonly');
+                // txtCond.disabled = true;
+                 txtNoOfDemo.disabled = true;
+                 txtNoOfDemo.value = ''; 
+             }
+        }*/
+        function CheckAll(chkSelectAll) {
+            var inputElem = document.getElementsByTagName("input");
+            for(var i=0; i<inputElem.length; i++){
+                if(inputElem[i].id.indexOf("chk")!=-1)
+                    inputElem[i].checked = chkSelectAll.checked;  
+            }
+        }   
+        function unCheckSelectAll(chk){
+            var inputElem = document.getElementsByTagName("input");            
+            if (chk.checked == false){
+                for(var i=0; i<inputElem.length; i++){                   
+                    if(inputElem[i].id.indexOf("SelectAll")!= -1)
+                        inputElem[i].checked = false;    
+                }
+            }
+        }   
+        </script>
+        <apex:actionFunction name="refreshCriteria" rerender="pgBlkSectionCertCriteria" status="status" />     
+        <apex:pageBlock title="Competency Criteria Setup" id="pgBlk">
+            <apex:pageBlockButtons location="both">
+                <apex:commandButton value="Save"         action="{!save}"       id="cmdSave"     />
+                <apex:commandButton onclick="gotoLightningView()" Value="Save & Close"/>
+                <apex:commandButton value="Cancel"       action="{!cancel}"     id="cmdCancel" />
+                
+                <apex:actionStatus id="status_chk3" startText="please wait..." layout="inline">
+                    <apex:facet name="start" >
+                        <apex:image value="/img/loading32.gif" width="20" height="20" alt="please wait..."/>      
+                    </apex:facet>
+                </apex:actionStatus>
+            </apex:pageBlockButtons>
+            <!-- apex:pageMessages / --> 
+            <apex:pageBlockSection id="pgBlkSection">
+                <apex:inputField value="{!ccSetup.name}"/>
+                <apex:inputField value="{!ccSetup.Certification_Requirement_Setup__c}"/>
+                <apex:inputField value="{!ccSetup.Certification_Criteria_Order__c}"  required="true"/>
+                <apex:inputField value="{!ccSetup.Certification_Criteria_Name__c}" required="true"  id="idCriteriaName" >               
+                    <apex:actionSupport event="onchange" rerender="pgBlk" status="status_chk3"/>
+                    
+                </apex:inputField>
+                <apex:inputField value="{!ccSetup.Certification_Criteria_Value__c}" style="font-size: 10pt;width:200px" id="idCriteriaValue1" rendered="{! NOT(OR(CONTAINS(ccSetup.Certification_Criteria_Name__c ,'Training'),CONTAINS(ccSetup.Certification_Criteria_Name__c ,'Demo')))}"/>
+                <apex:inputField value="{!ccSetup.Number_of_Demo_Units__c}" id="noofdemounits" rendered="{! (CONTAINS(ccSetup.Certification_Criteria_Name__c ,'Demo'))}" />
+                <apex:inputField value="{!ccSetup.Condition__c}"  id="crCondition" />
+                
+                <!-- apex:pageBlockSectionitem id="blkSectionItem">
+                    <apex:outputLabel ></apex:outputLabel>
+                    <apex:pageBlockSectionitem id="blkSectionItem2">
+                        <apex:commandButton onclick="{openCoursePopup();return false;}" value="Add/Edit Training" id="cmdAddEdit"/>
+                        <apex:commandButton onclick="{clearTraining();return false;}"  value="Clear Training" immediate="true" id="cmdClear"/>                      
+                    </apex:pageBlockSectionitem> 
+                </apex:pageBlockSectionitem -->
+                
+                <apex:inputHidden value="{!ccSetup.Certification_Criteria_Value__c}" id="idCriteriaValue" rendered="{! OR(CONTAINS(ccSetup.Certification_Criteria_Name__c ,'Training'),CONTAINS(ccSetup.Certification_Criteria_Name__c ,'Demo'))}"/>                
+                <apex:inputHidden value="{!ccSetup.Criteria_Value_Ids__c}" id="idCriteriaValueIds" />
+                
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="1" id="pgBlkSectionCertCriteria" title="Competency Criteria" rendered="{! OR(CONTAINS(ccSetup.Certification_Criteria_Name__c ,'Training'),CONTAINS(ccSetup.Certification_Criteria_Name__c ,'Demo'))}" >
+                <apex:pageBlockSectionitem id="blkSectionItem2">
+                    <apex:outputpanel layout="block">
+                        <apex:commandButton value="Add New Course Criteria"    id="cmdAdd"      onclick="{openCoursePopup('Add',0);return false;}" rendered="{! (CONTAINS(ccSetup.Certification_Criteria_Name__c ,'Training'))}"/>
+                        <apex:commandButton value="Add New Demo Unit Criteria" id="cmdAddDemo"  onclick="{openDemoPopup('Add',0);return false;}"   rendered="{! (CONTAINS(ccSetup.Certification_Criteria_Name__c ,'Demo'))}"/>                      
+                        <apex:commandButton value="Delete Selected Criteria"   id="cmdDel"      action="{!deleteCourse}" />  
+                    </apex:outputpanel>
+                </apex:pageBlockSectionitem>
+                    <apex:pageBlockTable id="pgblkTbl" var="opt" value="{!CertTraining}">                    
+                        <apex:column width="20px">
+                            <apex:facet name="header">   
+                                <apex:outputPanel style="vertical-align:top;">
+                                    <apex:inputCheckbox id="SelectAll" style="vertical-align:top;" value="{!chkSelectAll}" onclick="{CheckAll(this);}" />                                                      
+                                    <apex:outputLabel style="vertical-align:top;">Select All&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</apex:outputLabel>                                    
+                                </apex:outputPanel>
+                            </apex:facet>
+                            <apex:inputCheckbox id="chk" value="{!opt.isSelected}" onclick="{unCheckSelectAll(this);}" />                           
+                        </apex:column>                        
+                        <apex:column headervalue="Action">
+                            <apex:commandLink style="color:blue" value="Edit" onclick="openCoursePopup('Edit',{!opt.OptionNumber})" rendered="{! (CONTAINS(ccSetup.Certification_Criteria_Name__c ,'Training'))}" />                
+                            <apex:commandLink style="color:blue" value="Edit" onclick="openDemoPopup('Edit',{!opt.OptionNumber})" rendered="{! (CONTAINS(ccSetup.Certification_Criteria_Name__c ,'Demo'))}" />&nbsp;                
+                            <apex:commandLink style="color:blue" value="Del"  action="{!delCourse}">
+                                <apex:param name="OptionNum" assignTo="{!OptionNum}" value="{!opt.OptionNumber}"/>
+                            </apex:commandLink>
+                        </apex:column>
+                        <apex:column headervalue="Courses" value="{!opt.crOption}"/>
+                    </apex:pageBlockTable>                
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+        <!--script language="javascript">          
+           // chkCriteriaName();          
+        </script-->
+    </apex:form>
+</apex:page>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>State__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>State</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Geography__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>State</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Geography__c</referenceTo>
+    <relationshipLabel>Zipcodes</relationshipLabel>
+    <relationshipName>Geographies</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

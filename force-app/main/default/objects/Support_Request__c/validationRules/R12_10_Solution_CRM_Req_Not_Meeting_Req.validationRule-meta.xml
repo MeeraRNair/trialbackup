@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>R12_10_Solution_CRM_Req_Not_Meeting_Req</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND ( 
+ISPICKVAL (Request_meets_requirement__c, &quot;No&quot;), 
+OR ( 
+(NOT (ISBLANK (Assigned_System_Engineer_1__c))), 
+(NOT (ISBLANK (Assigned_System_Engineer_2__c))) 
+) 
+)</errorConditionFormula>
+    <errorDisplayField>Request_meets_requirement__c</errorDisplayField>
+    <errorMessage>System Engineer(s) cannot be assigned to a request that does not meet requirement.</errorMessage>
+</ValidationRule>

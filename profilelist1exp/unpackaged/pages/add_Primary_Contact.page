@@ -1,0 +1,58 @@
+<apex:page standardController="Marketing_Plan__c" extensions="VFCntrlr_Add_Primary_Contact" sidebar="false" lightningStylesheets="true">
+   <apex:messages style="color:red;font-weight:bold;"/>
+   <apex:form >
+               
+             <apex:pageBlock mode="mainDetail">
+                 <apex:pageMessage severity="info" strength="1" summary="No Partner contacts are associated to this subvendor in the system.To enter new contact click 'Enter a New Contact'.To update already entered contact details click 'Edit the current contact details.'" rendered="{!NOT(contact_table_rendered)}"/>
+                 <apex:pageMessage severity="info" strength="1" summary="By Clicking on 'Select' you can view/update the selected contact Info.To enter new contact click 'Enter a New Contact'.To update already entered contact details click 'Edit the current contact details.'" rendered="{!(contact_table_rendered)}" />
+                <apex:pageBlockSection title="Primary Marketing Contacts" columns="1" rendered="{!contact_table_rendered}">
+                    <apex:pageblockTable value="{!mdfContactList}" var="mdfObj">
+                        <apex:column headerValue="Select">
+                            <apex:commandLink value="Select" action="{!select_action}" immediate="true">
+                                <apex:param name="cntctId" value="{!mdfObj.Id}" assignTo="{!contactId}"/>
+                            </apex:commandLink>
+                        </apex:column>
+                        <apex:column headerValue="Name">
+                            <apex:outputField value="{!mdfObj.MDF_Contact__r.Name}"/> 
+                        </apex:column>
+                        <apex:column headerValue="Title">
+                            <apex:outputField value="{!mdfObj.MDF_Contact__r.Title__c}"/>
+                        </apex:column>
+                        <apex:column headerValue="Phone">
+                            <apex:outputField value="{!mdfObj.MDF_Contact__r.Phone__c}"/>
+                        </apex:column>
+                        <apex:column headerValue="Email">
+                            <apex:outputField value="{!mdfObj.MDF_Contact__r.Email__c}"/>
+                        </apex:column>
+                        <apex:column headerValue="Type">
+                            <apex:outputField value="{!mdfObj.MDF_Contact__r.Partner_Contact_Type__c}"/>
+                        </apex:column>
+                    </apex:pageblockTable>
+                    </apex:pageBlockSection>
+                     <apex:pageBlockSection >
+                        <apex:commandLink value="Enter a New Contact" action="{!new_contact_info_action}" immediate="true"/>
+                        <apex:commandLink value="Edit the current contact details " action="{!edit_contact_info_action}" immediate="true"/>
+                    </apex:pageBlockSection>
+
+               
+                <apex:pageBlockSection title="Primary Contact Info" columns="2" rendered="{!new_contact_info_rendered}">
+                    <apex:inputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_Name__c}" required="true"/>
+                    <apex:inputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_Country__c}"/>
+                    <apex:inputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_Phone__c}" required="true"/>
+                    <apex:inputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_E_mail__c}" required="true"/>
+                    <apex:inputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_Address__c}"/>
+                    <apex:inputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_Cell__c}"/>
+                    <apex:inputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_City__c}"/>
+                    <apex:inputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_State__c}"/>
+                    <apex:inputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_Title__c}" required="true"/>
+                    <apex:inputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_Zip__c}"/> 
+                    <apex:inputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_Fax__c}"/>
+                    
+                </apex:pageBlockSection>
+                <apex:pageBlockButtons location="bottom">
+                    <apex:commandButton value="Save" action="{!savenew_Info}" rendered="{!new_contact_info_rendered}"/>                    
+                   <apex:commandButton value="Cancel" action="{!cancelinfo}" immediate="true"/>
+                </apex:pageBlockButtons>
+            </apex:pageBlock>          
+    </apex:form> 
+</apex:page>

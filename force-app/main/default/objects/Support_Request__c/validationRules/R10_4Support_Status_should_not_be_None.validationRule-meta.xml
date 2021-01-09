@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>R10_4Support_Status_should_not_be_None</fullName>
+    <active>true</active>
+    <description>Support Status field should be updated after Support Owner is assigned/modified</description>
+    <errorConditionFormula>ISPICKVAL(Support_Status__c,&quot;&quot;)</errorConditionFormula>
+    <errorDisplayField>Support_Status__c</errorDisplayField>
+    <errorMessage>Support Status field should not be &quot;None&quot;</errorMessage>
+</ValidationRule>

@@ -1,0 +1,27 @@
+<apex:page controller="RebateRuleLineItemController" lightningStylesheets="true">
+    <script>    
+    var stringvalue='{!recordId}'
+    if("{!$User.UITheme}" == "Theme4d" || "{!$User.UITheme}" == "Theme4u"  ){//|| 
+        
+        var openWin = window.open('/one/one.app#/alohaRedirect/apex/Reset_Rebate_Rule_Page?id='+stringvalue);
+        
+    }
+    
+    else if("{!$User.UITheme}" == "Theme4t"){
+        //sforce.one.navigateToURL('/apex/Reset_Rebate_Rule_Page?id ='+stringvalue);
+        sforce.one.navigateToURL('/one/one.app#/alohaRedirect/apex/Reset_Rebate_Rule_Page?id='+stringvalue);
+        }
+    else{
+    var openWin = window.open('/apex/Reset_Rebate_Rule_Page?id='+stringvalue);
+    }
+    
+    
+    if (!openWin && "{!$User.UITheme}" != "Theme4t") {
+        alert("A popup blocker was detected. Please Remove popupblocker for this site");
+    } 
+    if("{!$User.UITheme}" != "Theme4t"){
+        window.open('/{!recordId}', "_self");
+        }
+    
+    </script>    
+</apex:page>

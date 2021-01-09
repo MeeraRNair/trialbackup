@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Alert__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(AND( Prerequisites__c, Prerequisite_Count__c =0), IMAGE(&quot;/img/samples/flag_red.gif&quot;, &quot;red&quot;, 12, 12)+&apos; &apos; + &apos;ALERT : This Competency Requirement has Prerequisites checked but Prerequisites are not added.&apos; + BR() +&apos;Please complete the Competency Prerequisites Setup.&apos;,&apos;&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>&lt;font color=&quot;#fff&quot;&gt;</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

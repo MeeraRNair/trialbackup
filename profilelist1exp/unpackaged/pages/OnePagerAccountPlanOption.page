@@ -1,0 +1,243 @@
+<apex:page standardcontroller="SFDC_Acct_Plan__c" extensions="VFCntrlr_OnePagerAccountPlan" tabStyle="SFDC_Acct_Plan__c">
+
+ <STYLE>
+
+    .customPanel {
+
+        margin-bottom: 10px;
+
+      }
+
+      
+
+      .customHR {
+
+        color: #7eb47e;
+
+      }
+
+      
+
+      .customLinkBtn {    
+
+        background-image: url(/img/bgButton.gif);
+
+        background-repeat: repeat-x;
+
+        background-position: left top;
+
+        border-right-width-value: 1px;
+
+        border-right-style-value: solid;
+
+        border-right-color-value: #5c5d61;
+
+        border-bottom-width: 1px;
+
+        border-bottom-style: solid;
+
+        border-bottom-color: #5c5d61;
+
+        border-top-width: medium;
+
+        border-top-style: none;
+
+        border-top-color: -moz-use-text-color;
+
+        border-left-width-value: medium;
+
+        border-left-style-value: none;
+
+        border-left-color-value: -moz-use-text-color;
+
+        padding-top: 1px;
+
+        padding-right: 3px;
+
+        padding-bottom: 1px;
+
+        padding-left: 3px;
+
+        cursor: pointer;
+
+        display: inline;
+
+        font-size: 80%;
+
+      }
+
+      
+
+      .customLinkBtnText
+
+      {
+
+        font-family: 'Verdana','Geneva',sans-serif;
+
+        color: #ffffff;
+
+        font-weight: bold;
+
+      }
+
+      
+
+      a:visited, a:link {text-decoration: none;}
+
+      
+
+    
+
+      .customTableCol {
+
+          vertical-align: middle;
+
+      }
+
+    .cErrorMessage {
+        font-weight: bold;
+    }
+
+    .bPageTitle   
+    { 
+        margin-bottom: 1px;
+    }
+  </STYLE>
+
+
+  
+  <apex:sectionHeader title="Acct Plan" subtitle="{!SFDC_Acct_Plan__c.Name}"/>
+<div style="padding-top:0px; margin-top:0px; vertical-align: top; height: 30px">&nbsp;«&nbsp;<a href="/{!SFDC_Acct_Plan__c.Id}">Back to Account Plan:  {!SFDC_Acct_Plan__c.Name}</a></div>
+  
+
+  <span class="cErrorMessage"><apex:messages title="Errors"/></span>
+  <apex:form rendered="{!!hasError}">    
+      
+      <apex:pageBlock title="Select Report Type">
+
+           
+
+          <apex:selectRadio value="{!selectedRptType}" layout="" >          
+
+            <apex:selectOptions value="{!reportTypes}" />          
+
+          </apex:selectRadio>
+
+          
+
+
+
+      </apex:pageBlock>      
+
+      
+
+          <apex:pageBlock title="Select Contact Roles" id="ConRoles">
+
+          <table>
+
+            <tr>
+
+              <td class="customTableCol" style="width: 230px;">
+
+                <b>Available Contact Roles:</b>
+
+                <apex:selectList multiselect="true" value="{!rolesToAdd}" size="10" style="width: 230px;">
+
+                  <apex:selectOptions value="{!availableRoles}"/><br/>
+
+                </apex:selectList>
+
+              </td>
+
+              <td style="vertical-align: middle">
+
+                <!-- <apex:commandButton action="{!addRoles}" reRender="ConRoles" status="status" styleClass="rightArrowIcon" style="border: 0px; width: 24px" title="Add"/> -->
+                <apex:commandLink action="{!addRoles}" reRender="ConRoles" status="status" title="Add"><img src="/s.gif" alt="Add" class="picklistArrowRight" style="cursor: pointer; " title="Add"/></apex:commandLink>
+
+                <br/>
+
+                <br/>
+
+                <!-- <apex:commandButton action="{!removeRoles}" reRender="ConRoles" status="status" styleClass="leftArrowIcon" style="border: 0px; width: 24px" title="Remove" /> -->
+                <apex:commandLink action="{!removeRoles}" reRender="ConRoles" status="status" title="Add"><img src="/s.gif" alt="Remove" class="picklistArrowLeft" style="cursor: pointer; " title="Remove"/></apex:commandLink>
+
+              </td>
+
+              <td class="customTableCol"  style="width: 230px;">
+
+                <b>Selected Contact Roles:</b>
+
+                <apex:selectList multiselect="true" value="{!rolesToRemove}" size="10" style="width: 230px">
+
+                  <apex:selectOptions value="{!selectedRoles}"/><br/>
+
+                </apex:selectList>
+
+              </td>
+
+            </tr>
+
+            <tr>
+
+                <td style="text-align: right"><apex:commandButton reRender="ConRoles" value="Add All Available Roles" action="{!addAllRoles}" style="margin-top: 5px"/></td>
+
+                <td></td>
+
+                <td style="text-align: right"><apex:commandButton reRender="ConRoles" value="Remove All Selected Roles" action="{!removeAllRoles}" style="margin-top: 5px"/></td>
+
+            </tr>
+
+          </table>   
+
+          <div align="center">
+
+            <hr class="customHR"/>        
+
+            <apex:commandLink styleClass="customLinkBtn" target="_blank" action="{!openPDF}" value="" style="width: 100px; height: 25px"><span class="customLinkBtnText">Generate PDF</span></apex:commandLink>
+
+          </div> 
+
+    </apex:pageBlock>
+
+  </apex:form>
+    <apex:outputPanel rendered="false">
+        {!SFDC_Acct_Plan__c.name} 
+        {!SFDC_Acct_Plan__c.Account__c} 
+        {!SFDC_Acct_Plan__c.Plan_Status__c}  
+        {!SFDC_Acct_Plan__c.Power_Sponsor_Decision_Maker__r.FirstName}  
+        {!SFDC_Acct_Plan__c.Power_Sponsor_Decision_Maker__r.LastName}
+        {!SFDC_Acct_Plan__c.Sponsor_Champion__r.FirstName}  
+        {!SFDC_Acct_Plan__c.Sponsor_Champion__r.LastName} 
+        {!SFDC_Acct_Plan__c.Last_4Q_Revenue__c}
+        {!SFDC_Acct_Plan__c.Last_4Q_Margin__c}    
+        {!SFDC_Acct_Plan__c.X4Q_Revenue_Plan__c}   
+        {!SFDC_Acct_Plan__c.X4Q_Margin_Plan__c}  
+        {!SFDC_Acct_Plan__c.Growth_Plan_Revenue__c}   
+        {!SFDC_Acct_Plan__c.Growth_Plan_Margin__c}  
+        {!SFDC_Acct_Plan__c.Plan_Starting_Fiscal_Year__c} 
+        {!SFDC_Acct_Plan__c.Plan_Starting_Quarter__c}    
+        {!SFDC_Acct_Plan__c.Description_Comments__c} 
+        {!SFDC_Acct_Plan__c.Business_Description__c} 
+        {!SFDC_Acct_Plan__c.Account_Fiscal_Year_End__c} 
+        {!SFDC_Acct_Plan__c.Account_Fiscal_Year_End__c}
+		{!SFDC_Acct_Plan__c.Business_Description__c}
+		{!SFDC_Acct_Plan__c.Mission_Statement__c}
+		{!SFDC_Acct_Plan__c.Overall_Customer_Short_Term_Goals__c}
+		{!SFDC_Acct_Plan__c.Overall_Customer_Long_Term_Goals__c}
+		{!SFDC_Acct_Plan__c.Large_Scale_Related_Initiatives_Planned__c}
+		{!SFDC_Acct_Plan__c.Satisfaction_Issues__c}
+		{!SFDC_Acct_Plan__c.Go_To_Market_Approach__c}
+		{!SFDC_Acct_Plan__c.Go_To_Market_Approach_Comments__c}
+		{!SFDC_Acct_Plan__c.Marketing_NPS_Initiatives__c}
+		{!SFDC_Acct_Plan__c.Dell_s_Value_Proposition__c}
+		{!SFDC_Acct_Plan__c.Account_Annual_IT_Spend__c}
+		{!SFDC_Acct_Plan__c.Anticipated_IT_Spend_with_Dell__c}
+		{!SFDC_Acct_Plan__c.Share_of_Wallet_with_Dell__c}
+		{!SFDC_Acct_Plan__c.Total_Value_of_1st_Half_Strategies__c}
+		{!SFDC_Acct_Plan__c.Total_Value_of_2nd_Half_Strategies__c}
+		{!SFDC_Acct_Plan__c.Annual_Value_of_Strategies__c}   
+		{!SFDC_Acct_Plan__c.Account_Fiscal_Year_End_formula__c}  
+    </apex:outputPanel>
+
+
+</apex:page>

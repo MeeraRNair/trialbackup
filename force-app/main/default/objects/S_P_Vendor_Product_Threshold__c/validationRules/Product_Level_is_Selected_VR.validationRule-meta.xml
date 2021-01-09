@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Product_Level_is_Selected_VR</fullName>
+    <active>true</active>
+    <description>If Level is Product, then the Product Family, Product Description,  Percentage,  Minimum Revenue fields must be specified.</description>
+    <errorConditionFormula>AND(   ISPICKVAL( Level__c , &quot;Product&quot;) ,  OR(ISBLANK(Product_Family__c ),  ISBLANK(Product_Description__c )  , ISBLANK( Percentage__c ) ,  ISBLANK(Minimum_Revenue__c )))</errorConditionFormula>
+    <errorMessage>If Level is Product, then the Product Family, Product Description,  Percentage,  Minimum Revenue fields must be specified.</errorMessage>
+</ValidationRule>

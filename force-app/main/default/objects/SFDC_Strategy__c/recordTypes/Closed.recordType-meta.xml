@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Closed</fullName>
+    <active>true</active>
+    <description>This record type is used to lock the strategy page layout from being edited.</description>
+    <label>Closed</label>
+    <picklistValues>
+        <picklist>Business_Priority__c</picklist>
+        <values>
+            <fullName>Attracting and retaining new customers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Process Improvement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consolidating business operations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Creating new products or services %28innovation%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Expanding current customer relationships</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Improving enterprise workforce effectiveness</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Increasing the use of information%2Fanalytics</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Managing change initiatives</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reducing Enterprise Costs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Targeting customers and markets more effectively</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Did_you_realize_your_Strategy__c</picklist>
+        <values>
+            <fullName>No%2C I did not achieve this Strategy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Still in Progress%2C I will achieve it in 2nd Half</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Still in Progress%2C Strategy to be recreated in next year%27s Account Plan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes%2C I achieved this Strategy in the committed timeframe</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Is_Dell_the_Incumbent_Vendor__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Quarter__c</picklist>
+        <values>
+            <fullName>Q1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Q2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Q3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Q4</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Region__c</picklist>
+        <values>
+            <fullName>APJ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EMEA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LATAM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>US%2FCAN</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Strategy_Stage__c</picklist>
+        <values>
+            <fullName>Customer Objectives</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dell Proposed Solution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IT Implications</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solution Risks</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solution Strengths</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Strategy_Status__c</picklist>
+        <values>
+            <fullName>Created</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Pending Specialist</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reviewed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Submitted for Review</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Technology_Priority__c</picklist>
+        <values>
+            <fullName>Business Intelligence</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cloud computing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data Consolidation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data Storage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Documentation Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IT Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile technologies</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Networking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SOA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Security</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Virtualization</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Voice Communications</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Web 2%2E0</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Transformation__c</picklist>
+        <values>
+            <fullName>Application Transformation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IT Transformation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Security Information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Workforce Transformation</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>What_BU_s_are_involved__c</picklist>
+        <values>
+            <fullName>CS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ESG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Services</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>What_Dell_Services_will_you_offer__c</picklist>
+        <values>
+            <fullName>Applications</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BPO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Infrastructure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Security</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Support %26 Deployment</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>What_LOB_s_are_involved__c</picklist>
+        <values>
+            <fullName>CLIENT PERIPHERALS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cloud Client</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DEPLOYMENT SERVICES</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dell Storage%C2%A0%C2%A0</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Displays</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ESG 3RD PARTY SOFTWARE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ESG OTHER SERVICES</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fixed Workstations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Imaging</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Latitude</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile Workstations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Networking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PowerEdge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SOFTWARE - STORAGE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SUPPORT SERVICES</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>What_LOB_s_are_involved_directstrategy__c</picklist>
+        <values>
+            <fullName>CSG other services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Client 3rd party software</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Client Peripherals</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cloud Client</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DDPE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data Domain</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data Protection Suite</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dell storage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deployment services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Displays</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ESG 3rd party software</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ESG other services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Elastic Cloud Storage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enterprise infrastructure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fixed workstations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Imaging</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Isilon</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Latitude</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile workstations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Networking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OptiPlex</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PowerEdge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Security management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Software - Server</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Software - storage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Support services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unity AFA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unity Hybrid</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VMAX AFA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Virtustream Storage Cloud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VxRail %2F VxRack</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>XtremIO</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>When_do_you_plan_to_realize_Strategy__c</picklist>
+        <values>
+            <fullName>FY17</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FY18</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FY19</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FY20 Q1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FY20 Q2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FY20 Q3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FY20 Q4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FY21 Q1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FY21 Q2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FY21 Q3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FY21 Q4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FY22 Q1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FY22 Q2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FY22 Q3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FY22 Q4</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Which_LOB_will_you_offer__c</picklist>
+        <values>
+            <fullName>Services</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

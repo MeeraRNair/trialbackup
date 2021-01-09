@@ -1,0 +1,120 @@
+<!--*
+* Author   : Sajith
+* Purpose  : This page is for external GMLI team to create Case in Salesforce 
+* 
+* Revision CR Number   Release No    Date            Modified By     Description
+* -------- ---------   ----------    -----------     ------------    -----------
+* 1.0       13766      FY17-DCS-0103 25-Nov-2016     Sajith          LM2_2 Setting GMO site form (with SFDC site) form
+* 2.0       16583      FY19-1101     05-10-2018      Yamini          Story 4431373: Lead 2.0 - Rename fields in New Lead Load or Lead Support Request Form
+* 3.0       FastTrack  FY19-DCS-1101 07-Nov-2018     Kishore         STORY 5737934: Lead 2.0 - Fast Track: Rename fields in New Lead Load or Lead Support Request Form
+* 4.0       16741      FY19-DCS-0102 29-10-2018      Kishore         STORY 5717519: Lead 2.0 - Enhancements to GLMI Case Intake
+* 5.0       18329      FY20-DCS-0102 25-Nov-2019     Kokila          STORY 5979510: Lead 2.0 [GMO] - Update error messages
+*-->
+
+<apex:page StandardController="Case" extensions="GLMICaseCreationCtrl" sidebar="false" showHeader="false" >
+    <div><a href="http://www.dell.com/" target="_blank"> <img alt="Dell" src="http://i.dell.com/images/global/brand/ui/storm80/logo80.png" /> </a></div>
+    <apex:form >  
+        <apex:outputPanel rendered="false">
+            {!case.caseNumber}
+        </apex:outputPanel>
+        <apex:pageBlock mode="edit">
+            <br></br>
+            <b><font size="2">&nbsp; &nbsp; Global Marketing Operations Request Form</font></b> 
+            <!--<b>Global Lead Management - New Lead Load or Lead Support Request Form</b>-->
+            <apex:pageMessages id="messages"/>
+            <apex:pageBlockSection showHeader="false" columns="1">
+                <apex:outputlabel value="Please provide all the details below and click Submit button to raise a request for the Global Marketing Operations Intake Team" />  
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Request Details" columns="2" collapsible="true">
+                <apex:pageBlockSectionItem >
+                    <!--<apex:outputLabel value="Dell Technologies Rep Name :" />-->
+                    <apex:outputLabel value="Requester Name:" /> <!--3.0-->
+                    <apex:inputField value="{!case.SuppliedName}" style="width:250px"/>
+                </apex:pageBlockSectionItem> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Type :" />
+                    <apex:outputPanel >
+                        <div class="requiredInput">
+                            <div class="requiredBlock"></div>
+                            <apex:inputField value="{!case.Sub_Type_Internal_User__c}"/>
+                            <div class="errorMsg" style="{!strIsInvalidCaseType}"><strong>Error:</strong> You must enter a value</div>
+                        </div>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>  
+                <apex:pageBlockSectionItem >
+                    <!--<apex:outputLabel value="Dell Technologies Rep Email :" />-->
+                    <apex:outputLabel value="Requester Email:" /> <!--3.0-->
+                    <apex:outputPanel >
+                        <div class="requiredInput">
+                            <div class="requiredBlock"></div>
+                            <apex:inputText value="{!case.SUPPLIEDEMAIL}" label="Contact Email :" style="width:250px"/>
+                            <div class="errorMsg" style="{!strIsBlankEmail}"><strong>Error:</strong> {!strInvalidEmailError}</div>
+                        </div>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <!--4.0 start-->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Sub Type GMO :" />
+                    <apex:outputPanel > 
+                        <apex:inputfield value="{!case.Sub_Type_GLMI__c}" />
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <!--4.0 End-->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Subject :" />
+                    <apex:outputPanel >
+                        <div class="requiredInput">
+                            <div class="requiredBlock"></div>
+                            <apex:inputField value="{!case.Subject}"  style="width:400px"/>
+                            <div class="errorMsg" style="{!strIsBlankSubject}"><strong>Error:</strong> You must enter a value</div>
+                        </div>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Lead Type :" />
+                    <apex:outputPanel > 
+                        <apex:inputfield label="Lead Type :" value="{!case.Lead_Type__c}" />
+                        <!--5.0 <div class="errorMsg" style="{!strIsInvalidLeadType}"><strong>Error:</strong> Lead Type should be selected when Request Type is Lead Load Request</div> -->
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem> 
+                
+                 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Description :" />
+                    <apex:outputPanel >
+                        <div class="requiredInput">
+                            <div class="requiredBlock"></div>
+                            <apex:inputField value="{!case.Description}" style="width: 400px; height: 25px"/>
+                            <div class="errorMsg" style="{!strIsBlankDescription}"><strong>Error:</strong> You must enter a value</div>
+                        </div>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Send to LQR? " />
+                    <apex:outputPanel > 
+                        <apex:inputfield label="Send to LQR? " value="{!case.Send_to_LQR__c}" />
+                        <div class="errorMsg" style="{!strIsInvalidSendToLQR}"><strong>Error:</strong> "Send to LQR" checkbox should be available only when Request Type is "Lead Management" and Sub Type is "Lead Load” </div> <!--26/11/2018: Error message updated as per business user(Schmidt, Victoria ) confirmation-->
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Region :" />
+                    <apex:outputPanel >
+                        <div class="requiredInput">
+                            <div class="requiredBlock"></div>
+                            <apex:inputField value="{!case.Requesting_Region__c}"/>
+                            <div class="errorMsg" style="{!strIsInvalidRegion}"><strong>Error:</strong> You must enter a value</div>
+                        </div>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem> 
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Attachment" columns="2" collapsible="true">
+                <apex:inputFile id="FileToUpload" value="{!fileBody}" filename="{!fileName}" />
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Submit Case" action="{!submitCase}"/>
+            </apex:pageBlockButtons>        
+        </apex:pageBlock>
+    </apex:form> 
+</apex:page>

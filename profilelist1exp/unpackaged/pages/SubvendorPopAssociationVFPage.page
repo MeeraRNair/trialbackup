@@ -1,0 +1,89 @@
+<!--*
+ * Revision CR Number   Release No      Date            Modified By     Description
+ * -------- ---------   ----------      -----------     ------------    -----------
+ * 
+ * 1.0       16413      FY19-DCS-1002   30-August-2017   Michael Khan   Addition of Lightning style sheet = true in the page tag
+ *-->
+<apex:page standardController="Proof_of_Performance_POP__c" extensions="SubVendorPopAssociation_VFctrlr" lightningStylesheets="true">
+    <script>
+    // Mohan 20110607 BRD 8.4.1.8
+    function checkAll(cb)
+    {
+        var inputElem = document.getElementsByTagName("input");
+        for(var i=0; i<inputElem.length; i++)
+        {
+            if(inputElem[i].id.indexOf("select")!=-1)
+            inputElem[i].checked = cb.checked;
+        }
+    }
+    function uncheck()
+    {
+        var inputElem = document.getElementsByTagName("input");
+        var selectall;
+        var test = true;
+        for(var i=0; i<inputElem.length; i++)
+        {
+            if(inputElem[i].id.indexOf("selectall")!=-1){
+                selectall=document.getElementById(inputElem[i].id);
+            }
+            else if(inputElem[i].id.indexOf("select")!=-1){
+                if(inputElem[i].checked == false){
+                    test = false;
+                }
+            }
+        }
+        if(test){
+            selectall.checked = true;
+        }
+        else{
+            selectall.checked = false;
+        }
+    }
+    // Mohan 20110607 BRD 8.4.1.8    
+    </script>
+
+<apex:form >  
+
+    <apex:pageBlock rendered="{!IsAccessAvilable}"> 
+        <apex:pageMessage severity="info" strength="3"  title="You are not authorized to do this operation" /> 
+        <apex:commandButton action="{!Cancel}" value="Back" />    
+    </apex:pageBlock>
+
+    <apex:pageBlock rendered="{!(!IsAccessAvilable)}"> 
+        <apex:pageMessage severity="info" strength="3"  title="No Associated Vendors are available for association with {!Proof_of_Performance_POP__c.name}" rendered="{!(!IsSubVendorAvailable)}" /> 
+        <apex:commandButton action="{!Cancel}" value="Back" rendered="{!(!IsSubVendorAvailable)}" />
+        <apex:Messages style="color:red; font-weight:bold"/>
+
+        <apex:pageBlock rendered="{!IsSubVendorAvailable}"> 
+        <apex:pageblockSection title="List of Associated Vendors" collapsible="false" columns="1">
+            <apex:pageBlockTable value="{!ListofAvailableVendors}" var="asv">
+        <!-- Mohan 20110607 BRD 8.4.1.8 -->
+                <!-- <apex:column headerValue="Select">
+                    <apex:inputCheckbox value="{!asv.selected}"/>
+                </apex:column> -->
+                <apex:column >
+                    <apex:facet name="header">
+                        <apex:inputcheckbox id="selectall">
+                            <apex:actionsupport event="onclick" onsubmit="checkAll(this)" rerender=""/>
+                        </apex:inputcheckbox>
+                    </apex:facet>
+                    <apex:inputCheckbox id="select" value="{!asv.selected}">
+                        <apex:actionsupport event="onclick" onsubmit="uncheck()" rerender=""/>
+                    </apex:inputCheckbox>
+                </apex:column>    
+        <!-- Mohan 20110607 BRD 8.4.1.8 -->
+                <apex:column headerValue="Sub Vendor Name ">
+                    <apex:outputLink value="/{!asv.asvpopElt.Vendor__c}">{!asv.asvpopElt.Vendor__r.name} 
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Program" value="{!asv.asvpopElt.MDF_Program__c}"/>
+            </apex:pageBlockTable>
+        </apex:pageblockSection>
+        
+        <apex:commandButton value="Associate Vendor" action="{!addSubVendor}"/>
+        <apex:commandButton value="Cancel" action="{!Cancel}" />    
+        </apex:pageBlock>
+    </apex:pageBlock>
+</apex:form>
+
+</apex:page>

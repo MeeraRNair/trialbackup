@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Allow_Automation_Level__c</fullName>
+    <description>Required if Automate Competency is &quot;Y&quot;</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Required if Automate Competency is &quot;Y&quot;</inlineHelpText>
+    <label>Allow Automation Level</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Automate_Certification__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Registered to Preferred</fullName>
+                <default>false</default>
+                <label>Registered to Preferred</label>
+            </value>
+            <value>
+                <fullName>Registered to Premier</fullName>
+                <default>false</default>
+                <label>Registered to Premier</label>
+            </value>
+            <value>
+                <fullName>Preferred to Premier</fullName>
+                <default>false</default>
+                <label>Preferred to Premier</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>checked</controllingFieldValue>
+            <valueName>Registered to Preferred</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>checked</controllingFieldValue>
+            <valueName>Registered to Premier</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>checked</controllingFieldValue>
+            <valueName>Preferred to Premier</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>3</visibleLines>
+</CustomField>

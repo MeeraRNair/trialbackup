@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RL_and_Inactive_Campaign_Rule</fullName>
+    <active>true</active>
+    <description>Relationship Lead records should not be created for Inactive Campaigns</description>
+    <errorConditionFormula>AND(ISNEW(), NOT( Campaign__r.IsActive = TRUE ))</errorConditionFormula>
+    <errorMessage>Relationship Lead records should not be created for Inactive Campaigns</errorMessage>
+</ValidationRule>

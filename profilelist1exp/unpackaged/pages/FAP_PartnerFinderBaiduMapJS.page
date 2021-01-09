@@ -1,0 +1,388 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" contentType="text/javascript">
+
+/**
+REVISION HISTORY
+================
+Version     Author      Date            Release#        CR#     Description
+-------     ------      ----            --------        ---     -----------
+1.0         Gan         07-Nov-2016     FY17-DCS-0103   13725   Initial based on PartnerFinderJS
+
+
+**/
+
+jQuery.noConflict();
+var countryIp = $F('thePage:theForm:ipCountry');
+//alert('START GOOGLE');
+//alert('countryIp : ' + countryIp);
+if(countryIp == "{!JSENCODE(HTMLENCODE($Label.Map_Excluded_Countries))}"){
+var overlays = [];
+}
+//alert('END GOOGLE');
+
+function addMarker(map, point) {
+    var marker = new BMap.Marker(point);
+    //Add Marker to Overlays collection
+    map.addOverlay(marker);
+}
+
+function clearOverlays() {
+    map.clearOverlays();
+}
+//alert('PartnerLocationMapController Start');
+var PartnerLocationMapController = Class.create({
+    initialize: function(mapDivFieldID,locationJSONDataFieldID){
+    //alert('initialize Start');
+        this.locationJSONDataFieldID = locationJSONDataFieldID; 
+        DivFieldID=mapDivFieldID;
+        this.map=null;
+        this.initializeMap();
+    },
+    initializeMap: function(){
+    //alert('initializeMap Start');
+        if(countryIp == "{!JSENCODE(HTMLENCODE($Label.Map_Excluded_Countries))}"){
+        if(this.map==null &amp;&amp; $('map_canvas')!=null ){
+            try{
+                map = new BMap.Map(document.getElementById("map_canvas"));
+                map.centerAndZoom(new BMap.Point(0,0), 4);
+                map.enableScrollWheelZoom();
+                var bottom_right_navigation = new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL});
+                map.addControl(bottom_right_navigation);
+                this.updateMap();
+            }catch(err){
+                alert(err);
+                alert('Failed to load Baidu Maps.  If you\'re using Internet Explorer, please ensure the permission \'Display mixed content\' is set to \'Enable\'.');
+            }
+        }
+        }
+    },
+    updateMap: function(){
+        if(countryIp == "{!JSENCODE(HTMLENCODE($Label.Map_Excluded_Countries))}"){
+        clearOverlays();
+        this.pointLookup = new Hash();
+        this.locationLookup = new Hash();
+        
+        var locations = $F(this.locationJSONDataFieldID).evalJSON().locations;
+        var bounds = map.getBounds();
+        var points = [];
+        var point;
+        var languagepath = $F('thePage:theForm:languagecode');
+        
+        var searchSerializePath = $F('thePage:theForm:searchSerialize');
+        
+        if(locations != null &amp;&amp; locations!='' &amp;&amp; !Object.isUndefined(locations) &amp;&amp; locations != 'undefined'){
+        
+            locations.each(function(location){
+                if(location.name!=null){
+                    point = new BMap.Point(location.longitude,location.latitude);
+                    point.id = location.id;
+                    points.push(point);
+                    
+                    bounds.extend(point);
+
+                    var marker = new BMap.Marker(point);
+                    marker.setPosition(point);
+                    marker.setTitle(location.partnerName);
+                    marker.id = location.id;
+                    marker.recordNumber = location.recordNumber;
+                    marker.name = location.name;
+                    marker.city = location.city;
+                    marker.street = location.street;
+                    marker.state = location.state;
+                    marker.country = location.country;
+                    marker.postalCode = location.postalCode;
+                    marker.partnerName = location.partnerName;
+    
+                     marker.addEventListener("click",function(e) {
+                        var p = e.target;
+                        var mPoint = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+                        var infoWindow = new BMap.InfoWindow('<b>' + '<a href="{!$Page.FAP_PartnerDetails}?l='+((Object.isUndefined(languagepath) || (languagepath==null) || languagepath=='undefined' || languagepath.blank() ?'': languagepath))+'&id='+this.id+'&'+((Object.isUndefined(searchSerializePath) || (searchSerializePath==null) || searchSerializePath=='undefined' ||searchSerializePath.blank() ?' ': searchSerializePath ))+'#Page:Top" target="_self" >'+p.recordNumber+'-'+p.partnerName +','+ p.name+'</a>' + '</b><br/>' + 
+                                                (Object.isUndefined(p.street) || (p.street==null) || p.street.blank() ?'': p.street + ', ') + 
+                                                (Object.isUndefined(p.city) || (p.city==null) || p.city.blank() ?'': p.city + ', ') + 
+                                                (Object.isUndefined(p.state) || (p.state==null) || p.state.blank() ?' ': p.state + '  ') + 
+                                                (Object.isUndefined(p.postalCode) || (p.postalCode==null) || p.postalCode.blank() ?'': p.postalCode ) + 
+                                                '<br/>' + this.country);
+                        map.openInfoWindow(infoWindow, mPoint);
+                        
+                        });                                 
+                   
+                    this.pointLookup.set(location.id,marker);
+                    map.addOverlay(marker);
+                    this.locationLookup.set(location.id,location);
+                    
+                    //v4.0 - End: Modified below code to accomodate the new map functionality
+                }
+                
+            }.bind(this));
+            
+        }
+        //Ver 1.2 Contextual search on Location
+        // var address = $('thePage:theForm:txtLocation');
+        var locationPath = $F('thePage:theForm:hiddenLocation');
+        var address = $(locationPath);
+        var searchPointMarker = null;
+        if(address &amp;&amp; !address.value.blank()){
+            var blueIcon = new BMap.Icon("{!$Resource.blue_dot_png}", new BMap.Size(32,32));
+            var searchPoint = new BMap.Point($F('thePage:theForm:GeocodeLongitude') ,$F('thePage:theForm:GeocodeLatitude'));
+
+            var searchPointMarker = new BMap.Marker(searchPoint,{icon:blueIcon});
+            points.push(searchPoint);
+            bounds.extend(searchPoint);
+            searchPointMarker.setTitle(address.value);
+            
+            searchPointMarker.addEventListener("click",function(e) {
+                var infoWindow = new BMap.InfoWindow('<b>' + address.value  + '</b>');
+                map.openInfoWindow(infoWindow, point);
+            });
+            map.addOverlay(searchPointMarker);
+        }
+  
+        map.setViewport(points);
+        map.setCenter(bounds.getCenter());
+        
+        var listener = map.addEventListener("idle", function() { 
+            if (map.getZoom() > 14) map.setZoom(14); 
+                map.removeEventListener(listener); 
+        });
+        }
+    }, 
+    showLocation: function(id){
+        if(countryIp == "{!JSENCODE(HTMLENCODE($Label.Map_Excluded_Countries))}"){
+        var location = this.locationLookup.get(id);
+        var infoWindow = new BMap.InfoWindow('<b>'+ location.recordNumber + '-</b> '+ '<b>' + location.name + '</b><br/>' 
+            + (Object.isUndefined(location.street)?'': location.street + ', ') + location.city + ', ' + location.state + '  ' + location.postalCode + '<br/>' + location.country);
+        infoWindow.open(map,location);
+        }
+    }
+});
+//alert('PartnerLocationMapController End');
+var controller;
+function updateMap(){
+    if(!Object.isUndefined(controller)){
+            controller.map=null;
+            controller.initializeMap();
+            controller.updateMap();
+    } 
+}
+
+
+function showLocation(locationId){
+    if(!Object.isUndefined(controller)){
+        controller.showLocation(locationId);
+    }   
+} 
+function address(){
+    var locationPath = $F('thePage:theForm:hiddenLocation');
+    var address = '';
+    if(locationPath != ''){
+        address = $F(locationPath);        
+    }
+}
+
+function searchButtonClicked(){
+  
+    var locationPath = $F('thePage:theForm:hiddenLocation');
+    //alert('locationPath'+locationPath);
+    var address = '';
+    if(locationPath != ''){
+        address = $F(locationPath);        
+    }
+    
+    //alert('address   ' + address);
+    var countryPath = $F('thePage:theForm:hiddenCountry');
+    //alert('countryPath' + countryPath);
+    var countryCodeParam = '';
+    if(countryPath != ''){
+        countryCodeParam = $F(countryPath);
+    }
+    //alert('countryCodeParam   ' + countryCodeParam);
+    if(!address.blank()){        
+        showAddress(address);               
+    } 
+    else {
+        //alert('triggerSearch');
+        triggerSearch();   
+    }
+    triggerSearch();
+    //alert('searchButtonClicked_END');
+}
+
+function keypressed(event){
+    if(window.event){ // IE
+        keynum = event.keyCode;
+    }
+    else if(event.which){ // Netscape/Firefox/Opera
+        keynum = event.which;
+    }
+    if(keynum=='13'){
+        showBusyDialog('{!JSENCODE($Label.searching)}', '{!JSENCODE($Label.please_wait)}'); 
+        searchButtonClicked();
+    }
+}
+
+function showAddress(address) {
+    //alert('showAddress_START');
+    if(countryIp == "{!JSENCODE(HTMLENCODE($Label.Map_Excluded_Countries))}"){
+    var geocoder = null;
+ 
+    var geocoder = new BMap.Geocoder();
+    /* remove this code as baidu geocoder not support country searc
+    var countryPath =$F('thePage:theForm:hiddenCountry');
+    if($(countryPath)){
+        var countryCodeParam = $F(countryPath);
+        //alert('countryCodeParam : ' + countryCodeParam);
+        if(countryCodeParam &amp;&amp; !countryCodeParam.blank()){
+            //1.0 migrate to v3
+                //geocoder.setBaseCountryCode(countryCodeParam);
+                //geocoder.region = countryCodeParam;
+                //address+=', ' + countryCodeParam;
+                //alert('address : ' + address);
+            }
+        }
+    */
+    if (geocoder) {
+        geocoder.getPoint(address, function(point){
+            if (point) {
+                $('thePage:theForm:GeocodeLatitude').value = point.lat;
+                $('thePage:theForm:GeocodeLongitude').value = point.lng;
+                //alert("Search address: " + address + ", return the point: lat: " + point.lat + ", lng: " + point.lng);
+                triggerSearch();
+            }else{
+                alert(address + " not found");
+                hideBusyDialog();
+            }
+        },address); 
+    } else {
+        alert('geocoder null');
+    }
+    }
+    else{
+    triggerSearch();
+    }
+    //alert('showAddress_END');
+}
+
+function mouseOverFunc(button1){
+    button1.src = '{!$Resource.testingbutton}';
+}
+
+function showBusyDialog(title,body){
+    jQuery('#dialog').dialog('open');
+}
+
+function hideBusyDialog(){
+    jQuery('#dialog').dialog("close"); 
+}
+
+/* Ver 1.3 R14.2 CR7675 - to add country param for autocomplete */
+function autoCompleterCallBack(element, entry){
+//alert('autoCompleterCallBack_START');
+    var strHiddenCountry = document.getElementById('thePage:theForm:hiddenCountry').value;
+    if(strHiddenCountry.length > 0){
+        //alert('return with country param');
+        var ddlCountry = document.getElementById(document.getElementById('thePage:theForm:hiddenCountry').value);
+        var cCode = ddlCountry.value;
+        //alert(cCode);
+        return entry + '&amp;countryCode=' + cCode;
+    }
+    //alert('return normal param'); 
+//alert('autoCompleterCallBack_END');
+    return entry;
+}
+//alert('document.readyState'+document.readyState);
+if(document.readyState != 'loading'){
+    //alert('PartnerFinderJS_IF_START');
+  controller = new PartnerLocationMapController('map_canvas','thePage:theForm:LocationData');
+        new Ajax.Autocompleter(
+        $F('thePage:theForm:hiddenCompany')+':filterRegion:txtSearchFor', 
+        $F('thePage:theForm:hiddenCompany')+':filterRegion:keywordChoices',
+        '{!$Page.FAP_PartnerSearchAutoComplete}' ,
+        {   minChars: 2,
+            frequency: 0.1,
+            tokens: ','
+        });
+        new Ajax.Autocompleter(
+        $F('thePage:theForm:hiddenLocation'), 
+        $F('thePage:theForm:hiddenAddress'), 
+        '{!$Page.FAP_PartnerSearchAutoComplete}',
+        {   callback: autoCompleterCallBack,
+            minChars: 2,
+            frequency: 0.1,
+            tokens: ','
+        });
+        jQuery('#dialog').dialog({
+        autoOpen: false,
+        bgiframe: true,
+        closeOnEscape: false,
+        dialogClass: 'dialog_style',
+        draggable: false,
+        height: 100,
+        minHeight: 100,
+        modal: true,
+        open: function(event, ui) { jQuery(".ui-dialog-titlebar-close").hide(); },
+        position: 'top',
+        resizable: false
+    });
+    //alert('PartnerFinderJS_IF_END');
+}
+else{
+document.observe('dom:loaded', function() {
+    //alert('PartnerFinderJS_ELSE_START');
+    controller = new PartnerLocationMapController('map_canvas','thePage:theForm:LocationData');
+/*Ver 1.1 - Company Name Contexual search */
+      /*new Ajax.Autocompleter(
+        'thePage:theForm:txtSearchFor', 
+        'thePage:theForm:keywordChoices',
+        '{!$Page.FAP_PartnerSearchAutoComplete}' ,
+        {   minChars: 2,
+            frequency: 0.1,
+            tokens: ','
+        });
+// 1.2 Contextual search on Location        
+        new Ajax.Autocompleter('thePage:theForm:txtLocation', 
+        'thePage:theForm:addressChoices', 
+        '{!$Page.FAP_PartnerSearchAutoComplete}' ,
+        {   minChars: 2,
+            frequency: 0.1,
+            tokens: ','
+        });
+   */
+   /* Ver 1.1 - Dynamic FAP Page */
+   new Ajax.Autocompleter(
+        $F('thePage:theForm:hiddenCompany')+':filterRegion:txtSearchFor', 
+        $F('thePage:theForm:hiddenCompany')+':filterRegion:keywordChoices',
+        '{!$Page.FAP_PartnerSearchAutoComplete}' ,
+        {   minChars: 2,
+            frequency: 0.1,
+            tokens: ','
+        });
+   
+          
+        
+    /* Ver 1.2 Contextual search on Location */
+    /* Ver 1.3 R14.2 CR7675 - Added callback to add country param for search on location */
+    new Ajax.Autocompleter(
+        $F('thePage:theForm:hiddenLocation'), 
+        $F('thePage:theForm:hiddenAddress'), 
+        '{!$Page.FAP_PartnerSearchAutoComplete}',
+        {   callback: autoCompleterCallBack,
+            minChars: 2,
+            frequency: 0.1,
+            tokens: ','
+        });
+    jQuery('#dialog').dialog({
+        autoOpen: false,
+        bgiframe: true,
+        closeOnEscape: false,
+        dialogClass: 'dialog_style',
+        draggable: false,
+        height: 100,
+        minHeight: 100,
+        modal: true,
+        open: function(event, ui) { jQuery(".ui-dialog-titlebar-close").hide(); },
+        position: 'top',
+        resizable: false
+    });
+}, false);
+//alert('PartnerFinderJS_ELSE_END');
+}
+</apex:page>

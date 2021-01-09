@@ -1,0 +1,336 @@
+<apex:page standardcontroller="Account" extensions="MDM_DBAccountDetails" contentType="application/vnd.ms-excel#{!odunsid}_D&B Details.xls;charset=UTF-8" cache="true" standardStylesheets="false" sidebar="false">{!charSupport}
+<style>
+         tr.dataRow {
+           background-color:#ADD8E6;
+         }
+</style>
+<table>
+    <tr class="dataRow">
+                <td>Duns Number</td>
+                <td>Business Name</td>
+                <td>TradeStyle 1</td>
+                <td>Domestic Ultimate Address</td>
+                <td>Domestic Ultimate Duns and Name</td>
+                <td>Domestic Ultimate Total Employees</td>
+                <td>Employees Total/Here</td>
+              <!--  <td>Employees Here</td>  -->
+                <td>Employees Total/Here Reliability Indicator</td>
+              <!--  <td>Franchise Code Indicator</td> -->
+                <td>Franchise Code, Name, Ultimate</td>
+                <td>Global Ultimate Address</td>
+                <td>Global Ulitmate Duns and Name</td>
+                <td>Hierarchy Code</td>
+                <td>Hq/Parent Address</td>
+                <td>Hq/Parent Duns and Name</td>
+                <td>Location Type/Status Code</td>
+                <td>Non-Classified SIC Indicator</td>
+                <td>Previous Duns</td>
+                <td>SIC Code Primary(4-digit)</td>
+                <td>SIC Code Primary(6-digit)</td>
+                <td>SIC Code Secondary 2-6(4-digit)</td>
+                <td>Subisdiary Indicator</td>
+                <td>Territory Covered</td>
+                <td>Trend Year Employees/Sales</td>
+                <td>Address Physical 1</td>
+                <td>Address Physical 2</td>
+                <td>Address Postal 1</td>
+                <td>Address Postal 2</td>
+                <td>Fax Number</td>
+                <td>City Code/Name</td>
+                <td>County Code/Name</td>
+               <!-- <td>Mail Country Code</td> -->
+                <td>State/Province Code/Name</td>
+              <!--  <td>State Code</td> -->
+                <td>Postal Code</td>
+                <td>(Mailing) Country Code/Name</td>
+                <td>Continent Code</td>
+                <td>National Id(Primary)</td>
+                <td>National Id Description Code(Primary)</td>
+                <td>Telephone Country Access Code</td>
+                <td>Telephone Number</td>
+                <td>CEO MRC Description/Title</td>
+                <td>CEO Name</td>
+                <td>Executive Contact MRC Code(top 8 contacts)</td>
+            <!--    <td>Seventh and Eight Executive contact MRC</td> -->
+                <td>Executive Contact Names(top 8 contacts)</td>
+                <td>Executive Contact Title (top 8 contacts)</td>
+                <td>Square Footage</td>
+                <td>Cable-Telex</td>
+                <td>Control Year</td>
+                <td>Cottage Indicator</td>
+                <td>Delist Indicator</td>
+                <td>Dias</td>
+                <td>Legal Status</td>
+                <td>Metropolitan Statistical Area Desc</td>
+                <td>Owns/Rents Detail</td>
+                <td>Primary Local Activity Code</td>
+                <td>Site Broadband Demand Score</td>
+                <td>Undeliverable Address Indicator(NIXIE)</td>
+                <td>White Collar Estimator</td>
+                <td>Record Class (I, II)</td>
+                <td>Report Date</td>
+                <td>Marketability Indicator</td>
+                <td>Estimated Number of Pcs</td>
+                <td>Aggregated Number of PC's at Ultimate</td>
+                <td>Annual Sales Revenue(Local Currency)</td>
+                <td>Annual Sales Revenue(USD)</td>
+                <td>Annual Sales Revenue Reliability Code</td>
+                <td>Base Year Employees/Sales</td>
+                <td>Blue Collar Estimator</td>
+                <td>Import/Export</td>
+                <td>Line of Business Description</td>
+                <td>Number of Accounts</td>
+                <td>Number of Family Members</td>
+                <td>Out Of Business Indicator</td>
+                <td>Percent Growth Employees/Sales 3 Yr</td>
+                <td>Public/private Indicator</td>
+    </tr>
+    <tr>
+    <apex:repeat value="{!finalList2}" var="y">
+            
+                <td><apex:outputtext value="{!y.dunsid}" id="aae"/></td>
+                <td><apex:outputtext value="{!y.BusinessNAme}" id="aaf"/></td>
+                <td><apex:outputtext value="{!y.tradestylename}" id="aag"/></td>
+                <td><apex:outputtext value="{!y.DomesticUltimateAddress}" id="i"/></td>
+             
+     </apex:repeat>
+     
+    <apex:repeat value="{!finalList}" var="x"> 
+    
+                <td><apex:outputtext value="{!x.DomesticUltimateDuns} {!x.DomesticUltimateName}" id="j"/></td>
+                <td><apex:outputtext value="{!x.DomesticUltimateTotalEmployees}&nbsp;" id="l" style="mso-number-format:\@;"/></td>
+                <!-- <td><apex:outputtext value="{!x.EmployeesTotal};{!x.EmployeesHere}" id="m"/></td>
+               <td><apex:outputtext value="{!x.EmployeesHere}" id="aah"/></td> -->
+                
+    </apex:repeat>
+    <apex:repeat value="{!finalList5}" var="b">
+        
+        <td><apex:outputtext value="{!b.employeestotalhere}" /></td>
+        
+    </apex:repeat>
+    
+    <apex:repeat value="{!finalList5}" var="b">
+            
+                
+                <td><apex:outputtext value="{!b.employeestotalherecode}" id="aai" /></td>
+                
+            
+    </apex:repeat>
+    <apex:repeat value="{!finalList5}" var="b">
+             <!--  <td><apex:outputtext value="{!z.FranchiseCodeIndicator}" id="aak"/></td> {!z.FranchiseCode1};{!z.FranchiseCode2};{!z.FranchiseCode3};{!z.FranchiseCode4};{!z.FranchiseCode5};{!z.FranchiseCode6};{!z.FranchiseCodeIndicator} -->
+               <td><apex:outputtext value="{!b.Franchisecodes}" id="aal"/></td>
+     </apex:repeat>
+     
+     <apex:repeat value="{!finalList}" var="x"> 
+     
+               <td><apex:outputtext value="{!x.GlobalUltimateAddress}" id="n"/></td>
+               <td><apex:outputtext value="{!x.GlobalUltimateDuns} {!x.GlobalUltimateName}" id="o"/></td>
+               <td><apex:outputtext value="{!x.HierarchyCode}&nbsp;" id="q"/></td>
+               <td><apex:outputtext value="{!x.HqParentAddress}" id="r"/></td>
+               <td><apex:outputtext value="{!x.HQParentDuns} {!x.HQParentName}" id="s"/></td>
+     </apex:repeat>
+
+    <apex:repeat value="{!finalList3}" var="z">
+        <td><apex:outputtext value="{!z.StatusCode}" id="aar"/></td>
+    </apex:repeat>
+
+    <apex:repeat value="{!finalList}" var="x">
+        <td><apex:outputtext value="{!x.UnderminedSICIndicator}" id="aas"/></td>
+    </apex:repeat>
+    
+      <apex:repeat value="{!finalList}" var="x"> 
+               
+               <td><apex:outputtext value="{!x.PreviousDuns}" id="u"/></td>
+               
+      </apex:repeat>
+      
+      <apex:repeat value="{!finalList3}" var="z">
+               
+               <td><apex:outputtext value="{!z.US_1987_SIC1}" id="aat"/></td>
+               <td><apex:outputtext value="{!z.SIC6Code}" id="aau"/></td>
+            <!--   <td><apex:outputtext value="{!z.US_1987_SIC2};{!z.US_1987_SIC3};{!z.US_1987_SIC4};{!z.US_1987_SIC5};{!z.US_1987_SIC6}" id="aav"/></td>-->
+               
+      </apex:repeat>
+      <apex:repeat value="{!finalList5}" var="b">
+          
+          <td><apex:outputtext value="{!b.siccodessecondary}" id="aav"/></td>
+          
+      </apex:repeat>
+      
+      <apex:repeat value="{!finalList}" var="x"> 
+              
+              <td><apex:outputtext value="{!x.SubsidiaryIndicator}" id="v"/></td>
+              
+      </apex:repeat>
+      
+      <apex:repeat value="{!finalList4}" var="a">
+              
+              <td><apex:outputtext value="{!a.territorycovered}" id="v"/></td>
+      </apex:repeat>
+      
+      <apex:repeat value="{!finalList5}" var="b">
+              
+              <td><apex:outputtext value="{!b.trendyearemployeesales}" id="aaaa"/></td>
+              
+      </apex:repeat>
+      <apex:repeat value="{!finalList}" var="x"> 
+              
+               <td><apex:outputtext value="{!x.Address1}" id="e"/></td>
+               <td><apex:outputtext value="{!x.Address2}" id="aaac"/></td>
+                <td><apex:outputtext value="{!x.MailAddress}" id="aaad"/></td>
+      </apex:repeat>
+      
+      <apex:repeat value="{!finalList3}" var="z">
+              
+              
+              <td><apex:outputtext value="{!z.MailCityName} {!z.MailCountryName} {!z.MailStatename} {!z.CountryCode} {!z.MailPostalCode}&nbsp;" id="aaae"/></td>
+              
+      </apex:repeat>
+      
+      <apex:repeat value="{!finalList}" var="x"> 
+              
+              <td><apex:outputtext value="{!x.FaxNumber}" id="w"/></td>
+              <td><apex:outputtext value="{!x.City} {!x.CityCode}" id="c"/></td>
+              <td><apex:outputtext value="{!x.CountyCode}&nbsp;" id="b"/></td>
+      </apex:repeat>
+      
+      
+              
+      <apex:repeat value="{!finalList}" var="x">     
+              <td><apex:outputtext value="{!x.state} {!x.statecode}&nbsp;" id="x"/></td>
+            <!--  <td><apex:outputtext value="{!x.statecode}" id="aaai"/></td> -->
+      </apex:repeat>
+      
+    <!--  <apex:repeat value="{!finalList3}" var="z">
+              
+              
+      </apex:repeat> -->
+      
+      <apex:repeat value="{!finalList}" var="x"> 
+              
+              <td><apex:outputtext value="{!x.PostalCode}" id="y"/></td>
+      </apex:repeat>
+      
+      <apex:repeat value="{!finalList3}" var="z">
+      
+              <td><apex:outputtext value="{!z.MailCountryCode} {!z.MailCountryName}" id="z"/></td>
+       </apex:repeat>
+       
+        <apex:repeat value="{!finalList}" var="x"> 
+              <td><apex:outputtext value="{!x.ContinentCode}" id="g"/></td>
+              <td><apex:outputtext value="{!x.NationalId}" id="ab"/></td>
+              <td><apex:outputtext value="{!x.NationalIdSystemCode}&nbsp;" id="ac"/></td>
+      </apex:repeat>
+      
+      <apex:repeat value="{!finalList3}" var="z">
+              
+              <td><apex:outputtext value="{!z.countryaccessCode}&nbsp;" id="aaaj"/></td>
+      </apex:repeat>
+      
+      <apex:repeat value="{!finalList}" var="x">
+              
+              <td><apex:outputtext value="{!x.TelephoneNumber}" id="ad"/></td>
+      </apex:repeat>
+      
+      <apex:repeat value="{!finalList2}" var="y">
+              
+              <td><apex:outputtext value="{!y.CEOTitle}" id="ah"/></td>
+      </apex:repeat>
+      
+      <apex:repeat value="{!finalList}" var="x"> 
+              
+              <td><apex:outputtext value="{!x.CEOName}" id="ae"/></td>
+      </apex:repeat>
+      
+      <apex:repeat value="{!finalList5}" var="b">
+             <!-- <td><apex:outputtext value="{!z.SeventhExecutiveNameMRC} {!z.EighthExecutiveNameMRC}" id="aaaq"/></td> 
+              <td><apex:outputtext value="{!z.FirstExecutiveNameMRC};{!z.SecondExecutiveNameMRC};{!z.ThirdExecutiveNameMRC};{!z.FourthExecutiveNameMRC};{!z.FifthExecutiveNameMRC};{!z.SixthExecutiveNameMRC};{!z.SeventhExecutiveNameMRC};{!z.EighthExecutiveNameMRC}" id="aaak"/></td> -->
+             <td><apex:outputtext value="{!b.executivecontactmrccode}"/></td>
+      </apex:repeat>
+      
+      <apex:repeat value="{!finalList5}" var="b">
+              
+              <td><apex:outputtext value="{!b.topexecutivecontacts}"/></td>
+              <td><apex:outputtext value="{!b.executivecontacttitle}"/></td>
+            <!--  <td><apex:outputtext value="{!a.FirstExecutiveName};{!a.SEcondExecutiveName};{!a.ThirdExecutiveName};{!a.FourthExecutiveName};{!a.FifthExecutiveName};{!a.SixthExecutiveName};{!a.SeventhExecutiveName};{!a.EighthExecutiveName}" id="aaas"/></td>
+              <td><apex:outputtext value="{!a.FirstExecutiveTitle};{!a.SecondExecutiveTitle};{!a.thirdExecutiveTitle};{!a.FourthExecutiveTitle};{!a.FifthExecutiveTitle};{!a.sixthExecutiveTitle};{!a.SeventhExecutiveTitle};{!a.EighthExecutiveTitle}" id="new"/></td> -->
+      </apex:repeat>
+      
+      <apex:repeat value="{!finalList2}" var="y">
+              
+              <td><apex:outputtext value="{!y.SquareFootage}&nbsp;" id="ai"/></td>
+              <td><apex:outputtext value="{!y.CableOrTelex}" id="aj"/></td>
+      </apex:repeat>
+     
+     <apex:repeat value="{!finalList4}" var="a">
+             
+             <td><apex:outputtext value="{!a.yearstarted}" id="aaaaa"/></td>
+             <td><apex:outputtext value="{!a.cottagefileindicator}" id="aaaab"/></td>
+             <td><apex:outputtext value="{!a.marketingfiledelistindicator}" id="aaaac"/></td>
+     </apex:repeat>
+     
+     <apex:repeat value="{!finalList2}" var="y">
+             
+             <td><apex:outputtext value="{!y.DiasCode}&nbsp;" id="ak"/></td>
+             <td><apex:outputtext value="{!y.LegalStatus}&nbsp;" id="al"/></td>
+     </apex:repeat>
+     
+     <apex:repeat value="{!finalList4}" var="a">
+             
+             <td><apex:outputtext value="{!a.MSA}" id="aaaad"/></td>
+     </apex:repeat>
+     
+     <apex:repeat value="{!finalList2}" var="y">
+             
+             <td><apex:outputtext value="{!y.OwnsOrRentDetail}" id="am"/></td>
+             <td><apex:outputtext value="{!y.PrimaryLocalActivityCode}" id="an"/></td>
+             <td><apex:outputtext value="{!y.SiteBroadbandDemandScore}" id="ao"/></td>
+             <td><apex:outputtext value="{!y.UndeliverableAddressIndicator}" id="ap"/></td>
+             <td><apex:outputtext value="{!y.WhiteCollarEstimator}" id="aq"/></td>
+             <td><apex:outputtext value="{!y.RecordClassType}" id="ar"/></td>
+     </apex:repeat>
+     
+     <apex:repeat value="{!finalList5}" var="b">
+         <td><apex:outputtext value="{!b.reportdate}" /></td>
+     </apex:repeat>
+     <apex:repeat value="{!finalList4}" var="a">
+             
+           <!--  <td><apex:outputtext value="{!a.filler1};{!a.filler2};{!a.Filler3}" id="aaaae"/></td> -->
+             <td><apex:outputtext value="{!a.MarketableNonMarketable}" id="aaaah"/></td>
+             <td><apex:outputtext value="{!a.NumberofPcs}" id="aaaai"/></td>
+             <td><apex:outputtext value="{!a.aggregatednumberofpcsultimate}" id="aaaaj"/></td>
+     </apex:repeat>
+     
+     <apex:repeat value="{!finalList2}" var="y">
+             
+             <td><apex:outputtext value="{!y.AnnualSales}" id="as"/></td>
+             <td><apex:outputtext value="{!y.AnnualSalesUSDollar}" id="au"/></td>
+             <td><apex:outputtext value="{!y.AnnualSalesIndicator}" id="at"/></td>
+     </apex:repeat>
+     
+     <apex:repeat value="{!finalList5}" var="b">
+         <td><apex:outputtext value="{!b.baseyearemployeessales}" /></td>
+     </apex:repeat>
+     <apex:repeat value="{!finalList2}" var="y">
+            <!-- <td><apex:outputtext value="{!y.BaseYearEmployees};{!y.BaseYearSales}" id="av"/></td> -->
+             <td><apex:outputtext value="{!y.BlueCollarEstimator}" id="ax"/></td>
+             <td><apex:outputtext value="{!y.ImportExportCode}" id="az"/></td>
+             <td><apex:outputtext value="{!y.LineOfBusiness}" id="aaa"/></td>
+     </apex:repeat>
+     
+     <apex:repeat value="{!finalList4}" var="a">
+             
+             <td><apex:outputtext value="{!a.numberofaccounts}&nbsp;" id="aaaak"/></td>
+             <td><apex:outputtext value="{!a.numberoffamilymembersglobal}" id="aaaal"/></td>
+     </apex:repeat>
+     
+     <apex:repeat value="{!finalList2}" var="y">
+             
+             <td><apex:outputtext value="{!y.OOB}" id="aab"/></td>
+             <td><apex:outputtext value="{!y.PercentGrowthEmployees}" id="aac"/></td>
+             <td><apex:outputtext value="{!y.publicorprivateindicator}" id="new2"/></td>
+     </apex:repeat>
+     
+    </tr>
+</table>
+</apex:page>

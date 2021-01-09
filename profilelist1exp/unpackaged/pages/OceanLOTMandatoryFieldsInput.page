@@ -1,0 +1,98 @@
+<apex:page standardController="Opportunity" extensions="OceanLOTMandatoryFieldInputController">
+<apex:form >
+    <apex:inputHidden value="{!Opportunity.LOT_Large_Opportunity__c}"/>
+    <apex:inputHidden value="{!Opportunity.Eligible_for_Ocean__c}"/>        
+    <apex:inputHidden value="{!Opportunity.LOT_Mandatory_Fields__c}"/> 
+    <apex:inputHidden value="{!Opportunity.Ocean_Opportunity_Notification_Pop_Up__c}"/> 
+    <apex:inputHidden value="{!Opportunity.Do_you_want_to_pursue_Ocean__c}"/>
+    <apex:inputHidden value="{!Opportunity.StageName}"/>
+    <apex:inputHidden value="{!Opportunity.Probability}"/>       
+    
+    <span style="visibility: hidden;" >{!Opportunity.CloseDate}</span>
+    <span style="visibility: hidden;" >{!Opportunity.Calculated_Delivery_Date__c}</span>
+  
+    <apex:pageBlock id="thePageBlock">
+        <apex:pageMessages />
+        <apex:pageBlockButtons > 
+            <apex:commandButton action="{!dosave}" value="Save"/>
+            <apex:commandButton action="{!docancel}" value="Cancel"/>
+        </apex:pageBlockButtons>
+        <apex:actionRegion >
+        <apex:pageBlockSection columns="1">
+        
+            <apex:outputText ><span style="color: red; font-weight: bold; font-size: 1em;">{!EligibleToMessage}</span></apex:outputText>
+            
+          <apex:pageBlockSection columns="1" rendered="{!Opportunity.LOT_Mandatory_Fields__c || Opportunity.Eligible_for_Ocean__c == 'Yes'}">
+            <apex:pageBlockSectionItem >
+              <apex:outputLabel value="Quote Number" />
+                 <apex:outputPanel >
+                    <apex:inputField value="{!Opportunity.Quote_Numbers__c}" required="false" />
+                 </apex:outputPanel>
+            </apex:pageBlockSectionItem>            
+            <apex:pageBlockSectionItem >
+             <apex:outputLabel value="" />
+               <apex:outputPanel >
+                  <apex:outputText escape="false" value="{!$Label.quoteNum}" />
+               </apex:outputPanel>          
+            </apex:pageBlockSectionItem>
+          </apex:pageBlockSection>
+          
+          <apex:pageBlockSection columns="1" rendered="{!Opportunity.LOT_Mandatory_Fields__c || Opportunity.Ocean_Type__c == 'Container'}">
+            <apex:inputField value="{!Opportunity.How_many_shipments__c}" required="false" />
+          </apex:pageBlockSection>
+         
+          <apex:pageBlockSection columns="1" rendered="{!Opportunity.LOT_Mandatory_Fields__c || Opportunity.Ocean_Type__c == 'Container'}" >
+            <apex:pageBlockSectionItem >
+              <apex:outputLabel value="Largest Volume to be Delivered" />
+                 <apex:outputPanel >
+                 </apex:outputPanel>
+            </apex:pageBlockSectionItem>            
+            <apex:pageBlockSectionItem >
+             <apex:outputLabel value="" />
+               <apex:outputPanel >
+                  <apex:outputText value="{!$Label.largestVolumeDelivered}" />
+               </apex:outputPanel>          
+            </apex:pageBlockSectionItem>
+          </apex:pageBlockSection>
+         
+         <!-- R16.04 user story 849: to hide Ocean Form (hide Ocean related field)
+          <apex:pageBlockSection columns="1" rendered="{!Opportunity.Eligible_for_Ocean__c == 'Yes' && $CurrentPage.parameters.pursue == 'true'}" >
+            <apex:pageBlockSectionItem >
+              <apex:outputLabel value="Ocean Calculated Delivery Date"/>                           
+                 <apex:outputPanel >                    
+                    <apex:outputText value="{!CalcDeliveryDate}" />                 
+                 </apex:outputPanel>
+            </apex:pageBlockSectionItem>            
+            <apex:pageBlockSectionItem >
+             <apex:outputLabel value="" />
+               <apex:outputPanel >
+                  <apex:outputText style="color:red; font-weight:bold" value="{!$Label.calculatedDeliveryDate}" />
+               </apex:outputPanel>          
+            </apex:pageBlockSectionItem>
+          </apex:pageBlockSection>
+          -->
+          
+          <!-- Updated the logic for displaying the input box  R13.7, Fix for Defect #39015-->
+          <!-- rendered="{!Opportunity.Eligible_for_Ocean__c == 'Yes' && $CurrentPage.parameters.pursue == 'true'}"  -->
+          <apex:pageBlockSection columns="1" rendered="{!Opportunity.Eligible_for_Ocean__c == 'Yes' && ($CurrentPage.parameters.pursue == 'true' || Opportunity.Customer_Requested_Delivery_Date__c==null)}">            
+            <apex:inputField value="{!Opportunity.Customer_Requested_Delivery_Date__c}" required="false" />      
+          </apex:pageBlockSection>
+          
+          <!-- R16.04 user story 849: to hide Ocean Form (hide Ocean related field)
+          <apex:pageBlockSection columns="1" rendered="{!Opportunity.Eligible_for_Ocean__c == 'Yes' && $CurrentPage.parameters.pursue == 'true'}">            
+            <apex:inputField value="{!Opportunity.Must_Arrive_By_Date__c}" required="false" />      
+          </apex:pageBlockSection>
+        -->
+        
+          <apex:pageBlockSection columns="1" rendered="{!Opportunity.LOT_Mandatory_Fields__c || Opportunity.Ocean_Type__c == 'Container'}">
+            <apex:inputField value="{!Opportunity.Is_CFI_included__c}" required="false" />
+          </apex:pageBlockSection>
+            
+         </apex:pageBlockSection>
+        </apex:actionRegion>
+         
+    </apex:pageBlock>
+    
+</apex:form>
+<br/>
+</apex:page>

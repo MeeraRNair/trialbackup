@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Websense_If_other_please_note</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF( AND( If_Other_please_note_specific_action__c =&quot;&quot;, ISPICKVAL( Action_taken_within_the_first_21_days__c , &quot;Other&quot;) ) , TRUE, FALSE)</errorConditionFormula>
+    <errorDisplayField>If_Other_please_note_specific_action__c</errorDisplayField>
+    <errorMessage>If &quot;Action taken within the first 21 days?&quot; is Other, then &quot;If Other, please note specific action.&quot; field must be specified.</errorMessage>
+</ValidationRule>

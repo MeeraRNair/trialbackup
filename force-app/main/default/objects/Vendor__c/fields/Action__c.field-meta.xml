@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Action__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(AND( ISPICKVAL( Partner_Status__c , &apos;Active&apos; ) , NOT(  ISPICKVAL(  Partner_Status__c , &apos;None&apos;))), 
+ HYPERLINK(&apos;/apex/DeactivateVendorPage?id=&apos; &amp; Id  ,
+ IMAGE(&quot;/resource/1298546011000/DeactivateButton&quot;, &apos; Deactivate&apos;), &apos;_parent&apos; ) ,  
+IF(   AND( ISPICKVAL( Partner_Status__c , &apos;Inactive&apos; ) ,  NOT(  ISPICKVAL(  Partner_Status__c , &apos;None&apos;))),
+ HYPERLINK(&apos;/apex/ActivateVendorPage?id=&apos; &amp; Id  ,
+ IMAGE(&quot;/resource/1298546011000/ActivateButton&quot;,&apos; Activate&apos;), &apos;_parent&apos; ),&apos; &apos;  ))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Available action</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,66 @@
+<!-- 
+/*-------------------------------------------------------------------------
+Name        : LOB_Registration_Help
+
+* Revision  Name            Date        Description
+----------------------------------------------------------------------------
+* 1.0                              		created
+* 2.0       Azwanti         14.11.2011  REL13.1 CR6580 : comment out reference to picklist value 'Dell(submit for approval)'.
+--------------------------------------------------------------------------*/
+ -->
+<apex:page showHeader="false" sidebar="false">
+ 
+  <apex:pageBlock title="LOB Registration Help Page">
+       <apex:pageBlockSection title="ALERT on LOB#XXXX" columns="1" collapsible="false">  
+        <table width="100%" cellpadding="1" cellspacing="0"  border="0">
+            <tr>
+              <td>                              
+                  This is system generated number and does not have any business significance. 
+                           
+                        </td></tr>   
+          </table>                      
+        </apex:pageBlockSection>
+      
+      <apex:pageBlockSection title="Help on LOB Registration status values" columns="1" collapsible="false">
+
+          <table width="100%" cellpadding="1" cellspacing="0"  border="0">
+                    <tr>
+                        <td> <br></br>                              
+                            <b>Open</b> – LOB is open to both Deal Registration and Line of Business Registration. 
+                            <br></br> 
+                        </td></tr>
+                        
+                        <tr><td>
+                            <br></br>
+                            <b>Closed</b> – LOB is open to Deal Registration, but not Line of Business Registration. 
+                            <br></br>
+                        </td></tr> 
+                         <!-- r2.0 comment out   
+                         <tr> <td> 
+                            <br></br>
+                            <b>Dell(submit for approval)</b> – Nominate a LOB for registration to the Dell Direct sales team, 
+                               all partner deal registration requests will be denied if approved.
+                            <br></br>
+                         </td></tr>
+                             -->  
+                         <tr> <td> 
+                            <br></br>
+                            <b>Dell(approved)</b> – LOB is registered to Dell Direct sales. All partner deal 
+                            registration requests will be denied.<br></br>
+                         </td></tr>
+                         
+                         <tr><td>
+                            <br></br>
+                            <b>Partner(submit for approval)</b> – Send request to the Dell account owner to consider 
+                            granting LOB Registration to the partner.<br></br></td></tr> 
+                            
+                         <tr><td> 
+                            <br></br>
+                            <b>Partner (Approved)</b> – Partner has been granted LOB Registration for this LOB at this 
+                            location.<br></br> 
+                         </td></tr>
+        </table>          
+      </apex:pageBlockSection>
+  </apex:pageBlock>
+
+</apex:page>

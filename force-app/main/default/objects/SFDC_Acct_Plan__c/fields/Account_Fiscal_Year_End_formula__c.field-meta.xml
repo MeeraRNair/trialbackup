@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_Fiscal_Year_End_formula__c</fullName>
+    <externalId>false</externalId>
+    <formula>TEXT(DAY(Account_Fiscal_Year_End__c)) &amp;&apos; &apos;&amp; CASE(MONTH(Account_Fiscal_Year_End__c),
+1,&quot;JAN &quot;,
+2,&quot;FEB &quot;,
+3,&quot;MAR &quot;,
+4,&quot;APR &quot;,
+5,&quot;MAY &quot;,
+6,&quot;JUN &quot;,
+7,&quot;JUL &quot;,
+8,&quot;AUG &quot;,
+9,&quot;SEP &quot;,
+10,&quot;OCT &quot;,
+11,&quot;NOV &quot;,
+12,&quot;DEC &quot;, &quot; &quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Account Fiscal Year End</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

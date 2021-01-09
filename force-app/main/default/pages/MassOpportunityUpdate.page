@@ -1,0 +1,367 @@
+<apex:page standardController="Opportunity" extensions="MassOpportunityUpdate" tabStyle="Opportunity" recordSetVar="selectedOppTest"  sidebar="false" id="pg" lightningStylesheets="{!$User.UITheme != 'Theme3'}">
+  <apex:sectionHeader title="Opportunities" subtitle="Mass Update Opportunities"/>
+  <apex:includeScript value="{!URLFOR($Resource.Jquery_10, 'jquery-ui-1.10.4.custom/js/jquery-1.10.2.js')}"  />
+  <apex:includeScript value="{!URLFOR($Resource.Jquery_10, 'jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js')}"  />
+  <apex:includeScript value="/support/console/22.0/integration.js"/>
+    
+  <script type="text/javascript">
+
+idleTimer = null;
+idleState = false;
+idleWait = 900000;
+        
+      function setFocusOnLoad() {}
+
+      $j = jQuery.noConflict();
+      
+      $j(document).ready(function() {
+        
+        //var scrnWidth = screen.width;
+
+      //$j(".div12").css("width",scrnWidth);
+          
+        highliteError();
+     
+        removeWinLostStage();
+        
+        $j('.cancelButton').on('click', function() {
+           if(isItModified()){
+             if (confirm('Do you want to discard all the changes?')) {
+               return true;
+             }else{
+               return false; 
+             }
+           }
+        });
+        
+        $j('.saveAndReturn').on('click', function() {
+            if(!isItModified()){
+                alert('No records updated.');
+                return false;
+             }
+            var oldVal = $j('.saveAndReturn').val();
+            $j('.saveAndReturn').val('Saving...');
+             return true;
+        });
+        
+        
+        $j('[id$=tbl] tr').change(function(){
+        var rowNum = this.rowIndex;
+         if( Number(rowNum) !=0){
+             var flagId = 'pg:form1:pgBlock1:section1:tbl:'+(Number(rowNum)-1)+':isModified';
+             document.getElementById(flagId).value = true;
+            }
+        });
+        
+            
+            idleTimer = setTimeout(function () { 
+                idleState = true; }, idleWait);
+          
+      });
+      
+      isItModified=function(){
+        var rowCount = $j('[id$=isModified]').length;
+        var altered='false';
+        for(var x=0;x<rowCount;x++){
+            altered = document.getElementById('pg:form1:pgBlock1:section1:tbl:'+x+':isModified').value;
+            
+            if(altered === "true"){
+                return true;
+            }
+        }
+        return false;
+      }
+      
+      removeWinLostStage=function(){
+      
+          var rowCount = $j('[id$=stage]').length;
+          
+          for(var x=0;x<rowCount;x++){ 
+                             
+             var selectOpt=document.getElementById('pg:form1:pgBlock1:section1:tbl:'+x+':stage');
+             if(selectOpt!= null){
+                 for (i=selectOpt.length-1;i>=0;i--) {
+                   if ((selectOpt.options[i].value=='Win - 100%' && selectOpt.options[selectOpt.selectedIndex].value !='Win - 100%')
+                      || (selectOpt.options[i].value=='Lost, Cancelled - 0%' && selectOpt.options[selectOpt.selectedIndex].value !='Lost, Cancelled - 0%')) {
+                     selectOpt.remove(i);
+                   }
+                  
+                 }
+                 selectOpt.style.display = 'block';
+             }
+             else{
+                 ++rowCount;
+             }
+             
+            
+          }
+            
+      }
+      highliteError=function(){
+          
+          var rowCount = $j('[id$=isModified]').length;
+          var altered=false;
+        for(var x=0;x<rowCount;x++){
+            altered = document.getElementById('pg:form1:pgBlock1:section1:tbl:'+x+':errorRec').value;
+            if(altered === "Error"){
+               $j('[id$=tbl] tbody tr:eq('+x+')').css("background-color", "#FFFFCC");
+            }else{
+                $j('[id$=tbl] tbody tr:eq('+x+')').css("background-color", "#FFFFFF");
+            }
+        }
+        $j('[id$=tbl] tbody tr:has(div.errorMsg)').css("background-color", "#FFFFCC");
+       }
+       
+pageOneClicked = function() {
+    if(!idleCheck()){
+        return false;
+    }
+    if(isItModified()){
+        if (confirm('Do you want to update the records with the new changes?')) {
+            doSavePage1();
+        }else{
+            doGoToPage1();
+        }
+    }else{
+        doGoToPage1();
+    }
+}
+       
+nextPageClicked = function(event) {    
+    if(!idleCheck()){
+        return false;
+    }
+    if(isItModified()){
+       if (confirm('Do you want to update the records with the new changes?')) {
+            doSaveNext();
+        }else{
+            doNext();
+        }
+    }else{
+        doNext();
+    }
+}       
+pageTwoClicked = function() {
+    if(!idleCheck()){
+        return false;
+    }
+    if(isItModified()){
+        if (confirm('Do you want to update the records with the new changes?')) {
+            doSavePage2();
+        }else{
+            doGoToPage2();
+        }
+    }else{
+        doGoToPage2();
+    }   
+}
+
+pageThreeClicked = function() {
+    if(!idleCheck()){
+        return false;
+    }
+    if(isItModified()){
+        if (confirm('Do you want to update the records with the new changes?')) {
+            doSavePage3();
+        }else{
+            doGoToPage3();
+        }
+    }else{
+        doGoToPage3();
+    }
+}
+
+firstPageClicked = function() {
+    if(!idleCheck()){
+        return false;
+    }
+    if(isItModified()){
+        if (confirm('Do you want to update the records with the new changes?')) {
+            doSaveFirst();
+        }else{
+            doFirst();
+        }
+    }else{
+        doFirst();
+    }   
+}
+
+prevPageClicked = function() {
+    if(!idleCheck()){
+        return false;
+    }
+    if(isItModified()){
+        if (confirm('Do you want to update the records with the new changes?')) {
+            doSavePrev();
+        }else{
+            doPrevious();
+        }
+    }else{
+        doPrevious();
+    }   
+}
+
+lastPageClicked = function() {
+    if(!idleCheck()){
+        return false;
+    }
+    if(isItModified()){
+        if (confirm('Do you want to update the records with the new changes?')) {
+            doSaveLast();
+        }else{
+            doLast();
+        }
+    }else{
+        doLast();
+    }   
+} 
+
+idleCheck = function(){
+  clearTimeout(idleTimer);
+  if (idleState == true) { 
+       if (confirm('This session has been idle for 15 minutes. Click OK to Save Changes or Cancel to discard the changes')) {
+           if(isItModified()){
+               doSaveIdle();
+           }else{
+               doCancelIdle();
+           }
+       }else{
+           doCancelIdle();
+       }
+       return false;
+   }   
+   return true;
+}
+    
+  </script>
+ <apex:form id="form1" styleClass="myDiv">    
+ 
+  <apex:actionFunction name="doGoToPage1" action="{!Page1}"/>
+  <apex:actionFunction name="doGoToPage2" action="{!Page2}"/>
+  <apex:actionFunction name="doGoToPage3" action="{!Page3}"/>
+  
+  <apex:actionFunction name="doNext" action="{!NextPage}"/>  
+  <apex:actionFunction name="doPrevious" action="{!PreviousPage}"/>
+  <apex:actionFunction name="doFirst" action="{!FirstPage}"/>
+  <apex:actionFunction name="doLast" action="{!LastPage}" />
+  
+  <apex:actionFunction name="doSavePage1" action="{!SaveAndPage1}"/>
+  <apex:actionFunction name="doSavePage2" action="{!SaveAndPage2}"/>
+  <apex:actionFunction name="doSavePage3" action="{!SaveAndPage3}"/>
+  
+   <apex:actionFunction name="doSaveFirst" action="{!SaveAndFirstPage}"/>  
+   <apex:actionFunction name="doSavePrev" action="{!SaveAndPrevPage}"/> 
+   <apex:actionFunction name="doSaveNext" action="{!SaveAndNextPage}"/>       
+   <apex:actionFunction name="doSaveLast" action="{!SaveAndLastPage}"/> 
+  
+   <apex:actionFunction name="doSaveIdle" action="{!idleSaveRedirect}"/>
+   <apex:actionFunction name="doCancelIdle" action="{!idleRedirect}"/>     
+  
+   <apex:pageMessages escape="false" id="pmsgs"/>
+   
+  
+        
+        <div id="contentToToggle" style="display:{!if(ShowBackButton,"block","none")};width:100%;text-align:center;">
+            <apex:commandButton action="{!cancelAndReturn}" value="Back" immediate="true"/>  
+        </div>  
+        <apex:pageBlock rendered="{!HasPermissionToView}" id="pgBlock1" >
+            
+             <apex:panelGrid columns="7" style="width:100%;text-align:center;">
+                <apex:outputPanel style="color: red;"><b>NOTE:</b> Mass Update is not available for Opportunities that may qualify or have qualified as Large Order (LOT). You cannot close Opportunities via Mass Update.<BR/>A maximum of {!$Label.Opp_MassUpdateCount} records at a time may be selected for mass update.</apex:outputPanel>
+             </apex:panelGrid>   
+            
+             <apex:panelGrid columns="20" style="float:left;margin-left:10px">
+                <apex:outputText rendered="{!showPagination && PageNumber > 3}">...&nbsp;</apex:outputText>
+                <apex:commandLink styleClass="pageOne" onclick="pageOneClicked();return false;" rendered="{!showPagination}" style="{!IF(PageNumber1 == PageNumber, 'font-weight:bold', '')}" immediate="true">{!PageNumber1}</apex:commandLink><apex:outputText rendered="{!showPagination}">&nbsp;|&nbsp;</apex:outputText>
+                <apex:commandLink styleClass="pageTwo" onclick="pageTwoClicked();return false;" rendered="{!showPagination && TotalPages > 1}" style="{!IF(PageNumber2 == PageNumber, 'font-weight:bold', '')}" immediate="true">{!PageNumber2}</apex:commandLink><apex:outputText rendered="{!showPagination}">&nbsp;|&nbsp;</apex:outputText>
+                <apex:commandLink styleClass="pageThree" onclick="pageThreeClicked();return false;" rendered="{!showPagination && TotalPages > 2}" style="{!IF(PageNumber3 == PageNumber, 'font-weight:bold', '')}" immediate="true">{!PageNumber3}</apex:commandLink>
+                <apex:outputText rendered="{!showPagination && (PageNumber < (TotalPages - 1))}">&nbsp;...&nbsp;&nbsp;</apex:outputText>
+             
+                <apex:outputText rendered="{!showPagination}">&nbsp;&nbsp;</apex:outputText>                
+                <apex:commandLink styleClass="FirstPage" rendered="{!showPagination && PageNumber != 1}" onclick="firstPageClicked();return false;">First</apex:commandlink><apex:outputText value="|" rendered="{!showPagination && PageNumber != 1}" />
+                <apex:commandLink styleClass="PrevPage" rendered="{!showPagination && PageNumber > 1}" onclick="prevPageClicked();return false;">Previous</apex:commandlink><apex:outputText value="|" rendered="{!showPagination && PageNumber > 1 && PageNumber != TotalPages}" />
+                <apex:commandLink styleClass="NextPage" rendered="{!showPagination && PageNumber != TotalPages}" onclick="nextPageClicked();return false;">Next</apex:commandlink><apex:outputText value="|" rendered="{!showPagination && PageNumber != TotalPages}" />
+                <apex:commandLink styleClass="LastPage" rendered="{!showPagination && PageNumber != TotalPages}" onclick="lastPageClicked();return false;">Last</apex:commandlink>
+                <apex:outputText rendered="{!showPagination}">&nbsp;&nbsp;&nbsp;</apex:outputText>                
+                (Page: <apex:outputText value="{!PageNumber}"></apex:outputText> of <apex:outputText value="{!TotalPages})"></apex:outputText>
+                 
+             </apex:panelGrid>   
+               
+            <apex:panelGrid columns="7" style="float:right;">
+                <apex:outputText value="{!StartPageRecords}"></apex:outputText>-<apex:outputText value="{!EndPageRecords}"></apex:outputText> of <apex:outputText value="{!TotalRecords}"></apex:outputText>
+            </apex:panelGrid>   
+    
+             <apex:pageBlockButtons style="width:100%;">
+                    <apex:commandButton id="SaveButton" styleClass="saveAndReturn" action="{!saveAndReturn}" value="Save and Mass Update"/>  
+                    <apex:commandButton styleClass="cancelButton" action="{!cancelAndReturn}" value="Cancel" immediate="true"/>          
+            </apex:pageBlockButtons>
+             <apex:pageBlockSection columns="1" id="section1">
+            <apex:pageBlockTable value="{!wrapperList25}" var="wrapper" id="tbl">
+                <apex:column headerValue="Opportunity Name">
+                        <apex:inputHidden value="{!oppWrapperMap[wrapper.opp.Id].isModified}" id="isModified"/>
+                        <apex:inputHidden value="{!errorMap[wrapper.opp.Id]}" id="errorRec"/>
+                        <apex:outputLink value="/{!oppWrapperMap[wrapper.opp.Id].opp.Id}" onClick="if(!(sforce.console.isInConsole())){this.target='_blank'};"  style="display: inline-table; max-width: 170px;">{!oppWrapperMap[wrapper.opp.Id].opp.Name}</apex:outputLink>
+                 </apex:column>
+                <apex:column headerValue=" Account Name">
+                   <apex:outputText value="{!BLANKVALUE(oppWrapperMap[wrapper.opp.Id].opp.Account.Name, 'N/A')}"></apex:outputText>
+                </apex:column>
+                <apex:column headerValue="Stage">
+                    <apex:outputfield value="{!oppWrapperMap[wrapper.opp.Id].opp.StageName}" rendered="{!IF(mapAccess[wrapper.opp.Id]=false,true,false)}" style="width:150px" />
+                    <apex:inputField value="{!oppWrapperMap[wrapper.opp.Id].opp.StageName}" id="stage" rendered="{!mapAccess[wrapper.opp.Id]}" required="true" style="width:150px;display:none;"></apex:inputField>
+                </apex:column>
+                <apex:column headerValue="Book Date">
+                    <apex:outputfield value="{!oppWrapperMap[wrapper.opp.Id].opp.CloseDate}" rendered="{!IF(mapAccess[wrapper.opp.Id]=false,true,false)}" />
+                    <apex:inputField id="bookDate"  value="{!oppWrapperMap[wrapper.opp.Id].opp.CloseDate}" rendered="{!mapAccess[wrapper.opp.Id]}" required="true"></apex:inputField>
+                </apex:column>
+                <!--<apex:column headerValue="Probability (%)">
+                    <apex:outputfield value="{!oppWrapperMap[wrapper.opp.Id].opp.Probability}" rendered="{!IF(mapAccess[wrapper.opp.Id]=false,true,false)}" style="width:40px"/>
+                    <apex:inputField value="{!oppWrapperMap[wrapper.opp.Id].opp.Probability}" rendered="{!mapAccess[wrapper.opp.Id]}" style="width:40px"></apex:inputField>
+                </apex:column>-->
+                <apex:column headerValue="Forecast Category">
+                    <apex:outputfield value="{!oppWrapperMap[wrapper.opp.Id].opp.Forecast_Category_RO__c}"></apex:outputfield>
+                </apex:column>
+                <apex:column headerValue="Forecast Category Override">
+                    <apex:outputfield value="{!oppWrapperMap[wrapper.opp.Id].opp.Forecast_Category_Override__c}" rendered="{!IF(mapAccess[wrapper.opp.Id]=false,true,false)}"/>
+                    <apex:inputField style="width:100%" value="{!oppWrapperMap[wrapper.opp.Id].opp.Forecast_Category_Override__c}" rendered="{!mapAccess[wrapper.opp.Id]}"></apex:inputField>
+                </apex:column>
+                <apex:column headerValue="Unweighted Revenue">
+                    <apex:outputfield value="{!oppWrapperMap[wrapper.opp.Id].opp.Unweighted_Rev_Formula__c}"></apex:outputfield>
+                </apex:column>
+                <apex:column headerValue="Description">
+                    <apex:outputfield value="{!oppWrapperMap[wrapper.opp.Id].opp.Description}" rendered="{!IF(mapAccess[wrapper.opp.Id]=false,true,false)}" />
+                    <apex:inputTextArea id="descId" rows="2" value="{!oppWrapperMap[wrapper.opp.Id].opp.Description}" rendered="{!mapAccess[wrapper.opp.Id]}"></apex:inputTextArea>
+                </apex:column>
+                <apex:column headerValue="Next step">
+                    <apex:outputfield value="{!oppWrapperMap[wrapper.opp.Id].opp.NextStep}" rendered="{!IF(mapAccess[wrapper.opp.Id]=false,true,false)}" />
+                    <apex:inputTextArea rendered="{!mapAccess[wrapper.opp.Id]}"  rows="2" id="inputNextSteps" value="{!oppWrapperMap[wrapper.opp.Id].opp.NextStep}"/> 
+                </apex:column>
+                <apex:column headerValue="Partner Account">
+                    <apex:outputText value="{!oppWrapperMap[wrapper.opp.Id].opp.PartnerAccount.Name}">
+                    </apex:outputText>    
+                </apex:column>
+            </apex:pageBlockTable>
+            </apex:pageBlockSection>
+             <apex:panelGrid columns="20" style="float:left;margin-left:10px">
+                <apex:outputText rendered="{!showPagination && PageNumber > 3}">...&nbsp;</apex:outputText>
+                <apex:commandLink styleClass="pageOne" onclick="pageOneClicked();return false;" rendered="{!showPagination}" style="{!IF(PageNumber1 == PageNumber, 'font-weight:bold', '')}" immediate="true">{!PageNumber1}</apex:commandLink><apex:outputText rendered="{!showPagination}">&nbsp;|&nbsp;</apex:outputText>
+                <apex:commandLink styleClass="pageTwo" onclick="pageTwoClicked();return false;" rendered="{!showPagination && TotalPages > 1}" style="{!IF(PageNumber2 == PageNumber, 'font-weight:bold', '')}" immediate="true">{!PageNumber2}</apex:commandLink><apex:outputText rendered="{!showPagination}">&nbsp;|&nbsp;</apex:outputText>
+                <apex:commandLink styleClass="pageThree" onclick="pageThreeClicked();return false;" rendered="{!showPagination && TotalPages > 2}" style="{!IF(PageNumber3 == PageNumber, 'font-weight:bold', '')}" immediate="true">{!PageNumber3}</apex:commandLink>
+                <apex:outputText rendered="{!showPagination && (PageNumber < (TotalPages - 1))}">&nbsp;...&nbsp;&nbsp;</apex:outputText>
+             
+                <apex:outputText rendered="{!showPagination}">&nbsp;&nbsp;</apex:outputText>                
+                <apex:commandLink styleClass="FirstPage" rendered="{!showPagination && PageNumber != 1}" onclick="firstPageClicked();return false;">First</apex:commandlink><apex:outputText value="|" rendered="{!showPagination && PageNumber != 1}" />
+                <apex:commandLink styleClass="PrevPage" rendered="{!showPagination && PageNumber > 1}" onclick="prevPageClicked();return false;">Previous</apex:commandlink><apex:outputText value="|" rendered="{!showPagination && PageNumber > 1 && PageNumber != TotalPages}" />
+                <apex:commandLink styleClass="NextPage" rendered="{!showPagination && PageNumber != TotalPages}" onclick="nextPageClicked();return false;">Next</apex:commandlink><apex:outputText value="|" rendered="{!showPagination && PageNumber != TotalPages}" />
+                <apex:commandLink styleClass="LastPage" rendered="{!showPagination && PageNumber != TotalPages}" onclick="lastPageClicked();return false;">Last</apex:commandlink>
+                <apex:outputText rendered="{!showPagination}">&nbsp;&nbsp;&nbsp;</apex:outputText>                
+                (Page: <apex:outputText value="{!PageNumber}"></apex:outputText> of <apex:outputText value="{!TotalPages})"></apex:outputText>
+             
+             </apex:panelGrid>            
+            <apex:panelGrid columns="7" style="float:right">
+                <apex:outputText value="{!StartPageRecords}"></apex:outputText>-<apex:outputText value="{!EndPageRecords}"></apex:outputText> of <apex:outputText value="{!TotalRecords}"></apex:outputText>
+            </apex:panelGrid>       
+                  
+    </apex:pageBlock>
+
+</apex:form>
+</apex:page>

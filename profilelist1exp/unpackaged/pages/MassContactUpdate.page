@@ -1,0 +1,266 @@
+<apex:page standardController="Contact" extensions="MassContactUpdate" tabStyle="Contact" recordSetVar="myemp"  sidebar="false" id="pg"  lightningStylesheets="{!$User.UITheme != 'Theme3'}">
+    <apex:sectionHeader title="Contacts" subtitle="Mass Update Contacts"/>
+    <apex:includeScript value="/support/console/27.0/integration.js"/>
+    <!--
+    <apex:outputPanel id="pnl">
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <apex:outputLabel style="font-weight:bold" rendered="{!SuccessMsg}" id="succ">See the comments provided under the Success/Error column below:</apex:outputLabel>
+     <apex:messages style="font-weight:bold" id="err" />
+    </apex:outputPanel>
+    // -->    
+    
+    <apex:form id="frm1" >
+        <apex:actionFunction name="doNext" action="{!NextPage}"/>    
+        <apex:actionFunction name="doSaveAndNext" action="{!SaveAndNextPage}"/>
+        <apex:actionFunction name="doCancelAndNext" action="{!CancelAndNextPage}" immediate="true" />
+        <apex:actionFunction name="doPrevious" action="{!PreviousPage}"/>
+        <apex:actionFunction name="doSaveAndPrevious" action="{!SaveAndPreviousPage}"/>
+        <apex:actionFunction name="doCancelAndPrevious" action="{!CancelAndPreviousPage}" immediate="true" />
+        <apex:actionFunction name="doFirst" action="{!FirstPage}"/>
+        <apex:actionFunction name="doSaveAndFirst" action="{!SaveAndFirstPage}"/>
+        <apex:actionFunction name="doCancelAndFirst" action="{!CancelAndFirstPage}" immediate="true" />
+        <apex:actionFunction name="doLast" action="{!LastPage}" />
+        <apex:actionFunction name="doSaveAndLast" action="{!SaveAndLastPage}"/>
+        <apex:actionFunction name="doCancelAndLast" action="{!CancelAndLastPage}" immediate="true" />
+        <apex:actionFunction name="doGoBack" action="{!GoBack}" immediate="true" />
+        <apex:actionFunction name="doDiscardAndStay" action="{!DiscardAndStay}"  immediate="true" />
+        <apex:actionFunction name="dosaveAndReturnSuccessMsg" action="{!saveAndReturnSuccessMsg}"/>
+        
+        <apex:actionFunction name="doGoToPage1" action="{!Page1}" immediate="true"/>
+        <apex:actionFunction name="doSaveAndGoToPage1" action="{!SaveAndPage1}"/>
+        <apex:actionFunction name="doCancelAndGoToPage1" action="{!CancelAndPage1}" immediate="true"/>
+        <apex:actionFunction name="doGoToPage2" action="{!Page2}"/>
+        <apex:actionFunction name="doSaveAndGoToPage2" action="{!SaveAndPage2}"/>
+        <apex:actionFunction name="doCancelAndGoToPage2" action="{!CancelAndPage2}" immediate="true"/>
+        <apex:actionFunction name="doGoToPage3" action="{!Page3}"/>
+        <apex:actionFunction name="doSaveAndGoToPage3" action="{!SaveAndPage3}"/>
+        <apex:actionFunction name="doCancelAndGoToPage3" action="{!CancelAndPage3}" immediate="true"/>
+                
+    <script>
+        var strChanged2;
+        strChanged2 = '';
+        
+        function showBox(AccId, ConId){
+        
+        var box = new parent.SimpleDialog("helder"+Math.random(), true);
+        parent.box = box;
+        
+        box.createDialog();
+        box.setWidth(920);
+        box.setContentInnerHTML("<table width=\"880\" height=\"25\" cellpadding=\"6\" cellspacing=\"0\" border=\"0\" style=\"border:1px #CC3300 solid;\"><tr><td bgcolor='#f6a828' width=\"75%\" style=\"font-family:verdana,arial;font-size:10pt;font-weight:bold;color:#FFFFFF\">Deal Summary</td><td bgcolor='#f6a828' width=\"25%\" align=\"right\"><a href=\"#\" onclick=\"box.hide();\" style=\"font-weight:bold;font-family:verdana,arial;font-size:10pt;color:#ffffff;text-decoration:none;\">X</a></td></tr></table></br><iframe src =\"/apex/AccountPrimaryContact?Id={!contact.AccountId}&selConId={!contact.Id}\" height=\"460\" width=\"880\" frameborder=\"0\" style=\"border:none; width:880px; margin-left:0; margin-right: auto; height:460px;overflow-x:hidden;\"></iframe>");
+        
+        box.setupDefaultButtons();
+        box.show();
+        }
+        //showBox();
+        
+    
+        function onChangeTest(textbox) {
+            var oldValue;
+            var newValue;
+            
+            oldValue = textbox.oldvalue;
+            newValue = textbox.value;
+            
+            if(oldValue != newValue){
+                strChanged2 = 'Y';
+            }
+            else{
+                strChanged2 = 'N';
+            }
+            return strChanged2;
+            
+            //alert(strChanged2 + " " + "Value is " + newValue + "\n" + "Old Value is " + oldValue);
+            //alert("Value is " + textbox.value + "\n" + "Old Value is " + textbox.oldvalue);
+        }
+
+        function SaveErrorMessage(){
+            dosaveAndReturnSuccessMsg();
+        }
+    
+        function Validate_Submit(){
+            if(strChanged2 != 'Y' && {!changePopup } == true){
+                alert('No records updated.');
+                return false;
+            }
+            return true;
+        }
+        
+        function DetectChanges(actionFrom) {
+            //var strChanged = document.getElementById('muop:muoForm:hiddenChanged').value;
+            //var strChanged = 'Y';
+                    
+            var strChanged = strChanged2;
+            //alert(strChanged);
+            //alert(strChanged.length);
+            
+            if (strChanged.length > 0 && actionFrom == 'btnCancel') {
+                if (confirm('Do you want to discard all the changes?')) {
+                    if (actionFrom == 'btnCancel') doGoBack(); 
+                }
+                else{
+                    if (actionFrom == 'btnCancel'){
+                        return false;
+                        //doDiscardAndStay();
+                    } 
+                }
+            }
+            else{
+                if (actionFrom == 'btnCancel') doGoBack(); 
+            }
+    
+            if (strChanged.length > 0 && actionFrom != 'btnCancel') {
+                if (confirm('Do you want to update the records with the new changes?')) {
+                                    //do save
+                                    //alert('strChanged ' + strChanged);
+                                    if (actionFrom == 'next') doSaveAndNext();
+                                    if (actionFrom == 'previous') doSaveAndPrevious();
+                                    if (actionFrom == 'first') doSaveAndFirst();
+                                    if (actionFrom == 'last') doSaveAndLast();
+                                    if (actionFrom == 'goToPage1') doSaveAndGoToPage1();
+                                    if (actionFrom == 'goToPage2') doSaveAndGoToPage2();
+                                    if (actionFrom == 'goToPage3') doSaveAndGoToPage3();                                    
+                 }
+                 else {
+                                    //do redirect
+                                    if (actionFrom == 'next') doCancelAndNext();
+                                    if (actionFrom == 'previous') doCancelAndPrevious();
+                                    if (actionFrom == 'first') doCancelAndFirst();
+                                    if (actionFrom == 'last') doCancelAndLast();
+                                    if (actionFrom == 'goToPage1') doCancelAndGoToPage1();
+                                    if (actionFrom == 'goToPage2') doCancelAndGoToPage2();
+                                    if (actionFrom == 'goToPage3') doCancelAndGoToPage3();                                    
+                 }
+            }
+            else {
+                        //do redirect            
+                        if (actionFrom == 'next') doCancelAndNext();
+                        if (actionFrom == 'previous') doCancelAndPrevious();
+                        if (actionFrom == 'first') doCancelAndFirst();
+                        if (actionFrom == 'last') doCancelAndLast();
+                        if (actionFrom == 'goToPage1') doCancelAndGoToPage1(); //doSaveAndGoToPage1(); //doGoToPage1(); //
+                        if (actionFrom == 'goToPage2') doCancelAndGoToPage2(); //doSaveAndGoToPage2(); //doGoToPage2(); //
+                        if (actionFrom == 'goToPage3') doCancelAndGoToPage3(); //doSaveAndGoToPage3(); //doGoToPage3(); //                                    
+                                             
+            }
+        }
+    </script>
+
+    <script type='text/javascript' src= '//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'></script>
+    <script language="javascript">
+            $(function() {        
+                $('select.RemoveNone option[value=]').remove();       
+            });
+    </script> 
+    <!--
+    HasPermissionToView: {!HasPermissionToView} <br />
+    hasChangesSize: {!hasChangesSize} <br />
+    recordSuccess: {!recordSuccess} <br />
+    recordFailed: {!recordFailed} <br />
+    FailedCount: {!FailedCount} <br />
+    totalPages: {!totalPages} <br />
+    {!PageNumber} of {!TotalPages} - {!PageSize} - <br />
+    {!StartPageRecords}-{!EndPageRecords} of {!TotalRecords}
+    noError: {!noError}
+    {!$ObjectType.Contact.fields.Decision_Making_Role__c.Updateable}
+    changePopup: {!changePopup}
+    gblError: {!gblError}    
+    //-->
+   
+        <apex:pageMessages id="pmsgs" rendered="{!pageFirst}" />
+        
+        <div id="contentToToggle" style="display:{!if(ShowBackButton,"block","none")};width:100%;text-align:center;">
+            <input type="button" id="backbtn" onclick="javascript:history.back()" value="Back" style="position:absolute;" /> 
+        </div>   
+                
+        <apex:pageBlock rendered="{!HasPermissionToView}" id="pgBlock1" >
+            <apex:panelGrid columns="20" style="float:left">
+                <apex:outputText rendered="{!showPagination && PageNumber > 2}">...&nbsp;</apex:outputText>
+                <apex:commandLink onclick="DetectChanges('goToPage1'); return false;" rendered="{!showPagination}" style="{!IF(PageNumber1 == PageNumber, 'font-weight:bold', '')}" immediate="true">{!PageNumber1}</apex:commandLink><apex:outputText rendered="{!showPagination}">&nbsp;|&nbsp;</apex:outputText>
+                <apex:commandLink onclick="DetectChanges('goToPage2'); return false;" rendered="{!showPagination && TotalPages > 1}" style="{!IF(PageNumber2 == PageNumber, 'font-weight:bold', '')}" immediate="true">{!PageNumber2}</apex:commandLink><apex:outputText rendered="{!showPagination}">&nbsp;|&nbsp;</apex:outputText>
+                <apex:commandLink onclick="DetectChanges('goToPage3'); return false;" rendered="{!showPagination && TotalPages > 2}" style="{!IF(PageNumber3 == PageNumber, 'font-weight:bold', '')}" immediate="true">{!PageNumber3}</apex:commandLink>
+                <apex:outputText rendered="{!showPagination && (PageNumber < (TotalPages - 1))}">&nbsp;...&nbsp;&nbsp;</apex:outputText>                
+            
+                <apex:outputText rendered="{!showPagination}">&nbsp;&nbsp;</apex:outputText>                
+                <apex:commandLink onclick="DetectChanges('first'); return false;" rendered="{!showPagination && PageNumber != 1}" immediate="true">First</apex:commandlink><apex:outputText value="|" rendered="{!showPagination && PageNumber != 1}" />
+                <apex:commandLink onclick="DetectChanges('previous'); return false;" rendered="{!showPagination && PageNumber > 1}" immediate="true">Previous</apex:commandlink><apex:outputText value="|" rendered="{!showPagination && PageNumber > 1 && PageNumber != TotalPages}" />
+                <apex:commandLink onclick="DetectChanges('next'); return false;" rendered="{!showPagination && PageNumber != TotalPages}" immediate="true">Next</apex:commandlink><apex:outputText value="|" rendered="{!showPagination && PageNumber != TotalPages}" />
+                <apex:commandLink onclick="DetectChanges('last'); return false;" rendered="{!showPagination && PageNumber != TotalPages}" immediate="true">Last</apex:commandlink>
+                <apex:outputText rendered="{!showPagination}">&nbsp;&nbsp;&nbsp;</apex:outputText>                
+                (Page: <apex:outputText value="{!PageNumber}"></apex:outputText> of <apex:outputText value="{!TotalPages})"></apex:outputText>
+            </apex:panelGrid>            
+            <apex:panelGrid columns="7" style="float:right;">
+                <apex:outputText value="{!StartPageRecords}"></apex:outputText>-<apex:outputText value="{!EndPageRecords}"></apex:outputText> of <apex:outputText value="{!TotalRecords}"></apex:outputText>
+            </apex:panelGrid>
+            <br />
+
+            <apex:pageBlockButtons style="width:100%">
+                <apex:commandButton action="{!saveAndReturn}" value="Save and Mass Update" onclick="if(!Validate_Submit()) return false;" disabled="{!showReadOnly}" />  
+                <apex:commandButton onclick="DetectChanges('btnCancel'); return false;" value="Cancel" immediate="true"/>  
+            </apex:pageBlockButtons>
+
+            <apex:pageBlockTable value="{!myemp}" var="emp" id="tbl" columnsWidth="150px, 150px, 100px, 100px, 150px, 100px, 100px, 100px, 100px, 120px">
+                    <apex:column headerValue="Contact Name">
+                        <apex:outputLink value="/{!LEFT(emp.Id,15)}" onClick="if(!(sforce.console.isInConsole())){this.target='_blank'};" style="color:black;width:150px}" id="cname">{!emp.Name}</apex:outputLink>
+                        <apex:inputField value="{!emp.FirstName}" rendered="{!mapAccess[emp.Id]}" style="display:none;width:1px;height:1px" />
+                        <apex:inputField value="{!emp.LastName}" rendered="{!mapAccess[emp.Id]}" style="display:none;" />
+                    </apex:column>
+                    <apex:column headerValue="Account Name">
+                        <apex:outputfield value="{!emp.Account.Name}"></apex:outputfield>
+                        <apex:inputField value="{!emp.Account.Name}" rendered="{!mapAccess[emp.Id]}" style="display:none;" />
+                    </apex:column>
+                    <apex:column headerValue="Status" >
+                        <apex:inputField id="inputStatus" value="{!emp.Status__c}" styleClass="RemoveNone" required="true" rendered="{!mapAccess[emp.Id]}" onfocus="this.oldvalue = this.value;" onchange="onChangeTest(this);this.oldvalue = this.value;" />
+                        <apex:outputField id="outputStatus" value="{!emp.Status__c}"  rendered="{!IF(mapAccess[emp.Id]=false,true,false)}"/>
+                    </apex:column>
+                    <apex:column headerValue="Title">
+                        <apex:inputField id="inputTitle" value="{!emp.Title}" rendered="{!mapAccess[emp.Id]}"  onfocus="this.oldvalue = this.value;" onchange="onChangeTest(this);this.oldvalue = this.value;" style="width:120px" />
+                        <apex:outputField id="outputTitle" value="{!emp.Title}"  rendered="{!IF(mapAccess[emp.Id]=false,true,false)}"/>
+                    </apex:column>
+                    <apex:column headerValue="NPS Survey Opt-In">
+                        <apex:inputField id="inputNPSSurvey" value="{!emp.Survey__c}" rendered="{!mapAccess[emp.Id]}" required="false" onfocus="this.oldvalue = this.value;" onchange="onChangeTest(this);this.oldvalue = this.value;" />
+                        <apex:outputField id="outputNPSSurvey" value="{!emp.Survey__c}"  rendered="{!IF(mapAccess[emp.Id]=false,true,false)}"/>
+                    </apex:column>
+                    <apex:column headerValue="Decision Making Role">
+                        <div class="requiredInput"><div class="requiredBlock"></div>
+                            <apex:inputField id="inputDecisionMakingRole" value="{!emp.Decision_Making_Role__c}" rendered="{!mapAccess[emp.Id]}" required="false" onfocus="this.oldvalue = this.value;" onchange="onChangeTest(this);this.oldvalue = this.value;" />
+                        </div>                            
+                        <apex:outputField id="outputDecisionMakingRole" value="{!emp.Decision_Making_Role__c}"  rendered="{!IF(mapAccess[emp.Id]=false,true,false)}"/>
+                    </apex:column>
+            
+                    <apex:column headerValue="Email">
+                        <apex:inputField id="inputEmail" value="{!emp.Email}"  rendered="{!mapAccess[emp.Id]}" onfocus="this.oldvalue = this.value;" onchange="onChangeTest(this);this.oldvalue = this.value;" style="width:120px" />
+                        <apex:outputField id="outputEmail" value="{!emp.Email}"  rendered="{!IF(mapAccess[emp.Id]=false,true,false)}"/>
+                    </apex:column>
+                    <apex:column headerValue="Phone">
+                        <apex:inputField id="inputPhone" value="{!emp.Phone}" rendered="{!mapAccess[emp.Id]}"  onfocus="this.oldvalue = this.value;" onchange="onChangeTest(this);this.oldvalue = this.value;" style="width:120px" />
+                        <apex:outputField id="outputPhone" value="{!emp.Phone}"  rendered="{!IF(mapAccess[emp.Id]=false,true,false)}"/>
+                    </apex:column>
+                    <apex:column headerValue="Mobile">
+                        <apex:inputField id="inputMobile" value="{!emp.MobilePhone}" rendered="{!mapAccess[emp.Id]}"  onfocus="this.oldvalue = this.value;" onchange="onChangeTest(this);this.oldvalue = this.value;" style="width:120px" />
+                        <apex:outputField id="outputMobile" value="{!emp.MobilePhone}"  rendered="{!IF(mapAccess[emp.Id]=false,true,false)}"/>
+                    </apex:column>
+            </apex:pageBlockTable>
+
+            <apex:panelGrid columns="20" style="float:left">
+                <apex:outputText rendered="{!showPagination && PageNumber > 2}">...&nbsp;</apex:outputText>
+                <apex:commandLink onclick="DetectChanges('goToPage1'); return false;" rendered="{!showPagination}" style="{!IF(PageNumber1 == PageNumber, 'font-weight:bold', '')}" immediate="true">{!PageNumber1}<apex:param name="One" value="{!PageNumber1}"/></apex:commandLink><apex:outputText rendered="{!showPagination}">&nbsp;|&nbsp;</apex:outputText>
+                <apex:commandLink onclick="DetectChanges('goToPage2'); return false;" rendered="{!showPagination && TotalPages > 1}" style="{!IF(PageNumber2 == PageNumber, 'font-weight:bold', '')}" immediate="true">{!PageNumber2}<apex:param name="Two" value="{!PageNumber2}"/></apex:commandLink><apex:outputText rendered="{!showPagination}">&nbsp;|&nbsp;</apex:outputText>
+                <apex:commandLink onclick="DetectChanges('goToPage3'); return false;" rendered="{!showPagination && TotalPages > 2}" style="{!IF(PageNumber3 == PageNumber, 'font-weight:bold', '')}" immediate="true">{!PageNumber3}<apex:param name="Two" value="{!PageNumber3}"/></apex:commandLink>
+                <apex:outputText rendered="{!showPagination && (PageNumber < (TotalPages - 1))}">&nbsp;...&nbsp;&nbsp;</apex:outputText>                
+            
+                <apex:outputText rendered="{!showPagination}">&nbsp;&nbsp;</apex:outputText>                
+                <apex:commandLink onclick="DetectChanges('first'); return false;" rendered="{!showPagination && PageNumber != 1}" immediate="true">First</apex:commandlink><apex:outputText value="|" rendered="{!showPagination && PageNumber != 1}" />
+                <apex:commandLink onclick="DetectChanges('previous'); return false;" rendered="{!showPagination && PageNumber > 1}" immediate="true">Previous</apex:commandlink><apex:outputText value="|" rendered="{!showPagination && PageNumber > 1 && PageNumber != TotalPages}" />
+                <apex:commandLink onclick="DetectChanges('next'); return false;" rendered="{!showPagination && PageNumber != TotalPages}" immediate="true">Next</apex:commandlink><apex:outputText value="|" rendered="{!showPagination && PageNumber != TotalPages}" />
+                <apex:commandLink onclick="DetectChanges('last'); return false;" rendered="{!showPagination && PageNumber != TotalPages}" immediate="true">Last</apex:commandlink>
+                <apex:outputText rendered="{!showPagination}">&nbsp;&nbsp;&nbsp;</apex:outputText>                
+                (Page: <apex:outputText value="{!PageNumber}"></apex:outputText> of <apex:outputText value="{!TotalPages})"></apex:outputText>
+            </apex:panelGrid>            
+            <apex:panelGrid columns="7" style="float:right">
+                <apex:outputText value="{!StartPageRecords}"></apex:outputText>-<apex:outputText value="{!EndPageRecords}"></apex:outputText> of <apex:outputText value="{!TotalRecords}"></apex:outputText>
+            </apex:panelGrid>
+
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

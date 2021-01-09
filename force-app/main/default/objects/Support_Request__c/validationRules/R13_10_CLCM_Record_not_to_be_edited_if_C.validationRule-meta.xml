@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>R13_10_CLCM_Record_not_to_be_edited_if_C</fullName>
+    <active>true</active>
+    <description>Cannot update a Support request if the previous value of Support Request is cancelled.</description>
+    <errorConditionFormula>IF( AND (OR ( ISPICKVAL(PRIORVALUE(Support_Status__c ),&apos;Cancelled&apos;), ISPICKVAL((Support_Status__c ),&apos;Cancelled&apos;)), RecordTypeId = &apos;012A0000000Vhcv&apos;, ISPICKVAL(Segment_Business_Unit__c , &apos;CSMB&apos;)), True, false)</errorConditionFormula>
+    <errorMessage>Support Request has been cancelled &amp; cannot be edited.</errorMessage>
+</ValidationRule>

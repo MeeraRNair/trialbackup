@@ -1,0 +1,26 @@
+<apex:page standardController="Opportunity" id="pageId" action="{!redirect}" extensions="CMAP_DealRTselectionController">
+	<style>
+		.BackButton {
+			margin-left: 20px;
+		}
+	</style>	
+    <apex:form >
+    	<apex:pageMessages />
+    	<br />
+    	<apex:outputPanel id="pnlCriteriaNotMet" rendered="{!bInvalidLead}" styleClass="BackButton">
+   			<apex:commandButton value="Back" action="{!cancelButton}" />
+    	</apex:outputPanel>
+    	<apex:outputPanel id="pnlCriteriaMeets" rendered="{!NOT(bInvalidLead)}">
+	    	<apex:pageBlock id="pageBlkId1" title="{!$Label.CMAP_Select_Deal_Record_Type}" rendered="{!bRTSelection}">
+	            <apex:outputLabel value="{!$Label.CMAP_Deal_Record_Type} " style="font-Weight:bold;" />
+                <apex:selectList value="{!SelectedRecordType}" multiselect="false" size="1">
+                	<apex:selectOptions value="{!RecordTypes}" />
+                </apex:selectList>
+	        	<apex:pageblockButtons location="bottom">
+	                <apex:commandButton value="{!$Label.CMAP_Continue}" action="{!continueButton}" />
+	                <apex:commandButton value="{!$Label.CMAP_Cancel}" action="{!cancelButton}" />
+	            </apex:pageblockButtons>
+        	</apex:pageBlock>
+    	</apex:outputPanel>
+  	</apex:form>
+</apex:page>

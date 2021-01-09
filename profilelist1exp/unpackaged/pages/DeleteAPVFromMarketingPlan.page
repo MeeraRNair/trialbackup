@@ -1,0 +1,28 @@
+<!--*
+ * Revision CR Number   Release No      Date            Modified By     Description
+ * -------- ---------   ----------      -----------     ------------    -----------
+ * 
+ * 1.0       16431      FY19-DCS-1002   30-August-2017   Michael Khan   Addition of Lightning style sheet = true in the page tag
+ *-->
+<apex:page controller="ViperProgramManagement" lightningStylesheets="true">
+  <apex:form > 
+  <apex:pageBlock title="Delete Associated Programs of the MDF Program">
+      <apex:pageBlockSection title="Only APVs with  contract status equals Pending  will be displayed here"></apex:pageBlockSection>
+         <apex:pageBlockTable value="{!APVWrapperRecs}"   var="apv">
+              <apex:column headerValue="Select">
+                  <apex:inputCheckbox value="{!apv.selected}"/>
+               </apex:column>
+              <apex:column value="{!apv.apvElt.name}" headerValue="APV Name"/>
+              <apex:column value="{!apv.apvElt.Vendor__c}" headerValue="SubVendor"/>
+              <apex:column value="{!apv.apvElt.MDF_Program__c}" headerValue="MDF Program"/>
+              <apex:column value="{!apv.apvElt.Rate_Card_Price__c}" headerValue="Rate Card Price"/>
+              <apex:column value="{!apv.apvElt.Budgeted_Price__c}" headerValue="Budgeted Price"/>
+          </apex:pageBlockTable>      
+      <apex:pageBlockButtons location="bottom">
+          <apex:commandButton action="{!deleteSelectedAPVRecsFromMarketingPlan}" value="Delete"/>          
+           <apex:commandButton value="Back" action="{!CancelAction}"/>
+       </apex:pageBlockButtons>
+       <apex:Messages style="color:red; font-weight:bold"/>
+  </apex:pageBlock>
+</apex:form>
+</apex:page>

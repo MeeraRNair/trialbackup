@@ -1,0 +1,10 @@
+<apex:page standardController="Opportunity">
+  <apex:slds >
+      <div style="padding: 14px 0px 14px 0px;">
+          <button class="slds-button slds-button_brand" style="margin-left:45%;" onclick="window.history.back();">Back</button>
+      </div>
+      <iframe src ="/apex/DealSummary?id={!Opportunity.Id}" height="460" width="880" frameborder="0" style="border:none; width:880px; margin-left:14%; margin-right: auto; height:460px;overflow-x:hidden;"></iframe>
+  
+  </apex:slds>
+  
+</apex:page>

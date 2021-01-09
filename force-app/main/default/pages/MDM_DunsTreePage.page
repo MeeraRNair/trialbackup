@@ -1,0 +1,440 @@
+<apex:page sidebar="false" controller="MDM_DunsTreePageCntrlr" readOnly="true" showHeader="false" title="Hierarchy Page">
+    <!-- Include the Jquery Script files -->
+    <link rel="stylesheet" href="{!URLFOR($Resource.Jtreeview,'Jquerytreeview/jquery.treeview.css')}"/>
+    <script src="{!URLFOR($Resource.Jtreeview,'Jquerytreeview/jquery.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.Jtreeview,'Jquerytreeview/jquery.cookie.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.Jtreeview,'Jquerytreeview/jquery.treeview.js')}" type="text/javascript"></script>
+    <!-- End of Javascript files -->
+    
+    <style>
+        table {
+            border-collapse: separate;
+            border: none;
+        }
+    
+        table.ex1 {
+            table-layout: auto;
+        }
+    
+        table.ex2 {
+            table-layout: fixed;
+        }
+    </style>
+    
+    <apex:outputPanel id="opPanel">
+    <script type="text/javascript">
+        $(function() {
+            $("#tree").treeview({
+                collapsed: true,
+                animated: "very fast",
+                control:"#sidetreecontrol",
+                persist: "location"
+            });
+        })
+        
+        function sortTree(input,textid) {
+            var a = '{!sortCriteria}';
+            document.getElementById(textid).value = input.value;
+            doSortTree();
+        }
+        
+        function popupwindow(dunsid){
+        var newwindow = window.open("/apex/MDM_DBAccountDetailsPage?dunsnumber=" + dunsid + "&close=false", "_blank", "scrollbars=yes, resizable=yes,width=900, height=600, location=no");
+        newwindow.focus();
+        }
+        
+        function popupwindowshowmore(dunsid){
+        var newwindow = window.open("/apex/MDM_DunsTreePage?dunsnumber=" + dunsid + "&close=false", "_blank", "scrollbars=yes, resizable=yes,width=900, height=600, location=no");
+        newwindow.focus();
+        }
+        
+        window.onload=function()
+          {
+                var x = document.getElementById("countryRadio");
+                x.checked = {!sortCountry};
+                var y = document.getElementById("postalRadio");
+                y.checked = {!sortPostal};
+          };
+          function setRadios() {
+                var x = document.getElementById("countryRadio");
+                x.checked = {!sortCountry};
+                var y = document.getElementById("postalRadio");
+                y.checked = {!sortPostal};
+          }
+        
+    </script>
+
+    <apex:outputpanel rendered="false">
+    Starting Heap Size: {!startHeap} <br/>
+    Ending Heap Size: {!endHeap} <br/>
+    Heap Size Limit: {!limitHeap} <br/><br/>
+    CPU Time before callout: {!cpuTimeBeforeCallout}<br/>
+    CPU Time after callout/before parsing: {!cpuTimeAfterCallout}<br/>
+    CPU Time after parsing: {!cpuTimeAfterParse}<br/><br/>
+    CPU Time before sorting: {!cpuTimeBeforeSort}<br/>
+    CPU Time after sorting: {!cpuTimeAfterSort}<br/><br/>
+    Total CPU Time: {!cpuTime} <br/>
+    CPU Time Limit: {!cpuTimeLimit} <br/><br/>
+    Total Number of Callouts: {!totalRun} <br/><br/>
+    
+    Level Count: {!levelCount} <br/><br/>
+    
+    {!displayPage}, {!displayTreeHeaders}, {!displayTree}, {!hierarchyLevel}
+    </apex:outputpanel>
+   
+    
+    <apex:form >
+    <apex:inputhidden id="RadioButtonValue" value="{!sortCriteria}"/>
+    
+    <!---Sort--->
+    <apex:actionFunction name="doSortTree" action="{!beginCallout}" oncomplete="setRadios()" status="myStatus"  rerender="opPanel"/>
+    <apex:actionFunction name="doChangeLevel" action="{!beginCallout}" oncomplete="setRadios()" status="myStatus"  rerender="opPanel"/>
+    <apex:actionFunction name="doSortTreeOrChangeLevel" action="{!beginCallout}" oncomplete="setRadios()" status="myStatus" rerender="opPanel"/>
+    
+    <apex:outputpanel >
+     <apex:actionStatus startText="Loading.." id="myStatus">
+         <apex:facet name="start">
+             <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb;
+                  height: 100%;opacity:0.65;width:100%;"> 
+                 <div class="waitingHolder" style="top: 74.2px; width: 91px;">
+                     <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                     <span class="waitingDescription">Please Wait...</span>
+                 </div>
+             </div>
+         </apex:facet>
+        <!--<apex:facet name="start">
+            <apex:outputPanel >
+                Loading! Please wait..
+                <apex:image url="{!$Resource.loading}" style="text-align:center" />
+                
+            </apex:outputPanel>
+        </apex:facet>-->
+     </apex:actionStatus>
+    </apex:outputpanel>
+    
+    <!--<apex:param name="p1" value="MDM_DBAccountHierarchyTreePage"/>
+    </apex:actionFunction>
+        <apex:actionStatus id="actStatusId">
+            <apex:facet name="start">
+                <img src="/img/loading.gif" />
+            </apex:facet>
+        </apex:actionStatus>    
+    
+    </apex:outputPanel>-->
+    
+    <!-- Tree -->
+    <apex:pageMessages rendered="false"/>
+    <apex:pageMessages rendered="{!(!displayPage)}"/>
+    
+    <div id="InternalDiv" style="width: 100%">
+    
+    <!--D&B Hierarchy header and buttons-->
+    <table class="ex1" style="width: 100%">
+        <tr>
+            <td>
+                <!--<h1 style="font-size: 20px; font-weight: bold; color: #43433F; position: relative; bottom: 2px;">D&amp;B Hierarchy</h1>-->
+            </td>
+            <td align="right">
+                <apex:commandButton value=" {!$Label.MDM_Button_Search} " action="{!goToSearchPage}" rendered="{!displayPage}"/> &nbsp;
+              <!--  <apex:commandButton value=" Export to Excel " action="{!gotoExportPage}" rendered="{!displayTree}"/> -->
+                <apex:commandButton onclick="window.parent.box.hide();" value="{!$Label.MDM_CloseButton}" rendered="{!showCloseButton}"/>  <!-- Nisha adding Close button --->
+            </td>
+        </tr>
+    </table>
+    <br />
+    <apex:outputpanel rendered="{!displayPage}" >
+    <!--Links and radio button
+    {!dunsSize}{!acct}
+    {!sortCriteria}-->
+    <apex:outputPanel rendered="{!displayTreeHeaders}" >
+    <table class="ex1" style="width: 100%"  border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td>
+                <apex:outputPanel rendered="{!displayTree}">
+                    <table border="0" cellspacing="0" cellpadding="0" width="720px">
+                        <tr>
+                        <td>
+                            <apex:commandLink value="{!$Label.MDM_Hyperlink_ToptoBottom}" style="color: blue; font-weight: bold;" action="{!requestTopToBottom}" rendered="{!(!(hierarchyType == 'TopToBottom'))}" />
+                            <apex:outputText value="{!$Label.MDM_Hyperlink_ToptoBottom}" style="font-weight: bold;" rendered="{!hierarchyType == 'TopToBottom'}"  />    
+                            
+                        </td>
+                        <td>
+                            <apex:commandLink value="{!$Label.MDM_Hyperlink_BottomtoTop}" style="color: blue; font-weight: bold;" action="{!requestBottomToTop}" rendered="{!(!(hierarchyType == 'BottomToTop'))}" />
+                            <apex:outputText value="{!$Label.MDM_Hyperlink_BottomtoTop}" style="font-weight: bold;" rendered="{!hierarchyType == 'BottomToTop'}"  />   
+                            
+                        </td>
+                        <td>
+                            <apex:commandLink value="{!$Label.MDM_Hyperlink_ViewGblHierarchy}" style="color: blue; font-weight: bold;" action="{!requestGlobal}" rendered="{!(!(hierarchyType == 'Global'))}" />
+                            <apex:outputText value="{!$Label.MDM_Hyperlink_ViewGblHierarchy}" style="font-weight: bold;" rendered="{!hierarchyType == 'Global'}" />    
+                            
+                        </td>
+                        <td>
+                            <apex:outputPanel id="radio1" rendered="{!showRadios && levelCount > 1}" >
+                            <input type="radio" id="countryRadio" name="sortRadio" value="Country" onclick="sortTree(this,'{!$Component.RadioButtonValue}');" />
+                            <h1 style="font-size: 11.49px; font-weight: bold; color: #43433F; position: relative; bottom: 2px;">{!$Label.MDM_RadioButton_SortbyCountry}</h1>
+                            </apex:outputPanel>
+                        </td>
+                        <td>
+                            <apex:outputpanel id="radio2" rendered="{!showRadios && levelCount > 1}">
+                            <input type="radio" id="postalRadio" name="sortRadio" value="PostalCode" onclick="sortTree(this,'{!$Component.RadioButtonValue}');"/>
+                            <h1 style="font-size: 11.49px; font-weight: bold; color: #43433F; position: relative; bottom: 2px;">{!$Label.MDM_RadioButton_SortbyPostalCd}</h1>
+                            </apex:outputpanel>
+                        </td>
+                        </tr>
+                    </table>
+                </apex:outputPanel>
+            </td>
+            <td style="text-align: right">
+                {!$Label.MDM_Field_HierarchyLevel}:&nbsp;
+                <apex:selectList value="{!hierarchyLevel}" multiselect="false" size="1" onchange="doChangeLevel();" >
+                    <apex:selectOptions value="{!levelOptions}"/>
+                </apex:selectList>
+                &nbsp;&nbsp;&nbsp;
+            </td>
+        </tr>
+    </table>
+    <br />
+    </apex:outputPanel>
+    <apex:pageMessages rendered="{!displayTimeLimit}"/>
+    <apex:pageMessages rendered="{!(!displayTree)}"/>
+    <apex:pageBlock title="{!$Label.MDM_PgHdr_DnBHierarchy}" rendered="{!displayTree}">
+    
+    <apex:outputPanel id="TreeHierarchy" >
+    <div style="margin-left: 50px;">
+    <div class="treeheader" style="height:0px;">&nbsp;</div>
+        <ul id="tree">
+        <apex:repeat value="{!firstLevel}" var="level1">
+        
+            <li>
+                <apex:outputLink value="{!level1.DunsNumber}" onclick="popupwindow({!level1.DunsNumber});return false;">
+                    <font face="verdana"><apex:outputtext escape="false" value="[{!level1.DunsNumber}]" style="color: #006699; " /></font>
+                </apex:outputLink>&nbsp;
+                <font face="verdana"><apex:outputtext escape="false" value="{!level1.DunsName}" style="color: #006699; font-weight: bold;" /><br/></font>
+                <apex:outputpanel rendered="{!level1.AddressLabel != null}">
+                    <font face="verdana"><b>{!level1.AddressLabel}: </b>
+                    <apex:outputtext escape="false" value="{!level1.Address}" rendered="{!level1.Address != null}"/>
+                    <apex:outputtext escape="false" value=", {!level1.city}" rendered="{!level1.city != null}"/>
+                    <apex:outputtext escape="false" value=", {!level1.State}" rendered="{!level1.State != null}"/>
+                    <apex:outputtext escape="false" value=", {!level1.PostalCode}" rendered="{!level1.PostalCode != null}"/>
+                    <apex:outputtext escape="false" value=", {!level1.country}" rendered="{!level1.country != null}"/></font>
+                    <br/>
+                </apex:outputpanel>
+                <apex:outputpanel rendered="{!level1.PhoneNumber != null}" >
+                    <b>{!$Label.MDM_HierarchyInfo_Phone}:</b> {!level1.PhoneNumber}<br/>
+                </apex:outputpanel>
+                <apex:outputpanel rendered="{!level1.SalesRevenue != null}" >
+                    <b>{!$Label.MDM_HierarchyInfo_Sales}:</b> 
+                    <apex:outputText value="{0, number, ###,###,###,###,##0.00}">
+                        <apex:param value="{!level1.SalesRevenue}"/>
+                    </apex:outputText><br/>
+                </apex:outputpanel>
+                <apex:outputpanel rendered="{!level1.EmployeeSize != null}">
+                    <b>{!$Label.MDM_HierarchyInfo_Employees}:</b> {!level1.EmployeeSize}<br/>
+                </apex:outputpanel>
+                <apex:outputpanel rendered="{!level1.HqDuns != null}">
+                    <b>{!$Label.MDM_HierarchyInfo_HQDUNS}:</b> {!level1.HqDuns}<br/>
+                </apex:outputpanel>
+                <apex:outputpanel rendered="{!level1.Level != null}">
+                    <b>{!$Label.MDM_HierarchyInfo_DUNSLevel}:</b>  1<!--{!level1.Level}-->
+                </apex:outputpanel>              
+                 
+                     <apex:repeat value="{!allDunsDataMap['2'][level1.DunsNumber]}" var="level2" rendered="{!(level1.HasChildren == 'Y' || hierarchyType == 'BottomToTop')}">
+                         <ul>
+                         <li>
+                             
+                                <apex:outputLink value="{!level2.DunsNumber}" onclick="popupwindow({!level2.DunsNumber});return false;">
+                                    <font face="verdana"><apex:outputtext escape="false" value="[{!level2.DunsNumber}]" style="color: #006699; " /></font>
+                                </apex:outputLink>&nbsp;
+                                <font face="verdana"><apex:outputtext escape="false" value="{!level2.DunsName}" style="color: #006699; font-weight: bold;" /><br/></font>
+                                <apex:outputpanel rendered="{!level2.AddressLabel != null}">
+                                    <font face="verdana"><b>{!level2.AddressLabel}: </b>
+                                    <apex:outputtext escape="false" value="{!level2.Address}" rendered="{!level2.Address != null}"/>
+                                    <apex:outputtext escape="false" value=", {!level2.city}" rendered="{!level2.city != null}"/>
+                                    <apex:outputtext escape="false" value=", {!level2.State}" rendered="{!level2.State != null}"/>
+                                    <apex:outputtext escape="false" value=", {!level2.PostalCode}" rendered="{!level2.PostalCode != null}"/>
+                                    <apex:outputtext escape="false" value=", {!level2.country}" rendered="{!level2.country != null}"/></font>
+                                    <br/>
+                                </apex:outputpanel>
+                                <apex:outputpanel rendered="{!level2.PhoneNumber != null}" >
+                                    <b>{!$Label.MDM_HierarchyInfo_Phone}:</b> {!level2.PhoneNumber}<br/>
+                                </apex:outputpanel>
+                                <apex:outputpanel rendered="{!level2.SalesRevenue != null}" >
+                                    <b>{!$Label.MDM_HierarchyInfo_Sales}:</b> 
+                                    <apex:outputText value="{0, number, ###,###,###,###,##0.00}">
+                                        <apex:param value="{!level2.SalesRevenue}"/>
+                                    </apex:outputText><br/>
+                                </apex:outputpanel>
+                                <apex:outputpanel rendered="{!level2.EmployeeSize != null}">
+                                    <b>{!$Label.MDM_HierarchyInfo_Employees}:</b> {!level2.EmployeeSize}<br/>
+                                </apex:outputpanel>
+                                <apex:outputpanel rendered="{!level2.HqDuns != null}">
+                                    <b>{!$Label.MDM_HierarchyInfo_HQDUNS}:</b> {!level2.HqDuns}<br/>
+                                </apex:outputpanel>
+                                <apex:outputpanel rendered="{!level2.Level != null}">
+                                    <b>{!$Label.MDM_HierarchyInfo_DUNSLevel}:</b> 2<!--{!level2.Level}--><br/>
+                                </apex:outputpanel>
+                                <apex:outputpanel rendered="{!level2.HasChildren == 'Y' && levelCount == hierarchyLevelNum && levelCount == 2}">
+                                    <apex:outputLink value="{!level2.DunsNumber}" onclick="popupwindowshowmore({!level2.DunsNumber});return false;">
+                                        <apex:outputtext escape="false" value="{!$Label.MDM_Hyperlink_ShowMore}" style="color: #006699; " title="Show more levels for this DUNS number" />
+                                    </apex:outputLink>&nbsp;
+                                </apex:outputpanel>
+                             
+                              
+                                <apex:repeat value="{!allDunsDataMap['3'][level2.DunsNumber]}" var="level3" rendered="{!(level2.HasChildren == 'Y' || hierarchyType == 'BottomToTop')}">
+                                   <ul>
+                                   <li>
+                                       <apex:outputLink value="{!level3.DunsNumber}" onclick="popupwindow({!level3.DunsNumber});return false;">
+                                            <font face="verdana"><apex:outputtext escape="false" value="[{!level3.DunsNumber}]" style="color: #006699; " /></font>
+                                        </apex:outputLink>&nbsp;
+                                        <font face="verdana"><apex:outputtext escape="false" value="{!level3.DunsName}" style="color: #006699; font-weight: bold;" /><br/></font>
+                                        <apex:outputpanel rendered="{!level3.AddressLabel != null}">
+                                            <font face="verdana"><b>{!level3.AddressLabel}: </b>
+                                            <apex:outputtext escape="false" value="{!level3.Address}" rendered="{!level3.Address != null}"/>
+                                            <apex:outputtext escape="false" value=", {!level3.city}" rendered="{!level3.city != null}"/>
+                                            <apex:outputtext escape="false" value=", {!level3.State}" rendered="{!level3.State != null}"/>
+                                            <apex:outputtext escape="false" value=", {!level3.PostalCode}" rendered="{!level3.PostalCode != null}"/>
+                                            <apex:outputtext escape="false" value=", {!level3.country}" rendered="{!level3.country != null}"/></font>
+                                            <br/>
+                                        </apex:outputpanel>
+                                        <apex:outputpanel rendered="{!level3.PhoneNumber != null}" >
+                                            <b>{!$Label.MDM_HierarchyInfo_Phone}:</b> {!level3.PhoneNumber}<br/>
+                                        </apex:outputpanel>
+                                        <apex:outputpanel rendered="{!level3.SalesRevenue != null}" >
+                                            <b>{!$Label.MDM_HierarchyInfo_Sales}:</b> 
+                                            <apex:outputText value="{0, number, ###,###,###,###,##0.00}">
+                                                <apex:param value="{!level3.SalesRevenue}"/>
+                                            </apex:outputText><br/>
+                                        </apex:outputpanel>
+                                        <apex:outputpanel rendered="{!level3.EmployeeSize != null}">
+                                            <b>{!$Label.MDM_HierarchyInfo_Employees}:</b> {!level3.EmployeeSize}<br/>
+                                        </apex:outputpanel>
+                                        <apex:outputpanel rendered="{!level3.HqDuns != null}">
+                                            <b>{!$Label.MDM_HierarchyInfo_HQDUNS}:</b> {!level3.HqDuns}<br/>
+                                        </apex:outputpanel>
+                                        <apex:outputpanel rendered="{!level3.Level != null}">
+                                            <b>{!$Label.MDM_HierarchyInfo_DUNSLevel}:</b> 3<!--{!level3.Level}--><br/>
+                                        </apex:outputpanel>
+                                        <apex:outputpanel rendered="{!level3.HasChildren == 'Y' && levelCount == hierarchyLevelNum && levelCount == 3}">
+                                            <apex:outputLink value="{!level3.DunsNumber}" onclick="popupwindowshowmore({!level3.DunsNumber});return false;">
+                                                <apex:outputtext escape="false" value="{!$Label.MDM_Hyperlink_ShowMore}" style="color: #006699; " title="Show more levels for this DUNS number" />
+                                            </apex:outputLink>&nbsp;
+                                        </apex:outputpanel>
+                                         
+                                        <apex:repeat value="{!allDunsDataMap['4'][level3.DunsNumber]}" var="level4" rendered="{!(level3.HasChildren == 'Y' || hierarchyType == 'BottomToTop')}">
+                                           <ul>
+                                           <li>
+                                           <apex:outputLink value="{!level4.DunsNumber}" onclick="popupwindow({!level4.DunsNumber});return false;">
+                                                <font face="verdana"><apex:outputtext escape="false" value="[{!level4.DunsNumber}]" style="color: #006699; " /></font>
+                                            </apex:outputLink>&nbsp;
+                                            <font face="verdana"><apex:outputtext escape="false" value="{!level4.DunsName}" style="color: #006699; font-weight: bold;" /><br/></font>
+                                            <apex:outputpanel rendered="{!level4.AddressLabel != null}">
+                                                <font face="verdana"><b>{!level4.AddressLabel}: </b>
+                                                <apex:outputtext escape="false" value="{!level4.Address}" rendered="{!level4.Address != null}"/>
+                                                <apex:outputtext escape="false" value=", {!level4.city}" rendered="{!level4.city != null}"/>
+                                                <apex:outputtext escape="false" value=", {!level4.State}" rendered="{!level4.State != null}"/>
+                                                <apex:outputtext escape="false" value=", {!level4.PostalCode}" rendered="{!level4.PostalCode != null}"/>
+                                                <apex:outputtext escape="false" value=", {!level4.country}" rendered="{!level4.country != null}"/></font>
+                                                <br/>
+                                            </apex:outputpanel>
+                                            <apex:outputpanel rendered="{!level4.PhoneNumber != null}" >
+                                                <b>{!$Label.MDM_HierarchyInfo_Phone}:</b> {!level4.PhoneNumber}<br/>
+                                            </apex:outputpanel>
+                                            <apex:outputpanel rendered="{!level4.SalesRevenue != null}" >
+                                                <b>{!$Label.MDM_HierarchyInfo_Sales}:</b> 
+                                                <apex:outputText value="{0, number, ###,###,###,###,##0.00}">
+                                                    <apex:param value="{!level4.SalesRevenue}"/>
+                                                </apex:outputText><br/>
+                                            </apex:outputpanel>
+                                            <apex:outputpanel rendered="{!level4.EmployeeSize != null}">
+                                                <b>{!$Label.MDM_HierarchyInfo_Employees}:</b> {!level4.EmployeeSize}<br/>
+                                            </apex:outputpanel>
+                                            <apex:outputpanel rendered="{!level4.HqDuns != null}">
+                                                <b>{!$Label.MDM_HierarchyInfo_HQDUNS}:</b> {!level4.HqDuns}<br/>
+                                            </apex:outputpanel>
+                                            <apex:outputpanel rendered="{!level4.Level != null}">
+                                                <b>{!$Label.MDM_HierarchyInfo_DUNSLevel}:</b> 4<!--{!level4.Level}--><br/>
+                                            </apex:outputpanel>
+                                            <apex:outputpanel rendered="{!level4.HasChildren == 'Y' && levelCount == hierarchyLevelNum && levelCount == 4}">
+                                                <apex:outputLink value="{!level4.DunsNumber}" onclick="popupwindowshowmore({!level4.DunsNumber});return false;">
+                                                    <apex:outputtext escape="false" value="{!$Label.MDM_Hyperlink_ShowMore}" style="color: #006699; " title="Show more levels for this DUNS number" />
+                                                </apex:outputLink>&nbsp;
+                                            </apex:outputpanel>
+                                                
+                                                <apex:repeat value="{!allDunsDataMap['5'][level4.DunsNumber]}" var="level5" rendered="{!(level4.HasChildren == 'Y' || hierarchyType == 'BottomToTop')}">
+                                                   <ul>
+                                                   <li>
+                                                   <apex:outputLink value="{!level5.DunsNumber}" onclick="popupwindow({!level5.DunsNumber});return false;">
+                                                        <font face="verdana"><apex:outputtext escape="false" value="[{!level5.DunsNumber}]" style="color: #006699; " /></font>
+                                                    </apex:outputLink>&nbsp;
+                                                    <font face="verdana"><apex:outputtext escape="false" value="{!level5.DunsName}" style="color: #006699; font-weight: bold;" /><br/></font>
+                                                    <apex:outputpanel rendered="{!level5.AddressLabel != null}">
+                                                        <font face="verdana"><b>{!level5.AddressLabel}: </b>
+                                                        <apex:outputtext escape="false" value="{!level5.Address}" rendered="{!level5.Address != null}"/>
+                                                        <apex:outputtext escape="false" value=", {!level5.city}" rendered="{!level5.city != null}"/>
+                                                        <apex:outputtext escape="false" value=", {!level5.State}" rendered="{!level5.State != null}"/>
+                                                        <apex:outputtext escape="false" value=", {!level5.PostalCode}" rendered="{!level5.PostalCode != null}"/>
+                                                        <apex:outputtext escape="false" value=", {!level5.country}" rendered="{!level5.country != null}"/></font>
+                                                        <br/>
+                                                    </apex:outputpanel>
+                                                    <apex:outputpanel rendered="{!level5.PhoneNumber != null}" >
+                                                        <b>{!$Label.MDM_HierarchyInfo_Phone}:</b> {!level5.PhoneNumber}<br/>
+                                                    </apex:outputpanel>
+                                                    <apex:outputpanel rendered="{!level5.SalesRevenue != null}" >
+                                                        <b>{!$Label.MDM_HierarchyInfo_Sales}:</b> 
+                                                        <apex:outputText value="{0, number, ###,###,###,###,##0.00}">
+                                                            <apex:param value="{!level5.SalesRevenue}"/>
+                                                        </apex:outputText><br/>
+                                                    </apex:outputpanel>
+                                                    <apex:outputpanel rendered="{!level5.EmployeeSize != null}">
+                                                        <b>{!$Label.MDM_HierarchyInfo_Employees}:</b> {!level5.EmployeeSize}<br/>
+                                                    </apex:outputpanel>
+                                                    <apex:outputpanel rendered="{!level5.HqDuns != null}">
+                                                        <b>{!$Label.MDM_HierarchyInfo_HQDUNS}:</b> {!level5.HqDuns}<br/>
+                                                    </apex:outputpanel>
+                                                    <apex:outputpanel rendered="{!level5.Level != null}">
+                                                        <b>{!$Label.MDM_HierarchyInfo_DUNSLevel}:</b> 5<!--{!level5.Level}--><br/>
+                                                    </apex:outputpanel>
+                                                    <apex:outputpanel rendered="{!level5.HasChildren == 'Y' && levelCount == hierarchyLevelNum && levelCount == 5}">
+                                                        <apex:outputLink value="{!level5.DunsNumber}" onclick="popupwindowshowmore({!level5.DunsNumber});return false;">
+                                                            <apex:outputtext escape="false" value="{!$Label.MDM_Hyperlink_ShowMore}" style="color: #006699; " title="Show more levels for this DUNS number" />
+                                                        </apex:outputLink>&nbsp;
+                                                    </apex:outputpanel>
+                                                        </li>
+                                                </ul>
+                                                </apex:repeat>
+                                                
+                                                </li>
+                                        </ul>
+                                        </apex:repeat>
+                                    
+                                    </li>
+                                </ul>
+                                </apex:repeat>
+                            
+                            
+                        </li>
+                     </ul>
+                     </apex:repeat>  
+                   
+            </li>
+        
+        </apex:repeat>
+        </ul>
+    </div>
+    </apex:outputPanel>
+        
+    </apex:pageBlock>
+    </apex:outputpanel>
+    </div>
+    
+    <!-- End of Tree -->
+    
+    </apex:form>
+    </apex:outputPanel>
+
+    <script> 
+        if('{!strMethod}' != 'POST') {
+            doSortTreeOrChangeLevel();
+        }
+    </script>
+</apex:page>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EOQ_Late_Submission_Brandi_Bradley</fullName>
+    <booleanFilter>1 AND (2 OR 3 OR 4 OR 5) AND 6 AND 7</booleanFilter>
+    <columns>NAME</columns>
+    <columns>Approval_Status__c</columns>
+    <columns>Approver_1__c</columns>
+    <columns>Approver_1_Response__c</columns>
+    <columns>Approver_2__c</columns>
+    <columns>Approver_2_Response__c</columns>
+    <columns>Request_Type__c</columns>
+    <columns>Comments__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>LAST_UPDATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Region__c</field>
+        <operation>equals</operation>
+        <value>NAMER</value>
+    </filters>
+    <filters>
+        <field>Approver_1__c</field>
+        <operation>equals</operation>
+        <value>Brandi Bradley Holsonback</value>
+    </filters>
+    <filters>
+        <field>Approver_1__c</field>
+        <operation>equals</operation>
+        <value>Carolyn Stafford</value>
+    </filters>
+    <filters>
+        <field>Approver_2__c</field>
+        <operation>equals</operation>
+        <value>Brandi Bradley Holsonback</value>
+    </filters>
+    <filters>
+        <field>Approver_2__c</field>
+        <operation>equals</operation>
+        <value>Carolyn Stafford</value>
+    </filters>
+    <filters>
+        <field>Approval_Status__c</field>
+        <operation>equals</operation>
+        <value>Approved,Pending</value>
+    </filters>
+    <filters>
+        <field>Country__c</field>
+        <operation>equals</operation>
+        <value>US-United States</value>
+    </filters>
+    <label>EOQ Late Submission - Brandi Bradley</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>GDM_DPTDS</group>
+    </sharedTo>
+</ListView>

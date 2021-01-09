@@ -1,0 +1,87 @@
+<apex:page id="pgCPSetup" title="Competency Prerequisite Setup" standardController="Certification_Prerequisites_Setup__c" extensions="VFCntrlr_CertPrerequisite" showHeader="True">  
+   <apex:form id="frmcpSetup">
+        <script language="javascript">        
+
+        function openCoursePopup(mode,cnt){                                                                    
+            var criteria   = document.getElementById("pgCPSetup:frmcpSetup:pgBlk:pgBlkSection:idValue");
+            var criteriaId = document.getElementById("pgCPSetup:frmcpSetup:pgBlk:pgBlkSection:idPrerequisitesIds");
+            
+            var popupstyle = "center:yes;resizable:yes;dialogHeight:550px;dialogWidth:950px";
+            var strURL  ='/apex/CertPrerequisitePopup?mode='+mode + '&crValue='+ encodeURIComponent(criteria.value) +'&crId=' + criteriaId.value;      
+            if (cnt !=0)
+                strURL = strURL + '&cnt=' + cnt;
+             
+            var getTraining = window.showModalDialog(strURL,'',popupstyle);
+            if (getTraining == null)
+                getTraining = window.returnValue;
+                
+            if(getTraining != null){                
+
+                var s = getTraining.split("@@",2)               
+                criteria.value = s[0]; 
+                criteriaId.value = s[1];
+            }
+            refreshPrerequisite();
+        }
+        function CheckAll(chkSelectAll) {
+            var inputElem = document.getElementsByTagName("input");
+            for(var i=0; i<inputElem.length; i++){
+                if(inputElem[i].id.indexOf("chk")!=-1)
+                    inputElem[i].checked = chkSelectAll.checked;  
+            }
+        }                 
+        function unCheckSelectAll(chk){
+            var inputElem = document.getElementsByTagName("input");            
+            if (chk.checked == false){
+                for(var i=0; i<inputElem.length; i++){                   
+                    if(inputElem[i].id.indexOf("SelectAll")!= -1)
+                        inputElem[i].checked = false;    
+                }
+            }
+        }   
+        </script> 
+
+    <apex:actionFunction name="refreshPrerequisite" rerender="pgBlkSectionPrerequisite" status="status" /> 
+        <apex:pageBlock title="Competency Prerequisite Setup" id="pgBlk">
+        <apex:pageBlockButtons location="both">
+            <apex:commandButton value="Save"          action="{!save}" />
+            <apex:commandButton value="Save & Close"  action="{!saveClose}" />
+            <apex:commandButton value="Cancel"        action="{!cancel}"/>            
+        </apex:pageBlockButtons>
+        <!-- apex:pageMessages / --> 
+        <apex:pageBlockSection id="pgBlkSection">
+            <apex:inputField value="{!cpSetup.name}"/>
+            <apex:inputField value="{!cpSetup.Certification_Requirement_Setup__c}"/>
+            <apex:inputField value="{!cpSetup.Condition__c}"  id="crCondition" />
+            <apex:inputHidden value="{!cpSetup.Prerequisites_Ids__c}" id="idPrerequisitesIds" />
+            <apex:inputHidden value="{!cpSetup.Prerequisites__c}" id="idValue" />
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="1" id="pgBlkSectionPrerequisite" title="Prerequisite">
+            <apex:pageBlockSectionitem id="blkSectionItem2">
+                <apex:commandButton value="New Prerequisites for Competencies"  id="cmdAdd" style="font-size:100%;" onclick="{openCoursePopup('Add',0);return false;}"/>
+                <apex:commandButton value="Delete Selected Prerequisites" id="cmdDel" action="{!deleteCourse}"/>     
+            </apex:pageBlockSectionitem> 
+            <apex:pageBlockTable value="{!CertTraining}" id="pgblkTbl" var="opt">                    
+                <apex:column width="20px" >
+                    <apex:facet name="header">   
+                        <apex:outputPanel >
+                            <apex:inputCheckbox id="SelectAll" value="{!chkSelectAll}" onclick="{CheckAll(this);}" />                                                      
+                            <apex:outputLabel style="vertical-align:top;" >Select All&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</apex:outputLabel>
+                        </apex:outputPanel>
+                    </apex:facet>
+                    <apex:inputCheckbox id="chk" value="{!opt.isSelected}" onclick="{unCheckSelectAll(this);}" />                           
+                </apex:column>
+                <apex:column headervalue="Action" >
+                    
+                    <apex:commandLink style="color:blue" value="Edit" onclick="openCoursePopup('Edit',{!opt.OptionNumber})"/>&nbsp;  
+
+                    <apex:commandLink style="color:blue" value="Del" action="{!delCourse}">
+                        <apex:param name="OptionNum" assignTo="{!OptionNum}" value="{!opt.OptionNumber}"/>
+                    </apex:commandLink>
+                </apex:column>
+                <apex:column headervalue="Courses/Competencies" value="{!opt.crOption}"/>                        
+            </apex:pageBlockTable>                
+        </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,14 @@
+<apex:page controller="UploadQuarterProductsController" showHeader="false" standardStylesheets="false" cache="true" contentType="application/octet-stream#AllianceQuarterlyUpdateFile.csv" >
+    <apex:outputText value="Product Id, RebqteRequest Id, Rebate Request, Created Date, Client / Enterprise, System Partner Name, Region, Quantity Approved, Price Requested, Quantity Claimed, Cost per unit, Effective Date, Expiration Date, Additional Sales Email"/>
+    <apex:repeat value="{!produtSearchResults}" var="prod">
+        {!prod.Id},{!prod.Alliance_Rebate_Request__c}, {!prod.Alliance_Rebate_Request__r.Name}, {!prod.CreatedDate}, {!prod.Alliance_Rebate_Request__r.Client_Enterprise__c}, {!prod.Alliance_Rebate_Request__r.System_Partner_Name__c}, {!prod.Alliance_Rebate_Request__r.Region__c}, {!prod.Quantity_Approved__c }, {!prod.Price_Requested__c }, {!prod.Quantity_Claimed__c }, {!prod.Cost_Per_Unit__c}, 
+        
+        <apex:outputText value="{0,date,yyyy.MM.dd}">
+            <apex:param value="{!prod.Start_Date__c}"/>
+        </apex:outputText> , 
+        
+        <apex:outputText value="{0,date,yyyy.MM.dd}">
+            <apex:param value="{!prod.End_Date__c}"/>
+        </apex:outputText> ,{!prod.Alliance_Rebate_Request__r.Additional_Sales_Person_Email_2__c}
+    </apex:repeat>  
+</apex:page>

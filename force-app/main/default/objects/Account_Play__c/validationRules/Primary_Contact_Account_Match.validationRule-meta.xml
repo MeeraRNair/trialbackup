@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_Contact_Account_Match</fullName>
+    <active>true</active>
+    <description>Primary Contact should be selected from the Account associated to this Account Play</description>
+    <errorConditionFormula>AND( IF( Account__r.Id = Primary_Contact__r.AccountId, FALSE, TRUE), NOT(LEN(Primary_Contact__c ) = 0),$RecordType.Id !=&apos;012A0000000Vhxd&apos;, NOT($Setup.System_Behavior_Bypasser__c.Bypass_Account_Play_VRs__c))</errorConditionFormula>
+    <errorDisplayField>Primary_Contact__c</errorDisplayField>
+    <errorMessage>Primary Contact should be selected from the Account associated to this Account Play</errorMessage>
+</ValidationRule>

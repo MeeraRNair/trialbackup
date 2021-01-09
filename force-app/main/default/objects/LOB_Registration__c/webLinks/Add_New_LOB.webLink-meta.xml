@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Add_New_LOB</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Add New LOB</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <requireRowSelection>false</requireRowSelection>
+    <url>var userProfile = &apos;{!$Profile.Name}&apos;;
+var participatingLob = &apos;{!Account.Participating_in_LOB_Program__c}&apos;;
+
+if(userProfile.toLowerCase().indexOf(&quot;gbl prm operations&quot;) &gt; -1){
+
+	var returnVal = {!IF( Account.Participating_in_LOB_Program__c , 1, 0)};
+	if(returnVal  == 0){
+	   var popupLabel = &quot;{!$Label.CR_2573_Create_Account_Branch}&quot;;
+	   if(confirm(popupLabel )){
+		   window.parent.location.href =&quot;/{!Account.Id}&quot;;
+	   }
+	}else{
+	   window.parent.location.href =&quot;/apex/CreateNewLob?accid={!Account.Id}&quot;;
+	}
+}else{
+    var popupLabel = &quot;{!$Label.Restrict_LOB_Creation}&quot;;
+    if(confirm(popupLabel )){
+         window.parent.location.href =&quot;/{!Account.Id}&quot;;
+    }
+}</url>
+</WebLink>

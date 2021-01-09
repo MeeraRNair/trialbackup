@@ -1,0 +1,42 @@
+<apex:page standardController="MDF_Program__c" extensions="VFCntrlr_AddWishListPage">
+<apex:form id="theformid">
+    <apex:pageBlock >
+        <apex:pageblockSection >
+            <apex:inputField value="{!MDF_Program__c.Region__c}"/>
+            <apex:inputfield value="{!MDF_Program__c.Sub_Region__c}"/>
+            <apex:inputField value="{!MDF_Program__c.Country__c}"/>
+            <apex:inputField value="{!MDF_Program__c.Business_Segment__c}"/>
+            <apex:inputField value="{!MDF_Program__c.Fiscal_Quarter__c}"/>
+        </apex:pageblockSection>
+        <apex:pageBlockButtons location="bottom">
+            <apex:commandButton value="Find Programs" action="{!findPrograms}"/>
+            <apex:commandButton value="Cancel" action="{!cancel}"/>
+        </apex:pageBlockButtons>
+  </apex:pageBlock>
+  <apex:pageblock rendered="{!OR(noprogram,programsrendered)}">
+      <apex:pageBlockSection columns="1" rendered="{!noprogram}">
+          <apex:outputLabel value="{!$Label.VIPER_add_programs}"/>
+      </apex:pageBlockSection>
+      <apex:pageBlockSection columns="1" rendered="{!programsrendered}">
+            <apex:pageBlockTable value="{!availableprogramsList}" var="a">
+                <apex:column headerValue="Select">
+                     <apex:inputCheckbox value="{!a.selected}" />             
+                 </apex:column>
+                <apex:column headerValue="Program Name">
+                     <apex:outputField value="{!a.apvMpElt.Name}" />
+              </apex:column>
+              <apex:column headerValue="Region">
+                     <apex:outputField value="{!a.apvMpElt.Region__c}" />
+              </apex:column>
+              <apex:column headerValue="Fiscal Quarter">
+                     <apex:outputField value="{!a.apvMpElt.Fiscal_Quarter__c}" />
+              </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        <apex:pageBlockButtons rendered="{!programsrendered}">
+            <apex:commandButton value="Add" action="{!saveWishList}"/>
+            <apex:commandButton value="Cancel" action="{!cancel}" immediate="true"/>
+        </apex:pageBlockButtons>
+  </apex:pageblock>
+</apex:form>
+</apex:page>

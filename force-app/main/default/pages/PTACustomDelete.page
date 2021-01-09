@@ -1,0 +1,86 @@
+<apex:page standardController="Partner_Type_Attribute__c">
+<apex:includeScript value="/soap/ajax/43.0/connection.js"/>
+<apex:includeScript value="/soap/ajax/43.0/apex.js"/>
+    <script>
+    sforce.connection.sessionId='{!GETSESSIONID()}';
+
+    var PTAID= "{!Partner_Type_Attribute__c.Id}";
+    var operation = "{!Partner_Type_Attribute__c.EMC_Operation__c}";
+    var integStatus= "{!Partner_Type_Attribute__c.EMC_Integration_Status__c}";
+    var EMCID = "{!Partner_Type_Attribute__c.EMC_ID__c}";
+    var Activedelete = "{!Partner_Type_Attribute__c.Activate_Delete__c}";
+    var PTID = "{!Partner_Type_Attribute__c.Partner_Track__c}";
+    console.log('operation:::'+operation);
+    if(EMCID !==null &&  EMCID!=="" && Activedelete == 'false'){
+        if(operation !== "Deletion" ){
+    console.log("Deletion Blog");
+    var PTAToUpdate = new sforce.SObject("Partner_Type_Attribute__c");
+    PTAToUpdate.Id =PTAID ;
+    PTAToUpdate.EMC_Operation__c = "Deletion";
+    PTAToUpdate.EMC_Integration_Status__c = "Waiting Sync";
+    console.log("Deletion Blog:"+PTAToUpdate.EMC_Operation__c);
+    sforce.connection.update([PTAToUpdate]);
+
+    //location.reload(true);
+    window.location.href='/'+PTAID;
+
+}
+else{
+    alert("Record is already marked as deleted. Waiting for the corresponding record to be deleted in EMC.");
+    window.location.href='/'+PTAID;
+}
+}
+else if(EMCID !==''  && Activedelete == 'true' ){
+        if(operation !== "Deletion"){
+         if(integStatus == 'Waiting Sync' || integStatus == 'Do Not Sync' || integStatus == 'Has Error'){
+             var PTAToUpdate = new sforce.SObject("Partner_Type_Attribute__c");
+        PTAToUpdate.Id =PTAID;
+           sforce.connection.deleteIds([PTAToUpdate.Id]);
+       window.location.href='/'+PTID;
+         }else{
+        var PTAToUpdate = new sforce.SObject("Partner_Type_Attribute__c");
+        PTAToUpdate.Id =PTAID;
+        PTAToUpdate.EMC_Operation__c = "Deletion";
+        PTAToUpdate.EMC_Integration_Status__c = "Waiting Sync";
+        
+        
+        sforce.connection.update([PTAToUpdate]);
+      window.location.href='/'+PTAID;
+      }}
+      else{
+      if(integStatus == 'Waiting Sync' || integStatus == 'Do Not Sync' || integStatus == 'Has Error'){
+          var PTAToUpdate = new sforce.SObject("Partner_Type_Attribute__c");
+        PTAToUpdate.Id =PTAID;
+           sforce.connection.deleteIds([PTAToUpdate.Id]);
+       window.location.href='/'+PTID;
+      }
+      else{
+      alert("Record is already marked as deleted. Waiting for the corresponding record to be deleted in EMC.");
+    window.location.href='/'+PTAID;
+      }
+    }  
+ }
+else if(EMCID =='' && EMCID ==null && Activedelete == 'true' && (integStatus == 'Waiting Sync' || integStatus == 'Do Not Sync' || integStatus == 'Has Error')){
+        var PTAToUpdate= new sforce.SObject("Partner_Type_Attribute__c");
+        PTAToUpdate.Id =PTAID;
+        
+       sforce.connection.deleteIds([PTAToUpdate.Id]);
+       window.location.href='/'+PTID;
+      
+    }
+    
+    else if(EMCID =='' && EMCID ==null && Activedelete == 'false' && (integStatus == 'Waiting Sync' || integStatus == 'Do Not Sync' || integStatus == 'Has Error')){
+        alert("Please wait record to sync with EMC.");
+      window.location.href='/'+PTAID;
+      }
+    
+    else{
+        var PTAToUpdate= new sforce.SObject("Partner_Type_Attribute__c");
+        PTAToUpdate.Id =PTAID;
+        
+       sforce.connection.deleteIds([PTAToUpdate.Id]);
+       window.location.href='/'+PTID;
+    }
+  
+    </script>
+</apex:page>

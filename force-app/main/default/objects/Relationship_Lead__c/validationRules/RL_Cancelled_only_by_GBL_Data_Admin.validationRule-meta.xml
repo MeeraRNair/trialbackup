@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RL_Cancelled_only_by_GBL_Data_Admin</fullName>
+    <active>false</active>
+    <description>&quot;Cancelled - Sales inactivity&quot; should only be selectable only by profile GBL Marketing/Data Admin Profile or via DLR or by Rxx.xx GBL Admin Marketing User Non-SSO profile.</description>
+    <errorConditionFormula>AND( ISPICKVAL( Status__c , &apos;Cancelled - Sales Inactivity&apos;),
+NOT ( OR ( 
+CONTAINS($User.Profile_Name__c, &apos;GBL Marketing/Data Admin&apos; ),
+CONTAINS($User.Profile_Name__c, &apos;IT GBL Data Load&apos; ),
+CONTAINS($User.Profile_Name__c, &apos;GBL Admin Marketing User - Non SSO&apos; )
+) ))</errorConditionFormula>
+    <errorDisplayField>Status__c</errorDisplayField>
+    <errorMessage>Only marketing admin users may apply the ‘Cancelled – Sales Inactivity’ Relationship Lead status to leads.</errorMessage>
+</ValidationRule>

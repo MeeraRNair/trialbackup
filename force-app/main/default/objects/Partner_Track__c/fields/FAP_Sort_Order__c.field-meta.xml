@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FAP_Sort_Order__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(CONTAINS(Partner_Type__c,&apos;Distributor&apos;) &amp;&amp; NOT(CONTAINS(Partner_Type__c,&apos;Federal&apos;)),
+(CASE(Partner_Type__c,
+&apos;Distributor (GCC)&apos;,1,
+&apos;Distributor (GDC)&apos;,1,
+&apos;Distributor (Shared)&apos;,1,
+&apos;Commercial Distributor&apos;,1,
+&apos;Consumer Distributor&apos;,1,
+&apos;Federal Distributor&apos;,1,
+&apos;Sub-Distributor&apos;,2,
+20)),
+(CASE(Partner_Program_Tier__c,
+&apos;Titanium Black&apos;, 1,
+&apos;Federal GSA Authorized – Premier +&apos;,1,
+&apos;Federal GSA Authorized – Premier&apos;,2,
+&apos;Federal Certified – Premier +&apos;,3,
+&apos;Federal Certified – Premier&apos;,4,
+&apos;Federal Limited GSA Authorized – Premier +&apos;,5,
+&apos;Federal Limited GSA Authorized – Premier&apos;,6,
+&apos;Federal Limited GSA Authorized&apos;,7,
+&apos;Federal Disty Managed&apos;,8,
+&apos;Titanium&apos;, 2,
+&apos;Platinum&apos;, 3,
+&apos;Gold&apos;, 4,
+&apos;Authorized Distributors&apos;, 5,
+&apos;Premier Plus&apos;, 6,
+&apos;Premier&apos;, 7,
+&apos;Preferred&apos;, 8,
+&apos;Registered&apos;, 9,
+&apos;Authorized&apos;, 10,
+20))
+)</formula>
+    <label>FAP Sort Order</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

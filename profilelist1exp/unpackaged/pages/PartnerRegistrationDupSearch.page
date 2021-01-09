@@ -1,0 +1,304 @@
+<apex:page standardController="Partner_Request__c"
+    extensions="PartnerRegistrationDupSearchCtrlExt"
+    tabStyle="Partner_Request__c"
+    action="{!doPageLoad}"  >
+     
+    <apex:outputPanel rendered="{!ISNULL(Partner_Request__c.id)}">
+        <apex:pageMessages />
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!NOT(ISNULL(Partner_Request__c.id))}">
+    <apex:form >
+        <script language="JavaScript">   
+            function populateSearchString(){
+                var selectedIndex = document.getElementById("{!$Component.SearchBy}").selectedIndex;
+                var selectedValue = document.getElementById("{!$Component.SearchBy}").options[selectedIndex].value;
+
+                if (selectedValue == "Email") {
+                    document.getElementById("{!$Component.SearchString}").value = "{!Partner_Request__c.Email__c}";
+                }
+                else if (selectedValue == "CompanyName") {
+                    document.getElementById("{!$Component.SearchString}").value = "%{!Partner_Request__c.Company__c}%";
+                }
+                 else if (selectedValue == "Phone") {
+                    document.getElementById("{!$Component.SearchString}").value = "{!Partner_Request__c.Org_Phone__c}";
+                }
+                else if (selectedValue == "Domain") {
+                    document.getElementById("{!$Component.SearchString}").value = "%{!Partner_Request__c.Website__c}%";
+                }
+                else if (selectedValue == "Tax ID") {
+                    document.getElementById("{!$Component.SearchString}").value = "%{!Partner_Request__c.Reseller_Tax_ID__c}%";
+                }
+                else if (selectedValue == "Duns") {
+                    document.getElementById("{!$Component.SearchString}").value = "%{!Partner_Request__c.ISDUNSUpdated__c}%";
+                }
+                else if (selectedValue == "Address") {
+                    document.getElementById("{!$Component.SearchString}").value = "%{!Partner_Request__c.Org_Address_1__c},{!Partner_Request__c.Org_Address_2__c},{!Partner_Request__c.Org_Address_3__c},{!Partner_Request__c.Org_City__c},{!Partner_Request__c.Org_State__c},{!Partner_Request__c.Org_Postal_Code__c},{!Partner_Request__c.Org_Country__r.Name}%";
+                }
+                else {
+                    document.getElementById("{!$Component.SearchString}").value = "";
+                }           
+            }
+        </script>
+        <apex:sectionHeader title="Partner Registration, Search for Existing or Duplicate" subtitle="{!request}"/>
+ 
+        <apex:outputPanel rendered="{!NOT(OR(isAccountSelected,isRegistrationSelected,isManualAccountSelected))}">
+            <apex:pageMessages />
+            <table width="100%" cellpadding="0" cellspacing="0" align="center" border="0">
+                <tr>
+                    <td> 
+                        <table width="100%" align="left" border="0" cellpadding="0" cellspacing="0" style="background-color: #d9d9d9;font-size: 97%;float: none;margin-top: 0pt;margin-right: 0pt;margin-bottom: 0pt;margin-left: 0pt;padding-top: 9px;">
+                            <tr>
+                                <td>
+                                    <table align="left" border="0" cellpadding="1" cellspacing="1">
+                                        <tr>
+                                            <td valign="middle" align="left" style="font-family: 'Verdana','Geneva',sans-serif;font-size: 100%;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;margin-left: 0px;display: inline;text-align: left;font-weight: bold;padding-right: 0.69em;">&nbsp;&nbsp;Search:</td>
+                                            <td align="left" valign="middle">
+                                            <apex:inputText size="60" id="SearchString" value="{!searchString}"/>
+                                            <apex:commandButton id="SearchButton" value="Search" action="{!doSearch}"/>&nbsp;&nbsp;
+                                            <apex:selectList id="SearchBy" value="{!searchBy}" size="1" onchange="populateSearchString()">
+                                                <apex:selectOptions value="{!searchByList}"/>
+                                            </apex:selectList>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr><td>&nbsp;</td></tr>
+                <tr><td>
+                    <apex:commandLink value="Go Back to Registration (No duplicates found)" action="{!doCancel}"/>
+                </td></tr>
+                <tr><td>&nbsp;</td></tr>
+                <tr>
+                    <td> 
+                        <apex:pageBlock title="Account Search Results  [{!IF(accountSearchResultsCount>1000,'1000+',accountCountStr)}] " tabStyle="Account">
+                            <apex:pageblockTable value="{!accounts}" var="singlAccountSearchResult" columns="10">
+                                <apex:column >   
+                                     <apex:facet name="header">Actions</apex:facet>    
+                                     <apex:outputPanel >
+                                     <apex:commandLink id="Select" value="Duplicate Of" action="{!doSelectAccount}"  rendered="{!AND(OR(singlAccountSearchResult.Partner_registration__r.name!='',singlAccountSearchResult.Partner_registration__r.name!=null),singlAccountSearchResult.Recordtype.Name=='Partner Account')}">
+                                         <apex:param id="accountId" name="accountId" value="{!singlAccountSearchResult.Id}"/>
+                                     </apex:commandLink>
+                                     
+                                       <apex:commandLink id="linkto" value="Link To" action="{!doSelectManualLink}"  rendered="{!AND(OR(singlAccountSearchResult.Partner_registration__r.name=='',singlAccountSearchResult.Partner_registration__r.name==null),singlAccountSearchResult.Recordtype.Name=='Partner Account')}">
+                                         <apex:param id="linkaccountId" name="linkaccountId" value="{!singlAccountSearchResult.Id}"/>
+                                         <apex:param id="linkaccountPRId" name="linkaccountPRId" value="{!Partner_Request__c.name}"/>
+                                     </apex:commandLink>
+                                    </apex:outputPanel>
+                                </apex:column>
+                                <apex:column >
+                                    <apex:facet name="header">Account Name</apex:facet>  
+                                    <apex:outputPanel >
+                                    <apex:outputLink value="/{!singlAccountSearchResult.id}" target="_blank">{!singlAccountSearchResult.Name}</apex:outputLink>
+                                    </apex:outputPanel>
+                                </apex:column>
+                                 <apex:column >                                     
+                                    <apex:facet name="header">Type</apex:facet> 
+                                    <apex:outputPanel >{!singlAccountSearchResult.Recordtype.Name}</apex:outputPanel>
+                                 </apex:column>
+                                 <apex:column >
+                                     <apex:facet name="header">Link To</apex:facet>
+                                     <apex:outputPanel > 
+                                     <apex:outputLink value="/{!singlAccountSearchResult.Partner_registration__r.id}" target="_blank">{!singlAccountSearchResult.Partner_registration__r.name}</apex:outputLink>
+                                     </apex:outputPanel>
+                                 </apex:column>
+                               
+                                <apex:column >
+                                     <apex:facet name="header">Owner</apex:facet>
+                                     <apex:outputPanel > 
+                                    <apex:outputLink value="/{!singlAccountSearchResult.Owner.Id}" target="_blank">{!singlAccountSearchResult.Owner.Name}</apex:outputLink>
+                                    </apex:outputPanel>
+                                </apex:column>
+                                <apex:column >
+                                    <apex:facet name="header">Domain</apex:facet>  
+                                    <apex:outputPanel >
+                                    <apex:outputLink value="/{!singlAccountSearchResult.id}" target="_blank">{!singlAccountSearchResult.Website}</apex:outputLink>
+                                    </apex:outputPanel>
+                                </apex:column>
+                                <apex:column >
+                                    <apex:facet name="header">Phone</apex:facet>  
+                                    <apex:outputPanel >
+                                    <apex:outputLink value="/{!singlAccountSearchResult.id}" target="_blank">{!singlAccountSearchResult.Phone}</apex:outputLink>
+                                    </apex:outputPanel>
+                                </apex:column>
+                                <apex:column >
+                                    <apex:facet name="header">Duns</apex:facet>  
+                                    <apex:outputPanel >
+                                    <apex:outputLink value="/{!singlAccountSearchResult.id}" target="_blank">{!singlAccountSearchResult.D_U_N_S__c}</apex:outputLink>
+                                    </apex:outputPanel>
+                                </apex:column>
+                                <apex:column >
+                                    <apex:facet name="header">Tax ID</apex:facet>  
+                                    <apex:outputPanel >
+                                    <apex:outputLink value="/{!singlAccountSearchResult.id}" target="_blank">{!singlAccountSearchResult.Reseller_Tax_ID__c}</apex:outputLink>
+                                    </apex:outputPanel>
+                                </apex:column>
+                                <apex:column >
+                                    <apex:facet name="header">Address</apex:facet>  
+                                    <apex:outputPanel >
+                                    
+                                   <apex:outputLink value="/{!singlAccountSearchResult.id}" target="_blank"><apex:outputText value="{!singlAccountSearchResult.Billing_Address_CN__c}" escape="false" ></apex:outputText></apex:outputLink> 
+                                    </apex:outputPanel>
+                                </apex:column>
+
+                                <!-- 
+                                <apex:column headerValue="City" value="{!singlAccountSearchResult.ShippingCity}"/>
+                                <apex:column headerValue="State/Province" value="{!singlAccountSearchResult.ShippingState}"/>
+                                <apex:column headerValue="Postal Code" value="{!singlAccountSearchResult.ShippingPostalCode}"/>
+                                <apex:column headerValue="Country" value="{!singlAccountSearchResult.ShippingCountry}"/>
+                                 -->
+                               
+                                 <apex:facet name="footer">
+                                    <apex:outputPanel >
+                                          <p align="center">
+                                            <!-- <apex:outputText value="Page {!acctPaginator.pageNumberDisplayFriendly} of {!acctPaginator.pageCount} in {!acctPaginator.recordCount} Results"/> -->
+                                            <apex:outputPanel >    </apex:outputPanel>
+                                            <apex:commandLink value="< Previous " action="{!acctPaginator.previous}"
+                                                rendered="{!IF(acctPaginator.hasPrevious,'true','false')}"/>
+                                             <apex:outputText value="< Previous " rendered="{!IF(NOT(acctPaginator.hasPrevious),'true','false')}"/> 
+                                                <apex:outputPanel >    </apex:outputPanel>
+                                                <apex:outputText rendered="{!IF((acctPaginator.pageCount>0),'true','false')}" value="({!acctPaginator.pageNumberDisplayFriendly} - {!acctPaginator.pageCount})" ></apex:outputText>
+                                                <apex:outputPanel >    </apex:outputPanel>
+                                            <apex:commandLink value=" Next >" action="{!acctPaginator.next}"
+                                                rendered="{!IF(acctPaginator.hasNext,'true','false')}"/>
+                                             <apex:outputText value=" Next >" rendered="{!IF(NOT(acctPaginator.hasNext),'true','false')}"/> 
+                                            </p>
+                                    </apex:outputPanel>
+                                </apex:facet>
+                            
+                            </apex:pageblockTable>
+                        </apex:pageBlock>  
+                    </td>
+                </tr>
+                <tr><td>&nbsp;</td></tr>
+                <tr>
+                    <td>  
+                        <apex:pageBlock title="Partner Registration Search Results [{!registrationSearchResultsCount}]" tabStyle="Partner_Request__c">
+                            <apex:pageblockTable value="{!pr_accounts}" var="singlRegistrationSearchResult" columns="14">
+                                <apex:column >
+                                     <apex:facet name="header">Actions</apex:facet> 
+                                     <apex:outputPanel >   
+                                     <apex:commandLink id="Select" value="Duplicate Of" action="{!doSelectRegistration}">
+                                         <apex:param id="registrationId" name="registrationId" value="{!singlRegistrationSearchResult.Id}"/>
+                                     </apex:commandLink>
+                                     </apex:outputPanel>
+                                </apex:column>
+                                <apex:column >
+                                    <apex:facet name="header">Number</apex:facet>
+                                    <apex:outputPanel > 
+                                    <apex:outputLink value="/{!singlRegistrationSearchResult.id}" target="_blank">{!singlRegistrationSearchResult.name}</apex:outputLink>
+                                    </apex:outputPanel>
+                                </apex:column>
+                                <!-- <apex:column headerValue="Company" value="{!singlRegistrationSearchResult.Company__c}"/> -->
+                                <apex:column >
+                                <apex:facet name="header">Company</apex:facet><apex:outputPanel ><apex:outputText value="{!singlRegistrationSearchResult.Company__c}"></apex:outputText></apex:outputPanel>
+                                </apex:column>
+                                <!-- <apex:column headerValue="Email" value="{!singlRegistrationSearchResult.Email__c}"/> -->
+                                  <apex:column >
+                                <apex:facet name="header">Email</apex:facet><apex:outputPanel ><apex:outputText value="{!singlRegistrationSearchResult.Email__c}"></apex:outputText></apex:outputPanel>
+                                </apex:column>
+                                <!-- <apex:column headerValue="First Name" value="{!singlRegistrationSearchResult.First_Name__c}"/> -->
+                                  <apex:column >
+                                <apex:facet name="header">First Name</apex:facet><apex:outputPanel ><apex:outputText value="{!singlRegistrationSearchResult.First_Name__c}"></apex:outputText></apex:outputPanel>
+                                </apex:column>
+                                <!-- <apex:column headerValue="Last Name" value="{!singlRegistrationSearchResult.Last_Name__c}"/> -->
+                                  <apex:column >
+                                <apex:facet name="header">Last Name</apex:facet><apex:outputPanel ><apex:outputText value="{!singlRegistrationSearchResult.Last_Name__c}"></apex:outputText></apex:outputPanel>
+                                </apex:column>
+                                <!-- <apex:column headerValue="Status" value="{!singlRegistrationSearchResult.Status__c}"/> -->
+                                  <apex:column >
+                                <apex:facet name="header">Status</apex:facet><apex:outputPanel ><apex:outputText value="{!singlRegistrationSearchResult.Status__c}"></apex:outputText></apex:outputPanel>
+                                </apex:column>
+                                <!-- <apex:column headerValue="Submitted" value="{!singlRegistrationSearchResult.CreatedDate}"/> -->
+                                  <apex:column >
+                                <apex:facet name="header">Submitted</apex:facet><apex:outputPanel ><apex:outputText value="{!singlRegistrationSearchResult.CreatedDate}"></apex:outputText></apex:outputPanel>
+                                </apex:column>
+                                <apex:column >
+                                <apex:facet name="header">Domain</apex:facet><apex:outputPanel ><apex:outputText value="{!singlRegistrationSearchResult.Website__c}"></apex:outputText></apex:outputPanel>
+                                </apex:column>
+                                <apex:column >
+                                <apex:facet name="header">Phone</apex:facet><apex:outputPanel ><apex:outputText value="{!singlRegistrationSearchResult.Org_Phone__c}"></apex:outputText></apex:outputPanel>
+                                </apex:column>
+                                 <apex:column >
+                                <apex:facet name="header">Address</apex:facet><apex:outputPanel ><apex:outputText value="{!singlRegistrationSearchResult.Org_Address_1__c}" ></apex:outputText>{!IF(singlRegistrationSearchResult.Org_Address_1__c== NULL,'',',')}<apex:outputText value="{!singlRegistrationSearchResult.Org_Address_2__c}"></apex:outputText>{!IF((singlRegistrationSearchResult.Org_Address_2__c== NULL || singlRegistrationSearchResult.Org_Address_3__c== NULL),'',',')}<apex:outputText value="{!singlRegistrationSearchResult.Org_Address_3__c}"></apex:outputText>
+                                    {!IF((singlRegistrationSearchResult.Org_Address_3__c== NULL || singlRegistrationSearchResult.Org_City__c== NULL),'',',')} <apex:outputText value="{!singlRegistrationSearchResult.Org_City__c}"></apex:outputText>{!IF((singlRegistrationSearchResult.Org_City__c== NULL || singlRegistrationSearchResult.Org_State__c== NULL),'',',')}<apex:outputText value="{!singlRegistrationSearchResult.Org_State__c}"></apex:outputText> 
+                                   {!IF((singlRegistrationSearchResult.Org_State__c== NULL || singlRegistrationSearchResult.Org_Postal_Code__c== NULL),'',',')} <apex:outputText value="{!singlRegistrationSearchResult.Org_Postal_Code__c}"></apex:outputText>{!IF((singlRegistrationSearchResult.Org_Postal_Code__c== NULL || singlRegistrationSearchResult.Org_Country__r.Name== NULL),'',',')}<apex:outputText value="{!singlRegistrationSearchResult.Org_Country__r.Name}"></apex:outputText> </apex:outputPanel>
+                                </apex:column>
+                                <apex:column >
+                                <apex:facet name="header">Duns</apex:facet><apex:outputPanel ><apex:outputText value="{!singlRegistrationSearchResult.ISDUNSUpdated__c}"></apex:outputText></apex:outputPanel>
+                                </apex:column>
+                                <apex:column >
+                                <apex:facet name="header">Tax ID</apex:facet><apex:outputPanel ><apex:outputText value="{!singlRegistrationSearchResult.Reseller_Tax_ID__c}"></apex:outputText></apex:outputPanel>
+                                </apex:column>
+                                <apex:column >
+                                  <apex:facet name="header">Account</apex:facet>
+                                  <apex:outputPanel >
+                                    <apex:outputLink value="/{!singlRegistrationSearchResult.Account__r.id}" target="_blank">{!singlRegistrationSearchResult.Account__r.name}</apex:outputLink>
+                                  </apex:outputPanel>  
+                                </apex:column>
+                                
+                                  <apex:facet name="footer">
+                                    <apex:outputPanel >
+                                          <p align="center">
+                                            <!-- <apex:outputText value="Page {!acctPaginator.pageNumberDisplayFriendly} of {!acctPaginator.pageCount} in {!acctPaginator.recordCount} Results"/> -->
+                                            <apex:outputPanel >    </apex:outputPanel>
+                                            <apex:commandLink value="< Previous " action="{!prPaginator.previous}"
+                                                rendered="{!IF(prPaginator.hasPrevious,'true','false')}"/>
+                                             <apex:outputText value="< Previous " rendered="{!IF(NOT(prPaginator.hasPrevious),'true','false')}"/> 
+                                                <apex:outputPanel >    </apex:outputPanel>
+                                                <apex:outputText rendered="{!IF((prPaginator.pageCount>0),'true','false')}" value="({!prPaginator.pageNumberDisplayFriendly} - {!prPaginator.pageCount})" ></apex:outputText>
+                                                <apex:outputPanel >    </apex:outputPanel>
+                                            <apex:commandLink value=" Next >" action="{!prPaginator.next}"
+                                                rendered="{!IF(prPaginator.hasNext,'true','false')}"/>
+                                             <apex:outputText value=" Next >" rendered="{!IF(NOT(prPaginator.hasNext),'true','false')}"/> 
+                                            </p>
+                                    </apex:outputPanel>
+                                </apex:facet>
+                                
+                                
+                            </apex:pageblockTable>
+                        </apex:pageBlock>
+                    </td>
+                </tr>
+                <tr><td>&nbsp;</td></tr>
+                <tr><td>
+                    <apex:commandLink value="Go Back to Registration (No duplicates found)" action="{!doCancel}"/>
+                </td></tr>
+                                
+                
+             </table>
+        
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!OR(isAccountSelected,isRegistrationSelected)}">
+            <apex:pageMessage severity="confirm"
+                strength="3"
+                title="Confirmation required"
+                detail="You are about to mark Partner Registration [{!Partner_Request__c.name}] as a duplicate of {!IF(isAccountSelected,'Account','Registration')} [{!selectionName}].  Please be advised that this operation cannot be reversed."
+            />
+            <table cellpadding="5" cellspacing="5" border="0"><tr><td>
+                <apex:commandButton value="Confirm" action="{!doConfirm}"/>
+                <apex:commandButton value="Cancel" action="{!doCancel}"/>
+                
+            </td></tr></table>
+        </apex:outputPanel>
+        
+           <apex:outputPanel rendered="{!IsManualAccountSelected}">
+            <apex:pageMessage severity="confirm"
+                strength="3"
+                title="Confirmation required"
+                detail="You are about to link Account [{!selectionName}] to Partner Registration [{!Partner_Request__c.name}].  Please be advised that this operation cannot be reversed."
+            />
+            <table cellpadding="5" cellspacing="5" border="0"><tr><td>
+                <apex:commandButton value="Confirm" action="{!doLinkAccountConfirm}">                          
+                </apex:commandButton>
+          
+                <apex:commandButton value="Cancel" action="{!doCancel}"/>
+               
+            </td></tr></table>
+        </apex:outputPanel>
+    </apex:form>        
+    </apex:outputPanel>
+    
+</apex:page>

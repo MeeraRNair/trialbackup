@@ -1,0 +1,8 @@
+<apex:page controller="PartnerRegistrationProvUserTaskCtrl" 
+	showHeader="false" 
+	sidebar="false" 
+	standardStylesheets="true"
+	id="thePage"
+	contentType="text/javascript"
+	action="{!doOnLoad}"
+>{!IF($CurrentPage.parameters.callback != '',$CurrentPage.parameters.callback & '(', '')}{"ProvisionUserTaskResponse":{"success":{!IF(success,'true','false')},"errorDescription":"{!errorDescription}","objectId":"{!objectId}"}}{!IF($CurrentPage.parameters.callback != '',')', '')}</apex:page>

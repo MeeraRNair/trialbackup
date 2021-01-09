@@ -1,0 +1,323 @@
+<apex:page controller="VFCntrlr_CertPrerequisitePopup" showheader="false" id="pgCertPrerequisite">
+    <Script language="javascript">           
+        function CheckAll(chkSelectAll, chkName){        
+            var inputElem = document.getElementsByTagName("input");
+            for(var i=0; i<inputElem.length; i++){             
+                if(inputElem[i].id.indexOf(chkName)!=-1)
+                    inputElem[i].checked = chkSelectAll.checked;  
+            }        
+        }
+        function unCheckSelectAll(chk,chkName){
+            var inputElem = document.getElementsByTagName("input");            
+            if (chk.checked == false){
+                for(var i=0; i<inputElem.length; i++){                   
+                    if(inputElem[i].id.indexOf(chkName)!= -1)
+                        inputElem[i].checked = false;    
+                }
+            }
+        }
+        function js_save(mode){         
+            var txtCSValue = document.getElementById("pgCertPrerequisite:frmCertPrerequisite:pgBlkCertPrerequisite:txtCrValue_onMainPg");
+            var txtCSIds = document.getElementById("pgCertPrerequisite:frmCertPrerequisite:pgBlkCertPrerequisite:txtCrIds_onMainPg");          
+            
+            window.returnValue = txtCSValue.value + '@@' + txtCSIds.value;  
+            if (window.opener != null){
+                window.opener.returnValue =  txtCSValue.value + '@@' + txtCSIds.value;  
+            }
+        
+            if (mode == 'Save_Close'){
+                self.close();
+            }              
+        } 
+        
+        function chkOptionButton(selectedchk, chkName){
+            // User can select only one course at a time.
+            var chkCourse = document.getElementsByTagName("input"); 
+            var currentState = selectedchk.checked;   
+            var chkLen = chkCourse.length;             
+            if (currentState == true){
+                for(i=0; i<chkLen; i++){                    
+                    if(chkCourse[i].type == "checkbox" && chkCourse[i].id.indexOf(chkName)!=-1 ){        
+                        chkCourse[i].checked = false;        
+                    }
+                }
+            }
+            selectedchk.checked = currentState;             
+        } 
+    </Script>
+    <apex:form id="frmCertPrerequisite" >       
+        <style>
+            .TabHeader{font-weight:bold;}
+            .activeTab {background-color: lightblue; background-image:none; color:white; }
+            .inactiveTab { background-color: lightgrey; color:black; background-image:none}
+            .tabText{font-size:97%;}
+        </style>
+                       
+        <apex:pageBlock id="pgBlkCertPrerequisite" mode="edit">
+            <apex:inputText id="txtCrValue_onMainPg" value="{!CrValue_fromMnPg}" style="display:none;"  />                               
+            <apex:inputText id="txtCrIds_onMainPg" value="{!CrId_fromMnPg}"  style="display:none;"/>        
+            <apex:inputText id="txtTraining" value="{!selCriteriaValue}"  style="display:none;"/>          
+            <apex:inputText id="txtTrainingIds" value="{!selCriteriaId}" style="display:none;"/>
+            <apex:inputText id="txtoptNUm" value="{!optionNumber}" style="display:none;"/>
+            <apex:inputText id="txtMode" value="{!fromPage}" style="display:none;"/>
+            <apex:pageMessages /> 
+            <apex:actionStatus id="status_chk"  />
+            <Script language="javascript">             
+                if ('{!isSave}' == 'Save' || '{!isSave}' == 'Save_Close'){              
+                    js_save('{!isSave}');
+                }   ;   
+            </Script>    
+
+            
+
+            <apex:tabPanel id="thetabPanel"  headerSpacing="0" switchType="client" headerClass="TabHeader" tabClass="activeTab" inactiveTabClass="inactiveTab">
+            
+                <!--.............ADD TAB..............-->
+                <apex:tab id="tabAdd" name="tabAdd" label="Add" styleClass="tabText" >
+                  To change the And/Or option, make the required change and select Save or Save &amp; Close. To add a course, search for the course/competency; select the item and select Add to update in the Selected Course/Competency section. When all courses are added select Save &amp; Close.
+                    <br></br><br></br>            
+                    
+                      <!-- Command Buttons-->
+                    <apex:pageBlockSection id="pgBtns1_top" columns="1" collapsible="false">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputpanel layout="block" style="text-align:center" > 
+                                <apex:commandbutton value="Add"          id="cmdAdd_top"    action="{!addSelectedCourses}"          rerender="pgBlkCertPrerequisite" status="status_chk"/>
+                                <apex:commandbutton value="Save"         id="cmdSave_top"   action="{!saveCriteria_addTab}"         rerender="pgBlkCertPrerequisite" status="status_chk"/>
+                                <apex:commandbutton value="Save & Close" id="cmdSave1_top"  action="{!saveCriteria_close_addTab}"   rerender="pgBlkCertPrerequisite" status="status_chk"/> 
+                                <apex:commandbutton value="Cancel"       id="cmdCancel_top" onclick="{self.close();return false ;}" />
+                            </apex:outputpanel>   
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    <!--Selected Courses-->
+                    <apex:pageBlockSection collapsible="false" id="selectedCourse_Add" title="Selected Courses/Competencies" rendered="{!NOT(SelectedCourseEmpty)}" columns="1">
+                        <apex:outputPanel layout="block" style="overflow:auto;width:100%;height:150px" >
+                            <apex:pageBlockTable value="{!SelectedCourses_Add}" id="pgBlkTbl2" var="sc">                                       
+                                <apex:Column rendered="{!(sc.RowType == 'Operand')}">
+                                    <apex:selectList value="{!sc.trName}" size="1">
+                                        <apex:selectOption itemValue="OR" itemLabel="OR"/>
+                                        <apex:selectOption itemValue="AND" itemLabel="AND"/>                      
+                                    </apex:selectList>
+                                </apex:Column>
+                                <apex:Column rendered="{!(sc.RowType <> 'Operand')}" value="{!sc.trName}" />                    
+                            </apex:pageBlockTable>
+                        </apex:outputpanel>
+                    </apex:pageBlockSection>
+                    
+                    <!--Add Course-->                    
+                    <apex:pageBlockSection collapsible="false" title="Course/Competency Search" columns="1">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel >Search</apex:outputLabel>
+                            <apex:panelGroup >
+                                <apex:inputText id="searchText" value="{!search_course}"></apex:inputText>
+
+                                <apex:outputLabel for="searchIn"><B>In</B></apex:outputLabel>
+                                <apex:selectList id="idPrerequisiteType" value="{!RowType}" size="1">
+                                    <apex:selectOption itemValue="Course" itemLabel="Course"/>
+                                    <apex:selectOption itemValue="competency" itemLabel="Competency"/>
+                                </apex:selectList>
+                                <apex:commandButton value="Go" id="go" action="{!doSearch}" rerender="pgBlkCertPrerequisite" status="status_chk"/>
+                            </apex:panelGroup>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    
+                    <!--Search Result-->
+                    <apex:pageBlockSection collapsible="false" columns="1" title="Search Results" rendered="{!NoRecordsFound_add}">
+                         <apex:pageMessage summary="{!$Label.NetExam_NoRecs}" severity="warning" strength="1" />                 
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection collapsible="false" title="Search Results" id="results" rendered="{!NOT(SearchCourseEmpty)}" columns="1">
+                        <apex:outputPanel layout="block" style="overflow:auto;width:100%;height:250px" >
+                            <apex:pageBlockTable width="100%" id="pgBlkTbl" value="{!SearchTableRows}" var="tr" rendered="{! BEGINS(RowType , 'Course')}">
+                                <apex:column >
+                                    <apex:facet name="header">   
+                                    <apex:outputPanel >
+                                        <apex:inputCheckbox id="chkSearchAll" value="{!chkSelectAll}" onclick="{CheckAll(this,'chkSearch');}" />                                                      
+                                        <apex:outputLabel style="vertical-align:top;">Select All</apex:outputLabel>        
+                                    </apex:outputPanel>
+                                    </apex:facet>
+                                    <apex:inputCheckbox id="chkSearch" value="{!tr.isSelected}"  onclick="{unCheckSelectAll(this,'chkSearchAll');}"/>
+                             
+                                </apex:column>
+                                <apex:column value="{!tr.Course.Name}"/>
+                                <apex:column value="{!tr.Course.Course_Id__c}"/>
+                                <apex:column value="{!tr.Course.Course_Name__c}"/>                
+                                <apex:column value="{!tr.Course.Course_Modality__c}"/>
+                                <apex:column value="{!tr.Course.Course_Description__c}"/>
+                            </apex:pageBlockTable>
+                        
+                            <apex:pageBlockTable width="100%" id="pgBlkTbl_req" value="{!SearchTableRows}" var="tr1" rendered="{! BEGINS(RowType , 'competency')}">
+                                <apex:column >
+                                    <apex:facet name="header">   
+                                    <apex:outputPanel >
+                                        <apex:inputCheckbox id="chkSearchAll_req" onclick="{CheckAll(this,'chkSearch_req');}" />                                                      
+                                        <apex:outputLabel style="vertical-align:top;" >Select All</apex:outputLabel>        
+                                    </apex:outputPanel>
+                                    </apex:facet>
+                                    <apex:inputCheckbox id="chkSearch_req" value="{!tr1.isSelected}"  onclick="{unCheckSelectAll(this,'chkSearchAll_req');}"/>                         
+                                </apex:column>
+                                <apex:column value="{!tr1.CertReq.name}"/>
+                                <apex:column value="{!tr1.CertReq.Certification_Name__c}"/>
+                                <apex:column value="{!tr1.CertReq.Prerequisites__c}"/>
+                                <apex:column value="{!tr1.CertReq.Acquisition__c}"/>
+                            </apex:pageBlockTable>
+                        </apex:outputPanel>
+                    </apex:pageBlockSection>
+                    <br></br>
+                   
+                    <!-- Command Buttons-->
+                    <apex:pageBlockSection id="pgBtns1" columns="1" collapsible="false">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputpanel layout="block" style="text-align:center" > 
+                                <apex:commandbutton value="Add"          id="cmdAdd"    action="{!addSelectedCourses}"          rerender="pgBlkCertPrerequisite" status="status_chk"/>
+                                <apex:commandbutton value="Save"         id="cmdSave"   action="{!saveCriteria_addTab}"         rerender="pgBlkCertPrerequisite" status="status_chk"/>
+                                <apex:commandbutton value="Save & Close" id="cmdSave1"  action="{!saveCriteria_close_addTab}"   rerender="pgBlkCertPrerequisite" status="status_chk"/> 
+                                <apex:commandbutton value="Cancel"       id="cmdCancel" onclick="{self.close();return false ;}" />
+                            </apex:outputpanel>   
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                </apex:tab>
+                
+                <!-- ................MODIFY TAB ------------------ -->
+                
+                    
+                <apex:tab id="tabModify"  name="tabModify" label="Modify" rendered="{!(fromPage=='Edit')}" styleClass="tabText" >
+                    To change the And/Or option, make the required change and select Save or Save &amp; Close. To modify a course, select the Course/Competency to be modified, next search for the new Course/Competency; select the item and then Modify to update in the Selected Course/competency section. When all courses requiring modification are complete, Save &amp; Close.
+                    <br></br> <br></br>
+                   
+                   <!-- Command Buttons-->
+                    <apex:pageBlockSection id="pgBtns2_top" columns="1" collapsible="false">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputpanel layout="block" style="text-align:center">
+                                <apex:commandbutton value="Modify"       id="cmdModify_top"      action="{!modSelectedCourse}"   rerender="pgBlkCertPrerequisite" status="status_chk"/>                        
+                                <apex:commandbutton value="Save"         id="cmdSave2_top"       action="{!saveCriteria}"        rerender="pgBlkCertPrerequisite" status="status_chk"/>
+                                <apex:commandbutton value="Save & Close" id="cmdSave_Close2_top" action="{!saveCriteria_close}"  rerender="pgBlkCertPrerequisite" status="status_chk"   />                       
+                                <apex:commandbutton value="Cancel"       id="cmdCancel_top"      onclick="{self.close();return false;}" />
+                            </apex:outputpanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    <!--Selected Courses-->
+                    <apex:pageBlockSection collapsible="false" id="selected2" title="Selected Course/Competency" rendered="{!NOT(SelectedCourseEmpty)}" columns="1">
+                        <apex:outputPanel layout="block" style="overflow:auto;width:100%;height:150px" >
+                            <apex:pageBlockTable value="{!SelectedCourses}" id="pgBlkTbl2" var="sc">
+                                <apex:column headervalue="Select" width="20px">                                
+                                    <apex:inputcheckbox id="chk_Modify" value="{!sc.isSelected}" onclick="chkOptionButton(this,'chk_Modify')" rendered="{!(sc.RowType <> 'Operand')}" />                               
+                                </apex:column>                    
+                                <apex:Column rendered="{!(sc.RowType == 'Operand')}">
+                                    <apex:selectList value="{!sc.trName}" size="1">
+                                        <apex:selectOption itemValue="OR" itemLabel="OR"/>
+                                        <apex:selectOption itemValue="AND" itemLabel="AND"/>                      
+                                    </apex:selectList>
+                                </apex:Column>
+                                <apex:Column rendered="{!(sc.RowType <> 'Operand')}" value="{!sc.trName}" />                    
+                            </apex:pageBlockTable>
+                        </apex:outputpanel>
+                    </apex:pageBlockSection>
+                    
+                                  
+
+                    <apex:pageBlockSection collapsible="false" title="Course Search" columns="1">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel >Search</apex:outputLabel>
+                            <apex:panelGroup >
+                                <apex:inputText id="searchText" value="{!search_course_Modify}"></apex:inputText>
+                                <apex:outputLabel for="searchIn"><B>In</B></apex:outputLabel>
+                                <apex:selectList id="idPrerequisiteType" value="{!RowType_modify}" size="1">
+                                    <apex:selectOption itemValue="Course" itemLabel="Course"/>
+                                    <apex:selectOption itemValue="Competency" itemLabel="Competency"/>
+                                </apex:selectList>
+                                <apex:commandButton value="Go" id="go" action="{!doSearch_Modify}"  rerender="pgBlkCertPrerequisite" status="status_chk"/>
+                            </apex:panelGroup>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    
+                    <!--Search Result-->
+                    <apex:pageBlockSection collapsible="false" columns="1" title="Search Results" rendered="{!NoRecordsFound_modify}">
+                         <apex:pageMessage summary="{!$Label.NetExam_NoRecs}" severity="warning" strength="1" />                 
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection collapsible="false" title="Search Results" id="results2" rendered="{!NOT(SearchCourseModify_Empty)}" columns="1">
+                        <apex:outputPanel layout="block" style="overflow:auto;width:100%;height:250px" >
+                            <apex:pageBlockTable width="100%" id="pgBlkTbl" value="{!SearchTableRows_modify}" var="tr" rendered="{! BEGINS(RowType_modify , 'Course')}">
+                                <apex:column headerValue="Select">                                
+                                    <apex:inputcheckbox id="chkSearch_Modify" value="{!tr.isSelected}" onclick="chkOptionButton(this,'chkSearch_Modify')" />
+                                </apex:column>
+                                <apex:column value="{!tr.Course.Name}"/>
+                                <apex:column value="{!tr.Course.Course_Id__c}"/>
+                                <apex:column value="{!tr.Course.Course_Name__c}"/>                
+                                <apex:column value="{!tr.Course.Course_Modality__c}"/>
+                                <apex:column value="{!tr.Course.Course_Description__c}"/>
+                            </apex:pageBlockTable>
+                            <apex:pageBlockTable width="100%" id="pgBlkTbl_req" value="{!SearchTableRows_modify}" var="tr1" rendered="{! BEGINS(RowType_modify , 'Competency')}">
+                                <apex:column headerValue="Select">
+                                    <apex:inputCheckbox id="chkSearch_Modify_req" value="{!tr1.isSelected}"  onclick="chkOptionButton(this,'chkSearch_Modify_req')"/>                         
+                                </apex:column>
+                                <apex:column value="{!tr1.CertReq.name}"/>
+                                <apex:column value="{!tr1.CertReq.Certification_Name__c}"/>
+                                <apex:column value="{!tr1.CertReq.Prerequisites__c}"/>
+                                <apex:column value="{!tr1.CertReq.Acquisition__c}"/>
+                            </apex:pageBlockTable>
+                        </apex:outputPanel>
+                    </apex:pageBlockSection>
+                    <br></br>
+                   
+                    <!-- Command Buttons-->
+                    <apex:pageBlockSection id="pgBtns2" columns="1" collapsible="false">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputpanel layout="block" style="text-align:center">
+                                <apex:commandbutton value="Modify"       id="cmdModify"      action="{!modSelectedCourse}"   rerender="pgBlkCertPrerequisite" status="status_chk"/>                        
+                                <apex:commandbutton value="Save"         id="cmdSave2"       action="{!saveCriteria}"        rerender="pgBlkCertPrerequisite" status="status_chk"/>
+                                <apex:commandbutton value="Save & Close" id="cmdSave_Close2" action="{!saveCriteria_close}"  rerender="pgBlkCertPrerequisite" status="status_chk"   />                       
+                                <apex:commandbutton value="Cancel"       id="cmdCancel"      onclick="{self.close();return false;}" />
+                            </apex:outputpanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                </apex:tab>
+                
+                <!-- ..............DELETE TAB ....................... -->
+                <apex:tab id="tabDel"  name="tabDel"    label="Delete" rendered="{!(fromPage=='Edit')}" styleClass="tabText" >
+                    Delete Course/Competency from the Selected Course/competency section <br></br> <br></br>
+                    
+                     <!-- Command Buttons-->
+                    <apex:pageBlockSection id="pgBtns3_top" columns="1" collapsible="false">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputpanel layout="block" style="text-align:center">
+                                <apex:commandbutton value="Delete"       id="cmdDelete_top"         action="{!delSelectedCourse}"        rerender="pgBlkCertPrerequisite" status="status_chk"/>
+                                <apex:commandbutton value="Save"         id="cmdSave_Del_top"       action="{!saveCriteria}"             rerender="pgBlkCertPrerequisite" status="status_chk"/>
+                                <apex:commandbutton value="Save & Close" id="cmdSaveClose_Del_top"  action="{!saveCriteria_close}"       rerender="pgBlkCertPrerequisite" status="status_chk"/>                       
+                                <apex:commandbutton value="Cancel"       id="cmdCancel_Del_top"     onclick="{self.close();return false;}" />                                
+                            </apex:outputpanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    <!--Selected Courses-->
+                    <apex:pageBlockSection collapsible="false" id="selected3" title="Selected Course/competency" rendered="{!NOT(SelectedCourseEmpty)}" columns="1">
+                        <apex:pageBlockTable value="{!SelectedCourses_del}" id="pgBlkTbl2" var="sc1">
+                            <apex:column width="30px">
+                                <apex:facet name="header">   
+                                <apex:outputPanel >
+                                    <apex:inputCheckbox id="chk_DelAll" value="{!chkSelectAll}" onclick="{CheckAll(this,'chk_Del');}" />
+                                    <apex:outputLabel >Select All</apex:outputLabel>        
+                                </apex:outputPanel>
+                                </apex:facet>
+                                <apex:inputCheckbox id="chk_Del" value="{!sc1.isSelected}" onclick="{unCheckSelectAll(this,'chk_DelAll');}" rendered="{!(sc1.RowType <> 'Operand')}"/>
+                            </apex:column>   
+                            <apex:Column value="{!sc1.trName}" />                    
+                        </apex:pageBlockTable>
+                    </apex:pageBlockSection>      
+                    <br></br>
+                   
+                    <!-- Command Buttons-->
+                    <apex:pageBlockSection id="pgBtns3" columns="1" collapsible="false">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputpanel layout="block" style="text-align:center">
+                                <apex:commandbutton value="Delete"       id="cmdDelete"         action="{!delSelectedCourse}"        rerender="pgBlkCertPrerequisite" status="status_chk"/>
+                                <apex:commandbutton value="Save"         id="cmdSave_Del"       action="{!saveCriteria}"             rerender="pgBlkCertPrerequisite" status="status_chk"/>
+                                <apex:commandbutton value="Save & Close" id="cmdSaveClose_Del"  action="{!saveCriteria_close}"       rerender="pgBlkCertPrerequisite" status="status_chk"/>                       
+                                <apex:commandbutton value="Cancel"       id="cmdCancel_Del"     onclick="{self.close();return false;}" />                                
+                            </apex:outputpanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                </apex:tab>                
+            </apex:tabPanel>
+            
+        </apex:pageBlock>
+            
+    </apex:form>
+</apex:page>

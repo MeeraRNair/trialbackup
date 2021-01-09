@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>isExpiryDateChanged__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Campaign__r.Account_Play_Expiry_Date__c = Account_Play_Expiry_Date_New__c , &apos;No&apos;, &apos;Yes&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Is Expiry Date Changed?</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

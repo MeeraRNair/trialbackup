@@ -1,0 +1,3273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>EbcCalender</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>Customer_Engagement_CL</compactLayoutAssignment>
+    <compactLayouts>
+        <fullName>Customer_Engagement_CL</fullName>
+        <fields>Name</fields>
+        <fields>Event_Status__c</fields>
+        <fields>Request_Executive_Presenter__c</fields>
+        <fields>Requestor_Name__c</fields>
+        <fields>Cost_Center__c</fields>
+        <fields>Estimated_no_of_Customer_Attendees__c</fields>
+        <fields>Primary_Account__c</fields>
+        <fields>NDA__c</fields>
+        <fields>Trade_Compliant__c</fields>
+        <label>Customer Engagement CL</label>
+    </compactLayouts>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>BOLT &amp; GSL project</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>Account_Executive__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Account Executive/PDM</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Customer_Engagements5</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Account_Region__c</fullName>
+        <externalId>false</externalId>
+        <label>Account Region</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>EMEA</fullName>
+                    <default>false</default>
+                    <label>EMEA</label>
+                </value>
+                <value>
+                    <fullName>APJ</fullName>
+                    <default>false</default>
+                    <label>APJ</label>
+                </value>
+                <value>
+                    <fullName>US/CAN</fullName>
+                    <default>false</default>
+                    <label>US/CAN</label>
+                </value>
+                <value>
+                    <fullName>LA</fullName>
+                    <default>false</default>
+                    <label>LA</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Account_Team_Call_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Account Team Call Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Alternate_End_Date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Next best end date</inlineHelpText>
+        <label>Alternate End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Alternate_Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Next best start date</inlineHelpText>
+        <label>Alternate Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Answer1__c</fullName>
+        <externalId>false</externalId>
+        <label>Answer1</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Strongly Agree</fullName>
+                    <default>false</default>
+                    <label>Strongly Agree</label>
+                </value>
+                <value>
+                    <fullName>Agree</fullName>
+                    <default>false</default>
+                    <label>Agree</label>
+                </value>
+                <value>
+                    <fullName>Neutral</fullName>
+                    <default>false</default>
+                    <label>Neutral</label>
+                </value>
+                <value>
+                    <fullName>Disagree</fullName>
+                    <default>false</default>
+                    <label>Disagree</label>
+                </value>
+                <value>
+                    <fullName>Strongly Disagree</fullName>
+                    <default>false</default>
+                    <label>Strongly Disagree</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Answer2__c</fullName>
+        <externalId>false</externalId>
+        <label>Answer2</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Strongly Agree</fullName>
+                    <default>false</default>
+                    <label>Strongly Agree</label>
+                </value>
+                <value>
+                    <fullName>Agree</fullName>
+                    <default>false</default>
+                    <label>Agree</label>
+                </value>
+                <value>
+                    <fullName>Neutral</fullName>
+                    <default>false</default>
+                    <label>Neutral</label>
+                </value>
+                <value>
+                    <fullName>Disagree</fullName>
+                    <default>false</default>
+                    <label>Disagree</label>
+                </value>
+                <value>
+                    <fullName>Strongly Disagree</fullName>
+                    <default>false</default>
+                    <label>Strongly Disagree</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Answer3__c</fullName>
+        <externalId>false</externalId>
+        <label>Answer3</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Strongly Agree</fullName>
+                    <default>false</default>
+                    <label>Strongly Agree</label>
+                </value>
+                <value>
+                    <fullName>Agree</fullName>
+                    <default>false</default>
+                    <label>Agree</label>
+                </value>
+                <value>
+                    <fullName>Neutral</fullName>
+                    <default>false</default>
+                    <label>Neutral</label>
+                </value>
+                <value>
+                    <fullName>Disagree</fullName>
+                    <default>false</default>
+                    <label>Disagree</label>
+                </value>
+                <value>
+                    <fullName>Strongly Disagree</fullName>
+                    <default>false</default>
+                    <label>Strongly Disagree</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Area_Desc__c</fullName>
+        <externalId>false</externalId>
+        <formula>Primary_Account__r.Sales_Channel__r.Area_Desc__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Area Desc</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BU__c</fullName>
+        <externalId>false</externalId>
+        <label>BU</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>CSMB</fullName>
+                    <default>false</default>
+                    <label>CSMB</label>
+                </value>
+                <value>
+                    <fullName>LE</fullName>
+                    <default>false</default>
+                    <label>LE</label>
+                </value>
+                <value>
+                    <fullName>Public</fullName>
+                    <default>false</default>
+                    <label>Public</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Briefing_Tier__c</fullName>
+        <description>US3034839</description>
+        <externalId>false</externalId>
+        <label>Briefing Tier</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Platinum</fullName>
+                    <default>false</default>
+                    <label>Platinum</label>
+                </value>
+                <value>
+                    <fullName>Gold</fullName>
+                    <default>false</default>
+                    <label>Gold</label>
+                </value>
+                <value>
+                    <fullName>Silver</fullName>
+                    <default>false</default>
+                    <label>Silver</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>CE_Email_Recipient__c</fullName>
+        <externalId>false</externalId>
+        <label>CE Email Recipient</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Calendar_Management__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Calendar Management Record</label>
+        <referenceTo>Calendar_Management__c</referenceTo>
+        <relationshipLabel>Customer Engagements (Calendar Management) - RETIRED</relationshipLabel>
+        <relationshipName>Customer_Engagements1</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Campaign__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Campaign</label>
+        <referenceTo>Campaign</referenceTo>
+        <relationshipLabel>Customer Engagements – RETIRED</relationshipLabel>
+        <relationshipName>Customer_Engagements</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Cancel_Request__c</fullName>
+        <externalId>false</externalId>
+        <label>Action Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Change Request</fullName>
+                    <default>false</default>
+                    <label>Change Request</label>
+                </value>
+                <value>
+                    <fullName>Cancel Request</fullName>
+                    <default>true</default>
+                    <label>Cancel Request</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Change_Cancel_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Change/Cancel Reason</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Change_Cancel_Request_Flag__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>to be checked if the Change/Cancel button is clicked when the CE record is already submitted and Satus &quot;not equal to&quot; COMPLETED, CANCELLED  through code</description>
+        <externalId>false</externalId>
+        <label>Change/Cancel Request Flag</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Confirmed_Date__c</fullName>
+        <description>DSC Confirmed Date</description>
+        <externalId>false</externalId>
+        <label>Confirmed Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Confirmed_End_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Confirmed End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Content_on_Account_Plan__c</fullName>
+        <externalId>false</externalId>
+        <label>Content on Account Plan</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Extremely Satisfied</fullName>
+                    <default>false</default>
+                    <label>Extremely Satisfied</label>
+                </value>
+                <value>
+                    <fullName>Somewhat Satisfied</fullName>
+                    <default>false</default>
+                    <label>Somewhat Satisfied</label>
+                </value>
+                <value>
+                    <fullName>Undecided</fullName>
+                    <default>false</default>
+                    <label>Undecided</label>
+                </value>
+                <value>
+                    <fullName>Somewhat Dissatisfied</fullName>
+                    <default>false</default>
+                    <label>Somewhat Dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>Extremely Dissatisfied</fullName>
+                    <default>false</default>
+                    <label>Extremely Dissatisfied</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Cost_Center__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>16 Characters Required for this Field.  No Spaces.
+
+Format:  XXXX-XXXX-XXXXXX</inlineHelpText>
+        <label>Cost Center</label>
+        <length>16</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Customer_Background_Challenge__c</fullName>
+        <externalId>false</externalId>
+        <label>Customer Background &amp; Challenge</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Customer_Background__c</fullName>
+        <externalId>false</externalId>
+        <label>Customer Background</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Customer_Care_Analyst__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Customer Care Analyst</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Customer_Engagements1</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Customer_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Customer Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Onsite Customer</fullName>
+                    <default>false</default>
+                    <label>Onsite Customer</label>
+                </value>
+                <value>
+                    <fullName>Remote Customer</fullName>
+                    <default>false</default>
+                    <label>Remote Customer</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>DSC_SA_Customer_Challenge__c</fullName>
+        <externalId>false</externalId>
+        <label>SA: Customer Challenge</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>DSC_SA_Engagement_Feedback__c</fullName>
+        <externalId>false</externalId>
+        <label>SA: Engagement Feedback</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>DSC_SA_What_we_did_and_Why__c</fullName>
+        <externalId>false</externalId>
+        <label>SA: What we did and Why</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Dell_Solution_Center_Site__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Solution Center names:
+Americas: Austin, Chicago, New York, Sao Paulo, Santa Clara, Washington D.C.
+APJ: Shanghai, Singapore, Sydney, Tokyo
+EMEA: Bracknell, Frankfurt, Limerick, Paris
+For more information please go to http://dsc.dell.com</inlineHelpText>
+        <label>Site</label>
+        <lookupFilter>
+            <active>true</active>
+            <booleanFilter>1 AND 2 AND 3</booleanFilter>
+            <filterItems>
+                <field>Event_Location__c.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Sites</value>
+            </filterItems>
+            <filterItems>
+                <field>Event_Location__c.Engagement_Type__c</field>
+                <operation>equals</operation>
+                <value>DSC</value>
+            </filterItems>
+            <filterItems>
+                <field>Event_Location__c.Active__c</field>
+                <operation>equals</operation>
+                <value>True</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Event_Location__c</referenceTo>
+        <relationshipLabel>Customer Engagements (Dell Solution Center Site) – RETIRED</relationshipLabel>
+        <relationshipName>Customer_Engagements3</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Description_of_Proposed_Solution__c</fullName>
+        <externalId>false</externalId>
+        <label>Description of Proposed Solution</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Domain__c</fullName>
+        <externalId>false</externalId>
+        <label>Domain</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>End_DateF__c</fullName>
+        <externalId>false</externalId>
+        <formula>Calendar_Management__r.End_Date__c</formula>
+        <label>Confirmed End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Engagement_Delivery__c</fullName>
+        <externalId>false</externalId>
+        <label>Engagement Delivery</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Face to face</fullName>
+                    <default>false</default>
+                    <label>Face to face</label>
+                </value>
+                <value>
+                    <fullName>Telephone</fullName>
+                    <default>false</default>
+                    <label>Telephone</label>
+                </value>
+                <value>
+                    <fullName>Web Conference</fullName>
+                    <default>false</default>
+                    <label>Web Conference</label>
+                </value>
+                <value>
+                    <fullName>Video Conference</fullName>
+                    <default>false</default>
+                    <label>Video Conference</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Engagement_on_Customer_Call__c</fullName>
+        <externalId>false</externalId>
+        <label>Engagement on Customer Call</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Extremely Satisfied</fullName>
+                    <default>false</default>
+                    <label>Extremely Satisfied</label>
+                </value>
+                <value>
+                    <fullName>Somewhat Satisfied</fullName>
+                    <default>false</default>
+                    <label>Somewhat Satisfied</label>
+                </value>
+                <value>
+                    <fullName>Undecided</fullName>
+                    <default>false</default>
+                    <label>Undecided</label>
+                </value>
+                <value>
+                    <fullName>Somewhat Dissatisfied</fullName>
+                    <default>false</default>
+                    <label>Somewhat Dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>Extremely Dissatisfied</fullName>
+                    <default>false</default>
+                    <label>Extremely Dissatisfied</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Engagement_on_Presenter_Call__c</fullName>
+        <externalId>false</externalId>
+        <label>Engagement on Presenter Call</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Extremely Satisfied</fullName>
+                    <default>false</default>
+                    <label>Extremely Satisfied</label>
+                </value>
+                <value>
+                    <fullName>Somewhat Satisfied</fullName>
+                    <default>false</default>
+                    <label>Somewhat Satisfied</label>
+                </value>
+                <value>
+                    <fullName>Undecided</fullName>
+                    <default>false</default>
+                    <label>Undecided</label>
+                </value>
+                <value>
+                    <fullName>Somewhat Dissatisfied</fullName>
+                    <default>false</default>
+                    <label>Somewhat Dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>Extremely Dissatisfied</fullName>
+                    <default>false</default>
+                    <label>Extremely Dissatisfied</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Estimated_no_of_Customer_Attendees__c</fullName>
+        <externalId>false</externalId>
+        <label>Estimated no. of Attendees</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Event_Category__c</fullName>
+        <externalId>false</externalId>
+        <label>Event Category</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Standard</fullName>
+                    <default>false</default>
+                    <label>Standard</label>
+                </value>
+                <value>
+                    <fullName>Non-standard</fullName>
+                    <default>false</default>
+                    <label>Non-standard</label>
+                </value>
+                <value>
+                    <fullName>Meeting</fullName>
+                    <default>false</default>
+                    <label>Meeting</label>
+                </value>
+                <value>
+                    <fullName>Internal</fullName>
+                    <default>false</default>
+                    <label>Internal</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Event_Start_Date_Changed_To__c</fullName>
+        <externalId>false</externalId>
+        <label>Changed Event Start Date To</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Event_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Event Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Pending</fullName>
+                    <default>true</default>
+                    <label>Pending</label>
+                </value>
+                <value>
+                    <fullName>Requested</fullName>
+                    <default>false</default>
+                    <label>Requested</label>
+                </value>
+                <value>
+                    <fullName>Scheduled</fullName>
+                    <default>false</default>
+                    <label>Scheduled</label>
+                </value>
+                <value>
+                    <fullName>Assigned</fullName>
+                    <default>false</default>
+                    <label>Assigned</label>
+                </value>
+                <value>
+                    <fullName>Confirmed</fullName>
+                    <default>false</default>
+                    <label>Confirmed</label>
+                </value>
+                <value>
+                    <fullName>Completed</fullName>
+                    <default>false</default>
+                    <label>Completed</label>
+                </value>
+                <value>
+                    <fullName>Approved</fullName>
+                    <default>false</default>
+                    <label>Approved</label>
+                </value>
+                <value>
+                    <fullName>Canceled</fullName>
+                    <default>false</default>
+                    <label>Canceled</label>
+                </value>
+                <value>
+                    <fullName>Waitlisted</fullName>
+                    <default>false</default>
+                    <label>Waitlisted</label>
+                </value>
+                <value>
+                    <fullName>Rejected</fullName>
+                    <default>false</default>
+                    <label>Rejected</label>
+                </value>
+                <value>
+                    <fullName>Scoping</fullName>
+                    <default>false</default>
+                    <label>Scoping</label>
+                </value>
+                <value>
+                    <fullName>SoW Delivered</fullName>
+                    <default>false</default>
+                    <label>SoW Delivered</label>
+                </value>
+                <value>
+                    <fullName>In Progress</fullName>
+                    <default>false</default>
+                    <label>In Progress</label>
+                </value>
+                <value>
+                    <fullName>On Site</fullName>
+                    <default>false</default>
+                    <label>On Site</label>
+                </value>
+                <value>
+                    <fullName>Executed by EMC</fullName>
+                    <default>false</default>
+                    <label>Executed by EMC</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Event_TypeF__c</fullName>
+        <externalId>false</externalId>
+        <formula>Calendar_Management__r.Event_Record_type__c</formula>
+        <label>Event Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Event_Type_Changed_To__c</fullName>
+        <externalId>false</externalId>
+        <label>Changed Event Type To</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Briefing</fullName>
+                    <default>false</default>
+                    <label>Briefing</label>
+                </value>
+                <value>
+                    <fullName>Tour</fullName>
+                    <default>false</default>
+                    <label>Tour</label>
+                </value>
+                <value>
+                    <fullName>Architectural Design Session</fullName>
+                    <default>false</default>
+                    <label>Architectural Design Session</label>
+                </value>
+                <value>
+                    <fullName>Proof of Concept</fullName>
+                    <default>false</default>
+                    <label>Proof of Concept</label>
+                </value>
+                <value>
+                    <fullName>Training</fullName>
+                    <default>false</default>
+                    <label>Training</label>
+                </value>
+                <value>
+                    <fullName>Marketing &amp; Analyst Events</fullName>
+                    <default>false</default>
+                    <label>Marketing &amp; Analyst Events</label>
+                </value>
+                <value>
+                    <fullName>Field Briefing</fullName>
+                    <default>false</default>
+                    <label>Field Briefing</label>
+                </value>
+                <value>
+                    <fullName>Meeting</fullName>
+                    <default>false</default>
+                    <label>Meeting</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Event_Type__c</fullName>
+        <description>Type of Customer Engagement event</description>
+        <externalId>false</externalId>
+        <label>Event Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Briefing</fullName>
+                    <default>false</default>
+                    <label>Briefing</label>
+                </value>
+                <value>
+                    <fullName>Tour</fullName>
+                    <default>false</default>
+                    <label>Tour</label>
+                </value>
+                <value>
+                    <fullName>Architectural Design Session</fullName>
+                    <default>false</default>
+                    <label>Architectural Design Session</label>
+                </value>
+                <value>
+                    <fullName>Proof of Concept</fullName>
+                    <default>false</default>
+                    <label>Proof of Concept</label>
+                </value>
+                <value>
+                    <fullName>Training</fullName>
+                    <default>false</default>
+                    <label>Training</label>
+                </value>
+                <value>
+                    <fullName>Marketing &amp; Analyst Events</fullName>
+                    <default>false</default>
+                    <label>Marketing &amp; Analyst Events</label>
+                </value>
+                <value>
+                    <fullName>Field Briefing</fullName>
+                    <default>false</default>
+                    <label>Field Briefing</label>
+                </value>
+                <value>
+                    <fullName>Meeting</fullName>
+                    <default>false</default>
+                    <label>Meeting</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Further_Explanation__c</fullName>
+        <externalId>false</externalId>
+        <label>Further Explanation</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>GSL_End_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Preferred End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>GSL_Objective__c</fullName>
+        <externalId>false</externalId>
+        <label>Objective for Proof of Concept</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>GSL_Requested_End_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Requested End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>GSL_Requested_Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Requested Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>GSL_Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>This date is not guaranteed. Date of visit will be agreed with DSC team during the evaluation process, depending on availability of all resources to meet your requirements.</inlineHelpText>
+        <label>Preferred Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Half_Day__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Calendar_Management__r.Half_Day__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Half Day?</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Highest_Customer_Attendee__c</fullName>
+        <externalId>false</externalId>
+        <label>Highest Customer Attendee</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>CXO</fullName>
+                    <default>false</default>
+                    <label>CXO</label>
+                </value>
+                <value>
+                    <fullName>VP</fullName>
+                    <default>false</default>
+                    <label>VP</label>
+                </value>
+                <value>
+                    <fullName>Manager and below</fullName>
+                    <default>false</default>
+                    <label>Manager and below</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Impact__c</fullName>
+        <externalId>false</externalId>
+        <label>Impact</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Install_Base__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Install Base</label>
+        <referenceTo>Install_Base__c</referenceTo>
+        <relationshipLabel>Customer Engagements – RETIRED</relationshipLabel>
+        <relationshipName>Customer_Engagements</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Instructions__c</fullName>
+        <defaultValue>&quot;AFTER you fill out Customer Engagement DETAILS and hit save… YOU MUST add at least one TOPIC and HIT SUBMIT TO FINISH YOUR REQUEST&quot;</defaultValue>
+        <externalId>false</externalId>
+        <label>&lt;font color=&quot;#FF0000&quot;&gt; ACTION REQUIRED:</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Knowledge_of_Account__c</fullName>
+        <externalId>false</externalId>
+        <label>Knowledge of Account</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Extremely Satisfied</fullName>
+                    <default>false</default>
+                    <label>Extremely Satisfied</label>
+                </value>
+                <value>
+                    <fullName>Somewhat Satisfied</fullName>
+                    <default>false</default>
+                    <label>Somewhat Satisfied</label>
+                </value>
+                <value>
+                    <fullName>Undecided</fullName>
+                    <default>false</default>
+                    <label>Undecided</label>
+                </value>
+                <value>
+                    <fullName>Somewhat Dissatisfied</fullName>
+                    <default>false</default>
+                    <label>Somewhat Dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>Extremely Dissatisfied</fullName>
+                    <default>false</default>
+                    <label>Extremely Dissatisfied</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Lead_Architect_Email__c</fullName>
+        <description>lead architect email populated by workflow FU</description>
+        <externalId>false</externalId>
+        <label>Lead Architect Email</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lead_Architect_Id__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Lead Architect Id</label>
+        <referenceTo>Topic_Experts__c</referenceTo>
+        <relationshipLabel>Customer Engagements (Lead Architect) - RETIRED</relationshipLabel>
+        <relationshipName>Customer_Engagements1</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Lead_Architect_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Lead_Architect_Id__r.Topic_Expert_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Lead Architect Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lead_Architect__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Lead Architect</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Customer_Engagements4</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>NDA_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>NDA Number</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NDA__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Specify if the Customer NDA is available. 
+
+It is the account team’s responsibility to ensure the customer’s NDA is in place prior to their visit.</inlineHelpText>
+        <label>NDA?</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>No_of_Attendees__c</fullName>
+        <description>No. of Attendees in this CE</description>
+        <externalId>false</externalId>
+        <label>No. of Attendees</label>
+        <summaryForeignKey>Attendees__c.Customer_Engagement__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>No_of_Attending_Companies__c</fullName>
+        <description>for dashboard</description>
+        <externalId>false</externalId>
+        <label>No. of Attending Companies</label>
+        <summaryForeignKey>Attending_Accounts__c.Customer_Engagement__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>No_of_Days__c</fullName>
+        <externalId>false</externalId>
+        <label>No. of Days</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Objective_of_Visit__c</fullName>
+        <externalId>false</externalId>
+        <label>Objective of Visit</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Operations_Analyst__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Operations Analyst</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Customer_Engagements2</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Overall_Engagement__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Overall Engagement including ability to reach / responsiveness</inlineHelpText>
+        <label>Overall Engagement</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Extremely Satisfied</fullName>
+                    <default>false</default>
+                    <label>Extremely Satisfied</label>
+                </value>
+                <value>
+                    <fullName>Somewhat Satisfied</fullName>
+                    <default>false</default>
+                    <label>Somewhat Satisfied</label>
+                </value>
+                <value>
+                    <fullName>Undecided</fullName>
+                    <default>false</default>
+                    <label>Undecided</label>
+                </value>
+                <value>
+                    <fullName>Somewhat Dissatisfied</fullName>
+                    <default>false</default>
+                    <label>Somewhat Dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>Extremely Dissatisfied</fullName>
+                    <default>false</default>
+                    <label>Extremely Dissatisfied</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Participation_on_Account_Call__c</fullName>
+        <externalId>false</externalId>
+        <label>Participation on Account Call</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Extremely Satisfied</fullName>
+                    <default>false</default>
+                    <label>Extremely Satisfied</label>
+                </value>
+                <value>
+                    <fullName>Somewhat Satisfied</fullName>
+                    <default>false</default>
+                    <label>Somewhat Satisfied</label>
+                </value>
+                <value>
+                    <fullName>Undecided</fullName>
+                    <default>false</default>
+                    <label>Undecided</label>
+                </value>
+                <value>
+                    <fullName>Somewhat Dissatisfied</fullName>
+                    <default>false</default>
+                    <label>Somewhat Dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>Extremely Dissatisfied</fullName>
+                    <default>false</default>
+                    <label>Extremely Dissatisfied</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>PleaseNote1__c</fullName>
+        <defaultValue>&quot;To ensure we can deliver your engagement ASAP, we need some additional information. Please hit SAVE then add your Attendees, Topics and Opportunities in the following sections of this form.&quot;</defaultValue>
+        <externalId>false</externalId>
+        <label>&lt;font color=&quot;#FF0000&quot;&gt; PLEASE NOTE:</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PleaseNote__c</fullName>
+        <defaultValue>&quot;Please fill out Customer Engagement details and hit SAVE. Finish your request by adding Attendees ,Topics and Related Opportunities.&quot;</defaultValue>
+        <externalId>false</externalId>
+        <label>&lt;font color=&quot;#FF0000&quot;&gt; PLEASE NOTE:</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Potential_for_case_study__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Do you think your customer would be willing to be a reference or create a case study post the POC?</inlineHelpText>
+        <label>Is there potential for a case study?</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Presenter_call_date__c</fullName>
+        <externalId>false</externalId>
+        <label>Presenter call date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Presenter_call_scheduled__c</fullName>
+        <externalId>false</externalId>
+        <label>Presenter call scheduled</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Primary_Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Primary Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Customer Engagements (Primary Account) - RETIRED</relationshipLabel>
+        <relationshipName>Customer_Engagements2</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Primary_Calendar_Record__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Primary Calendar Record</label>
+        <referenceTo>Calendar_Management__c</referenceTo>
+        <relationshipLabel>Customer Engagements – RETIRED</relationshipLabel>
+        <relationshipName>Customer_Engagements</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Primary_Contact_Attending__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Primary Contact Attending?</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Primary_Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Primary Contact</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Contact.AccountId</field>
+                <operation>equals</operation>
+                <valueField>$Source.Primary_Account__c</valueField>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Customer Engagements (Primary Contact) – RETIRED</relationshipLabel>
+        <relationshipName>Customer_Engagements1</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Project_Workspace_URL__c</fullName>
+        <description>link to Project workspace</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The URL of PoC project workspace</inlineHelpText>
+        <label>Project Workspace URL</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Question_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Question 1</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Question_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Question 2</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Question_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Question 3</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Reason_for_Above_Answer__c</fullName>
+        <externalId>false</externalId>
+        <label>Reason for Above Answer</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Reason_for_Cancellation__c</fullName>
+        <externalId>false</externalId>
+        <label>Reason for Cancellation</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Event_Status__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Could not get commitment from customer</fullName>
+                    <default>false</default>
+                    <label>Could not get commitment from customer</label>
+                </value>
+                <value>
+                    <fullName>Date Changed, new date not known</fullName>
+                    <default>false</default>
+                    <label>Date Changed, new date not known</label>
+                </value>
+                <value>
+                    <fullName>Budget Cuts/Travel Restrictions</fullName>
+                    <default>false</default>
+                    <label>Budget Cuts/Travel Restrictions</label>
+                </value>
+                <value>
+                    <fullName>Appropriate customers or Dell participants unavailable</fullName>
+                    <default>false</default>
+                    <label>Appropriate customers or Dell participants unavailable</label>
+                </value>
+                <value>
+                    <fullName>Customer Emergency</fullName>
+                    <default>false</default>
+                    <label>Customer Emergency</label>
+                </value>
+                <value>
+                    <fullName>Duplicate request</fullName>
+                    <default>false</default>
+                    <label>Duplicate request</label>
+                </value>
+                <value>
+                    <fullName>AE decided to host outside the EBC/DSC</fullName>
+                    <default>false</default>
+                    <label>AE decided to host outside the EBC/DSC</label>
+                </value>
+                <value>
+                    <fullName>Incomplete Information Submitted</fullName>
+                    <default>false</default>
+                    <label>Incomplete Information Submitted</label>
+                </value>
+                <value>
+                    <fullName>Analyst canceled due to no show to calls</fullName>
+                    <default>false</default>
+                    <label>Analyst canceled due to no show to calls</label>
+                </value>
+                <value>
+                    <fullName>On Waiting List, could not get moved into the center</fullName>
+                    <default>false</default>
+                    <label>On Waiting List, could not get moved into the center</label>
+                </value>
+                <value>
+                    <fullName>Canceled Before Submitting</fullName>
+                    <default>false</default>
+                    <label>Canceled Before Submitting</label>
+                </value>
+                <value>
+                    <fullName>Center not available in required timeframe</fullName>
+                    <default>false</default>
+                    <label>Center not available in required timeframe</label>
+                </value>
+                <value>
+                    <fullName>Associated opportunity won/lost, engagement no longer requirement</fullName>
+                    <default>false</default>
+                    <label>Associated opportunity won/lost, engagement no longer requirement</label>
+                </value>
+                <value>
+                    <fullName>DSC cannot provide required technical resources</fullName>
+                    <default>false</default>
+                    <label>DSC cannot provide required technical resources</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Canceled</controllingFieldValue>
+                <valueName>Could not get commitment from customer</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Canceled</controllingFieldValue>
+                <valueName>Date Changed, new date not known</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Canceled</controllingFieldValue>
+                <valueName>Budget Cuts/Travel Restrictions</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Canceled</controllingFieldValue>
+                <valueName>Appropriate customers or Dell participants unavailable</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Canceled</controllingFieldValue>
+                <valueName>Customer Emergency</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Canceled</controllingFieldValue>
+                <valueName>Duplicate request</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Canceled</controllingFieldValue>
+                <valueName>AE decided to host outside the EBC/DSC</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Canceled</controllingFieldValue>
+                <valueName>Incomplete Information Submitted</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Canceled</controllingFieldValue>
+                <valueName>Analyst canceled due to no show to calls</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Canceled</controllingFieldValue>
+                <valueName>On Waiting List, could not get moved into the center</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Canceled</controllingFieldValue>
+                <valueName>Center not available in required timeframe</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Canceled</controllingFieldValue>
+                <valueName>Associated opportunity won/lost, engagement no longer requirement</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Canceled</controllingFieldValue>
+                <valueName>DSC cannot provide required technical resources</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Reasons_for_dates__c</fullName>
+        <externalId>false</externalId>
+        <label>Reasons for dates</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Related_CE__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>If your customer has already attended a Customer Engagement, please link that CE record to this request</inlineHelpText>
+        <label>Related Customer Engagement</label>
+        <referenceTo>Customer_Engagement__c</referenceTo>
+        <relationshipLabel>Customer Engagements – RETIRED</relationshipLabel>
+        <relationshipName>Customer_Engagements</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Related_Opportunity__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Related Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipLabel>Customer Engagements – RETIRED</relationshipLabel>
+        <relationshipName>Customer_Engagements</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Request_Executive_Presenter__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Check here if you are requesting an Executive Presenter to be on your agenda (Dir and above)</inlineHelpText>
+        <label>Request an Executive Presenter</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Requestor_Name__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of person requesting the event.  If you are the requestor, this should be your name.</inlineHelpText>
+        <label>Requestor Name</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Customer_Engagements</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Resource_Manager__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Resource Manager</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Customer_Engagements3</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Scheduled_RoomF__c</fullName>
+        <externalId>false</externalId>
+        <formula>Calendar_Management__r.Room__r.Name</formula>
+        <label>Scheduled Room</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Scheduled_Room__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Scheduled Room</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Event_Location__c.Select_Site__c</field>
+                <operation>equals</operation>
+                <valueField>$Source.Dell_Solution_Center_Site__c</valueField>
+            </filterItems>
+            <filterItems>
+                <field>Event_Location__c.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Rooms</value>
+            </filterItems>
+            <filterItems>
+                <field>Event_Location__c.Active__c</field>
+                <operation>equals</operation>
+                <value>True</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Event_Location__c</referenceTo>
+        <relationshipLabel>Customer Engagements (Scheduled Room) – RETIRED</relationshipLabel>
+        <relationshipName>Customer_Engagements1</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Segment_Business_Unit__c</fullName>
+        <externalId>false</externalId>
+        <formula>Primary_Account__r.Sales_Channel__r.Segment_Business_Unit_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Segment Business Unit</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Segment_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Primary_Account__r.Sales_Channel__r.Segment_Name__c</formula>
+        <label>Segment Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Send_Approval_Request_to_ORM__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Please make sure a Resource Manager is assigned to this event.  Check this box to send an approval request to the Resource Manager.
+Please note you can send the request only once.</inlineHelpText>
+        <label>Requires Resource Manager Approval ?</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>SiteF__c</fullName>
+        <externalId>false</externalId>
+        <formula>Calendar_Management__r.Site__r.Name</formula>
+        <label>Site</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Site_Changed_To__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Changed Site To</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Event_Location__c.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Sites</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Event_Location__c</referenceTo>
+        <relationshipLabel>Customer Engagements (Change Site To) – RETIRED</relationshipLabel>
+        <relationshipName>Customer_Engagements4</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Site_Email__c</fullName>
+        <description>email of the site for Email alerts. updated through WF FU</description>
+        <externalId>false</externalId>
+        <label>Site Email</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Site_Region__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF($RecordType.Name=&apos;Executive Briefing Center&apos;,Calendar_Management__r.Region__c,TEXT(Dell_Solution_Center_Site__r.Region__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Site Region</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Site__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Site</label>
+        <referenceTo>Event_Location__c</referenceTo>
+        <relationshipLabel>Customer Engagements (Site) – RETIRED</relationshipLabel>
+        <relationshipName>Customer_Engagements2</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Start_DateF__c</fullName>
+        <externalId>false</externalId>
+        <formula>Calendar_Management__r.Start_Date__c</formula>
+        <label>Confirmed Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Status_Comments__c</fullName>
+        <description>Cancel/reject comments from analysts</description>
+        <externalId>false</externalId>
+        <label>Status Comments</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Submitted_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Submitted Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Top_3_Pain_Points__c</fullName>
+        <externalId>false</externalId>
+        <label>Top 3 Pain Points</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Trade_Compliant__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Specify if the Customer is Trade Compliant.
+ 
+It is the account team’s responsibility to ensure that the customer is Trade Compliant prior to their visit.</inlineHelpText>
+        <label>Trade Compliant?</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Webcast__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Webcast</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>When_will_the_proposed_Solution_go_live__c</fullName>
+        <externalId>false</externalId>
+        <label>When will the proposed Solution go live?</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Customer Engagement - RETIRED</label>
+    <listViews>
+        <fullName>DSC_Assigned_Requests</fullName>
+        <columns>NAME</columns>
+        <columns>OWNER.ALIAS</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CONNECTION_SENT.NAME</field>
+            <operation>equals</operation>
+        </filters>
+        <label>DSC Assigned Requests</label>
+        <language>en_US</language>
+        <sharedTo>
+            <group>DellSolutionCentersStaff</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>DSC_Requests</fullName>
+        <columns>NAME</columns>
+        <columns>OWNER.ALIAS</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>DSC Pending Requests</label>
+        <language>en_US</language>
+        <sharedTo>
+            <group>DellSolutionCentersStaff</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Dell_Solution_Centers_Scheduling_Queue</fullName>
+        <columns>NAME</columns>
+        <columns>OWNER.ALIAS</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Queue</filterScope>
+        <label>Dell Solution Centers Scheduling Queue</label>
+        <language>en_US</language>
+        <queue>DellSolutionCentersSchedulingQueue</queue>
+        <sharedTo>
+            <group>DellSolutionCentersStaff</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Executive_Briefing_Centers</fullName>
+        <columns>NAME</columns>
+        <columns>Event_TypeF__c</columns>
+        <columns>Event_Status__c</columns>
+        <columns>Primary_Account__c</columns>
+        <columns>Primary_Contact__c</columns>
+        <columns>Start_DateF__c</columns>
+        <columns>Requestor_Name__c</columns>
+        <columns>SiteF__c</columns>
+        <columns>Scheduled_RoomF__c</columns>
+        <columns>No_of_Attendees__c</columns>
+        <columns>OWNER.ALIAS</columns>
+        <columns>RECORDTYPE</columns>
+        <filterScope>Queue</filterScope>
+        <label>EBC Scheduling Queue</label>
+        <language>en_US</language>
+        <queue>ExecutiveBriefingSchedulingQueue</queue>
+        <sharedTo>
+            <group>ExecutiveBriefingCenterStaff</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>My_Customer_Engagements</fullName>
+        <columns>NAME</columns>
+        <columns>OWNER.ALIAS</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Mine</filterScope>
+        <label>My Customer Engagements</label>
+        <language>en_US</language>
+        <sharedTo>
+            <group>DellSolutionCentersStaff</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Santa_Clara_Completed</fullName>
+        <columns>Primary_Account__c</columns>
+        <columns>NAME</columns>
+        <columns>Lead_Architect__c</columns>
+        <columns>Confirmed_End_Date__c</columns>
+        <filterScope>Queue</filterScope>
+        <filters>
+            <field>Site__c</field>
+            <operation>contains</operation>
+            <value>Santa Clara</value>
+        </filters>
+        <filters>
+            <field>Event_Status__c</field>
+            <operation>equals</operation>
+            <value>Completed</value>
+        </filters>
+        <label>Santa Clara Completed</label>
+        <language>en_US</language>
+        <queue>DellSolutionCentersSchedulingQueue</queue>
+    </listViews>
+    <nameField>
+        <label>Customer Engagement Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Customer Engagements - RETIRED</pluralLabel>
+    <recordTypes>
+        <fullName>DSC</fullName>
+        <active>true</active>
+        <description>Use this record type for: Technical briefing, Hands-On Environment, Design Sessions and Proof of Concepts. Formerly Solution Deep Dive</description>
+        <label>Dell Solution Centers</label>
+        <picklistValues>
+            <picklist>Account_Region__c</picklist>
+            <values>
+                <fullName>APJ</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EMEA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>US%2FCAN</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Answer1__c</picklist>
+            <values>
+                <fullName>Agree</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disagree</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Neutral</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Strongly Agree</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Strongly Disagree</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Answer2__c</picklist>
+            <values>
+                <fullName>Agree</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disagree</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Neutral</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Strongly Agree</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Strongly Disagree</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Answer3__c</picklist>
+            <values>
+                <fullName>Agree</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disagree</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Neutral</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Strongly Agree</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Strongly Disagree</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>BU__c</picklist>
+            <values>
+                <fullName>CSMB</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Public</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Briefing_Tier__c</picklist>
+            <values>
+                <fullName>Gold</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Platinum</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Silver</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Cancel_Request__c</picklist>
+            <values>
+                <fullName>Cancel Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Change Request</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Content_on_Account_Plan__c</picklist>
+            <values>
+                <fullName>Extremely Dissatisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Extremely Satisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Somewhat Dissatisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Somewhat Satisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Undecided</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Customer_Type__c</picklist>
+            <values>
+                <fullName>Onsite Customer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remote Customer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Engagement_Delivery__c</picklist>
+            <values>
+                <fullName>Face to face</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Telephone</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Video Conference</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web Conference</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Engagement_on_Customer_Call__c</picklist>
+            <values>
+                <fullName>Extremely Dissatisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Extremely Satisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Somewhat Dissatisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Somewhat Satisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Undecided</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Engagement_on_Presenter_Call__c</picklist>
+            <values>
+                <fullName>Extremely Dissatisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Extremely Satisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Somewhat Dissatisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Somewhat Satisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Undecided</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Event_Category__c</picklist>
+            <values>
+                <fullName>Internal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Meeting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Non-standard</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Standard</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Event_Status__c</picklist>
+            <values>
+                <fullName>Approved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Assigned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Canceled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Executed by EMC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>On Site</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Requested</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scoping</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SoW Delivered</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Event_Type_Changed_To__c</picklist>
+            <values>
+                <fullName>Architectural Design Session</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marketing %26 Analyst Events</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Proof of Concept</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Training</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Event_Type__c</picklist>
+            <values>
+                <fullName>Architectural Design Session</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Briefing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marketing %26 Analyst Events</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Proof of Concept</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Training</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Highest_Customer_Attendee__c</picklist>
+            <values>
+                <fullName>CXO</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Manager and below</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VP</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Knowledge_of_Account__c</picklist>
+            <values>
+                <fullName>Extremely Dissatisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Extremely Satisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Somewhat Dissatisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Somewhat Satisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Undecided</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>NDA__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Overall_Engagement__c</picklist>
+            <values>
+                <fullName>Extremely Dissatisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Extremely Satisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Somewhat Dissatisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Somewhat Satisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Undecided</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Participation_on_Account_Call__c</picklist>
+            <values>
+                <fullName>Extremely Dissatisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Extremely Satisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Somewhat Dissatisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Somewhat Satisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Undecided</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Potential_for_case_study__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason_for_Cancellation__c</picklist>
+            <values>
+                <fullName>AE decided to host outside the EBC%2FDSC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Analyst canceled due to no show to calls</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Appropriate customers or Dell participants unavailable</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Associated opportunity won%2Flost%2C engagement no longer requirement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Budget Cuts%2FTravel Restrictions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Center not available in required timeframe</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Could not get commitment from customer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Emergency</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DSC cannot provide required technical resources</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Date Changed%2C new date not known</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Duplicate request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incomplete Information Submitted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>On Waiting List%2C could not get moved into the center</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Trade_Compliant__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>EBC</fullName>
+        <active>true</active>
+        <description>Use this record type for: Customer Briefing, Field Briefing, Meeting and Tour. Formerly Executive Strategy and Relationship Development</description>
+        <label>Executive Briefing Center</label>
+        <picklistValues>
+            <picklist>Account_Region__c</picklist>
+            <values>
+                <fullName>APJ</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EMEA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>US%2FCAN</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Answer1__c</picklist>
+            <values>
+                <fullName>Agree</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disagree</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Neutral</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Strongly Agree</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Strongly Disagree</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Answer2__c</picklist>
+            <values>
+                <fullName>Agree</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disagree</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Neutral</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Strongly Agree</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Strongly Disagree</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Answer3__c</picklist>
+            <values>
+                <fullName>Agree</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disagree</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Neutral</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Strongly Agree</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Strongly Disagree</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>BU__c</picklist>
+            <values>
+                <fullName>CSMB</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Public</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Briefing_Tier__c</picklist>
+            <values>
+                <fullName>Gold</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Platinum</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Silver</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Cancel_Request__c</picklist>
+            <values>
+                <fullName>Cancel Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Change Request</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Content_on_Account_Plan__c</picklist>
+            <values>
+                <fullName>Extremely Dissatisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Extremely Satisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Somewhat Dissatisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Somewhat Satisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Undecided</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Customer_Type__c</picklist>
+            <values>
+                <fullName>Onsite Customer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remote Customer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Engagement_Delivery__c</picklist>
+            <values>
+                <fullName>Face to face</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Telephone</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Video Conference</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web Conference</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Engagement_on_Customer_Call__c</picklist>
+            <values>
+                <fullName>Extremely Dissatisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Extremely Satisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Somewhat Dissatisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Somewhat Satisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Undecided</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Engagement_on_Presenter_Call__c</picklist>
+            <values>
+                <fullName>Extremely Dissatisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Extremely Satisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Somewhat Dissatisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Somewhat Satisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Undecided</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Event_Category__c</picklist>
+            <values>
+                <fullName>Internal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Meeting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Non-standard</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Standard</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Event_Status__c</picklist>
+            <values>
+                <fullName>Assigned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Canceled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Confirmed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Executed by EMC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Requested</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Waitlisted</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Event_Type_Changed_To__c</picklist>
+            <values>
+                <fullName>Briefing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Field Briefing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Meeting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tour</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Training</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Event_Type__c</picklist>
+            <values>
+                <fullName>Briefing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Field Briefing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Meeting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tour</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Highest_Customer_Attendee__c</picklist>
+            <values>
+                <fullName>CXO</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Manager and below</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VP</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Knowledge_of_Account__c</picklist>
+            <values>
+                <fullName>Extremely Dissatisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Extremely Satisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Somewhat Dissatisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Somewhat Satisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Undecided</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>NDA__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Overall_Engagement__c</picklist>
+            <values>
+                <fullName>Extremely Dissatisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Extremely Satisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Somewhat Dissatisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Somewhat Satisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Undecided</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Participation_on_Account_Call__c</picklist>
+            <values>
+                <fullName>Extremely Dissatisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Extremely Satisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Somewhat Dissatisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Somewhat Satisfied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Undecided</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Potential_for_case_study__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason_for_Cancellation__c</picklist>
+            <values>
+                <fullName>AE decided to host outside the EBC%2FDSC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Analyst canceled due to no show to calls</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Appropriate customers or Dell participants unavailable</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Associated opportunity won%2Flost%2C engagement no longer requirement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Budget Cuts%2FTravel Restrictions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Canceled Before Submitting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Center not available in required timeframe</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Could not get commitment from customer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Emergency</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DSC cannot provide required technical resources</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Date Changed%2C new date not known</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Duplicate request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incomplete Information Submitted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>On Waiting List%2C could not get moved into the center</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Trade_Compliant__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>Requestor_Name__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>RECORDTYPE</customTabListAdditionalFields>
+        <customTabListAdditionalFields>OWNER.ALIAS</customTabListAdditionalFields>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
+        <excludedStandardButtons>Forward</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <lookupDialogsAdditionalFields>Requestor_Name__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>RECORDTYPE</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>OBJECT_ID</lookupDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchResultsAdditionalFields>RECORDTYPE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>No_of_Attendees__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>OBJECT_ID</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>OWNER.ALIAS</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Allow_future_dates_on_Preferred_dates</fullName>
+        <active>true</active>
+        <description>Validate the “Preferred Start Date” and “Preferred End Date” fields to allow future dates only.</description>
+        <errorConditionFormula>AND( 
+NOT($Setup.System_Behavior_Bypasser__c.Bypass_Opportunity_VRs__c),
+NOT(CONTAINS($Profile.Name , &quot;Customer Engagement&quot;)), RecordType.Name = &apos;Dell Solution Centers&apos;, 
+OR(GSL_Start_Date__c &lt; TODAY(), GSL_End_Date__c &lt; TODAY()) 
+)</errorConditionFormula>
+        <errorMessage>The Preferred Dates chosen occur in the past. Please review your request and updated Preferred Start/End Dates to future dates.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Cost_Center_Format_Validation</fullName>
+        <active>true</active>
+        <errorConditionFormula>NOT(ISBLANK(Cost_Center__c)) &amp;&amp; LEN( Cost_Center__c) &lt;&gt; 16</errorConditionFormula>
+        <errorDisplayField>Cost_Center__c</errorDisplayField>
+        <errorMessage>Cost Center Field requireds 16 Characters in format: xxxx-xxxx-xxxxxx</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>DSC_ORM_Approval_Email_Validation</fullName>
+        <active>true</active>
+        <description>Validate for assigned ORM before sending approval email</description>
+        <errorConditionFormula>ISBLANK( Resource_Manager__c )  &amp;&amp;  Send_Approval_Request_to_ORM__c = TRUE</errorConditionFormula>
+        <errorDisplayField>Resource_Manager__c</errorDisplayField>
+        <errorMessage>Please assign ORM before sending approval request.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>DSC_Proof_of_Concept_Required_Fields_VR</fullName>
+        <active>true</active>
+        <description>validation for required fields when event type is DSC proof of concept</description>
+        <errorConditionFormula>AND( OR( ISPICKVAL( Event_Type__c , &quot;Proof of Concept&quot;)), ISBLANK( Description_of_Proposed_Solution__c ), ISBLANK( When_will_the_proposed_Solution_go_live__c ))</errorConditionFormula>
+        <errorMessage>You have requested a Proof of Concept event. Please complete the additional Proof of Concept section below.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Further_Explanation_is_Required</fullName>
+        <active>true</active>
+        <description>Further Explanation under Participant Feedback is Required to fill-in when any one of the Answers selected is &apos;Neutral&apos; &apos;Disagree&apos; or &apos;Strongly Disagree&apos;</description>
+        <errorConditionFormula>AND ( 
+Further_Explanation__c =&apos;&apos; , 
+(OR ( 
+ISPICKVAL(Answer1__c , &apos;Neutral&apos;), 
+ISPICKVAL(Answer1__c , &apos;Disagree&apos;), 
+ISPICKVAL(Answer1__c , &apos;Strongly Disagree&apos;), 
+ISPICKVAL(Answer2__c , &apos;Neutral&apos;), 
+ISPICKVAL(Answer2__c , &apos;Disagree&apos;), 
+ISPICKVAL(Answer2__c , &apos;Strongly Disagree&apos;), 
+ISPICKVAL(Answer3__c , &apos;Neutral&apos;), 
+ISPICKVAL(Answer3__c , &apos;Disagree&apos;), 
+ISPICKVAL(Answer3__c , &apos;Strongly Disagree&apos;) 
+)) 
+)</errorConditionFormula>
+        <errorMessage>Please Fill-in the ‘Further Explanation’ in Participant Feedback Section since one of your Answers were ‘Neutral’ or ‘Disagree’ or ‘Strongly Disagree’</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Primary_Contact_Attending_field_must_be</fullName>
+        <active>true</active>
+        <description>Primary Contact Attending?” field must be empty when “Primary Contact” field is empty.</description>
+        <errorConditionFormula>AND(Primary_Contact__c = null , Primary_Contact_Attending__c = true)</errorConditionFormula>
+        <errorDisplayField>Primary_Contact__c</errorDisplayField>
+        <errorMessage>If Primary Contact is Attending, please enter Primary Contact</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>Change_Cancel_Request</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <height>600</height>
+        <linkType>url</linkType>
+        <masterLabel>Change/Cancel Request</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <url>/apex/CreateCancelRequest?id={!Customer_Engagement__c.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Solution_Centers_Workshop</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Solution Centers Workshop</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>http://dsc.dell.com/Pages/Home.aspx?</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Submit</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <height>600</height>
+        <linkType>url</linkType>
+        <masterLabel>Submit</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <url>/apex/CustomerEngagementSubmit?id={!Customer_Engagement__c.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>View_Agenda</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>View Agenda</masterLabel>
+        <openType>sidebar</openType>
+        <page>AgendaBuilder</page>
+        <protected>false</protected>
+    </webLinks>
+</CustomObject>

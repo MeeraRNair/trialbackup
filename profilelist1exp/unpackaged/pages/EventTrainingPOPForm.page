@@ -1,0 +1,96 @@
+<apex:page standardController="Proof_of_Performance_POP__c" extensions="POPFormCtrlExt"
+    showHeader="False" renderAs="pdf" cache="true">
+    <!--contentType="application/msword#EventTrainingPOPForm.doc"-->
+    <html>
+        <head>                                         
+            <style>
+                div.divbreak {page:divbreak;}
+                td.data{border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;border-collapse:collapse;}
+                table.Bdr{border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;border-collapse:collapse;}
+            </style>
+        </head>
+
+        <body>            
+            <!-- Mohan 20110606 BRD 8.4.1.3
+            <apex:repeat value="{!POPLineItemList}" var="poplst"> -->
+            <apex:repeat value="{!apvList}" var="apv">
+                <table width="100%" align="center" bgcolor="#4985D6">
+                    <tr><td align="left"><font face="verdana" size="4"><b>Dell Software &amp; Peripherals</b></font></td><td align="right"><font face="verdana" size="4"><b>Proof of Performance</b></font></td></tr>
+                </table>
+                <br></br>
+                
+                <table width="100%" align="center">
+                <!-- Aman CR 8392 BR024 Add Region and Sub Region based on POP Form Record -->
+                    <tr>
+                        <td class="data"><font face="verdana" size="2"><b>{!POPRec.Business_Segment__c} - {!POPRec.Region__c} - {!POPRec.Sub_Region__c} </b></font></td>
+                        <td class="data"><font face="verdana" size="2"></font></td>
+                    </tr>
+                    <tr>
+                        <td class="data" width="50%"><font face="verdana" size="2"><b>{!POPRec.Fiscal_Quarter__c}</b></font></td>
+                        <!-- Mohan 20110606 BRD 8.4.1.3
+                        <td class="data"><font face="verdana" size="2"><b>{!poplst.Vendor__r.Name}</b></font></td> -->
+                        <!-- Changes done sharad for viper story 4809142 -->
+                        <td class="data" width="40%"><font face="verdana" size="2"><b>
+                            <!--<apex:outputPanel rendered="{!if(apv.Status__c == 'Declined',false,true)}">{!apv.Vendor__r.Name}</apex:outputPanel>-->
+                            {!apv.Vendor__r.Name}
+                        </b></font></td>
+                    </tr>
+                </table>
+                <br></br>
+                
+                <table width="100%" align="center">
+                    <tr>
+                        <td><font face="verdana" size="2">This document serves as proof of participation and/or attendance for:  </font></td>
+                    </tr>
+                </table>
+    
+                <table width="100%" align="center">
+                    <tr>
+                        <td class="data"><font face="verdana" size="2"><b>Program Name:</b></font></td>
+                        <td class="data"><font face="verdana" size="2">{!POPRec.MDF_Program__r.name}</font></td>
+                    </tr>
+                    <tr>
+                        <td class="data"><font face="verdana" size="2"><b>Program Type:</b></font></td>
+                        <td class="data"><font face="verdana" size="2"><b>{!POPRec.MDF_Program__r.Program_Type__c}</b></font></td>
+                     </tr>
+                </table>
+                <br></br>
+                
+                <table width="100%" align="center">
+                    <tr>
+                        <!-- Mohan 20110606 BRD 8.4.1.3
+                        <td><font face="verdana" size="2"> I, _________________________________________ of {!poplst.Vendor__r.Name} agree that I conducted/attended this activity. This document will serve as the only other backup material for the invoice.</font></td>  -->
+                        <td><font face="verdana" size="2"> I, _________________________________________ of {!apv.Vendor__r.Name} agree that I conducted/attended this activity. This document will serve as backup material for the invoice.</font></td>
+                    </tr>
+                </table>
+                <br></br> 
+    
+                <table width="100%" align="center">
+                    <tr>
+                        <td class="data"><font face="verdana" size="2"></font></td>
+                        <td class="data"><br><font face="verdana" size="2"></font></br></td>
+                    </tr>
+                    <tr>
+                        <td class="data"><font face="verdana" size="2">Signature</font></td>
+                        <td class="data"><font face="verdana" size="2">Date</font></td>
+                    </tr>
+                </table>
+    
+                <table width="100%" align="center">
+                    <tr>
+                        <td align="right"><font face="verdana" size="2"><b>{!NOW()}</b></font></td>
+                    </tr>
+                </table>
+                <br></br>
+                
+                <!-- Mohan 20110606 BRD 8.4.1.3
+                <apex:outputText rendered="{!IF(LastRecId != poplst.Id ,'TRUE','FALSE')}"> -->
+                <apex:outputText rendered="{!IF(LastRecId != apv.Id ,'TRUE','FALSE')}">
+                    <div style="page-break-before: always"></div>
+                </apex:outputText>
+                
+            </apex:repeat>
+        </body>
+    </html>
+
+</apex:page>

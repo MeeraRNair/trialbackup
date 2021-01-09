@@ -1,0 +1,48 @@
+<apex:page Controller="VFCntrlr_AccountTeamMemberDelete" lightningStylesheets="true" title="Delete Account Team Members" tabStyle="Cleanup_AccountTeams__tab" >
+    
+      
+    <apex:sectionHeader title="Delete Invalid Account Team Members"/>
+    <apex:messages />
+    
+    <apex:form id="theform">
+        <apex:pageBlock id="pageBlockForDelete">
+        
+            <apex:pageBlockButtons location="top">
+                <br/>
+                <apex:commandButton id="delete" value="Delete Team Members" 
+                     Title="Delete" action="{!deleteTeamMember}" rerender="status" 
+                     onclick="document.getElementById('PleaseWaitLabel').style.visibility='visible';" 
+                     oncomplete="document.getElementById('PleaseWaitLabel').style.visibility='hidden';" /> 
+                    
+                <!-- The "please wait" label that is displayed during the controller does its job-->
+                
+                <div id="PleaseWaitLabel" style="visibility:hidden">
+                    <image src="/apexpages/devmode/img/saveStatus.gif" alt=" "/>
+                    Processing... Please wait...
+                </div>
+            
+            </apex:pageBlockButtons>
+        
+            <apex:pageBlockSection title="Description" columns="1" collapsible="false">            
+                <apex:outputText value="Click this button to delete the invalid Account Team Members.  You may need to click this button again to complete the operation."/>             
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection id="status" title="Process Status" columns="1" collapsible="false" >
+              
+              <!-- The status table-->
+              <apex:panelGrid columns="2" id="thegrid" border="1" cellpadding="5" width="100%">
+                    
+                    <apex:outputText style="font-weight: bold" value="Status: "/> 
+                    <apex:outputText style="font-weight: bold" id="statusMessage" value="{!message}"/>
+                    
+                    <apex:outputText value="Count of Button Clicks so far:"/> 
+                    <apex:outputText value="{!buttonClickCount}"/> 
+                    <apex:outputText value="Count of Deleted Records:"/> 
+                    <apex:outputText value="{!totalRecordsDeleted}"/> 
+                    
+              </apex:panelGrid>  
+                           
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

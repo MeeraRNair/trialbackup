@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>R13_10_CLCM_Support_Status_override_Resu</fullName>
+    <active>true</active>
+    <description>A cancelled Support Request cannot be resumed.</description>
+    <errorConditionFormula>AND( ISPICKVAL(Support_Request_Override_Status__c , &apos;Resume&apos;), ISPICKVAL(Support_Status__c , &apos;Cancelled&apos;), RecordTypeId = &apos;012A0000000Vhcv&apos;)</errorConditionFormula>
+    <errorMessage>Support Request has been cancelled &amp; cannot be resumed.</errorMessage>
+</ValidationRule>

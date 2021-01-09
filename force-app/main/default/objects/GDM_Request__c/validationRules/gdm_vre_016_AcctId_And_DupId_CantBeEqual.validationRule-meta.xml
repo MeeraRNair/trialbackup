@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>gdm_vre_016_AcctId_And_DupId_CantBeEqual</fullName>
+    <active>true</active>
+    <description>On a Deactivate screen, the Account ID cannot be the same as the duplicated id</description>
+    <errorConditionFormula>AND ( RecordType.Name ==&quot;Deactivate Account&quot;,
+       Account__r.Id  ==  Duplicated_Account_ID__c 
+   )</errorConditionFormula>
+    <errorDisplayField>Duplicated_Account_ID__c</errorDisplayField>
+    <errorMessage>(016) The Account ID and the Duplicated Account cannot be the same value.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Actions_Available__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( 
+OR( 
+ISPICKVAL(Approval_Status__c, &apos;Submitted&apos;), 
+ISPICKVAL(Approval_Status__c, &apos;Rejected&apos;)
+), 
+HYPERLINK(&apos;/apex/ApprovalRequestMaintenance?appReqId=&apos; &amp;  Id &amp; &apos;&amp;action=recallEntire&apos; , &apos;Cancel Approval Request&apos; ,&apos;_parent&apos;) &amp; &apos; &apos;, 
+&apos;&apos; 
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Actions Available</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

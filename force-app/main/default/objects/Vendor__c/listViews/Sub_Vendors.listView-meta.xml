@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sub_Vendors</fullName>
+    <columns>NAME</columns>
+    <columns>Parent_Vendor__c</columns>
+    <columns>Partner_Type__c</columns>
+    <columns>Product_Category__c</columns>
+    <columns>Partner_Status__c</columns>
+    <columns>Budgeted_Discount__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Vendor__c.Sub_Vendor</value>
+    </filters>
+    <label>Sub Vendors</label>
+    <language>en_US</language>
+</ListView>

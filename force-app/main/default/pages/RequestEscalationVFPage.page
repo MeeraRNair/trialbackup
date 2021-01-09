@@ -1,0 +1,55 @@
+<apex:page standardcontroller="case" showHeader="false" language="{!displayLanguageCode}" extensions="VfCntrl_RequestEscalationVFPage" id="case_page">
+     <style>
+         table.detailList {
+         width: 100% !important;
+         text-align: center;
+         margin: 0 auto;}
+     </style>
+     
+     <apex:form id="case_form">
+        <apex:pageBlock id="case_block"> 
+        <apex:pageMessages />            
+            <apex:outputPanel rendered="{!cannotEscalateCaseWhenAssig }"/>
+              
+            <apex:outputPanel rendered="{!!statusCompltedReqEscaIsTrue && !cannotEscalateCaseWhenAssig }"> 
+            <apex:pageBlockSection title="{!$Label.Request_Escalation}" columns="1" rendered="{!!requestEscalationCheck && !statusCompltedReqEscaIsfalse && !cannotEscalateCaseWhenAssig}" collapsible="False">
+            <apex:pageblockSectionItem >
+            <apex:outputlabel value="{!$Label.Order_Support_Email_Closed_Template_Field2}"/>
+            <apex:outputpanel >
+            <div class="requiredInput">
+                    <div class="requiredBlock"/>
+                    <apex:inputtext value="{!CaseNumber}"/>
+                </div>
+            </apex:outputpanel>
+            </apex:pageblockSectionItem>
+            <apex:pageblockSectionItem >
+            <apex:outputlabel value="{!$Label.Escalation_Justification}"/>
+            <apex:outputpanel >
+                <div class="requiredInput">
+                    <div class="requiredBlock"/>
+                    <apex:inputtextarea value="{!EscalateJustification}" style="width: 360px; height: 100px"/>                    
+                </div>
+            </apex:outputpanel>    
+            </apex:pageblockSectionItem>    
+            </apex:pageBlockSection>
+            </apex:outputPanel>  
+            
+            
+            
+            <apex:outputPanel rendered="{!!statusCompltedReqEscaIsTrue && !cannotEscalateCaseWhenAssig}">
+            <apex:pageBlockSection columns="1" rendered="{!requestEscalationCheck && !statusCompltedReqEscaIsfalse && !cannotEscalateCaseWhenAssig}" >
+                <strong>
+                    <apex:outputField value="{!caseobj.Escalation_Justification__c}" />
+                </strong>
+            </apex:pageBlockSection>
+            </apex:outputPanel>
+            
+            <apex:pageBlockButtons location="bottom" >
+                <left>
+                    <apex:commandButton reRender="case_form,case_block" value="{!$Label.CMAP_Save}" action="{!okSave}"  rendered="{!!requestEscalationCheck && !cannotEscalateCaseWhenAssig && !statusCompltedReqEscaIsfalse && !statusCompltedReqEscaIsTrue}" />
+                    <apex:commandButton value="{!$Label.cancel}" action="{!cancel}"/>
+                </left>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

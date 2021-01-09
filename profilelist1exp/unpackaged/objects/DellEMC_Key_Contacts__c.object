@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <content>DellEMCKeyContactCustomDelete</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Action_Performed_By__c</fullName>
+        <description>capture the record modifiers email address</description>
+        <externalId>false</externalId>
+        <label>Action Performed By</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Activate_Delete__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF((now()-LastModifiedDate)*24&gt;24, true, false)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Activate Delete</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>DellEMC_Contact_Name__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Dell EMC Contact Name</label>
+        <lookupFilter>
+            <active>true</active>
+            <booleanFilter>1 OR 2 OR 3</booleanFilter>
+            <errorMessage>Value does not exist or does not match filter criteria .</errorMessage>
+            <filterItems>
+                <field>User.Profile_Name__c</field>
+                <operation>equals</operation>
+                <value>Chatter Only</value>
+            </filterItems>
+            <filterItems>
+                <field>User.Profile_Name__c</field>
+                <operation>equals</operation>
+                <value>GBL PRM Operations</value>
+            </filterItems>
+            <filterItems>
+                <field>User.Profile_Name__c</field>
+                <operation>equals</operation>
+                <value>GBL PRM Operations Services Admin</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>User</referenceTo>
+        <relationshipName>DellEMC_Key_Contacts</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>EMC_ID__c</fullName>
+        <caseSensitive>true</caseSensitive>
+        <externalId>true</externalId>
+        <label>EMC ID</label>
+        <length>25</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>EMC_Integration_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>EMC Integration Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Waiting Sync</fullName>
+                    <default>false</default>
+                    <label>Waiting Sync</label>
+                </value>
+                <value>
+                    <fullName>Completed</fullName>
+                    <default>false</default>
+                    <label>Completed</label>
+                </value>
+                <value>
+                    <fullName>Has Error</fullName>
+                    <default>false</default>
+                    <label>Has Error</label>
+                </value>
+                <value>
+                    <fullName>Do Not Sync</fullName>
+                    <default>false</default>
+                    <label>Do Not Sync</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>EMC_Last_Sync_date__c</fullName>
+        <externalId>false</externalId>
+        <label>EMC Last Sync date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>EMC_Operation__c</fullName>
+        <externalId>false</externalId>
+        <label>EMC Operation</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Creation</fullName>
+                    <default>true</default>
+                    <label>Creation</label>
+                </value>
+                <value>
+                    <fullName>Deletion</fullName>
+                    <default>false</default>
+                    <label>Deletion</label>
+                </value>
+                <value>
+                    <fullName>Updation</fullName>
+                    <default>false</default>
+                    <label>Updation</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Email__c</fullName>
+        <externalId>false</externalId>
+        <formula>DellEMC_Contact_Name__r.Email</formula>
+        <label>Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Exception_message__c</fullName>
+        <externalId>false</externalId>
+        <label>Exception message</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Partner_Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Partner Account</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Account.RecordType.DeveloperName</field>
+                <operation>equals</operation>
+                <value>Partner_Account</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Account</referenceTo>
+        <relationshipName>DellEMC_Key_Contacts</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Partner_Track_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&quot;/&quot;&amp; Partner_Track__r.Id , Partner_Track__r.Partner_Track_Name__c)</formula>
+        <label>Partner Track Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Partner_Track__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Partner Track</label>
+        <referenceTo>Partner_Track__c</referenceTo>
+        <relationshipLabel>Dell EMC Key Contacts</relationshipLabel>
+        <relationshipName>Dell_EMC_Key_Contacts</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Phone__c</fullName>
+        <externalId>false</externalId>
+        <formula>LEFT(DellEMC_Contact_Name__r.Phone, 12)</formula>
+        <label>Phone</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Role__c</fullName>
+        <externalId>false</externalId>
+        <label>Role</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>Channel Account Plan</fullName>
+                    <default>false</default>
+                    <label>Channel Account Plan</label>
+                </value>
+                <value>
+                    <fullName>Channel Manager - BRS</fullName>
+                    <default>false</default>
+                    <label>Channel Manager - BRS</label>
+                </value>
+                <value>
+                    <fullName>Channel Manager - Education &amp; Svces</fullName>
+                    <default>false</default>
+                    <label>Channel Manager - Education &amp; Svces</label>
+                </value>
+                <value>
+                    <fullName>Channel Manager - IIG</fullName>
+                    <default>false</default>
+                    <label>Channel Manager - IIG</label>
+                </value>
+                <value>
+                    <fullName>Channel Manager - Ionix</fullName>
+                    <default>false</default>
+                    <label>Channel Manager - Ionix</label>
+                </value>
+                <value>
+                    <fullName>Channel Manager - Renewals</fullName>
+                    <default>false</default>
+                    <label>Channel Manager - Renewals</label>
+                </value>
+                <value>
+                    <fullName>Channel Sales Rep</fullName>
+                    <default>false</default>
+                    <label>Channel Sales Rep</label>
+                </value>
+                <value>
+                    <fullName>Dell EMC Services Account Manager</fullName>
+                    <default>false</default>
+                    <label>Dell EMC Services Account Manager</label>
+                </value>
+                <value>
+                    <fullName>Field Marketing</fullName>
+                    <default>false</default>
+                    <label>Field Marketing</label>
+                </value>
+                <value>
+                    <fullName>National Account Manager</fullName>
+                    <default>false</default>
+                    <label>National Account Manager</label>
+                </value>
+                <value>
+                    <fullName>Partner Global Services Lead</fullName>
+                    <default>false</default>
+                    <label>Partner Global Services Lead</label>
+                </value>
+                <value>
+                    <fullName>Partner Manager</fullName>
+                    <default>false</default>
+                    <label>Partner Manager</label>
+                </value>
+                <value>
+                    <fullName>Regional Partner Manager</fullName>
+                    <default>false</default>
+                    <label>Regional Partner Manager</label>
+                </value>
+                <value>
+                    <fullName>Services Program Manager</fullName>
+                    <default>false</default>
+                    <label>Services Program Manager</label>
+                </value>
+                <value>
+                    <fullName>Services Specialist</fullName>
+                    <default>false</default>
+                    <label>Services Specialist</label>
+                </value>
+                <value>
+                    <fullName>Technical Consultant</fullName>
+                    <default>false</default>
+                    <label>Technical Consultant</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>Dell EMC Key Contacts</label>
+    <nameField>
+        <displayFormat>{0000000}</displayFormat>
+        <label>DellEMC Key Contacts</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Dell EMC Key Contacts</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Validation_on_Partner_Track_For_DEKC</fullName>
+        <active>true</active>
+        <description>Can&apos;t change Partner Track field once created</description>
+        <errorConditionFormula>AND( !(ISNEW()),ISCHANGED(Partner_Track__c))</errorConditionFormula>
+        <errorMessage>Cannot change the Partner Track</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>

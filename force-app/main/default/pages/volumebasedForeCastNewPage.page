@@ -1,0 +1,57 @@
+<apex:page standardController="Volume_Based_Forecast__c" extensions="VFCntrlr_VolumeBasedForecast" sidebar="false" action="{!redirect}" >
+    
+    <head>
+         <style>
+                .headerRow .displayStyle{display:none;}            
+         </style>
+                          
+    </head>
+   
+    <apex:sectionHeader title="New Volume Based Forecast Plan"/>
+    <apex:form >  
+    <apex:pageMessages showDetail="true"></apex:pageMessages>
+    <apex:outputText value="{!duplicateRecord}" rendered="{!duplicateRecord!=null}" style="color:red;font-weight:bold;"/>     
+        <apex:pageBlock mode="mainDetail">
+           <apex:pageBlockSection title="Information" collapsible="false" columns="1">
+               <apex:inputField value="{!Volume_Based_Forecast__c.Name}" required="true"/>
+               <apex:inputField value="{!Volume_Based_Forecast__c.Sub_Vendor__c}" required="true"/>
+               <apex:inputField value="{!Volume_Based_Forecast__c.Fiscal_Quarter__c}" required="true"/>
+               <apex:inputField value="{!Volume_Based_Forecast__c.Region__c}" required="true"/>
+               <apex:inputField value="{!Volume_Based_Forecast__c.Volume_Based__c}" required="true"/>
+           </apex:pageBlockSection> 
+           <apex:pageBlockSection title="Volume Based Forecast" columns="1">              
+                   <apex:pageBlockTable value="{!Volume_Based_Forecast__c}" var="a">
+                   <apex:column headerValue="Forecast Breakout">             
+                       <apex:outputLabel value="Volume Based Forecast" for="vbffield"/>
+                       <apex:inputField value="{!a.Volume_Based_Forecast_filed__c}" style="width:80px" id="vbffield" required="true"/>                 
+                   </apex:column>
+                   <apex:column headerValue="CSMR(%)">
+                       <apex:inputField value="{!a.CSMR__c}" style="width:80px" required="true"/>
+                   </apex:column>
+                   <apex:column headerValue="LE(%)">
+                       <apex:inputField value="{!a.LE__c}" style="width:80px" required="true"/>
+                   </apex:column>
+                   <apex:column headerValue="PUB(%)">
+                       <apex:inputField value="{!a.PUB__c}" style="width:80px" required="true"/>
+                   </apex:column>
+                   <apex:column headerValue="SMB(%)">
+                       <apex:inputField value="{!a.SMB__c}" style="width:80px" required="true"/>
+                   </apex:column>                  
+                   </apex:pageBlockTable>  
+                   <apex:pageblockTable value="{!Volume_Based_Forecast__c}" var="a" rendered="{!editrendercontrol}">
+                       <apex:column headerClass="displayStyle">
+                          <apex:outputLabel value="Total MDF Forecast" for="mdfforecast"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          <apex:inputField value="{!a.Total_MDF_Forecast__c}" id="mdfforecast" style="width:80px"/>
+                       </apex:column>
+                   </apex:pageblockTable>             
+           </apex:pageBlockSection>
+           <apex:pageBlockButtons location="bottom">
+               <apex:commandButton value="Save" action="{!saveObj}" rendered="{!saveButtonRendered}"/>
+               <!--<apex:commandButton value="Update" rendered="{!availableMDFRendered}" action="{!updateObj}"/>-->
+               <apex:commandButton value="Cancel" action="{!cancel}" immediate="true"/>
+               <!--<apex:commandButton value="Done" rendered="{!availableMDFRendered}" action="{!done}"/>-->
+           </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+  
+</apex:page>

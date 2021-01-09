@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR702_Both_Campign_Type_and_Status</fullName>
+    <active>true</active>
+    <description>Both the Campaign Type field as well as the Status field has to hold a value.</description>
+    <errorConditionFormula>OR( ISPICKVAL(Campaign_Type__c ,&apos;&apos;),ISPICKVAL( S__c ,&apos;&apos;))</errorConditionFormula>
+    <errorMessage>Plese select the correct campaign type and the current campaign member status</errorMessage>
+</ValidationRule>

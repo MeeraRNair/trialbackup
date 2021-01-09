@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>License_details_mandatory_for_LR_AP</fullName>
+    <active>true</active>
+    <description>Field is mandatory even when it is coming from integration and data load.</description>
+    <errorConditionFormula>AND(OR(ISBLANK(Projected_Value__c),ISBLANK(Manufacturer_Name__c),ISBLANK(License_Expiration_Date__c)), $RecordType.Id = &apos;012A0000000Vi2O&apos; )</errorConditionFormula>
+    <errorDisplayField>Projected_Value__c</errorDisplayField>
+    <errorMessage>Projected Value, Manufacturer Name,  License Expiration Date are mandatory for License Renewal Account Play records</errorMessage>
+</ValidationRule>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_Plays_should_be_Account_Campaign</fullName>
+    <active>true</active>
+    <description>Enhanced in R13.10 for INC000008982618
+Account Plays should be created for Account based campaigns Only</description>
+    <errorConditionFormula>IF(Campaign__r.Is_this_Account_Play_Campaign__c == FALSE,true,false)</errorConditionFormula>
+    <errorMessage>Account Plays should be created for Account based campaigns Only</errorMessage>
+</ValidationRule>

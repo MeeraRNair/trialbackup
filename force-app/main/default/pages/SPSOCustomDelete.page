@@ -1,0 +1,93 @@
+<apex:page standardController="Partner_Service_Enabled_Product__c">
+    <apex:includeScript value="/soap/ajax/43.0/connection.js"/>
+    <apex:includeScript value="/soap/ajax/43.0/apex.js"/>
+    <script>
+    sforce.connection.sessionId='{!GETSESSIONID()}';
+     
+    var spsoID = "{!Partner_Service_Enabled_Product__c.Id}";
+    var operation = "{!Partner_Service_Enabled_Product__c.EMC_Operation__c}";
+    var integStatus= "{!Partner_Service_Enabled_Product__c.EMC_Integration_Status__c}";
+    var EMCID = "{!Partner_Service_Enabled_Product__c.EMC_ID__c}";
+    var Activedelete = "{!Partner_Service_Enabled_Product__c.Activate_Delete__c}";
+    var PTID = "{!Partner_Service_Enabled_Product__c.Partner_Track__c}";
+     
+    console.log('operation:::'+operation);
+    console.log('EMCID:::'+EMCID);
+    console.log('integStatus:::'+integStatus);
+    if(EMCID !==null &&  EMCID!=="" && Activedelete == 'false'){
+        
+        if(operation !== "Deletion" ){
+            
+            console.log("Deletion Blog");
+            var spsoToUpdate = new sforce.SObject("Partner_Service_Enabled_Product__c");
+            spsoToUpdate.Id =spsoID;
+            spsoToUpdate.EMC_Operation__c = "Deletion";
+            spsoToUpdate.EMC_Integration_Status__c = "Waiting Sync" ;
+            console.log("Deletion Blog"+spsoID+":"+spsoToUpdate.EMC_Operation__c);
+            sforce.connection.update([spsoToUpdate]);
+            
+            //location.reload(true);
+            window.location.href='/'+spsoID;
+            
+        }
+        else{
+            alert("Record is already marked as deleted. Waiting for the corresponding record to be deleted in EMC.");
+            window.location.href='/'+spsoID;
+        }
+    } 
+    else if(EMCID !==''  && Activedelete == 'true' ){
+         if(operation !== "Deletion" ){
+         if(integStatus == 'Waiting Sync' || integStatus == 'Do Not Sync' || integStatus == 'Has Error'){
+              var spsoToUpdate = new sforce.SObject("Partner_Service_Enabled_Product__c");
+        spsoToUpdate.Id =scID;
+       
+       sforce.connection.deleteIds([spsoToUpdate .Id]);
+       window.location.href='/'+PTID;
+      
+         }else{
+        var spsoToUpdate = new sforce.SObject("Partner_Service_Enabled_Product__c");
+        spsoToUpdate.Id =spsoID;
+        spsoToUpdate.EMC_Operation__c = "Deletion";
+        spsoToUpdate.EMC_Integration_Status__c = "Waiting Sync";
+        
+        sforce.connection.update([spsoToUpdate]);
+       window.location.href='/'+spsoID;}
+      }
+      else{    
+       if(integStatus == 'Waiting Sync' || integStatus == 'Do Not Sync' || integStatus == 'Has Error'){
+          var spsoToUpdate = new sforce.SObject("Partner_Service_Enabled_Product__c");
+        spsoToUpdate.Id =spsoID;
+            sforce.connection.deleteIds([spsoToUpdate.Id]);
+       window.location.href='/'+PTID;}
+       else{
+            alert("Record is already marked as deleted. Waiting for the corresponding record to be deleted in EMC.");
+            window.location.href='/'+spsoID;
+       }
+    }  
+ }   
+else if(EMCID =='' && EMCID ==null && Activedelete == 'true' && (integStatus == 'Waiting Sync' || integStatus == 'Do Not Sync' || integStatus == 'Has Error')){
+        var spsoToUpdate= new sforce.SObject("Partner_Service_Enabled_Product__c");
+        spsoToUpdate.Id =spsoID;
+        
+       sforce.connection.deleteIds([spsoToUpdate.Id]);
+       window.location.href='/'+PTID;
+      
+    }
+    
+    else if(EMCID =='' && EMCID ==null && Activedelete == 'false' && (integStatus == 'Waiting Sync' || integStatus == 'Do Not Sync' || integStatus == 'Has Error')){
+       alert("Please wait record to sync with EMC.");
+       window.location.href='/'+spsoID;
+      }
+    
+  else{
+      var spsoToUpdate= new sforce.SObject("Partner_Service_Enabled_Product__c");
+        
+            spsoToUpdate.Id =spsoID;
+          
+       sforce.connection.deleteIds([spsoToUpdate.Id]);
+       window.location.href='/'+PTID;
+  }
+  
+    
+    </script>
+</apex:page>

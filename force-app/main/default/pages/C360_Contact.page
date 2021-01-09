@@ -1,0 +1,16 @@
+<apex:page standardController="Contact">
+    <apex:pageBlock mode="maindetail">
+        <apex:pageBlockSection columns="2">
+            <apex:pageBlockSectionItem labelStyle="display:none;">
+                    <apex:outputLabel />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputpanel >
+                    <apex:outputLink value="/apex/C360_Dashboard?id={!Id}&obj=Contact&t=1" target="_blank">
+                        <apex:image value="{!$Resource.C360}" title="360 Account Home"/>
+                    </apex:outputLink>
+                </apex:outputpanel>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

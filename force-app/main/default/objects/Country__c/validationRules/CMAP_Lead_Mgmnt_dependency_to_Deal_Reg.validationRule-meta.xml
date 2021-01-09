@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CMAP_Lead_Mgmnt_dependency_to_Deal_Reg</fullName>
+    <active>true</active>
+    <description>Lead Management can be enabled only if Deal Registration is enabled</description>
+    <errorConditionFormula>AND( OR( ISPICKVAL(Deal_Registration_Enabled__c, &quot;No&quot;), ISPICKVAL(Deal_Registration_Enabled__c, &quot;&quot;) ) , OR( ISPICKVAL(Lead_Management_Enabled__c, &quot;Yes&quot;)   ,  ISPICKVAL(Lead_Management_Enabled_for_OEM__c , &quot;Yes&quot;) )  )</errorConditionFormula>
+    <errorMessage>Lead Management can be enabled only if Deal Registration is enabled</errorMessage>
+</ValidationRule>

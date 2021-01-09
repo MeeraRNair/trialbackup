@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cost_Centre_GL_Code_Format_Validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT(
+ OR(
+  LEN (Cost_Centre_and_Account_Number_GL_Code__c) = 0,
+  REGEX(Cost_Centre_and_Account_Number_GL_Code__c, &quot;[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{6}-[a-zA-Z0-9]{5}&quot;)
+ )
+)</errorConditionFormula>
+    <errorDisplayField>Cost_Centre_and_Account_Number_GL_Code__c</errorDisplayField>
+    <errorMessage>MUST be in this format: XXXX-XXXX-XXXXXX-XXXXX</errorMessage>
+</ValidationRule>

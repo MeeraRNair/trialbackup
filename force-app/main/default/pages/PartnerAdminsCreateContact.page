@@ -1,0 +1,818 @@
+<apex:page id="createcontact" standardController="Partner_Request__c" extensions="PartnerAdminsCreateContactCntrl" sidebar="false" showHeader="false"  standardStylesheets="true"> <!-- docType="html-5.0" -->
+    <style>
+        .bPageBlock .detailList .labelCol {
+        white-space: normal; 
+        }
+        
+        .bPageBlock .detailList .dataCol .data2Col .first .last{
+        vertical-align: middle;
+        font-size:12px;
+        font-weight:600;
+        font-family:Arial,Helvetica, sans-serif;
+        }
+        .bEditBlock .detailList .dataCol, .bEditBlock .detailList .data2Col{
+        font-size:12px;
+        font-weight:600;
+        font-family:Arial,Helvetica, sans-serif;
+        
+        
+        }
+        .labelCol .vfLabelColTextWrap .first .last {
+            float:left;
+        }
+        .bPageBlock .pbButton {
+    padding: 5px 0; !important
+    vertical-align: middle; !important
+}
+        
+        .verticalLine{
+        
+        width:197px;
+        left:20px; 
+        border-left: solid 3px #c00; 
+        float: left; 
+        font-size:12px;
+        font-family:Arial,Helvetica, sans-serif;
+        
+        }
+        
+        .tooltip {
+            position: unset;
+            display: grid;
+            
+            }
+            
+            .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: white;
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            top: -5px;
+            left: 110%;
+            overflow:auto;  
+            border-style: 1px solid black;
+            }
+            
+            .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            margin-top: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent black transparent transparent;
+            
+            }
+            .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+            }
+            
+            a:hover {background: none; text-decoration:none;} /*BG color is a must for IE6*/
+            a.tooltip span {display:none; padding:2px 3px;margin-top: 4px; margin-left:8px; height: 25px;  overflow:auto;}
+            a.tooltip:hover span{display:inline; position:absolute; background:#ffffff; border:1px solid #cccccc; color:#6c6c6c;}
+            
+        </style>
+    
+    <script>
+    function initiaload(dealRegValue, leadmanagementLabel, leadSuperUserLabel, leadmanagementValue, leadSuperUserValue,trackAdmin,partnerGroupAdmin,
+                        createQuoteValue, createOrderValue, createSpQuoteValue, createSPOrderValue) {
+        console.log("in initial load function dealRegValue" + document.getElementById(dealRegValue));
+        console.log("in initial load function leadmanagementLabel" + document.getElementById(leadmanagementLabel));
+        console.log("in initial load function leadSuperUserLabel" + document.getElementById(leadSuperUserLabel));
+        console.log("in initial load function leadmanagementValue" + document.getElementById(leadmanagementValue));
+        console.log("in initial load function leadSuperUserValue" + document.getElementById(leadSuperUserValue));
+        console.log("in initial load function trackAdmin" + document.getElementById(trackAdmin));
+        console.log("in initial load function partnerGroupAdmin" + document.getElementById(partnerGroupAdmin));
+         
+        //Removed ({!bisCurrentUserTrackAdmin} || {!bisCurrentUserGroupAdmin}) && -- Story 6514379     
+        if(document.getElementById(dealRegValue).checked) {
+            document.getElementById(leadmanagementValue).disabled = false;
+        }
+        else {
+            document.getElementById(leadmanagementValue).disabled = true;
+            document.getElementById(leadSuperUserValue).disabled = true; 
+        }
+        console.log("in initial load function" + document.getElementById(leadmanagementValue));
+        
+        //Removed {!bisCurrentUserTrackAdmin} && -- Story 6514379
+        if(document.getElementById(leadmanagementValue).checked) {
+            document.getElementById(leadSuperUserValue).disabled = false;
+        }
+        else {
+            document.getElementById(leadSuperUserValue).disabled = true;
+        }
+        
+        if(document.getElementById(partnerGroupAdmin).checked == true){
+            
+            document.getElementById(trackAdmin).checked = true;
+            document.getElementById(trackAdmin).disabled = true;
+           
+        }
+        if(document.getElementById(createOrderValue).checked == true){
+             document.getElementById(createQuoteValue).checked = true;
+        }
+        else{
+        }
+        if(document.getElementById(createSPOrderValue).checked == true){
+            document.getElementById(createSpQuoteValue).checked = true;            
+        }
+        else{
+        }
+        /*else{
+            console.log('Enable Track Admin else block');            
+            document.getElementById(trackAdmin).disabled = false;
+            document.getElementById(trackAdmin).checked = false;
+            
+        }*/
+        
+        /*========  Vasu Modified [08-Jan-2019] ======================
+            
+        //Reason to modify: on pageload(View/Edit) if Group admin is checked, All Tracks & Track admin is disabled
+        
+         enableTrackAdmin('{!$Component.createcontact.myform.mypgblock.admin.groupId.partnerGroupAdmin}',
+                         '{!$Component.createcontact.myform.mypgblock.admin.trackId.partnerTrackAdmin}',
+                         '{!$Component.createcontact.myform.mypgblock.admin1.adminsection.eligible_Track}',
+                         '{!$Component.createcontact.myform.mypgblock.admin1.adminsection.selected_Track}');
+        
+        =============================================== */
+        
+    }
+    
+    function enableDisableLMSP(dealRegValue,leadmanagementValue,leadSuperUserValue,leadmanagementLabel,leadSuperUserLabel) {
+        console.log('enableDisableLMSP entered');
+        //Removed  && {!bisCurrentUserTrackAdmin} - Story 6514379
+        if(dealRegValue.checked) {
+            document.getElementById(leadmanagementValue).disabled = false;
+        }
+        else {
+            document.getElementById(leadmanagementValue).disabled = true;
+            document.getElementById(leadmanagementValue).checked = false;                   
+            document.getElementById(leadSuperUserValue).disabled = true; 
+            document.getElementById(leadSuperUserValue).checked = false;
+        }
+    }
+    
+    function enableDisableOSCQuote(createOrderValue,createQuoteValue){
+        if(createOrderValue.checked){
+            document.getElementById(createQuoteValue).checked = true;
+        }
+
+    }
+
+    function enableDisableOSCSpQuote(createSPOrderValue,createSpQuoteValue){
+        if(createSPOrderValue.checked){
+            document.getElementById(createSpQuoteValue).checked = true;
+        }
+    } 
+    
+    function validateSpOrder(createSpQuoteValue,createSPOrderValue){
+        if(!createSpQuoteValue.checked && document.getElementById(createSPOrderValue).checked){
+            document.getElementById(createSPOrderValue).checked = false;
+        }
+    } 
+    
+    function validateOrder(createQuoteValue,createOrderValue){
+        if(!createQuoteValue.checked && document.getElementById(createOrderValue).checked){
+            document.getElementById(createOrderValue).checked = false;
+        }
+    }     
+    function enableDisableSP(leadmanagementValue, leadSuperUserValue, leadSuperUserLabel) {
+        console.log('enableDisableSP entered');
+        //Removed && {!bisCurrentUserTrackAdmin} -- Story 6514379
+        if(leadmanagementValue.checked) {
+            document.getElementById(leadSuperUserValue).disabled = false;   
+        }
+        else {
+            document.getElementById(leadSuperUserValue).disabled = true; 
+            document.getElementById(leadSuperUserValue).checked = false;
+        }
+    }
+    
+    function enableTrackAdmin(partnerGroupAdmin,trackAdmin,availableTracks,selectedTrack){
+        console.log('Enable Group Track Admin::'+document.getElementById(partnerGroupAdmin));
+        console.log('Enable Track Admin::'+document.getElementById(trackAdmin));
+        console.log('Enable Track Admin selection::'+document.getElementById(availableTracks));
+        console.log('Enable Track Admin before disabled::'+document.getElementById(availableTracks).disabled);
+        console.log('selected Track::'+document.getElementById(selectedTrack));
+        console.log('selected Track Admin before disabled::'+document.getElementById(selectedTrack).disabled);        
+        if(document.getElementById(partnerGroupAdmin).checked == true){
+            
+            document.getElementById(trackAdmin).checked = true;
+            document.getElementById(trackAdmin).disabled = true;
+            document.getElementById(availableTracks).disabled = true;
+            document.getElementById(selectedTrack).disabled = true; 
+            callGroupAdminTask(document.getElementById(partnerGroupAdmin).checked);
+            console.log('Enable Track Admin after disabled::'+document.getElementById(availableTracks).disabled);
+            console.log('selected Track Admin after disabled::'+document.getElementById(selectedTrack).disabled);
+        }
+        else{
+            console.log('Enable Track Admin else block');            
+            document.getElementById(trackAdmin).disabled = false;
+            document.getElementById(trackAdmin).checked = false;
+            document.getElementById(availableTracks).disabled = false;
+            document.getElementById(selectedTrack).disabled = false;
+            callGroupAdminTask(document.getElementById(partnerGroupAdmin).checked);
+            console.log('Enable Track Admin else after disabled::'+document.getElementById(availableTracks).disabled);
+            console.log('selected Track Admin else after disabled::'+document.getElementById(selectedTrack).disabled);
+        }
+        
+    }
+    
+    function getEmail(){
+      console.log('Entered getEmail');
+      var emailValue = document.getElementById('{!$Component.createcontact.myform.mypgblock.myblock.emailSection.email}').value;
+      if (emailValue != null && emailValue != '') {
+         console.log('Entered email:'+emailValue);
+         doValidateEmail(emailValue);
+      }
+       
+        return false;
+    } 
+    
+       
+   
+    </script>
+    <!--
+    <head>
+           <apex:slds />
+    </head>
+     div class="slds-scope" -->
+        
+        <!-- ============================================================== -->
+        <!-- DISPLAY ERROR: ACCCESS DENIED STANDARD LICENSE USER -->
+        <!-- ============================================================== -->
+        <apex:outputPanel rendered="{!strerrorCode == straccessdeniedstandardlicenseuser}">
+            <apex:pageMessage severity="ERROR" strength="3" title="Navigation error.  Screen is for Partners only."/>
+        </apex:outputPanel>
+        <!-- ============================================================== -->
+        <!-- DISPLAY ERROR: ACCCESS DENIED PARTNER USER NOT ADMIN -->
+        <!-- ============================================================== -->
+        <apex:outputPanel rendered="{!strerrorCode == straccessdeniedpartnerusernotadmin  }">
+            <apex:pageMessage severity="ERROR" strength="3" title="{!$Label.access_denied}" detail="{!$Label.partner_admin_denied_detailed_message}"/>
+            <apex:pageBlock title="{!$Label.administrators_for_your_account}" mode="view"> 
+                <apex:pageBlockSection title="" showHeader="false" columns="1">
+                    <apex:pageBlockTable width="100%" value="{!listpartnerAdminsForAccount}" var="admin">
+                        <apex:column headerValue="{!$Label.first_name}" value="{!admin.Contact.FirstName}"></apex:column>
+                        <apex:column headerValue="{!$Label.last_name}" value="{!admin.Contact.LastName}"></apex:column>
+                        <apex:column headerValue="{!$Label.email}" value="{!admin.Contact.Email}"></apex:column>
+                        <apex:column headerValue="{!$Label.job_title}" value="{!admin.Contact.Title}"></apex:column>
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection>        
+            </apex:pageBlock> 
+        </apex:outputPanel>
+        <apex:outputPanel rendered="true" id="mypanel">
+            <apex:form id="myform">
+            <apex:actionFunction action="{!refreshPicklistNew}" immediate="true" name="rerenderjobcategory" rerender="myblock">
+				<apex:param value="" name="valueIs"/>
+			</apex:actionFunction>
+            
+            <apex:sectionHeader title="{!$Label.my_profile}" html-style="font-size: 18px;" subtitle="{!Partner_Request__c.First_Name__c} {!Partner_Request__c.Last_Name__c}" rendered="{!NOT(beditmode)}"/>
+            <apex:sectionHeader title="{!$Label.new_user}" html-style="font-size: 18px;"  rendered="{!AND(beditmode,bisNewUser)}"/>
+            <apex:sectionHeader title="{!$Label.edit_user}" html-style="font-size: 18px;" subtitle="{!Partner_Request__c.First_Name__c} {!Partner_Request__c.Last_Name__c}" rendered="{!AND(beditmode,NOT(bisNewUser))}"/>
+            <!-- ============================================================== -->
+            <!-- VIEW -->
+            <!-- ============================================================== -->
+       		
+            <apex:pageBlock title="" mode="view" rendered="{!NOT(beditmode)}">
+                  <apex:pageMessages />
+     
+                    <apex:pageBlockButtons >
+                        <apex:commandButton action="{!doEdit}" value="{!$Label.edit}"/>
+                    </apex:pageBlockButtons> 
+                    <apex:pageBlockSection title="" columns="1" showHeader="false" collapsible="false">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.salutation}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.Salutation__c}" id="salutation"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.first_name}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.First_Name__c}" id="first_name"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.last_name}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.Last_Name__c}" id="last_name"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.job_title}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.Job_Title__c}" id="job_title"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.address_1}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.Address_Line_1__c}" id="address_line_1"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.address_2}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.Address_Line_2__c}" id="address_line_2"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.address_3}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.Address_Line_3__c}" id="address_line_3"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.city}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.City__c}" id="city"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.state_province}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.State__c}" id="state"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.postal_code}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.Postal_Code__c}" id="postal_code"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.phone_number}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.Phone__c}" id="phone"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.mobile_phone}" for="salutation" styleClass="label" style="display: block;width: 270px;"/>
+                            <apex:outputField value="{!Partner_Request__c.Mobile__c}" id="mobile"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.fax_number}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.Fax__c}" id="fax"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.email}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.Email__c}" id="email"/>
+                        </apex:pageBlockSectionItem>
+                          
+                        <apex:pageBlockSectionItem >
+                            <apex:outputPanel layout="block" style="display:block; width:262px; text-align:right;font-weight:bold;font-family:Arial, Helvetica, sans-serif;">
+                            <apex:outputPanel style="outline: 2px solid black;width: 14px;height: 13px;display: inline-table;" rendered="{!IF(OR(Country.Code__c == 'DE',Country.Code__c == 'AT',Country.Code__c == 'CH'), true, false)}">                                                        
+                            <apex:outputField value="{!Partner_Request__c.Newsletter_Opt_In__c}"  /></apex:outputPanel>
+                            <apex:outputLabel value="{!$Label.Partner_Registration_APJ} " rendered="{!IF(boptInApj = true, true, false)}"/>
+                            <apex:outputLabel value="{!$Label.receive_newsletter} " rendered="{!IF(boptInROE = true, true, false)}"/> 
+                            <apex:outputPanel style="outline: 2px solid black;width: 14px;height: 13px;display: inline-table;" rendered="{!IF(OR(boptInROE == true,boptInApj = true), true, false)}">                                                        
+                            <apex:outputField value="{!Partner_Request__c.Newsletter_Opt_In__c}" id="newsletter_opt_in"/></apex:outputPanel>
+                            <apex:outputText value=" {!strLabel}" escape="false"/>
+                            <apex:outputPanel style="outline: 2px solid black;width: 14px;height: 13px;display: inline-table;" rendered="{!IF(OR(Country.Code__c == 'US',Country.Code__c == 'CA'), true, false)}">                                                        
+                            <apex:outputField value="{!Partner_Request__c.Newsletter_Opt_In__c}"  /></apex:outputPanel>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            <!-- ============================================================== -->
+            <!-- EDIT -->
+            <!-- ============================================================== -->
+            
+            <apex:pageBlock title="" mode="edit" rendered="{!beditmode}" id="mypgblock" > <!---->
+                <apex:pageblockSection columns="1" id="errormode">
+                    <apex:outputPanel id="showErrorBlock">
+                    	<apex:pageMessages />
+                    </apex:outputPanel>
+                 </apex:pageblockSection>
+                  
+                    <apex:pageBlockButtons > 
+                        
+                        <apex:commandButton action="{!doSave}" value="{!$Label.save}" rendered="{!bisNewUser}" style="font-size: 12px;padding-left: 5px;padding-right: 5px;padding-top: 2px;padding-bottom: 2px;" />                                             
+                        <apex:commandButton action="{!doCancelNewUser}" immediate="true" value="{!$Label.cancel}" rendered="{!bisNewUser}" html-formnovalidate="formnovalidate" style="font-size: 12px;padding-left: 5px;padding-right: 5px;padding-top: 2px;padding-bottom: 2px;"/>
+                        <apex:commandButton action="{!doSave}" value="{!$Label.save}" onComplete="doPermissionSetAssignment();" rendered="{!NOT(bisNewUser)}" style="font-size: 12px;padding-left: 5px;padding-right: 5px;padding-top: 2px;padding-bottom: 2px;"/>
+                        <!--<apex:commandButton action="{!doSaveForEOP}" value="{!$Label.save}" rendered="{!bpartnerUserEditingOwnProfile}" style=""/>-->                      
+                        <apex:commandButton action="{!doCancel}" immediate="true" value="{!$Label.cancel}" rendered="{!NOT(bisNewUser)}" html-formnovalidate="formnovalidate" style="font-size: 12px;padding-left: 5px;padding-right: 5px;padding-top: 2px;padding-bottom: 2px;"/>
+                        <!--<apex:actionFunction id="doPermissionSetAssignment" name="doPermissionSetAssignment" action="{!doPermissionSetAssignment}"  rendered="{!NOT(bisNewUser)}" /> -->
+                        <apex:actionFunction id="doPermissionSetAssignment" name="doPermissionSetAssignment" action="{!doSave}"  rendered="{!NOT(bisNewUser)}" />
+                    	
+                	</apex:pageBlockButtons>
+                    <apex:pageBlockSection title="{!$Label.Contact_Information}" columns="2" collapsible="true" id="myblock" html-style="font-size: 15px;">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.salutation}" for="salutation" style="font-size: 12px; font-family: Arial,Helvetica, sans-serif;"/>
+                            <apex:inputField required="false" value="{!Partner_Request__c.Salutation__c}" id="salutation"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem ><!-- rendered="{!NOT(bpartnerUserEditingOwnProfile)}"-->
+                            <apex:outputLabel value="{!$Label.job_category}" for="job_Function" style="font-size: 12px; font-family: Arial,Helvetica, sans-serif;"/>
+                            <apex:inputField required="true" value="{!Partner_Request__c.Job_Category__c}" id="job_Function" ><!-- html-disabled="{!NOT(bisNewUser)}" -->
+                            
+                                <apex:actionSupport event="onchange" action="{!refreshPicklist}" rerender="myblock" immediate="true" oncomplete="doDatacheck(),rerenderOthercategory(this.value)"/> <!-- rerender="jobfunctionRole" -->
+                            </apex:inputField>
+                        </apex:pageBlockSectionItem>
+                        <!--5868178 changes started
+                        <apex:pageBlockSectionItem rendered="{!bpartnerUserEditingOwnProfile}" >
+                        <apex:outputLabel value="{!$Label.job_category}" for="job_Function" styleClass="label"/>
+                        <apex:outputField value="{!Partner_Request__c.Job_Category__c}" id="job_Function1"/>    
+                        </apex:pageBlockSectionItem>
+                         ends-->
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.first_name}" for="first_name" style="font-size: 12px; font-family: Arial,Helvetica, sans-serif;"/>
+                            <apex:inputField required="true" value="{!Partner_Request__c.First_Name__c}" id="first_name"/>
+                        </apex:pageBlockSectionItem>
+                       
+                        <apex:pageBlockSectionItem id="jobTitleBlock"><!-- rendered="{!NOT(bpartnerUserEditingOwnProfile)}"-->
+                            <apex:outputLabel value="{!$Label.job_title}" for="Job_Function_Role" style="font-size: 12px; font-family: Arial,Helvetica, sans-serif;"/>
+                            <apex:inputField required="true" value="{!Partner_Request__c.Job_Title__c}" id="Job_title" styleClass="Job_Function_Role"><!--html-disabled="{!NOT(bisNewUser)}" -->
+                                
+                            </apex:inputField>
+                        </apex:pageBlockSectionItem> 
+                        
+                        <!--5868178 changes starts
+                        <apex:pageBlockSectionItem rendered="{!(bpartnerUserEditingOwnProfile)}">
+                        <apex:outputLabel value="{!$Label.job_title}" for="Job_Function_Role" />
+                        <apex:outputField value="{!Partner_Request__c.Job_Title__c}" id="Job_Function_Role1" styleClass="label"/>   
+                        </apex:pageBlockSectionItem> 
+                        ends-->
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.last_name}" for="last_name" style="font-size: 12px; font-family: Arial,Helvetica, sans-serif;"/>
+                            <apex:inputField required="true" value="{!Partner_Request__c.Last_Name__c}" id="last_name"/>
+                        </apex:pageBlockSectionItem>
+                       
+                        <apex:pageBlockSectionItem id="otherJobCategory" rendered="{!botherCategory}">
+                        <!--rendered="{!Partner_Request__c.Job_Category__c =='Other'}"-->
+                            <apex:outputLabel value="{!$Label.other_job_category}" for="other_Category" style="font-size: 12px; font-family: Arial,Helvetica, sans-serif;"  />
+                                <apex:inputField required="true" value="{!Partner_Request__c.Other_Job_Category__c}" id="other_Category" />
+                          
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.Phone}" for="phone" style="font-size: 12px; font-family: Arial,Helvetica, sans-serif;"/>
+                            <apex:inputField required="true" value="{!Partner_Request__c.Phone__c}" id="phone"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem rendered="{!bisNewUser}" id="emailSection">
+                            <apex:outputLabel value="{!$Label.email}" for="email" style="font-size: 12px; font-family: Arial,Helvetica, sans-serif;" />
+                            <apex:outputpanel id="myPanel">
+                            
+                           <!-- <apex:actionFunction id="ValidateEmail" immediate="true" action="{!validateEmail}" name="doValidateEmail" reRender="emailSection,errormode">
+                                  <apex:param name="emailAddress" assignTo="{!strenteredEmail}" value="" /> 
+                            </apex:actionFunction>-->
+                                <apex:inputField required="true" value="{!Partner_Request__c.Email__c}" id="email" onblur="getEmail();">
+                                
+                            </apex:inputField>
+                                </apex:outputpanel>
+                        </apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem rendered="{!NOT(bisNewUser)}" labelStyle="font-size: 12px; font-family: Arial,Helvetica, sans-serif;" >
+                            <apex:outputLabel value="{!$Label.email}" for="email" styleClass="label" style="display: block;width: 270px; font-size: 12px; font-family: Arial,Helvetica, sans-serif;"/>
+                            <apex:outputpanel >
+                                <apex:outputText value="{!Partner_Request__c.Email__c}"/> <br/>
+                                <apex:outputText value="{!$Label.EmailReadOnly}" rendered="{!IF(strcontactEmail == null || strcontactEmail == '', false, true)}"/> 
+                                <t/><t/><apex:outputLink value="https://{!strcontactEmail}" style="color:#0645AD " rendered="{!IF(strcontactEmail == null || strcontactEmail == '', false, true)}">{!strcontactEmail}</apex:outputLink>
+                            </apex:outputpanel>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem rendered="{!bisEmailChanged && !bisConfirmEmailChange}" labelStyle="font-size: 12px; font-family: Arial,Helvetica, sans-serif;" >
+                            <apex:outputLabel value="{!$Label.Confirm_Email_Change}" for="emailchangeflag" style="color: red;font-size: 12px; font-family: Arial,Helvetica, sans-serif;" styleClass="label"/>
+                            <apex:inputCheckbox style="color: red" value="{!bisConfirmEmailChange}"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.Mobile}" for="mphone" style="font-size: 12px; font-family: Arial,Helvetica, sans-serif;"/>
+                            <apex:inputField value="{!Partner_Request__c.Mobile__c}" id="mphone"/>
+                        </apex:pageBlockSectionItem>
+                          
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection title="{!$Label.address}" columns="1" collapsible="true" id="address" html-style="font-size: 15px;" ><!-- rendered="{!NOT(bisNewUser)}" -->
+                       <apex:pageBlockSectionItem id="locationsection">
+                           <apex:outputPanel >
+                           <apex:outputLabel value="{!$Label.Location_of_User}" for="lou" styleClass="label" style="padding-left:106px;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                           <apex:actionRegion >
+                                <apex:outputPanel styleClass="requiredInput" layout="block" id="pwPanel" style="display:inline-block;" >
+                                 <apex:outputpanel layout="block" styleClass="requiredBlock"/> 
+                                   <apex:selectList id="lou" value="{!strlocationOfUser}" size="1" required="true">
+                                       <apex:selectOption itemValue="{!$Label.NoneForPicklist}" itemLabel="{!$Label.NoneForPicklist}"></apex:selectOption>   
+                                       <apex:selectOptions value="{!LocationOfTracksAvailable}"  />
+                                       <apex:actionSupport event="onchange" reRender="address1,errormode" action="{!updateAddress}" oncomplete="renderreqFields()"/>    
+                                   </apex:selectList>
+                               </apex:outputPanel>
+                            </apex:actionRegion> 
+                           </apex:outputPanel>
+                       </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    <!-- <apex:pageBlockSection> --> 
+                    <apex:pageBlockSection columns="2" id="address1">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.address_1}" for="address_line_1" style="font-size: 12px; font-family: Arial,Helvetica, sans-serif;"/>
+                            <apex:outputField value="{!Partner_Request__c.Address_Line_1__c}" id="address_line_1"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.city}" for="city" style="font-size: 12px; font-family: Arial,Helvetica, sans-serif;"/>
+                            <apex:outputField value="{!Partner_Request__c.City__c}" id="city"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.address_2}" for="address_line_2" style="font-size: 12px; font-family: Arial,Helvetica, sans-serif;"/>
+                            <apex:outputField value="{!Partner_Request__c.Address_Line_2__c}" id="address_line_2"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.state_province}" for="state" style="font-size: 12px; font-family: Arial,Helvetica, sans-serif;"/>
+                            <apex:outputField value="{!Partner_Request__c.State__c}" id="state"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.address_3}" for="address_line_3" style="font-size: 12px; font-family: Arial,Helvetica, sans-serif;"/>
+                            <apex:outputField value="{!Partner_Request__c.Address_Line_3__c}" id="address_line_3"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.postal_code}" for="postal_code" style="font-size: 12px; font-family: Arial,Helvetica, sans-serif;"/>
+                            <apex:outputField value="{!Partner_Request__c.Postal_Code__c}" id="postal_code"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.country}" for="country" style="font-size: 12px; font-family: Arial,Helvetica, sans-serif;"/>
+                            <apex:outputText value="{!strcountryName}" id="country"/>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                     
+                     <!-- </apex:pageBlockSection>  -->
+                    <!-- Sales Tools -->
+                    <apex:pageBlockSection title="{!$Label.Access_to_Sales_Tools}" columns="3" collapsible="true" id="stools" html-style="font-size: 15px;" >
+                     
+                       <apex:outputPanel id="dealReg"> 
+                           <!-- Removed disabled="{!bpartnerUserEditingOwnProfile}" -- Story 6514379 -->
+                            <apex:inputCheckbox value="{!Partner_Request__c.Feature_Request_Deal_Registration__c}" id="dealRegValue" onclick="enableDisableLMSP(this, 
+                                                                                                                                           '{!$Component.createcontact.myform.mypgblock.pptools.leadmanagementValue}', 
+                                                                                                                                           '{!$Component.createcontact.myform.mypgblock.pptools.leadSuperUserValue}',
+                                                                                                                                           '{!$Component.createcontact.myform.mypgblock.pptools.leadmanagementLabel}',
+                                                                                                                                              '{!$Component.createcontact.myform.mypgblock.pptools.leadSuperUserLabel}')"/>
+                               
+                                
+                             <apex:outputLabel value="{!$Label.Deal_Registration}" for="dealRegValue"/>
+                                  <a class="tooltip" href="#" style="display:inline-block;">
+                                      <apex:image id="theImage" value="{!$Resource.Information_Icon}" alt="information"/>
+                                         <span><apex:outputLabel value="{!$Label.Deal_Reg_Cloud_Service_Provider}" for="dealRegValue"/></span>
+                                  </a>
+                           </apex:outputPanel>
+                       <!-- Removed disabled="{!bpartnerUserEditingOwnProfile}" for All 4 OSC new attributes also -- Story 6514379-->
+                       <apex:outputPanel id="createQuote">                             
+                            <apex:inputCheckbox value="{!Partner_Request__c.OSC_Create_Quote__c}" id="createQuoteValue" 
+                                                        onclick="validateOrder(this,'{!$Component.createcontact.myform.mypgblock.stools.createOrderValue}')"/>
+                             <apex:outputLabel value="{!$Label.OSC_Create_Quote}" for="createQuoteValue"/>
+                                  <a class="tooltip" href="#" style="display:inline-block;">
+                                      <apex:image id="theImageQuote" value="{!$Resource.Information_Icon}" alt="information"/>
+                                         <span><apex:outputLabel value="{!$Label.OSC_Create_Quote_Help_Text}" for="createQuoteValue"/></span>
+                                  </a>
+                           </apex:outputPanel>
+                       <apex:outputPanel id="createSpQuote"> 
+                            <apex:inputCheckbox value="{!Partner_Request__c.OSC_Specialty_Product_Create_Quote__c}" id="createSpQuoteValue" 
+                                                                onclick="validateSpOrder(this,'{!$Component.createcontact.myform.mypgblock.stools.createSPOrderValue}')"/>
+                             <apex:outputLabel value="{!$Label.OSC_SP_Create_Quote}" for="createSpQuoteValue"/>
+                                  <a class="tooltip" href="#" style="display:inline-block;">
+                                      <apex:image id="theImageSpQuote" value="{!$Resource.Information_Icon}" alt="information"/>
+                                         <span><apex:outputLabel value="{!$Label.OSC_Create_SP_Quote_Help_Text}" for="createSpQuoteValue"/></span>
+                                  </a>
+                           </apex:outputPanel>    
+                       <apex:outputPanel ></apex:outputPanel>                       
+                       <apex:outputPanel id="createOrder"> 
+                            <apex:inputCheckbox value="{!Partner_Request__c.OSC_Create_Order__c}" id="createOrderValue" 
+                                                    onclick="enableDisableOSCQuote(this, '{!$Component.createcontact.myform.mypgblock.stools.createQuoteValue}')"/>
+                             <apex:outputLabel value="{!$Label.OSC_Create_Order}" for="createOrderValue"/>
+                                  <a class="tooltip" href="#" style="display:inline-block;">
+                                      <apex:image id="theImageOrder" value="{!$Resource.Information_Icon}" alt="information"/>
+                                         <span><apex:outputLabel value="{!$Label.OSC_Create_Order_Help_Text}" for="createOrderValue"/></span>
+                                  </a>
+                           </apex:outputPanel> 
+                       <apex:outputPanel id="createSPOrder"> 
+                            <apex:inputCheckbox value="{!Partner_Request__c.OSC_Specialty_Product_Create_Order__c}" id="createSPOrderValue" 
+                                                        onclick="enableDisableOSCSpQuote(this, '{!$Component.createcontact.myform.mypgblock.stools.createSpQuoteValue}')"/>
+                             <apex:outputLabel value="{!$Label.OSC_SP_Create_Order}" for="createSPOrderValue"/>
+                                  <a class="tooltip" href="#" style="display:inline-block;">
+                                      <apex:image id="theImageSPOrder" value="{!$Resource.Information_Icon}" alt="information"/>
+                                         <span><apex:outputLabel value="{!$Label.OSC_SP_Create_Order_Help_Text}" for="createSPOrderValue"/></span>
+                                  </a>
+                           </apex:outputPanel>                                              
+                    </apex:pageBlockSection>
+                   
+                    <!-- Partner Program Tools -->
+                    <apex:pageBlockSection title="{!$Label.Access_to_Partner_Program_Tools}" columns="3" id="pptools" html-style="font-size: 15px;" >
+                        <apex:outputPanel id="leadManagement">
+                                <!-- Removed disabled="{!bpartnerUserEditingOwnProfile}" -- Story 6514379 -->
+                                <apex:inputCheckbox value="{!Partner_Request__c.Feature_Request_Lead_Management__c}" id="leadmanagementValue" onclick="enableDisableSP(this, '{!$Component.createcontact.myform.mypgblock.pptools.leadSuperUserValue}','{!$Component.createcontact.myform.mypgblock.pptools.leadSuperUserLabel}');" />
+                                <apex:outputLabel value="{!$Label.Lead_Management}" for="leadmanagementValue"  id="leadmanagementLabel"/>
+                            
+                           </apex:outputPanel>
+                        <apex:outputPanel id="leadSuperUser">
+                           <!-- Removed disabled="{!bpartnerUserEditingOwnProfile}" -- Story 6514379 -->
+                           <apex:inputCheckbox value="{!Partner_Request__c.Enable_as_Lead_Super_User__c}" id="leadSuperUserValue" />
+                           <apex:outputLabel value="{!$Label.Lead_Management_Super_User}" for="leadSuperUserValue"  id="leadSuperUserLabel"/>
+                            
+                            </apex:outputPanel>
+                        <apex:outputPanel id="mdfUser">
+                             <!-- Removed disabled="{!bpartnerUserEditingOwnProfile}" -- Story 6514379 -->
+                             <apex:inputCheckbox value="{!Partner_Request__c.Feature_Request_MDF__c}" id="mdfUserValue"/>
+                             <apex:outputLabel value="{!$Label.Enable_MDF_Access}" for="mdfUserValue" />
+                          
+                            </apex:outputPanel>
+                        <apex:outputPanel rendered="{!Not(bisNewUser)}">
+                         	<apex:commandLink value="{!$Label.AccessMyRewards}" action="{!rewardaccess}" immediate="true"/>
+                         <!-- <apex:commandLink value="Access MyRewards" onclick="window.location='/apex/PartnerSelfServiceIncentiveBulkNominate';"/>-->
+                        </apex:outputPanel>	
+                        <apex:outputPanel >
+                             <!-- Removed disabled="{!bpartnerUserEditingOwnProfile}" -- Story 6514379 -->
+                             <apex:inputCheckbox value="{!Partner_Request__c.Feature_Request_Rebates__c}" id="rebateValue"/>
+                             <apex:outputLabel value="{!$Label.Enable_Access_to_Rebates}" for="rebate" />
+                        </apex:outputPanel>
+                       	<apex:outputPanel ></apex:outputPanel>
+                        
+                        
+                       </apex:pageBlockSection>
+                    <apex:pageBlockSection columns="1">
+                    	<apex:outputPanel >
+                                <apex:outputLabel ><span>*</span>{!$Label.Tool_Access}&nbsp; 
+                                    <a href="https://www.delltechnologies.com/PartnerSupport"><font color="blue">{!$Label.Partner_Portal_Support_page}</font></a>
+                                </apex:outputLabel> 
+                             
+                        </apex:outputPanel>
+                 </apex:pageBlockSection>
+                    <!-- Partner Track -->
+                    <apex:pageBlockSection title="{!$Label.Add_Partner_Tracks}" columns="3" collapsible="true" id="admin" html-style="font-size: 15px;" >
+                      
+                            <apex:outputPanel id="trackId" >
+                              <apex:inputCheckbox value="{!Partner_Request__c.Enable_as_Partner_Admin__c}" id="partnerTrackAdmin" disabled="{!OR(bpartnerUserEditingOwnProfile,bdisablePickListForGroupAdmin )}"/>
+                              <apex:outputLabel value="{!$Label.Enable_Partner_Track_Admin}" for="partnerTrackAdmin"/>
+                            </apex:outputPanel>
+                       
+                        <apex:outputPanel id="groupId"  rendered="{!bisCurrentUserGroupAdmin}">
+                       
+                          
+                            <apex:inputCheckbox value="{!Partner_Request__c.Enable_Partner_Group_Admin__c}" id="partnerGroupAdmin" disabled="{!bpartnerUserEditingOwnProfile}" onclick="enableTrackAdmin('{!$Component.createcontact.myform.mypgblock.admin.partnerGroupAdmin}',
+                                                                                                                                                          '{!$Component.createcontact.myform.mypgblock.admin.partnerTrackAdmin}',
+                                                                                                                                                          '{!$Component.createcontact.myform.mypgblock.admin1.adminsection.eligible_Track}',
+                                                                                                                                                          '{!$Component.createcontact.myform.mypgblock.admin1.adminsection.selected_Track}')"/>
+                                
+                                <apex:outputLabel value="{!$Label.Enable_Partner_Group_Admin}" for="partnerGroupAdmin" />
+                                <br/>
+                                <span style="display:inline-block;">
+                                <apex:outputLabel value="({!$Label.Partner_Group_Admin_Help_Text})"/>
+                                    </span>
+                                <!-- <a class="tooltip" href="#" style="display:inline-block;">
+                                      <apex:image id="theImage" value="{!$Resource.Information_Icon}" alt="information"/> 
+                                      <span>
+                                          (<apex:outputLabel value="{!$Label.Partner_Group_Admin_Help_Text}" styleClass="label"/>)
+                                      </span>
+                                </a>                                  
+                                 -->
+                              
+                              
+                                           
+                    </apex:outputPanel>
+                        <apex:outputPanel ></apex:outputPanel>
+                        </apex:pageBlockSection>
+                    <br/>
+                    <!-- Eligible Tracks -->
+                    <apex:pageBlockSection collapsible="false" id="admin1">
+                       <apex:pageBlockSectionItem id="adminsection" dataStyle="float:left;" >
+                            <apex:outputLabel value="{!$Label.Eligible_Partner_Tracks}" for="eligible_Track" styleClass="label" style="float:left; padding-left: 25px; font-size:12px;font-weight:bold;"/>
+                            <apex:actionRegion > 
+                                <!-- ===============  Vasu Starts ===================== -->
+                                <apex:actionFunction id="doAsGroupAdmin" name="callGroupAdminTask" action="{!assignAllTracksToSeleted}" reRender="abcd">
+                                    <apex:param id="gid" name="gAdmin" value="" />
+                                </apex:actionFunction>
+                                <!-- ===============  Vasu Ends ===================== -->
+                                <div>
+                                   <apex:panelGrid columns="14" id="abcd" style="float:left;">
+                                    <apex:selectList id="eligible_Track" value="{!listleftSelected}" multiselect="true" size="5" styleClass="verticalLine" disabled="{!OR(bpartnerUserEditingOwnProfile,bdisablePickListForGroupAdmin )}" style="width:auto;">
+                                        <b><apex:selectOption itemValue="{!$Label.Available}" itemLabel="{!$Label.Available}" itemDisabled="true"></apex:selectOption></b>
+                                        <apex:selectOptions value="{!EligibleTracks}"  />
+                                    </apex:selectList>
+                                               <apex:panelGroup style="padding-right:17px;" >
+                                                <br/>
+                                                <!--   <apex:commandButton action="{!selectTrack}"  image="{!URLFOR($Resource.Multi_Select)}" reRender="admin1,eligible_Track,abcd" id="moveleft"/> -->
+                                                 <apex:commandLink action="{!selectTrack}" id="moveright" reRender="admin1,eligible_Track,abcd,showErrorBlock">
+                                                     <apex:image value="{!$Resource.Multi_Select}" alt="Move Right" />
+                                                 </apex:commandLink> 
+                                               <br/><br/>
+                                                 <apex:commandLink action="{!unselectclick}" reRender="abcd,showErrorBlock" id="moveleft" >
+                                                     <apex:image value="{!$Resource.Multi_Unselect}" alt="Move Left" />
+                                                 </apex:commandLink>
+                                            </apex:panelGroup>
+                                    <apex:selectList id="selected_Track" value="{!listrightSelected}" multiselect="true" size="5" disabled="{!OR(bpartnerUserEditingOwnProfile, bdisablePickListForGroupAdmin)}" style="font-size:12px;
+        font-family:Arial,Helvetica, sans-serif;">  <!-- {!OR(bpartnerUserEditingOwnProfile, bdisablePickListForGroupAdmin)} -->
+                                        <b><apex:selectOption itemValue="{!$Label.Chosen}" itemLabel="{!$Label.Chosen}" itemDisabled="true"></apex:selectOption></b>
+                                        <apex:selectOptions value="{!EligibleTracksSelected}" />
+                                    </apex:selectList>
+                                </apex:panelGrid>
+                                    </div>
+                            </apex:actionRegion>
+                            
+                        </apex:pageBlockSectionItem>
+                        
+                        <!--<apex:pageBlockSectionItem ></apex:pageBlockSectionItem> -->
+                        
+                    </apex:pageBlockSection> 
+                    <apex:pageBlockSection title="{!$Label.Social_Information}" columns="2" collapsible="true" id="socialNetwork" html-style="font-size: 15px;" >
+                        
+                        <apex:pageBlockSectionItem labelStyle="font-size: 12px; font-family: Arial,Helvetica, sans-serif;">
+                             
+                                 <apex:outputLabel value="{!$Label.Facebook}" for="facebook" />
+                                 <apex:inputField value="{!Partner_Request__c.Facebook__c}" id="facebook"/>
+                           
+                            </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem labelStyle="font-size: 12px; font-family: Arial,Helvetica, sans-serif;">
+                            
+                                <apex:outputLabel value="{!$Label.Instagram}" for="instagram" />
+                                <apex:inputField value="{!Partner_Request__c.Instagram__c}" id="instagram"/>
+                            
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem labelStyle="font-size: 12px; font-family: Arial,Helvetica, sans-serif;">
+                            
+                                <apex:outputLabel value="{!$Label.CorporateTwitter}" for="corporatetwitter" />
+                                <apex:inputField value="{!Partner_Request__c.Corporate_Twitter__c}" id="corporatetwitter"/>
+                            
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem labelStyle="font-size: 12px; font-family: Arial,Helvetica, sans-serif;">
+                            
+                                <apex:outputLabel value="{!$Label.LinkedInProfile}" for="linkedin" />
+                                <apex:inputField value="{!Partner_Request__c.LinkedInProfile__c}" id="linkedin"/>
+                            
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem labelStyle="font-size: 12px; font-family: Arial,Helvetica, sans-serif;">
+                           
+                                <apex:outputLabel value="{!$Label.PersonalTwitter}" for="personaltwitter" />
+                                <apex:inputField value="{!Partner_Request__c.Personal_Twitter__c}" id="personaltwitter"/>
+                            
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection title="{!$Label.Disclaimer}" columns="1" collapsible="true" id="disclaimer" rendered="{!NOT(ISNULL(strLabel))}" html-style="font-size: 15px;">
+                        <apex:pageBlockSectionItem labelStyle="font-size: 12px; font-family: Arial,Helvetica, sans-serif;" >
+                            <apex:outputPanel > 
+                                <apex:outputPanel rendered="{!IF(OR(Country.Code__c == 'US',Country.Code__c == 'CA'), true, false)}" style="display:inline; width:262px; text-align:right;font-weight:bold;font-family:Arial, Helvetica, sans-serif;">                           
+                                    
+                                    <!--value="{!strLabel}"-->
+                                    <apex:outputLabel value="{!strLabel}" escape="false" for="newsletter_opt_in3" >        
+                                        <apex:inputField required="false" value="{!Partner_Request__c.Newsletter_Opt_In__c}" id="newsletter_opt_in3" style="outline: 2px solid black;"/></apex:outputLabel>
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel style="display:inline; width:262px; text-align:right;font-weight:bold;font-family:Arial, Helvetica, sans-serif;" rendered="{!IF(OR(Country.Code__c == 'DE',Country.Code__c == 'AT',Country.Code__c == 'CH'), true, false)}">
+                                    <apex:inputField required="false" value="{!Partner_Request__c.Newsletter_Opt_In__c}" id="newsletter_opt_in4" style="outline: 2px solid black;">
+                                        <apex:outputLabel value="{!strLabel}" escape="false" for="newsletter_opt_in3"/></apex:inputField>
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel style="display:inline; width:262px; text-align:right;font-weight:bold;font-family:Arial, Helvetica, sans-serif;" rendered="{!IF(boptInROE == true, true, false)}">
+                                    <apex:outputLabel value="{!$Label.receive_newsletter}" escape="false" for="newsletter_opt_in3">          
+                                        <apex:inputField required="false" value="{!Partner_Request__c.Newsletter_Opt_In__c}" id="newsletter_opt_in5" style="outline: 2px solid black;">
+                                            <apex:outputLabel value=" {!strLabel}" escape="false"/></apex:inputField></apex:outputLabel>
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel rendered="{!IF(boptInApj == true, true, false)}" style="display:inline; width:262px; text-align:right;font-weight:bold;font-family:Arial, Helvetica, sans-serif;">
+                                    <apex:outputLabel value="{!$Label.Partner_Registration_APJ}" escape="false" for="newsletter_opt_in3">          
+                                        <apex:inputField required="false" value="{!Partner_Request__c.Newsletter_Opt_In__c}" id="newsletter_opt_in6" style="outline: 2px solid black;">
+                                            <apex:outputLabel value=" {!strLabel}" escape="false"/></apex:inputField></apex:outputLabel>
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>&nbsp;
+                        <!--5868178 story changes started-->
+                        <apex:pageBlockSectionItem rendered="{!bpartnerUserEditingOwnProfile}" labelStyle="font-size: 12px; font-family: Arial,Helvetica, sans-serif;">
+                           <apex:outputPanel style="display:inline; width:262px; text-align:right;font-weight:bold;font-family:Arial, Helvetica, sans-serif;">
+                                <apex:outputLink value="http://www.dell.com/preferences/?pr=pd">{!$Label.Manage_My_Preferences}</apex:outputLink><br/>
+                               <apex:outputLabel value="{!$Label.Manage_My_Preferences_for_Edit_Contact_profile}"></apex:outputLabel>&nbsp;
+                               <apex:outputLink value="/apex/ViewMyPartnerAccountAdmin">{!$Label.partner_portal_administrator}</apex:outputLink>
+                               <apex:outputLabel value="{!$Label.To_update_your_e_mail_address_please}"></apex:outputLabel>&nbsp;
+                               <apex:outputLink value="/apex/OnBoardingVFPage?ent=Case&RecordType={!strCaseRecordTypeId}&retURL=%2F500%2Fo">{!$Label.raise_a_ticket}</apex:outputLink>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        <!--5868178 story changes End-->
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            <apex:actionFunction name="rerenderjobTitleBlock"  immediate="true" rerender="jobTitleBlock" />
+            </apex:form>
+        </apex:outputPanel>
+    
+
+       
+        <!-- END MY PROFILE SCREEN -->
+        
+    <!-- /div -->
+    
+    <body onload="initiaload('{!$Component.createcontact.myform.mypgblock.stools.dealRegValue}', 
+                  '{!$Component.createcontact.myform.mypgblock.pptools.leadmanagementLabel}', 
+                  '{!$Component.createcontact.myform.mypgblock.pptools.leadSuperUserLabel}',
+                  '{!$Component.createcontact.myform.mypgblock.pptools.leadmanagementValue}',
+                  '{!$Component.createcontact.myform.mypgblock.pptools.leadSuperUserValue}',
+                  '{!$Component.createcontact.myform.mypgblock.admin.partnerTrackAdmin}',
+                  '{!$Component.createcontact.myform.mypgblock.admin.partnerGroupAdmin}',
+                  '{!$Component.createcontact.myform.mypgblock.stools.createQuoteValue}',
+                  '{!$Component.createcontact.myform.mypgblock.stools.createOrderValue}',
+                  '{!$Component.createcontact.myform.mypgblock.stools.createSpQuoteValue}',
+                  '{!$Component.createcontact.myform.mypgblock.stools.createSPOrderValue}',                  
+                  )"/>
+                  <script>
+                  function renderreqFields(){
+                  
+                    //  alert();
+                      var element = document.getElementsByClassName("condRequiredInput");
+                      console.log('element ',element);
+                      element[0].classList.add("requiredInput");
+                  }
+                  function doDatacheck(){
+                  rerenderjobTitleBlock();
+                  console.log('do data check ');
+                  var x = document.getElementsByClassName("Job_Function_Role")[0].options;
+                  console.log('x>>>> ',x);
+                  console.log('length'+x.length);
+                  if(x.length==1 && x[0].innerHTML==''){
+                                x[0].innerHTML='--None--';
+                                x[0].label='--None--';
+                  }
+                   
+                  }
+                     doDatacheck();
+                
+                  function rerenderOthercategory(valueIs){
+                      console.log(valueIs);
+                  rerenderjobcategory(valueIs);
+                 // alert(valueIs);
+                  }
+                  </script>
+</apex:page>

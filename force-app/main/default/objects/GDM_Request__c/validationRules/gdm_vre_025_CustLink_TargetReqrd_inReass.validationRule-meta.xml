@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>gdm_vre_025_CustLink_TargetReqrd_inReass</fullName>
+    <active>true</active>
+    <description>Target Account is required if Reassign</description>
+    <errorConditionFormula>AND ( TEXT( Action__c) == &quot;110-Re-Assign&quot;,
+       RecordType.Name == &quot;Add Customer To Account&quot;,
+       ISBLANK(  Target_Account__r.Name  )
+)</errorConditionFormula>
+    <errorDisplayField>Target_Account__c</errorDisplayField>
+    <errorMessage>(025) Target Account is required on Re-Assign</errorMessage>
+</ValidationRule>

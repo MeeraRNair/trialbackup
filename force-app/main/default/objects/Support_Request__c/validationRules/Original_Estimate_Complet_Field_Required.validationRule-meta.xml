@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Original_Estimate_Complet_Field_Required</fullName>
+    <active>true</active>
+    <description>Original Estimated Complete Date Field is required if Assignment Complete Date = Not BlankAND( 
+RecordType.DeveloperName=&apos;Request_OEM_Customized_Solution_Support&apos;, 
+ISBLANK(Partner_Name__c), 
+ISPICKVAL(Existing_Partner_Engaged__c , &apos;Yes&apos;))</description>
+    <errorConditionFormula>AND( 
+ RecordType.DeveloperName=&apos;Request_OEM_Customized_Solution_Support&apos;, 
+ ISBLANK(Original_Estimated_Complete_Date__c), 
+ NOT(ISBLANK( Assignment_Complete_Date__c )))</errorConditionFormula>
+    <errorDisplayField>Original_Estimated_Complete_Date__c</errorDisplayField>
+    <errorMessage>You must enter a value</errorMessage>
+</ValidationRule>

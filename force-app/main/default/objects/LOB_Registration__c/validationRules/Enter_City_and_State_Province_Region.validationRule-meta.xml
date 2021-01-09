@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Enter_City_and_State_Province_Region</fullName>
+    <active>true</active>
+    <description>Enter City and State/Province/Region fields when Award type is Specific Account Location.</description>
+    <errorConditionFormula>IF( ISPICKVAL(LOB_Award_Type__c,&apos;Specific Account Location&apos;) &amp;&amp; (TRIM(City__c) == NULL || TRIM(City__c) == &apos;&apos;||   TRIM(State_Province_Region__c) == NULL || TRIM(State_Province_Region__c) == &apos;&apos;), true, false)</errorConditionFormula>
+    <errorMessage>Please enter City and State/Province/Region.</errorMessage>
+</ValidationRule>

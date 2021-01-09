@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AlaCarte_Int_l__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(( ISBLANK( CSMR__c ) &amp;&amp; ISBLANK( LE__c ) &amp;&amp; ISBLANK( PUB__c ) &amp;&amp; ISBLANK( SMB__c ) ) &amp;&amp; ISPICKVAL (MDF_Program__r.Business_Segment__c,&apos;Int\&apos;l&apos; ) , Budgeted_Price__c , 0)</formula>
+    <label>Int&apos;l</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

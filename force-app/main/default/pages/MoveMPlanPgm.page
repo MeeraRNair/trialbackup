@@ -1,0 +1,109 @@
+<!-- * 
+* Revision CR Number   Release No      Date            Modified By     Description
+* -------- ---------   ----------      -----------     ------------    -----------
+* 1.0 -    CR16421     FY19-DCS-1002   30-Aug-2018:    manip4          added 'lightningStylesheets' attribute for apex component to make the page lightening friendly for the story 5537243
+*/-->
+
+<apex:page standardController="Marketing_Plan__c" extensions="VFCntrlr_MoveMPlanPrograms" lightningStylesheets="true">
+    <apex:form > 
+      <apex:pageBlock rendered="{!APVOptionList}" title="Move Associated Programs of the Marketing Plan">
+         <apex:pageBlockTable value="{!APVWrapper}"   var="apv">
+              <apex:column headerValue="Select">
+                  <apex:inputCheckbox value="{!apv.selected}"/>
+               </apex:column>
+              <apex:column value="{!apv.apvElt.name}" headerValue="APV Name"/> 
+              <apex:column value="{!apv.apvElt.MDF_Program__r.name}" headerValue="MDF Program Name"/>                           
+              <apex:column value="{!apv.apvElt.MDF_Program__r.Region__c}" headerValue="MDF Program Region"/>
+              <apex:column value="{!apv.apvElt.Business_Segment__c}" headerValue="Business segment"/>
+              <apex:column value="{!apv.apvElt.MDF_Program__r.Rate_Card_Price__c}" headerValue="Rate Card Price"/>
+              <apex:column value="{!apv.apvElt.Budgeted_Price__c}" headerValue="Budgeted Price"/>
+          </apex:pageBlockTable>      
+      <apex:pageBlockButtons location="bottom">
+          <apex:commandButton action="{!move2ExistingMPlan}" value="Move to existing marketing plan" rendered="{!(!MpErr)}"/>
+          <apex:commandButton action="{!move2NewMPlan}" value="Move to new marketing plan"/>
+           <apex:commandButton value="Back" action="{!cancel}"/>
+       </apex:pageBlockButtons>
+       <apex:Messages style="color:red; font-weight:bold"/>
+  </apex:pageBlock>
+  <br/>
+  
+  <apex:pageBlock rendered="{!MPlanOptionList}" title="Existing Marketing Plans">
+          <apex:pageBlockSection title="Selected Program(s)"></apex:pageBlockSection>
+          <apex:pageBlockTable value="{!APVList}"   var="apv" >              
+              <apex:column value="{!apv.name}" headerValue="APV Name"/>
+              <apex:column value="{!apv.MDF_Program__r.name}" headerValue="MDF Program Name"/>
+              <apex:column value="{!apv.MDF_Program__r.Region__c}" headerValue="MDF Program Region"/>
+              <apex:column value="{!apv.Business_Segment__c}" headerValue="Business segment"/>
+              <apex:column value="{!apv.MDF_Program__r.Rate_Card_Price__c}" headerValue="Rate Card Price"/>
+              <apex:column value="{!apv.Budgeted_Price__c}" headerValue="Budgeted Price"/>
+          </apex:pageBlockTable> 
+          <br></br>
+          <apex:pageBlockSection title="Existing Marketing Plans"></apex:pageBlockSection>
+           <apex:pageBlockTable value="{!MarketingPlanList}"   var="mPlanRec">
+               <apex:column headerValue="Actions">
+               <apex:commandLink action="{!changeMPlanOfAPV}" value="Select">
+               <apex:param name="mid" value="{!mPlanRec.Id}"/>
+               </apex:commandLink>
+               </apex:column>
+              <apex:column value="{!mPlanRec.name}" headerValue="MPlan Name"/>
+              <apex:column value="{!mPlanRec.Contract_Status__c}" headerValue="Contract Status"/>
+              <apex:column value="{!mPlanRec.Contract_Type__c}" headerValue="Contract Type"/>              
+          </apex:pageBlockTable>
+      
+      <apex:pageblockButtons >
+          <apex:commandButton value="Cancel" action="{!cancel}"/>
+      </apex:pageblockButtons>
+  </apex:pageBlock>
+  
+  <apex:pageBlock title="Create new MPlan" rendered="{!CreateMPlan}">
+  <!-- Error messages are displayed here -->                                
+    <apex:Messages style="color:red; font-weight:bold"/> 
+  <apex:pageBlockSection title="Selected Program(s)"></apex:pageBlockSection>
+      <apex:pageBlockTable value="{!APVList}"   var="apv">              
+              <apex:column value="{!apv.name}" headerValue="APV Name"/>
+              <apex:column value="{!apv.MDF_Program__r.name}" headerValue="MDF Program Name"/>
+              <apex:column value="{!apv.MDF_Program__r.Region__c}" headerValue="MDF Program Region"/>
+              <apex:column value="{!apv.Budgeted_Price__c}" headerValue="Budgeted Price"/>
+          </apex:pageBlockTable> 
+      <br></br>
+      <apex:pageBlockSection title="Enter the required information" collapsible="false" columns="2" >
+          <apex:OutPutField value="{!MarketingPlan.Contract_Status__c}"/>          
+          <apex:OutPutField value="{!Marketing_Plan__c.Fiscal_Quarter__c}"/>
+          <apex:OutPutField value="{!Marketing_Plan__c.Vendor__c}"/>
+          <apex:inputField value="{!MarketingPlan.name}" required="true"/>          
+          <apex:inputField value="{!MarketingPlan.Region__c}" required="true"/>
+          <apex:inputField value="{!MarketingPlan.Sub_Region__c}"/>                   
+      </apex:pageBlockSection>
+      <apex:pageBlockSection columns="1" collapsible="false" title="Select contract type of the marketing plan">
+      <apex:selectList value="{!ContractType}"  size="1" required="true" id="cType">
+          <apex:selectOptions value="{!ContractTypeOptions}" />
+          </apex:selectList>
+      </apex:pageBlockSection>
+      <apex:pageBlockButtons >
+          <apex:commandButton action="{!saveMPlan}" value="Save MP"/>
+          <apex:commandButton value="Cancel" action="{!cancel}"/>
+      </apex:pageBlockButtons>
+  </apex:pageBlock>
+  
+   <table width="600px" cellpadding="0" cellspacing="0" align="center" border="0">
+        <tr>
+            <td>         
+                <div>
+                    <apex:pageMessage strength="3" severity="Info" rendered="{!ErrorMsg}">
+                        There are no Programs associated to this Marketing Plan to be moved
+                    </apex:pageMessage>
+                    <apex:pageMessage strength="3" severity="Info" rendered="{!MpErr}">
+                        There are no marketing plans to move the program.Click 'Move to new marketing plan' to create a new marketing plan. 
+                    </apex:pageMessage>
+                    <table align="center" width="90%">
+                        <tr><td>
+                            
+                            <apex:commandButton value="Back" action="{!cancel}" rendered="{!ErrorMsg}"/>
+                        </td></tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+  </apex:form>
+</apex:page>

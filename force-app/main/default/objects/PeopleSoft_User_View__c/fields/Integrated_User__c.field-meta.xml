@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Integrated_User__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF (Employee_Name__r.IsActive, 
+IF(OR(AND( Employee_Name__r.Profile.UserLicense.Name == &quot;Salesforce&quot;,OR(CONTAINS( Employee_Name__r.CreatedBy.Username, &apos;INF_SERVICE_AC&apos;),NOT(ISBLANK( Employee_Name__r.Integration_User_Flag__c ))),OR(BEGINS( Employee_Name__r.UserRole.Name , &apos;Mgr_&apos; ),BEGINS( Employee_Name__r.UserRole.Name , &apos;Rep_&apos; ), NOT(ISNULL( $User.Group_Id__c )))), ISPICKVAL( Employee_Name__r.Manual_Integrated_User__c , &quot;Yes&quot;)), &quot;Yes&quot;, &quot;No&quot;), 
+IF(OR(AND(Employee_Name__r.Profile.UserLicense.Name == &quot;Salesforce&quot;, OR(BEGINS( Employee_Name__r.UserRole.Name , &apos;Mgr_&apos; ),BEGINS( Employee_Name__r.UserRole.Name, &apos;Rep_&apos; ),BEGINS( Employee_Name__r.UserRole.Name, &apos;INTEGRATION&apos;), NOT(ISNULL( $User.Group_Id__c ))), OR(CONTAINS(Employee_Name__r.CreatedBy.Username, &apos;INF_SERVICE_AC&apos;),CONTAINS(Employee_Name__r.CreatedBy.Username, &apos;Integration&apos;),NOT(ISBLANK(Employee_Name__r.Integration_User_Flag__c)))), ISPICKVAL(Employee_Name__r.Manual_Integrated_User__c,&quot;Yes&quot;)), &quot;Yes&quot;, &quot;No&quot;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>User is managed by RM or Manual Integrated</inlineHelpText>
+    <label>Integrated User</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

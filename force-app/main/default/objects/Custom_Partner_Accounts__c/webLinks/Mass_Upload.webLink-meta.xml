@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mass_Upload</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Mass Include/Exclude Partner Accounts</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/39.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/39.0/apex.js&quot;)} 
+
+if(&apos;{!$Profile.Name}&apos; == &apos;System Administrator&apos; || &apos;{!$Profile.Name}&apos; == &apos;GBL PRM Operations Admin&apos; || &apos;{!$Profile.Name}&apos; == &apos;GBL PRM Operations Admin - Non SSO&apos;) {
+var win = window.open(&apos;https://workbench.developerforce.com&apos;, &apos;_blank&apos;);}
+else {
+alert(&apos;You cannot use Mass Upload functionality&apos;);
+}</url>
+</WebLink>

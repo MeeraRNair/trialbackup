@@ -1,0 +1,38 @@
+<apex:page controller="CMAP_MassLeadUploadCntrlr" tabStyle="Mass_Upload_Lead_Request__c" lightningStylesheets="true">
+    <apex:form >
+        <apex:pageMessages id="message"></apex:pageMessages>
+        <apex:pageBlock title="{!pageLabel }" rendered="{!massUploadBoolean}" mode="edit">
+            <apex:pageBlockSection title="{!$Label.CMAP_Upload}" collapsible="false">
+                <apex:pageblockSectionItem > 
+                    <apex:outputLabel value="{!$Label.CMAP_File_to_Upload}"/>
+             <apex:inputFile value="{!fileBody}" filename="{!attach.name}" id="file" accept="xls,xlsx,csv" ><!--onchange="checkfile(this);" >-->
+             </apex:inputFile>
+               </apex:pageblockSectionItem> 
+            </apex:pageBlockSection>
+            <br/><br/>
+            <apex:pageBlockSection >
+                <apex:outputText value="{!$Label.CMAP_MassUploadMessage}"/><br/>
+                <apex:outputLink value="{!strDocUrl}" id="theLink1" styleClass="exceptionText" >
+                    <font color="blue" size="2">
+                        {!$Label.CMAP_Click_for_the_mass_upload_template}
+                    </font>
+                </apex:outputLink><br/><br/>
+                <apex:outputLink value="{!strDocUrl1}" id="theLink2" styleClass="exceptionText" >
+                    <font color="blue" size="2">
+                        {!$Label.CMAP_Mass_Lead_upload_instructions_FAQ}
+                    </font>
+                </apex:outputLink><br/>
+           </apex:pageBlockSection>
+            <apex:pageBlockSection title="{!$Label.CMAP_Comments}" collapsible="false">
+                <!-- CMAP:R14.10:FR4.4: Code Start:Remove Marketing Comments From MLUR page -->
+                <!--<apex:inputTextarea value="{!mulrObj.Marketing_Comments__c}"  cols="80" rows="5"/><br/> -->
+                <!--CMAP:R14.10:FR4.4: Code Stop:Remove Marketing Comments From MLUR page -->
+                <apex:inputTextarea value="{!mulrObj.Sales_Comments__c}" cols="80" rows="5"/>
+            </apex:pageBlockSection>
+                <apex:pageblockButtons location="bottom" >
+                    <apex:commandButton action="{!submitAction}" value="{!$Label.CMAP_Submit}" status="searchStatus">
+                    </apex:commandButton> 
+                </apex:pageblockButtons>
+        </apex:pageBlock>
+    </apex:form>    
+</apex:page>

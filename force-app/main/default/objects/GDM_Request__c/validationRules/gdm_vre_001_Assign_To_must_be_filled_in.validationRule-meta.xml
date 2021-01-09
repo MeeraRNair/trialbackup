@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>gdm_vre_001_Assign_To_must_be_filled_in</fullName>
+    <active>true</active>
+    <description>When change the status to Assigned, the assigned to field must be filled out</description>
+    <errorConditionFormula>ISBLANK( Assigned_To__c ) &amp;&amp;
+ISNEW() = False
+&amp;&amp;
+TEXT(Request_Status__c) &lt;&gt; &apos;Open&apos;
+&amp;&amp;  RecordType.Name &lt;&gt; &apos;Buddy Access&apos;</errorConditionFormula>
+    <errorDisplayField>Assigned_To__c</errorDisplayField>
+    <errorMessage>(001) You must fill in the Assign To field.</errorMessage>
+</ValidationRule>

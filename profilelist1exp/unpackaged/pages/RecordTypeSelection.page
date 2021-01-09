@@ -1,0 +1,82 @@
+<!-- 
+REVISION HISTORY
+================
+Version     Author          Date            Release#       CR#      Description
+-------     ------          ----            --------       ----     -----------
+1.0         Rahul M         29 Nov 2018     0102                    Fix the lightning issue on create opportunity button
+ -->
+<apex:page standardController="CTI_Call_Log__c" extensions="RecordTypeSelector">
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"/>
+    
+    <script> 
+    var cssIncluded = false;
+    var j$ = jQuery.noConflict();
+    function createOpportunity(paramval,paramval1,paramval3){
+        
+        function isLightningExperienceOrSalesorce1(){
+            
+            return((typeof sforce != 'undefined') && sforce && (!!sforce.one));
+        }
+        
+        if(isLightningExperienceOrSalesorce1()){
+            var defaultValues = {
+                'RecordTypeId' : paramval,
+                'AccountId' : paramval1,
+                'CTI_Call_Log_Id__c' : paramval3 
+            };
+            sforce.one.createRecord("Opportunity", null, defaultValues);
+        } else {
+            alert("You are in classic");
+        }
+        
+        
+    }
+    </script>
+    <style>
+    .slds-scope .slds-modal__container {
+    margin: -50px auto;
+    width: 50%;
+    height: 70%;
+    max-width: 40rem;
+    min-width: 20rem;
+}
+
+.slds-scope .slds-backdrop_open, .slds-scope .slds-backdrop--open {
+    visibility: visible;
+    opacity: 1;
+    background-color: lightgrey;
+    transition: opacity .4s ease-in-out;
+}
+    </style>
+    <apex:form >
+        <apex:slds />
+        <div class="demo-only" style="height: 400px;">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Select Record Type</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <p> <div class="slds-form-element">
+                        <label class="slds-form-element__label">Record Types</label>
+                        <div class="slds-form-element__control">
+                            <div class="select-options popupTargetContainer uiPopupTarget uiMenuList uiMenuList--default uiMenuList--left uiMenuList--short">
+                                <apex:selectList value="{!strSelectedRecordType}" multiselect="false" size="1"  styleClass="slds-select"> 
+                                    <apex:selectOptions value="{!RecordTypes}"/>
+                                </apex:selectList>
+                            </div>
+                        </div>
+                        </div>
+                        <apex:outputPanel id="opp"> 
+                        </apex:outputPanel></p>
+                </div>
+                <footer class="slds-modal__footer">
+                    <apex:commandButton value="Continue" oncomplete="createOpportunity('{!strSelectedRecordType}', '{!ctiCallLogId.Account__c}', '{!ctiCallLogId.Id}')" action="{!testMethod1}" reRender="opp" styleClass="slds-button slds-button_neutral"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>  
+</apex:form>
+</apex:page>

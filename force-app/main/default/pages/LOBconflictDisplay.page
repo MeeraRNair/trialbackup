@@ -1,0 +1,84 @@
+<apex:page standardController="LOB_Registration__c" extensions="LOBconflictDisplayController" sidebar="false" showHeader="false">
+  <style type="text/css">
+    .pbTitle {
+        white-space: nowrap
+    }
+  </style>
+  <apex:form >
+    <br/>
+    <apex:pageMessages ></apex:pageMessages>
+    <apex:pageBlock title="Potential LOB Conflict(s) found! Please review award details below."  >
+      <apex:repeat value="{!finaloppLobConflictSet}" var="oppConflictLOb">
+        <apex:outputText value="{!oppConflictLOb}" id="theValue"/><br/><br/>
+      </apex:repeat>        
+    </apex:pageBlock>      
+    <apex:pageBlock title="Opportunity Details">
+        <apex:pageblockSection >
+          <apex:outputField value="{!oppRecord.Account.Name}"/>
+            <apex:pageBlockSectionItem >
+              <apex:outputLabel value="Partner Account Name"></apex:outputLabel>
+              <apex:outputField value="{!oppRecord.partnerAccount.Name}"/>
+            </apex:pageBlockSectionItem>                                  
+          <apex:outputField value="{!oppRecord.End_User_Account_Name__c}"/>              
+            <apex:pageBlockSectionItem >
+              <apex:outputLabel value=""></apex:outputLabel>
+            </apex:pageBlockSectionItem>          
+          <apex:outputField value="{!oppRecord.End_User_Mailing_City__c}"/>          
+            <apex:pageBlockSectionItem >
+            <apex:outputLabel value=""></apex:outputLabel>
+            </apex:pageBlockSectionItem>          
+          <apex:outputField value="{!oppRecord.End_User_Mailing_State_Province_Region__c}"/>           
+        </apex:pageblockSection>
+      </apex:pageBlock>
+    <apex:pageBlock title="LOB Registration" id="pb">
+      <apex:pageBlockTable value="{!ConflictList}" var="LOBList">
+        <apex:column headerValue="LOB Name">        
+          <apex:outputField value="{!LOBList.LOB_Name__c}" />
+        </apex:column>  
+        <apex:column headerValue="LOB Award Type">
+          <apex:outputField value="{!LOBList.LOB_Award_Type__c}" />
+        </apex:column>
+        <apex:column headerValue="City">
+          <apex:outputField value="{!LOBList.City__c}" />
+        </apex:column>
+        <apex:column headerValue="State/Province/Region">
+          <apeX:outputField value="{!LOBList.State_Province_Region__c}" />
+        </apex:column>
+        <apex:column headerValue="Subsidiary Name">
+          <apex:outputField value="{!LOBList.Subsidiary_Name__c}" />
+        </apex:column>
+        <apex:column headerValue="LOB Registration Status">
+          <apex:outputField value="{!LOBList.LOB_registration_status__c}" />
+        </apex:column>
+        <apex:column headerValue="Preferred LOB Registration Partner">
+          <apex:outputLink value="/{!LOBList.Preferred_GTM_Partner_Account__c}" target="_blank">{!LOBList.Preferred_GTM_Partner_Account__r.Name}</apex:outputLink>
+        </apex:column>
+        <apex:column headerValue="Registered End User">
+          <apex:outputLink value="/{!LOBList.Registered_End_User__c}" target="_blank">{!LOBList.Registered_End_User__r.Name}</apex:outputLink>
+        </apex:column>
+        <apex:column headerValue="Linkage_Expiry Date">
+          <apex:outputField value="{!LOBList.GTM_Linkage_Expiry_Date__c}" />
+        </apex:column>
+        <apex:column headerValue="LOB Registration Number">
+          <apex:outputLink value="/{!LOBList.Id}" target="_blank">{!LOBList.Name}</apex:outputLink>
+        </apex:column>
+      </apex:pageBlockTable>
+      <apex:panelGrid columns="7">
+        <apex:commandButton status="fetchStatus" reRender="pb" value="|<" action="{!first}" disabled="{!!hasPrevious}" title="First Page"/>
+        <apex:commandButton status="fetchStatus" reRender="pb" value="<" action="{!previous}" disabled="{!!hasPrevious}" title="Previous Page"/>
+        <apex:commandButton status="fetchStatus" reRender="pb" value=">" action="{!next}" disabled="{!!hasNext}" title="Next Page"/>
+        <apex:commandButton status="fetchStatus" reRender="pb" value=">|" action="{!last}" disabled="{!!hasNext}" title="Last Page"/>
+        <apex:outputPanel style="color:#4AA02C;font-weight:bold">
+          <apex:actionStatus id="fetchStatus" startText="Fetching..." stopText="">
+            <apex:facet name="start" >
+              <img src="{!$Resource.loading}" />                    
+            </apex:facet>
+          </apex:actionStatus>
+        </apex:outputPanel>
+      </apex:panelGrid>
+      <apex:pageBlockButtons location="bottom">
+        <apex:commandButton value="Close" onclick="window.top.close();"/>
+      </apex:pageBlockButtons>
+    </apex:pageBlock>  
+  </apex:form>
+</apex:page>

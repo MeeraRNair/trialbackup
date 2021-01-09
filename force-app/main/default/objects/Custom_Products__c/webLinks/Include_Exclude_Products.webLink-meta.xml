@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Include_Exclude_Products</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Include/Exclude Products</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/39.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/39.0/apex.js&quot;)} 
+
+if(&apos;{!$Organization.Id}&apos;==&apos;00D0m0000000SfR&apos;){ 
+window.open(&apos;/a8G/e?CF00N0m000000HhkG={!Deal_Program__c.Name}&amp;CF00N0m000000HhkG_lkid={!Deal_Program__c.Id}&amp;retURL=/{!Deal_Program__c.Id}&apos; 
+, &apos;_Top&apos;); 
+} 
+if(&apos;{!$Organization.Id}&apos;==&apos;00D4B0000009GoP&apos;) { 
+window.open(&apos;/a8O/e?CF00N4B0000018pOa={!Deal_Program__c.Name}&amp;CF00N4B0000018pOa_lkid={!Deal_Program__c.Id}&amp;retURL=/{!Deal_Program__c.Id}&apos;, &apos;_Top&apos;); 
+}
+if(&apos;{!$Organization.Id}&apos;==&apos;00D1b000000Dh0W&apos;) { 
+window.open(&apos;/a8M/e?CF00NA000000Bkifa={!Deal_Program__c.Name}&amp;CF00NA000000Bkifa_lkid={!Deal_Program__c.Id}&amp;retURL=/{!Deal_Program__c.Id}&apos;, &apos;_Top&apos;); 
+}</url>
+</WebLink>

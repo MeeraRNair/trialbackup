@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR_Billing_Zip_field_Validation</fullName>
+    <active>false</active>
+    <description>allow users to enter only numbers in the Billing Zip and Primary Marketing Contact : Zip fields.</description>
+    <errorConditionFormula>( LEN( Billing_Zip__c) &gt;0  &amp;&amp;  NOT( ISNUMBER(Billing_Zip__c) ) )</errorConditionFormula>
+    <errorDisplayField>Billing_Zip__c</errorDisplayField>
+    <errorMessage>Please enter only numbers in the Zip field</errorMessage>
+</ValidationRule>

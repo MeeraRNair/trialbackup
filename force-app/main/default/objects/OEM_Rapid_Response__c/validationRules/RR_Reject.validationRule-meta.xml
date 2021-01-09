@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RR_Reject</fullName>
+    <active>true</active>
+    <errorConditionFormula>Request_Rejected__c == True &amp;&amp; ISBLANK( Additional_Info_for_Rejected_Requests__c )</errorConditionFormula>
+    <errorMessage>Additional information is mandatory if request is rejected</errorMessage>
+</ValidationRule>

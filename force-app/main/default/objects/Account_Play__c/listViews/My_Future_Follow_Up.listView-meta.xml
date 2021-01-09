@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Future_Follow_Up</fullName>
+    <columns>NAME</columns>
+    <columns>Account_Play_Owner_Role__c</columns>
+    <columns>Account_Play_Owner__c</columns>
+    <columns>Account__c</columns>
+    <columns>Campaign__c</columns>
+    <columns>Account_Play_Expiry_Date_New__c</columns>
+    <columns>Status__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Future Follow-Up</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Account_Play__c.GBL_Account_Play_RT_R10_10</value>
+    </filters>
+    <label>Future Follow-Up</label>
+    <language>en_US</language>
+</ListView>

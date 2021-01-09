@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HR_Info_Updates__c</fullName>
+    <description>PeopleSoft HR Information Updates</description>
+    <externalId>false</externalId>
+    <formula>OR(
+HR_Director_Name__c &lt;&gt; Employee_Name__r.HR_Director_Name__c,
+HR_Job_Function_Desc__c &lt;&gt; Employee_Name__r.HR_Job_Function_Desc__c,
+HR_Location_City__c &lt;&gt; Employee_Name__r.HR_Location_City__c,
+HR_Location_Country_Desc__c &lt;&gt; Employee_Name__r.HR_Location_Country_Desc__c,
+HR_Location_Long_Desc__c &lt;&gt; Employee_Name__r.HR_Location_Long_Desc__c,
+HR_Location_State_Desc__c &lt;&gt; Employee_Name__r.HR_Location_State_Desc__c,
+HR_Manager_Badge__c &lt;&gt; Employee_Name__r.HR_Manager_Badge__c,
+HR_Manager_Email__c &lt;&gt; Employee_Name__r.HR_Manager_Email__c,
+HR_Manager_Name__c &lt;&gt; Employee_Name__r.HR_Manager_Name__c,
+HR_People_Manager__c &lt;&gt; Employee_Name__r.HR_People_Manager__c,
+HR_Sales_Indicator__c &lt;&gt; Employee_Name__r.HR_Sales_Indicator__c,
+HR_Second_Level_Manager_Name__c&lt;&gt; Employee_Name__r.HR_Second_Level_Manager_Name__c,
+HR_Senior_VP_Name__c &lt;&gt; Employee_Name__r.HR_Senior_VP_Name__c,
+HR_Third_Level_Manager_Name__c &lt;&gt; Employee_Name__r.HR_Third_Level_Manager_Name__c,
+HR_VP_Name__c &lt;&gt; Employee_Name__r.HR_VP_Name__c,
+HR_Region__c &lt;&gt; Employee_Name__r.HR_Region__c,
+EMC_Employee_Number__c &lt;&gt; Employee_Name__r.EMC_Employee_Number__c,
+Acquisition_Code__c &lt;&gt; Employee_Name__r.Acquisition_Code__c,
+LEFT(HR_Job_Title__c,80) &lt;&gt; Employee_Name__r.Title
+)</formula>
+    <label>HR Info Updates</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

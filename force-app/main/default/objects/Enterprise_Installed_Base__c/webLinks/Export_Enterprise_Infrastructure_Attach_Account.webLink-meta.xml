@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Export_Enterprise_Infrastructure_Attach_Account</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Export Enterprise Infrastructure Attach</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <requireRowSelection>false</requireRowSelection>
+    <url>window.open(&apos;/apex/ChildRecordsExporter?csn=Export_Enterprise_Installed_Base_Config__c&amp;on=Enterprise_Installed_Base__c&amp;fn=Enterprise_Infrastructure_Attach&amp;pri={!Account.Id}&amp;prf=Account__c&apos;);</url>
+</WebLink>

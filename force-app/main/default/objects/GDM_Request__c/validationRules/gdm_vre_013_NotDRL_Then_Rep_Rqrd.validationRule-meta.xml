@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>gdm_vre_013_NotDRL_Then_Rep_Rqrd</fullName>
+    <active>true</active>
+    <description>For SFDC Update, and not DLR, Rep is required (as well as Account )</description>
+    <errorConditionFormula>AND (
+  RecordType.Name == &quot;SFDC Update&quot;
+, TEXT( Type_of_Request__c) &lt;&gt; &quot;DLR&quot;
+, ISBLANK ( Rep_Name__r.Badge_Number__c  )
+)</errorConditionFormula>
+    <errorDisplayField>Rep_Name__c</errorDisplayField>
+    <errorMessage>(013) Please select a Rep.</errorMessage>
+</ValidationRule>

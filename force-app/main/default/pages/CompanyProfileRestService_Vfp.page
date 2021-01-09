@@ -1,0 +1,15 @@
+<apex:page standardController="Partner_Request__c" showHeader="false" sidebar="false" standardStylesheets="true" cache="false"
+           extensions="CompanyProfileRestService_Ctrl" 
+           action="{!companyProfileWebservice}"> 
+    <apex:form >
+        <apex:pageBlock > 
+            <apex:pageBlockSection title="Error Occured" columns="3" collapsible="false">
+                <p></p>
+                <apex:pageMessages id="errorMSg"></apex:pageMessages>
+            </apex:pageBlockSection>   
+            <div align="center"><br/>
+                <apex:commandButton action="{!goBacktoPRPage}"  value="Cancel"/>
+            </div>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

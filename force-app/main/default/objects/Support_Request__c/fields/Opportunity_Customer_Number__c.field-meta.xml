@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opportunity_Customer_Number__c</fullName>
+    <description>Story 170217: CR 11638: Updated the formula to display Account&apos;s &quot;Primary Customer Number&quot; if Opportunity&apos;s  &quot;Opportunity Customer Number&quot; is blank.</description>
+    <externalId>false</externalId>
+    <formula>IF(ISBLANK(Opportunity__r.Opportunity_Customer_Number__c), 
+Opportunity__r.Account.Primary_Customer_Number__r.Name, 
+Opportunity__r.Opportunity_Customer_Number__r.Name)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Opportunity Customer Number</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

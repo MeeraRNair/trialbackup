@@ -1,0 +1,270 @@
+<apex:page standardController="Territory_Plan__c" extensions="TP_PageNavCtrlExt" sidebar="false" lightningStylesheets="true">
+   
+    <style type="text/css">    
+        body .bPageBlock .pbBody { 
+            padding: 15px 0 0 0;
+            background-color: #808080 !important;
+        }
+        .tb  {
+            border: 0px solid black;
+            border-spacing: 5px 1px; 
+            width:100%
+        }
+        
+        <!-- style header text -->
+        .tb .tg-hdr{
+            font-size:26px;
+            font-family:'Arial White', Gadget, sans-serif !important;
+            color:white; 
+            padding: 0px 0px 30px 15px;
+            text-indent:15px;
+        }
+        
+        <!-- style heading and input field boxes -->
+        .tb .tg-tdContent{
+            border: 0px solid black;
+            vertical-align:top;
+            
+        }
+        .tb .tg-tdContent .tg-tdContent-parg{
+            position:relative;
+            display:block;
+            text-align:left;
+            font-size:16px;
+            color: #FFFFFF;
+            background-color:#42AEAF;
+            left:-4%; 
+            width:100%; 
+            padding:15px 0 15px 0px;
+            border: 1px solid #42AEAF;
+            top:0px;
+            text-indent:15px;
+        }              
+        .tb .tg-tdContent .tg-tdContent-inputFld{
+            border: 1px solid #808080;
+            margin-left:-4.5%; 
+            width:99.3%;
+            height:300px;
+            margin-top:-1px;
+            resize:none;
+        }
+        
+        <!-- Style dot circle box left -->
+        .tb .dot1{
+            vertical-align:top;
+            padding-left:25px;
+        }
+
+        .rectangle1  { 
+            position:relative;  
+            top: 0px; 
+            border: 1px solid #444444; 
+            width: 25px; 
+            height: 25px; 
+            background: #444444; 
+        }
+        .rectangle1 div{ 
+            background: white; 
+            margin: 5px 5px 5px 5px;
+            width: 13px; 
+            height: 13px; 
+            border-radius: 64px; 
+            border : 1px solid white; 
+        } 
+        .dotConnection1{
+            border-bottom: 1px dotted #42AEAF;
+            padding: 0px 150px 0px 0px; 
+            margin:5px 2px 0px 15px; 
+        }
+        
+        <!-- Style dot circle box right -->
+        .tb .dot2{
+            vertical-align:top;
+            padding-left:17px;
+        }
+        .rectangle2  {
+            position:relative;  
+           <!-- left: 92%; -->
+            top: 0px; 
+            border: 1px solid #444444; 
+            width: 25px; 
+            height: 25px; 
+            background: #444444; 
+        }
+        .rectangle2 div{ 
+            background: white; 
+            margin: 5px 5px 5px 5px;
+            width: 13px; 
+            height: 13px; 
+            border-radius: 64px; 
+            border : 1px solid white; 
+        }
+        .dotConnection2{
+            border-bottom: 1px dotted #42AEAF; 
+            padding: 0px 0px 0px 0px; 
+            margin:5px 15px 0px -150px;
+        } 
+
+        <!-- Style hint section -->
+        .Bulb-logo{
+            position: relative; 
+            top: 15px; 
+            left:5px;
+        }
+        .underLine-logo {
+            position: relative; 
+            padding: 5px 0 0 0;
+            top:15px; 
+            left:22px; 
+            border-bottom :1px solid #FFFFFF; 
+            border-left: 1px solid #FFFFFF; 
+            width: 85%; 
+            height: 5px;
+        }
+        .DellEMC-logo { 
+            position: relative; 
+            top:-15px;
+            float:right;
+            padding: 0px 0px 0px 0px;
+            margin: 0px 10px;
+        }        
+        .hintText{
+            font-style:italic; 
+            font-size: 12px;
+            color:#FFFFFF;
+            position: relative;
+            padding:0px 0px 0px 0px;
+            top:-25px;
+            left: 20px;
+            margin:5px;
+        }
+                
+        .tb .tg-tdBtns{
+            text-align:right;
+            padding: 15px 10px 0px 0px; 
+        }
+        
+        .tb .tg-tdBtns .btn{
+            margin-left:3px;
+            margin-right:3px;        
+        }
+        .tb .footer {
+            width: 100%;
+            color: white;
+            text-align: center;
+            padding:0px;
+            font-size:12px;
+        }
+        <!-- To reduce margin-bottom at bottom of page -->      
+        body .bDetailBlock.bPageBlock, body .individualPalette .bDetailBlock.bPageBlock { 
+            border: 0;
+            background-color: transparent;
+            margin-bottom: 0px;
+        }
+        <!-- to style complete page in classic and lightning and reduce bottom padding -->
+        body .bodyDiv .outerNoSidebar{  
+          <!--  background-color: #444444 !important;  -->
+            padding-bottom: 0px;
+            max-height: 100%;
+            max-width: 100%;
+        } 
+        
+    </style>
+    
+    <apex:pageBlock mode="maindetail" id="pbId">
+        <apex:pageMessages id="showmsg"></apex:pageMessages>
+        <apex:form >
+            <table class="tb" id="tblId">
+                <tr id="hd-trId">
+                    <th class="tg-hdr" id = "hdrId" colspan="9">Territory Objectives - Top 3 Goals</th>
+                </tr>
+                <tr id = "content-trId">
+                    <td class="dot1">
+                        <div class="rectangle1"  id="rect11Id">
+                            <div id="circle11Id">
+                                <p class="dotConnection1" id="connect11Id"></p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="tg-tdContent" id="content-td1Id">
+                        <apex:outputText styleclass="tg-tdContent-parg" id="para1Id" value="Goal #1"></apex:outputText>
+                        <apex:inputfield value="{!Territory_Plan__c.Priority_1__c}" styleclass="tg-tdContent-inputFld" id="input1Id"/>
+                        
+                    </td>
+                    <td class="dot2">
+                        <div class="rectangle2"  id="rect21Id">
+                            <div id="circle21Id">
+                                <p class="dotConnection2" id="connect21Id"></p>
+                            </div>
+                        </div>
+                    </td>
+                    
+                    <td class="dot1">
+                        <div class="rectangle1"  id="rect21Id">
+                            <div id="circle21Id">
+                                <p class="dotConnection1" id="connect21Id"></p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="tg-tdContent" id="content-td21Id">
+                        <apex:outputText styleclass="tg-tdContent-parg" id="para2Id" value="Goal #2"></apex:outputText>
+                        <apex:inputfield value="{!Territory_Plan__c.Priority_2__c}" styleclass="tg-tdContent-inputFld" id="input2Id"/>
+                    </td>
+                    <td class="dot2">
+                        <div class="rectangle2"  id="rect22Id">
+                            <div id="circle22Id">
+                                <p class="dotConnection2" id="connect22Id"></p>
+                            </div>
+                        </div>
+                    </td>
+                    
+                    <td class="dot1">
+                        <div class="rectangle1"  id="rect31Id">
+                            <div id="circle31Id">
+                                <p class="dotConnection1" id="connect31Id"></p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="tg-tdContent" id="content-td31Id">
+                        <apex:outputText styleclass="tg-tdContent-parg" id="para3Id" value="Goal #3"></apex:outputText>
+                        <apex:inputfield value="{!Territory_Plan__c.Priority_3__c}" styleclass="tg-tdContent-inputFld" id="input3Id"/>
+                    </td>
+                    <td class="dot2">
+                        <div class="rectangle2"  id="rect32Id">
+                            <div id="circle32Id">
+                                <p class="dotConnection2" id="connect32Id"></p>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr id="hint-trId">
+                    <td class="tg-tdHint" id="hint-tdId" colspan="9">
+                        <div class="Bulb-logo" id="bulb-divId">
+                            <apex:image url="{!URLFOR($Resource.TP_PPT_Images, 'TP_PPT_Images/Bulbicon_hint_White.png')}" width="35" height="35" alt="Description of image here" id="bulb-logoId"/>
+                        </div>
+                        <div class="underLine-logo" id="underlineDivId">
+                            <apex:outputtext styleClass="hintText" id="hintTextId" value="This is where you highlight your BIG 3 things you plan to accomplish this year. Think about what will help you grow revenue, drive LOBs or meet segment initiatives."/>
+                        </div>
+                        <apex:image styleClass="DellEMC-logo" url="{!URLFOR($Resource.TP_PPT_Images, 'TP_PPT_Images/DellEMC_White.png')}" width="100" height="25" alt="Description of image here" id="dellEMClogoId"/>
+                    </td> 
+                </tr>
+                <tr id ="tr-btnId">
+                    <td class="tg-tdBtns" colspan="9" id="td-btnId">
+                        <apex:commandButton action="{!saveRecord}" value="Save" id="saveId" styleClass="btn"/> 
+                        <apex:commandButton action="{!goToPrevPage}" value="Previous" id="backId" styleClass="btn"/>
+                        <apex:commandButton action="{!goToNextPage}" value="Next" id="nextId" styleClass="btn"/>
+                        <apex:commandButton action="{!cancel}" value="Cancel" id="cancelId" styleClass="btn"/>
+                    </td>
+                </tr>
+                <tfoot>
+                    <tr>
+                        <td class="footer" colspan ="9">
+                            [ {!currentPageNum} of {!totalPages} ]
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+            
+        </apex:form>
+    </apex:pageBlock>
+</apex:page>

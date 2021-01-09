@@ -1,0 +1,52 @@
+<apex:page standardController="Sales_Motion_Page__c" extensions="SalesMotionPageCloneCtrl">
+    <apex:form >
+        <apex:pageBlock title="Sales Motion Page">
+        <apex:pageMessages />
+            <div style="text-align:center">
+                <apex:commandButton value="Save" action="{!Save}"/>&nbsp;
+                <apex:commandButton value="Cancel" action="{!Cancel}"/>
+            </div>
+            <apex:pageBlockSection title="Sales Motion Page Detail">
+                <apex:inputField id="name" value="{!salesMotionsPages.Sales_Motion_Name__c}" required="true"/>
+                <apex:outputLabel ></apex:outputLabel>
+                <apex:inputField id="domain" value="{!salesMotionsPages.Name}" required="true"/>
+                <apex:outputLabel ></apex:outputLabel>
+                <apex:inputField id="solutionType" value="{!salesMotionsPages.Stages_Enabled__c}"/>
+                <apex:outputLabel ></apex:outputLabel>
+                <apex:inputField id="solutionName" value="{!salesMotionsPages.Sort_Order__c}"/>
+                <apex:outputLabel ></apex:outputLabel>
+                <apex:inputField id="solutionName1" value="{!salesMotionsPages.IsActive__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Sales Motion Page Sections">
+                <apex:outputPanel id="mainOutput">
+                <table>
+                <tr>               
+                <th style="width:25px"> </th> 
+                <th style="width:90px">Title</th> 
+                <th style="width:120px">Type</th>
+                <th style="width:150px">Sort Order</th>
+                </tr>
+                </table>
+                <table>
+                <apex:repeat value="{!SalesmotionPageSectionWrapperRecs}" var="rec" id="mainRepeat">
+                <tr>
+                <td style="width:25px">
+                <apex:inputCheckbox value="{!rec.selected }" ></apex:inputCheckbox></td>
+                <td style="width:80px">
+                <apex:outputLabel value="{!rec.Name}" />
+                </td>
+                <td style="width:150px">
+                <apex:outputLabel value="{!rec.Type}" /><br/>
+                </td>
+                <td style="width:150px">
+                <apex:outputLabel value="{!rec.SortOrder}" /><br/>
+                </td>
+                </tr>
+                </apex:repeat>
+                </table>
+                
+                </apex:outputPanel>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

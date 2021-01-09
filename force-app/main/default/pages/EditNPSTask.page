@@ -1,0 +1,98 @@
+<apex:page standardController="Task" extensions="EditNPSTaskCntrl" sidebar="true" lightningStylesheets="true">
+  <apex:pagemessages />
+      <script>
+      function getURLParameter(name) {
+          return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+      }
+      if({!AbletoEdit } == false){
+          var tid = getURLParameter('id');
+          alert('This taks is assigned to some other user, You dont have Edit access to update this Task');
+          window.location.href = '/'+tid;
+      }
+  </script>
+  <style>
+   .MyRequiredInput {
+        height: 200%;
+        position: relative;
+    }
+    .MyBlock{
+        margin-left:6px;
+    }
+    .MyRequiredBlock {
+        margin-left: -3px;
+        display: inline-block;
+        background-color: #CC0000;
+        height: 100%;
+        padding-left: 0px;
+        width: 20%;
+        bottom: -24px;
+        left: 128px;
+        top: -1px;
+        width: 3px;
+        float: left;
+    }
+    </style>
+  <apex:form >
+      <apex:pageBlock >
+          <apex:pageBlockButtons title="Task Edit">
+              <apex:commandButton action="{!Save}" value="Save"/>
+              <apex:commandButton action="{!Cancel}" value="Cancel"/>
+          </apex:pageBlockButtons>
+              <apex:pageBlockSection title="Functional Call toAction" columns="1">
+                  <apex:outputField value="{!t.Description}"/>
+              </apex:pageBlockSection>
+                  
+              <apex:pageBlockSection title="Task Information" columns="1">
+                  <apex:inputField value="{!t.OwnerId}"/>
+                 
+                  <apex:outputField Value="{!t.NSS_Category__c}" ></apex:outputField>
+                  <apex:inputField value="{!t.Status}"></apex:inputField>
+                  <apex:inputField value="{!t.Collaboration_Method__c}" required="true"></apex:inputField>
+                  <apex:inputField value="{!t.In_Flight_Issue_Resolved__c}" required="true"></apex:inputField>
+                  <apex:outputField value="{!t.ActivityDate}"></apex:outputField>
+                  <!-- <apex:inputField value="{!t.NSS_Category_Root_Cause__c}" onchange="CategoryChanged(this.options[this.selectedIndex].value)"/> -->
+                  <apex:selectList value="{!NSSCategoryRootCause}"  size="1" label="NSS Category Root Cause" onchange="CategoryChanged(this.options[this.selectedIndex].value)">
+                        <apex:selectOptions value="{!NSSCategoryRootCauses}"/>
+                    </apex:selectList>
+                  
+                  <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Primary Root Cause"/>
+                        <apex:outputPanel styleClass="MyRequiredBlock">
+                        <apex:outputPanel id="thePanel" styleClass="MyRequiredBlock" />
+                          <apex:selectList id="PriamryRootCause" value="{!primaryvalue}"  size="1" styleClass="MyBlock" onchange="CallLoadSecondary(this.options[this.selectedIndex].value)">
+                                        <apex:selectOptions value="{!primary}"/>
+                          </apex:selectList>
+                   </apex:outputPanel>
+                   </apex:pageBlockSectionItem>
+                          <apex:selectList value="{!secondaryvalue}" size="1" label="Secondary Root Cause" id="SecondaryRootCause" >
+                                        <apex:selectOptions value="{!secondary}" />
+                          </apex:selectList>
+                   <apex:pageBlockSectionItem helpText="Enter MAX 255 Chars">
+                      <apex:outputLabel >Root Cause Comments</apex:outputLabel>
+                      <apex:inputtextarea value="{!t.Root_Cause_Comments__c}" cols="60" rows="5"/>
+                  </apex:pageBlockSectionItem>
+                  <apex:pageBlockSectionItem helpText="Enter MAX 255 Chars">
+                      <apex:outputLabel >Root Cause Comments ({!cont})</apex:outputLabel>
+                      <apex:inputtextarea value="{!t.Root_Cause_Commentss__c}" cols="60" rows="5"/>
+                  </apex:pageBlockSectionItem>
+              </apex:pageBlockSection>              
+                 <apex:pageBlockSection title="Reminder"> 
+                     <apex:inputField value="{!t.ReminderDateTime}"/>
+                 </apex:pageBlockSection>
+      </apex:pageBlock>
+      <!-- Action function after selecting Primary Root Cause-->
+      <apex:actionRegion >
+       <apex:actionFunction name="CallLoadSecondary" action="{!LoadSecondary}" reRender="SecondaryRootCause">
+            <apex:param assignTo="{!primaryvalue}" value="" name="primaryvalue"/>           
+        </apex:actionFunction>
+     </apex:actionRegion>
+     <!-- Ends Action Function -->
+      <!-- Action function after selecting NSS Category Root Cause-->
+      <apex:actionRegion >
+       <apex:actionFunction name="CategoryChanged" action="{!LoadPrimarySecondary}" reRender="PriamryRootCause, SecondaryRootCause">
+            <apex:param assignTo="{!Category}" value="" name="Category"/>           
+        </apex:actionFunction>
+     </apex:actionRegion>
+     <!-- Ends Action Function -->
+  </apex:form>
+</apex:page>

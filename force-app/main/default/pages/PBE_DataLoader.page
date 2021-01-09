@@ -1,0 +1,9 @@
+<apex:page controller="Vfcntrl_PBE_DL" > <!-- action="{!insertAttch}" -->
+    <apex:form >
+        <apex:pageBlock >
+            Count: {!wrapCount}  
+            <br/>
+            <apex:commandButton value="Send CSV File" action="{!constructorMethod}"/>
+        </apex:pageBlock>
+    </apex:form> 
+</apex:page>

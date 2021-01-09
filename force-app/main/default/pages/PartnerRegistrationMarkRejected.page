@@ -1,0 +1,34 @@
+<apex:page standardController="Partner_Request__c"
+    extensions="PartnerRegistrationMarkRejectedCtrlExt"
+    tabStyle="Partner_Request__c">
+    <apex:form >  
+        <apex:sectionHeader title="Partner Registration, Mark Registration as Rejected" 
+             subtitle="{!registration.Name}"/>
+        <apex:pageMessages />
+        <apex:pageBlock title="" tabStyle="Partner_Request__c" id="block">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!doSave}"/>
+                <apex:commandButton value="Cancel" action="{!doCancel}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection collapsible="false" columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Rejection reason(s):"/>
+                    <apex:inputField id="RejectionReason" value="{!registration.Rejection_Reason__c}">
+                        <apex:actionSupport event="onchange" action="{!doRejectionReasonChange}" rerender="block" />          
+                   </apex:inputField>             
+                    
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection collapsible="false" columns="1"  rendered="{!isVisible}" id="OtherReason_TextArea">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="To Clarify Reason(s):" />
+                    <apex:inputField value="{!registration.Other_Reason__c}" />
+                </apex:pageBlockSectionItem>
+                
+            </apex:pageBlockSection>
+        
+        </apex:pageBlock>
+   
+    </apex:form>    
+</apex:page>

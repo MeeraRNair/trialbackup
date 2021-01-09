@@ -1,0 +1,58 @@
+<!-- 
+/*-------------------------------------------------------------------------
+Name        : BulkAdminToolPage
+Description : Page  for BulkAdminToolController
+* Revision     Name            Date                 Description
+----------------------------------------------------------------------------
+* R 13.4       Manju           9-Apr-2012           CR #7044
+* R 13.7       Manju           18-May-2012          CR #7128 - Included Status for each User record
+* R 14.2        Fenny           2-Feb-2013          CR #7949 - Bulk Link to MyAccount
+--------------------------------------------------------------------------*/
+ -->
+<apex:page controller="BulkAdminToolController" lightningStylesheets="true">
+    <apex:form id="mainForm" >
+        <apex:pageMessage summary="{!errorMessage}" severity="error" strength="3" title="Error" rendered="{!errorMessage != null}" />
+        
+        <apex:actionFunction name="changeMode" action="{!ChangeMode}" reRender="mainForm, mainBlock, resultBlock"/>
+        
+        <apex:pageBlock id="mainBlock" title="Bulk Admin Tool"> 
+            <apex:pageBlockButtons location="bottom" rendered="{!NOT(isLinkToMyAccount)}">
+                <apex:commandButton action="{!Submit}" value="Continue" reRender="mainForm, mainBlock, resultBlock"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="1" >
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Select Action</apex:outputLabel>
+                    <apex:selectList value="{!ActionType}" size="1" onchange="changeMode()" style="width: 250px;" >
+                        <apex:selectOptions value="{!ActionTypeOptions}" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+               <apex:pageBlockSectionItem rendered="{!isNewPasswordMode}" >
+                    <apex:outputLabel >New Password</apex:outputLabel>
+                    <apex:inputText value="{!NewPassword}" style="width: 250px;"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!isUserPasswordAction}" >
+                    <apex:outputLabel >Target User List</apex:outputLabel>
+                    <apex:inputTextArea value="{!UserList}" rows="15" style="width: 250px;"/>
+                </apex:pageBlockSectionItem>
+                <!-- Fenny: CR7949 START -->
+               <apex:pageBlockSectionItem rendered="{!isLinkToMyAccount}" >
+                    <apex:iframe src="/apex/MyAccountBulkLinking" scrolling="true" id="theIframe"/>
+                </apex:pageBlockSectionItem>
+                <!-- Fenny: CR7949 END -->
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        
+        <apex:pageBlock id="resultBlock" rendered="{!showResult}" title="Result">
+            <apex:pageBlockTable value="{!Users}" var="u">
+                <apex:column value="{!u.userObj.Id}"/> 
+                <apex:column value="{!u.userObj.Name}"/>
+                <apex:column value="{!u.userObj.Username}"/>
+                <apex:column value="{!u.userObj.Email}"/>
+                <apex:column headerValue="Status">
+                    <apex:outputLabel value="{!u.status} :  {!u.reason}"/>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+    </apex:form>
+</apex:page>

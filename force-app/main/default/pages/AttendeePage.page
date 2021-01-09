@@ -1,0 +1,65 @@
+<apex:page standardController="Attendees__c" showHeader="true"  extensions="AttendeeController" title="Add Attendee">
+  <style>
+      .fontstyle {
+            font-weight: bold;
+        }
+        .centre{
+                text-decoration:underline;
+                font-weight: bold;
+        }
+   </style>
+  
+   <apex:form id="formId"  >
+            <apex:pageMessages ></apex:pageMessages>
+            <apex:pageBlock title="Attendees Selection - Account team" id="pageBlkId1">
+                  <apex:outputLabel value="Select Account: "   styleClass="fontstyle"/>
+                  <apex:selectList value="{!accountName}" multiselect="false" size="1">
+                      <apex:selectOptions value="{!accountNames}"/>
+                  </apex:selectList>
+                  <apex:pageBlockButtons location="bottom">
+                      <apex:commandButton value="Next" action="{!Next}"/>
+                      <apex:commandButton action="{!Cancel}" value="Cancel"/>
+                  </apex:pageBlockButtons>
+                  <apex:pageBlockSection rendered="{!errorfornoaccountteam}" id="errorfornoaccountteamsel">
+                       <apex:pageMessage id="errorfornoaccountteam" severity="Error"  strength="3"   title="Account Team Member Not Available!" summary="There is no Account Team Member corresponding to this account.">
+                       </apex:pageMessage>
+                   </apex:pageBlockSection>
+                  
+            </apex:pageBlock>
+            <br/>
+
+            <!--CR 6372 : Search function for Customer and account team attendees : Start-->
+            <apex:pageBlock title="Account Team Attendee Search" rendered="{!listSizeNotZero}">
+                <apex:outputLabel value="Account Team Member: "   styleClass="fontstyle"/>
+                <apex:inputText value="{!AccntTMember}"/>
+
+                <apex:pageBlockSection rendered="{!searcherrorfornoaccountteam}" id="Searcherrorfornoaccountteamsel">
+                    <apex:pageMessage id="searcherrorfornoaccountteam" severity="Error"  strength="3"   title="Account Team Member Not Available!" summary="There is no Account Team Member with this name to this account.">
+                    </apex:pageMessage>
+                </apex:pageBlockSection>
+                                   
+                <apex:pageBlockButtons location="bottom">
+                    <apex:commandButton action="{!Search}" value="Search"/>
+                </apex:pageBlockButtons>
+            </apex:pageBlock>
+            <br/>
+            <!--CR 6372 : Search function for Customer and account team attendees : End-->
+            
+            
+            <!--<apex:pageBlock rendered="{!listSizeNotZero}" title="Account Team Attendee Selection" id="pageBlkId2"> -->
+            <apex:pageBlock rendered="{!listSizeNotZero && searchListSizeNotZero}" title="Account Team Attendee Selection" id="pageBlkId2">
+               <apex:pageBlockTable value="{!AccountTeamMember}" var="team">
+                   <apex:column headerValue="Account Team Member" value="{!team.acc.UserId}"/>
+                   <apex:column headerValue="Title" value="{!team.acc.TeamMemberRole}"/>
+                   <apex:column headerValue="Add to Attendees">
+                        <apex:inputCheckbox value="{!team.selected}"/>
+                   </apex:column>
+               </apex:pageBlockTable> 
+               <apex:pageBlockButtons location="bottom">
+                    <apex:commandButton action="{!Save}" value="Save"/>
+                    <apex:commandButton action="{!Cancel}" value="Cancel"/>
+               </apex:pageBlockButtons>
+        </apex:pageBlock>
+                     
+    </apex:form>
+</apex:page>

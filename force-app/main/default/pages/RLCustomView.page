@@ -1,0 +1,35 @@
+<!--Name        : RLCustomView
+* ---------------------------------------------------------
+* Revision  Name        Date        Description
+* 1.0       Azwanti     14.04.2011  CR5988 - added check box to filter current Fiscal Quarter RL  
+* 1.1       Azwanti     14.04.2011  CR5989 - added radio button to filter RL records based on view
+* 1.2       Azwanti     20.04.2011  CR5987 - Default AP View to 'Requires Follow Up' view
+-->
+<apex:page title="Custom View" Controller="VFCntrlr_RelationshipLeadAccPlayList"  tabStyle="Relationship_Lead__c" action="{!redirectPage}" lightningStylesheets="true"><!--R1.2-->
+<apex:listViews id="enhancedRLList" type="Relationship_Lead__c"/>
+<style>
+#radioSection input{
+    margin-left: 15px;
+    margin-right: 2px;
+    margin-top: 5px;
+    
+}
+</style>
+
+<apex:form >
+<apex:pageBlock title="Custom View">
+    <!--R1.0-->
+    <div id="radioSection"> 
+        <apex:inputCheckbox id="currentQuarter" value="{!iscurrentQuarterRL}"></apex:inputcheckbox>
+        <apex:outputText value="Current Quarter"/>  
+        <!--R1.0-->
+        <!--R1.1-->     
+        <apex:selectRadio value="{!selectedRLView}">
+            <apex:selectOptions value="{!RLItems}"/>
+        </apex:selectRadio>               
+        <!--R1.1-->
+        <apex:commandButton value="Go!" action="{!navigateToListRLView}"/>
+    </div> 
+</apex:pageBlock>
+</apex:form>
+</apex:page>

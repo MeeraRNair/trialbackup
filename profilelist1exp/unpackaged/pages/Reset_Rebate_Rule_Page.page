@@ -1,0 +1,35 @@
+<apex:page showHeader="false"  sidebar="false" controller="Reset_Rebate_Rule_Page_Controller" lightningStylesheets="true">
+<body onunload="closeWindow();" >
+   
+<apex:form style="padding-top:15px;padding-bottom:15px;padding-right:15px;padding-left:15px;" id="frm">
+<apex:pageBlock >
+<div id="content">
+<table align="center">
+<tr><td colspan="2"><apex:pageMessages id="msg" /></td></tr>
+    <tr align="center"><td colspan="2"><apex:commandButton value="OK" onclick="navigatetohome();" rendered="{!!showPage&&$User.UITheme == 'Theme4t'}"/></td></tr>
+<tr valign="center">
+<td><h1><apex:outputLabel value="Enter Comments" rendered="{!showPage}"/></h1></td><td><apex:inputTextarea rendered="{!showPage}" rows="5" cols="40" value="{!strComments}"/></td>
+</tr>
+<tr align="center">
+<td colspan="2"><apex:commandButton value="Reset" id="cmd" action="{!invokeOnLoad}" rendered="{!showPage}" reRender="frm"/></td>
+</tr>
+</table>
+</div>
+<script>
+   
+function closeWindow(){      
+   window.opener.location.href="/{!$CurrentPage.parameters.id}";
+   window.top.close();
+}
+    
+function navigatetohome(){
+    var ruleid = "{!ruleid}";
+    //alert(ruleid);
+    sforce.one.navigateToSObject(ruleid,'detail');
+    //sforce.one.navigateToURL('#/sObject/Rebate_Rule_Header__c/'+ruleid);
+    }
+</script>
+</apex:pageBlock>
+</apex:form>
+</body>
+</apex:page>

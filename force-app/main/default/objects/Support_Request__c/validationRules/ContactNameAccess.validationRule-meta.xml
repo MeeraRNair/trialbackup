@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ContactNameAccess</fullName>
+    <active>true</active>
+    <errorConditionFormula>(TEXT(Segment_Business_Unit__c)  == &quot;CSMB&quot;)  &amp;&amp; (Contact_Name__c == null)</errorConditionFormula>
+    <errorDisplayField>Contact_Name__c</errorDisplayField>
+    <errorMessage>Please add Contact Name.</errorMessage>
+</ValidationRule>

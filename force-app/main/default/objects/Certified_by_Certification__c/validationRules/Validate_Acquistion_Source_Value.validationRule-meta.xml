@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validate_Acquistion_Source_Value</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND ( Manually_Added_Competency__c = true,
+OR(LOWER(Acquisition_Source__c) &lt;&gt; LOWER(&apos;Compellent&apos;)),
+OR(LOWER(Acquisition_Source__c) &lt;&gt; LOWER(&apos;SonicWALL&apos;)),
+OR(LOWER(Acquisition_Source__c) &lt;&gt; LOWER(&apos;Wyse&apos;)),
+OR(LOWER(Acquisition_Source__c) &lt;&gt; LOWER(&apos;Quest&apos;)),
+OR(LOWER(Acquisition_Source__c) &lt;&gt; LOWER(&apos;Force 10&apos;)),
+OR(LOWER(Acquisition_Source__c) &lt;&gt; LOWER(&apos;Sub-4&apos;))
+)</errorConditionFormula>
+    <errorDisplayField>Acquisition_Source__c</errorDisplayField>
+    <errorMessage>The value entered is not accepted. Please refer to the helptext for a list of accepted values.</errorMessage>
+</ValidationRule>

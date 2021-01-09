@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Scheduled_Room__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Scheduled Room</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Event_Location__c.Select_Site__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.Dell_Solution_Center_Site__c</valueField>
+        </filterItems>
+        <filterItems>
+            <field>Event_Location__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Rooms</value>
+        </filterItems>
+        <filterItems>
+            <field>Event_Location__c.Active__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Event_Location__c</referenceTo>
+    <relationshipLabel>Customer Engagements (Scheduled Room) – RETIRED</relationshipLabel>
+    <relationshipName>Customer_Engagements1</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

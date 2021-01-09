@@ -1,0 +1,29 @@
+<apex:page controller="MyCustomersListNSearchCtrler" sidebar="false" showHeader="false" action="{!ModifyEndCustomer}">
+    <apex:form >
+        <apex:pageBlock mode="edit" id="test" title="End customer {!$Label.Edit_REUD}">
+            <apex:pageBlockSection title="{!$Label.company_details}" columns="1" >          
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Partner_Account}" styleClass="label"/><apex:commandLink action="{!helperFn}" value="{!PartnerAccount.Name}" onComplete="window.open('{!BaseURL}/secur/frontdoor.jsp?sid={!$Api.Session_ID}&portalId=06070000000DZHq&retURL=/{!EndCustomerVar.Partner_Account__c}','')"/> </apex:pageBlockSectionItem>        
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Mailing_street}" styleClass="label"/><apex:inputfield value="{!EndCustomerVar.Mailing_street__c}" required="true"/></apex:pageBlockSectionItem>
+                <!-- R 15.10 -->
+                 <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Mailing_Street2}" styleClass="label"/><apex:inputfield value="{!EndCustomerVar.Mailing_Street2__c}"/></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Company_Name}" styleClass="label"/><apex:inputfield value="{!EndCustomerVar.Name}" required="false"/></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Mailing_city}" styleClass="label"/><apex:inputfield value="{!EndCustomerVar.Mailing_city__c}"/></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Tax_Id}" styleClass="label"/><apex:inputfield value="{!EndCustomerVar.Tax_Id__c}"/></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Mailing_State}" styleClass="label"/><apex:inputfield value="{!EndCustomerVar.Mailing_State__c}"/></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Account_Department}" styleClass="label"/><apex:inputfield value="{!EndCustomerVar.Account_Department__c}"/></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Zip_Code}" styleClass="label"/><apex:inputfield value="{!EndCustomerVar.Zip_Code__c}"/></apex:pageBlockSectionItem>                
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Account_Industry}" styleClass="label"/><apex:inputfield value="{!EndCustomerVar.Account_Industry__c}"/></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Mailing_country}" styleClass="label"/><apex:inputfield value="{!EndCustomerVar.Mailing_country__c}" required="false"/></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Segment}" styleClass="label"/><apex:inputfield value="{!EndCustomerVar.Segment__c}"/></apex:pageBlockSectionItem>        
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Website}" styleClass="label"/><apex:inputfield value="{!EndCustomerVar.Website__c}"/></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Status_REUD}" styleClass="label"/><apex:inputfield value="{!EndCustomerVar.Status__c}" required="true"/></apex:pageBlockSectionItem>
+                 <!-- R15.10 -->
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.B2BCRTEndUserID}" styleClass="label"/><apex:inputField value="{!EndCustomerVar.B2BCRTEndUserID__c}"/></apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageblockButtons >
+                <apex:commandButton action="{!saveEndCustomerVar}" value="{!$Label.save}" />
+                <apex:commandButton action="{!Back2List}" value="{!$Label.cancel}" immediate="true"/>
+            </apex:pageblockButtons>    
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

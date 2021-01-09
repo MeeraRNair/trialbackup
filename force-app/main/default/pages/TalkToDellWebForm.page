@@ -1,0 +1,280 @@
+<apex:page language="{!preferredLanguageCode}"
+           showheader="false" 
+           controller="VF_Cntrler_LeadFormUtil" 
+           title="{!$Label.T2D_Title}" >
+        
+           
+   
+    <title>{!$Label.T2D_Title}</title>
+    <meta name="campaign" content="7010000000098S3" /> 
+    
+    <body>
+        
+        <!-- Inserting the Dell template -->
+        <apex:composition template="DellSiteTemplate">
+        
+            <apex:define name="body">   
+                                    
+               <div style="padding-left: 50px;">
+                
+                    <!-- heading-->
+                    <p align="left">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <p>
+                                            <font size="6">{!$Label.T2D_Title}</font>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </p>
+                    
+                    <!-- message-->
+                    <div class="dynTitle">
+                        <p style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 0in; direction: ltr; unicode-bidi: embed; text-align: left;width:930px;">
+                            <span  style="font-size: 12pt; color: black; font-family: Arial;line-height:180%; ">{!$Label.T2D_Subtitle}</span>
+                        </p>    
+                        
+                        <br/>
+                             <apex:outputText value="{!$Label.T2D_Required_fields_marked_with}"/>
+                        <br/>
+                    </div>
+                
+     
+                    <br/>         
+            
+                    
+                    <!------FORM STARTS HERE ------>
+                    <apex:form >
+                        <apex:messages style="color:red;"></apex:messages>
+                        
+                        <!------SECTION 1------>
+                        
+                                            
+                        <table> 
+                            <tr>
+                                
+                                <!-- Section 1 : column 1 -->
+                                <td width="315px">    
+                                    <table>                         
+                                        <tr>
+                                            <td>
+                                                <apex:outputText value="*"/>&nbsp;
+                                                <apex:outputText value="{!$Label.T2D_First_Name}"></apex:outputText>
+                                            </td>         
+                                            <td><apex:inputField id="FirstName" required="true" value="{!LeadItem.FirstName}"></apex:inputField></td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>
+                                                <apex:outputText value="*"/>&nbsp;
+                                                <apex:outputText value="{!$Label.T2D_Last_Name}"></apex:outputText>
+                                            </td>         
+                                            <td><apex:inputField id="LastName" required="true" value="{!LeadItem.LastName}"></apex:inputField></td>
+                                        </tr>
+                                     
+                                        <tr>
+                                            <td>
+                                                <apex:outputText value="*"/>&nbsp;
+                                                <apex:outputText value="{!$Label.T2D_Title_field}"></apex:outputText>
+                                            </td>         
+                                            <td><apex:inputField required="true" id="Title" value="{!LeadItem.Title}"></apex:inputField></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <apex:outputText value="*"/>&nbsp;
+                                                <apex:outputText value="{!$Label.T2D_Phone_Number}"></apex:outputText>&nbsp;&nbsp;&nbsp;
+                                            </td>         
+                                            <td><apex:inputField id="Phone" required="true" value="{!LeadItem.Phone}"></apex:inputField></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <apex:outputText value="*"/>&nbsp;
+                                                <apex:outputText value="{!$Label.T2D_Email}"></apex:outputText>
+                                            </td>         
+                                            <td><apex:inputField id="Email" required="true" value="{!LeadItem.Email}"></apex:inputField></td>
+                                        </tr>
+                                    </table>
+                                </td>   
+                            
+                                
+                                <!-- Section 1 : column 2 -->
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <apex:outputText value="*"/>&nbsp;
+                                                <apex:outputText value="{!$Label.T2D_Company}"></apex:outputText>
+                                            </td>         
+                                            <td><apex:inputField id="Company" required="true" value="{!LeadItem.Company}"></apex:inputField></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <apex:outputText value="*"/>&nbsp;
+                                                <apex:outputText value="{!$Label.T2D_City}"></apex:outputText>
+                                            </td>         
+                                            <td><apex:inputField id="City" required="true" value="{!LeadItem.City}"></apex:inputField></td>
+                                        </tr>
+                                        <tr>
+                                            <td><apex:outputText value="{!$Label.T2D_State}"></apex:outputText></td>         
+                                            <td><apex:inputField id="State" value="{!LeadItem.State}"></apex:inputField></td>
+                                        </tr>
+                                     
+                                        <tr>
+                                            <td><apex:outputText value="{!$Label.T2D_Postal_Code}"></apex:outputText></td>         
+                                            <td><apex:inputField id="PostalCode" value="{!LeadItem.PostalCode}"></apex:inputField></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <apex:outputText value="*"/>&nbsp;
+                                                <apex:outputText value="{!$Label.T2D_Country}"></apex:outputText>
+                                            </td>         
+                                            <td><apex:inputField id="Country" required="true" value="{!LeadItem.Country}"></apex:inputField></td>
+                                        </tr>
+                                        
+                                    </table>
+                                </td>
+                            </tr>  
+                               
+                            <tr>
+                                <!--line-->
+                                <td colspan="2"> <hr/> </td>                            
+                            </tr>
+                                
+                        </table>                    
+                        <!-- End of section 1 -->                  
+                        
+    
+            
+                            
+                        <!------SECTION 2------>
+                        <table>                             
+                            <tr>
+                                <td colspan="3"> {!$Label.T2D_Topics_Of_Interest} <br/></td>    
+                            </tr>
+                            
+                            <tr>
+                                <td colspan="3"> &nbsp;</td>    
+                            </tr>
+            
+                            <tr>
+                                <th>{!$Label.T2D_Data_Center_Optimization}</th>                     
+                                <th>{!$Label.T2D_End_user_Productivity}</th> 
+                                <th>{!$Label.T2D_IT_Process_Simplification}</th> 
+                                <th>{!$Label.T2D_Industry_Vertical_Need}</th>
+                            </tr>
+            
+                            <tr class="dynOption" valign="top">
+                                <td>
+                                    <apex:selectCheckboxes layout="pageDirection" value="{!DataCenterOptimizationList}">
+                                        <apex:selectOptions value="{!ItemsDataCenterOptimizationList}"/>
+                                    </apex:selectCheckboxes>
+                                </td>
+                             
+                                <td >
+                                    <apex:selectCheckboxes value="{!EndUserProductivityList}" layout="pageDirection">
+                                        <apex:selectOptions value="{!ItemsEndUserProductivityList}"/>
+                                    </apex:selectCheckboxes>
+                                </td>
+                                <td>
+                                    <apex:selectCheckboxes value="{!ITProcessSimplificationList}" layout="pageDirection">
+                                        <apex:selectOptions value="{!ItemsITProcessSimplificationList}"/>
+                                    </apex:selectCheckboxes>
+                                </td>
+                                <td>
+                                    <apex:selectCheckboxes value="{!IndustryVerticalNeedList}" layout="pageDirection">
+                                        <apex:selectOptions value="{!ItemsIndustryVerticalNeedList}"/>
+                                    </apex:selectCheckboxes>
+                                </td>
+                            </tr> 
+                               
+                            <tr>
+                                <td colspan="4"><!--<br/>--><hr/> </td>    
+                            </tr>
+            
+                        </table>
+                            
+                          
+                        <!------SECTION 3------>                  
+                        <!--<br/>-->
+                        <table>
+                            
+                            <tr>
+                                <td>
+                                    <apex:outputText value="*"/>&nbsp;
+                                    <apex:outputText value="{!$Label.T2D_Purchase_Timeframe}"></apex:outputText>
+                                </td>         
+                                <td><apex:inputField id="purchase_timeframe__c" required="true" value="{!LeadItem.Purchase_Timeframe__c}"></apex:inputField></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <apex:outputText value="*"/>&nbsp;
+                                    <apex:outputText value="{!$Label.T2D_No_Of_Employees}"></apex:outputText>
+                                </td>         
+                                <td><apex:inputField id="employee__c" required="true" value="{!LeadItem.Employees__c}" ></apex:inputField></td>
+                            </tr>
+                        
+                        
+                        <!--</table>
+                            
+                      
+                                       
+                        <table>  -->       
+                        
+                            <tr>
+                                <td>
+                                    <apex:outputText value="*"/>&nbsp;
+                                    <apex:outputText value="{!$Label.T2D_Dell_Existing_Customer}"></apex:outputText>
+                                </td>         
+                                <td><apex:inputField id="Dell_Existing_Customer__c" required="true" value="{!LeadItem.Dell_Existing_Customer__c}"></apex:inputField></td>
+                            </tr>
+                            
+                             <tr>
+                                <td><apex:outputText value="{!$Label.T2D_Need_a_Call}"></apex:outputText></td>                                     
+                                <td><apex:inputField id="Requested_call_from_Dell_rep__c" required="true" value="{!LeadItem.Requested_call_from_Dell_rep__c}" ></apex:inputField></td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <apex:outputText value="*"/>&nbsp;
+                                    <apex:outputText value="{!$Label.T2D_Dell_May_Contact_Me}"></apex:outputText>
+                                </td>         
+                                <td><apex:inputField id="Dell_can_contact_me_in_the_future__c" required="true" value="{!LeadItem.Dell_can_contact_me_in_the_future__c}" ></apex:inputField></td>
+                            </tr>
+                            
+                             <tr>
+                                <td colspan="2" style="color:blue"> <!-- for smaller font add class="dynOption" -->
+                                    <apex:outputLink target="_blank" value="http://www.dell.com/content/topics/global.aspx/policy/en/privacy_policy?c=us&l=en&s=gen#14">{!$Label.T2D_See_our_Privacy_Policy}</apex:outputLink>
+                                </td>                                    
+                            </tr>                                                   
+                                                    
+                            <tr>
+                                <td colspan="2"> <apex:outputText value="{!$Label.T2D_Questions_or_Comments}"></apex:outputText>  <br/>       
+                                <apex:inputField id="Questions_Comments__c" value="{!LeadItem.Questions_Comments__c}" style="width:100%;"></apex:inputField></td>
+                            </tr>               
+                            
+                        </table>
+                        
+                        <!------SECTION 4: Submit link------>
+                        
+                        <br/> <br/>
+                        <!------ https://www.dellresources.com/ExternalContent/Images/DELL/template/primary.gif ------>
+             
+                        <apex:commandLink action="{!SaveLead}" style="color:Blue;" > <apex:image value="{!$Resource.Arrow_image}" />{!$Label.T2D_Submit}</apex:commandLink>    
+                       
+                        <br/> <br/>
+                        
+                    </apex:form>
+                        <!------FORM ENDS HERE------>  
+                    
+                </div>
+            <!-- end of body-->    
+            </apex:define>
+      
+      </apex:composition> 
+           
+    </body>
+</apex:page>

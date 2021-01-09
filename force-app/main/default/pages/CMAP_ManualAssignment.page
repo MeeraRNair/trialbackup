@@ -1,0 +1,56 @@
+<apex:page standardController="Lead" extensions="CMAP_ManualAssignmentCntrlr" action="{!redirect}">
+    <apex:form >
+    <!-- Start 15.3 -->
+    <apex:actionFunction name="" reRender="pb2"/>
+    <!-- End 15.3 -->
+        <apex:pageMessages />
+        <apex:pageBlock title="{!$Label.CMAP_Assign_Partner}" rendered="{!AND(partnerAccountExist, showPage)}" >
+            <apex:pageBlockSection title="{!$Label.CMAP_Page} #{!pageNumber} {!$Label.CMAP_of} {!totalPages}" columns="1" collapsible="false">
+                <apex:pageBlockTable id="pb1" value="{!partnerUserToRole}" var="partner" rendered="{!AND(partnerUserToRole.size>0, (!valCheck))}">
+                    <apex:column width="25px" headerValue="{!$Label.CMAP_Action}">
+                        <input type="radio" name="radioName" value="{!partner.Id}" />
+                    </apex:column>  
+                    <apex:column value="{!partner.userName}" headerValue="{!$Label.CMAP_Name}" />
+                    <apex:column headervalue="{!$Label.CMAP_Role}" value="{!partner.Role}"/>
+                </apex:pageBlockTable>
+                <!-- Start 15.3 -->
+                <apex:pageBlockTable id="pb2" value="{!partnerUserToRole}" var="partner" rendered="{!AND(partnerUserToRole.size>0, valCheck)}">
+                    <apex:column width="25px" headerValue="{!$Label.CMAP_Action}" rendered="{!IF(partner.isChecked == valCheck,'true','false')}">
+                       <input type="radio" name="radioName" value="{!partner.Id}"  checked="true" />  
+                    </apex:column> 
+                    <apex:column width="25px" headerValue="{!$Label.CMAP_Action}" rendered="{!IF(partner.isChecked == valCheck,'false','true')}">
+                        <input type="radio" name="radioName" value="{!partner.Id}" />
+                    </apex:column> 
+                    <apex:column value="{!partner.userName}" headerValue="{!$Label.CMAP_Name}" />
+                    <apex:column headervalue="{!$Label.CMAP_Role}" value="{!partner.Role}"/>
+                </apex:pageBlockTable>
+                <!-- End 15.3 --> 
+            <apex:panelGrid columns="4" rendered="{!totalPages >1}">
+                <apex:commandLink action="{!first}" value="{!$Label.CMAP_First}"></apex:commandlink>
+                <apex:commandLink action="{!previous}" rendered="{!hasPrevious}" value="{!$Label.CMAP_Previous}"></apex:commandlink>
+                <apex:commandLink action="{!next}" rendered="{!hasNext}" value="{!$Label.CMAP_Next}"></apex:commandlink>
+                <apex:commandLink action="{!last}">{!$Label.CMAP_Last}</apex:commandlink>
+            </apex:panelGrid>
+                <apex:outputPanel rendered="{!isPartner == false}">
+                    <input type="radio" name="radioName" value="other" />
+                    <apex:outputLabel value="Any other Partner User or Queue"></apex:outputLabel>
+                    <!--<apex:inputField value="{!leadObjForUser.Partner_Admin__c}"/> Ver 2.0-->
+                    <apex:inputField value="{!leadObjForUser.OwnerId}" required="false"/>
+                </apex:outputPanel>
+
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="{!$Label.CMAP_Assign}" action="{!selectedUser}"/>
+                <apex:commandButton action="{!cancel}" value="{!$Label.CMAP_Cancel}"/>
+            </apex:pageBlockButtons>
+            
+        </apex:pageBlock>
+        <!-- Start 15.3 CRQ: 0930 -->
+        <apex:pageBlock rendered="{!showOkPage}">
+            <apex:pageBlockButtons location="bottom" >                
+                <apex:commandButton value="OK" action="{!Cancel}" id="cmdCancel"     />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        <!-- End 15.3 CRQ: 0930 -->
+    </apex:form>
+</apex:page>

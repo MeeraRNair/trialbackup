@@ -1,0 +1,34 @@
+<!-- -------------------------------------------------------------------------
+Name : DGRApprovalRequestApprove
+Description : Visualforce Page created for Mobile DGR App, this VF page check whether request is from Mobile or Desktop 
+and thus redirect it to specific VF pages.
+----------------------------------------------------------------------------
+* Revision    Name              Date          CR Number         Request Title
+* 1.0         Ajay/Nagendra     14/10/2014    Request# 10520    DGR Mobile App
+-------------------------------------------------------------------------- -->
+
+<apex:page showHeader="false" sidebar="false" docType="html-5.0">
+<script type="text/javascript">
+       var isMobile=false;
+       (function() 
+       {
+           if (navigator.userAgent.match(/Android/i)
+                || navigator.userAgent.match(/webOS/i)
+                || navigator.userAgent.match(/iPhone/i)
+                || navigator.userAgent.match(/iPad/i)
+                || navigator.userAgent.match(/iPod/i)
+                || navigator.userAgent.match(/BlackBerry/i)
+                || navigator.userAgent.match(/Windows Phone/i)
+                || navigator.userAgent.match(/Opera Mini/i)
+                || navigator.userAgent.match(/IEMobile/i)
+            ) 
+     {
+           window.top.location="/apex/DGRApprovalRequest?Id="+"{!$CurrentPage.Parameters.approverId}";
+            
+     }
+     else{
+     window.top.location="/apex/ApprovalRequestApprove?approverId="+"{!$CurrentPage.Parameters.approverId}";
+     }
+    })();    
+</script>
+</apex:page>

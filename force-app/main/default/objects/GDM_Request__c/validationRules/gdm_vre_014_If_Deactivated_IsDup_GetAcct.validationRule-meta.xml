@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>gdm_vre_014_If_Deactivated_IsDup_GetAcct</fullName>
+    <active>true</active>
+    <description>For Deactivate Account Request Type, and Reason is  &apos;07-Duplicated-101&apos; then require the Duplicated Account ID to be filled in</description>
+    <errorConditionFormula>AND (
+  RecordType.Name == &quot;Deactivate Account&quot;
+, TEXT(Deactivate_Reason__c) == &quot;07-Duplicated-101&quot;
+, ISBLANK( Duplicated_Account_ID__c)
+
+)</errorConditionFormula>
+    <errorDisplayField>Duplicated_Account_ID__c</errorDisplayField>
+    <errorMessage>(014) Please enter the Duplicated Account ID.</errorMessage>
+</ValidationRule>

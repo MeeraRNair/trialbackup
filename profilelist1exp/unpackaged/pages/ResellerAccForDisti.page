@@ -1,0 +1,24 @@
+<apex:page standardController="Partner_Request__c" sidebar="false" showHeader="false">
+    <apex:includeScript value="/soap/ajax/35.0/connection.js"/>
+    <apex:includeScript value="/soap/ajax/35.0/apex.js"/>  
+     <apex:includeLightning />
+    <div id="lightning" />
+    <script>
+        var userId = "{!$User.Id}";
+        var userEmail = "{!$User.Email}";
+        console.log(userId);
+        console.log(userEmail);
+        $Lightning.use("c:ResellerAccForDistiApp", function() {
+                $Lightning.createComponent("c:ResellerAccForDisti",
+                {"strEmail" : userEmail,
+                 "strUserId": userId
+                },                      
+                "lightning",
+                function(component) {
+                 });
+            });
+            
+     
+    </script>
+    
+</apex:page>

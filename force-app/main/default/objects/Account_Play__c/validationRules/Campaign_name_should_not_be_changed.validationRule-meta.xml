@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Campaign_name_should_not_be_changed</fullName>
+    <active>true</active>
+    <description>After creating a Account Play records, the campaign name should not be changed</description>
+    <errorConditionFormula>AND( NOT( ISNEW()), ISCHANGED( Campaign__c ), $RecordType.Id !=&apos;012A0000000Vhxd&apos;)</errorConditionFormula>
+    <errorMessage>Campaign name should not be changed</errorMessage>
+</ValidationRule>

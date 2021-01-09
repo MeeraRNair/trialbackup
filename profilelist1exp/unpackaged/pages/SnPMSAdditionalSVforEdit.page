@@ -1,0 +1,135 @@
+<apex:page standardController="S_P_Vendors__c" extensions="SnP_MSAdditionalInfoController">
+
+<style type = "text/css">
+
+.main{font: 120% "Lucida Grande", "Lucida Sans Unicode", "Trebuchet MS", sans-serif;padding: 0; margin: 0; border-collapse: collapse; color: #333; background: #F3F5F7;}
+
+.head{background: #0099CC; padding: 15px 10px; color: #FFFFFF; text-align: left; font-weight: normal; font-style: bold;}
+
+.activeTab{background: #FFFFFF; color: #000000; font-weight: normal;}
+
+.tabHead{background: #FFFFFF; color: #000000; font-weight: normal;}
+
+.tabHead:hover {background: #E6F6F6; color: #111;}
+
+.cols{padding: 10px; text-align: left;  border-bottom: 1px solid #E6E6E6; }
+
+.rows{background: #FFFFFF;}
+
+.rows:hover {background: #E6F6F6; color: #111;}
+
+.panelCenter { margin-left:auto; margin-right:auto;}
+
+.customPopup {
+    background-color: white;
+    border-style: solid;
+    border-width: 2px;
+    left: 20%;
+    padding: 10px;
+    position: absolute;
+    z-index: 9999;
+    /* These are the 3 css properties you will need to tweak so the pop 
+                            up displays in the center of the screen. First set the width. Then set 
+                            margin-left to negative half of what the width is. You can also add 
+                            the height property for a fixed size pop up.*/
+    
+    top: 20%;
+}
+
+
+
+</style>
+
+<apex:tabPanel id="MSAdditionalInfoTabs" width="1" contentStyle="background: #FFFFFF;" activeTabClass="activeTab" inactiveTabClass="tabHead" style="panelCenter">
+	
+	<apex:tab label="Additional SV Screen">
+	<apex:form >
+		<apex:dataTable value="{!eaDisplaySV}" var="ea" id="eaDisplaySV" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" rendered="{!isThisEa}">
+				<apex:column width="400px">
+					<apex:facet name="header" >Opportunity Name</apex:facet>
+                	<apex:outputField value="{!ea.Opportunity_Name__c}"/>
+				</apex:column>
+				<apex:column >
+					<apex:facet name="header" >SnP Vendor ID</apex:facet>
+                	<apex:outputField value="{!ea.SnP_Vendor_ID__c}" />
+				</apex:column>
+				<apex:column >
+					<apex:facet name="header" >Deal Reg Status</apex:facet>
+                	<apex:inputField value="{!ea.Deal_Reg_Status__c}" />
+				</apex:column>
+				<apex:column >
+					<apex:facet name="header" >Approval #</apex:facet>
+                	<apex:inputField value="{!ea.Approval_Number__c}" />
+				</apex:column>
+				<apex:column >
+					<apex:facet name="header" >Expiry Date</apex:facet>
+                	<apex:inputField value="{!ea.Expiry_Date__c}" />
+				</apex:column>
+				<apex:column >
+					<apex:facet name="header" >Comments</apex:facet>
+                	<apex:inputField value="{!ea.Comments__c}" />
+				</apex:column>
+				<apex:column >
+					<apex:facet name="header" >Total</apex:facet>
+                	<apex:outputField value="{!ea.Total__c}" />
+				</apex:column>
+				<apex:column >
+					<apex:facet name="header" >Products Included</apex:facet>
+                	<apex:outputField value="{!ea.Products_Included__c}" />
+				</apex:column>
+				
+			</apex:dataTable>
+			<br/><br/>
+			<apex:commandButton action="{!saveEaSV}" value=" Save " rendered="{!isThisEa}"/>
+			
+		<apex:dataTable value="{!sipDisplaySV}" var="sip" id="sipDisplaySV" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" rendered="{!isThisNotEa}">
+				<apex:column style="width:150px" rendered="true">
+					<apex:facet name="header" >Opportunity Name</apex:facet>
+                	<apex:outputField value="{!sip.Opportunity_Name__c}"/>
+				</apex:column>
+				<apex:column style="width:100px">
+					<apex:facet name="header" >SnP Vendor ID</apex:facet>
+                	<apex:outputField value="{!sip.SnP_Vendor_ID__c}" />
+				</apex:column>
+				<apex:column >
+					<apex:facet name="header" >Deal Reg Status</apex:facet>
+                	<apex:inputField value="{!sip.Deal_Reg_Status__c}" />
+				</apex:column>
+				<apex:column >
+					<apex:facet name="header" >Approval #</apex:facet>
+                	<apex:inputField value="{!sip.Approval_Number__c}" />
+				</apex:column>
+				<apex:column >
+					<apex:facet name="header" >Expiry Date</apex:facet>
+                	<apex:inputField value="{!sip.Expiry_Date__c}" />
+				</apex:column>
+				<apex:column >
+					<apex:facet name="header" >Comments</apex:facet>
+                	<apex:inputField value="{!sip.Comments__c}" />
+				</apex:column>
+				<apex:column >
+					<apex:facet name="header" >Total</apex:facet>
+                	<apex:outputField value="{!sip.Total__c}" />
+				</apex:column>
+				<apex:column >
+					<apex:facet name="header" >Products Included</apex:facet>
+                	<apex:outputField value="{!sip.Products_Included__c}" />
+				</apex:column>
+				
+			</apex:dataTable>
+			<br/><br/>
+			<apex:commandButton action="{!saveSipSV}" value=" Save " rendered="{!isThisNotEa}" />
+
+
+			<apex:outputPanel id="refresh" rendered="true">
+ 				<apex:outputPanel id="refresh1" rendered="{!refreshPage}">
+ 					 <script>
+   						window.top.location='/{!S_P_Vendors__c.id}';
+					 </script>
+				</apex:outputPanel>
+			</apex:outputPanel>
+		</apex:form>
+		</apex:tab>
+		
+	</apex:tabPanel>
+</apex:page>

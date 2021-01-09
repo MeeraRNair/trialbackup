@@ -1,0 +1,48 @@
+<apex:page id="thePage" controller="PartnerToolLookupMyAccountIDsCtrl">
+	<apex:includeScript value="{!$Resource.jsr_class}"/>
+	<apex:includeScript value="{!$Resource.prototype}"/>
+    <apex:includeScript value="{!$Resource.scriptaculous_builder}"/>
+    <apex:includeScript value="{!$Resource.scriptaculous_effects}"/>
+	<apex:includeScript value="{!$Resource.PartnerToolLookupMyAccountIDsJS}"/>
+    <apex:sectionHeader title="Partner Tool" subtitle="My Account Mass GUID Lookup"/>
+	<form id="Constants">
+		<input type="hidden" id="ssoMyAccountLookupURL" value="{!ssoMyAccountLookupURL}"/>
+		<input type="hidden" id="CountryFieldID" value="thePage:theForm:pb1:pbs1:pbsi_country:country"/>
+		<input type="hidden" id="EmailAddressesFieldID" value="thePage:theForm:pb1:pbs1:pbsi_emailAddresses:emailAddresses"/>
+		<input type="hidden" id="LookupEmailButtonFieldID" value="thePage:theForm:pb1:pbb1:LookupEmailButton"/>
+		<input type="hidden" id="ResultsFieldID" value="results"/>
+	</form>
+	
+	<apex:form id="theForm">
+		<apex:pageBlock id="pb1" title="Input Form" mode="edit">
+			<apex:pageBlockButtons location="bottom" id="pbb1">
+				<apex:commandButton id="LookupEmailButton" value="Lookup Emails"/>
+			</apex:pageBlockButtons>
+	  	  	<apex:pageBlockSection id="pbs1" title="Email Addresses" columns="1" showHeader="false" collapsible="false">
+	  	  		<apex:pageBlockSectionItem id="pbsi_country" >
+	  	  			<apex:outputLabel value="Country"/>
+					<apex:selectList id="country" size="1">
+						<apex:selectOptions value="{!countrySelectOptions}"/>
+					</apex:selectList>
+	  	  		</apex:pageBlockSectionItem>
+	  	  		<apex:pageBlockSectionItem >
+	  	  			<apex:outputPanel ></apex:outputPanel>
+	  	  			<apex:outputPanel style="font-style: italic">The country from which to search.  This will be translated into a Dell Region.  In My Account, Dell Regions have their own User Repositories; so, an email address maps to a particular region User Repository.</apex:outputPanel>
+	  	  		</apex:pageBlockSectionItem>
+	  	  		<apex:pageBlockSectionItem id="pbsi_emailAddresses" >
+	  	  			<apex:outputLabel value="Email Addresses"/>
+					<apex:inputTextarea id="emailAddresses" cols="120" rows="5"/>
+	  	  		</apex:pageBlockSectionItem>
+	  	  		<apex:pageBlockSectionItem >
+	  	  			<apex:outputPanel ></apex:outputPanel>
+	  	  			<apex:outputPanel style="font-style: italic">A list of email addresses separated by new lines.  These email addresses will be looked up in My Account, and if a match is found, the GUID associated with the email address will be printed out below.</apex:outputPanel>
+	  	  		</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+	    </apex:pageBlock>
+		
+	    <h1>Lookup Results:</h1>
+		<hr/>
+		<div><div id="loading"><apex:image value="{!$Resource.loading}"/>&nbsp;Loading...</div></div>
+	    <div id="results"></div>
+	</apex:form>
+</apex:page>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Recipient_Email__c</fullName>
+    <externalId>false</externalId>
+    <formula>if(AND(ISPICKVAL(System_Partner_Name__c,&apos;Nvidia&apos;),ISPICKVAL(Region__c,&apos;GLOBAL&apos;)),$Label.NvidiaGlobal,
+if(AND(ISPICKVAL(System_Partner_Name__c,&apos;AMD&apos;),ISPICKVAL(Region__c,&apos;GLOBAL&apos;)),$Label.AmdGlobal,
+if(AND(ISPICKVAL(System_Partner_Name__c,&apos;Mellanox&apos;),ISPICKVAL(Region__c,&apos;GLOBAL&apos;)),$Label.MellanoxGlobal,
+if(AND(ISPICKVAL(System_Partner_Name__c,&apos;Brocade&apos;),ISPICKVAL(Region__c,&apos;APJ&apos;)),$Label.BrocadeApj,
+if(AND(ISPICKVAL(System_Partner_Name__c,&apos;Brocade&apos;),ISPICKVAL(Region__c,&apos;NA&apos;)),$Label.BrocadeNA,
+
+if(AND(ISPICKVAL(System_Partner_Name__c,&apos;Brocade&apos;),ISPICKVAL(Region__c,&apos;EMEA&apos;)),$Label.BrocadeEmea,
+if(AND(ISPICKVAL(System_Partner_Name__c,&apos;Brocade&apos;),ISPICKVAL(Region__c,&apos;LATAM&apos;)),$Label.BrocadeLatam,
+
+if(AND(ISPICKVAL(System_Partner_Name__c,&apos;Broadcom/Emulex&apos;),ISPICKVAL(Region__c,&apos;GLOBAL&apos;)),$Label.BroadcomEmulexGlobal,
+if(AND(ISPICKVAL(System_Partner_Name__c,&apos;Qlogic/Cavium	&apos;),ISPICKVAL(Region__c,&apos;APJ&apos;)),$Label.QlogicCaviumApj,
+if(AND(ISPICKVAL(System_Partner_Name__c,&apos;Qlogic/Cavium	&apos;),ISPICKVAL(Region__c,&apos;LATAM&apos;)),$Label.QlogicCaviumLatam,
+if(AND(ISPICKVAL(System_Partner_Name__c,&apos;Qlogic/Cavium	&apos;),ISPICKVAL(Region__c,&apos;NA&apos;)),$Label.QlogicCaviumNa,
+if(AND(ISPICKVAL(System_Partner_Name__c,&apos;Qlogic/Cavium	&apos;),ISPICKVAL(Region__c,&apos;EMEA&apos;)),$Label.QlogicCaviumEmea,&apos;&apos;))))))))))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Partner Email</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

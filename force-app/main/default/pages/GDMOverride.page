@@ -1,0 +1,25 @@
+<!-- * 
+* Revision CR Number   Release No      Date            Modified By     Description
+* -------- ---------   ----------      -----------     ------------    -----------
+* 1.0 -    CR16418     FY19-DCS-1002   3-Sep-2018:     manip4          added 'lightningStylesheets' attribute for apex component to make the page lightening friendly for the story 5537222
+*/-->
+
+<apex:page standardController="GDM_Request__c" lightningStylesheets="true">
+    <style>
+        .link
+        {
+        color:blue;
+        }
+        
+    </style>  
+    
+    <br/>
+    <h3 align="right">        
+        <B style="COLOR: rgb(255,0,0); FONT-WEIGHT: bold">Note: The intake for changes to Account, Org and Customer data has moved. Please navigate to &nbsp;<apex:outputLink value="{!$Label.GAMA_Link}" id="theLink" target="_blank" styleClass="link">GAMA</apex:outputLink>&nbsp; to submit your requests.</B>
+        <br/><br/><br/>
+        Please click &nbsp; <apex:outputLink value="/setup/ui/recordtypeselect.jsp?ent=01IA00000016NnC&retURL=%2Fa4F%2Fo&save_new_url=%2Fa4F%2Fe%3FretURL%3D%252Fa4F%252Fo%26nooverride%3D1" styleClass="link">here</apex:outputLink>&nbsp; to proceed further to create other GDM Requests. 
+        <br/>
+    </h3>
+    <br/>
+    <apex:outputLink value="/a4F/o" id="backLink">Back</apex:outputLink>
+</apex:page>

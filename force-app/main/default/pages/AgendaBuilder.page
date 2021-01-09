@@ -1,0 +1,167 @@
+<apex:page Standardcontroller="Customer_Engagement__c" extensions="AgendaBuilderController" tabStyle="Agenda_Topic__c" title="Agenda">
+
+   <style>
+      .fontstyle {
+            font-weight: bold;
+        }
+
+      .customLinkBtn {    
+
+        background-image: url(/img/bgButton.gif);
+        background-repeat: repeat-x;
+        background-position: left top;
+        border-right-width-value: 1px;
+        border-right-style-value: solid;
+        border-right-color-value: #5c5d61;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-bottom-color: #5c5d61;
+        border-top-width: medium;
+        border-top-style: none;
+        border-top-color: -moz-use-text-color;
+        border-left-width-value: medium;
+        border-left-style-value: none;
+        border-left-color-value: -moz-use-text-color;
+        padding-top: 1px;
+        padding-right: 3px;
+        padding-bottom: 1px;
+        padding-left: 3px;
+        cursor: pointer;
+        display: inline;
+        font-size: 80%;
+
+      }
+      .customLinkBtnText
+
+      {
+        color: #ffffff;
+        font-weight: bold;
+
+      }
+      .selectedStyle{
+          background-color : #CCCCCC;
+         
+      }
+      .nonSelectedStyle{
+          background-color : #FFFFFF;
+      }
+    </style>
+
+    <apex:form >
+        
+        <apex:pageBlock title="Agenda" id="pageBlkId1">
+        <br/>
+        <br/>   
+        <apex:pageBlockButtons location="Top">
+               <apex:commandLink styleClass="customLinkBtn" target="_blank" action="{!Print1}" value="" style="width: 100px; height: 25px"><span class="customLinkBtnText">Print Customer Agenda</span></apex:commandLink> 
+               <apex:outputText value=" "/>
+               <apex:commandLink styleClass="customLinkBtn" target="_blank" action="{!Print2}" value="" style="width: 100px; height: 25px"><span class="customLinkBtnText">Print Presenter/AE Agenda</span></apex:commandLink>
+              <!--<apex:commandLink styleClass="btn" target="_blank" action="{!Print2}" value="Print Presenter/AE Agenda"></apex:commandLink>-->
+    
+        </apex:pageBlockButtons>
+        <apex:pageBlockSection columns="2">
+            <apex:pageBlockSectionItem >
+                 <apex:outputlabel value="Customer Engagement:"  styleClass="fontstyle" for="acctName"/>        
+                 <apex:commandLink value="{!CEdetails1.Name}" action="{!CancelButton}" Id="ceName"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                 <apex:outputlabel value="Location:"   styleClass="fontstyle"/>        
+                 <apex:outputText value="{!site}" Id="site"/> 
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                 <apex:outputlabel value="Event Start Date:"   styleClass="fontstyle"/>        
+                 <apex:outputText value="{!startDate}" Id="startdate"/> 
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                 <apex:outputlabel value="Room:"   styleClass="fontstyle"/>        
+                 <apex:outputText value="{!Room}" Id="Room"/> 
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputlabel value="Event End Date:"   styleClass="fontstyle"/>        
+                <apex:outputText value="{!endDate}" Id="enddate"/> 
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+      </apex:pageBlock>
+      <apex:pageBlock id="pageBlkId2">
+            <apex:pageBlockButtons location="Top">
+                <apex:commandButton action="{!AddTopics}" value="Add Agenda Topics"/> 
+                <apex:commandButton action="{!AddCatering}" value="Add Catering Break"/>                
+                <apex:commandButton action="{!Catering}" value="New Catering Break"/>  
+                <apex:commandButton action="{!Travel}" value="New Travel Break"/>
+                <apex:commandButton action="{!CancelButton}" value="Cancel"/>                
+            </apex:pageBlockButtons>
+      <table>
+            <tr>
+                <td width="700"><b>Unassigned Topics</b></td>
+                <td width="700"><b>Travel</b></td>
+            </tr>
+            <tr>
+                <td width="700" style="border:solid 2px #105">
+                  <apex:dataList value="{!unassignedTopics}" var="unassigned">
+                      <apex:commandLink action="{!getAgendaTopic}"> 
+                          {!IF(unassigned.Display_Topic_As__c!=null,unassigned.Display_Topic_As__c,unassigned.Name)}                                  
+                          <apex:param name="agTopic" value="{!unassigned.Id}"/>
+                      </apex:commandLink> 
+                 </apex:dataList> 
+                 </td>
+                 <td width="700" style="border:solid 2px #105">
+                         <apex:dataList value="{!existingTravel}" var="travel"> 
+                         <!-- <apex:dataList value="{!existingUnassignedTravel}" var="travel"> -->
+                         <apex:commandLink action="{!getTransportationDetails}"> 
+                             {!travel.Name}                                 
+                             <apex:param name="trTravel" value="{!travel.Name}"/>
+                         </apex:commandLink> 
+                     </apex:dataList>
+                </td>            
+            </tr>            
+      </table>      
+      </apex:pageBlock>
+      <apex:pagemessages ></apex:pagemessages>      
+      <apex:pageblock >
+          <apex:repeat value="{!agendaList}" var="datename" id="theRepeat">
+              <table>
+                  <tbody>
+                      <tr>
+                          <td style="background-color:#C0C0C0" width="1200"><b><apex:outputLabel value="{!datename.theDate}"/></b></td>
+                      </tr>
+                  </tbody>
+              </table>
+              <apex:pageblockTable value="{!datename.agendaItemsList}" var="assigned" id="theRepeat1">
+                  <apex:column headerValue="S.Time" value="{!assigned.agendaItem.Start_Time__c}" width="40" styleClass="{!IF(assigned.overlap == TRUE,'selectedStyle','nonSelectedStyle')}"/>
+                  <apex:column headerValue="E.Time" value="{!assigned.agendaItem.End_Time__c}" width="40" styleClass="{!IF(assigned.overlap == TRUE,'selectedStyle','nonSelectedStyle')}"/>
+                  <apex:column headerValue="Item" width="200" styleClass="{!IF(assigned.overlap == TRUE,'selectedStyle','nonSelectedStyle')}">
+                      <apex:commandLink action="{!getdetailpage}" > 
+                          {!assigned.agendaItem.item__c}                              
+                          <apex:param name="Topicdetails" value="{!assigned.agendaItem.Id}" />
+                      </apex:commandLink>  
+                  </apex:column> 
+                  <apex:column headerValue="Presenter" width="220" styleClass="{!IF(assigned.overlap == TRUE,'selectedStyle','nonSelectedStyle')}">
+                      <apex:outputField value="{!assigned.agendaItem.Presenter__c}"/>
+                      <apex:outputText value="{!IF(assigned.agendaItem.Role__c!=null,', ','')}"/>
+                      <apex:outputField value="{!assigned.agendaItem.Role__c}"/>     
+                  </apex:column> 
+                  <apex:column headerValue="Presenter Status" width="40" styleClass="{!IF(assigned.overlap == TRUE,'selectedStyle','nonSelectedStyle')}">
+                      <apex:outputField value="{!assigned.agendaItem.Presenter_status__c}"/>   
+
+                  </apex:column>
+                  <apex:column headerValue="Email Sent?" width="40" styleClass="{!IF(assigned.overlap == TRUE,'selectedStyle','nonSelectedStyle')}">
+                      <apex:outputField value="{!assigned.agendaItem.Email_Sent__c}"/>   
+                  </apex:column>
+                  <apex:column headerValue="Catering Required?" width="40" styleClass="{!IF(assigned.overlap == TRUE,'selectedStyle','nonSelectedStyle')}">
+                      <apex:outputField value="{!assigned.agendaItem.Catering_Present__c}"/>                     
+                  </apex:column> 
+                  <apex:column headerValue="Action" width="35" styleClass="{!IF(assigned.overlap == TRUE,'selectedStyle','nonSelectedStyle')}">
+                      <apex:commandLink action="{!removeAssignedTopics}" value="{!IF(assigned.agendaItem.item__c!=null,'Remove','')}">
+                          <apex:param name="removeTopic" value="{!IF(assigned.agendaItem.Topic_Id__c!=null,assigned.agendaItem.Topic_Id__c,'')}"/> 
+                          <apex:param name="removeTravel" value="{!IF(assigned.agendaItem.Travel_Id__c!=null,assigned.agendaItem.Travel_Id__c,'')}"/> 
+                      </apex:commandLink>
+                  </apex:column>
+              </apex:pageblockTable>
+              <br/>
+          </apex:repeat>
+      </apex:pageBlock>
+   </apex:form>
+   <apex:relatedList list="Attendees__r"/>
+   <apex:relatedList list="OpenActivities"/>
+   <apex:relatedList list="ActivityHistories"/>
+</apex:page>

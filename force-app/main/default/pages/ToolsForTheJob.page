@@ -1,0 +1,105 @@
+<apex:page Controller="VFCntrlr_ToolsForTheJob" showHeader="false" sidebar="false">
+    <style>
+    body, td {     
+        font-size: 91%;
+        font-family: 'Arial', 'Helvetica', sans-serif; 
+        margin-top: 0px;
+        margin-right: 0px;
+        margin-bottom: 0px;
+        margin-left: 0px;        
+        vertical-align: top;     
+        border: 1px solid #e3deb8;
+        background-color:#F3F3EC;           
+    }
+    
+    tr {
+        background-color:#F3F3EC;     
+    }
+    
+    h3 {
+        font-family: 'Verdana','Geneva','sans-serif';
+        font-size: 91%;
+        margin-top: 0px;
+        margin-right: 0px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+        display: inline;
+    }
+
+    .bSubBlock{
+        margin-bottom:15px;
+        border-top:0px;
+        border-right:0px;        
+        border-left:0px;
+    }
+
+    .bSubBlock .lbHeader {
+        background-color:#4f9241;
+        padding-top: 2px;
+        padding-right: 13px;
+        padding-bottom: 2px;
+        padding-left: 13px;
+        font-weight: bold;
+        font-family: 'Arial','Helvetica','sans-serif';
+        display: block;
+        float: none;
+        color: #ffffff;
+    }
+    
+    .bSubBlock .lbBody {
+        background-color:#F3F3EC;
+        padding-top:10px;
+        padding-right: 0px;
+        padding-bottom: 10px;
+        padding-left: 0px;
+        line-height:1.6em;
+        height: 100%;
+    }
+     
+    .bSubBlock .lbBody .lbSubSection {
+        background-color:#4f9241;
+        padding-top: 2px;
+        padding-right: 13px;
+        padding-bottom: 2px;
+        padding-left: 13px;
+        font-weight: bold;        
+        display: block;
+        float: none;
+        color: #ffffff;
+    }     
+    .bSubBlock .lbBody UL {
+        margin: 0px;
+        padding-top: 0px;
+        padding-right: 0px;
+        padding-bottom: 0px;
+        padding-left: 0px;
+        list-style-type: none;
+    }
+    
+    .bSubBlock .lbBody li {
+        line-height: 1.3em;
+        padding-top: 0px;
+        padding-right: 0px;
+        padding-bottom: 0px;
+        padding-left: 13px;
+        margin-top: 0px;
+        margin-right: 0px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+        color: #000000;
+    }
+    
+    .bSubBlock .lbBody td {
+        padding:0px 0px 0px 0px;
+        vertical-align:top;
+        text-align:left;
+        width: 25%;
+    }
+
+    </style>
+    
+   
+    <table width="100%" cellpadding="0" cellspacing="0">
+        <apex:outputText escape="false" value="{!HTMLCode}"/>        
+    </table>
+</apex:page>

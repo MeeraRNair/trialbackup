@@ -1,0 +1,105 @@
+<apex:page Controller="SalesMotion_MultiEditPageController" lightningStylesheets="true">
+<style>
+        .customTableCol 
+              {
+                  vertical-align: middle;
+              }
+		.picklistArrowLeft, .picklistArrowRight, .rightArrowIcon, .leftArrowIcon, .doubleArrowUp, .upArrowIcon, .downArrowIcon, .doubleArrowDwn {
+            background: transparent url(/img/alohaSkin/combobox_arrows_sprite.gif) no-repeat;
+            width: 24px;
+            height: 20px;
+            margin: 0 2px;
+        }
+        .picklistArrowLeft, .leftArrowIcon {
+            background-position: left -60px;
+        }
+    </style>
+<apex:pageMessages />
+<apex:sectionHeader subtitle="Step1:Select Domain & Solution Type" title="Step 1 of 6"/>
+<apex:form > 
+        <apex:pageBlock id="selectBlock" >            
+            <table Style="align:center">
+                 <tr>
+                    <td class="customTableCol" style="width:230px;">
+                        <b>Available Domains:</b>
+                        <apex:selectList id="domains" multiselect="True" value="{!domainsToAdd}"  size="10"  style="width: 400px">
+                            <apex:selectoptions value="{!availableDomains}"/>
+                        </apex:selectList>
+                    </td>
+                    <td style="vertical-align: middle">
+                        <apex:commandLink action="{!addCurSelectedDomains}" rerender="selectBlock" title="Add"><img src="/s.gif" alt="Add" class="picklistArrowRight" style="cursor: pointer; " title="Add"/></apex:commandLink>
+                        <br/>
+                        <br/>
+                        <apex:commandLink action="{!removeCurSelectedDomains}" rerender="selectBlock" title="Remove"><img src="/s.gif" alt="Remove" class="picklistArrowLeft" style="cursor: pointer; " title="Remove"/></apex:commandLink>
+                    </td>
+
+                     <td class="customTableCol"  style="width:230px;">
+                       <b>Selected Domains:</b>
+                        <apex:selectList id="selecteddomains" multiselect="True" value="{!domainsToRemove}" size="10" style="width: 400px">
+                            <apex:selectoptions value="{!selectedDomains}"/>
+                        </apex:selectList>
+                    </td>
+                </tr>
+            </table>
+          </apex:pageBlock>
+
+          <apex:pageBlock id="sBlock">
+            <table Style="align:center">
+                 
+                  <tr>
+                    <td class="customTableCol" style="width:230px;">
+                        <b>Available Solution Types:</b>
+                        <apex:selectList id="solutiontype" multiselect="True" value="{!solutionTypeToAdd}"  size="10"  style="width: 400px" >
+                            <apex:selectoptions value="{!availableSolutionType}"/>
+                        </apex:selectList>
+                    </td>
+                    <td style="vertical-align: middle">
+                        <apex:commandLink action="{!addCurSelectedSolutionType}" title="Add"><img src="/s.gif" alt="Add" class="picklistArrowRight" style="cursor: pointer; " title="Add"/></apex:commandLink>
+                        <br/>
+                        <br/>
+                        <apex:commandLink action="{!removeCurSelectedSolutionType}" title="Add"><img src="/s.gif" alt="Remove" class="picklistArrowLeft" style="cursor: pointer; " title="Remove"/></apex:commandLink>
+                    </td>
+
+                     <td class="customTableCol"  style="width:230px;">
+                       <b>Selected Solution Types:</b>
+                        <apex:selectList id="selectedsolutiontypes" multiselect="True" value="{!solutionTypeToRemove}" size="10" style="width: 400px">
+                            <apex:selectoptions value="{!selectedSolutionType}"/>
+                        </apex:selectList>
+                    </td>
+                </tr> 
+      
+            </table> 
+    </apex:pageBlock>
+    <apex:pageBlock id="productBlock" >            
+            <table Style="align:center">
+                 <tr>
+                    <td class="customTableCol" style="width:230px;">
+                        <b>Available Products:</b>
+                        <apex:selectList id="products" multiselect="True" value="{!productsToAdd}"  size="10"  style="width: 400px" >
+                            <apex:selectoptions value="{!availableProducts}"/>
+                        </apex:selectList>
+                    </td>
+                    <td style="vertical-align: middle">
+                        <apex:commandLink action="{!addCurSelectedProduct}" rerender="productBlock" title="Add"><img src="/s.gif" alt="Add" class="picklistArrowRight" style="cursor: pointer; " title="Add"/></apex:commandLink>
+                        <br/>
+                        <br/>
+                        <apex:commandLink action="{!removeCurSelectedProduct}" rerender="productBlock" title="Remove"><img src="/s.gif" alt="Remove" class="picklistArrowLeft" style="cursor: pointer; " title="Remove"/></apex:commandLink>
+                    </td>
+
+                     <td class="customTableCol"  style="width:230px;">
+                       <b>Selected Products:</b>
+                        <apex:selectList id="selectedproducts" multiselect="True" value="{!productsToRemove}" size="10" style="width: 400px">
+                            <apex:selectoptions value="{!selectedProducts}"/>
+                        </apex:selectList>
+                    </td>
+                </tr>
+            </table>
+          </apex:pageBlock>
+
+         <apex:pageBlock > 
+            <apex:pageblockbuttons location="bottom">           
+                 <apex:commandButton action="{!NextPage1}" value="Next" />        
+            </apex:pageblockbuttons>
+        </apex:pageBlock> 
+</apex:form>    
+</apex:page>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SM_S_Comments_Mandate_Upon_Reassigned</fullName>
+    <active>true</active>
+    <description>Specialist Comments is mandatory when Status equal Reassigned</description>
+    <errorConditionFormula>AND(RecordTypeId = &apos;012A0000000ViNJ&apos;,  ISPICKVAL( Status__c , &apos;Reassigned&apos;),  ISBLANK( Specialist_Comments__c ) )</errorConditionFormula>
+    <errorDisplayField>Specialist_Comments__c</errorDisplayField>
+    <errorMessage>Specialist Comments cannot be blank when Status is Reassigned.</errorMessage>
+</ValidationRule>

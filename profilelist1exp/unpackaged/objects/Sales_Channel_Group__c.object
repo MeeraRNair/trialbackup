@@ -1,0 +1,937 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>Sales_Channel_CL</compactLayoutAssignment>
+    <compactLayouts>
+        <fullName>Sales_Channel_CL</fullName>
+        <fields>Name</fields>
+        <fields>Segment_Business_Unit_Name__c</fields>
+        <fields>Segment_Sub_Business_Unit_Name__c</fields>
+        <fields>Area_Name__c</fields>
+        <fields>Area_Desc__c</fields>
+        <fields>Region_Name__c</fields>
+        <label>Sales Channel CL</label>
+    </compactLayouts>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Area_Desc__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Area Desc</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Area_Name__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Area Name</label>
+        <length>180</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Country_Desc__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Country Desc</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Country_Name__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Country Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Dell_Region_Desc__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Dell Region Desc (SCHOLD)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Dell_Region_Name__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Dell Region Name (SCHOLD)</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Dell_Sub_Region_Desc__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Dell Sub Region Desc (SCHOLD)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Dell_Sub_Region_Name__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Dell Sub Region Name (SCHOLD)</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Global_Parent_Desc__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Global Parent Desc</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Global_Parent_Name__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Global Parent Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Group_ID__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>Integrated / Non / Apex / Affininty Source -  Y||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA / PRM - N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>true</externalId>
+        <label>Group ID</label>
+        <length>56</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Group_Type__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Group Type</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Parent_Group_ID__c</fullName>
+        <description>Integrated / Non / Apex / Affininty Source -  Y||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA   / PRM - N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Parent Group ID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Parent__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <formula>hyperlink(&quot;/servlet/servlet.Integration?lid=01N700000006WW4&amp;ic=1&amp;SCID=&quot; &amp; Id &amp; &quot;&amp;ParentGroupId=&quot; &amp; Parent_Group_ID__c, Parent_Group_ID__c , &quot;_self&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Parent</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Region_Desc__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Region Desc</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Region_Name__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Region Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Regional_Area_Desc__c</fullName>
+        <externalId>false</externalId>
+        <label>Regional Area Desc</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Regional_Area_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Regional Area Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Regional_Business_Group_Desc__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Regional Business Group Desc (SCHOLD)</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Regional_Business_Group_Name__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Regional Business Group Name (SCHOLD)</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Regional_Parent_Desc__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Regional Parent Desc</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Regional_Parent_Name__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Regional Parent Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Regional_Sub_Area_Desc__c</fullName>
+        <externalId>false</externalId>
+        <label>Regional Sub Area Desc (SCHOLD)</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Regional_Sub_Area_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Regional Sub Area Name (SCHOLD)</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Regional_Sub_Business_Group_Desc__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Regional Sub Business Group Desc (SCHOLD</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Regional_Sub_Business_Group_Name__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Regional Sub Business Group Name(SCHOLD)</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Regional_Sub_Parent_Desc__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Regional Sub Parent Desc</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Regional_Sub_Parent_Name__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Regional Sub Parent Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Rollup_Desc__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Rollup Desc</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Rollup_Name__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Rollup Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sales_Method_Desc__c</fullName>
+        <externalId>false</externalId>
+        <label>Sales Method Desc</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sales_Method_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Sales Method Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Segment_Business_Group_Desc__c</fullName>
+        <externalId>false</externalId>
+        <label>Segment Business Group Desc</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Segment_Business_Group_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Segment Business Group Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Segment_Business_Unit_Desc__c</fullName>
+        <externalId>false</externalId>
+        <label>Segment Business Unit Desc</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Segment_Business_Unit_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Segment Business Unit Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Segment_Desc__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Segment Desc</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Segment_Name__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Segment Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Segment_Sub_Business_Unit_Desc__c</fullName>
+        <externalId>false</externalId>
+        <label>Segment Sub Business Unit Desc</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Segment_Sub_Business_Unit_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Segment Sub Business Unit Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sub_Area_Desc__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Sub Area Desc (SCHOLD)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Sub_Area_Name__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Sub Area Name (SCHOLD)</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sub_Region_Desc__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Sub Region Desc (SCHOLD)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Sub_Region_Name__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Sub Region Name (SCHOLD)</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sub_Segment_Desc__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Sub Segment Desc</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Sub_Segment_Name__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Sub Segment Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sub_Vertical_Desc__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Sub Vertical Desc</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Sub_Vertical_Name__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Sub Vertical Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Vertical_Desc__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Vertical Desc</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Vertical_Name__c</fullName>
+        <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/ PRM -N||
+VAL -N|| 
+CR# - R 9.9 # 0166 ||</description>
+        <externalId>false</externalId>
+        <label>Vertical Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Sales Channel Group</label>
+    <nameField>
+        <label>Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Sales Channel Groups</pluralLabel>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>Country_Name__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Segment_Name__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Group_ID__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Vertical_Desc__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Area_Desc__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Region_Desc__c</lookupDialogsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Viper_POP_details_Editability</fullName>
+    <active>true</active>
+    <description>Marketing Operations should be able to manually edit the POP details of any program (any program type).Program Owners and Marketing Managers should be able to edit POP details only when program type = &quot;Other&quot; and &quot;Sales Tools&quot;</description>
+    <errorConditionFormula>NOT(  CONTAINS( $Profile.Name,&quot;MDF Marketing Operations / Contract Admin&quot;)  ||
+((  Program_Type__c  =  &apos;Other&apos; || Program_Type__c  =  &apos;Sales Tools&apos;) &amp;&amp; 
+( CONTAINS( $Profile.Name,&quot;MDF Program Owners&quot;)  || CONTAINS( $Profile.Name,&quot;MDF Co-Marketing  Manager&quot;)  ||  CONTAINS( $Profile.Name,&quot;MDF Product Managers&quot;))))
+ &amp;&amp; ISCHANGED(POP_Details__c)</errorConditionFormula>
+    <errorDisplayField>POP_Details__c</errorDisplayField>
+    <errorMessage>This field is not editable.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GTMPartnerAssignRemoval_ReasonMandatory</fullName>
+    <active>true</active>
+    <description>This validation rule will make sure that the biz/channel rep will be prompted to enter de-linkage reason if there is a removal of valid &quot;Preferred LOB registration Partner&quot; assignment.</description>
+    <errorConditionFormula>AND( ISBLANK(Preferred_GTM_Partner_Account__c) ,PRIORVALUE(Preferred_GTM_Partner_Account__c) &lt;&gt;&apos;&apos;, 
+ISBLANK( GTM_De_linkage_Reason__c ), RecordTypeId= &apos;012S00000000QS3&apos;,(CONTAINS( $User.Profile_Name__c , &apos;Operations&apos;)|| $User.Title = &apos;GCC Program Manager&apos;|| $User.Division = &apos;Deal Registration&apos;) )</errorConditionFormula>
+    <errorDisplayField>GTM_De_linkage_Reason__c</errorDisplayField>
+    <errorMessage>Enter the reason for Partner removal from this LOB</errorMessage>
+</ValidationRule>

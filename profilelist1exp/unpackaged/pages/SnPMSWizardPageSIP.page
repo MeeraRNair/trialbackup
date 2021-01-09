@@ -1,0 +1,73 @@
+<apex:page standardController="S_P_Vendors__c" extensions="SnP_MSAdditionalInfoController">
+
+<style type = "text/css">
+
+.main{font: 120% "Lucida Grande", "Lucida Sans Unicode", "Trebuchet MS", sans-serif;padding: 0; margin: 0; border-collapse: collapse; color: #333; background: #F3F5F7;}
+
+.head{background: #0099CC; padding: 15px 10px; color: #FFFFFF; text-align: left; font-weight: normal; font-style: bold;}
+
+.activeTab{background: #FFFFFF; color: #000000; font-weight: normal;}
+
+.tabHead{background: #FFFFFF; color: #000000; font-weight: normal;}
+
+.tabHead:hover {background: #E6F6F6; color: #111;}
+
+.cols{padding: 10px; text-align: left;  border-bottom: 1px solid #E6E6E6;}
+
+.rows{background: #FFFFFF;}
+
+.rows:hover {background: #E6F6F6; color: #111;}
+
+
+</style>
+<apex:outputPanel layout="block" style="overflow:auto" >
+<apex:tabPanel id="MSAdditionalInfoTabs" width="1" contentStyle="background: #FFFFFF;" activeTabClass="activeTab" inactiveTabClass="tabHead">
+    
+    <apex:tab label="Product Detail" >
+        <apex:form >
+            <apex:dataTable value="{!sipThresholdSummary}" var="eaProd" id="eaThrshTable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" >
+                <apex:column >
+                    <apex:facet name="header" >Contract</apex:facet>
+                    {!eaProd.contract}              
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SIP Products</apex:facet>
+                    {!eaProd.sipProducts}  
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Total</apex:facet>
+                    <!-- USD&nbsp;{!eaProd.total} -->
+                    <apex:outputText value="{0, number, {!S_P_Vendors__c.Opportunity__r.CurrencyIsoCode} ###,###,###,###,##0.00}">
+                    <apex:param value="{!eaProd.total}"/>
+                    </apex:outputText><br/>
+                    <apex:outputText value="({0, number, {!userCurrency} ###,###,###,###,##0.00})" rendered="{!currencyCheck}">
+                    <apex:param value="{!eaProd.convertedTotal}"/>  
+                    </apex:outputText>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SIP Threshold Met?</apex:facet>
+                    {!eaProd.sipThrshldMet}  
+                </apex:column>
+            </apex:dataTable>
+            
+            <apex:outputPanel rendered="{!(!sipThreshNotEmpty)}">
+                <br/><br/><apex:outputText value="Products chosen are not eligible for any SIP Incentive." />
+            </apex:outputPanel> 
+            
+            <br/><br/><apex:commandButton action="{!previousPageSIP}" value=" Back " /><apex:commandButton action="{!finishWizardSIP}" value=" Finish " />
+            
+            <apex:outputPanel id="refresh" rendered="true">
+                <apex:outputPanel id="refresh1" rendered="{!refreshPage}">
+                     <script>
+                        window.top.location='/{!S_P_Vendors__c.id}';
+                     </script>
+                </apex:outputPanel>
+            </apex:outputPanel>
+            
+            
+            
+        </apex:form>
+    </apex:tab>
+</apex:tabPanel>
+</apex:outputPanel>    
+</apex:page>

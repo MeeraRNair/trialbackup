@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Partnertrack_Account_PQuotingAcc_False</fullName>
+    <active>true</active>
+    <description>PartnerTrack related account field Partner_Quoting_Account__c is False and Make it true</description>
+    <errorConditionFormula>AND( NOT(ISBLANK(Partner_Track__r.Primary_SMAffinity_Account__c)),
+	NOT(Partner_Track__r.Primary_SMAffinity_Account__r.Partner_Quoting_Account__c),not(isPickval(EMC_Operation__c, &apos;Deletion&apos;)))</errorConditionFormula>
+    <errorMessage>Related Account is not quoting enabled. Please contact Affinity team for making the account quoting enabled.</errorMessage>
+</ValidationRule>

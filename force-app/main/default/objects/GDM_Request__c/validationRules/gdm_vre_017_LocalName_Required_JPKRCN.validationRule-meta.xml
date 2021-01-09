@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>gdm_vre_017_LocalName_Required_JPKRCN</fullName>
+    <active>true</active>
+    <description>If Request Type is &apos;Create Account / Reactivate&apos; and Account Name &lt;&gt; empty, and Country is Japan, China, or Korea then Local Name is required</description>
+    <errorConditionFormula>AND (
+  
+   RecordType.Name == &quot;Create Account / Reactivate&quot;,
+    NOT ISBLANK(Account_Name__c ),
+    ISBLANK( Local_Account_Name__c ),
+    AND (
+          ISPICKVAL(Country__c, &quot;JP-JAPAN&quot;) ||
+          ISPICKVAL(Country__c, &quot;CN-CHINA&quot;) ||
+          ISPICKVAL(Country__c, &quot;KR-KOREA, REPUBLIC OF&quot;)
+      )
+
+)</errorConditionFormula>
+    <errorDisplayField>Local_Account_Name__c</errorDisplayField>
+    <errorMessage>(017) Local Account Name is required for China, Japan, and Korea.</errorMessage>
+</ValidationRule>

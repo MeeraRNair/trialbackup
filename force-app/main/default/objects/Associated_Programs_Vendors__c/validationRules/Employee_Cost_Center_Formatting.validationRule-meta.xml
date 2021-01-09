@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Employee_Cost_Center_Formatting</fullName>
+    <active>true</active>
+    <description>Employee Cost Center value with standard 4-4-6 format</description>
+    <errorConditionFormula>AND(NOT(REGEX(Employee_Cost_Center__c, &quot;[0-9]{4}-[0-9]{4}-[0-9]{6}&quot;)),  NOT(ISBLANK(Employee_Cost_Center__c)) )</errorConditionFormula>
+    <errorDisplayField>Employee_Cost_Center__c</errorDisplayField>
+    <errorMessage>Employee Cost Center must be in 9999-9999-999999 format.</errorMessage>
+</ValidationRule>

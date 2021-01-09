@@ -1,0 +1,79 @@
+<apex:page sidebar="false" showHeader="false" standardController="contact" extensions="LinkedPartnerTracksController" >
+    <apex:form >
+        
+        <apex:pageBlock id="Table">
+          <apex:pageMessages />
+            <center>
+        <apex:commandlink action="{!addTrack}" target="{!if(conObj.Enable_as_Partner_Group_Administrator__c=true,'','_blank')}">
+            <apex:commandButton value="{!$Label.Add_Remove_Partner_Tracks}"/>
+        </apex:commandLink>
+                
+        <apex:commandlink action="{!addAuditTracks}" target="_blank" rendered="{!!bPortalEnabled}">
+             <apex:commandButton value="{!$Label.Add_Remove_Audit_Tracks}" disabled="{!(ISBLANK(conObj.EligibleTracks__c))}"/>
+        </apex:commandLink>
+        </center>
+            <apex:pageBlockTable value="{!table}" var="co" >
+                <apex:column headervalue="{!$Label.Partner_Program_Track}">
+                    <apex:outputlink value="{!URLFOR($Action.Partner_Track__c.View, mapPartnerTrackDetails[co].Id)}" target="_blank" rendered="{!NOT(ISBLANK(mapPartnerTrackDetails[co])) && NOT(ISBLANK(mapPartnerTrackDetails[co].Id))}">{!mapPartnerTrackDetails[co].Track_Name__c}</apex:outputlink>
+                </apex:column>         
+              
+                <apex:column headervalue="{!$Label.Preferred_Track}">
+                    <apex:inputCheckbox value="{!bprefferedTrue}" disabled="true" rendered="{!IF(mapPartnerTrackDetails[co].Id==conObj.Preferred_Track__c,true,false)}"/>
+                    <apex:inputCheckbox value="{!bprefferedFalse}" disabled="true" rendered="{!IF(mapPartnerTrackDetails[co].Id!=conObj.Preferred_Track__c,true,false)}" />
+                </apex:column>
+                
+                <apex:column headervalue="{!$Label.Audit_Track}">
+                    <apex:inputCheckbox value="{!bprefferedTrue}" rendered="{!AND (NOT(ISBLANK(conObj.Audit_Track__c)),contains(conObj.Audit_Track__c,co))}" disabled="true" />
+                    <apex:inputCheckbox value="{!bprefferedFalse}" rendered="{!NOT(contains(conObj.Audit_Track__c,co))}" disabled="true" />
+                </apex:column>
+
+            </apex:pageBlockTable>
+                            <center>
+                            <apex:commandButton value="First" rerender="Table" action="{!FirstPage}" disabled="{!prev}"/>
+<apex:commandButton value="Previous" rerender="Table" action="{!previous}" disabled="{!prev}"/>
+<apex:commandButton value="Next" rerender="Table" action="{!next}" disabled="{!nxt}"/>
+<apex:commandButton value="Last" rerender="Table" action="{!LastPage}" disabled="{!nxt}"/> </center>
+
+ <apex:commandlink value="Show All" target="_blank" action="{!showall}"/>
+ 
+                    
+              <!--   {!inttotalrecs}
+                 {!intOffsetSize}
+                 {!intlimitSize}-->
+        </apex:pageBlock>
+     <!--   <apex:outputPanel rendered="{!baddtracks}">
+             <apex:pageblock title="Add\Remove Partner Tracks" >
+            <apex:pageBlockSection collapsible="false" id="admin1"  columns="1"  >
+                       
+             
+                              <apex:panelGrid columns="3" id="abcd" style="float:left;" >
+                                    <apex:selectList id="eligible_Track" value="{!leftSelected}" multiselect="true" size="10" styleClass="verticalLine" >
+                                       <apex:selectOptions value="{!EligibleTracks}"/>
+                                    </apex:selectList>
+                                              <apex:panelGroup style="padding-right:17px;" >
+                                                <br/>
+                                                   
+                                                 <apex:commandLink action="{!selectTrack}" id="moveright" reRender="admin1,eligible_Track,abcd">
+                                                     <apex:image value="{!$Resource.Multi_Select}" alt="Move Right" />
+                                                 </apex:commandLink> 
+                                               <br/><br/>
+                                                 <apex:commandLink action="{!unselectclick}" reRender="abcd" id="moveleft">
+                                                     <apex:image value="{!$Resource.Multi_Unselect}" alt="Move Left" />
+                                                 </apex:commandLink>
+                                            </apex:panelGroup>
+                                    <apex:selectList id="selected_Track" value="{!rightSelected}" multiselect="true" style="width:195px;" size="10" >
+                                        <apex:selectOptions value="{!EligibleTracksSelected}" />
+                                    </apex:selectList>
+                                      <apex:commandButton value="Save" action="{!savetracks}" />
+                                </apex:panelGrid><br/>
+                              
+                               </apex:pageBlockSection> 
+            
+            
+            
+         </apex:pageblock>   
+         </apex:outputPanel>-->
+    </apex:form>
+    
+    
+</apex:page>

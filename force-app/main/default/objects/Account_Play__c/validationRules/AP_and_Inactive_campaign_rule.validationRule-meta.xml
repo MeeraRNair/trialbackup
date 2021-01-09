@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AP_and_Inactive_campaign_rule</fullName>
+    <active>true</active>
+    <description>Account Play records should not be created for Inactive Campaigns</description>
+    <errorConditionFormula>AND(ISNEW(), NOT( Campaign__r.IsActive = TRUE ))</errorConditionFormula>
+    <errorDisplayField>Accept_Reject_Status__c</errorDisplayField>
+    <errorMessage>Account Play records should not be created for Inactive Campaigns</errorMessage>
+</ValidationRule>

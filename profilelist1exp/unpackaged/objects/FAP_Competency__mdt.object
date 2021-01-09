@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>FAP Competency Object functionality in Custom Metadata Types.</description>
+    <fields>
+        <fullName>Account_Competency__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>SubscriberControlled</fieldManageability>
+        <label>Account Competency</label>
+        <length>32768</length>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Region__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>SubscriberControlled</fieldManageability>
+        <label>Region</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>APJ</fullName>
+                    <default>true</default>
+                    <label>APJ</label>
+                </value>
+                <value>
+                    <fullName>EC-EMEA</fullName>
+                    <default>false</default>
+                    <label>EC-EMEA</label>
+                </value>
+                <value>
+                    <fullName>EMEA</fullName>
+                    <default>false</default>
+                    <label>EMEA</label>
+                </value>
+                <value>
+                    <fullName>LATAM</fullName>
+                    <default>false</default>
+                    <label>LATAM</label>
+                </value>
+                <value>
+                    <fullName>NA</fullName>
+                    <default>false</default>
+                    <label>NA</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Services_Comptency__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>SubscriberControlled</fieldManageability>
+        <label>Services Comptency</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>User_type__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>SubscriberControlled</fieldManageability>
+        <label>User type</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Authenticated</fullName>
+                    <default>true</default>
+                    <label>Authenticated</label>
+                </value>
+                <value>
+                    <fullName>Un-authenticated</fullName>
+                    <default>false</default>
+                    <label>Un-authenticated</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>FAP Competency</label>
+    <listViews>
+        <fullName>FAP_Competency</fullName>
+        <columns>Services_Comptency__c</columns>
+        <columns>Account_Competency__c</columns>
+        <columns>MasterLabel</columns>
+        <columns>DeveloperName</columns>
+        <columns>User_type__c</columns>
+        <columns>Region__c</columns>
+        <columns>IsProtected</columns>
+        <columns>NamespacePrefix</columns>
+        <filterScope>Everything</filterScope>
+        <label>FAP Competency</label>
+        <language>en_US</language>
+    </listViews>
+    <pluralLabel>FAP Competencies</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

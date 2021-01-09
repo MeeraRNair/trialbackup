@@ -1,0 +1,19 @@
+<apex:page standardController="Solution__c" extensions="SolutionRefreshCtrlExtn" lightningStylesheets="true">
+
+    <apex:sectionHeader title="Refresh solution" subtitle="Solution ID: {!Solution__c.OSC_Regional_ID__c}"/>
+    <apex:form >
+        <apex:pageBlock title="Integration Result"> 
+            <apex:pageMessages />  
+            
+            <apex:pageBlockTable value="{!responseList}" var="result" id="thePageBlockTable" rendered="{!validResult}" >
+                <apex:column headerValue="Field" value="{!result.label}"/>
+                <apex:column headerValue="Value" value="{!result.value}"/>
+            </apex:pageBlockTable>
+          
+            <apex:pageBlockButtons location="bottom">                   
+                <apex:commandButton value="Back" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+            
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

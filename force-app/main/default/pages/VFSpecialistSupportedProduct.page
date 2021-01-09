@@ -1,0 +1,76 @@
+<!-- <apex:page Extensions="VFCntrlr_Specialist_Supported_Product" standardController="Specialist_Supported_Products__c" showheader="true" id="USPPageId">-->
+<!-- * 
+* Revision CR Number   Release No      Date            Modified By     Description
+* -------- ---------   ----------      -----------     ------------    -----------
+* 1.0 -    CR 16393        FY19-DCS-1002   24-Aug-2018:    Raveena Bhagat      added 'lightningStylesheets' attribute for apex component to make the page lightening friendly as part of story 5495401 and changed the Cancel button width from 55px to 70px.
+*/-->
+
+
+<apex:page Controller="VFCntrlr_Specialist_Supported_Product" lightningStylesheets="true" showheader="true" id="USPPageId">
+    <apex:form id="theform">
+        <apex:pageBlock id="errorBlock" title="Specialist Supported Product" rendered="{!IF(canProceed, false, true)}">
+            <apex:pageMessages />
+            <br/>
+            <apex:commandButton value="Cancel" action="{!cancel}" immediate="true"/>
+        </apex:pageBlock>
+        <apex:pageBlock id="submitBlock" title="Update Supported Products" rendered="{!IF(canProceed, true, false)}" mode="edit">
+        
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Go" action="{!nextAction}" disabled="{!!goBtnRender}" reRender="theform" style="width:55px;"/>   
+                <!--<apex:commandButton value="Cancel" action="{!cancel}" disabled="{!!goBtnRender}" immediate="true" />-->
+            </apex:pageBlockButtons>
+            <apex:pageMessages />
+            
+                    <apex:PageBlockSection columns="1" id="filterBlockSectionId">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel style="margin-left:56px"><u><b>Filter Criteria</b></u></apex:outputLabel>
+                        </apex:pageBlockSectionItem>
+                        <br/>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel >Opportunity Team Member</apex:outputLabel>
+                            <apex:selectList size="1" multiselect="false" value="{!oppTeamMemSelected}" id="oppTeamMemPick">
+                                 <apex:selectOptions value="{!OppTeamMembersList}" id="oppTeamMemValue"/>
+                            </apex:selectList>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel >Opportunity Product</apex:outputLabel>
+                            <apex:selectList size="1" multiselect="false" value="{!oppProductsSelected}" id="oppPrdPick">
+                                 <apex:selectOptions value="{!OppProductsList}" id="oppPrdValue"/>
+                            </apex:selectList>
+                        </apex:pageBlockSectionItem>
+                    </apex:PageBlockSection>
+                            
+        </apex:pageBlock>
+        
+                
+        <apex:pageBlock id="SSPListBlock">         
+                        
+            <apex:pageBlockTable id="listViewTableId" value="{!splSuppotedPrdList}" var="varSplSuppPrd" rendered="{!!goBtnRender}">
+                <apex:column headerValue="Opportunity Team Member" value="{!varSplSuppPrd.oppTeamMemName}" />
+                <apex:column headerValue="Opportunity Product">
+                    <!-- <apex:outputLink onclick="window.open('/{!varSplSuppPrd.prdId}', '_blank');">{!varSplSuppPrd.prdName}</apex:outputLink> -->
+                    <apex:outputLink value="/{!varSplSuppPrd.oppProdId}" target="_blank">{!varSplSuppPrd.prdName}</apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Product Line Desc" value="{!varSplSuppPrd.prdLineDesc}" />
+                <apex:column headerValue="Supporting?">
+                     <apex:selectList value="{!varSplSuppPrd.supportingSelection}" size="1"> 
+                           <apex:selectOptions value="{!supporingPicklistItems}"/>
+                     </apex:selectList>                     
+                </apex:column>                
+            </apex:pageBlockTable>
+            
+            <apex:pageBlockButtons location="bottom" rendered="{!IF(goBtnRender==false || SSPList.size!=null,true,false)}">
+                    <apex:commandButton id="save" value="Save" Title="Save" action="{!save}" style="width:55px;"/>
+                    <apex:commandButton id="cancelListId" value="Reset" action="{!cancelListView}" reRender="theform" style="width:55px;"/> 
+             
+            </apex:pageBlockButtons>
+            
+        </apex:pageBlock>
+        
+        <apex:pageBlock >
+            <apex:pageBlockButtons location="bottom" >
+                <apex:commandButton value="Cancel" action="{!cancel}" immediate="true" style="width:70px;"/>
+            </apex:pageBlockButtons>    
+        </apex:pageBlock>       
+    </apex:form>
+</apex:page>

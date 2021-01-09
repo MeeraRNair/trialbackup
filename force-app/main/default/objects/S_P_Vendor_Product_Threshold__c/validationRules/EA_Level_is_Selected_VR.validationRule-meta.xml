@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EA_Level_is_Selected_VR</fullName>
+    <active>true</active>
+    <description>If Level is EA, then the Agreement Level, Percentage, Threshold Required fields must be specified.</description>
+    <errorConditionFormula>AND(   ISPICKVAL( Level__c , &quot;EA&quot;) ,  OR(ISBLANK(Agreement_Level__c  ),  ISBLANK(Percentage__c )  ,  Threshold_Required__c = false))</errorConditionFormula>
+    <errorMessage>If Level is EA, then the Agreement Level, Percentage, Threshold Required fields must be specified.</errorMessage>
+</ValidationRule>

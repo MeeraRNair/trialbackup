@@ -1,0 +1,493 @@
+<apex:page standardController="S_P_Vendors__c" extensions="SnPCustomEditController">
+    <apex:includeScript value="{!URLFOR($Resource.SnPJQueryUI, '/development-bundle/jquery-1.8.2.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.SnPJQueryUI, '/js/jquery-1.8.2.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.SnPJQueryUI, '/js/jquery-ui-1.8.24.custom.min.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.SnPJQueryUI, '/css/smoothness/jquery-ui-1.8.24.custom.css')}"/>
+    <style>
+        .ui-hidden {
+            display: none;
+        }
+        
+        .ui-dialog {
+            width: 400px;
+        }
+        
+        .popupLabel {
+            font-family: Tahoma; 
+            font-size: 11px;
+            font-weight: bold;
+            color: #4A4A4A;
+        }
+        
+        #floatingBarsG{
+            margin-left: 170px;
+            position:relative;
+            width:44px;
+            height:55px}
+            
+         .blockG{
+            position:absolute;
+            background-color:#FFFFFF;
+            width:7px;
+            height:17px;
+            -moz-border-radius:6px 6px 0 0;
+            -moz-transform:scale(0.4);
+            -moz-animation-name:fadeG;
+            -moz-animation-duration:0.96s;
+            -moz-animation-iteration-count:infinite;
+            -moz-animation-direction:linear;
+            -webkit-border-radius:6px 6px 0 0;
+            -webkit-transform:scale(0.4);
+            -webkit-animation-name:fadeG;
+            -webkit-animation-duration:0.96s;
+            -webkit-animation-iteration-count:infinite;
+            -webkit-animation-direction:linear;
+            -ms-border-radius:6px 6px 0 0;
+            -ms-transform:scale(0.4);
+            -ms-animation-name:fadeG;
+            -ms-animation-duration:0.96s;
+            -ms-animation-iteration-count:infinite;
+            -ms-animation-direction:linear;
+            -o-border-radius:6px 6px 0 0;
+            -o-transform:scale(0.4);
+            -o-animation-name:fadeG;
+            -o-animation-duration:0.96s;
+            -o-animation-iteration-count:infinite;
+            -o-animation-direction:linear;
+            border-radius:6px 6px 0 0;
+            transform:scale(0.4);
+            animation-name:fadeG;
+            animation-duration:0.96s;
+            animation-iteration-count:infinite;
+            animation-direction:linear;
+         }
+            
+         #rotateG_01{
+            left:0;
+            top:20px;
+            -moz-animation-delay:0.36s;
+            -moz-transform:rotate(-90deg);
+            -webkit-animation-delay:0.36s;
+            -webkit-transform:rotate(-90deg);
+            -ms-animation-delay:0.36s;
+            -ms-transform:rotate(-90deg);
+            -o-animation-delay:0.36s;
+            -o-transform:rotate(-90deg);
+            animation-delay:0.36s;
+            transform:rotate(-90deg);
+         }
+            
+         #rotateG_02{
+            left:6px;
+            top:7px;
+            -moz-animation-delay:0.48s;
+            -moz-transform:rotate(-45deg);
+            -webkit-animation-delay:0.48s;
+            -webkit-transform:rotate(-45deg);
+            -ms-animation-delay:0.48s;
+            -ms-transform:rotate(-45deg);
+            -o-animation-delay:0.48s;
+            -o-transform:rotate(-45deg);
+            animation-delay:0.48s;
+            transform:rotate(-45deg);
+         }
+            
+         #rotateG_03{
+            left:18px;
+            top:2px;
+            -moz-animation-delay:0.6s;
+            -moz-transform:rotate(0deg);
+            -webkit-animation-delay:0.6s;
+            -webkit-transform:rotate(0deg);
+            -ms-animation-delay:0.6s;
+            -ms-transform:rotate(0deg);
+            -o-animation-delay:0.6s;
+            -o-transform:rotate(0deg);
+            animation-delay:0.6s;
+            transform:rotate(0deg);
+         }
+            
+         #rotateG_04{
+            right:6px;
+            top:7px;
+            -moz-animation-delay:0.72s;
+            -moz-transform:rotate(45deg);
+            -webkit-animation-delay:0.72s;
+            -webkit-transform:rotate(45deg);
+            -ms-animation-delay:0.72s;
+            -ms-transform:rotate(45deg);
+            -o-animation-delay:0.72s;
+            -o-transform:rotate(45deg);
+            animation-delay:0.72s;
+            transform:rotate(45deg);
+         }
+            
+         #rotateG_05{
+            right:0;
+            top:20px;
+            -moz-animation-delay:0.8400000000000001s;
+            -moz-transform:rotate(90deg);
+            -webkit-animation-delay:0.8400000000000001s;
+            -webkit-transform:rotate(90deg);
+            -ms-animation-delay:0.8400000000000001s;
+            -ms-transform:rotate(90deg);
+            -o-animation-delay:0.8400000000000001s;
+            -o-transform:rotate(90deg);
+            animation-delay:0.8400000000000001s;
+            transform:rotate(90deg);
+         }
+            
+         #rotateG_06{
+            right:6px;
+            bottom:5px;
+            -moz-animation-delay:0.96s;
+            -moz-transform:rotate(135deg);
+            -webkit-animation-delay:0.96s;
+            -webkit-transform:rotate(135deg);
+            -ms-animation-delay:0.96s;
+            -ms-transform:rotate(135deg);
+            -o-animation-delay:0.96s;
+            -o-transform:rotate(135deg);
+            animation-delay:0.96s;
+            transform:rotate(135deg);
+         }
+            
+         #rotateG_07{
+            bottom:0;
+            left:18px;
+            -moz-animation-delay:1.0799999999999998s;
+            -moz-transform:rotate(180deg);
+            -webkit-animation-delay:1.0799999999999998s;
+            -webkit-transform:rotate(180deg);
+            -ms-animation-delay:1.0799999999999998s;
+            -ms-transform:rotate(180deg);
+            -o-animation-delay:1.0799999999999998s;
+            -o-transform:rotate(180deg);
+            animation-delay:1.0799999999999998s;
+            transform:rotate(180deg);
+         }
+            
+         #rotateG_08{
+            left:6px;
+            bottom:5px;
+            -moz-animation-delay:1.2s;
+            -moz-transform:rotate(-135deg);
+            -webkit-animation-delay:1.2s;
+            -webkit-transform:rotate(-135deg);
+            -ms-animation-delay:1.2s;
+            -ms-transform:rotate(-135deg);
+            -o-animation-delay:1.2s;
+            -o-transform:rotate(-135deg);
+            animation-delay:1.2s;
+            transform:rotate(-135deg);
+         }
+            
+            @-moz-keyframes fadeG{
+            0%{
+            background-color:#8881EB}
+            
+            100%{
+            background-color:#FFFFFF}
+            
+            }
+            
+            @-webkit-keyframes fadeG{
+            0%{
+            background-color:#8881EB}
+            
+            100%{
+            background-color:#FFFFFF}
+            
+            }
+            
+            @-ms-keyframes fadeG{
+            0%{
+            background-color:#8881EB}
+            
+            100%{
+            background-color:#FFFFFF}
+            
+            }
+            
+            @-o-keyframes fadeG{
+            0%{
+            background-color:#8881EB}
+            
+            100%{
+            background-color:#FFFFFF}
+            
+            }
+            
+            @keyframes fadeG{
+            0%{
+            background-color:#8881EB}
+            
+            100%{
+            background-color:#FFFFFF}
+            
+            }
+    </style>
+    <script>            
+        var j$=jQuery.noConflict();
+        j$(document).ready(function(){
+            j$( ".conName" ).autocomplete({
+                source: {!contactList}
+            });
+            
+            //Hiding criteria for dependent fields
+            if(j$( ".region" ).val() != "North America")
+                j$( ".regionChildPT" ).hide(); // Hide initially
+            
+            if(j$( ".region" ).val() == "LATAM" || j$( ".region" ).val() == "Other" ||
+               j$( ".region" ).val() == "")
+                j$( ".regionChildLS" ).hide(); // Hide initially
+                
+            var countryWithStateList = [
+                "UNITED STATES",
+                "CANADA"
+            ];
+            
+            if(j$.inArray(j$( ".country" ).val(), countryWithStateList) == -1)
+                j$( ".countryChild" ).hide();
+        
+            j$( "#floatingBarsG" ).hide();
+            
+            j$( ".F5PopUp" ).dialog({
+                height: 300,
+                width: 400,
+                modal: true,
+                resizable: false,
+                draggable: false,
+                closeOnEscape: false,
+                autoOpen: false,
+                title: "Contact Details",
+                hide: "blind",
+                show: "blind"
+            });            
+            
+            j$( ".conName" ).dblclick(function(){
+                assignContact(j$( ".conNamePopUp" ).val());
+                j$( "#contactDetails" ).hide();
+                j$( "#floatingBarsG" ).show();
+                if({!NOT(isEmptyContact)}) {
+                    j$( ".F5PopUp" ).dialog( "open" );
+                    setTimeout(function(){
+                        j$( ".conPhonePopUp" ).val(j$( ".conPhoneHidden" ).val());
+                        j$( ".conEmailPopUp" ).val(j$( ".conEmailHidden" ).val());
+                        j$( ".conRolePopUp" ).val(j$( ".conRoleHidden" ).val());
+                        j$( "#floatingBarsG" ).hide();
+                        j$( "#contactDetails" ).show("slide");
+                    }, 2500);
+                } else {
+                    alert("This account does not have any saved Contacts\nin Account Detail.\nPlease enter contact information manually.");
+                }
+            });
+            
+            j$( ".conNamePopUp" ).change(function(){
+                assignContact(j$( ".conNamePopUp" ).val());
+                j$( "#contactDetails" ).hide("slide");
+                j$( "#floatingBarsG" ).show();
+                setTimeout(function(){
+                    j$( ".conPhonePopUp" ).val(j$( ".conPhoneHidden" ).val());
+                    j$( ".conEmailPopUp" ).val(j$( ".conEmailHidden" ).val());
+                    j$( ".conRolePopUp" ).val(j$( ".conRoleHidden" ).val());
+                    j$( "#floatingBarsG" ).hide();
+                    j$( "#contactDetails" ).show("slide");
+                }, 2500);
+            });
+            
+            j$( ".okPopUp" ).click(function(){
+                j$( ".conName" ).val(j$( ".conNamePopUp" ).val());
+                j$( ".conPhone" ).val(j$( ".conPhonePopUp" ).val());
+                j$( ".conEmail" ).val(j$( ".conEmailPopUp" ).val());
+                j$( ".conRole" ).val(j$( ".conRolePopUp" ).val());
+                j$( ".F5PopUp" ).dialog( "close" );
+                j$( ".conName" ).focus();
+            });
+            
+            j$( ".cancelPopUp" ).click(function(){
+                j$( ".F5PopUp" ).dialog( "close" );
+                j$( ".conName" ).focus();
+            });
+            
+            /** 
+              * for dependent field "show and hide"
+              */
+            j$( ".region" ).change(function(){
+                if(j$( ".region" ).val() != "North America")
+                    j$( ".regionChildPT" ).hide();
+                else
+                    j$( ".regionChildPT" ).show();
+            
+                if(j$( ".region" ).val() == "LATAM" || j$( ".region" ).val() == "Other" ||
+                   j$( ".region" ).val() == "")
+                    j$( ".regionChildLS" ).hide();
+                else
+                    j$( ".regionChildLS" ).show();
+            });
+            
+            j$( ".country" ).change(function(){
+                if(j$.inArray(j$( ".country" ).val(), countryWithStateList) == -1)
+                    j$( ".countryChild" ).hide();
+                else
+                    j$( ".countryChild" ).show();
+            });
+        });
+    </script>
+    <apex:sectionHeader title="S&P Vendors" subtitle="{!S_P_Vendors__c.Name}"/>
+    <apex:pageMessages />
+    <apex:form >
+        <apex:outputPanel id="hiddenFields">
+            <div class="ui-hidden">
+                <apex:inputField styleClass="conPhoneHidden" value="{!S_P_Vendors__c.Phone__c}" />
+                <apex:inputField styleClass="conEmailHidden" value="{!S_P_Vendors__c.Email__c}" />
+                <apex:inputField styleClass="conRoleHidden" value="{!S_P_Vendors__c.Role__c}" />
+            </div>
+        </apex:outputPanel>
+    </apex:form>
+    
+    <apex:form >
+        <apex:actionFunction name="assignContact" action="{!assignContact}" reRender="hiddenFields">
+            <apex:param name="conName" value=""/>
+        </apex:actionFunction>
+        <apex:outputPanel styleClass="F5PopUp">
+           <apex:pageBlock mode="maindetail">
+                <apex:pageBlockSection columns="1">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Contact Name" for="conNamePopUp" styleClass="popupLabel" />
+                        <apex:selectList id="conNamePopUp" styleClass="conNamePopUp" style="width: 150px;" size="1">
+                            <apex:selectOptions value="{!contactOptionList}" />
+                        </apex:selectList>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                <center>
+                    <font color="red" size="1">
+                        Please wait for Phone, Email, and Role fields to be displayed    
+                    </font>
+                </center>
+            </apex:pageBlock>
+            <div id="contactDetails">
+                <apex:pageBlock mode="maindetail">
+                    <apex:pageBlockSection columns="1">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Phone" for="conPhonePopUp" styleClass="popupLabel" />
+                            <apex:inputField styleClass="conPhonePopUp" id="conPhonePopUp" value="{!S_P_Vendors__c.Phone__c}" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Email" for="conEmailPopUp" styleClass="popupLabel" />
+                            <apex:inputField styleClass="conEmailPopUp" id="conEmailPopUp" value="{!S_P_Vendors__c.Email__c}" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Role" for="conRolePopUp" styleClass="popupLabel" />
+                            <apex:inputField styleClass="conRolePopUp" id="conRolePopUp" value="{!S_P_Vendors__c.Role__c}" />
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </div>
+            <div id="floatingBarsG">
+                <div class="blockG" id="rotateG_01">
+                </div>
+                <div class="blockG" id="rotateG_02">
+                </div>
+                <div class="blockG" id="rotateG_03">
+                </div>
+                <div class="blockG" id="rotateG_04">
+                </div>
+                <div class="blockG" id="rotateG_05">
+                </div>
+                <div class="blockG" id="rotateG_06">
+                </div>
+                <div class="blockG" id="rotateG_07">
+                </div>
+                <div class="blockG" id="rotateG_08">
+                </div>
+            </div><br />
+            <apex:commandButton styleClass="okPopUp" value="   OK   " style="margin-left: 140px;"/>
+            <apex:commandButton styleClass="cancelPopUp" value="  Cancel  "/> <br /><br />
+        </apex:outputPanel>
+    </apex:form>
+    <!-- F5 Edit Page Layout --> 
+    <apex:outputPanel id="F5Panel">
+        <apex:form id="F5Form">
+            <div class="ui-hidden">
+                {!S_P_Vendors__c.Opportunity__c}
+                {!S_P_Vendors__c.Opportunity__r.AccountId}
+                <apex:inputField value="{!S_P_Vendors__c.Country_Name__c}"/>
+            </div>
+            <apex:pageBlock id="F5Block" title="S&P Vendors Edit">
+                <apex:pageBlockButtons >
+                    <apex:commandButton action="{!saveF5}" value="Save & Submit"/>
+                    <apex:commandButton action="{!save}" value="Save Draft"/>
+                    <apex:commandButton action="{!cancel}" value="Cancel"/>
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection id="F5Section" title="F5 Deal Information" columns="2" collapsible="false">
+                    <apex:inputField value="{!S_P_Vendors__c.Opportunity__c}" id="opp"/>   
+                    <apex:inputField value="{!S_P_Vendors__c.Customer_Name__c}" required="true"/>          
+                    <apex:inputField value="{!S_P_Vendors__c.Name}"/>
+                    <apex:inputField styleClass="conName" value="{!S_P_Vendors__c.Contact_Name__c}" required="true" />
+                    <apex:inputField value="{!S_P_Vendors__c.S_P_Vendors_Name__c}"/>
+                    <apex:inputField styleClass="conPhone" value="{!S_P_Vendors__c.Phone__c}" required="true"/>
+                    <apex:inputField value="{!S_P_Vendors__c.Qualified_for_S_P_Deal_Reg_Program__c}"/>
+                    <apex:inputField styleClass="conEmail" value="{!S_P_Vendors__c.Email__c}" required="true"/>
+                    <apex:inputField value="{!S_P_Vendors__c.S_P_Deal_Status__c}"/>
+                    <apex:inputField styleClass="conRole" value="{!S_P_Vendors__c.Role__c}" required="true"/>
+                    <apex:inputField value="{!S_P_Vendors__c.Rejection_Reason__c}"/>
+                    <apex:inputField value="{!S_P_Vendors__c.Ship_to_Address__c}" required="true"/>
+                    <apex:inputField value="{!S_P_Vendors__c.Vendor_Approval_Number__c}"/>
+                    <apex:inputField styleClass="country" value="{!S_P_Vendors__c.Country__c}" required="true"/>
+                    <apex:inputField value="{!S_P_Vendors__c.Vendor_Tracking_Number__c}"/>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="State" for="tate"/>
+                        <apex:outputPanel layout="block" styleClass="countryChild">
+                            <apex:inputField value="{!S_P_Vendors__c.State__c}" id="tate" required="true" />
+                            <img src="/img/msg_icons/info16.png" title="Depends on 'Country'"/>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:inputField value="{!S_P_Vendors__c.Deal_Expiration_Date__c}"/>
+                    <apex:inputField value="{!S_P_Vendors__c.City__c}" required="true"/>
+                    <apex:inputField value="{!S_P_Vendors__c.Total_NET__c}"/>
+                    <apex:inputField value="{!S_P_Vendors__c.Zip__c}" required="true"/>
+                    <apex:inputField value="{!S_P_Vendors__c.How_did_you_uncover_this_opportunity1__c}" required="true"/>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Distributor Name" for="dist"/>
+                        <apex:outputPanel layout="block">
+                            <apex:inputField value="{!S_P_Vendors__c.Distributor_Name__c}" id="dist" required="true" />
+                            <img src="/img/msg_icons/info16.png" class="distInfo" title="Depends on 'Country Name'"/>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:inputField value="{!S_P_Vendors__c.Sales_Activities_to_Date__c}" required="true"/>
+                    <apex:inputField value="{!S_P_Vendors__c.Application_Vendor__c}" required="true"/>
+                    <apex:inputField value="{!S_P_Vendors__c.Other__c}"/>
+                    <apex:inputField value="{!S_P_Vendors__c.Business_Type__c}" required="true"/>
+                    <apex:inputField value="{!S_P_Vendors__c.Missing_Segment__c}"/>
+                    <apex:inputField value="{!S_P_Vendors__c.Project_Description__c}" required="true"/>
+                    <apex:inputField value="{!S_P_Vendors__c.Automated__c}"/>
+                    <apex:inputField value="{!S_P_Vendors__c.Website__c}" required="true"/>
+                    <apex:inputField value="{!S_P_Vendors__c.Sent_to_Vendor_Date__c}"/>
+                    <apex:inputField value="{!S_P_Vendors__c.Industry__c}" required="true"/>
+                    <apex:inputField value="{!S_P_Vendors__c.Response_from_Vendor_Date__c}"/>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Product Type" for="pt"/>
+                        <apex:outputPanel layout="block" styleClass="regionChildPT">
+                            <apex:inputField value="{!S_P_Vendors__c.Product_Type__c}" id="pt" required="true"/>
+                            <img src="/img/msg_icons/info16.png" title="Depends on 'Region'"/>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:inputField value="{!S_P_Vendors__c.Sales_Rep_s_Phone__c}" required="true"/>
+                    <apex:inputField value="{!S_P_Vendors__c.Estimated_Closed_Date__c}" required="true"/>
+                    <apex:inputField styleClass="region" value="{!S_P_Vendors__c.Region__c}" id="regionField"/>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Lead Source" for="ls"/>
+                        <apex:outputPanel layout="block" styleClass="regionChildLS">
+                            <apex:inputField value="{!S_P_Vendors__c.Lead_Source__c}" id="ls" required="true"/>
+                            <img src="/img/msg_icons/info16.png" title="Depends on 'Region'"/>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                <script>
+                    document.getElementById('{!$Component.F5Section.regionField}').disabled = true;
+                </script>
+            </apex:pageBlock>
+        </apex:form>
+    </apex:outputPanel>
+</apex:page>

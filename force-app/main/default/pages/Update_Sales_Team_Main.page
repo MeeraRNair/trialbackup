@@ -1,0 +1,76 @@
+<apex:page Controller="VFCntrlr_UpdateSalesTeamMain" lightningStyleSheets="true" Title="Update Sales Team" tabStyle="Opportunity" >
+    <apex:sectionHeader title="Opportunity :  {!Opportunity.name}"  rendered="{!DataAvailable}" subtitle="Update Sales Team"></apex:sectionHeader>
+    
+    <apex:form id="myform" >
+        <apex:pageMessages />
+        <apex:pageBlock title="Insufficient Privilege" rendered="{!AND(DataAvailable,NOT(IsTeamMember))}">
+            
+            <apex:pageBlockButtons location="bottom" > 
+                <apex:commandButton value="Back" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+            <!-- action="{!add}"    -->
+            You are not a Sales Team Member. So you do not have the privilege to update the Sales Team.
+            
+        </apex:pageBlock> 
+        
+        <apex:pageBlock title="Sales Team" rendered="{!IsTeamMember}" id="Pgblock">
+            <apex:pageMessages />   
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Add" Title="Add new sales Team Members" action="{!add}"/> <!-- action="{!add}"  -->
+                
+                
+                
+                <!-- 2008/09/12 - AL - Remove Add Default Team and Delete All buttons -->
+                <!--
+<apex:commandButton value="Add Default Team" Title="Adds the default team of the Opportunity Owner" 
+Onclick="document.getElementById('ProcessNote').style.display='block';" rerender="myform" 
+action="{!AddDefaultTeam}" oncomplete="document.getElementById('ProcessNote').style.display='none';" />
+
+<apex:commandButton value="Delete All" Onclick="if(!confirm('Are you sure?'))return false;document.getElementById('ProcessNote').style.display='block';" action="{!DeleteAll}" Title="Delete all the Team Members"/>
+-->
+                <!-- 2008/09/12 - AL - End -->
+                
+                
+                
+                <apex:commandButton value="Cancel" action="{!cancel}"  Title="Cancel"/>
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockTable value="{!OpportunityTeamMembers}" var="TeamMember" rendered="{!NOT(NoTeamMembers)}" >
+                <apex:column headerValue="Action"><b>
+                    <apex:outputLink value="/apex/edit_salesteammember?id={!TeamMember.id}&oid={!TeamMember.opportunityId}" Title="Edit">
+                        Edit
+                    </apex:outputLink>
+                    &nbsp;| &nbsp;
+                    <apex:commandLink value="Del" Title="Delete" 
+                                      Onclick="if(!confirm('Are you sure?'))return false;document.getElementById('ProcessNote').style.display='block';" 
+                                      action="{!DeleteTeamMember}" reRender="myform" 
+                                      oncomplete="document.getElementById('ProcessNote').style.display='none';">
+                        
+                        <!-- Onclick="return confirm('Are you sure?')"     ='block'   <b>|</b>-->
+                        <apex:param name="TMId" value="{!TeamMember.id}" />
+                    </apex:commandLink>
+                    </b>
+                </apex:column>
+                <apex:column value="{!TeamMember.Userid}" headerValue="Team Member"/>
+                <apex:column value="{!TeamMember.OpportunityAccessLevel}"/>
+                <apex:column value="{!TeamMember.TeamMemberRole}"/>
+                <apex:column value="{!TeamMember.Primary_Secondary_Specialty_SE__c}"/>
+            </apex:pageBlockTable>
+            <apex:outputText rendered="{!NoTeamMembers}"  value="No records to display"/>                     
+            
+        </apex:pageBlock> 
+        
+        <apex:pageBlock title="Error" rendered="{!NOT(DataAvailable)}">
+            Data not available! 
+            <apex:pageBlockButtons location="bottom" > 
+                <apex:commandButton value="Back" action="{!Cancel}"/>
+            </apex:pageBlockButtons>    
+        </apex:pageBlock>
+        
+        
+    </apex:form>
+    
+    
+    
+    <div id="ProcessNote" style="display:none">Processing... Please wait </div>
+</apex:page>

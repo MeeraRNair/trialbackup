@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Available_actions__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(( $Profile.Id = &apos;00eA0000000hNqj&apos; || $Profile.Id =&apos;00eA0000000hNrY&apos;||$Profile.Id =&apos;00eA0000000hNqe&apos; || $Profile.Id =&apos;00e30000000nJ6K&apos; ) &amp;&amp; 
+(ISPICKVAL(Vendor__r.Partner_Status__c, &apos;Active&apos;)) &amp;&amp; (ISPICKVAL( Contract_Type__c, &apos;Volume Based, Ala Carte, Headcount&apos;)), 
+HYPERLINK(&apos;/apex/MarketingResults?id=&apos;&amp;Id , IMAGE(&quot;/resource/1298546011000/GenerateInvoicePackage&quot;, &apos;Generate Invoice Package&apos;),&apos;_parent&apos;) , 
+&apos;[No Action Available]&apos;)</formula>
+    <label>Available action(s)</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

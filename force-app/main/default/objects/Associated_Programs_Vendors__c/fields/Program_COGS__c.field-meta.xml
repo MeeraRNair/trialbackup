@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Program_COGS__c</fullName>
+    <description>Used for &apos;Segment Guidance Summary report&apos;</description>
+    <externalId>false</externalId>
+    <formula>IF (( MP_Contract_Type__c = &apos;Volume Based&apos;), Budgeted_Price__c ,0 )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Program COGS</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

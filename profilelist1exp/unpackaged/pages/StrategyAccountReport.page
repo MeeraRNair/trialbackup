@@ -1,0 +1,18 @@
+<!-- * 
+* Revision CR Number   Release No      Date            Created By     Description
+* -------- ---------   ----------      -----------     ------------    -----------
+* 1.0 -    CR 16584   FY19-DCS-1101   02-Oct-2018   Raveena Bhagat    Created VF page to make the report open in lightening as part of story 5599172
+*/-->
+
+
+<apex:page Standardcontroller="SFDC_Strategy__c">
+   <script>    
+    if(UITheme.getUITheme() == 'Theme3'){
+    
+        window.location.href = '/00OA0000005QhKu?pv0={!LEFT(SFDC_Strategy__c.SFDC_Acct_Plan__r.Account__c, 15)}';
+    } else {
+        window.location.href = '/lightning/r/Report/00OA0000005QhKu/view?fv0={!SFDC_Strategy__c.SFDC_Acct_Plan__r.Account__c}';
+    }
+        
+    </script>        
+</apex:page>

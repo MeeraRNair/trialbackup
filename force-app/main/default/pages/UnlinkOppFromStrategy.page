@@ -1,0 +1,25 @@
+<apex:page standardController="Opportunity" extensions="UnlinkOppFromStrategyCtrl" action="{!unlink}" lightningStylesheets="true">
+    
+    <apex:form id="oppForm">
+    
+        <apex:pageBlock title="This Opportunity cannot be unlinked due to the following error:" rendered="{!showError}">
+            <apex:PageMessages />
+            <br/>
+            <apex:commandLink action="{!back}">Back</apex:commandLink>   
+        </apex:pageBlock>
+                      
+    </apex:form>     
+    <script>
+        //        window.parent.location = '/'+'{!strategyId}';
+          
+           if('{!showError}' == 'false'){
+           if((typeof sforce != 'undefined') && sforce && (!!sforce.one)){
+                sforce.one.back(true);
+
+            } else {
+                window.parent.location = '/'+'{!strategyId}';
+            }
+}
+</script>    
+    
+</apex:page>

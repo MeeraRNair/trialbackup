@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_unpublished_Sales_Motions</fullName>
+    <columns>NAME</columns>
+    <columns>IsActive__c</columns>
+    <columns>Domain__c</columns>
+    <columns>Solution_Type__c</columns>
+    <columns>Solution_Name__c</columns>
+    <columns>Product__c</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>IsActive__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>All unpublished Sales Motions</label>
+    <language>en_US</language>
+</ListView>

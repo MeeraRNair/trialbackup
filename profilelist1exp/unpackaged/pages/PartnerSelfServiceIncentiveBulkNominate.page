@@ -1,0 +1,31 @@
+<!--
+REVISION HISTORY
+================
+Version     Author      Date            Release#       CR#     Description
+-------     ------      ----            --------        ---     -----------
+1.0         Fenny       19-Nov-2012     14.2           7863    A page on partner portal, also accessible from Account.Invite_account_contacts_for_incentives field
+2.0         Yeswanth    14-Sep-2018     FY19-DCE-1101  16486   STORY 5447994:-VTX: Modify Invite new Partner Contacts Page - User Section
+2.1         Pavan       18-Sep-2018     FY19-DCE-1101  16488   Story 5461301: Modify Invite new Partner Contacts Page - Search Section
+2.2         Suresh      18-Sep-2018     FY19-DCE-1101  16489   STORY 5504472:-VTX: Modify Invite new Partner Contacts Page - SAVE confirmation message
+-->
+<apex:page showHeader="true" standardStylesheets="true"  sidebar="{!isPermittedUser}" showheader="{!isPermittedUser}" controller="Vfcntrl_ManageMyRewardsPage">
+<apex:pageMessages id="errorMsg" escape="false"  />
+<apex:outputPanel rendered="{!isPermittedUser || bisPartnerAdmin }">
+<apex:includeScript value="{!$Site.BaseUrl}/lightning/lightning.out.js?v=2"/>
+<!--<apex:includeLightning />-->
+<div id="lightning"/> 
+<script>
+    //inject the lightning component.
+      $Lightning.use("c:ManageMyRewardsApp", function() {
+          $Lightning.createComponent("c:ManageMyRewardsCmp",{recordId:'{!givenAccountId}',
+                                                             permittedUser: '{!isPermittedUser}',
+                                                             partnerAdmin: '{!bisPartnerAdmin }',
+                                                             partnerTrackId:'{!str_PartnerTrackId}',
+                                                             str_Selectedtrack : '{!str_Selectedtrack}'
+                                                             },
+                                                             "lightning", function(cmp) {
+          });
+        });
+</script>
+</apex:outputPanel>
+</apex:page>

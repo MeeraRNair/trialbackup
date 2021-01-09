@@ -1,0 +1,539 @@
+<!-- 
+REVISION HISTORY
+================
+Version     Author      Date            Release#    CR#     Description
+-------     ------      ----            --------    ---     -----------
+1.0         TK Chin     17-Apr-2013     14.5        8023    Start versioning. 
+1.1         TK Chin     17-Apr-2013     14.5        8023    Fix inconsistent column size.
+ -->
+<apex:page controller="VFCntrlr_SalesMotion" cache="true" action="{!smUsageTracker}"  >
+    <head>
+
+    <style type="text/css">
+
+    body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .overlayDialog .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock{
+      border-top: 0px;
+      border-bottom: 0px;
+      border-left: 0px;
+      border-right: 0px;
+      border:0px;
+      padding-left:0px;
+      padding-right:0px;
+      padding-top:0px;
+      padding-bottom:0px;
+      background-color:transparent;
+    }
+
+    .apexp .bPageBlock.apexDefaultPageBlock .pbBody{
+      margin-left:0px;
+      margin-right:0px;
+    }
+
+    td.solutionStyle {
+      FONT-FAMILY: Arial,Verdana,Helvetica,Sans-Serif;
+      FONT-SIZE: 9pt;
+      COLOR:#006699;
+    }
+
+    td.titleStyle {
+      FONT-FAMILY: Arial,Verdana,Helvetica,Sans-Serif;
+      FONT-SIZE: 18pt;
+      COLOR:#000000;
+    }
+
+    td.smStyle {
+      FONT-FAMILY: Arial,Verdana,Helvetica,Sans-Serif;
+      FONT-SIZE: 8pt;
+      font-weight:bold;
+      COLOR:#4A4A56;
+    }
+
+    table.rightSection{
+      border: 1px solid #D7D7D7;
+      padding-left:5px;
+      padding-right:5px;
+      padding-top:5px;
+      padding-bottom:5px;
+      background: -moz-linear-gradient(top, #FFF3D8 0%, #FFE5A7 100%);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFF3D8), color-stop(100%,#FFE5A7));
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFF3D8', endColorstr='#FFE5A7',GradientType=0 );
+      background-repeat: repeat;
+      table-layout:fixed;
+    }
+
+    th.rightSectionHeader {
+      FONT-FAMILY: Arial,Verdana,Helvetica,Sans-Serif;
+      FONT-SIZE: 8pt;
+      font-weight:bold;
+      color: #4A4A56;
+    }
+
+    table.leftSection{
+      border: 1px solid #DADADC;
+      background-color:#FFFFFF;
+      table-layout:fixed;
+    }
+
+    th.leftSectionHeader {
+      FONT-FAMILY: Arial,Verdana,Helvetica,Sans-Serif;
+      FONT-SIZE: 8pt;
+      font-weight:bold;
+      color: #4A4A56;
+      padding-left:5px;
+      padding-right:5px;
+      padding-top:5px;
+      padding-bottom:5px;
+      border-bottom: 1px solid #DADADC;
+      background: -moz-linear-gradient(top, #E3F5FA 0%, #D0EEF8 100%);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#E3F5FA), color-stop(100%,#D0EEF8));
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E3F5FA', endColorstr='#D0EEF8',GradientType=0 );
+      background-repeat: repeat;
+    }
+
+    table.sectionTableStyle{
+      border: 1px solid #EAEAEA;
+      padding:10px;
+      background-color: #F8F8F8;
+    }
+
+    table.stageTableStyle {
+      border-left: 1px solid #EAEAEA;
+      border-top: 1px solid #EAEAEA;
+      border-bottom: 1px solid #EAEAEA;
+    }
+
+    .stageStyle {
+      padding-left:3px;
+      padding-right:3px;
+      padding-top:3px;
+      padding-bottom:3px;
+      background: -moz-linear-gradient(top, #FDFDFD 0%, #ECECEC 100%);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FDFDFD), color-stop(100%,#ECECEC));
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FDFDFD', endColorstr='#ECECEC',GradientType=0 );
+      border-right: 1px solid #EAEAEA;
+    }
+
+    .highlightedStageStyle{
+      padding-left:5px;
+      padding-right:5px;
+      padding-top:5px;
+      padding-bottom:5px;
+      background-color: #C6E1FF;
+      border-right: 1px solid #EAEAEA;
+    }
+
+    .percentStyle{
+      background-color: #2598C1;
+      color: #FFFFFF;
+      border-top-left-radius: 10px 10px;
+      border-bottom-right-radius: 10px 10px;
+      border-top-right-radius: 10px 10px;
+      border-bottom-left-radius: 10px 10px;
+    }
+
+    .stageCellStyle a:link {
+      FONT-FAMILY: Arial,Verdana,Helvetica,Sans-Serif;
+      FONT-SIZE: 8pt;
+      color: #015BA7;
+      text-decoration: none;
+    }
+
+    .stageCellStyle a:hover {
+      FONT-FAMILY: Arial,Verdana,Helvetica,Sans-Serif;
+      FONT-SIZE: 8pt;
+      color: #015BA7;
+      text-decoration: none;
+    }
+
+    .stageCellStyle a:visited  {
+      FONT-FAMILY: Arial,Verdana,Helvetica,Sans-Serif;
+      FONT-SIZE: 8pt;
+      color: #015BA7;
+      text-decoration: none;
+    }
+
+    .pageCellStyle a:link{
+      FONT-FAMILY: Arial,Verdana,Helvetica,Sans-Serif;
+      FONT-SIZE: 9pt;
+      color: #880015;
+      text-decoration: none;
+      padding-right:15px;
+    }
+
+    .pageCellStyle a:hover{
+      FONT-FAMILY: Arial,Verdana,Helvetica,Sans-Serif;
+      FONT-SIZE: 9pt;
+      color: #880015;
+      text-decoration: none;
+      padding-right:15px;
+    }
+
+    .pageCellStyle a:visited{
+      FONT-FAMILY: Arial,Verdana,Helvetica,Sans-Serif;
+      FONT-SIZE: 9pt;
+      color: #880015;
+      text-decoration: none;
+      padding-right:15px;
+    }
+
+    .highlightedPageCellStyle a:link {
+      FONT-FAMILY: Arial,Verdana,Helvetica,Sans-Serif;
+      FONT-SIZE: 9pt;
+      font-weight:bold;
+      color: #880015;
+      text-decoration: none;
+      padding-right:15px;
+    }
+
+    .highlightedPageCellStyle a:hover {
+      FONT-FAMILY: Arial,Verdana,Helvetica,Sans-Serif;
+      FONT-SIZE: 9pt;
+      font-weight:bold;
+      color: #880015;
+      text-decoration: none;
+      padding-right:15px;
+    }
+
+    .highlightedPageCellStyle a:visited{
+      FONT-FAMILY: Arial,Verdana,Helvetica,Sans-Serif;
+      FONT-SIZE: 9pt;
+      font-weight:bold;
+      color: #880015;
+      text-decoration: none;
+      padding-right:15px;
+    }
+    .salesEdgeDocStyle a:link{
+      FONT-FAMILY: Arial,Verdana,Helvetica,Sans-Serif;
+      FONT-SIZE: 12pt;
+      font-weight:bold;
+      color: #006FD8;
+      text-decoration: none;
+    }
+
+    .salesEdgeDocStyle a:hover{
+      FONT-FAMILY: Arial,Verdana,Helvetica,Sans-Serif;
+      FONT-SIZE: 12pt;
+      font-weight:bold;
+      color: #006FD8;
+      text-decoration: none;
+    }
+
+    .salesEdgeDocStyle a:visited{
+      FONT-FAMILY: Arial,Verdana,Helvetica,Sans-Serif;
+      FONT-SIZE: 12pt;
+      font-weight:bold;
+      color: #006FD8;
+      text-decoration: none;
+    }
+
+    .salesEdgeDocInfoHeaderStyle{
+      FONT-FAMILY: Arial,Verdana,Helvetica,Sans-Serif;
+      FONT-SIZE: 9pt;
+      font-weight:bold;
+      color: #C3BFAB;
+      text-align: left;
+    }
+
+    .salesEdgeDocInfoStyle{
+      FONT-FAMILY: Arial,Verdana,Helvetica,Sans-Serif;
+      FONT-SIZE: 9pt;
+      color: #FFFFFF;
+      text-align: left;
+    }
+
+    </style>
+    <script language="javascript">
+
+        function UrlExists(url) {
+        //alert(url);
+        var http = new XMLHttpRequest();
+        http.open('HEAD', 'http://salesedge.dell.com');
+        //http.send();
+        alert(http.status);
+        http.onreadystatechange = function() {
+        if (http.status == 200 && http.readyState == 4)
+        {
+        alert(url);
+        }
+        else if (request.status == 404) {
+        alert("Content Repository Cannot be reached. Make sure you are connected to dell's network. If ...");
+        return;
+        }
+        }
+
+    }
+
+    </script>
+
+    </head>
+
+    <body>
+
+    <apex:form >
+
+        <!--display error-->
+        <div style="text-align:right">
+             <apex:commandButton value="Go Back to Opportunity" action="{!goBack}" rendered="{!showHide}"/>
+        </div> 
+        
+        <apex:pageMessage severity="ERROR" strength="3" Title="ERROR" detail="{!smErrMsg}" rendered="{!IF(NOT(ISNULL(smErrMsg)),true,false)}" />
+
+        <apex:pageMessage severity="ERROR" strength="3" Title="ERROR" rendered="{!isCustomError}" >
+
+     {!$Label.salesMotion_errormsg}<a href="mailto:SFDC_sales_motions@Dell.com?subject=Sales Motion Feedback&body=Role: {!teamMember.TeamMemberRole}%0D%0ASegment: {!oppDetail.Account.Segment_Business_Unit_Name__c}%0D%0ASales Motion: %0D%0AFeedback:">
+        SFDC Sales Motion</a>. {!$Label.salesMotion_errormsg_1}
+        <br/>
+        <br/> <b>Select Product: </b> &nbsp;
+        <apex:selectList id="available" rendered="{!productTab}" multiselect="False" size="1" value="{!selectedproduct}" style="FONT-FAMILY: Arial,Verdana,Helvetica,Sans-Serif;FONT-SIZE: 9pt;color: #880015;text-decoration: none;" >
+                   <apex:actionSupport event="onchange" action="{!redirectSalesMotion}" />
+                            <apex:selectoptions value="{!fullAvailableProducts}" />
+                   </apex:selectList>
+
+        
+     </apex:pageMessage>
+
+
+
+        <!-- START sales motion info-->
+
+       <apex:pageBlock id="smPage" rendered="{!AND(IF(NOT(ISNULL(smErrMsg)),false,true),!isCustomError)}">
+
+
+            <!--display sales motion domain, solution type and name, sales motion name -->
+
+            <table width="100%" cellspacing="0" cellpadding="0">
+                <tr align="right">
+                    <td colspan="2" class="solutionStyle">
+                        {!salesMotion.Domain__c} > {!salesMotion.Solution_Type__c} > {!salesMotion.Solution_Name__c} >  {!salesMotion.Product__r.name}
+                   
+                    </td>
+                </tr>
+            </table>
+
+
+
+
+          <table width="100%" cellspacing="0" cellpadding="0">
+                <tr align="left">
+                    <td valign="middle" align="left" rowspan="2" width="40"><apex:image url="{!$Resource.SalesMotion_Main}" width="40" height="40"/></td>
+                    <td align="left" class="smStyle">
+                        Sales Motion
+                    </td>
+                </tr>
+                <tr align="left">
+                    <td align="left" class="titleStyle">
+                        {!salesMotion.name}
+                       
+                    </td>
+                </tr>
+            </table>
+
+            <br/>
+
+            <!-- START pages tab -->
+            <table border="0" cellspacing="2" cellpadding="2">
+                <tr>
+                    <apex:repeat value="{!salesMotionPages}" var="page">
+                        <td class="{!IF(page.id=currentPage,'highlightedPageCellStyle','pageCellStyle')}">
+                            <apex:image style="vertical-align:middle;margin-bottom:1px" url="{!$Resource.SalesMotion_OpenFile}" width="15" height="15"/>&nbsp;
+                            <apex:commandLink value="{!page.name}" action="{!refreshSectionData}">
+                                <apex:param name="currentPage" value="{!page.id}"/>
+                                
+                            </apex:commandLink>
+                        </td>
+                    </apex:repeat>
+
+                    <td class="{!IF(currentPage='Search','highlightedPageCellStyle','pageCellStyle')}">
+                        <apex:image style="vertical-align:middle;margin-bottom:1px" url="{!$Resource.SalesMotion_Find}" width="15" height="15"/>&nbsp;
+                        <apex:commandLink value="Search" action="{!refreshSectionData}">
+                            <apex:param name="currentPage" value="Search"/>
+                        </apex:commandLink>
+                    </td>
+                   <td >
+                   <apex:image style="vertical-align:middle;margin-bottom:1px" url="{!$Resource.SalesMotion_OpenFile}"  width="15" height="15"/>&nbsp;
+                   <apex:selectList id="available" rendered="{!productTab}" multiselect="False" size="1" value="{!selectedproduct}" style="FONT-FAMILY: Arial,Verdana,Helvetica,Sans-Serif;FONT-SIZE: 9pt;color: #880015;text-decoration: none;" >
+                   <apex:actionSupport event="onchange" action="{!redirectSalesMotion}" />
+                            <apex:selectoptions value="{!fullAvailableProducts}"  />
+                   </apex:selectList> 
+                   </td>                   
+                </tr>
+            </table>
+            <!-- END pages tab -->
+
+            <!-- START stage tab -->
+            <apex:pageBlock rendered="{!IF(AND(NOT(currentPage='Search'), isStagedEnabled),true,false)}">
+                <table border="0" width="100%" cellspacing="0" cellpadding="0" class="stageTableStyle">
+                    <tr>
+                        <apex:variable var="cnt" value="{!0}" />
+
+                        <apex:repeat value="{!stages}" var="stage">
+
+                            <td width="100" class="{!IF(stage=currentStage,'highlightedStageStyle','stageStyle')} stageCellStyle">
+
+                                <apex:commandLink action="{!refreshSectionData}" styleClass="stageCellStyle">
+                                    <apex:image style="vertical-align:middle;margin-bottom:1px" url="{!URLFOR($Resource.SalesMotion_StageImage, 'stage/SM_stage_'+ stagePercents[cnt] + '.bmp')}" width="15" height="15"/>&nbsp;
+                                    {!stageDescs[cnt]}
+                                    <apex:param name="currentStage" value="{!stage}"/>
+                                    <apex:param name="currentPage" value="{!currentPage}"/>
+                                </apex:commandLink>
+
+                            </td>
+
+                            <apex:variable var="cnt" value="{!cnt+1}"/>
+
+                        </apex:repeat>
+
+                        <td class="stageStyle stageCellStyle">&nbsp;</td>
+                    </tr>
+                </table>
+            </apex:pageBlock>
+            <!-- END stage tab -->
+
+            <!-- START section -->
+            <apex:pageBlock id="smSections" rendered="{!IF(NOT(currentPage='Search'),true,false)}">
+
+                <table width="100%" border="0" height="500" cellspacing="0" cellpadding="2" class="sectionTableStyle">
+                   <tr>
+                       <!-- Version 1.1 - Fix inconsistent column size -->
+                       <td width="{!IF(isRightSectionsExist, '80%', '100%')}" style="width:{!IF(isRightSectionsExist, '80%', '100%')};overflow-y:hidden;overflow-x:scroll;">
+                           <table style="table-layout:fixed;" width="100%" border="0" cellspacing="0" cellpadding="2">
+                               <apex:repeat value="{!currentLeftSections}" var="section">
+                               <tr>
+                                   <td>
+                                     <table class="leftSection" width="100%" cellspacing="0" cellpadding="5">
+                                           <tr>
+                                               <th class="leftSectionHeader">
+                                                  <apex:outputLabel style="white-space:normal;word-wrap:break-word;" value="{!section.Name}" rendered="{!IF(section.Type__c='SalesEdge Content',false,true)}"/>
+                                                  <apex:outputLabel style="white-space:normal;word-wrap:break-word;" value="* {!section.Name}" rendered="{!IF(section.Type__c='SalesEdge Content',true,false)}"/>
+                                               </th>
+                                           </tr>
+                                           <tr>
+                                               <td>
+                                               <div style="width:100%;height:100%;-ms-overflow-y:hidden;-ms-overflow-x:scroll;overflow-y:hidden;overflow-x:scroll;">
+                                                   <apex:outputText style="white-space:normal;word-wrap:break-word;" value="{!section.Section_Content__c}" escape="false"/>
+                                               </div>
+                                               </td>
+                                           </tr>
+                                         <apex:repeat value="{!SupportRequest}" var="support">
+                                                   <tr>
+                                                       <td>
+                                                       <apex:outputLink style="white-space:normal;word-wrap:break-word;" value="{!support.supportUrl}" target="_blank" rendered="{!(IF(section.Name=support.sectionName,true,false)&& IF(section.Stage__c=support.stage,true,false) && IF(section.Sales_Motion_Page__c=support.page,true,false))}"> {!support.supportName} </apex:outputLink>
+                                                       </td>
+                                                   </tr>
+
+                                          </apex:repeat>
+                                     </table>
+                                   </td>
+                               </tr>
+                               </apex:repeat>
+                           </table>
+                       </td>
+                       <!-- Version 1.1 - Fix inconsistent column size (fix sidebar for TFS work item number 67131) -->
+                       <td width="{!IF(isRightSectionsExist, '20%', '100%')}" style="width:{!IF(isRightSectionsExist, '20%', '100%')};overflow-y:hidden;overflow-x:scroll;">
+                           <table style="table-layout:fixed;" width="100%" border="0" cellspacing="0" cellpadding="2">
+                               <apex:repeat value="{!currentRightSections}" var="section">
+                               <tr>
+                                   <td>
+                                       <table class="rightSection" width="100%"> <!-- style="table-layout:fixed;"> -->
+                                          <tr>
+                                              <th class="rightSectionHeader">
+                                                  <apex:outputLabel style="white-space:normal;word-wrap:break-word;" value="{!section.Name}" rendered="{!IF(section.Type__c='SalesEdge Content',false,true)}"/>
+                                                  <apex:outputLabel style="white-space:normal;word-wrap:break-word;" value="* {!section.Name}" rendered="{!IF(section.Type__c='SalesEdge Content',true,false)}"/>
+                                              </th>
+                                          </tr>
+                                          <tr>
+                                              <td>
+                                              <div style="width:100%;height:100%;-ms-overflow-y:hidden;-ms-overflow-x:scroll;overflow-y:hidden;overflow-x:scroll;">
+                                                   <apex:outputText style="white-space:normal;word-wrap:break-word;" value="{!section.Section_Content__c}" escape="false"/>
+                                              </div>
+                                              </td>
+                                          </tr>
+                                          <apex:repeat value="{!SupportRequest}" var="support">
+                                                   <tr>
+                                                       <td>
+                                                       <apex:outputLink style="white-space:normal;word-wrap:break-word;" value="{!support.supportUrl}" target="_blank" rendered="{!(IF(section.Name=support.sectionName,true,false)&& IF(section.Stage__c=support.stage,true,false)&& IF(section.Sales_Motion_Page__c=support.page,true,false))}"> {!support.supportName} </apex:outputLink>
+                                                       </td>
+                                                   </tr>
+
+                                          </apex:repeat>
+
+                                    </table>
+                                  </td>
+                              </tr>
+                              </apex:repeat>
+                           </table>
+                       </td>
+                   </tr>
+               </table>
+
+            </apex:pageBlock>
+            <!--END section -->
+
+
+            <!-- START search content -->
+            <apex:pageBlock id="smSearchContent" rendered="{!IF(currentPage='Search',true,false)}">
+
+                <table width="100%" border="0" height="200" cellspacing="0" cellpadding="2" class="sectionTableStyle">
+                    <tr>
+                        <td>
+
+                            <apex:pageBlock >
+
+                                <apex:pageBlockButtons location="bottom">
+                                    <apex:commandButton value="Search/ Update" action="{!searchSalesMotion}"/>
+                                </apex:pageBlockButtons>
+
+                                <apex:PageBlockSection columns="1">
+
+                                    <apex:pageBlockSectionItem labelStyle="border-bottom: 0px;" dataStyle="border-bottom: 0px;">
+                                        <apex:outputLabel value="Domain"/>
+                                        <apex:inputField value="{!salesMotionSearch.Domain__c}"/>
+                                    </apex:pageBlockSectionItem>
+
+                                    <apex:pageBlockSectionItem labelStyle="border-bottom: 0px;" dataStyle="border-bottom: 0px;">
+                                        <apex:outputLabel value="Solution Type"/>
+                                        <apex:inputField value="{!salesMotionSearch.Solution_Type__c}"/>
+                                    </apex:pageBlockSectionItem>
+
+                                    <apex:pageBlockSectionItem labelStyle="border-bottom: 0px;" dataStyle="border-bottom: 0px;">
+                                        <apex:outputLabel value="Solution Name"/>
+                                        <apex:inputField value="{!salesMotionSearch.Solution_Name__c}"/>
+                                    </apex:pageBlockSectionItem>
+                                      
+                                       <apex:pageBlockSectionItem labelStyle="border-bottom: 0px;" dataStyle="border-bottom: 0px;">
+                                       <font color="red" style="font-weight:bold;"> PLEASE NOTE </font> &nbsp;&nbsp;&nbsp;      - Search for Sales Motion NOT tagged to the fields above shall be made in the 'Sales Motion Search' tab.
+                                    </apex:pageBlockSectionItem>
+                                </apex:PageBlockSection>
+
+                            </apex:pageBlock>
+
+                            <apex:pageMessage severity="ERROR" strength="3" Title="ERROR" detail="{!smSearchMsg}" rendered="{!IF(NOT(ISNULL(smSearchMsg)),true,false)}" />
+                            <apex:pageMessage severity="ERROR" strength="3" Title="ERROR" rendered="{!isCustomSearchError}" >
+
+     {!$Label.salesMotion_errormsg}<a href="mailto:SFDC_sales_motions@Dell.com?subject=Sales Motion Feedback &body=Role: {!teamMember.TeamMemberRole}%0D%0ASegment: {!oppDetail.Account.Segment_Business_Unit_Name__c}%0D%0ASales Motion: %0D%0AFeedback:">
+        SFDC Sales Motion</a>. {!$Label.salesMotion_errormsg_1}
+
+     </apex:pageMessage>
+                        </td>
+                    </tr>
+
+                </table>
+
+
+            </apex:pageBlock>
+            <!-- END search content -->
+        <div style="text-align:right">
+        
+         <a href="mailto:SFDC_sales_motions@Dell.com?subject=Sales Motion Feedback->{!(substitute(urlencode(salesmotion.name),'+','%20'))} &body=Role: {!teamMember.TeamMemberRole}%0D%0ASegment: {!oppDetail.Account.Segment_Business_Unit_Name__c}%0D%0ASales Motion: {!(substitute(urlencode(salesmotion.name),'+','%20'))}%0D%0AFeedback:"> 
+     Submit Feedback</a>
+      
+        </div>
+
+        </apex:pageBlock>
+        <!-- END sales motion info-->
+
+    </apex:form>
+
+    </body>
+
+</apex:page>

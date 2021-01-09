@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>The custom setting includes countries in APJ/EMEA region that need to be routed to allocation queues</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Country_Grouping__c</fullName>
+        <description>Several countries are grouped to form a single allocation region.</description>
+        <externalId>false</externalId>
+        <label>Country Grouping</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Region__c</fullName>
+        <description>The region to which the country belongs to</description>
+        <externalId>false</externalId>
+        <label>Region</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>CMAP Region Country Setting</label>
+    <visibility>Public</visibility>
+</CustomObject>

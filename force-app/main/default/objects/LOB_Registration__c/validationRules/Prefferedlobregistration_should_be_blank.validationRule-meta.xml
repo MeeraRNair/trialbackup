@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prefferedlobregistration_should_be_blank</fullName>
+    <active>true</active>
+    <description>Refer CR 3459 -&gt;attachment  &apos;VR_preferred LOB should be blank&apos; for the detailed description.</description>
+    <errorConditionFormula>NOT( ISBLANK( Preferred_GTM_Partner_Account__c ) ) &amp;&amp; (ISPICKVAL( LOB_registration_status__c ,&apos;Dell(approved)&apos;) &amp;&amp; (CONTAINS( $User.Profile_Name__c , &apos;Operations&apos;)|| $User.Title = &apos;GCC Program Manager&apos; || $User.Division = &apos;Deal Registration&apos; ))
+&amp;&amp; ( $RecordType.Name &lt;&gt; &apos;LOB registration(Partner Approved)&apos;)</errorConditionFormula>
+    <errorDisplayField>Preferred_GTM_Partner_Account__c</errorDisplayField>
+    <errorMessage>The current LOB status does not allow you to select a Partner in this field. Please remove it to save the record.</errorMessage>
+</ValidationRule>

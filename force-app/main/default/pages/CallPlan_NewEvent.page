@@ -1,0 +1,285 @@
+<apex:page standardController="Event" extensions="CallPlan_NewEventCntlr"  tabStyle="Event" showHeader="true" id="pg">
+      <script language="javascript">          
+        function CheckReminder(varChk){             
+            var selectList = document.getElementsByTagName('select');   
+            if(varChk.checked ==true){
+                for(var i=0; i<selectList.length; i++){             
+                if(selectList[i].id.indexOf('remSelect')!=-1)
+                    selectList[i].disabled = false;  
+                }                   
+            }
+            else{
+                 for(var i=0; i<selectList.length; i++){             
+                    if(selectList[i].id.indexOf('remSelect')!=-1)
+                        selectList[i].disabled = true;  
+                }  
+            }            
+        }
+        function resetEndDateTime(varSdate){  
+                        
+            var eDate = new Date();
+            eDate = varSdate.value;
+            RefreshDateTime(eDate);
+        }
+        function changeWhoId(s){           
+            if(s.nodeName == 'SELECT'){                
+                RefreshWhoType(s.options[s.selectedIndex].text);    
+            }   
+        }       
+    </script>
+    <apex:form id="frm">
+        <style>
+        .input1{
+            width: 300px;height:35px;
+            }
+         .input2{
+            Width:450px;Height:90px;
+            }
+        .customPopup{
+            background-color:white;
+            left: 50%;
+            padding:10px;
+            position: absolute;
+            z-index: 9999;
+            /* These are the 3 css properties you will need to tweak so the pop 
+            up displays in the center of the screen. First set the width. Then set 
+            margin-left to negative half of what the width is. You can also add 
+            the height property for a fixed size pop up.*/
+            width: 400px;
+            margin-left: -250px;
+            top:100px;
+        }
+        .popupBackground{
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+        }      
+    </style>
+  
+    <!-- EVENT Section -->
+    
+    <apex:actionFunction status="myStatus" action="{!RefreshEndDateTime}" name="RefreshDateTime" rerender="idendDateTime" immediate="true">
+        <apex:param id="sDate" name="sDate" assignTo="{!stDate}" value="" />
+    </apex:actionFunction>
+    
+    <apex:actionFunction status="myStatus" action="{!RefreshWhoType}" name="RefreshWhoType" rerender="pgBlkSec" immediate="true">
+        <apex:param id="whoType" name="whoType" assignTo="{!whoType}" value="" />
+    </apex:actionFunction>
+    
+        <apex:outputPanel id="newEvent">
+                <apex:PageBlock title="Event Edit" id="pgBlk">
+                 <apex:pageBlockButtons >
+                     <apex:commandButton value="Save" action="{!save}"/>
+                     <apex:commandButton value="Save & New Task" action="{!saveAndNewTask}" />
+                     <apex:commandButton value="Save & New Event" action="{!saveAndNewEvent}" />
+                     <apex:commandButton value="Cancel" action="{!cancel}" />
+                      <apex:commandButton value="Select Template" action="{!showTemplates}" immediate="true"/>                       
+                 </apex:pageBlockButtons>
+                
+                 
+                <apex:pageBlockSection columns="2" id="pgBlkSec">
+                    <apex:inputField value="{!evRec.ownerId}" id="owner"/>                                     
+                    <apex:outputField value="{!evRec.RecordTypeId}"/>
+                    <apex:inputField value="{!evRec.Subject}" required="true"/>
+                    <apex:inputField value="{!evRec.Type}" required="True" id="type"/>
+                    <apex:inputField value="{!evRec.WhoId}" id="whoId" onchange="{changeWhoId(this)}"/>
+                    <apex:inputField value="{!evRec.Location}" id="Location"/>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Phone"/>
+                        <apex:outputText value="{!LeadPhone}"/>                    
+                    </apex:pageBlockSectionItem>
+                  
+                    <!--apex:outputField value="{!evRec.Phone}"/-->
+                    <apex:inputField value="{!evRec.StartDateTime}" required="True" onchange="{resetEndDateTime(this);}"/>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Email"/>
+                        <apex:outputText value="{!LeadEmail}"/>                    
+                    </apex:pageBlockSectionItem>
+                    
+                    <!--<apex:inputField value="{!evRec.Email}"/>-->
+                    <apex:inputField value="{!evRec.EndDateTime}" required="True" id="idendDateTime"/>
+                    
+                    <apex:inputField value="{!evRec.WhatId}" required="{!NOT(disableInpWhatId)}"  id="inpWhatId" rendered="{!NOT(disableInpWhatId)}" />   <!--    -->
+                    
+                    <apex:pageBlockSectionItem rendered="{!disableInpWhatId}" id="blkItemWhatId2" >
+                        <apex:outputLabel value="Related To"/>
+                        <apex:outputpanel >
+                            <apex:selectList id="slwhatId" style="width:160px">
+                                <apex:selectOption itemValue="Opportunity" itemLabel="Opportunity"/>
+                            </apex:selectList>
+                            <apex:inputText id="inpWhatId1"/>  
+                            
+                            <script>
+                                document.getElementById('{!$Component.slwhatId}').disabled = {!disableInpWhatId}; 
+                                document.getElementById('{!$Component.inpWhatId1}').disabled = {!disableInpWhatId}; 
+                            </script>  
+                        </apex:outputpanel>
+                        
+                    </apex:pageBlockSectionItem>  
+                    <apex:inputField value="{!evRec.IsAllDayEvent}"/>
+                    <apex:outputLabel value=""/>
+                    <apex:inputField value="{!evRec.ShowAs}"/>
+                    
+                </apex:pageBlockSection> 
+                 <apex:pageBlockSection title="End in Mind" columns="1" id="pgblkSec1">
+                    <apex:inputField value="{!evRec.End_in_Mind__c}" styleClass="input2" required="true"/>
+                    </apex:pageBlockSection>
+                  <apex:pageBlockSection title="What Key Beliefs must the client hold to agree with the EIM?" columns="2" id="pgblkSec2">
+                        <apex:inputField value="{!evRec.Key_Belief_1__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Key_Belief_Actions_1__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Key_Belief_2__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Key_Belief_Actions_2__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Key_Belief_3__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Key_Belief_Actions_3__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Key_Belief_4__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Key_Belief_Actions_4__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Key_Belief_5__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Key_Belief_Actions_5__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Key_Belief_6__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Key_Belief_Actions_6__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Key_Belief_7__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Key_Belief_Actions_7__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Key_Belief_8__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Key_Belief_Actions_8__c}" styleClass="input1"/>
+                  </apex:pageBlockSection>
+                <apex:pageBlockSection title="Questions" columns="2" id="pgblkSec3">
+                    <apex:inputField value="{!evRec.Questions_They_Might_Ask_You_1__c}" styleClass="input1"/>
+                    <apex:inputField value="{!evRec.How_will_you_respond_1__c}" styleClass="input1"/>
+                    <apex:inputField value="{!evRec.Questions_You_Want_to_Ask_1__c}" styleClass="input1"/>
+                    <apex:outputLabel value=""/>
+                    <apex:inputField value="{!evRec.Questions_They_Might_Ask_You_2__c}" styleClass="input1"/>
+                    <apex:inputField value="{!evRec.How_will_you_respond_2__c}" styleClass="input1"/>
+                    <apex:inputField value="{!evRec.Questions_You_Want_to_Ask_2__c}" styleClass="input1"/>
+                    <apex:outputLabel value=""/>
+                    <apex:inputField value="{!evRec.Questions_They_Might_Ask_You_3__c}" styleClass="input1"/>
+                    <apex:inputField value="{!evRec.How_will_you_respond_3__c}" styleClass="input1"/>
+                    <apex:inputField value="{!evRec.Questions_You_Want_to_Ask_3__c}" styleClass="input1"/>
+                    <apex:outputLabel value=""/>
+                    <apex:inputField value="{!evRec.Questions_They_Might_Ask_You_4__c}" styleClass="input1"/>
+                    <apex:inputField value="{!evRec.How_will_you_respond_4__c}" styleClass="input1"/>
+                    <apex:inputField value="{!evRec.Questions_You_Want_to_Ask_4__c}" styleClass="input1"/>
+                    <apex:outputLabel value=""/>
+                   </apex:pageBlockSection> 
+                    
+                    <apex:pageBlockSection title="What Yellow Lights might arise?" columns="2" id="pgblkSec4">
+                        <apex:inputField value="{!evRec.Yellow_Light_1__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Yellow_Light_Response_1__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Yellow_Light_2__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Yellow_Light_Response_2__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Yellow_Light_3__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Yellow_Light_Response_3__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Yellow_Light_4__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Yellow_Light_Response_4__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Yellow_Light_5__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Yellow_Light_Response_5__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Yellow_Light_6__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Yellow_Light_Response_6__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Yellow_Light_7__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Yellow_Light_Response_7__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Yellow_Light_8__c}" styleClass="input1"/>
+                        <apex:inputField value="{!evRec.Yellow_Light_Response_8__c}" styleClass="input1"/>
+                    </apex:pageBlockSection> 
+                    
+                    <apex:pageBlockSection id="pgblkSec5" title="What Next Steps might you suggest to the client at the end of the meeting?" columns="1">
+                        <apex:inputField value="{!evRec.Next_Steps__c}" styleClass="input2" />
+                     </apex:pageBlockSection> 
+                    
+                    <apex:pageBlockSection title="Create an Agenda" columns="1" id="pgblkSec6">
+                        <apex:inputField value="{!evRec.Agenda__c}" styleClass="input2" />
+                     </apex:pageBlockSection> 
+                    
+                    <apex:pageBlockSection title="Your Opening Statement" columns="1" id="pgblkSec7">
+                        <apex:inputField value="{!evRec.Opening_Statement__c}" styleClass="input2" />                    
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection title="Precondition the Meeting for Success" columns="1" id="pgblkSec8">
+                        <apex:inputField value="{!evRec.Draft_your_email__c }" styleClass="input2" />                    
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection title="Call Plan Results" columns="1" id="pgblkSec9">
+                        <apex:inputField value="{!evRec.Outcome__c }" styleClass="input2" /> 
+                        <apex:inputField value="{!evRec.Call_Rating__c}"/>                    
+                    </apex:pageBlockSection>
+       
+                    
+                     <apex:pageBlockSection title="Reminder" columns="2">                         
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Reminder"/>
+                            <apex:pageBlockSectionItem >
+                                <apex:inputCheckbox value="{!chkReminder}" onclick="{CheckReminder(this);}" id="chkRem"/>
+                                <apex:selectList value="{!reminder}" size="1" id="remSelect">
+                                    <apex:selectOption itemValue="0" itemLabel="0 minutes"/>
+                                    <apex:selectOption itemValue="5" itemLabel="5 minutes"/>
+                                    <apex:selectOption itemValue="10" itemLabel="10 minutes"/>
+                                    <apex:selectOption itemValue="15" itemLabel="15 minutes"/>
+                                    <apex:selectOption itemValue="30" itemLabel="30 minutes"/>
+                                    <apex:selectOption itemValue="60" itemLabel="1 hour"/>
+                                    <apex:selectOption itemValue="120" itemLabel="2 hours"/>
+                                    <apex:selectOption itemValue="180" itemLabel="3 hours"/>
+                                    <apex:selectOption itemValue="240" itemLabel="4 hours"/>
+                                    <apex:selectOption itemValue="300" itemLabel="5 hours"/>
+                                    <apex:selectOption itemValue="360" itemLabel="6 hours"/>
+                                    <apex:selectOption itemValue="420" itemLabel="7 hours"/>
+                                    <apex:selectOption itemValue="480" itemLabel="8 hours"/>
+                                    <apex:selectOption itemValue="540" itemLabel="9 hours"/>
+                                    <apex:selectOption itemValue="600" itemLabel="10 hours"/>
+                                    <apex:selectOption itemValue="660" itemLabel="11 hours"/>
+                                    <apex:selectOption itemValue="720" itemLabel="0.5 days"/>
+                                    <apex:selectOption itemValue="1080" itemLabel="18 hours"/>
+                                    <apex:selectOption itemValue="1440" itemLabel="1 day"/>
+                                    <apex:selectOption itemValue="2880" itemLabel="2 days"/>
+                                    <apex:selectOption itemValue="4320" itemLabel="3 days"/>
+                                    <apex:selectOption itemValue="5760" itemLabel="4 days"/>
+                                    <apex:selectOption itemValue="10080" itemLabel="1 week"/>
+                                    <apex:selectOption itemValue="20160" itemLabel="2 weeks"/>                                    
+                                </apex:selectList>
+                            
+                            </apex:pageBlockSectionItem>
+                        </apex:pageBlockSectionItem>                                         
+                    </apex:pageBlockSection>
+                   
+            </apex:PageBlock>
+        </apex:outputPanel>
+       
+    </apex:form>
+    <!--apex:relatedList list="Attachments" title="Attachments" /-->
+          
+    <apex:form id="frm1">
+    <apex:outputPanel id="popup">
+        <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!displayPopUp}"/>
+            <apex:outputPanel id="Templates1" styleClass="customPopup" layout="block" rendered="{!displayPopUp}">
+        
+                <apex:outputPanel id="templates" >
+                     <apex:commandLink action="{!closePopup}" title="Close" value="Close" immediate="true" rerender="popup"/>
+                                
+                    <apex:pageBlock id="DisplayTemplates">
+                          
+                        <apex:inputField value="{!callPlan.Folder__c}" >
+                            <apex:actionSupport event="onchange" action="{!refreshPage}" rerender="popup"/>
+                        </apex:inputField>
+                        
+                        <apex:outputPanel id="pgblkTb1"  layout="block" style="overflow:auto;width:380px;height:350px" >                                      
+                        <apex:PageBlockTable value="{!templates}" var="t" id="pgTable" rendered="{!blnShowTemplates}">
+                            <apex:column >
+                                <apex:facet name="header">Template Name</apex:facet>
+                                <apex:commandLink action="{!selectTemplate}" title="Add" value="{!t.name}" immediate="true" rerender="popup,owner, whoId, Location, type, pgblkSec1, pgblkSec2, pgblkSec3, pgblkSec4, pgblkSec5, pgblkSec6, pgblkSec7, pgblkSec8, pgblkSec9">
+                                <apex:param name="selectedTemplate" value="{!t.id}" assignTo="{!selectedTemplateId}" /> 
+                                </apex:commandLink>
+                            </apex:column>
+                            <apex:column value="{!t.Description__c}"/>
+                        </apex:PageBlockTable>
+                        <apex:outputlabel />
+                        <apex:pageMessage summary="No Records Found" severity="Info" strength="1" rendered="{!NOT(blnShowTemplates)}"/>
+                      </apex:outputPanel>                       
+                    </apex:pageBlock>
+                </apex:outputPanel>
+        </apex:outputPanel>
+    </apex:outputPanel>
+
+    </apex:form>
+</apex:page>

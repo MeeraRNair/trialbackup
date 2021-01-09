@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hidden_Account__c</fullName>
+    <description>This field is populates the Account Name of the Campaign Member and is hidden from the Users. It is used in the formula field “Create New Opportunity” to pre-populate the Account Name (CR 1259) and also in the email notification reminders for Follow –Up (CR 1122)</description>
+    <externalId>false</externalId>
+    <formula>IF( Account__c = &quot;&quot;,Contact__r.Account.Name, Account__r.Name )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Hidden Account</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

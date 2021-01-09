@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DellEMC_Contact_Name__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Dell EMC Contact Name</label>
+    <lookupFilter>
+        <active>true</active>
+        <booleanFilter>1 OR 2 OR 3</booleanFilter>
+        <errorMessage>Value does not exist or does not match filter criteria .</errorMessage>
+        <filterItems>
+            <field>User.Profile_Name__c</field>
+            <operation>equals</operation>
+            <value>Chatter Only</value>
+        </filterItems>
+        <filterItems>
+            <field>User.Profile_Name__c</field>
+            <operation>equals</operation>
+            <value>GBL PRM Operations</value>
+        </filterItems>
+        <filterItems>
+            <field>User.Profile_Name__c</field>
+            <operation>equals</operation>
+            <value>GBL PRM Operations Services Admin</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>User</referenceTo>
+    <relationshipName>DellEMC_Key_Contacts</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

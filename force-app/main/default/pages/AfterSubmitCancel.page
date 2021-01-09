@@ -1,0 +1,43 @@
+<apex:page Standardcontroller="Customer_Engagement__c" extensions="AfterSubmitCancelController">
+    <apex:form >
+        <apex:pageBlock title="Cancel/Change Request">
+            <apex:pageblockSection columns="1">
+                <apex:pageblocksectionItem >
+                   <apex:outputLabel value="Action Type?"></apex:outputLabel>
+                       <apex:outputpanel id="selectedRequestId">
+                           <apex:inputField value="{!updateCE.Cancel_Request__c}"  id="selectedRequest" >
+                               <apex:actionSupport event="onchange" action="{!checkRequest}" >
+                               </apex:actionSupport>
+                           </apex:inputField>
+                       </apex:outputpanel>  
+                   </apex:pageblocksectionItem>
+               </apex:pageblockSection>
+           </apex:pageblock>
+       <apex:pageblock id="request" >
+         <apex:pageblockSection columns="1" rendered="{!requestFlag}">
+               <apex:pageblockSectionItem >
+                   <apex:outputLabel value="Change Event Type to: "></apex:outputLabel>
+                   <apex:inputField value="{!CEUpdateDetails.Event_Type_Changed_To__c}"/>           
+               </apex:pageblockSectionItem>           
+               <apex:pageblocksectionItem >
+               <apex:outputLabel value="Change Site to: "></apex:outputLabel>
+               <apex:selectList id="site" styleclass="std" size="1" value="{!siteSelected}">
+                    <apex:selectOptions value="{!SiteNameList}"/>
+                </apex:selectList>  
+                </apex:pageblocksectionItem>
+               <apex:pageblockSectionItem >
+                   <apex:outputLabel value="Change Event Start date to: "></apex:outputLabel>
+                   <apex:inputField value="{!CEUpdateDetails.Event_Start_Date_Changed_To__c}"/>           
+               </apex:pageblockSectionItem>
+           </apex:pageblockSection>
+           <apex:pageblocksection columns="1" rendered="true">
+               <apex:inputField value="{!CEUpdateDetails.Change_Cancel_Reason__c}"/>
+           </apex:pageblocksection>
+           <apex:pagemessages ></apex:pagemessages>
+           <apex:pageblockButtons location="bottom">
+               <apex:commandButton value="Submit" action="{!SaveButtonAction}" id="SaveButton"/>
+               <apex:commandButton value="Back" action="{!Cancel}" id="CancelButton"/>
+           </apex:pageblockButtons>
+       </apex:pageBlock>
+    </apex:form>
+</apex:page>

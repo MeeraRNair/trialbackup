@@ -1,0 +1,951 @@
+<!--
+ * Author   : 
+ * Purpose  : 
+ *
+ * Revision CR Number   Release No  Date            Modified By  Description
+ * -------- ---------   ----------  -----------  ------------   -----------
+ * 4.0                    0802       6/24/2019       Poojitha  Added two new field  Current_Distributor__c,Requested_Preferred_Distributor__c
+ * 5.0                    0802       6/24/2019       Subhasini Added field  Business_change_letter_cert_attached__c
+ * 6.0                    0802       7/2/2019        Meenu     replaced mandatory field Current_Distributor__c,Requested_Preferred_Distributor__c with Current_Distributor_UA__c,Requested_Preferred_Distributor_UA__c respectively
+ *                        1002       8/9/2019        Anuj      Story 7059178: CSH021 - Unauthenticated webform CSH [Phase I]
+ *                        1002       9/6/2019        Anuj      Story 7059178: CSH021 - Unauthenticated webform CSH [Phase I] (Technical Launch : Adding comment on "CSH" case type )
+ * 7.0                    0102       31/10/2019      Meenu     STORY 7498907: CSH048 - Ability to add attachments to UA form for all Case Types [Phase II]
+ *----------------------------------------------------------------------------------------------------------->       
+
+<apex:page showHeader="false" language="{!displayLanguageCode}" controller="Vfcntrl_UnAuthenticatedCaseVFPage" id="page">
+<apex:includeScript value="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.min.js"/>
+<style>
+            table.detailList {
+                width: 100% !important;
+                text-align: center;
+                margin: 0 auto;
+            } 
+            textarea {
+                width: 300px;
+                height: 80px;
+            }
+            .requiredInputRed {
+                border: 1px solid red;
+            }
+            input[type=text] {                  
+                padding: 12px 20px;                 
+                display: inline-block;      
+                border: 1px solid #ccc;     
+                border-radius: 4px;     
+                box-sizing: border-box;     
+            }       
+            button{     
+              background-color: #4CAF50;        
+                border: none;       
+                color: white;       
+                padding: 12px 30px;     
+                text-decoration: none;      
+                margin: 4px 2px;        
+                cursor: pointer;        
+            }       
+            canvas{     
+              /*prevent interaction with the canvas*/       
+              pointer-events:none;      
+            }  
+            .diabledBtn{color: #b3afaf !important;
+                        cursor: not-allowed;}        
+            
+</style>
+    <script language="JavaScript" type="text/javascript">
+    window.$Label = window.$Label || {};
+    var code;
+    function createCaptcha() {
+        console.log('createcaptha');
+        //clear the contents of captcha div first 
+        document.getElementById('captcha').innerHTML = "";
+        document.getElementById('cpatchaTextBox').value = "";
+        var charsArray = '{!($Label.captchaLabel)}';
+        var lengthOtp = 6;
+        var captcha = [];
+        for (var i = 0; i < lengthOtp; i++) {
+            //below code will not allow Repetition of Characters
+            var index = Math.floor(Math.random() * charsArray.length + 1); //get the next character from the array
+            if (captcha.indexOf(charsArray[index]) == -1)
+                captcha.push(charsArray[index]);
+            else i--;
+        }
+        var canv = document.createElement("canvas");
+        canv.id = "captcha";
+        canv.width = 107;
+        canv.height = 50;
+        var ctx = canv.getContext("2d");
+        ctx.font = "24px Georgia";
+        ctx.strokeText(captcha.join(""), 0, 30);
+        //storing captcha so that can validate you can save it somewhere else according to your specific requirements
+        code = captcha.join("");
+        document.getElementById("captcha").appendChild(canv); // adds the canvas to the body element
+    }
+    function validateCaptcha() {
+        event.preventDefault();
+        debugger;
+        if (document.getElementById("cpatchaTextBox").value == code) {
+            document.getElementById('page:CreateCase:status').value=true;
+            captchaTest();
+        }else{
+            debugger;
+            document.getElementById('page:CreateCase:status').value=false;
+            document.getElementById('page:CreateCase:NC:captchaPanel:msgone:msg').innerHTML='<p style="color:red;padding-left:300px;font-size:15px">Enter Valid Captcha</p>';
+        }
+       
+     }
+
+    function checkFileSize(event) {
+        var strError = '';
+        var isError = false;
+        $('.file_input').each(function( index ) {
+            if($(this).prop('files').length>0)
+            {
+                var fileId = $(this).prop('id');
+                var n = fileId.split(":");
+                var errorDiv= n[n.length-1]+'_Error';
+                
+                var thisFile = $(this).prop('files')[0];
+                var fileSize = thisFile.size;
+                var fileName = thisFile.name;
+                
+                if(fileSize/(1024*1024) > 25)
+                {
+                    strError = 'Attachments can not be over 25MB in size';
+                    isError = true;
+                }
+                else if(thisFile.name.length > 80)
+                {
+                    strError = 'Attachments can not be over 80 characters in file name length';
+                    isError = true;
+                }
+                else
+                {
+                    strError = '';
+                }
+                if(strError != '')
+                {
+                    $('#'+errorDiv).html('<font size="1.0" color="red" > <b>'+strError+'</b> </font>');
+                    $('#'+errorDiv).show();
+                }
+                else
+                {
+                    $('#'+errorDiv).html('');
+                    $('#'+errorDiv).hide();
+                    strError = '';
+                } 
+            }
+        });
+        if(isError == true)
+        {
+                $("[id$=btn_Submit]").attr('disabled','disabled');
+                $("[id$=btn_Submit]").addClass('diabledBtn');
+        }
+        else
+        {
+            $("[id$=btn_Submit]").removeAttr('disabled');
+            $("[id$=btn_Submit]").removeClass('diabledBtn');
+        }
+    }
+
+ </script>
+<apex:form id="CreateCase">
+<apex:pageMessages />
+    <apex:inputHidden id="status" value="{!flag}" />
+    <!-- NEW CASE BLOCK- START-->
+    <apex:pageBlock mode="edit" id="NC" rendered="{!Newcase}" TabStyle="Case">
+       
+       <!-- Case INFORLMATION BLOCK- START--> 
+        <Apex:actionregion > 
+        <apex:pageBlockSection title="{!$Label.Case_Details}"  rendered="{!Newcase}" columns="1" id="Casedetails">
+            
+            <apex:pageBlockSectionItem >
+                  <!--<apex:outputLabel value="{!$ObjectType.Case.fields.Country_Area__c.Label}"/>-->
+                  <apex:outputLabel value="{!$Label.UA_Country}"/>
+                  <apex:outputPanel layout="block" styleClass="requiredInput">
+                    <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                    <apex:inputfield value="{!Ca.Country_Area__c}" >
+                        <apex:actionSupport event="onchange"  reRender="CaseTypeField,CreateCase" action="{!countryRegion}" status="pageStatus" /> 
+                    
+                    </apex:inputfield>
+                    <apex:actionStatus id="pageStatus">
+                            <apex:facet name="start">
+                                <apex:outputPanel >
+                                        <img src="/img/loading32.gif" width="25" height="25" />
+                                        <!--<apex:outputLabel value="Loading..."/>-->
+                                </apex:outputPanel>            
+                           </apex:facet>
+                        </apex:actionStatus>  <br/>
+                    
+                   <apex:outputlabel value=" {!$Label.You_must_enter_a_value}" rendered="{!Countryerror}" style="font-size: 12px; color:#D80339"/>
+                  
+                  </apex:outputPanel>
+                  
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="{!$Label.Case_Category}" />
+                                <apex:outputpanel layout="block" styleClass="requiredInput">
+                                    <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                                    <apex:selectlist value="{!ca.Case_Category__c}" styleClass="subType" size="1">
+                                        <apex:selectoptions value="{!Category}"/>
+                                        <apex:actionSupport event="onchange" rerender="Internal,Internal1,internalmessage" status="pageStatus"/>
+                                        </apex:selectlist>
+                                        <apex:actionStatus id="pageStatus">
+                                            <apex:facet name="start">
+                                                <apex:outputPanel >
+                                                <img src="/img/loading32.gif" width="25" height="25" />
+                                                    <!--<apex:outputLabel value="Loading..."/>-->
+                                                </apex:outputPanel>            
+                                           </apex:facet>
+                                        </apex:actionStatus>
+                                        <div class="mouseOverInfoOuter" onfocus="addMouseOver(this)" onmouseover="addMouseOver(this)" >
+                                    <img src="/img/s.gif" alt="" class="infoIcon" />
+                                    <div class="mouseOverInfo" style="display: none; opacity: -0.2; left: 19px;"><apex:outputLabel value="{!$Label.creating_this_case_on_behalf_of_partner}"/></div>
+                                </div><br/>
+                                <apex:outputlabel value="{!$Label.Error}:{!$Label.You_must_enter_a_value}" rendered="{!Categoryerror }" style="font-size: 12px; color:#D80339"/>
+                                </apex:outputpanel>
+                        </apex:pageBlockSectionItem> 
+        
+            <!--   <apex:outputPanel id="Internal">
+                <apex:pageBlockSection >-->
+                <apex:pageBlockSectionItem >
+                        
+                        <apex:outputpanel id="Internal1" >
+                       <apex:outputLabel value="{!$Label.UnAuth_Creator_Email}" rendered="{!ca.Case_Category__c=='Internal User'}" />
+                       </apex:outputpanel>
+                       <apex:outputPanel id="Internal" layout="block" styleClass="requiredInput">
+                       
+                        <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                         
+                    <apex:inputField value="{!ca.Creator_Email__c}"   styleClass="unauthcontactemail" rendered="{!ca.Case_Category__c=='Internal User'}">
+                     <div class="mouseOverInfoOuter" onfocus="addMouseOver(this)" onmouseover="addMouseOver(this)"    >
+                                    <img src="/img/s.gif" alt="" class="infoIcon" />
+                                    <div class="mouseOverInfo" style="display: none; opacity: -0.2; left: 19px; page-break-after:right;"><apex:outputLabel value="{!$Label.Please_provide_your_Dell_email_address}"/></div>
+                                </div><br/>   
+                    </apex:inputfield>
+                    
+                    <apex:outputlabel value="{!$Label.Error}: {!$Label.You_must_enter_a_value}"  rendered="{!internalmessage}" style="font-size: 12px; color:#D80339"/>
+                    </apex:outputpanel>
+                </apex:pageBlockSectionItem>
+               
+              <!-- </apex:pageBlockSection>
+                </apex:outputPanel>-->
+            
+        </apex:pageBlockSection>
+        <apex:outputpanel id="cs">
+        <apex:pageBlockSection title="{!$Label.Case_Information}"  rendered="{!Newcase1}" columns="1" id="CaseInfo">
+            
+            <apex:pageBlockSectionItem id="CaseType" >
+                
+                  <apex:outputLabel value="{!$Label.Case_Type}" id="rectype" />
+                  <apex:outputPanel layout="block" styleClass="requiredInput" id="CaseTypeField">
+                      <apex:actionRegion >
+                        <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                        <apex:selectList label="Region" size="1" multiselect="false" value="{!selectedvalue}">
+                            <apex:selectOptions value="{!options}"  />
+                            <!-- Added by Elton-->
+                            <apex:actionSupport event="onchange" action="{!editcase}" reRender="NC" status="pageStatus" />
+                               <!-- <apex:actionSupport event="onchange" action="{!editcase}" reRender="NC" status="pageStatus" oncomplete="createCaptcha();">
+                                </apex:actionSupport>-->
+                        </apex:selectList>
+                        <apex:actionStatus id="pageStatus">
+                            <apex:facet name="start">
+                                <apex:outputPanel >
+                                        <img src="/img/loading32.gif" width="25" height="25" />
+                                        <!--<apex:outputLabel value="Loading..."/>-->
+                                </apex:outputPanel>            
+                           </apex:facet>
+                        </apex:actionStatus>  <br/>
+                      <apex:outputlabel value="Error: {!$Label.You_must_enter_a_value}" rendered="{!casetypeError}" style="font-size: 12px; color:#D80339"/>
+                      </apex:actionRegion>
+                   </apex:outputPanel>
+                 
+            </apex:pageBlockSectionItem>
+     
+ 
+           <!-- <apex:outputpanel rendered="{!Editcase}">
+                <apex:pageblocksection columns="1"  > -->
+                        <apex:pageBlockSectionItem rendered="{!NonDisti}" >
+                            <apex:outputLabel value="{!$Label.SubTypeOs}" />
+                            <apex:outputpanel layout="block" styleClass="requiredInput">
+                                <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                                <apex:inputField value="{!ca.Sub_Type_Order_Support__c}" id="a">
+                                    <apex:actionSupport event="onchange" rerender="CaseInfo,ConditionalSubtypeBlock,OnBoardingPrefDisti,ConditionalRenewalBlock,PartnerAccessFormBlock,prodType"  action="{!ClearSubtypeOptions}"  status="pageStatus"/>
+                                </apex:inputfield>
+                                <apex:actionStatus id="pageStatus">
+                                    <apex:facet name="start">
+                                            <apex:outputPanel >
+                                            <img src="/img/loading32.gif" width="25" height="25" />
+                                            <!--<apex:outputLabel value="Loading..."/>-->
+                                            </apex:outputPanel>            
+                                    </apex:facet>
+                                </apex:actionStatus>
+                            </apex:outputpanel>
+                        </apex:pageBlockSectionItem> 
+                    <apex:pageBlockSectionItem rendered="{!ca.Sub_Type_Order_Support__c == $Label.Case_SubType_Return}">
+                            <apex:outputLabel value="{!$Label.Return_Request_for_MyQuote }"/>
+                            <apex:outputPanel layout="block" >                      
+                                                        
+                               <apex:outputLink target="_blank" value="{!$Label.Return_Request_for_MyQuote_Link}">Click Here</apex:outputLink>
+                            </apex:outputpanel>
+                    </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem rendered="{!NonDisti}">
+                            
+                                <apex:outputLabel value="{!$Label.CaseReasonOS}" />
+                                <apex:outputpanel >
+                                <apex:inputField value="{!ca.Case_Reason_Order_Support__c}" >
+                                    <apex:actionSupport event="onchange" rerender="ConditionalSubtypeBlock"  action="{!ClearSubtypeOptions}" status="pageStatus"/>
+                                </apex:inputfield>
+                                <apex:actionStatus id="pageStatus">
+                                    <apex:facet name="start">
+                                            <apex:outputPanel >
+                                            <img src="/img/loading32.gif" width="25" height="25" />
+                                            <!--<apex:outputLabel value="Loading..."/>-->
+                                            </apex:outputPanel>            
+                                    </apex:facet>
+                                </apex:actionStatus>
+                                </Apex:outputpanel>                      
+                        </apex:pageBlockSectionItem>
+             <!--   </apex:pageBlockSection> -->
+                    
+               <!-- <Apex:pageBlockSection rendered="{!Disti}" columns="1">-->
+                        <apex:pageBlockSectionItem rendered="{!Disti}" >
+                                <apex:outputLabel value="{!$Label.SubTypeOs}" />
+                                <apex:outputpanel layout="block" styleClass="requiredInput">
+                                    <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                                    <apex:selectlist value="{!ca.Sub_Type_Order_Support__c}" styleClass="subType" size="1">
+                                        <apex:selectoptions value="{!Di_SubTypeList}"/>
+                                        <apex:actionSupport event="onchange" action="{!DistiCaseReasons}" rerender="RefreshCaseReasons,ConditionalRenewalBlock" status="pageStatus" />
+                                        </apex:selectlist>
+                                        <apex:actionStatus id="pageStatus">
+                                    <apex:facet name="start">
+                                            <apex:outputPanel >
+                                            <img src="/img/loading32.gif" width="25" height="25" />
+                                            <!--<apex:outputLabel value="Loading..."/>-->
+                                            </apex:outputPanel>            
+                                    </apex:facet>
+                                </apex:actionStatus><br/>
+                      <apex:outputlabel value="Error: {!$Label.You_must_enter_a_value}" rendered="{!subtypeerror}" style="font-size: 12px; color:#D80339"/>  
+                                </apex:outputpanel>
+                        </apex:pageBlockSectionItem> 
+                        <apex:pageBlockSectionItem rendered="{!Disti}" >                   
+                                <apex:outputLabel value="{!$Label.CaseReasonOS}"/>
+                                <apex:outputPanel layout="block" id="RefreshCaseReasons">                            
+                                    <apex:selectlist value="{!ca.Case_Reason_Order_Support__c}" size="1" styleClass="caseReason">
+                                    <apex:selectoptions value="{!Di_CaseReasonList}"/>
+                                    <apex:actionSupport event="onchange" rerender="ConditionalSubtypeBlock"  action="{!ClearSubtypeOptions}" status="pageStatus"/>
+                                    </apex:selectlist>
+                                    <apex:actionStatus id="pageStatus">
+                                    <apex:facet name="start">
+                                            <apex:outputPanel >
+                                            <img src="/img/loading32.gif" width="25" height="25" />
+                                            </apex:outputPanel>            
+                                    </apex:facet>
+                                </apex:actionStatus><br/>
+                      <apex:outputlabel value="Error: {!$Label.You_must_enter_a_value}" rendered="{!casereasonerror}" style="font-size: 12px; color:#D80339"/>
+                                </apex:outputpanel>
+                        </apex:pageBlockSectionItem>  
+                    
+               <!-- </apex:pageBlockSection>-->
+           <!--    <apex:pageBlockSectionItem rendered="{!priority}">
+                        <apex:outputLabel value="{!$ObjectType.Case.fields.Priority.Label}"/>
+                        <apex:outputPanel layout="block" styleClass="requiredInput">
+                            <apex:inputField value="{!ca.Priority}"  required="true"/>
+                        </apex:outputpanel>
+                    </apex:pageBlockSectionItem> -->
+            <apex:pageBlockSectionItem rendered="{!priority}" >
+                                <apex:outputLabel value="{!$ObjectType.Case.fields.Priority.Label}" />
+                                <apex:outputpanel layout="block" styleClass="requiredInput">
+                                    <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                                    <apex:selectlist value="{!ca.priority}" styleClass="subType" size="1">
+                                        <apex:selectoptions value="{!priorityvalues}"/>
+                                        
+                                        </apex:selectlist><br/>
+                                        
+                                        
+                                <apex:outputlabel value="{!$Label.Error}:{!$Label.You_must_enter_a_value}" rendered="{!priorityerror}" style="font-size: 12px; color:#D80339"/>
+                                </apex:outputpanel>
+                        </apex:pageBlockSectionItem>
+            
+                        <apex:pageBlockSectionItem rendered="{!selectedvalue = $Label.Channel_Services_Helpdesk}" > 
+                                <apex:outputLabel value="{!$ObjectType.Case.fields.Partner_Motion__c.Label}" />
+                                <apex:outputpanel layout="block" styleClass="requiredInput">
+                                    <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                                    <apex:inputField value="{!ca.Partner_Motion__c}" />  
+                                    <br/>
+                                        
+                                        
+                                <apex:outputlabel value="{!$Label.Error}:{!$Label.You_must_enter_a_value}" rendered="{!bpartnerMotionError}" style="font-size: 12px; color:#D80339"/>
+                                </apex:outputpanel>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem rendered="{!selectedvalue = $Label.Channel_Services_Helpdesk}" > 
+                                <apex:outputLabel value="" />
+                                <apex:outputLink value="{!$Label.Case_Reason_Description_URL}" target="_blank" >Case Reason Descriptions</apex:outputLink>
+                        </apex:pageBlockSectionItem>
+                        </apex:pageBlockSection>
+        </apex:outputpanel>
+
+        <!-- start Added Current_Distributor_UA__c, Requested_Preferred_Distributor_UA__c field -->
+        <apex:outputpanel id="OnBoardingPrefDisti">
+                         <apex:pageBlockSection rendered="{!ca.Sub_Type_Order_Support__c == 'Preferred Distributor Changes'}" columns="2" >     
+                         
+                        <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$ObjectType.Case.fields.Current_Distributor_UA__c.Label}" />
+                        <apex:outputpanel layout="block" styleClass="requiredInput">
+                            <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel> 
+                            <apex:inputField value="{!ca.Current_Distributor_UA__c}" styleclass="current_dist"/>
+                        </apex:outputpanel>
+                         </apex:pageBlockSectionItem>   
+                          <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$ObjectType.Case.fields.Requested_Preferred_Distributor_UA__c.Label}" />
+                        <apex:outputpanel layout="block" styleClass="requiredInput">
+                            <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel> 
+                            <apex:inputField value="{!ca.Requested_Preferred_Distributor_UA__c}" styleclass="Requested_Preferred_Dist"/>
+                        </apex:outputpanel>
+                         </apex:pageBlockSectionItem>   
+            </apex:pageBlockSection>
+            </apex:outputpanel>
+        <!-- End Added Current_Distributor__c, Requested_Preferred_Distributor__c field -->
+          <!--  </apex:outputpanel>-->
+        
+        </Apex:actionregion> 
+        <!-- Case INFORLMATION BLOCK- END-->
+                     
+              
+               
+        <!-- Conditionlal block Start-->
+            <apex:outputPanel id="ConditionalSubtypeBlock">
+                <apex:pageBlockSection >
+                    <apex:pageBlockSectionItem rendered="{!ca.Sub_Type_Order_Support__c==$Label.Company_name_change && (ca.Case_Reason_Order_Support__c == $Label.Tax_ID_Change
+                                                         || ca.Case_Reason_Order_Support__c == $Label.Name_Address_change)}">
+                            <apex:outputLabel value="{!$Label.Current_TaxID}"/>
+                            <apex:outputPanel layout="block" styleClass="requiredInput">
+                                <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel> 
+                                <apex:inputField value="{!ca.Current_TaxID__c}" styleclass="currenttax"/>
+                            </apex:outputpanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!ca.Sub_Type_Order_Support__c==$Label.Company_name_change && (ca.Case_Reason_Order_Support__c == $Label.Tax_ID_Change
+                                                         || ca.Case_Reason_Order_Support__c == $Label.Name_Address_change)}">
+                            <apex:outputLabel value="{!$Label.New_TaxID}"/>
+                            <apex:outputPanel layout="block" styleClass="requiredInput">
+                                <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel> 
+                                <apex:inputField value="{!ca.New_TaxID__c}" styleclass="newtax"/>
+                            </apex:outputpanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!ca.Sub_Type_Order_Support__c==$Label.Company_name_change && (ca.Case_Reason_Order_Support__c == $Label.Name_Address_Notax_change
+                                                         || ca.Case_Reason_Order_Support__c == $Label.Name_Address_change)}">
+                            <apex:outputLabel value="{!$Label.Original_Name}"/>
+                            <apex:outputPanel layout="block" styleClass="requiredInput">
+                                <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel> 
+                                <apex:inputField value="{!ca.Original_Name__c}" styleclass="originalName"/>
+                            </apex:outputpanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!ca.Sub_Type_Order_Support__c==$Label.Company_name_change && (ca.Case_Reason_Order_Support__c == $Label.Name_Address_Notax_change
+                                                         || ca.Case_Reason_Order_Support__c == $Label.Name_Address_change)}">                 
+                            <apex:outputLabel value="{!$Label.New_Name}"/>
+                            <apex:outputPanel layout="block" styleClass="requiredInput">
+                                <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel> 
+                                <apex:inputField value="{!ca.New_Name__c}" styleclass="NewName"/>
+                            </apex:outputpanel>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem rendered="{!ca.Sub_Type_Order_Support__c==$Label.Company_name_change && (ca.Case_Reason_Order_Support__c == $Label.Address_change
+                                                         || ca.Case_Reason_Order_Support__c == $Label.Name_Address_change || ca.Case_Reason_Order_Support__c == $Label.Name_Address_Notax_change)}">
+                     
+                            <apex:outputLabel value="{!$Label.Original_Incorrect_AddressOs }"/>
+                            <apex:outputPanel layout="block" styleClass="requiredInput">
+                                <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel> 
+                                <apex:inputField value="{!ca.Original_Or_Incorrect_Address__c}" styleclass="originalAddress" style="height: 30px;"/>
+                            </apex:outputpanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!ca.Sub_Type_Order_Support__c==$Label.Company_name_change && (ca.Case_Reason_Order_Support__c == $Label.Address_change
+                                                         || ca.Case_Reason_Order_Support__c == $Label.Name_Address_change || ca.Case_Reason_Order_Support__c == $Label.Name_Address_Notax_change)}">                 
+                            <apex:outputLabel value="{!$Label.NewAddressOS }"/>
+                            <apex:outputPanel layout="block" styleClass="requiredInput">
+                                <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel> 
+                                <apex:inputField value="{!ca.New_Address__c}" styleclass="newAddress" style="height: 30px;"/>
+                            </apex:outputpanel>
+                    </apex:pageBlockSectionItem>
+                    <!-- story : 6730077 added Business_change_letter_cert_attached__c field -->
+                     <apex:pageBlockSectionItem rendered="{!ca.Sub_Type_Order_Support__c == $Label.Company_name_change}">                         
+                         <apex:outputPanel >
+                             <img src="/s.gif" alt="Help" class="helpIcon" title="Please attach the Business Change Letter and Business License/Trading Certificate as attachments to this case before submitting.Without the required documents,the case will be closed without any further action." 
+                                  style="float: right;margin-right: -14px;"/>
+                             <apex:outputLabel value="{!$ObjectType.Case.fields.Business_change_letter_cert_attached__c.Label}"/>
+                         </apex:outputPanel>
+                         <apex:outputPanel layout="block" styleClass="requiredInput">
+                             <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel> 
+                             <apex:inputField value="{!ca.Business_change_letter_cert_attached__c}" styleclass="isBusiness" />                              
+                         </apex:outputpanel>                       
+                    </apex:pageBlockSectionItem> 
+                           
+                      <!-- story : 6730077 ends -->
+                    <apex:pageBlockSectionItem rendered="{!ca.Sub_Type_Order_Support__c == $Label.Change_of_Address_Post_Shipment
+                                                         || ca.Sub_Type_Order_Support__c == $Label.Case_SubType_pickupRedelivery}">
+                            <apex:outputLabel value="{!$Label.Original_Incorrect_AddressOs }"/>
+                            <apex:outputPanel layout="block" styleClass="requiredInput">
+                                <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel> 
+                                <apex:inputField value="{!ca.Original_Or_Incorrect_Address__c}" styleclass="originalAddress" style="height: 30px;"/>
+                            </apex:outputpanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!ca.Sub_Type_Order_Support__c == $Label.Change_of_Address_Post_Shipment
+                                                         || ca.Sub_Type_Order_Support__c == $Label.Case_SubType_pickupRedelivery}">
+                            <apex:outputLabel value="{!$Label.NewAddressOS }"/>
+                            <apex:outputPanel layout="block" styleClass="requiredInput">
+                                <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel> 
+                                <apex:inputField value="{!ca.New_Address__c}" styleclass="newAddress" style="height: 30px;"/>
+                            </apex:outputpanel>
+                    </apex:pageBlockSectionItem>    
+                    <apex:pageBlockSectionItem rendered="{!ca.Sub_Type_Order_Support__c == $Label.Change_of_Address_Post_Shipment
+                                                        || ca.Sub_Type_Order_Support__c == $Label.Case_SubType_pickupRedelivery}">
+                            <apex:outputLabel value="{!$Label.ContactDetailsOS }"/>
+                            <apex:outputPanel layout="block" styleClass="requiredInput">
+                                <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel> 
+                                <apex:inputField value="{!ca.Pickup_Address_Details__c}" styleclass="contactDetails" style="height: 30px;"> 
+                                <div class="mouseOverInfoOuter" onfocus="addMouseOver(this)" onmouseover="addMouseOver(this)" >
+                                    <img src="/img/s.gif" alt="" class="infoIcon" />
+                                    <div class="mouseOverInfo" style="display: none; opacity: -0.2; left: 19px;"><apex:outputLabel value="{!$Label.OrderSupport_Helptext1}"/></div>
+                                </div>
+                                </apex:inputField>
+                            </apex:outputpanel>
+                    </apex:pageBlockSectionItem>
+                     <apex:pageBlockSectionItem rendered="{!ca.Sub_Type_Order_Support__c == $Label.Case_SubType_Return}">
+                            <apex:outputLabel value="{!$Label.Full_or_Partial_order_return }"/>  
+                            <apex:outputPanel layout="block" styleClass="requiredInput">                      
+                                <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                                <apex:inputField value="{!ca.Full_or_Partial_order_return__c}" styleclass="fullOrPartialReturn"/>
+                            </apex:outputpanel>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem rendered="{!ca.Sub_Type_Order_Support__c == $Label.Case_SubType_Return}">
+                            <apex:outputLabel value="{!$Label.Reason_for_the_return }"/>
+                            <apex:outputPanel layout="block" styleClass="requiredInput">                      
+                                <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>                        
+                                <apex:inputField value="{!ca.Reason_for_the_return__c}" styleclass="reasonForReturn"/>
+                            </apex:outputpanel>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem rendered="{!ca.Sub_Type_Order_Support__c == $Label.Case_SubType_Missing
+                                                        || ca.Sub_Type_Order_Support__c == $Label.Case_SubType_Wrong}">
+                            <apex:outputLabel value="{!$Label.Full_or_Partial_order_impacted }"/>
+                            <apex:outputPanel layout="block" styleClass="requiredInput">                      
+                                <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>                            
+                                <apex:inputField value="{!ca.Full_or_Partial_order_impacted__c}" styleclass="fullOrPartialImpacted"/> 
+                            </apex:outputpanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!ca.Sub_Type_Order_Support__c == $Label.Case_SubType_Missing
+                                                     || ca.Sub_Type_Order_Support__c == $Label.Case_SubType_Wrong}">
+                            <apex:outputLabel value="{!$Label.Replacement_order_or_credit }"/>
+                            <apex:outputPanel layout="block" styleClass="requiredInput">
+                                <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                                <apex:inputField value="{!ca.Replacement_order_or_credit__c}" styleclass="replacementOrCredit"/>
+                            </apex:outputpanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!ca.Sub_Type_Order_Support__c == $Label.Case_SubType_Return
+                                                        || ca.Sub_Type_Order_Support__c == $Label.Case_SubType_Wrong}">
+                            <apex:outputLabel value="{!$Label.Pick_Up_AddressOS }"/>
+                            <apex:outputPanel layout="block" styleClass="requiredInput">
+                                <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel> 
+                                <apex:inputField value="{!ca.Pick_Up_Address__c}" styleClass="pickupAddress" style="height: 30px;">
+                                <div class="mouseOverInfoOuter" onfocus="addMouseOver(this)" onmouseover="addMouseOver(this)" >
+                                    <img src="/img/s.gif" alt="" class="infoIcon" />
+                                    <div class="mouseOverInfo" style="display: none; opacity: -0.2; left: 19px;"><apex:outputLabel value="{!$Label.OrderSupport_Helptext2}"/></div>
+                                </div>
+                                </apex:inputField>
+                            </apex:outputpanel> 
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!ca.Sub_Type_Order_Support__c == $Label.Case_SubType_Missing
+                                                        || ca.Sub_Type_Order_Support__c == $Label.Case_SubType_Wrong}">
+                            <apex:outputLabel value="{!$Label.Delivery_Address }"/> 
+                            <apex:outputPanel layout="block" styleClass="requiredInput">
+                                <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel> 
+                                <apex:inputField value="{!ca.Delivery_Address__c}" styleClass="deliveryAddress" style="height: 30px;">
+                                <div class="mouseOverInfoOuter" onfocus="addMouseOver(this)" onmouseover="addMouseOver(this)" >
+                                    <img src="/img/s.gif" alt="" class="infoIcon" />
+                                    <div class="mouseOverInfo" style="display: none; opacity: -0.2; left: 19px;"><apex:outputLabel value="{!$Label.OrderSupport_Helptext3}"/></div>
+                                </div>
+                                </apex:inputField>
+                            </apex:outputpanel>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem rendered="{!ca.Sub_Type_Order_Support__c == $Label.Case_SubType_Missing 
+                                                        || ca.Sub_Type_Order_Support__c == $Label.Case_SubType_Return
+                                                        || ca.Sub_Type_Order_Support__c == $Label.Case_SubType_Wrong}">
+                            <apex:outputLabel value="{!$Label.Item_s_Description }"/>
+                            <apex:inputField value="{!ca.Item_s_Description__c}" style="height: 30px;">
+                            <div class="mouseOverInfoOuter" onfocus="addMouseOver(this)" onmouseover="addMouseOver(this)" >
+                                <img src="/img/s.gif" alt="" class="infoIcon" />
+                                <div class="mouseOverInfo" style="display: none; opacity: -0.2; left: 19px;"><apex:outputLabel value="{!$Label.OrderSupport_Helptext4}"/></div>
+                            </div>
+                            </apex:inputField>
+                    </apex:pageBlockSectionItem> 
+                    
+                    <apex:pageBlockSectionItem rendered="{!selectedvalue='Deal Registration'}">
+                            <apex:outputLabel value="{!$Label.Opportunity_Reference}"/>
+                            <apex:inputField value="{!ca.Opportunity_Reference__c}">
+                            
+                            </apex:inputField>
+                     </apex:pageBlockSectionItem>
+                 <!-- <apex:pageBlockSectionItem rendered="{!ca.Sub_Type_Order_Support__c == $Label.Case_SubType_Return}">
+                            <apex:outputLabel value="{!$Label.Exceeds_30_day_Policy }"/>
+                            <apex:inputField value="{!ca.Exceeds_30_day_Policy__c}" style="height: 30px;">
+                            <div class="mouseOverInfoOuter" onfocus="addMouseOver(this)" onmouseover="addMouseOver(this)" >
+                                <img src="/img/s.gif" alt="" class="infoIcon" />
+                                <div class="mouseOverInfo" style="display: none; opacity: -0.2; left: 19px;"><apex:outputLabel value="{!$Label.OrderSupport_Helptext5}"/></div>
+                            </div>
+                            </apex:inputField>
+                    </apex:pageBlockSectionItem> -->
+                </apex:pageBlockSection>
+            </apex:outputpanel>
+    <!-- Conditionlal block END-->    
+    
+        <!-- CASE RENEWABLE SALES INFORMATION BLOCK - START -->     
+        <apex:outputPanel id="ConditionalRenewalBlock" >
+            <apex:pageBlockSection title="Required Information" rendered="{!ca.Sub_Type_Order_Support__c == 'Renewal Sales'}" columns="1">
+                <font size="2.0" color="red" > <b> {!$Label.Renewal_Sales_Required_Text} </b> </font> <br/>
+                <apex:pageBlockSectionItem >
+                     <apex:outputLabel value="{!$ObjectType.Case.fields.Serial_Number__c.Label}"/>
+                    <apex:inputField value="{!ca.Serial_Number__c}" /> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                     <apex:outputLabel value="{!$ObjectType.Case.fields.Contract_Number__c.Label}"/>
+                    <apex:inputField value="{!ca.Contract_Number__c}" /> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                     <apex:outputLabel value="{!$ObjectType.Case.fields.Sales_Order_Number__c.Label}"/>
+                    <apex:inputField value="{!ca.Sales_Order_Number__c}" /> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputPanel >
+                    <apex:outputLabel value="{!$ObjectType.Case.fields.End_User_Name__c.Label}"/>
+                    </apex:outputPanel>
+                     
+                    <apex:inputField value="{!ca.End_User_Name__c}" /> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                     <apex:outputLabel value="{!$ObjectType.Case.fields.End_User_Address__c.Label}"/>
+                    <apex:inputField value="{!ca.End_User_Address__c}" /> 
+                </apex:pageBlockSectionItem>
+            
+            </apex:pageBlockSection>
+        
+        
+        </apex:outputPanel>
+        <!-- CASE RENEWABLE SALES INFORMATION BLOCK - END -->  
+        
+         <!-- CASE PARTNER ACCESS FORM BLOCK - START -->     
+        <apex:outputPanel id="PartnerAccessFormBlock" >
+            <apex:pageBlockSection title="{!$Label.Partner_Process_Forms}" rendered="{!IF((selectedvalue == $Label.Channel_Services_Helpdesk && ca.Sub_Type_Order_Support__c != 'Renewal Sales' && NOT(ISBLANK(ca.Sub_Type_Order_Support__c))),true,false)}" columns="3">
+                 <apex:pageBlockSectionItem > 
+                       
+                                <apex:outputLink value="{!URLFOR($Action.Case.New_Service_Partner_Application)}" target="_blank">New Service Partner Application</apex:outputLink>
+                        </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem > 
+                                
+                                <apex:outputLink value="{!URLFOR($Action.Case.Technology_Vendor_Skills_Assessment_Form)}" target="_blank">Technology Vendor Skills Assessment Form</apex:outputLink>
+                        </apex:pageBlockSectionItem>
+                
+               <apex:pageBlockSectionItem > 
+                               
+                                <apex:outputLink value="{!URLFOR($Action.Case.Global_Subcontracting_Partner_Nomination_Form_Internal_Use_Only)}" target="_blank">Global Subcontracting Partner Nomination Form (Internal Use Only)</apex:outputLink>
+                        </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        
+        
+        </apex:outputPanel>
+        <!-- CASE PARTNER ACCESS FORM BLOCK - END -->  
+        
+         
+        
+    <!-- End User Details section starts here -->
+            <apex:pageBlockSection title="{!$Label.End_User_Details}" Rendered="{!EndUserdetails}">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.End_User_Name}"/>
+                    <apex:inputField value="{!ca.End_User_Name__c}"  style="height: 15px;width:170px"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.End_User_Email}"/>
+                    <apex:inputField value="{!ca.End_User_Email__c}" styleclass="endUserEmailSection"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.End_User_Company}"/>
+                    <apex:inputField value="{!ca.End_User_Company__c}" style="height: 30px;"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+    <!-- End User Details section ends here -->
+      
+    <!-- ACCOUNT INFORLMATION BLOCK- START-->   
+            <apex:pageBlockSection title="{!$Label.Unauthenticated_Data}"  rendered="{!Editcase}" columns="1">
+            
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.UnAuth_Account_Name}"/>
+                    <apex:inputfield value="{!Ca.Unauthenticated_account__c}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.UnAuth_Contact_Name}" />
+                    <apex:inputField value="{!ca.unauthenticated_Contact__c}" styleClass="unauthcontact"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.UnAuth_Account_AffinityID}" />
+                    <apex:inputField value="{!ca.Unauthenticated_Account_Affinity_ID__c}" styleClass="unauthaffinityid"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.UnAuth_Contact_Email}" />
+                    <apex:outputPanel layout="block" styleClass="requiredInput">
+                        <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                        <apex:inputField value="{!ca.Unauthenticated_Contact_Email__c}" styleClass="unauthcontactemail" />
+                    </apex:outputpanel>
+                    
+                </apex:pageBlockSectionItem>
+                
+             <!--   <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Case Category" />
+                    <apex:outputPanel layout="block" styleClass="requiredInput">
+                    <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                    <apex:inputField value="{!ca.Case_Category__c}" >
+                    <apex:actionSupport event="onchange" rerender="Internal"/>
+                    </apex:inputField>
+                    </apex:outputpanel>
+                </apex:pageBlockSectionItem>
+                <apex:outputPanel id="Internal">
+                <apex:pageBlockSection >
+                <apex:pageBlockSectionItem rendered="{!ca.Case_Category__c=='Internal User'}"  >
+                    <apex:outputLabel value="{!$Label.UnAuth_Creator_Email}" />
+                    <apex:outputPanel layout="block" styleClass="requiredInput">
+                        <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                    <apex:inputField value="{!ca.Creator_Email__c}"   styleClass="unauthcontactemail">
+                        <div class="mouseOverInfoOuter" onfocus="addMouseOver(this)" onmouseover="addMouseOver(this)" >
+                                    <img src="/img/s.gif" alt="" class="infoIcon" />
+                                    <div class="mouseOverInfo" style="display: none; opacity: -0.2; left: 19px;"><apex:outputLabel value="Please provide your Dell email address and an acknowledgment email will be sent you when the case is submitted"/></div>
+                                </div>
+                    </apex:inputfield>
+                    </apex:outputpanel>
+                </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                </apex:outputPanel>-->
+                <!---Started by saradhi------->
+                <apex:pageBlockSectionItem rendered="{!IF((selectedvalue == 'Order Support'),true,false)}">
+                    <apex:outputLabel value="{!$Label.UA_Contact_Telephone_Number}" />
+                    <!--<apex:outputPanel layout="block" styleClass="requiredInput">
+                        <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>-->   
+                    <apex:inputField value="{!ca.UA_Contact_Telephone_Number__c}"  required="{!IF((selectedvalue == 'Order Support'),true,false)}" styleClass="unauthcontactemail"/>
+                    <!--</apex:outputpanel>-->
+                </apex:pageBlockSectionItem>
+                <!---Ended by saradhi------->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.UnAuth_Requesting_Account}" />
+                    <!--<apex:outputPanel layout="block" >
+                        <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>-->
+                    <apex:inputField value="{!ca.UA_Requesting_on_behalf_of_Account__c}" required="{!IF((selectedvalue == 'Order Support'),true,false)}" styleClass="unauthcontactemail"/>
+                    <!--</apex:outputpanel>-->
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Unauth_Requesting_Affinity_ID}" />
+                    <apex:inputField value="{!ca.UA_Requesting_on_behalf_of_Affinity_ID__c}" styleClass="unauthcontactemail"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+    <!-- AccOUNT INFORLMATION BLOCK- END-->
+        
+    <!-- DESCRIPTION INFORLMATION BLOCK- START-->
+            <apex:pageBlockSection title="{!$Label.Description_Information}"  rendered="{!Editcase}">
+         
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.Case.fields.Subject.Label}"/>
+                    <apex:outputPanel layout="block" styleClass="requiredInput">
+                        <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                        <apex:inputField value="{!ca.Subject}" styleclass="subject" />
+                    </apex:outputpanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!ordertype}" >
+                 <!--   <apex:outputLabel value="{!$ObjectType.Case.fields.Order_Reference_Number_Type__c.Label}"/>  -->
+                    <apex:outputLabel value="{!$Label.Order_Reference_Number_Type }"/>
+                    <apex:outputPanel layout="block" styleClass="requiredInput">
+                        <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                        
+                        <apex:inputField value="{!ca.Order_Reference_Number_Type__c}" styleClass="orderReferenceNumber"/>
+                     </apex:outputpanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.Case.fields.Description.Label}"/>
+                    <apex:outputPanel layout="block" styleClass="requiredInput">
+                        <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                        <apex:inputfield value="{!ca.Description}" styleClass="description"/>
+                    <apex:actionStatus id="pageStatus">
+                        <apex:facet name="start">
+                            <apex:outputPanel >
+                            <img src="/img/loading32.gif" width="25" height="25" />
+                                <!--<apex:outputLabel value="Loading..."/>-->
+                            </apex:outputPanel>            
+                        </apex:facet>
+                    </apex:actionStatus>
+                    <div class="mouseOverInfoOuter" onfocus="addMouseOver(this)" onmouseover="addMouseOver(this)" >
+                        <img src="/img/s.gif" alt="" class="infoIcon" />
+                        <div class="mouseOverInfo" style="display: none; opacity: -0.2; left: 19px;"><apex:outputLabel value="{!$Label.Description_help_text}"/></div>
+                    </div><br/>
+
+                    </apex:outputpanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!ordertype}" >
+             
+                    <apex:outputLabel value="{!$Label.Order_Reference_Number}"/>
+                     <apex:outputPanel layout="block" styleClass="requiredInput">
+                        <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                        <apex:inputField value="{!ca.Order_Number1__c}" styleClass="orderNumber"/>
+                   </apex:outputpanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputpanel >
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem> 
+                
+                <apex:outputPanel Id="prodType">
+                    <apex:pageBlockSectionItem rendered="{! selectedvalue == 'Order Support'&& (ca.Sub_Type_Order_Support__c == $Label.Case_SubType_Missing
+                                                            || ca.Sub_Type_Order_Support__c == $Label.Case_SubType_Wrong)}">
+                                <apex:outputLabel style="padding-left: 23%;" value="{!$Label.Product_Type }" styleclass="labelCol vfLabelColTextWrap"/>
+                                <apex:outputPanel layout="block" styleClass="requiredInput" style="padding-left: 37%;margin-top: -2%;">                      
+                                    <apex:outputpanel layout="block" styleClass="requiredBlock" style="margin-left: 37%;"></apex:outputpanel>                            
+                                    <apex:inputField value="{!ca.Product_Type__c}" styleclass="fullOrPartialImpacted"/> 
+                                </apex:outputpanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:outputPanel>
+            </apex:pageBlockSection>
+    <!-- DESCRIPTION INFORLMATION BLOCK- END-->
+        
+    <!-- ADDITIONAL INFORLMATION BLOCK- START-->
+            <apex:pageBlockSection title="{!$Label.Additional_Recipient_Emails}" rendered="{!Editcase}">
+                <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Additional_Recipient_1}"/>
+                        <apex:inputField value="{!ca.Additional_Recipient_1__c}" styleClass="additionalRecipient1"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Additional_Recipient_4}"/>
+                        <apex:inputField value="{!ca.Additional_Recipient_4__c}" styleClass="additionalRecipient4"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Additional_Recipient_2}"/>
+                        <apex:inputField value="{!ca.Additional_Recipient_2__c}" styleClass="additionalRecipient2"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Additional_Recipient_5}"/>
+                        <apex:inputField value="{!ca.Additional_Recipient_5__c}" styleClass="additionalRecipient5"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Additional_Recipient_3}"/>
+                        <apex:inputField value="{!ca.Additional_Recipient_3__c}" styleClass="additionalRecipient3"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+    <!-- ADDITIONAL INFORLMATION BLOCK- END-->
+    <!-- Commented to revert back STORY 7498907 for technical launch -->
+     <!-- ATTACHMENT UPLOAD START: Add        
+        <div id = "attachDiv" style="{!if(Editcase,'display:block','display:none')}">
+           <apex:pageBlockSection columns="2" title="{!$Label.Upload_Attachment}" >
+            <font size="1.0" color="red" > <b> {!$Label.Upload_Attachment_Text} </b> </font> <br/>
+               <apex:pageBlockSectionItem >
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:inputFile styleclass = "file_input" value="{!attach1.body}" filename="{!attach1.name}" id="file1" onchange="checkFileSize(event);"/>   
+                    <div>
+                        <div class="btn" onclick="javascript:deleteRow('file1');checkFileSize(event);" style="float:left"> {!$Label.Delete} </div>
+                        <div id="file1_Error" style="color:red;display:none;" ></div>  
+                    </div>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >                   
+                    <apex:inputFile styleclass = "file_input" value="{!attach2.body}" filename="{!attach2.name}" id="file2" onchange="checkFileSize(event);"/>
+                    <div>
+                    <div class="btn" onclick="javascript:deleteRow('file2');checkFileSize(event);" style="float:left"> {!$Label.Delete} </div>
+                    <div id="file2_Error" style="color:red;display:none;" ></div>  
+                    </div>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:inputFile styleclass = "file_input" value="{!attach3.body}" filename="{!attach3.name}" id="file3" onchange="checkFileSize(event);"/>            
+                    <div>
+                    <div class="btn" onclick="javascript:deleteRow('file3');checkFileSize(event);" style="float:left"> {!$Label.Delete} </div>
+                    <div id="file3_Error" style="color:red;display:none;" ></div> 
+                    </div>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:inputFile styleclass = "file_input" value="{!attach4.body}" filename="{!attach4.name}" id="file4" onchange="checkFileSize(event);"/>            
+                    <div>
+                    <div class="btn" onclick="javascript:deleteRow('file4');checkFileSize(event);" style="float:left"> {!$Label.Delete} </div>
+                    <div id="file4_Error" style="color:red;display:none;" ></div> 
+                    </div>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:inputFile styleclass = "file_input" value="{!attach5.body}" filename="{!attach5.name}" id="file5" onchange="checkFileSize(event);"/>            
+                    <div>
+                    <div class="btn" onclick="javascript:deleteRow('file5');checkFileSize(event);" style="float:left"> {!$Label.Delete} </div>
+                    <div id="file5_Error" style="color:red;display:none;" ></div>
+                    </div> 
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </div>  -->      
+     <!-- ATTACHMENT UPLOAD END -->
+
+      <apex:pageBlockSection title="Captcha Section" id="captchaPanel" rendered="{!Editcase}" columns="1">            
+           <apex:pageBLockSectionItem >          
+               <div id="captcha"/>      
+               <apex:image value="{!URLFOR($Resource.CaptchImage)}" width="30" height="30" id="btnrefresh" onclick="createCaptcha();"/>     
+                        
+           </apex:pageBLockSectionItem>     
+            <!-- <apex:outputLabel value="{!errorMessage}" /> -->       
+            <apex:pageBlockSectionItem id="msgone">     
+                 <apex:outputLabel id="msg" />      
+            </apex:pageBlockSectionItem>        
+           <apex:pageBlockSectionItem >     
+                    
+                <apex:outputLabel value="Enter Captcha Value"/><br/>        
+                <input type="text" placeholder="Captcha" id="cpatchaTextBox"/>      
+           </apex:pageBlockSectionItem>     
+            <apex:outputText value="{!scriptvar}" escape="false"/>      
+        </apex:pageBlockSection>        
+        <!--<apex:outputPanel id="captchaPanel" rendered="{!Editcase}">     
+           <div id="captcha"/>      
+            <!--<img type="button" src="View.png" width="30" height="30" id="btnrefresh" value="Refresh" onclick="createCaptcha();"/>       
+            <apex:image value="{!URLFOR($Resource.CaptchImage)}" width="30" height="30" id="btnrefresh" onclick="createCaptcha();"/>        
+            <input type="text" placeholder="Captcha" id="cpatchaTextBox"/>      
+            <apex:outputText value="{!scriptvar}" escape="false"/>      
+        </apex:outputPanel>-->
+     
+    <!-- BUTTONS BLOCK- START-->
+            <apex:actionFunction name="captchaTest" action="{!save}"/>
+            <apex:pageBlockButtons location="bottom" rendered="{!buttons}">
+                    <apex:commandButton id="btn_Submit" value="{!$Label.Submit}" onclick="validateCaptcha()"/>
+                    <apex:commandButton value="{!$Label.cancel}" action="{!cancel}"  />
+            </apex:pageBlockButtons> 
+    <!-- BUTTONS BLOCK- END-->
+    </apex:pageBlock>    
+    <!-- NEW CASE BLOCK- END-->
+    <!-- THANKS BLOCK- START-->
+    
+    <apex:pageBlock rendered="{!Thankcase}"   >
+      <apex:outputPanel id="tstpopup" ><center>
+          <apex:outputLabel value="{!$Label.thank_you}!"
+           style="font-size: 20px; "></apex:outputLabel><br/>
+        <apex:outputLabel value="{!$Label.Your_case_has_been_logged}" style="font-size: 20px; "></apex:outputLabel><br/>
+        <apex:outputLabel value="{!$Label.Your_Case_Number} " style="font-size: 20px;"></apex:outputLabel><apex:outputText value="{!casenum}" label="Case number :" style="font-size: 20px; color:Blue" >
+        </apex:outputText></center>
+      </apex:outputPanel> 
+    </apex:pageBlock>
+    
+    <!-- THANKS BLOCK- END-->   
+
+    
+    <script>
+    /*
+    * This method is called by the delete button on the page.
+    * It deletes the added file by the respective file input element
+    * It also clears the file validation error message - Defect 7683660
+    */
+    function deleteRow(file) {
+        $("[id$=" +file+ "]").val('');
+        
+        var errorDiv = file+'_Error';
+        $('#'+errorDiv).html('');
+        $('#'+errorDiv).hide();
+    }   
+    </script>
+
+</apex:form>
+</apex:page>

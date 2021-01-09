@@ -1,0 +1,2992 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Account_Handover_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This object is used to store information relating to an account deemed inportant for account transitions.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Account_Access_Share__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>To mark if access has already been given to the incoming rep for an Account Handover or its pending</description>
+        <externalId>false</externalId>
+        <label>Account Access Share</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Account_Handover_Documents__c</fullName>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&quot;https://saml.gosavo.com/sp/startSSO.ping?PartnerIdpId=Dell.SAML2.0&amp;TargetResource=https://dell.gosavo.com%2f&quot;,&quot;Account Transition Documents&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>&lt;font color=&quot;#ffff&quot;&gt;</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Account_ID__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Account ID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account_Transition_Owner__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Account Transition Owner</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Account_Handovers5</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Account_Transition_Process_and_Coaching__c</fullName>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&quot;https://dell.gosavo.com/Document/Document.aspx?id=36387975&amp;view=&quot;,&quot;Account Transition Process and Coaching Materials&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>.</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account_Warm_Handover_Process__c</fullName>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&quot;http://mylearningworld.dell.com/Saba/Web/Main/goto/dellCatalogSpecificOffering?query_var_offCourseNo%24kString%24kLike=GSTS3069&quot;,&quot;Account Warm Handover Process&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>.</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account__c</fullName>
+        <description>The account that is related to this Account Handover record.</description>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Account Handovers</relationshipLabel>
+        <relationshipName>Account_Handovers</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>All_Transition_Steps_Completed__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(
+    ISPICKVAL(Tier_level__c, &apos;&apos;),
+    &apos;&apos;,
+    HYPERLINK(&quot;/apex/TransitionStepComplete?Id=&quot; &amp; Id, IMAGE(&quot;/servlet/servlet.FileDownload?file=015A0000002j4xt&quot;, &apos;All Transition Steps Completed&apos;), &apos;_parent&apos;)
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>.</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Category_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Category Code</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>LE/Pub - Customer Facing</fullName>
+                    <default>false</default>
+                    <label>LE/Pub - Customer Facing</label>
+                </value>
+                <value>
+                    <fullName>LE/Pub - Data Correction</fullName>
+                    <default>false</default>
+                    <label>LE/Pub - Data Correction</label>
+                </value>
+                <value>
+                    <fullName>LE/Pub - Management Capacity</fullName>
+                    <default>false</default>
+                    <label>LE/Pub - Management Capacity</label>
+                </value>
+                <value>
+                    <fullName>LE/Pub - People Movement</fullName>
+                    <default>false</default>
+                    <label>LE/Pub - People Movement</label>
+                </value>
+                <value>
+                    <fullName>LE/Pub - Strategic Changes/Intra-Segment</fullName>
+                    <default>false</default>
+                    <label>LE/Pub - Strategic Changes/Intra-Segment</label>
+                </value>
+                <value>
+                    <fullName>LE/Pub - Strategic Changes/Segment to Segment</fullName>
+                    <default>false</default>
+                    <label>LE/Pub - Strategic Changes/Segment to Segment</label>
+                </value>
+                <value>
+                    <fullName>SMB - Customer Contact Change</fullName>
+                    <default>false</default>
+                    <label>SMB - Customer Contact Change</label>
+                </value>
+                <value>
+                    <fullName>SMB - No Customer Contact Change</fullName>
+                    <default>false</default>
+                    <label>SMB - No Customer Contact Change</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Contracts_and_Pricing__c</fullName>
+        <description>User to populate this field.</description>
+        <externalId>false</externalId>
+        <label>Contracts and Pricing</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Customer_Name__c</fullName>
+        <description>This is an auto-populated field</description>
+        <externalId>false</externalId>
+        <label>Customer Name</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Customer_Preferences__c</fullName>
+        <description>User to populate this field.</description>
+        <externalId>false</externalId>
+        <label>Special Instructions/ Need to Know</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Date_for_Warm_Handover_Call__c</fullName>
+        <description>User to populate this field.</description>
+        <externalId>false</externalId>
+        <label>Transition Completed Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Email_Handover_Reps_1__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Email Handover Reps 1</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Email_Handover_Reps_2__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Email Handover Reps 2</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Est_Buying_Power__c</fullName>
+        <description>This is an auto-populated field</description>
+        <externalId>false</externalId>
+        <label>Est Buying Power</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Gii_Number__c</fullName>
+        <description>User to populate this field.</description>
+        <externalId>false</externalId>
+        <label>Gii Number</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Gii_Number_del__c</fullName>
+        <description>User to populate this field.</description>
+        <externalId>false</externalId>
+        <label>Gii Number</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Incoming_AE__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Incoming AE</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Account_Handovers4</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Incoming_Handover_Tasks_Completed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>User to populate this field.</description>
+        <externalId>false</externalId>
+        <label>Incoming Handover Tasks Completed</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Incoming_rep__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>User to populate this field.</description>
+        <externalId>false</externalId>
+        <label>Incoming rep</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Account_Handovers1</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Job_Title__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Primary_Contact__r.Title</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Job Title</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Key_Contact_1__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Field to describe the details about key contact information.</description>
+        <externalId>false</externalId>
+        <label>Key Contact 1</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Account Handovers</relationshipLabel>
+        <relationshipName>Account_Handovers</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Key_Contact_2__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Field to describe the details about key contact information.</description>
+        <externalId>false</externalId>
+        <label>Key Contact 2</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Account Handovers (Key Contact 2)</relationshipLabel>
+        <relationshipName>Account_Handovers6</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Key_Contact_3__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Describe the details about key contact information</description>
+        <externalId>false</externalId>
+        <label>Key Contact 3</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Account Handovers (Key Contact 3)</relationshipLabel>
+        <relationshipName>Account_Handovers1</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Key_Contact_4__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Describe the details about key contact information.</description>
+        <externalId>false</externalId>
+        <label>Key Contact 4</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Account Handovers (Key Contact 4)</relationshipLabel>
+        <relationshipName>Account_Handovers2</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Key_Contact_5__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Describe the details about key contact information.</description>
+        <externalId>false</externalId>
+        <label>Key Contact 5</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Account Handovers (Key Contact 5)</relationshipLabel>
+        <relationshipName>Account_Handovers3</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Key_Contact_6__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Describe the details about key contact information.</description>
+        <externalId>false</externalId>
+        <label>Key Contact 6</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Account Handovers (Key Contact 6)</relationshipLabel>
+        <relationshipName>Account_Handovers4</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Key_Contact_7__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Field to describe the details about key contact information.</description>
+        <externalId>false</externalId>
+        <label>Key Contact 7</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Account Handovers (Key Contact 7)</relationshipLabel>
+        <relationshipName>Account_Handovers7</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Key_Contact_8__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Describe the details about key contact information.</description>
+        <externalId>false</externalId>
+        <label>Key Contact 8</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Account Handovers (Key Contact 8)</relationshipLabel>
+        <relationshipName>Account_Handovers5</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>L4Q_Margin__c</fullName>
+        <externalId>false</externalId>
+        <label>L4Q Margin</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Last_Transition_Date_Formula__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Last_Account_Transition_Date__c</formula>
+        <label>Last Transition Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Last_Transition_Date__c</fullName>
+        <description>Display the last transaction Date</description>
+        <externalId>false</externalId>
+        <label>Last Transition Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Location__c</fullName>
+        <externalId>false</externalId>
+        <label>Location</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Reason_Code__c</controllingField>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>Downgrade - ACQ to DEV</fullName>
+                    <default>false</default>
+                    <label>Downgrade - ACQ to DEV</label>
+                </value>
+                <value>
+                    <fullName>Downgrade - ACQ to HUNTER</fullName>
+                    <default>false</default>
+                    <label>Downgrade - ACQ to HUNTER</label>
+                </value>
+                <value>
+                    <fullName>Downgrade - Bronze to Trans</fullName>
+                    <default>false</default>
+                    <label>Downgrade - Bronze to Trans</label>
+                </value>
+                <value>
+                    <fullName>Downgrade - DEV to BSDT</fullName>
+                    <default>false</default>
+                    <label>Downgrade - DEV to BSDT</label>
+                </value>
+                <value>
+                    <fullName>Downgrade - DEV to HUNTER</fullName>
+                    <default>false</default>
+                    <label>Downgrade - DEV to HUNTER</label>
+                </value>
+                <value>
+                    <fullName>Downgrade - Gold to Silver</fullName>
+                    <default>false</default>
+                    <label>Downgrade - Gold to Silver</label>
+                </value>
+                <value>
+                    <fullName>Downgrade - Hunter to BSDT</fullName>
+                    <default>false</default>
+                    <label>Downgrade - Hunter to BSDT</label>
+                </value>
+                <value>
+                    <fullName>Downgrade - LE/Global to SMB</fullName>
+                    <default>false</default>
+                    <label>Downgrade - LE/Global to SMB</label>
+                </value>
+                <value>
+                    <fullName>Downgrade - Platinum to Gold</fullName>
+                    <default>false</default>
+                    <label>Downgrade - Platinum to Gold</label>
+                </value>
+                <value>
+                    <fullName>Downgrade - PUB to SMB</fullName>
+                    <default>false</default>
+                    <label>Downgrade - PUB to SMB</label>
+                </value>
+                <value>
+                    <fullName>Downgrade - SELECT to ACQ</fullName>
+                    <default>false</default>
+                    <label>Downgrade - SELECT to ACQ</label>
+                </value>
+                <value>
+                    <fullName>Downgrade - SELECT to DEV</fullName>
+                    <default>false</default>
+                    <label>Downgrade - SELECT to DEV</label>
+                </value>
+                <value>
+                    <fullName>Downgrade - SELECT to HUNTER</fullName>
+                    <default>false</default>
+                    <label>Downgrade - SELECT to HUNTER</label>
+                </value>
+                <value>
+                    <fullName>Downgrade - Silver to Bronze</fullName>
+                    <default>false</default>
+                    <label>Downgrade - Silver to Bronze</label>
+                </value>
+                <value>
+                    <fullName>Downgrade - VAR to SMB</fullName>
+                    <default>false</default>
+                    <label>Downgrade - VAR to SMB</label>
+                </value>
+                <value>
+                    <fullName>NON SMB Customer</fullName>
+                    <default>false</default>
+                    <label>NON SMB Customer</label>
+                </value>
+                <value>
+                    <fullName>Overlay Role Change</fullName>
+                    <default>false</default>
+                    <label>Overlay Role Change</label>
+                </value>
+                <value>
+                    <fullName>Same - ACQ to ACQ</fullName>
+                    <default>false</default>
+                    <label>Same - ACQ to ACQ</label>
+                </value>
+                <value>
+                    <fullName>Same - Bronze to Bronze</fullName>
+                    <default>false</default>
+                    <label>Same - Bronze to Bronze</label>
+                </value>
+                <value>
+                    <fullName>Same - DEV to DEV</fullName>
+                    <default>false</default>
+                    <label>Same - DEV to DEV</label>
+                </value>
+                <value>
+                    <fullName>Same - Gold to Gold</fullName>
+                    <default>false</default>
+                    <label>Same - Gold to Gold</label>
+                </value>
+                <value>
+                    <fullName>Same - Platinum to Platinum</fullName>
+                    <default>false</default>
+                    <label>Same - Platinum to Platinum</label>
+                </value>
+                <value>
+                    <fullName>Same - SELECT to SELECT</fullName>
+                    <default>false</default>
+                    <label>Same - SELECT to SELECT</label>
+                </value>
+                <value>
+                    <fullName>Same - Silver to Silver</fullName>
+                    <default>false</default>
+                    <label>Same - Silver to Silver</label>
+                </value>
+                <value>
+                    <fullName>Upgrade - ACQ to SELECT</fullName>
+                    <default>false</default>
+                    <label>Upgrade - ACQ to SELECT</label>
+                </value>
+                <value>
+                    <fullName>Upgrade - Bronze to Silver</fullName>
+                    <default>false</default>
+                    <label>Upgrade - Bronze to Silver</label>
+                </value>
+                <value>
+                    <fullName>Upgrade - BSDT to DEV</fullName>
+                    <default>false</default>
+                    <label>Upgrade - BSDT to DEV</label>
+                </value>
+                <value>
+                    <fullName>Upgrade - BSDT to Hunter</fullName>
+                    <default>false</default>
+                    <label>Upgrade - BSDT to Hunter</label>
+                </value>
+                <value>
+                    <fullName>Upgrade - DEV to ACQ</fullName>
+                    <default>false</default>
+                    <label>Upgrade - DEV to ACQ</label>
+                </value>
+                <value>
+                    <fullName>Upgrade - DEV to SELECT</fullName>
+                    <default>false</default>
+                    <label>Upgrade - DEV to SELECT</label>
+                </value>
+                <value>
+                    <fullName>Upgrade - Gold to Platinum</fullName>
+                    <default>false</default>
+                    <label>Upgrade - Gold to Platinum</label>
+                </value>
+                <value>
+                    <fullName>Upgrade - Hunter to ACQ</fullName>
+                    <default>false</default>
+                    <label>Upgrade - Hunter to ACQ</label>
+                </value>
+                <value>
+                    <fullName>Upgrade - Hunter to DEV</fullName>
+                    <default>false</default>
+                    <label>Upgrade - Hunter to DEV</label>
+                </value>
+                <value>
+                    <fullName>Upgrade - Hunter to SELECT</fullName>
+                    <default>false</default>
+                    <label>Upgrade - Hunter to SELECT</label>
+                </value>
+                <value>
+                    <fullName>Upgrade - Silver to Gold</fullName>
+                    <default>false</default>
+                    <label>Upgrade - Silver to Gold</label>
+                </value>
+                <value>
+                    <fullName>Upgrade - SMB to LE/Global</fullName>
+                    <default>false</default>
+                    <label>Upgrade - SMB to LE/Global</label>
+                </value>
+                <value>
+                    <fullName>Upgrade - SMB to PUB</fullName>
+                    <default>false</default>
+                    <label>Upgrade - SMB to PUB</label>
+                </value>
+                <value>
+                    <fullName>Upgrade - SMB to VAR</fullName>
+                    <default>false</default>
+                    <label>Upgrade - SMB to VAR</label>
+                </value>
+                <value>
+                    <fullName>Upgrade - Trans to Bronze</fullName>
+                    <default>false</default>
+                    <label>Upgrade - Trans to Bronze</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Downgrade - ACQ to DEV</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Downgrade - ACQ to HUNTER</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Downgrade - Bronze to Trans</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Downgrade - DEV to BSDT</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Downgrade - DEV to HUNTER</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Downgrade - Gold to Silver</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Downgrade - Hunter to BSDT</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Downgrade - LE/Global to SMB</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Downgrade - Platinum to Gold</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Downgrade - PUB to SMB</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Downgrade - SELECT to ACQ</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Downgrade - SELECT to DEV</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Downgrade - SELECT to HUNTER</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Downgrade - Silver to Bronze</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Downgrade - VAR to SMB</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Overlay Role Change</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Same - ACQ to ACQ</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Same - Bronze to Bronze</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Same - DEV to DEV</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Same - Gold to Gold</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Same - Platinum to Platinum</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Same - SELECT to SELECT</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Same - Silver to Silver</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Upgrade - ACQ to SELECT</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Upgrade - Bronze to Silver</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Upgrade - BSDT to DEV</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Upgrade - BSDT to Hunter</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Upgrade - DEV to ACQ</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Upgrade - DEV to SELECT</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Upgrade - Gold to Platinum</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Upgrade - Hunter to ACQ</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Upgrade - Hunter to DEV</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Upgrade - Hunter to SELECT</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Upgrade - Silver to Gold</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Upgrade - SMB to LE/Global</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Upgrade - SMB to PUB</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Upgrade - SMB to VAR</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>SMB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>SMB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>SMB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>SMB - Dual engagement</controllingFieldValue>
+                <controllingFieldValue>SMB - Global AE Build</controllingFieldValue>
+                <controllingFieldValue>SMB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Into SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Move Out of SMB - LE/P/VAR</controllingFieldValue>
+                <controllingFieldValue>SMB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>SMB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Downgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Account Upgrade</controllingFieldValue>
+                <controllingFieldValue>SMB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Employee Size</controllingFieldValue>
+                <controllingFieldValue>SMB APJ - Global Program</controllingFieldValue>
+                <valueName>Upgrade - Trans to Bronze</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>LE/PUB - Internal Re-alignment</controllingFieldValue>
+                <controllingFieldValue>LE/PUB - Merger/Acquisition/Subsidiary</controllingFieldValue>
+                <controllingFieldValue>LE/PUB - Org Restructure</controllingFieldValue>
+                <controllingFieldValue>LE/PUB - Rep/Account Ratio</controllingFieldValue>
+                <controllingFieldValue>LE/PUB - Re-segmentation</controllingFieldValue>
+                <controllingFieldValue>LE/PUB - Specialties assigned</controllingFieldValue>
+                <controllingFieldValue>LE/PUB - Territory/Geographical Alignment</controllingFieldValue>
+                <controllingFieldValue>LE/PUB - Acct Spinoff</controllingFieldValue>
+                <controllingFieldValue>LE/PUB - Acq to Dev</controllingFieldValue>
+                <controllingFieldValue>LE/PUB - Attrition-Leaving Dell</controllingFieldValue>
+                <controllingFieldValue>LE/PUB - Attrition-Role Change</controllingFieldValue>
+                <controllingFieldValue>LE/PUB - Csat Issue</controllingFieldValue>
+                <controllingFieldValue>LE/PUB - Cust GEO change</controllingFieldValue>
+                <controllingFieldValue>LE/PUB - Customer Request</controllingFieldValue>
+                <controllingFieldValue>LE/PUB - Data Correction/Records Mgmt</controllingFieldValue>
+                <controllingFieldValue>LE/PUB - Dual engagement</controllingFieldValue>
+                <valueName>NON SMB Customer</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>NPS_Score_1__c</fullName>
+        <externalId>false</externalId>
+        <formula>Key_Contact_1__r.NPS_Category__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>NPS Score 1</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NPS_Score_2__c</fullName>
+        <externalId>false</externalId>
+        <formula>Key_Contact_2__r.NPS_Category__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>NPS Score 2</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NPS_Score_3__c</fullName>
+        <externalId>false</externalId>
+        <formula>Key_Contact_3__r.NPS_Category__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>NPS Score 3</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NPS_Score_4__c</fullName>
+        <externalId>false</externalId>
+        <formula>Key_Contact_4__r.NPS_Category__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>NPS Score 4</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NPS_Score_5__c</fullName>
+        <externalId>false</externalId>
+        <formula>Key_Contact_5__r.NPS_Category__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>NPS Score 5</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NPS_Score_6__c</fullName>
+        <externalId>false</externalId>
+        <formula>Key_Contact_6__r.NPS_Category__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>NPS Score 6</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NPS_Score_7__c</fullName>
+        <externalId>false</externalId>
+        <formula>Key_Contact_7__r.NPS_Category__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>NPS Score 7</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NPS_Score_8__c</fullName>
+        <externalId>false</externalId>
+        <formula>Key_Contact_8__r.NPS_Category__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>NPS Score 8</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>No_of_Active_Opportunities__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Active_Deals__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>No of Active Opportunities</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>No_of_employees__c</fullName>
+        <description>This is an auto-populated field.</description>
+        <externalId>false</externalId>
+        <label>No of employees</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Num_of_Account_Transitions_L6Q_Formula__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.No_of_Account_Transitions_L6Q__c</formula>
+        <label>Number of Account Transitions(L6Q)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_Account_Transitions_L6Q__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Account Transitions(L6Q)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Omega_Number__c</fullName>
+        <description>User to populate this field</description>
+        <externalId>false</externalId>
+        <label>Omega Number</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Outgoing_AE__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Outgoing AE</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Account_Handovers3</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Outgoing_Handover_Tasks_Completed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>User to populate this field.</description>
+        <externalId>false</externalId>
+        <label>Outgoing Handover Tasks Completed</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Outgoing_rep__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>User to populate this field.</description>
+        <externalId>false</externalId>
+        <label>Outgoing rep</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Account_Handovers</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Outstanding_Issues__c</fullName>
+        <description>User to populate this field</description>
+        <externalId>false</externalId>
+        <label>Outstanding and Recent Issues</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Overall_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Overall Status</label>
+        <length>10</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Parent_Account__c</fullName>
+        <description>This is an auto-populated field.</description>
+        <externalId>false</externalId>
+        <label>Parent Account</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Payment_Method__c</fullName>
+        <description>User to populate this field</description>
+        <externalId>false</externalId>
+        <label>Payment Method/ Terms</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Premier_Page_s_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Premier_Page_s_ID__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Premier Page ID Number(s) as captured on the associated Account</inlineHelpText>
+        <label>Premier Page(s) ID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Primary_Contact_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Primary_Contact_formula__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Primary Contact Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Primary_Contact_Phone__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Primary_Contact__r.Phone</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Primary Contact Phone</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Program_Manager__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Only applicable on an Account where a Program Manager is assigned.</inlineHelpText>
+        <label>Program Manager</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Account_Handovers2</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Reason_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Reason Code</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Category_Code__c</controllingField>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>LE/PUB - Acct Spinoff</fullName>
+                    <default>false</default>
+                    <label>LE/PUB - Acct Spinoff</label>
+                </value>
+                <value>
+                    <fullName>LE/PUB - Acq to Dev</fullName>
+                    <default>false</default>
+                    <label>LE/PUB - Acq to Dev</label>
+                </value>
+                <value>
+                    <fullName>LE/PUB - Attrition-Leaving Dell</fullName>
+                    <default>false</default>
+                    <label>LE/PUB - Attrition-Leaving Dell</label>
+                </value>
+                <value>
+                    <fullName>LE/PUB - Attrition-Role Change</fullName>
+                    <default>false</default>
+                    <label>LE/PUB - Attrition-Role Change</label>
+                </value>
+                <value>
+                    <fullName>LE/PUB - Csat Issue</fullName>
+                    <default>false</default>
+                    <label>LE/PUB - Csat Issue</label>
+                </value>
+                <value>
+                    <fullName>LE/PUB - Cust GEO change</fullName>
+                    <default>false</default>
+                    <label>LE/PUB - Cust GEO change</label>
+                </value>
+                <value>
+                    <fullName>LE/PUB - Customer Request</fullName>
+                    <default>false</default>
+                    <label>LE/PUB - Customer Request</label>
+                </value>
+                <value>
+                    <fullName>LE/PUB - Data Correction/Records Mgmt</fullName>
+                    <default>false</default>
+                    <label>LE/PUB - Data Correction/Records Mgmt</label>
+                </value>
+                <value>
+                    <fullName>LE/PUB - Dual engagement</fullName>
+                    <default>false</default>
+                    <label>LE/PUB - Dual engagement</label>
+                </value>
+                <value>
+                    <fullName>LE/PUB - Internal Re-alignment</fullName>
+                    <default>false</default>
+                    <label>LE/PUB - Internal Re-alignment</label>
+                </value>
+                <value>
+                    <fullName>LE/PUB - Merger/Acquisition/Subsidiary</fullName>
+                    <default>false</default>
+                    <label>LE/PUB - Merger/Acquisition/Subsidiary</label>
+                </value>
+                <value>
+                    <fullName>LE/PUB - Org Restructure</fullName>
+                    <default>false</default>
+                    <label>LE/PUB - Org Restructure</label>
+                </value>
+                <value>
+                    <fullName>LE/PUB - Rep/Account Ratio</fullName>
+                    <default>false</default>
+                    <label>LE/PUB - Rep/Account Ratio</label>
+                </value>
+                <value>
+                    <fullName>LE/PUB - Re-segmentation</fullName>
+                    <default>false</default>
+                    <label>LE/PUB - Re-segmentation</label>
+                </value>
+                <value>
+                    <fullName>LE/PUB - Specialties assigned</fullName>
+                    <default>false</default>
+                    <label>LE/PUB - Specialties assigned</label>
+                </value>
+                <value>
+                    <fullName>LE/PUB - Territory/Geographical Alignment</fullName>
+                    <default>false</default>
+                    <label>LE/PUB - Territory/Geographical Alignment</label>
+                </value>
+                <value>
+                    <fullName>SMB - Account Downgrade</fullName>
+                    <default>false</default>
+                    <label>SMB - Account Downgrade</label>
+                </value>
+                <value>
+                    <fullName>SMB - Account Upgrade</fullName>
+                    <default>false</default>
+                    <label>SMB - Account Upgrade</label>
+                </value>
+                <value>
+                    <fullName>SMB - Acct Spinoff</fullName>
+                    <default>false</default>
+                    <label>SMB - Acct Spinoff</label>
+                </value>
+                <value>
+                    <fullName>SMB APJ - Employee Size</fullName>
+                    <default>false</default>
+                    <label>SMB APJ - Employee Size</label>
+                </value>
+                <value>
+                    <fullName>SMB APJ - Global Program</fullName>
+                    <default>false</default>
+                    <label>SMB APJ - Global Program</label>
+                </value>
+                <value>
+                    <fullName>SMB - Attrition-Leaving Dell</fullName>
+                    <default>false</default>
+                    <label>SMB - Attrition-Leaving Dell</label>
+                </value>
+                <value>
+                    <fullName>SMB - Attrition-Role Change</fullName>
+                    <default>false</default>
+                    <label>SMB - Attrition-Role Change</label>
+                </value>
+                <value>
+                    <fullName>SMB - Customer Request</fullName>
+                    <default>false</default>
+                    <label>SMB - Customer Request</label>
+                </value>
+                <value>
+                    <fullName>SMB - Data Correction/Records Mgmt</fullName>
+                    <default>false</default>
+                    <label>SMB - Data Correction/Records Mgmt</label>
+                </value>
+                <value>
+                    <fullName>SMB - Dual engagement</fullName>
+                    <default>false</default>
+                    <label>SMB - Dual engagement</label>
+                </value>
+                <value>
+                    <fullName>SMB - Global AE Build</fullName>
+                    <default>false</default>
+                    <label>SMB - Global AE Build</label>
+                </value>
+                <value>
+                    <fullName>SMB - Merger/Acquisition/Subsidiary</fullName>
+                    <default>false</default>
+                    <label>SMB - Merger/Acquisition/Subsidiary</label>
+                </value>
+                <value>
+                    <fullName>SMB - Move Into SMB - LE/P/VAR</fullName>
+                    <default>false</default>
+                    <label>SMB - Move Into SMB - LE/P/VAR</label>
+                </value>
+                <value>
+                    <fullName>SMB - Move Out of SMB - LE/P/VAR</fullName>
+                    <default>false</default>
+                    <label>SMB - Move Out of SMB - LE/P/VAR</label>
+                </value>
+                <value>
+                    <fullName>SMB - Org Restructure</fullName>
+                    <default>false</default>
+                    <label>SMB - Org Restructure</label>
+                </value>
+                <value>
+                    <fullName>SMB - Territory/Geographical Alignment</fullName>
+                    <default>false</default>
+                    <label>SMB - Territory/Geographical Alignment</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>LE/Pub - Customer Facing</controllingFieldValue>
+                <valueName>LE/PUB - Acct Spinoff</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>LE/Pub - Customer Facing</controllingFieldValue>
+                <valueName>LE/PUB - Csat Issue</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>LE/Pub - Customer Facing</controllingFieldValue>
+                <valueName>LE/PUB - Cust GEO change</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>LE/Pub - Customer Facing</controllingFieldValue>
+                <valueName>LE/PUB - Customer Request</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>LE/Pub - Customer Facing</controllingFieldValue>
+                <valueName>LE/PUB - Merger/Acquisition/Subsidiary</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>LE/Pub - Data Correction</controllingFieldValue>
+                <valueName>LE/PUB - Data Correction/Records Mgmt</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>LE/Pub - Management Capacity</controllingFieldValue>
+                <valueName>LE/PUB - Acq to Dev</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>LE/Pub - Management Capacity</controllingFieldValue>
+                <valueName>LE/PUB - Internal Re-alignment</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>LE/Pub - Management Capacity</controllingFieldValue>
+                <valueName>LE/PUB - Rep/Account Ratio</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>LE/Pub - People Movement</controllingFieldValue>
+                <valueName>LE/PUB - Attrition-Leaving Dell</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>LE/Pub - People Movement</controllingFieldValue>
+                <valueName>LE/PUB - Attrition-Role Change</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>LE/Pub - People Movement</controllingFieldValue>
+                <valueName>LE/PUB - Specialties assigned</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>LE/Pub - Strategic Changes/Intra-Segment</controllingFieldValue>
+                <valueName>LE/PUB - Org Restructure</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>LE/Pub - Strategic Changes/Intra-Segment</controllingFieldValue>
+                <valueName>LE/PUB - Territory/Geographical Alignment</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>LE/Pub - Strategic Changes/Segment to Segment</controllingFieldValue>
+                <valueName>LE/PUB - Dual engagement</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>LE/Pub - Strategic Changes/Segment to Segment</controllingFieldValue>
+                <valueName>LE/PUB - Re-segmentation</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Customer Contact Change</controllingFieldValue>
+                <controllingFieldValue>SMB - No Customer Contact Change</controllingFieldValue>
+                <valueName>SMB - Account Downgrade</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Customer Contact Change</controllingFieldValue>
+                <controllingFieldValue>SMB - No Customer Contact Change</controllingFieldValue>
+                <valueName>SMB - Account Upgrade</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Customer Contact Change</controllingFieldValue>
+                <controllingFieldValue>SMB - No Customer Contact Change</controllingFieldValue>
+                <valueName>SMB - Acct Spinoff</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Customer Contact Change</controllingFieldValue>
+                <controllingFieldValue>SMB - No Customer Contact Change</controllingFieldValue>
+                <valueName>SMB APJ - Employee Size</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Customer Contact Change</controllingFieldValue>
+                <controllingFieldValue>SMB - No Customer Contact Change</controllingFieldValue>
+                <valueName>SMB APJ - Global Program</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Customer Contact Change</controllingFieldValue>
+                <controllingFieldValue>SMB - No Customer Contact Change</controllingFieldValue>
+                <valueName>SMB - Attrition-Leaving Dell</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Customer Contact Change</controllingFieldValue>
+                <controllingFieldValue>SMB - No Customer Contact Change</controllingFieldValue>
+                <valueName>SMB - Attrition-Role Change</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Customer Contact Change</controllingFieldValue>
+                <controllingFieldValue>SMB - No Customer Contact Change</controllingFieldValue>
+                <valueName>SMB - Customer Request</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Customer Contact Change</controllingFieldValue>
+                <controllingFieldValue>SMB - No Customer Contact Change</controllingFieldValue>
+                <valueName>SMB - Data Correction/Records Mgmt</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Customer Contact Change</controllingFieldValue>
+                <controllingFieldValue>SMB - No Customer Contact Change</controllingFieldValue>
+                <valueName>SMB - Dual engagement</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Customer Contact Change</controllingFieldValue>
+                <controllingFieldValue>SMB - No Customer Contact Change</controllingFieldValue>
+                <valueName>SMB - Global AE Build</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Customer Contact Change</controllingFieldValue>
+                <controllingFieldValue>SMB - No Customer Contact Change</controllingFieldValue>
+                <valueName>SMB - Merger/Acquisition/Subsidiary</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Customer Contact Change</controllingFieldValue>
+                <controllingFieldValue>SMB - No Customer Contact Change</controllingFieldValue>
+                <valueName>SMB - Move Into SMB - LE/P/VAR</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Customer Contact Change</controllingFieldValue>
+                <controllingFieldValue>SMB - No Customer Contact Change</controllingFieldValue>
+                <valueName>SMB - Move Out of SMB - LE/P/VAR</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Customer Contact Change</controllingFieldValue>
+                <controllingFieldValue>SMB - No Customer Contact Change</controllingFieldValue>
+                <valueName>SMB - Org Restructure</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>SMB - Customer Contact Change</controllingFieldValue>
+                <controllingFieldValue>SMB - No Customer Contact Change</controllingFieldValue>
+                <valueName>SMB - Territory/Geographical Alignment</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Resource_Centre_Global__c</fullName>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&quot;http://moss.dell.com/sites/SFDC_Resource_Centre/home.aspx&quot;,&quot;SFDC Resource Centre Global Account Transitions&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>.</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status01__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Step_1__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Not Started</fullName>
+                    <default>true</default>
+                    <label>Not Started</label>
+                </value>
+                <value>
+                    <fullName>In Progress</fullName>
+                    <default>false</default>
+                    <label>In Progress</label>
+                </value>
+                <value>
+                    <fullName>Complete</fullName>
+                    <default>false</default>
+                    <label>Complete</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Status02__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Step_2__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Not Started</fullName>
+                    <default>true</default>
+                    <label>Not Started</label>
+                </value>
+                <value>
+                    <fullName>In Progress</fullName>
+                    <default>false</default>
+                    <label>In Progress</label>
+                </value>
+                <value>
+                    <fullName>Complete</fullName>
+                    <default>false</default>
+                    <label>Complete</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Status03__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Step_3__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Not Started</fullName>
+                    <default>true</default>
+                    <label>Not Started</label>
+                </value>
+                <value>
+                    <fullName>In Progress</fullName>
+                    <default>false</default>
+                    <label>In Progress</label>
+                </value>
+                <value>
+                    <fullName>Complete</fullName>
+                    <default>false</default>
+                    <label>Complete</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Status04__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Step_4__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Not Started</fullName>
+                    <default>true</default>
+                    <label>Not Started</label>
+                </value>
+                <value>
+                    <fullName>In Progress</fullName>
+                    <default>false</default>
+                    <label>In Progress</label>
+                </value>
+                <value>
+                    <fullName>Complete</fullName>
+                    <default>false</default>
+                    <label>Complete</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Status05__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Step_5__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Not Started</fullName>
+                    <default>true</default>
+                    <label>Not Started</label>
+                </value>
+                <value>
+                    <fullName>In Progress</fullName>
+                    <default>false</default>
+                    <label>In Progress</label>
+                </value>
+                <value>
+                    <fullName>Complete</fullName>
+                    <default>false</default>
+                    <label>Complete</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Status06__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Step_6__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Not Started</fullName>
+                    <default>true</default>
+                    <label>Not Started</label>
+                </value>
+                <value>
+                    <fullName>In Progress</fullName>
+                    <default>false</default>
+                    <label>In Progress</label>
+                </value>
+                <value>
+                    <fullName>Complete</fullName>
+                    <default>false</default>
+                    <label>Complete</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Status07__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Step_7__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Not Started</fullName>
+                    <default>true</default>
+                    <label>Not Started</label>
+                </value>
+                <value>
+                    <fullName>In Progress</fullName>
+                    <default>false</default>
+                    <label>In Progress</label>
+                </value>
+                <value>
+                    <fullName>Complete</fullName>
+                    <default>false</default>
+                    <label>Complete</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Status08__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Step_8__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Not Started</fullName>
+                    <default>true</default>
+                    <label>Not Started</label>
+                </value>
+                <value>
+                    <fullName>In Progress</fullName>
+                    <default>false</default>
+                    <label>In Progress</label>
+                </value>
+                <value>
+                    <fullName>Complete</fullName>
+                    <default>false</default>
+                    <label>Complete</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <description>User to populate this field.</description>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Draft</fullName>
+                    <default>true</default>
+                    <label>Draft</label>
+                </value>
+                <value>
+                    <fullName>Pending Assignment</fullName>
+                    <default>false</default>
+                    <label>Pending Assignment</label>
+                </value>
+                <value>
+                    <fullName>Pending Follow-up</fullName>
+                    <default>false</default>
+                    <label>Pending Follow-up</label>
+                </value>
+                <value>
+                    <fullName>Completed</fullName>
+                    <default>false</default>
+                    <label>Completed</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Step_1__c</fullName>
+        <description>To Display the values as per &quot;Tier to Step Dependency&quot;</description>
+        <externalId>false</externalId>
+        <label>Step 1</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Tier_level__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Update Customer contacts in SFDC; Review premier page data and ownership</fullName>
+                    <default>false</default>
+                    <label>Update Customer contacts in SFDC; Review premier page data and ownership</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Tier 4</controllingFieldValue>
+                <controllingFieldValue>ACQ to R&amp;D</controllingFieldValue>
+                <controllingFieldValue>Tier 3</controllingFieldValue>
+                <controllingFieldValue>Tier 1A</controllingFieldValue>
+                <controllingFieldValue>Tier 1B</controllingFieldValue>
+                <controllingFieldValue>Tier 2A</controllingFieldValue>
+                <controllingFieldValue>Tier 2B</controllingFieldValue>
+                <valueName>Update Customer contacts in SFDC; Review premier page data and ownership</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Step_2__c</fullName>
+        <description>To Display the values as per &quot;Tier to Step Dependency&quot;</description>
+        <externalId>false</externalId>
+        <label>Step 2</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Tier_level__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Add transition strategy to Account Plan in SFDC</fullName>
+                    <default>false</default>
+                    <label>Add transition strategy to Account Plan in SFDC</label>
+                </value>
+                <value>
+                    <fullName>If Account Plan is in place, add transition strategy</fullName>
+                    <default>false</default>
+                    <label>If Account Plan is in place, add transition strategy</label>
+                </value>
+                <value>
+                    <fullName>Debrief call with prior/new owner before Customer call</fullName>
+                    <default>false</default>
+                    <label>Debrief call with prior/new owner before Customer call</label>
+                </value>
+                <value>
+                    <fullName>No handover assigned, process handled outside SFDC.</fullName>
+                    <default>false</default>
+                    <label>No handover assigned, process handled outside SFDC.</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Tier 4</controllingFieldValue>
+                <controllingFieldValue>Tier 3</controllingFieldValue>
+                <controllingFieldValue>Tier 2A</controllingFieldValue>
+                <controllingFieldValue>Tier 2B</controllingFieldValue>
+                <valueName>Debrief call with prior/new owner before Customer call</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>ACQ to R&amp;D</controllingFieldValue>
+                <controllingFieldValue>Tier 1A</controllingFieldValue>
+                <valueName>Add transition strategy to Account Plan in SFDC</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tier 1B</controllingFieldValue>
+                <valueName>If Account Plan is in place, add transition strategy</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Step_3__c</fullName>
+        <description>To Display the values as per &quot;Tier to Step Dependency&quot;</description>
+        <externalId>false</externalId>
+        <label>Step 3</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Tier_level__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Debrief call with prior/new owner before Customer call</fullName>
+                    <default>false</default>
+                    <label>Debrief call with prior/new owner before Customer call</label>
+                </value>
+                <value>
+                    <fullName>Joint call to Customer and introduce new team</fullName>
+                    <default>false</default>
+                    <label>Joint call to Customer and introduce new team</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Tier 4</controllingFieldValue>
+                <controllingFieldValue>Tier 3</controllingFieldValue>
+                <controllingFieldValue>Tier 2A</controllingFieldValue>
+                <controllingFieldValue>Tier 2B</controllingFieldValue>
+                <valueName>Joint call to Customer and introduce new team</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>ACQ to R&amp;D</controllingFieldValue>
+                <controllingFieldValue>Tier 1A</controllingFieldValue>
+                <controllingFieldValue>Tier 1B</controllingFieldValue>
+                <valueName>Debrief call with prior/new owner before Customer call</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Step_4__c</fullName>
+        <description>To Display the values as per &quot;Tier to Step Dependency&quot;</description>
+        <externalId>false</externalId>
+        <label>Step 4</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Tier_level__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Joint call to Customer and introduce new team</fullName>
+                    <default>false</default>
+                    <label>Joint call to Customer and introduce new team</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>ACQ to R&amp;D</controllingFieldValue>
+                <controllingFieldValue>Tier 1A</controllingFieldValue>
+                <controllingFieldValue>Tier 1B</controllingFieldValue>
+                <valueName>Joint call to Customer and introduce new team</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Step_5__c</fullName>
+        <description>To Display the values as per &quot;Tier to Step Dependency&quot;</description>
+        <externalId>false</externalId>
+        <label>Step 5</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Tier_level__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Customer Meeting(s) completed and Trip reports created</fullName>
+                    <default>false</default>
+                    <label>Customer Meeting(s) completed and Trip reports created</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>ACQ to R&amp;D</controllingFieldValue>
+                <controllingFieldValue>Tier 1A</controllingFieldValue>
+                <controllingFieldValue>Tier 1B</controllingFieldValue>
+                <valueName>Customer Meeting(s) completed and Trip reports created</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Step_6__c</fullName>
+        <description>To Display the values as per &quot;Tier to Step Dependency&quot;</description>
+        <externalId>false</externalId>
+        <label>Step 6</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Tier_level__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>If Customer indicates need for leadership communication, add as a task to the strategy within Account Plan</fullName>
+                    <default>false</default>
+                    <label>If Customer indicates need for leadership communication, add as a task to the strategy within Account Plan</label>
+                </value>
+                <value>
+                    <fullName>Leadership communication required, add as a task to the strategy within Account Plan</fullName>
+                    <default>false</default>
+                    <label>Leadership communication required, add as a task to the strategy within Account Plan</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>ACQ to R&amp;D</controllingFieldValue>
+                <valueName>Leadership communication required, add as a task to the strategy within Account Plan</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tier 1A</controllingFieldValue>
+                <controllingFieldValue>Tier 1B</controllingFieldValue>
+                <valueName>If Customer indicates need for leadership communication, add as a task to the strategy within Account Plan</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Step_7__c</fullName>
+        <description>To Display the values as per &quot;Tier to Step Dependency&quot;</description>
+        <externalId>false</externalId>
+        <label>Step 7</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Tier_level__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Review Customer Premier Page for standard configs, accurate pricing, EOL configurations, verify page ownership</fullName>
+                    <default>false</default>
+                    <label>Review Customer Premier Page for standard configs, accurate pricing, EOL configurations, verify page ownership</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>ACQ to R&amp;D</controllingFieldValue>
+                <valueName>Review Customer Premier Page for standard configs, accurate pricing, EOL configurations, verify page ownership</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Step_8__c</fullName>
+        <description>To Display the values as per &quot;Tier to Step Dependency&quot;</description>
+        <externalId>false</externalId>
+        <label>Step 8</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Tier_level__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Sales Leadership call to Customer to ensure transition is going smoothly and introduce themselves</fullName>
+                    <default>false</default>
+                    <label>Sales Leadership call to Customer to ensure transition is going smoothly and introduce themselves</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>ACQ to R&amp;D</controllingFieldValue>
+                <valueName>Sales Leadership call to Customer to ensure transition is going smoothly and introduce themselves</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Tier_level__c</fullName>
+        <description>Tier Level should be controlling field for Step fields</description>
+        <externalId>false</externalId>
+        <label>Tier level</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>ACQ to R&amp;D</fullName>
+                    <default>false</default>
+                    <label>ACQ to R&amp;D</label>
+                </value>
+                <value>
+                    <fullName>Tier 1A</fullName>
+                    <default>false</default>
+                    <label>Tier 1A</label>
+                </value>
+                <value>
+                    <fullName>Tier 1B</fullName>
+                    <default>false</default>
+                    <label>Tier 1B</label>
+                </value>
+                <value>
+                    <fullName>Tier 2A</fullName>
+                    <default>false</default>
+                    <label>Tier 2A</label>
+                </value>
+                <value>
+                    <fullName>Tier 2B</fullName>
+                    <default>false</default>
+                    <label>Tier 2B</label>
+                </value>
+                <value>
+                    <fullName>Tier 3</fullName>
+                    <default>false</default>
+                    <label>Tier 3</label>
+                </value>
+                <value>
+                    <fullName>Tier 4</fullName>
+                    <default>false</default>
+                    <label>Tier 4</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Transition_Details__c</fullName>
+        <externalId>false</externalId>
+        <label>Transition Details</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Transition_Start_Date__c</fullName>
+        <description>To display the Transition Start Date</description>
+        <externalId>false</externalId>
+        <label>Transition Start Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Transition_initiated_by__c</fullName>
+        <description>User to populate this field.</description>
+        <externalId>false</externalId>
+        <label>Transition initiated by</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>ISR</fullName>
+                    <default>false</default>
+                    <label>ISR</label>
+                </value>
+                <value>
+                    <fullName>ISM</fullName>
+                    <default>false</default>
+                    <label>ISM</label>
+                </value>
+                <value>
+                    <fullName>AE</fullName>
+                    <default>false</default>
+                    <label>AE</label>
+                </value>
+                <value>
+                    <fullName>TSR</fullName>
+                    <default>false</default>
+                    <label>TSR</label>
+                </value>
+                <value>
+                    <fullName>LOR</fullName>
+                    <default>false</default>
+                    <label>LOR</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>www_hoovers_com__c</fullName>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&quot;http://www.hoovers.com&quot;,&quot;www.hoovers.com&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>.</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Account Handover</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>AH-{00000000}</displayFormat>
+        <label>Account Handover Number</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Account Handovers</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Prevent_Incoming_Task_Completed</fullName>
+        <active>false</active>
+        <description>This validation rule prevents the Incoming Task checkbox to be marked TRUE if the required criteria are not met.</description>
+        <errorConditionFormula>AND (
+OR (
+ISPICKVAL (Status__c, &quot;Pending Assignment&quot;),
+ISPICKVAL (Status__c, &quot;Draft&quot;)),
+Incoming_Handover_Tasks_Completed__c = TRUE
+)</errorConditionFormula>
+        <errorDisplayField>Incoming_Handover_Tasks_Completed__c</errorDisplayField>
+        <errorMessage>The Incoming Handover Task cannot be completed when Status is still in Draft or Pending Assignment.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Prevent_Keycontact1_relate_to_AccContact</fullName>
+        <active>true</active>
+        <description>To allow only contacts related to account selected on Account Handover.</description>
+        <errorConditionFormula>AND(Key_Contact_1__c &lt;&gt; &apos;&apos;,Key_Contact_1__r.Account_ID__c &lt;&gt; Account__c)</errorConditionFormula>
+        <errorDisplayField>Key_Contact_1__c</errorDisplayField>
+        <errorMessage>Please select a valid contact for the selected account</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Prevent_Keycontact2_relate_to_AccContact</fullName>
+        <active>true</active>
+        <description>To allow only contacts related to account selected on Account Handover.</description>
+        <errorConditionFormula>AND(Key_Contact_2__c &lt;&gt; &apos;&apos;,Key_Contact_2__r.Account_ID__c &lt;&gt; Account__c)</errorConditionFormula>
+        <errorDisplayField>Key_Contact_2__c</errorDisplayField>
+        <errorMessage>Please select a valid contact for the selected account</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Prevent_Keycontact3_relate_to_AccContact</fullName>
+        <active>true</active>
+        <description>To allow only contacts related to account selected on Account Handover.</description>
+        <errorConditionFormula>AND(Key_Contact_3__c &lt;&gt; &apos;&apos;,Key_Contact_3__r.Account_ID__c &lt;&gt;  Account__c)</errorConditionFormula>
+        <errorDisplayField>Key_Contact_3__c</errorDisplayField>
+        <errorMessage>Please select a valid contact for the selected account</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Prevent_Keycontact4_relate_to_AccContact</fullName>
+        <active>true</active>
+        <description>To allow only contacts related to account selected on Account Handover.</description>
+        <errorConditionFormula>AND(Key_Contact_4__c &lt;&gt; &apos;&apos;,Key_Contact_4__r.Account_ID__c &lt;&gt; Account__c)</errorConditionFormula>
+        <errorDisplayField>Key_Contact_4__c</errorDisplayField>
+        <errorMessage>Please select a valid contact for the selected account</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Prevent_Keycontact5_relate_to_AccContact</fullName>
+        <active>true</active>
+        <description>To allow only contacts related to account selected on Account Handover</description>
+        <errorConditionFormula>AND(Key_Contact_5__c &lt;&gt;&apos;&apos;,Key_Contact_5__r.Account_ID__c &lt;&gt; Account__c)</errorConditionFormula>
+        <errorDisplayField>Key_Contact_5__c</errorDisplayField>
+        <errorMessage>Please select a valid contact for the selected account</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Prevent_Keycontact6_relate_to_AccContact</fullName>
+        <active>true</active>
+        <description>To allow only contacts related to account selected on Account Handover</description>
+        <errorConditionFormula>AND(Key_Contact_6__c &lt;&gt; &apos;&apos;,Key_Contact_6__r.Account_ID__c &lt;&gt; Account__c)</errorConditionFormula>
+        <errorDisplayField>Key_Contact_6__c</errorDisplayField>
+        <errorMessage>Please select a valid contact for the selected account</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Prevent_Keycontact7_relate_to_AccContact</fullName>
+        <active>true</active>
+        <description>To allow only contacts related to account selected on Account Handover.</description>
+        <errorConditionFormula>AND(Key_Contact_7__c &lt;&gt; &apos;&apos;,Key_Contact_7__r.Account_ID__c &lt;&gt; Account__c)</errorConditionFormula>
+        <errorDisplayField>Key_Contact_7__c</errorDisplayField>
+        <errorMessage>Please select a valid contact for the selected account</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Prevent_Keycontact8_relate_to_AccContact</fullName>
+        <active>true</active>
+        <description>To allow only contacts related to account selected on Account Handover</description>
+        <errorConditionFormula>AND(Key_Contact_8__c &lt;&gt; &apos;&apos;,Key_Contact_8__r.Account_ID__c &lt;&gt; Account__c)</errorConditionFormula>
+        <errorDisplayField>Key_Contact_8__c</errorDisplayField>
+        <errorMessage>Please select a valid contact for the selected account</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Prevent_Outgoing_Task_Completed</fullName>
+        <active>false</active>
+        <description>This validation rule prevents the Outgoing Task Completed checkbox to be removed once Status have been changed to Pending Follow-Up.</description>
+        <errorConditionFormula>AND (
+ISPICKVAL (Status__c, &quot;Pending Follow-up&quot;),
+Outgoing_Handover_Tasks_Completed__c = FALSE
+)</errorConditionFormula>
+        <errorDisplayField>Outgoing_Handover_Tasks_Completed__c</errorDisplayField>
+        <errorMessage>The Outgoing Handover Task cannot be removed when Status is already in Pending Follow-up.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Prevent_Transition_Start_Date</fullName>
+        <active>true</active>
+        <description>Transition Start date will not accept any date lesser than the system date and it could be a current system date or a date in future.</description>
+        <errorConditionFormula>(
+	(ISNEW() || ISCHANGED(Transition_Start_Date__c)) &amp;&amp; 
+	Transition_Start_Date__c &lt;  TODAY()&amp;&amp;
+	(
+		NOT($User.Alias = &quot;CUser1&quot; || $User.Alias = &quot;CUpda&quot;)
+	)
+)</errorConditionFormula>
+        <errorDisplayField>Transition_Start_Date__c</errorDisplayField>
+        <errorMessage>Please enter current or a future date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Prevent_Transition_completion_date</fullName>
+        <active>true</active>
+        <description>Date entered on Transition completed date should not be less than the Transition start date</description>
+        <errorConditionFormula>Date_for_Warm_Handover_Call__c  &lt;  Transition_Start_Date__c &amp;&amp; (NOT($User.Alias = &quot;CUser1&quot; || $User.Alias = &quot;CUpda&quot;))</errorConditionFormula>
+        <errorDisplayField>Date_for_Warm_Handover_Call__c</errorDisplayField>
+        <errorMessage>Transition completed date must be later than the transition start date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Prevent_Unauthorized_Incoming_Entry</fullName>
+        <active>false</active>
+        <errorConditionFormula>AND( 
+ISCHANGED (Date_for_Warm_Handover_Call__c),
+NOT( 
+OR( 
+$User.Id = Incoming_rep__c, 
+CONTAINS($User.Profile_Name__c, &quot;Data Load&quot;), 
+$User.Profile_Name__c = &quot;System Administrator&quot; 
+) 
+) 
+)</errorConditionFormula>
+        <errorDisplayField>Date_for_Warm_Handover_Call__c</errorDisplayField>
+        <errorMessage>This section can only be completed by the Incoming Rep.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>New_Account_Handover</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <height>600</height>
+        <linkType>url</linkType>
+        <masterLabel>New Account Handover</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>/apex/NewAccountHandOver?id={!Account.Id}</url>
+    </webLinks>
+</CustomObject>

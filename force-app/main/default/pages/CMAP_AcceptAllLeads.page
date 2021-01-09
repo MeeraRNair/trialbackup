@@ -1,0 +1,23 @@
+<!-- 
+REVISION HISTORY
+======================================================================================================================
+Version     Author      Date            Release#    CR#     Description
+1.0         Afiq        01/10/2015       16.10       12014   Create a new visualforce page to mass accept all leads especially for partner 
+-->
+
+
+<apex:page standardController="Lead" extensions="CMAP_AcceptAllLeadsCtrlr" recordSetVar="Leads" lightningStylesheets="true">
+    <apex:form >
+        <apex:pageBlock title="{!$Label.CMAP_AcceptAllLeadsHeader}">
+            <apex:pageblockButtons >
+                <apex:commandButton value="{!$Label.CMAP_Cancel}" action="{!cancel}"/>
+                <apex:commandButton value="{!$Label.CMAP_OK}" action="{!AcceptAllLead}"/>
+            </apex:pageblockButtons>            
+            <apex:pageblockSection >
+                <apex:pageBlockSectionItem >
+                    <font color="black">{!$Label.CMAP_AcceptAllLeadsMsg}.</font>
+                </apex:pageBlockSectionItem> 
+            </apex:pageblockSection>    
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,135 @@
+<apex:page standardController="S_P_Vendors__c" extensions="SnPF5DealRegistrationExtension" standardStylesheets="false" cache="false" lightningStylesheets="true">
+  <style type="text/css">
+        .contents {
+            margin-left: auto;
+            margin-right: auto;
+            width: 800px;
+        }
+        
+        .topBox {
+            border: 1px solid #B8B8B8;
+            background-color: #FFFFB8;
+        }
+        
+        .confirmBox {
+            margin-left: auto;
+            margin-right: auto;
+            width: 750px;
+        }
+        
+        .sectionTitle {
+            font-family: Sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            color: #19699E;
+            margin-left: 10px;
+        }
+    </style>
+    <!-- Hidden Field -->
+    <apex:outputPanel rendered="false">
+        {!S_P_Vendors__c.Name}
+        {!S_P_Vendors__c.Automated__c}
+        {!S_P_Vendors__c.Opportunity__c}
+        {!S_P_Vendors__c.Opportunity__r.Account.Sales_Channel__r.Segment_Name__c}
+        {!S_P_Vendors__c.Opportunity__r.Owner.FirstName}
+        {!S_P_Vendors__c.Opportunity__r.Owner.LastName}
+        {!S_P_Vendors__c.Opportunity__r.Owner.Email}
+        {!S_P_Vendors__c.Opportunity__r.Owner.Phone}
+        {!S_P_Vendors__c.S_P_Deal_Status__c}
+        {!S_P_Vendors__c.Opportunity__r.Primary_Product_Delivery_Address_Region__c}
+        {!S_P_Vendors__c.Opportunity__r.Account.Account_Country__c}
+        {!S_P_Vendors__c.Contact_Name__c}
+        {!S_P_Vendors__c.Role__c}
+        {!S_P_Vendors__c.Customer_Name__c}
+        {!S_P_Vendors__c.City__c}
+        {!S_P_Vendors__c.State__c}
+        {!S_P_Vendors__c.Country__c}
+        {!S_P_Vendors__c.Phone__c}
+        {!S_P_Vendors__c.Email__c}
+        {!S_P_Vendors__c.Website__c}
+        {!S_P_Vendors__c.Industry__c}
+        {!S_P_Vendors__c.Product_Type__c}
+        {!S_P_Vendors__c.Application_Vendor__c}
+        {!S_P_Vendors__c.Business_Type__c}
+        {!S_P_Vendors__c.Estimated_Closed_Date__c}
+        {!S_P_Vendors__c.Project_Description__c}
+        {!S_P_Vendors__c.Sales_Rep_s_Phone__c}
+        {!S_P_Vendors__c.Lead_Source__c}        
+        {!S_P_Vendors__c.Distributor_Name__c}
+        {!S_P_Vendors__c.Id}
+        {!S_P_Vendors__c.Ready_to_submit_to_vendor__c}      
+        {!generatedF5URL}
+    </apex:outputPanel>
+
+    <apex:sectionHeader subtitle="F5 Registration Form" title="S&P Vendors" />
+    <apex:pagemessages />
+    <apex:outputPanel rendered="{!warn}">
+         <table class="contents">
+            <tr>
+                <td class="topBox">
+                    <apex:form >
+                        <font class="sectionTitle">Deal Confirmation:</font> <br />
+                        <blockquote>
+                            Please complete all mandatory fields in the current S&amp;P Vendor page <br />
+                            before submit to vendor.
+                        </blockquote>
+                        <table class="confirmBox">
+                            <tr height="10px"></tr>
+                            <tr>
+                                <td colspan="2">
+                                    <apex:commandButton value="   Return to S&P Vendor Detail page   " action="{!cancel}"/>
+                                </td>
+                            </tr>
+                        </table>
+                   </apex:form>
+                </td>
+            </tr>
+        </table>
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!NOT(isPending)}">
+         <table class="contents">
+            <tr>
+                <td class="topBox">
+                    <apex:form >
+                        <font class="sectionTitle">Deal Confirmation:</font> <br />
+                        <blockquote>
+                            The opportunity has already been submitted with the following details:
+                        </blockquote>
+                        <table class="confirmBox">
+                            <tr>
+                                <td width="150px">
+                                <b>Confirmation Number:</b>
+                                </td>
+                                <td>
+                                    <apex:outputField value="{!S_P_Vendors__c.Vendor_Tracking_Number__c}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="150px">
+                                <b>Date Sent:</b>
+                                </td>
+                                <td>
+                                    <apex:outputField value="{!S_P_Vendors__c.Sent_to_Vendor_Date__c}" />
+                                </td>
+                            </tr>
+                            <tr height="10px"></tr>
+                            <tr>
+                                <td colspan="2">
+                                    <apex:commandButton value="   Return to S&P Vendor Detail page   " action="{!cancel}"/>
+                                </td>
+                            </tr>
+                        </table>
+                   </apex:form>
+                </td>
+            </tr>
+        </table>
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!AND(isPending, NOT(warn))}">
+        <center>
+            <apex:form >
+                <apex:commandButton value="   Return to S&P Vendor Detail page   " action="{!cancel}"/><br />
+                <apex:iframe height="700px" width="1000px" src="{!generatedF5URL}"  scrolling="true"/>
+            </apex:form>
+        </center>
+    </apex:outputPanel> <br />    
+</apex:page>

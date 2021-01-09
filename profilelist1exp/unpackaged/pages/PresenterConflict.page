@@ -1,0 +1,106 @@
+<!--
+REVISION HISTORY
+
+================
+
+Version     Author      Date            Release#    CR#     Description
+
+-------     ------      ----            --------    ---     -----------
+
+2.0         Impana      24-April-2013   R14.5      8169     Modifications - Text box to search Topic Experts 
+3.0         Devika      10-Sept-2014    R15.10     10087    Ability to add mutliple Topic Experts.
+4.0         Shahiruni   30-May-2016     0701       13183    Story 1557835:Update Topic Experts Selection List Columns - Add Expert_Location__c in query                                                            
+-->
+
+<apex:page controller="PresenterConflictController" lightningStyleSheets="true" tabStyle="Agenda_Topic__c">
+    <apex:form >
+        <apex:pageblock rendered="{!agendaTopicFlag}">  
+            <font style="font-weight:bold;color:red;">Note: To see full list of Active Topic Experts associated with this topic, leave the Topic Expert Name field empty and Click on Search button</font>           
+            <br /><br />
+            <apex:pageBlockSection title="Search for Topic Experts">
+                <apex:pageBlockSectionItem >
+                    <apex:OutputLabel value="Topic Name:"/>
+                    <apex:OutputField value="{!agendaTopic.Name}"/>
+                </apex:pageBlockSectionItem> 
+            </apex:pageBlockSection>
+            
+            <!--  CR8169----- Topic Expert search -->
+            <!-- Start -->
+            <apex:pageblocksection >
+               <apex:pageblocksectionItem >
+                   <apex:outputlabel value="Topic Expert Name:"/>
+                      <apex:inputtext value="{!Xpertinput}"/>                   
+               </apex:pageblocksectionItem>                  
+            </apex:pageblocksection>                     
+            <!-- End -->                                                                      
+           
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Search" action="{!searchTopicName}">
+                </apex:commandButton>                             
+                <apex:commandButton value="Cancel" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection rendered="{!record_not_found}" id="b1">
+                <apex:pageMessage id="recordnotfound" severity="Error" strength="3" title="Topic Expert Not Available!" summary="There is no Topic Expert with this topic name.">
+                </apex:pageMessage>
+            </apex:pageBlockSection>
+        </apex:pageblock>         
+        <apex:pageBlock rendered="{!record_found}" title="Topic Experts Selection" id="pageBlkId2"> 
+            <apex:pagemessages ></apex:pagemessages>
+            <apex:pageBlockTable value="{!TopicExpDisplayList}" var="experts" rendered="true">  
+                <apex:column headerValue="Record Id" value="{!experts.topicExpert.Name}"/>
+                <apex:column headerValue="Topic Expert Name"> {!IF(experts.topicExpert.RecordType.Name=='Internal Topic Expert', experts.topicExpert.Presenter_Architect_Name__r.Name, experts.topicExpert.Topic_Expert_Name__c)}
+                </apex:column>
+                <apex:column headerValue="Title" value="{!experts.topicExpert.Title__c}"/>
+                <!--
+                <apex:column headerValue="Type" value="{!experts.topicExpert.Type__c}"/>
+                <apex:column headerValue="Record Type" value="{!experts.topicExpert.RecordType.Name}"/> 
+                -->
+                <apex:column headerValue="Expertise" value="{!experts.topicExpert.Expertise__c}"/>
+                <apex:column headerValue="Expert Location" value="{!experts.topicExpert.Expert_Location__c}"/>
+                <apex:column headerValue="Select" rendered="true">
+                <apex:inputCheckbox value="{!experts.selected}"/> 
+                </apex:column>
+            </apex:pageBlockTable>            
+            <apex:panelGrid columns="5">
+                Page {!currentPage} of {!lastPage}
+                <apex:commandLink action="{!startXpert}">Start</apex:commandlink>
+                <apex:commandLink action="{!previousXpert}" rendered="{!hasPrevious}">Previous</apex:commandlink>
+                <apex:commandLink action="{!nextXpert}" rendered="{! hasNext}">Next</apex:commandlink>
+                <apex:commandLink action="{!endXpert}">End</apex:commandlink> 
+            </apex:panelGrid>            
+            <apex:pageBlockButtons location="top">
+               <!-- <apex:commandButton action="{!checkAvailability}" value="Check Availabity" rendered="true"/>&nbsp;&nbsp;&nbsp;-->
+                <apex:commandButton action="{!checkAvailability}" value="Add Presenter" rendered="true"/>&nbsp;&nbsp;&nbsp;
+                <!-- CR 10087 DP <apex:outputLabel value="Note: Please note that you can select only one Topic Expert at a time" style="color: red; font-weight:bold;"></apex:outputLabel> -->
+            </apex:pageBlockButtons>
+        </apex:pageBlock> 
+       <!-- <apex:pageBlock rendered="{!(checkAvailabilityFlag)}">
+            <apex:pagemessages ></apex:pagemessages>
+              <apex:pageBlockTable value="{!topicExpSelected}" var="selexperts" rendered="{!(checkAvailabilityFlag)}">
+                <apex:column headerValue="Record Id" value="{!selexperts.Name}"/>
+                <apex:column headerValue="Topic Expert Name"> {!IF(selexperts.RecordType.Name=='Internal Topic Expert', selexperts.Presenter_Architect_Name__r.Name, selexperts.Topic_Expert_Name__c)}
+                </apex:column>
+               <apex:column headerValue="Title" value="{!selexperts.Title__c}"/>
+                <apex:column headerValue="Type" value="{!selexperts.Type__c}"/>
+                <apex:column headerValue="Record Type" value="{!selexperts.RecordType.Name}"/> 
+            </apex:pageBlockTable>
+             
+             <apex:commandButton value="Continue" action="{!continueaction}" rendered="{!(checkAvailabilityFlag)}"/>
+            <apex:commandButton value="Back" action="{!cancel}"/>
+        </apex:pageBlock>-->
+        <apex:pageBlock rendered="{!(agendaTopicFlag != TRUE)}">
+            <apex:pagemessages ></apex:pagemessages>
+                          <apex:pageBlockTable value="{!topicExpSelected}" var="selexperts" rendered="{!(checkAvailabilityFlag)}">
+                <apex:column headerValue="Record Id" value="{!selexperts.Name}"/>
+                <apex:column headerValue="Topic Expert Name"> {!IF(selexperts.RecordType.Name=='Internal Topic Expert', selexperts.Presenter_Architect_Name__r.Name, selexperts.Topic_Expert_Name__c)}
+                </apex:column>
+               <apex:column headerValue="Title" value="{!selexperts.Title__c}"/>
+                <apex:column headerValue="Type" value="{!selexperts.Type__c}"/>
+                <apex:column headerValue="Record Type" value="{!selexperts.RecordType.Name}"/> 
+            </apex:pageBlockTable>
+           <apex:commandButton value="Continue" action="{!continueaction}" rendered="{!(checkAvailabilityFlag)}"/> 
+          
+            <apex:commandButton value="Back" action="{!cancel}"/>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

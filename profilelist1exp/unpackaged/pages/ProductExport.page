@@ -1,0 +1,40 @@
+<apex:page StandardController="Product2" extensions="showEligibleProducts" readonly="true" showHeader="false" standardStylesheets="false" cache="true" contentType="application/octet-stream#EligibleProducts.xls">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+</head>
+
+            <table id="example">
+            <thead><tr>
+                <apex:repeat value="{! fieldLabels }" var="f">
+                <th> {!f} </th>  
+                </apex:repeat>
+            </tr></thead>
+
+            <tbody>
+            <apex:repeat value="{! EligibleProducts }" var="pro">
+                 <tr>
+                <apex:repeat value="{! fields }" var="f">
+                <td> {! pro[f] } </td>  
+                </apex:repeat>
+            </tr>                          
+            </apex:repeat>
+            </tbody>
+       </table>
+            
+<!--
+    <apex:pageBlock >
+             <apex:pageBlockTable value="{! EligibleProducts }" var="Pro" columns="6"> 
+            <apex:column headerValue="Product ID">{!Pro.Product_ID__c}</apex:column>
+            <apex:column headerValue="Brand Desc">{!Pro.Name}</apex:column>
+            <apex:column headerValue="Product Group">{!Pro.ProductCode}</apex:column>
+            <apex:column headerValue="Active">{!Pro.Isactive}</apex:column>
+            <apex:column headerValue="Product Type">{!Pro.Family}</apex:column>
+            <apex:column headerValue="Product Desc">{!Pro.Description}</apex:column>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+<apex:outputText value="Product Id, Brand Desc, Product Group, Active, Product Type, Product Desc"/>
+    <apex:repeat value="{! EligibleProducts }" var="Pro">
+        {!Pro.Product_ID__c}, {!Pro.Name}, {!Pro.ProductCode}, {!Pro.Isactive}, {!Pro.Family}, {!Pro.Description}
+    </apex:repeat>  
+-->
+</apex:page>

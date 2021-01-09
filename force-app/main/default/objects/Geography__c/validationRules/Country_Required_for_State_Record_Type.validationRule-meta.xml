@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Country_Required_for_State_Record_Type</fullName>
+    <active>true</active>
+    <description>This rule is to mandate users to provide value for Country field when they select the State Record Type.</description>
+    <errorConditionFormula>RecordType.Name == &apos;State&apos; &amp;&amp; ISBLANK(Country__c)</errorConditionFormula>
+    <errorDisplayField>Country__c</errorDisplayField>
+    <errorMessage>Country should be selected when the Geography Type is State.</errorMessage>
+</ValidationRule>

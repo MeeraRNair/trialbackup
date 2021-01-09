@@ -1,0 +1,651 @@
+<apex:page standardController="Account" extensions="MDM_DBAccountDetails" showheader="true" sidebar="false" title="Duns Detail Page"> 
+    <html> 
+    <head>
+        <Title></Title>
+    </head>
+    <style type="text/css">
+        .empty-column-content {
+            display: none;
+        }
+        .show-column-content {
+            display: block;
+        }
+        .Bold {
+            font-weight: bold;
+        }
+        .bPageHeader{
+            display: none;
+        }
+    </style>
+   
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/start/jquery-ui.css" type="text/css" media="all" />
+    <script type="text/javascript">
+        funtion myfun(){   
+          alert('fff');
+        }
+    </script>
+    
+    <apex:form >
+          <apex:actionFunction name="callMDM" action="{!showpopup}" status="myStatus" reRender="pnlDetail"/>
+    </apex:form>
+
+    <apex:actionStatus startText="Loading.." id="myStatus">
+        <apex:facet name="start">
+            <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb;
+                  height: 100%;opacity:0.65;width:100%;"> 
+                 <div class="waitingHolder" style="top: 74.2px; width: 91px;">
+                     <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                     <span class="waitingDescription">Please Wait...</span>
+                 </div>
+            </div>
+         </apex:facet>
+     </apex:actionStatus> 
+
+    <apex:outputPanel id="pnlDetail">
+    <apex:form id="theForm" >
+         <apex:pageMessages id="msg" />
+         <apex:outputpanel id="accountdetails" rendered="{!showResultTable}">
+
+ 
+  <apex:pageblock title="{!$Label.MDM_PageHeader}"> 
+      <apex:pageblockButtons location="top" rendered="{!showResultTable}">
+          <apex:commandButton value="{!$Label.MDM_Button_ExporttoExcel}" action="{!export}" style="float:right"/>
+      </apex:pageblockButtons>
+  
+      <apex:pageBlockSection columns="2" title="{!$Label.MDM_SectionHdr_KeyInfo}" id="viewaccount" rendered="{!showResultTable}">
+          <apex:pageBlockSectionItem >
+              <apex:outputlabel >
+                  <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_DunsNumber}" customlabelhelptext="{!$Label.MDM_HelpText_3}" />
+              </apex:outputlabel>
+              <apex:outputtext value="{!oDunsId}" />
+         </apex:pageBlockSectionItem>
+
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_DunsName}" customlabelhelptext="{!$Label.MDM_HelpText_4}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oBusinessName}" />
+         </apex:pageblocksectionitem>  
+     
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_Tradestyle1}" customlabelhelptext="{!$Label.MDM_HelpText_5}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oTradeStyleName}" />
+         </apex:pageblocksectionitem>
+      
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_DomUltiAddress}" customlabelhelptext="{!$Label.MDM_HelpText_6}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oDomesticUltimateAddress}"/>
+         </apex:pageblocksectionitem>
+     
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_DomUltiDunsAndName}" customlabelhelptext="{!$Label.MDM_HelpText_7}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oDomesticUltimateDuns} {!oDomesticUltimateName}"/>
+         </apex:pageblocksectionitem>
+
+         <apex:pageblockSectionItem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_DomUltiTotalEmp}" customlabelhelptext="{!$Label.MDM_HelpText_8}" />
+             </apex:outputlabel>
+         <apex:outputtext value="{!oDomesticUltimateTotalEmployees}"/>
+         </apex:pageblockSectionItem>
+         
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_EmployeesTotal_Here}" customlabelhelptext="{!$Label.MDM_HelpText_9}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oemployeestotalhere}"/>
+         </apex:pageblocksectionitem> 
+         
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_EmpTotal_RelCd}" customlabelhelptext="{!$Label.MDM_HelpText_10}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oemployeestotalherecode}"/>
+         </apex:pageblocksectionitem>
+
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_FranCdNameUlt}" customlabelhelptext="{!$Label.MDM_HelpText_11}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oFranchisecodes}"/>
+         </apex:pageblocksectionitem> 
+    
+         <apex:pageblockSectionItem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_GlobalUltAddress}" customlabelhelptext="{!$Label.MDM_HelpText_12}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oGlobalUltimateAddress}" />
+         </apex:pageblockSectionItem>
+         
+         <apex:pageblocksectionItem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_GlobalUltDunsAndName}" customlabelhelptext="{!$Label.MDM_HelpText_13}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oGlobalUltimateDuns} {!oGlobalUltimateName}" />
+         </apex:pageblocksectionItem>
+
+         <apex:pageblocksectionItem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_HierarchyCd}" customlabelhelptext="{!$Label.MDM_HelpText_14}" />
+             </apex:outputlabel>
+             <apex:outputText value="{!oHierarchyCode}" />
+         </apex:pageblocksectionItem>
+
+         <apex:pageblockSectionItem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_Hq_ParentAddress}" customlabelhelptext="{!$Label.MDM_HelpText_15}" />
+             </apex:outputlabel>
+             <apex:outputText value="{!oHqParentAddress}" />
+         </apex:pageblockSectionItem>
+         
+         
+         <apex:pageBlockSectionItem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_Hq_ParentDunsAndName}" customlabelhelptext="{!$Label.MDM_HelpText_16}" />
+             </apex:outputlabel>
+             <apex:outputText value="{!oHQParentDuns} {!oHQParentName}"/>
+         </apex:pageBlockSectionItem>
+
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_LoctnType_StatusCd}" customlabelhelptext="{!$Label.MDM_HelpText_17}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oStatusCode}" />
+         </apex:pageblocksectionitem>
+         
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_NonclassifiedSICInd}" customlabelhelptext="{!$Label.MDM_HelpText_18}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!ounderminedSICIndicator}" />
+         </apex:pageblocksectionitem>
+          
+         <apex:pageblockSectionItem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_PreviousDuns}" customlabelhelptext="{!$Label.MDM_HelpText_19}" />
+             </apex:outputlabel>
+             <apex:outputText value="{!oPreviousDuns}" />
+         </apex:pageblockSectionItem>
+         
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_SICPrimary_4}" customlabelhelptext="{!$Label.MDM_HelpText_20}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oUS_1987_SIC1}" />
+         </apex:pageblocksectionitem> 
+         
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_SICPrimary_6}" customlabelhelptext="{!$Label.MDM_HelpText_21}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oSIC6Code}"/>
+         </apex:pageblocksectionitem>
+          
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_SICSecondary2_6_4}" customlabelhelptext="{!$Label.MDM_HelpText_22}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!osiccodessecondary}"/>
+         </apex:pageblocksectionitem> 
+
+         <apex:pageblocksectionItem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_SubsidiaryIndicator}" customlabelhelptext="{!$Label.MDM_HelpText_23}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oSubsidiaryIndicator}"/>
+         </apex:pageblocksectionItem>
+         
+         <apex:pageblocksectionItem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_TerritoryCovered}" customlabelhelptext="{!$Label.MDM_HelpText_24}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oterritorycovered}"/>
+         </apex:pageblocksectionItem>
+     
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_TrdYrEmp_Sales}" customlabelhelptext="{!$Label.MDM_HelpText_25}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!otrendyearemployeesales}"/>
+         </apex:pageblocksectionitem> 
+     </apex:pageblocksection>
+
+     <apex:pageblocksection title="{!$Label.MDM_SectionHdr_CompanyDes}" columns="2" rendered="{!showResultTable}">
+     
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_AddressPhysical1}" customlabelhelptext="{!$Label.MDM_HelpText_26}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oAddress1}" id="a"/>
+         </apex:pageblocksectionitem>
+         
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_AddressPhysical2}" customlabelhelptext="{!$Label.MDM_HelpText_27}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oaddress2}"/>
+         </apex:pageblocksectionitem>
+          
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_AddressPostal1}" customlabelhelptext="{!$Label.MDM_HelpText_28}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oMailAddress}" />
+         </apex:pageblocksectionitem> 
+     
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_AddressPostal2}" customlabelhelptext="{!$Label.MDM_HelpText_29}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!omailcityname} {!oMailCountryName} {!omailstatename} {!oCountrycode} {!omailpostalcode}" />
+         </apex:pageblocksectionitem> 
+         
+         <apex:pageblocksectionItem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_FaxNumber}" customlabelhelptext="{!$Label.MDM_HelpText_30}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oFaxNumber}" />
+         </apex:pageblocksectionItem>
+     
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_CityCd_Name}" customlabelhelptext="{!$Label.MDM_HelpText_31}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oCity} {!oCityCode}" />
+         </apex:pageblocksectionitem> 
+
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_CountyCd_Name}" customlabelhelptext="{!$Label.MDM_HelpText_32}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oCountyCode}" />
+         </apex:pageblocksectionitem>
+     
+         <apex:pageblocksectionItem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_State_ProvinceCd_Name}" customlabelhelptext="{!$Label.MDM_HelpText_33}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!ostate} {!ostatecode}"/>
+         </apex:pageblocksectionItem>
+         
+         <apex:pageblocksectionItem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_PostalCd}" customlabelhelptext="{!$Label.MDM_HelpText_34}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oPostalCode}"/>
+         </apex:pageblocksectionItem>
+      
+          <apex:pageblocksectionItem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_Mailg_CntryCd_Name}" customlabelhelptext="{!$Label.MDM_HelpText_35}" />
+              </apex:outputlabel>
+             <apex:outputtext value="{!oMailCountryCode} {!oMailCountryName}" />
+         </apex:pageblocksectionItem>
+         
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_ContinentCd}" customlabelhelptext="{!$Label.MDM_HelpText_36}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oContinentCode}" />
+         </apex:pageblocksectionitem>
+         
+         <apex:pageblocksectionItem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_NationalId_primary}" customlabelhelptext="{!$Label.MDM_HelpText_37}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oNationalId}" />
+         </apex:pageblocksectionItem>
+         
+         <apex:pageblocksectionItem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_NationalIdDesCd}" customlabelhelptext="{!$Label.MDM_HelpText_38}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oNationalIdSystemCode}" />
+         </apex:pageblocksectionItem>
+         
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_TelCountryAccessCd}" customlabelhelptext="{!$Label.MDM_HelpText_39}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!ocountryaccesscode}" />
+         </apex:pageblocksectionitem> 
+         
+         <apex:pageblocksectionItem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_TelephoneNumber}" customlabelhelptext="{!$Label.MDM_HelpText_40}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oTelephoneNumber}" />
+         </apex:pageblocksectionItem>
+     </apex:pageblocksection>
+     
+     <apex:pageblocksection title="{!$Label.MDM_SectionHdr_KeyPeople}" columns="2" rendered="{!showResultTable}">
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_CEOMRCDes_Title}" customlabelhelptext="{!$Label.MDM_HelpText_41}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oCEOTitle}" />
+         </apex:pageblocksectionitem>
+         
+         <apex:pageblocksectionItem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_CEOName}" customlabelhelptext="{!$Label.MDM_HelpText_42}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oCEOName}" />
+         </apex:pageblocksectionItem>
+         
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_ExecutiveConMRCCd}" customlabelhelptext="{!$Label.MDM_HelpText_43}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oexecutivecontactmrccode}"/>
+         </apex:pageblocksectionitem> 
+
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_ExecutiveConNames}" customlabelhelptext="{!$Label.MDM_HelpText_44}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!otopexecutivecontacts}" />
+         </apex:pageblocksectionitem> 
+
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_ExecutiveConTitle}" customlabelhelptext="{!$Label.MDM_HelpText_45}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oexecutivecontacttitle}" />
+         </apex:pageblocksectionitem>
+     </apex:pageblocksection>
+     
+     <apex:pageblocksection title="{!$Label.MDM_SectionHdr_AddInfo}" columns="2" rendered="{!showResultTable}">
+         <apex:pageblocksectionitem >
+             <apex:outputlabel >
+                 <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_SquareFootage}" customlabelhelptext="{!$Label.MDM_HelpText_46}" />
+             </apex:outputlabel>
+             <apex:outputtext value="{!oSquareFootage}"/>
+         </apex:pageblocksectionitem>
+         
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_Cable_Telex}" customlabelhelptext="{!$Label.MDM_HelpText_47}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!oCableOrTelex}" />
+     </apex:pageblocksectionitem>
+     
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_ControlYear}" customlabelhelptext="{!$Label.MDM_HelpText_48}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!oyearstarted}" />
+     </apex:pageblocksectionitem> 
+     
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_CottageIndicator}" customlabelhelptext="{!$Label.MDM_HelpText_49}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!ocottagefileindicator}" />
+     </apex:pageblocksectionitem>
+      
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_DelistIndicator}" customlabelhelptext="{!$Label.MDM_HelpText_50}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!omarketingfiledelistindicator}"/>
+     </apex:pageblocksectionitem>
+     
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_Dias}" customlabelhelptext="{!$Label.MDM_HelpText_51}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!oDiasCode}" />
+     </apex:pageblocksectionitem>
+     
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_LegalStatus}" customlabelhelptext="{!$Label.MDM_HelpText_52}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!oLegalStatus}"/>
+     </apex:pageblocksectionitem>
+     
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_MetStatAreaDesc}" customlabelhelptext="{!$Label.MDM_HelpText_53}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!oMSA}"/>
+     </apex:pageblocksectionitem>
+     
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_Owns_RentsIndicator}" customlabelhelptext="{!$Label.MDM_HelpText_54}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!oOwnsOrRentDetail}" />
+     </apex:pageblocksectionitem>
+     
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_PLocalActivityCd}" customlabelhelptext="{!$Label.MDM_HelpText_55}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!oPrimaryLocalActivityCode}"/>
+     </apex:pageblocksectionitem>
+      
+     <!-- <apex:pageblocksectionitem helptext="This score is an integer numeric field ranging from “0” to “99999”. This score represents the “most likely” value of Broadband Demand only for the given firm’s location.  It does not consider the Broadband Demand contributions of any other related corporate entity.  Correspondence of likely applicable Data Services to ranges of the Site Broadband Demand Score are as follows:
+  “>=0 to <50”          = “No Broadband Data Services” 
+  “>=50 to <350”      = “xDSL /Cable Modem / BRI ISDN or equivalent”
+  “>=350 to <3500”  = “ISDN (PRI) / T1 (DS1) or equivalent”       
+  “3500 and higher” = “T3 (DS3) or equivalent”
+(Note:  The actual metric ranges up to a value of almost 570,000, but large values are truncated at a maximum of “99999” for database space considerations.)">
+        -->
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_SiteBbandDemandSRE}" customlabelhelptext="{!$Label.MDM_HelpText_56}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!oSiteBroadbandDemandScore}" />
+     </apex:pageblocksectionitem>
+     
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_UndeliverableAddInd}" customlabelhelptext="{!$Label.MDM_HelpText_57}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!oUndeliverableAddressIndicator}" />
+     </apex:pageblocksectionitem>
+     
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_WhiteCollarEstimator}" customlabelhelptext="{!$Label.MDM_HelpText_58}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!oWhiteCollarEstimator}" />
+     </apex:pageblocksectionitem>
+     
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_RecordClass_I_II}" customlabelhelptext="{!$Label.MDM_HelpText_59}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!oRecordClassType}" />
+     </apex:pageblocksectionitem>
+     
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_ReportDate}" customlabelhelptext="{!$Label.MDM_HelpText_60}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!oreportdate}" />
+     </apex:pageblocksectionitem>
+     </apex:pageblocksection>
+     
+     <apex:pageblocksection title="{!$Label.MDM_SectionHdr_KeyFinancials}" columns="2" rendered="{!showResultTable}">
+     <apex:pageblocksectionitem >
+         <apex:outputlabel value="{!$Label.MDM_Field_MarketabilityInd}" />
+         <apex:outputtext value="{!omarketablenonmarketable}" />
+     </apex:pageblocksectionitem> 
+      
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_EstimatedNumberOfPCs}" customlabelhelptext="{!$Label.MDM_HelpText_61}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!onumberofpcs}" />
+     </apex:pageblocksectionitem> 
+     
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_AggregatedNum}" customlabelhelptext="{!$Label.MDM_HelpText_62}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!oaggregatednumberofpcsultimate}" />
+     </apex:pageblocksectionitem> 
+     
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_AnlSalesRev_LocCur}" customlabelhelptext="{!$Label.MDM_HelpText_63}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!oAnnualSales}" />
+     </apex:pageblocksectionitem>
+     
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_AnnualSalesRev_USD}" customlabelhelptext="{!$Label.MDM_HelpText_64}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!oAnnualSalesUSDollar}" />
+     </apex:pageblocksectionitem>
+     
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_AnnSalesRevRelCd}" customlabelhelptext="{!$Label.MDM_HelpText_65}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!oAnnualSalesIndicator}" />
+     </apex:pageblocksectionitem>
+     
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_BaseYearEmps_Sales}" customlabelhelptext="{!$Label.MDM_HelpText_66}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!obaseyearemployeessales}" />
+     </apex:pageblocksectionitem>
+
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_BlueCollarEstimator}" customlabelhelptext="{!$Label.MDM_HelpText_67}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!oBlueCollarEstimator}" />
+     </apex:pageblocksectionitem>
+     
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_Import_Export}" customlabelhelptext="{!$Label.MDM_HelpText_68}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!oImportExportCode}" />
+     </apex:pageblocksectionitem>
+     
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_LineOfBusinessDes}" customlabelhelptext="{!$Label.MDM_HelpText_69}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!oLineOfBusiness}" />
+     </apex:pageblocksectionitem>
+     
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_NumberofAccounts}" customlabelhelptext="{!$Label.MDM_HelpText_70}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!onumberofaccounts}"/>
+     </apex:pageblocksectionitem>
+     
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_NumberOfFamilyMembers}" customlabelhelptext="{!$Label.MDM_HelpText_71}" />
+         </apex:outputlabel>
+     <apex:outputtext value="{!onumberoffamilymembersglobal}" />
+     </apex:pageblocksectionitem> 
+      
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_OutOfBIndicator}" customlabelhelptext="{!$Label.MDM_HelpText_72}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!oOOB}" />
+     </apex:pageblocksectionitem>
+     
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_PercentGrowthEmps}" customlabelhelptext="{!$Label.MDM_HelpText_73}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!oPercentGrowthEmployees}"/>
+     </apex:pageblocksectionitem>
+     
+     <apex:pageblocksectionitem >
+         <apex:outputlabel >
+             <c:outputLabel_With_HelpText fieldLabel="{!$Label.MDM_Field_Public_PrvIndicator}" customlabelhelptext="{!$Label.MDM_HelpText_74}" />
+         </apex:outputlabel>
+         <apex:outputtext value="{!oPublicOrprivateIndicator}"/>
+     </apex:pageblocksectionitem>
+   
+   </apex:pageBlockSection>
+
+
+   <apex:pageblockSection title="{!$Label.MDM_sectionHeader}" rendered="{!showResultTable}" columns="1" >
+
+       <apex:repeat value="{!oaffinityidlist}" var="affinityidlist" id="theRepeat">
+           <apex:commandLink value="{!affinityidlist}"  id="accid" onclick="myfunction({!affinityidlist});">
+               <apex:param value="{!affinityidlist}" assignto="{!accountvar}" name="h"/>
+               <apex:param value="{!affinityidlist}" assignto="{!MDM_DBAccountDetails.MyAffId}" name="MyAffId"/>
+           </apex:commandlink>
+       </apex:repeat>
+   </apex:pageblockSection>
+
+  </apex:pageblock>
+
+  </apex:outputpanel> 
+     
+  </apex:form>
+  </apex:outputPanel>
+  </html>
+  <script src="../soap/ajax/33.0/connection.js" type="text/javascript"></script>
+
+  <script>
+  function myfunction(MyId){
+      var  i = MyId;
+      Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.MDM_DBAccountDetails.CheckAccess}',
+             i,
+            function(result, event){
+                if (event.status) {
+               // alert('result.check');
+               // alert(result.AccountExist);
+                    if(result.check == true && result.AccountExist == true){
+                 //      alert('accountid' + result.AffRecId);
+                          var accountwindow = window.open('/' + result.AffRecId, '', "height=600,width=900,scrollbars=yes");
+                         accountwindow.focus();
+                   //     alert('checking 1' + result.check);
+                    }
+                //    alert('result.check');
+                //    alert(i);
+                    if(result.check == false && result.AccountExist == true){
+                    var accountwindow2 = window.open('/apex/MDM_InsufficientAccessPage?id='+result.AffRecId+ '&affinityid=' + i +'&name='+result.AccRecName +'&owner='+result.AccRecOwnerName +'&owneremail='+result.AccRecOwnerEmail + '&close=' + false, '', "height=460,width=880,scrollbars=yes");
+                    accountwindow2.focus();
+                  //  alert('checking 2' + result.check);
+                   }
+                   
+                   if(result.AccountExist == false && result.check == false){
+                       var accountwindow = window.open('/_ui/search/ui/UnifiedSearchResults?searchType=2&sen=005&sen=701&sen=a1K&sen=001&str='+ i + '&close=' + false, '', "height=460,width=880,scrollbars=yes");
+                        accountwindow.focus();
+                    //    alert('sss');
+                    }
+                } else if (event.type === 'exception') {
+                    
+                } else {
+                   alert(event.message);
+                }
+            }, 
+            {escape: true}
+        );
+
+
+      
+      alert('lllll'+result.label);
+  }
+  </script>
+  <script>callMDM();</script>
+</apex:page>

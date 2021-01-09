@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Qualified_Persona__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(ISPICKVAL($User.User_Persona__c, &apos;SysAdmin&apos;) &amp;&amp; INCLUDES(Salestool_Persona__c, &apos;SysAdmin&apos;),true,
+IF(ISPICKVAL($User.User_Persona__c, &apos;Chatter&apos;) &amp;&amp; INCLUDES(Salestool_Persona__c, &apos;Chatter&apos;),true,
+IF(ISPICKVAL($User.User_Persona__c, &apos;Enterprise AE&apos;) &amp;&amp; INCLUDES(Salestool_Persona__c, &apos;Enterprise AE&apos;),true,
+IF(ISPICKVAL($User.User_Persona__c, &apos;Presales&apos;) &amp;&amp; INCLUDES(Salestool_Persona__c, &apos;Presales&apos;),true,
+IF(ISPICKVAL($User.User_Persona__c, &apos;DPS&apos;) &amp;&amp; INCLUDES(Salestool_Persona__c, &apos;DPS&apos;),true,
+IF(ISPICKVAL($User.User_Persona__c, &apos;MDC&apos;) &amp;&amp; INCLUDES(Salestool_Persona__c, &apos;MDC&apos;),true,
+IF(ISPICKVAL($User.User_Persona__c, &apos;UDS&apos;) &amp;&amp; INCLUDES(Salestool_Persona__c, &apos;UDS&apos;),true,
+IF(ISPICKVAL($User.User_Persona__c, &apos;&apos;) &amp;&amp;  ISBLANK(Salestool_Persona__c),true,
+IF(ISBLANK(Salestool_Persona__c),true,
+IF(ISNULL(Salestool_Persona__c),true,
+IF(ISNULL(TEXT($User.User_Persona__c)) &amp;&amp; ISNULL(Salestool_Persona__c),true,false)))))))))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Qualified Persona</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

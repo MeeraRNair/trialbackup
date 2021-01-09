@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SM_SOC_Mandate_Assigned_Sol_Architect</fullName>
+    <active>false</active>
+    <description>Assigned Solution Architect cannot be empty.</description>
+    <errorConditionFormula>AND(RecordTypeId = &apos;012A0000000ViNO&apos;, Region_F__c = &apos;EMEA&apos; , ISBLANK( Assigned_Solution_Architect__c ) )</errorConditionFormula>
+    <errorDisplayField>Assigned_Solution_Architect__c</errorDisplayField>
+    <errorMessage>Assigned Solution Architect cannot be empty.</errorMessage>
+</ValidationRule>

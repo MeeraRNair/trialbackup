@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Incentive_EndPoint_Cannot_be_Null</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT( ISPICKVAL( Inc_Vendor_Name__c , &apos;Not Applicable/On Hold&apos;) ) &amp;&amp; OR( ISPICKVAL(  Inc_Vendor_End_Point__c  , &apos;-None-&apos;), ISBLANK( TEXT(Inc_Vendor_End_Point__c)))</errorConditionFormula>
+    <errorDisplayField>Inc_Vendor_End_Point__c</errorDisplayField>
+    <errorMessage>Specify a Vendor EndPoint</errorMessage>
+</ValidationRule>

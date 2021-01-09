@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Container_Multiplier_Factor_Gretr_Than_0</fullName>
+    <active>true</active>
+    <description>This rule is to ensure that container factor is not zero or a negative value.</description>
+    <errorConditionFormula>Container_Multiplier_Factor__c &lt;= 0</errorConditionFormula>
+    <errorDisplayField>Container_Multiplier_Factor__c</errorDisplayField>
+    <errorMessage>Container Multiplier Factor must be greater than zero.</errorMessage>
+</ValidationRule>

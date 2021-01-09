@@ -1,0 +1,16 @@
+<!-- 
+Revision CR Number  Release No      Date            Modified By     Description
+1.0      18250      FY20-0102       29-Oct-2019     Siva            Enabled Available for Lightning Experience, Lightning Communities, and the mobile app & append lightningStylesheets=true
+-->
+
+
+<apex:page standardController="Lead" extensions="CMAP_overrideCloneController" tabStyle="Lead" action="{!redirect}" lightningStylesheets="True">
+  <apex:form >
+    <apex:pageBlock rendered="{!okbutton}">
+      <apex:pagemessages ></apex:pagemessages>
+      <apex:pageBlockButtons location="Bottom">
+        <apex:commandButton immediate="TRUE" action="{!okbuttonAction}" value="OK"/>
+      </apex:pageBlockButtons>
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

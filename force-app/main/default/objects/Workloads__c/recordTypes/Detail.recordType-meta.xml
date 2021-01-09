@@ -1,0 +1,3336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Detail</fullName>
+    <active>true</active>
+    <label>Detail</label>
+    <picklistValues>
+        <picklist>App_Infrastructure_Platform__c</picklist>
+        <values>
+            <fullName>End User Devices</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GPU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hyperconverged</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mainframe%2FIBMi</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private%2Fhybrid Cloud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Public Cloud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RISC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SaaS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>x86</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>App_Network__c</picklist>
+        <values>
+            <fullName>3Com</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Avaya</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Avocent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Brocade</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cisco</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dell EMC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enterasys</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Extreme Networks</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>F5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Force 10</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Juniper</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Linksys</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nortel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Raritan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Riverbed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Watchguard</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>App_Operating_System__c</picklist>
+        <values>
+            <fullName>AIX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chrome</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HPE-UNIX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oracle Linux</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Linux</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RedHat Linux</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SUSE Linux</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solaris</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ubuntu</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Windows</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>App_Server__c</picklist>
+        <values>
+            <fullName>Bull</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cisco</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dell EMC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fujitsu</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HPE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hitachi</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Huawei</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IBM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IBM Power</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IBM i-Series</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IBM z-Series</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lenovo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NEC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NVidia DGX-1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NVidia DGX-2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NVidia Data Science Workstation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oracle%2FSun</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PowerEdge NVidia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quantum</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SuperMicro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unisys</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>White Box</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>inspur</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>App_Storage__c</picklist>
+        <values>
+            <fullName>CEPH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cloud Tiering Appliance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Compellent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DPS Cloudboost</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data Domain LTR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Datacore</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dell DAS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EqualLogic</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fujitsu</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HPE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hitachi</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Huawei</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IBM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Infinidat</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Isilon</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Isilon Cloudpools</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lenovo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NetApp</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nexenta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nimble</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nutanix- Dell</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nutanix- Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PowerMax%2FVmax</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PowerVault</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PureStorage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>S2D</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ScaleIO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VSAN</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>App_Virtual_Platform__c</picklist>
+        <values>
+            <fullName>AWS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cisco UCS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Citrix Xenserver</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dell EMC EHC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dell EMC HCI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Google</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HPE Simplivity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Huawei</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KVM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lenovo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MS Hyper-V</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Microsoft Azure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Microsoft Azure Stack</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Microsoft CPS %2F Azure PAC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nutanix</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OS Native</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oracle</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other OpenStack</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RedHat OpenStack</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SUSE OpenStack</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UCS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VCE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VMware ESX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Virtustream</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Application__c</picklist>
+        <values>
+            <fullName>454 Sequencing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ATEME</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AWS Elemental</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AWS IoT Suite</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Abaqus</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Accenture %28NSN%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Actifio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Acuo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Adobe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AgentVI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Agfa</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Aimetis</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Allscripts</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Anevia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ansys</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Apple - Final Cut Pro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Arcules</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Arnold</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Arvato</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Autodesk -  Flame</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Autodesk AutoCAD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Autodesk Vault</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Avaya</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Avid -  Media Composer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Avid Interplay</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Avigilon</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Axel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Axis Communications</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Axway Syncplicity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AxxonSoft</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Azure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Azure IoT Suite</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Banner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Big DL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BitCentral</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Blackmagic Resolve</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Blade One</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bosch</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BreifCam</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Broadpeak</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Application Native</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CA Arcserve</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CNTK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>COTS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CTERA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cadence</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Caffe2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Canvas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Carestream</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Centricity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cerner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cinegy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cisco</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cisco Spark</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cisco UCM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Citilog</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Citrix ShareFile</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Clearcase</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cloud Array</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cloudfirst</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CommVault</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Containers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cryo-EM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Custom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Custom%2FIn-house</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DPS Cloudboost</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DVTEL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dalet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dalet%2FAmberfin</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dallmeier</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dassault Catia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data Domain</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data Warehouse Native</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Documentum</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Domino</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dropbox</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EMC Avamar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EMC Documentum</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EMC Networker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EMC SourceOne</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EMC Syncplicity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EPIC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EVS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EcoDigital %28Oracle%2FFrontPorch%29 - Diva</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Edgeware</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Egnyte</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Elemental</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Empress eMAM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Evertz</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FLIR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FilmPartners MXF Server</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Foundry - Nuke%2C Mari%2C Modo%2C Katana%2C Ocula%2C CaraVR%2C Flix</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fuji</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fujifilm</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GE Healthcare</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GLUON</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Genetec</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GitHub</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gmail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Google Drive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Google IoT Core</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gorilla</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Grass Valley</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Grass Valley - Edius</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Greymeta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HIKVision</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HPL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hanwha Techwin</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Harmonic</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Harris</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Grown or No ISV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Honeywell</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Huawei eSpace</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Huron</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hyland Onbase</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hyland- Acuo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hyperion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IBM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IBM BigInsights</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IBM Content Collector</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IBM FileNet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IBM Spectrum Protect</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IBM TSM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ISS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IdenTV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Illumina</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Imagine%2FDigital Rapids</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Imagine%2FHarris</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Imagine%2FRGB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Infinite Campus</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Infor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Informatica</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inspirata</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Intelerad</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Intellevision</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>InterSystems</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Interica</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JD Edwards</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jemez Technology</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jenzabar SONIS %2F SIS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Kaltura</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Keras</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Kingdom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Kronos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LSF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LSTC LS-Dyna</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Landmark %28Halliburton%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Leica</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LenSec</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Levels Beyond</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Life Technologies</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LinkedIn</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lotus Notes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lync</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MS Exchange</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MS Visual Source Safe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mach 7</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Magix %28Sony%29 - Vegas Pro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Magma</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Masstech SGL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Maxon - Cinema 4D</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>McKesson</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MediaKind %28Ericsson%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Meditech</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mentor Graphics</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Merge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Microsoft Dynamics%2FNavision</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Microsoft Excel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Microsoft Integration Services %28SSIS%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Microsoft SQL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Microsoft Sharepoint</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Microsoft Stream Insight</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Milestone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mitel MyCollab</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MobiTV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MxNet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NEC Univerge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NFS%2FSMB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NICE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nasuni</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nevion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Next Level</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No ISV Project Share</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Novogene</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nvidia DGX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ONSSI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OSIsoft</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Office 365</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OnBase</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OpenText</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OpenText Documentum</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OpenText InfoArchive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Optex</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oracle</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Orchestra</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other ISV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PTC Creo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PTC Windchill</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PVCS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pacific Biosciences</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pansonic</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Panzura</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Paradigm</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Peoplesoft</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Perforce</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PetroBank</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Philips</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pivotal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pixia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pixspan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Power BI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ProSource</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Projective %28Flavoursys%29 Strawberry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proprietary %28Federal%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proprietary %28Research Inst%2E%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PyTorch</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Qognify</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RCS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rapids ML</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Redshift</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RenderMan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>S3%2FObject</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAP BOBJ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAP BW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAP Business Suite</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAP Leonardo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAP Medical Research Insights</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAS-Grid</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Salesforce%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Salient Systems</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Schlumberger</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SeaChange</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sectra</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SeeTec</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SendMail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Senstar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sharepoint%2FOneDrive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SideFX - Houdini</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Siemens</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Siemens NX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Siemens TeamCenter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Skype</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Snell %28SAM%29 - Quantel Rio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Software AG Apama</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sony Sonaps%2FXDNews</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sound Intellegence</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SparkML</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Spectra Logic</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Splunk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Star-CCM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Stibo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Subversion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Surveillus</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Synamedia %28Cisco%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SyncSort</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Syncplicity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Synopsys</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tableau</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tedial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Telestream</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TensorFlow</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TeraMedica</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Teradata</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Thales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Thermo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Thermo Fisher Scientific</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tick Data</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Undecided</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unit4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>V-Ray</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VMware Horizon</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Veeam</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Velocix %28Nokia%2FAlcatel Lucent%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Verint</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Veritas %28Symantec%29 BackupExec</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Veritas %28Symantec%29 Enterprise Vault</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Veritas %28Symantec%29 NetBackup</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Veritone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vizrt</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Waters</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Workday</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wowza</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>XenDesktop</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Zimbra</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>atsu</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Archive__c</picklist>
+        <values>
+            <fullName>Axway Syncplicity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Azure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CommVault</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Custom%2FIn-house</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EMC SourceOne</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Grown or No ISV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hyland Onbase</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IBM Content Collector</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IBM FileNet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Interica</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Microsoft Sharepoint</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OpenText</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OpenText Documentum</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OpenText InfoArchive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other ISV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PetroBank</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ProSource</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Veritas %28Symantec%29 Enterprise Vault</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>BU_Product__c</picklist>
+        <values>
+            <fullName>UDS-ECS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UDS-Isilon</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Backup__c</picklist>
+        <values>
+            <fullName>Actifio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CA Arcserve</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CommVault</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DPS Cloudboost</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data Domain</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EMC Avamar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EMC Networker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Grown or No ISV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IBM Spectrum Protect</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IBM TSM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other ISV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Veeam</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Veritas %28Symantec%29 BackupExec</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Veritas %28Symantec%29 NetBackup</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Challenges__c</picklist>
+        <values>
+            <fullName>Application%2FData Silos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Archiving</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Authentication %26 Access Control</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Backup %26 Restore</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Complexity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Compliance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Copy Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cost of Scaling</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data Isolation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data Movement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data Readiness</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Distributed workforce</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>End-User Data Loss</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>End-User Performance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>End-User Productivity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>End-User Support</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Endpoint Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lacking Functionality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Landscape Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Log Aggregation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Maintenance Windows</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manual Processes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Multi-vendor complexity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Business Requirement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Patch Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Remote Support</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Secure Connection</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Security</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Shadow Systems</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Software Inventory %2F Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Specialized Skill Sets</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Speed of Development</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Stack Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unplanned Downtime</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unstructured Data</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vendor application support</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Zero-day attacks</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>end-user connectivity</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Custom_Reporting_Group__c</picklist>
+        <values>
+            <fullName>AI%2FML%2FDL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AppDev</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Archive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Automotive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Automotive-ADAS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Backup</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cloud Gateway</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DesignSim</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HealthApp</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LifeSci</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Media</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oil%26Gas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Satellite</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Surveillance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>User Shares</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VDI</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>DB_Infrastructure_Platform__c</picklist>
+        <values>
+            <fullName>GPU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hyperconverged</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mainframe%2FIBMi</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private%2Fhybrid Cloud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Public Cloud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RISC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SaaS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>x86</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>DB_Network__c</picklist>
+        <values>
+            <fullName>3Com</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Avaya</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Avocent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Brocade</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cisco</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dell EMC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enterasys</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Extreme Networks</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>F5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Force 10</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Juniper</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Linksys</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nortel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Raritan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Riverbed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Watchguard</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>DB_Operating_System__c</picklist>
+        <values>
+            <fullName>AIX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chrome</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HPE-UNIX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oracle Linux</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Linux</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RedHat Linux</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SUSE Linux</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solaris</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ubuntu</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Windows</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>DB_Server__c</picklist>
+        <values>
+            <fullName>Bull</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cisco</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dell EMC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fujitsu</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HPE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hitachi</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Huawei</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IBM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IBM Power</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IBM i-Series</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IBM z-Series</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lenovo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NEC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NVidia DGX-1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NVidia DGX-2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NVidia Data Science Workstation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oracle%2FSun</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PowerEdge NVidia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quantum</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SuperMicro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unisys</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>White Box</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>inspur</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>DB_Storage__c</picklist>
+        <values>
+            <fullName>CEPH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cloud Tiering Appliance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Compellent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DPS Cloudboost</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data Domain LTR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Datacore</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dell DAS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EqualLogic</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fujitsu</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HPE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hitachi</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Huawei</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IBM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Infinidat</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Isilon</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Isilon Cloudpools</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lenovo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NetApp</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nexenta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nimble</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nutanix- Dell</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nutanix- Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PowerMax%2FVmax</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PowerVault</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PureStorage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>S2D</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ScaleIO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VSAN</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>DB_Virtual_Platform__c</picklist>
+        <values>
+            <fullName>AWS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cisco UCS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Citrix Xenserver</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dell EMC EHC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dell EMC HCI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Google</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HPE Simplivity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Huawei</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KVM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lenovo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MS Hyper-V</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Microsoft Azure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Microsoft Azure Stack</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Microsoft CPS %2F Azure PAC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nutanix</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OS Native</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oracle</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other OpenStack</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RedHat OpenStack</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SUSE OpenStack</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UCS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VCE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VMware ESX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Virtustream</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Database__c</picklist>
+        <values>
+            <fullName>Amazon S3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CacheDB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cassandra</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hadoop - Apache</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hadoop - Cloudera</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hadoop - HortonWorks</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hadoop - MapR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IBM DB2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Intel Nauta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Kafka</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Max DB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Microsoft SQL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MongoDB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NoSQL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opensource</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oracle Exadata</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oracle Exalytics</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oracle RAC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAP ASE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAP HANA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAP IQ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Spark</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Teradata</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Desktop__c</picklist>
+        <values>
+            <fullName>Acer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Apple</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dell</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fujitsu Siemens</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gateway</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HPQ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lenovo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NEC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Panasonic</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sony</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>White Box %28Integrator%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Notebook__c</picklist>
+        <values>
+            <fullName>ASUS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Acer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Apple</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dell</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fujitsu Siemens</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HPQ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lenovo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NEC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Panasonic</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sony</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Toshiba</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>White Box %28Integrator%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Plans__c</picklist>
+        <values>
+            <fullName>Application Integration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Application Migration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Application%2FOS Update%2FUpgrade</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Archiving</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Automation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BYOD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Backup %26 Recovery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Client Virtualization</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consolidation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Custom Application Development</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Expansion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hardware Refresh</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IoT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Modernization</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Monitoring system</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Implementation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private Cloud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Public Cloud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Self Service</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>System_Integrator__c</picklist>
+        <values>
+            <fullName>ACCENTURE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AMDOCS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ATOS S%2EA%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CAPGEMINI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CGI LOGICA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>COGNIZANT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DELOITTE %26 TOUCHE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DIMENSION DATA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DXC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ERNST AND YOUNG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HCL TECHNOLOGIES</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IBM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>INFOSYS TECHNOLOGIES</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NTT COMMUNICATIONS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NTT DATA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TCS %28TATA%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TECH MAHINDRA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UNISYS CORPORATION</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WIPRO</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Workload_Category__c</picklist>
+        <values>
+            <fullName>Business Applications</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Collaboration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data Analytics</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>End User Computing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Industrial Research %26 Design %28HPC%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PC Lifecycle</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Security</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Web%2FMedia Services</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Workload_Environment__c</picklist>
+        <values>
+            <fullName>AI%2FML for Media</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>App Delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Application Development</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Archive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Audio Archive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Automotive - other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Autonomous Driving Assistance System %28ADAS%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bank Teller</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Big Data Analytics</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Management System</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Call center</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Classic business use</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Client Virtualization</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cloud Gateway</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Computer Aided Design %28CAD%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Content Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Crash Cart</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Custom Business Application</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Engagement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Intimacy Analytics</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Relationship Management %28CRM%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data Lake</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data Mart</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data Warehouse</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Decision Support-Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deep Learning</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Design Simulation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital Pathology</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>E-Commerce%2C Online Store</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EIA Archive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Editing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Education Testing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Electronic Design Automation %28EDA%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Electronic Medical%2FHealth Records %28EMR%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Engineering prototyping %28CAE%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Engineering%2Fadvanced analysis</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enterprise Application Integration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enterprise Backup</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enterprise Resource Planning %28ERP%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Extract Transform Load</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>File Sharing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fluid dynamics</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GIS Archive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>General Simulation %26 Modelling</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Genomic Sequencing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Graphics design%2Fanimation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Graphics rendering</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hazardous Environments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Healthcare-other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Directory</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Human Resources Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ISR Surveillance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Identity %2F User Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Internet of Things</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Library</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Life Science Imaging</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Machine Learning</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mainframe Application</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manufacturing Automation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Master Data Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Media Asset Management %28MAM%29 %2F Broadcast</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Media Streaming</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile device management %28cellular%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobility %28Cellular%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Online Transaction Processing Application</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Picture Archiving %26 Comm Systems %28PACS%29 %2FHC Imaging</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Precision Medicine %2F Genomic</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Predictive Analytics</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Predictive Maintenance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prescriptive Analytics</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product Lifecycle Management %28PLM%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Project Share</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proteomics</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Remote Employee %2F Branch Office</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail %2F POS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Seismic Research</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Streaming Analytics</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Structural Analysis</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Student Information System</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Supplier Relationship Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Supply Chain Management %28SCM%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Threat detection %26 analytics</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Traditional Analytics %26 Reporting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Traditional Desktop %2F Laptop Endpoint Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transcoding</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unstructured Data Analysis</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vendor Neutral Archive %28VNA%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Video Surveillance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Voice%2FVideo over IP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Weather Modeling %26 simulations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>iSeries IBMi Application</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Workstation__c</picklist>
+        <values>
+            <fullName>Apple</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dell</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fujitsu Siemens</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lenovo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NEC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NVidia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

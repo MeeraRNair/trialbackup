@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Channel_Lead__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <inlineHelpText>Channel Lead created when routing Account Play to Channel</inlineHelpText>
+    <label>Channel Lead</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Lead.RecordType.Name</field>
+            <operation>notEqual</operation>
+            <value>Channel Lead 2.0</value>
+        </filterItems>
+        <filterItems>
+            <field>Lead.RecordType.Name</field>
+            <operation>notEqual</operation>
+            <value>Direct Lead 2.0</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Lead</referenceTo>
+    <relationshipLabel>Account Plays</relationshipLabel>
+    <relationshipName>Account_Plays</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

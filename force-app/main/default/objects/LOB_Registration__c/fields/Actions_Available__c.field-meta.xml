@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Actions_Available__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(ISPICKVAL(LOB_registration_status__c,&apos;Partner(submit for approval)&apos;), 
+HYPERLINK(&apos;/apex/LOB_Registration_AvailableActions?Id=&apos;+Id+&apos;&amp;action=Approve&apos;,IMAGE(&apos;/resource/1396668947000/LOBRegistration_btn_approve&apos;,&apos;Approve&apos;),&apos;_parent&apos;),
+&quot;&quot;) 
+&amp;&apos; &apos;&amp;
+IF(ISPICKVAL(LOB_registration_status__c,&apos;Partner(submit for approval)&apos;), 
+HYPERLINK(&apos;/apex/LOB_Registration_AvailableActions?Id=&apos;+Id+&apos;&amp;action=Reject&apos;,IMAGE(&apos;/resource/1396668948000/LOBRegistration_btn_reject&apos;,&apos;Reject&apos;),&apos;_parent&apos;),
+&quot;&quot;)</formula>
+    <label>Actions Available</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

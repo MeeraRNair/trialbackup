@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Disengage_Reason__c</fullName>
+    <externalId>false</externalId>
+    <label>Disengage Reason</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Status__c</controllingField>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Complexity Lowered at DGR</fullName>
+                <default>false</default>
+                <label>Complexity Lowered at DGR</label>
+            </value>
+            <value>
+                <fullName>Deal Lost/Cancelled</fullName>
+                <default>false</default>
+                <label>Deal Lost/Cancelled</label>
+            </value>
+            <value>
+                <fullName>Hardware Only</fullName>
+                <default>false</default>
+                <label>Hardware Only</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Services $ Below Threshold</fullName>
+                <default>false</default>
+                <label>Services $ Below Threshold</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Disengage</controllingFieldValue>
+            <valueName>Complexity Lowered at DGR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disengage</controllingFieldValue>
+            <valueName>Deal Lost/Cancelled</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disengage</controllingFieldValue>
+            <valueName>Hardware Only</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disengage</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disengage</controllingFieldValue>
+            <valueName>Services $ Below Threshold</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

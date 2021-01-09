@@ -1,0 +1,329 @@
+<apex:page standardController="Territory_Plan__c" extensions="TP_PageNavCtrlExt" sidebar="false" lightningStylesheets="true">
+    <style type="text/css">
+        body .bPageBlock .pbBody { 
+            padding: 15px 0 0 0;
+            background-color: #444444 !important;
+        }
+        
+        <!-- to style complete page in classic and lightning and reduce bottom padding -->
+        body .bodyDiv .outerNoSidebar{  
+            padding-bottom: 0px;
+            max-height: 100%;
+            max-width: 100%;
+        } 
+        
+        .tb  {
+            border: 0px solid black;
+            border-spacing: 5px 1px; 
+            width:100%
+        }
+        
+        <!-- style header text -->
+        .tb .tg-hdr{
+            font-size:26px;
+            font-family:'Arial White', Gadget, sans-serif !important;
+            color:white; 
+            padding: 0px 0px 10px 15px;
+            text-indent:15px;
+        }        
+        
+        .tb .tg-tdContent{
+            text-align:center;
+            width:33%;
+            
+            padding-bottom:15px;
+            border:15px solid #444444;
+            
+        }    
+        .tb .bg-color1{
+            background-color:#007DB8;
+        }
+        .tb .bg-color2{
+            background-color:#AAAAAA;
+        }
+        .tb .tg-tdContent-parg{
+            color:white; 
+            font-size:20px;
+            font-family:'Arial White', Gadget, sans-serif !important;
+            margin-top:10px;
+        }
+        .tb .tg-tdContent1{
+            text-align:left;
+            width:33%;
+            background-color:#42AEAF;
+            border:15px solid #444444;
+            border-bottom:none;
+        }
+        .tb .tg-tdContent1-subparg  {
+            width:99%;
+            color:white; 
+            font-size:14px;
+            text-indent:3px;
+            margin-top:0px;
+            padding:5px;
+        } 
+        .tb .tg-tbContent2{
+            width:33%;
+            border:15px solid #444444;
+            border-bottom:none;
+        }
+        .tb .tg-tbContent3{
+            width:16.5%;
+            border-left:15px solid #444444;
+        }
+        .tb .tg-tbContent4{
+            width:16.5%;
+            border-right:15px solid #444444;
+        }
+        .tb .td-inputFld1{
+            position:relative;  
+            width:99%;
+            left:-1px;
+            resize:none;
+            <!-- top:-1px -->
+        }
+        .tb .td-leftFld{
+            position:relative;
+            width:99.7%;
+            height:20px;
+            left:-1px;
+        }
+        .tb .td-rightFld{
+            position:relative;
+            width:99.5%;
+            height:20px;
+            left:-3px;
+        }
+        .tb .td-inputFld34{
+            top:-1px;
+        }
+        .tb .td-inputFld56{
+            top:-2px; 
+        }
+        .tb .td-inputFld78{
+            top:-3px
+        }
+               
+        <!-- Style hint section -->
+        .Bulb-logo{
+            position: relative; 
+            top: 15px; 
+            left:5px;
+        }
+        .underLine-logo {
+            position: relative; 
+            padding: 5px 0 0 0;
+            top:15px; 
+            left:29px; 
+            border-bottom :1px solid #FFFFFF; 
+            border-left: 1px solid #FFFFFF; 
+            width: 85%; 
+            max-height: 50px;
+        }
+        .DellEMC-logo { 
+            position: relative; 
+            top:-15px;
+            float:right;
+            padding: 0px 0px 0px 0px;
+            margin: 0px 10px;
+        }        
+        .hintText{
+            font-style:italic; 
+            font-size: 12px;
+            color:#FFFFFF;
+            position: relative;
+            padding:0px 0px 0px 0px;
+            top:-40px;
+            left: 25px;
+            margin:5px;
+        }
+                
+        .tb .tg-tdBtns{
+            text-align:right;
+            padding: 15px 10px 0px 0px; 
+        }
+        
+        .tb .footer {
+            width: 100%;
+            color:white;
+            text-align: center;
+            padding:0px;
+            font-size:12px;
+        }  
+        
+        .tb .tg-tdBtns .btn{
+            margin-left:3px;
+            margin-right:3px;        
+        }
+        
+        <!-- To reduce margin-bottom at bottom of page -->      
+        body .bDetailBlock.bPageBlock, body .individualPalette .bDetailBlock.bPageBlock { 
+            border: 0;
+            background-color: transparent;
+            margin-bottom: 0px;
+        }
+        <!-- to style complete page in classic and lightning and reduce bottom padding -->
+        body .bodyDiv .outerNoSidebar{  
+          <!--  background-color: #444444 !important;  -->
+            padding-bottom: 0px;
+            max-height: 100%;
+            max-width: 100%;
+        } 
+
+    </style>
+    <apex:pageBlock mode="maindetail">
+        <apex:pageMessages id="showmsg"/>
+        <table class="tb" id="tbl">
+            <tr id="hd-tr">
+                <th class="tg-hdr" id = "hdr" colspan="4" >Account Priority and Actions</th>
+            </tr>
+            <tr id = "content-tr">
+                <td class="tg-tdContent bg-color1" id="content-td2" colspan="2">
+                    <p class="tg-tdContent-parg" id="para1">Account Prioritization</p>
+                </td>
+                <td class="tg-tdContent bg-color2" id="content-td3">
+                    <p class="tg-tdContent-parg" id="para2">Short Term Actions</p>
+                </td>
+                <td class="tg-tdContent bg-color1" id="content-td4">
+                    <p class="tg-tdContent-parg" id="para3">Long Term Actions</p>
+                </td>
+            </tr>
+            <apex:form >
+                <tr id="input-tr1">
+                    <td class="tg-tdContent1" id="content-td5" colspan ="2">
+                        <p class="tg-tdContent1-subparg" id="para4">Priority #1 Accounts</p>
+                    </td>
+                    <td class="tg-tbContent2" rowspan="4" id="content-td6">
+                        <apex:inputfield value="{!Territory_Plan__c.Priority1_Short_Term_Actions__c}" styleclass="td-inputFld1" html-placeholder="  Action1 &#10;  Action2 &#10;  Action3" id="prs1-ID"/>
+                    </td>
+                    <td class="tg-tbContent2" rowspan="4" id="content-td7">
+                        <apex:inputfield value="{!Territory_Plan__c.Priority1_Long_Term_Actions__c}" styleclass="td-inputFld1" html-placeholder="  Action1 &#10;  Action2 &#10;  Action3" id="prl1-ID"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tg-tbContent3" id="content-td8">
+                        <apex:inputfield value="{!Territory_Plan__c.Priority1_Account1__c}" styleclass="td-leftFld td-inputFld34" html-placeholder="  Account 1" id="pr1-1-ID"/>
+                    </td>
+                    <td class="tg-tbContent4" id="content-td9">
+                        <apex:inputfield value="{!Territory_Plan__c.Priority1_Account4__c}" styleclass="td-rightFld td-inputFld34" html-placeholder="  Account 4" id="pr1-4-ID"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tg-tbContent3">
+                        <apex:inputfield value="{!Territory_Plan__c.Priority1_Account2__c}" styleclass="td-leftFld td-inputFld56" html-placeholder="  Account 2" id="pr1-2-ID"/>
+                    </td>
+                    <td class="tg-tbContent4">
+                        <apex:inputfield value="{!Territory_Plan__c.Priority1_Account5__c}" styleclass="td-rightFld td-inputFld56" html-placeholder="  Account 5" id="pr1-5-ID"/>
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="tg-tbContent3">
+                        <apex:inputfield value="{!Territory_Plan__c.Priority1_Account3__c}" styleclass="td-leftFld td-inputFld78" html-placeholder="  Account 3" id="pr1-3-ID"/>
+                    </td>
+                    <td class="tg-tbContent4">
+                        <apex:inputfield value="{!Territory_Plan__c.Priority1_Account6__c}" styleclass="td-rightFld td-inputFld78" html-placeholder="  Account 6" id="pr1-6-ID"/>
+                    </td>
+                </tr>
+                
+                <tr id="input-tr2">
+                    <td class="tg-tdContent1" id="content-td5" colspan ="2">
+                        <p class="tg-tdContent1-subparg" id="para4">Priority #2 Accounts</p>
+                    </td>
+                    <td class="tg-tbContent2" rowspan="4">
+                        <apex:inputfield value="{!Territory_Plan__c.Priority2_Short_Term_Actions__c}" styleclass="td-inputFld1" html-placeholder="  Action1 &#10;  Action2 &#10;  Action3" id="prs2-ID"/>
+                    </td>
+                    <td class="tg-tbContent2" rowspan="4">
+                        <apex:inputfield value="{!Territory_Plan__c.Priority2_Long_Term_Actions__c}" styleclass="td-inputFld1" html-placeholder="  Action1 &#10;  Action2 &#10;  Action3" id="prl2-ID"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tg-tbContent3">
+                        <apex:inputfield value="{!Territory_Plan__c.Priority2_Account1__c}" styleclass="td-leftFld td-inputFld34" html-placeholder="  Account 1" id="pr2-1-ID"/>
+                    </td>
+                    <td class="tg-tbContent4">
+                        <apex:inputfield value="{!Territory_Plan__c.Priority2_Account4__c}" styleclass="td-rightFld td-inputFld34" html-placeholder="  Account 4" id="pr2-4-ID"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tg-tbContent3">
+                        <apex:inputfield value="{!Territory_Plan__c.Priority2_Account2__c}" styleclass="td-leftFld td-inputFld56" html-placeholder="  Account 2" id="pr2-2-ID"/>
+                    </td>
+                    <td class="tg-tbContent4">
+                        <apex:inputfield value="{!Territory_Plan__c.Priority2_Account5__c}" styleclass="td-rightFld td-inputFld56" html-placeholder="  Account 5" id="pr2-5-ID"/>
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="tg-tbContent3">
+                        <apex:inputfield value="{!Territory_Plan__c.Priority2_Account3__c}" styleclass="td-leftFld td-inputFld78" html-placeholder="  Account 3" id="pr2-3-ID"/>
+                    </td>
+                    <td class="tg-tbContent4">
+                        <apex:inputfield value="{!Territory_Plan__c.Priority2_Account6__c}" styleclass="td-rightFld td-inputFld78" html-placeholder="  Account 6" id="pr2-6-ID"/>
+                    </td>
+                </tr>
+                
+                <tr id="input-tr3">
+                    <td class="tg-tdContent1" id="content-td5" colspan ="2">
+                        <p class="tg-tdContent1-subparg" id="para4">Priority #3 Accounts</p>
+                    </td>
+                    <td class="tg-tbContent2" rowspan="4">
+                        <apex:inputfield value="{!Territory_Plan__c.Priority3_Short_Term_Actions__c}" styleclass="td-inputFld1" html-placeholder="  Action1 &#10;  Action2 &#10;  Action3" id="prs3-ID"/>
+                    </td>
+                    <td class="tg-tbContent2" rowspan="4">
+                        <apex:inputfield value="{!Territory_Plan__c.Priority3_Long_Term_Actions__c}" styleclass="td-inputFld1" html-placeholder="  Action1 &#10;  Action2 &#10;  Action3" id="prl3-ID"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tg-tbContent3">
+                        <apex:inputfield value="{!Territory_Plan__c.Priority3_Account1__c}" styleclass="td-leftFld td-inputFld34" html-placeholder="  Account 1" id="pr3-ID"/>
+                    </td>
+                    <td class="tg-tbContent4">
+                        <apex:inputfield value="{!Territory_Plan__c.Priority3_Account4__c}" styleclass="td-rightFld td-inputFld34" html-placeholder="  Account 4" id="pr3-4-ID"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tg-tbContent3">
+                        <apex:inputfield value="{!Territory_Plan__c.Priority3_Account2__c}" styleclass="td-leftFld td-inputFld56" html-placeholder="  Account 2" id="pr3-2-ID"/>
+                    </td>
+                    <td class="tg-tbContent4">
+                        <apex:inputfield value="{!Territory_Plan__c.Priority3_Account5__c}" styleclass="td-rightFld td-inputFld56" html-placeholder="  Account 5" id="pr3-5-ID"/>
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="tg-tbContent3">
+                        <apex:inputfield value="{!Territory_Plan__c.Priority3_Account3__c}" styleclass="td-leftFld td-inputFld78" html-placeholder="  Account 3" id="pr3-3-ID"/>
+                    </td>
+                    <td class="tg-tbContent4">
+                        <apex:inputfield value="{!Territory_Plan__c.Priority3_Account6__c}" styleclass="td-rightFld td-inputFld78" html-placeholder="  Account 6" id="pr3-6-ID"/>
+                    </td>
+                </tr>
+                
+                <tr id="hint-trId">
+                    <td class="tg-tdHint" id="hint-tdId" colspan="4">
+                        <div class="Bulb-logo" id="bulb-divId">
+                            <apex:image url="{!URLFOR($Resource.TP_PPT_Images, 'TP_PPT_Images/Bulbicon_hint_White.png')}" width="50" height="50" alt="Description of image here" id="bulb-logoId"/>
+                        </div>
+                        <div class="underLine-logo" id="underlineDivId">
+                            <apex:outputtext styleClass="hintText" id="hintTextId" value="Use Priority Account logic to tier your accounts under 3 priority categories. Your top tier should have the most activity and personal attention, and your bottom tier may have alternative ways to connect with the customer: leveraging channel, Inside team, or BU partners. Assign actions for each account type. Consider Segment specific initiatives and leader priorities for the year. Make sure you document the criteria used for priority selection."/>
+                        </div>
+                        <apex:image styleClass="DellEMC-logo" url="{!URLFOR($Resource.TP_PPT_Images, 'TP_PPT_Images/DellEMC_White.png')}" width="100" height="25" alt="Description of image here" id="dellEMClogoId"/>
+                    </td> 
+                </tr>
+                <tr id ="tr-btnId">
+                    <td class="tg-tdBtns" colspan="4" id="td-btnId">
+                        <apex:commandButton action="{!saveRecord}" value="Save" id="saveId" styleClass="btn"/> 
+                        <apex:commandButton action="{!goToPrevPage}" value="Previous" id="backId" styleClass="btn"/>
+                        <apex:commandButton action="{!goToNextPage}" value="Next" id="nextId" styleClass="btn"/>
+                        <apex:commandButton action="{!cancel}" value="Cancel" id="cancelId" styleClass="btn"/>
+                    </td>
+                </tr>
+                <tfoot>
+                    <tr>
+                        <td class="footer" colspan ="4">
+                            [ {!currentPageNum} of {!totalPages} ]
+                        </td>
+                    </tr>
+                </tfoot>
+            </apex:form>
+        </table>
+    </apex:pageBlock>
+</apex:page>

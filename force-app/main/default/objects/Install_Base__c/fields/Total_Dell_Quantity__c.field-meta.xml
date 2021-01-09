@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Dell_Quantity__c</fullName>
+    <description>INTEG-N/NON INTEG -Y/ APEX/CC -N||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/PRM -N||
+VAL -N|| 
+CR# - ||</description>
+    <externalId>false</externalId>
+    <formula>IF(ISPICKVAL( Primary_Incumbent__c , &quot;Dell&quot;), Primary_Quantity__c ,
+IF(ISPICKVAL( Secondary_Incumbent__c , &quot;Dell&quot;), Secondary_Quantity__c ,
+IF(ISPICKVAL( Third_Incumbent__c , &quot;Dell&quot;), Third_Quantity__c ,
+IF(ISPICKVAL( Fourth_Incumbent__c , &quot;Dell&quot;), Fourth_Quantity__c ,0))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Total Dell Quantity</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

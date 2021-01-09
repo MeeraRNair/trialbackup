@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR_Last_Activity_For_This_Deal</fullName>
+    <active>true</active>
+    <description>If the S &amp; P User selected a future date, an error message will be triggered to inform S &amp; P User to select only today or earlier dates.</description>
+    <errorConditionFormula>AND( S_P_Vendors_Name__c = &apos;VMware&apos;, 
+First_Activity_for_this_Deal_MM_DD_YYYY__c &gt; Today() )</errorConditionFormula>
+    <errorMessage>Last activity for this deal field name shall need to have today&apos;s date or before today&apos;s date.</errorMessage>
+</ValidationRule>

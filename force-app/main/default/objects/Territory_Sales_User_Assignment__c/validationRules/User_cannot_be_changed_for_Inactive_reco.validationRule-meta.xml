@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>User_cannot_be_changed_for_Inactive_reco</fullName>
+    <active>true</active>
+    <description>This rule is avoid changing the User when the record is Inactive.</description>
+    <errorConditionFormula>(Is_Active__c = FALSE || PRIORVALUE(Is_Active__c) = FALSE ) &amp;&amp;  ISCHANGED( User__c)</errorConditionFormula>
+    <errorDisplayField>User__c</errorDisplayField>
+    <errorMessage>User cannot be changed when the record is Inactive.</errorMessage>
+</ValidationRule>

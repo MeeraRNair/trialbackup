@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SubVender_Should_Not_Match</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF( OR((AND( Sub_Vendor_1__c != NULL, Sub_Vendor_2__c != NULL, Sub_Vendor_1__c == Sub_Vendor_2__c)), ( AND( Sub_Vendor_1__c != NULL, Sub_Vendor_3__c != NULL, Sub_Vendor_1__c == Sub_Vendor_3__c)), ( AND(Sub_Vendor_1__c != NULL, Sub_Vendor_4__c != NULL, Sub_Vendor_1__c == Sub_Vendor_4__c)), ( AND(Sub_Vendor_1__c != NULL, Sub_Vendor_5__c != NULL, Sub_Vendor_1__c == Sub_Vendor_5__c))), 
+true , 
+IF(OR((AND(Sub_Vendor_2__c != NULL,Sub_Vendor_3__c != NULL, Sub_Vendor_2__c == Sub_Vendor_3__c)), (AND(Sub_Vendor_2__c != NULL, Sub_Vendor_4__c != NULL, Sub_Vendor_2__c == Sub_Vendor_4__c)),(AND( Sub_Vendor_2__c != NULL, Sub_Vendor_5__c != NULL, Sub_Vendor_2__c == Sub_Vendor_5__c))), 
+true, 
+IF(OR(( AND(Sub_Vendor_3__c != NULL,Sub_Vendor_4__c != NULL, Sub_Vendor_3__c == Sub_Vendor_4__c)),( AND(Sub_Vendor_3__c != NULL, Sub_Vendor_5__c != NULL, Sub_Vendor_3__c == Sub_Vendor_5__c))), 
+true, 
+IF( OR((AND(Sub_Vendor_4__c != NULL, Sub_Vendor_5__c != NULL, Sub_Vendor_4__c == Sub_Vendor_5__c))),true,false))))</errorConditionFormula>
+    <errorMessage>No duplicate sub vendors allowed</errorMessage>
+</ValidationRule>

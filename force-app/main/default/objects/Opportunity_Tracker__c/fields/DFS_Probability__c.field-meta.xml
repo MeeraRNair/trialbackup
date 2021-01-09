@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DFS_Probability__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE( DFS_Stage__c , &quot;Plan - 1%&quot;, 0.01, &quot;Discover - 10%&quot;, 0.1, &quot;Qualify - 30%&quot;, 0.3, &quot;Propose - 60%&quot;, 0.6, &quot;Commit - 90%&quot;, 0.9, &quot;Win - 100%&quot;, 1, &quot;Lost, Cancelled - 0%&quot;, 0, null)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>DFS_Probability</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

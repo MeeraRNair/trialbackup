@@ -1,0 +1,3 @@
+<apex:page controller="NDA_DirectLogincontroller" action="{!getCall}">
+    User Profile Name :  <apex:outputText value="{!IF(strProfileName==null,"User Not Found in NDA , Please check with Admin Team",strProfileName)}"/><br/> 
+</apex:page>

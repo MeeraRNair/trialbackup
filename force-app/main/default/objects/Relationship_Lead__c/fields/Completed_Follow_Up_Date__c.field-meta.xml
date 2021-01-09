@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Completed_Follow_Up_Date__c</fullName>
+    <defaultValue>IF ( OR (ISPICKVAL( Status__c, &quot;Accepted - Completed Follow-Up&quot;) , ISPICKVAL( Status__c, &quot;Rejected - Completed Follow-Up&quot;)) , NOW(), null )</defaultValue>
+    <externalId>false</externalId>
+    <label>Completed Follow Up Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

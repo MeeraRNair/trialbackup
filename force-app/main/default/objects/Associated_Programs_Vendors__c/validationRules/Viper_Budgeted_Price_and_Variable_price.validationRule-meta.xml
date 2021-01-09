@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Viper_Budgeted_Price_and_Variable_price</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISCHANGED( Budgeted_Price__c )  &amp;&amp;  CONTAINS ( $Profile.Name,&apos;MDF Program Owners&apos;) &amp;&amp; NOT(ISPICKVAL(MDF_Program__r.Pricing_Type__c , &apos;Variable&apos;) &amp;&amp;ISBLANK(Marketing_Plan__c) )</errorConditionFormula>
+    <errorMessage>&apos;The budgeted price can be edited only for the Variable APVs which are not associated to a Marketing Plan.&apos;</errorMessage>
+</ValidationRule>

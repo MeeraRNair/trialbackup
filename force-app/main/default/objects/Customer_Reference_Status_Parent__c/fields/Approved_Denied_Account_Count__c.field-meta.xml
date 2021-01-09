@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approved_Denied_Account_Count__c</fullName>
+    <description>Created for CR 12398 CRMT.</description>
+    <externalId>false</externalId>
+    <label>Approved/Denied Account Count</label>
+    <summaryFilterItems>
+        <field>Customer_Reference_Status__c.Request_Ref_Status__c</field>
+        <operation>equals</operation>
+        <value>Approved, Denied</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Customer_Reference_Status__c.Customer_Reference_Status_Parent__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

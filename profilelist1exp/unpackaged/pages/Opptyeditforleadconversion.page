@@ -1,0 +1,24 @@
+<!--Opptyeditforleadconversion
+Version   CR Number  Release No      Date            Modified By     Description
+* V1.0     18330      FY20-DCS-0102   25-Nov-2019     Yamini         Created this page for Story 7498093: Lead 2.0 - [LEX] Fix Lead Conversion in Lightning
+-->
+<apex:page standardController="Opportunity" title="Edit Opportunity" tabStyle="Opportunity">
+    <script type="text/javascript">
+    function goLightning() {
+        if( (typeof sforce != 'undefined') && (sforce != null) ) {
+            //sforce.one.editRecord('{!$CurrentPage.parameters.recordId}');
+            //sforce.one.navigateToComponent({componentDef : 'c:Opptyeditcompforleadconversion', componentAttributes: { recordId : '{!$CurrentPage.parameters.recordId}'}});
+            var compDefinition = { 
+                "componentDef" : "c:Opptyeditcompforleadconversion", 
+                "attributes" :{ 
+                      "recordId" : "{!$CurrentPage.parameters.recordId}",
+                      "opptyType" : "{!$CurrentPage.parameters.opptyType}"
+                 } 
+                };
+            var encodedCompDef = btoa(JSON.stringify(compDefinition));
+            window.parent.location = "/one/one.app#"+encodedCompDef;
+        }
+    }
+    goLightning();
+    </script>
+</apex:page>

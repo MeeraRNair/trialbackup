@@ -1,0 +1,33 @@
+<apex:page standardcontroller="case" extensions="VfCntrl_RequestEscalation" lightningStylesheets="true">
+ <apex:form >
+ 
+        <apex:pageBlock >  
+            <apex:outputPanel rendered="{!cannotEscalateCaseWhenAssig }"/>           
+            <apex:outputPanel rendered="{!!statusCompltedReqEscaIsTrue &&!accountTeamMemberAccess && !cannotEscalateCaseWhenAssig }"> 
+            <apex:pageBlockSection columns="1" rendered="{!!requestEscalationCheck && !statusCompltedReqEscaIsfalse && !cannotEscalateCaseWhenAssig}">
+                <div class="requiredInput">
+                    <div class="requiredBlock"/>
+                    <apex:inputField value="{!caseObj.Escalation_Justification__c}" style="width: 360px; height: 100px"  required="True" />
+                </div>
+            </apex:pageBlockSection>
+            </apex:outputPanel>  
+            
+            <apex:pageMessages />
+            
+            <apex:outputPanel rendered="{!!statusCompltedReqEscaIsTrue && !cannotEscalateCaseWhenAssig}">
+            <apex:pageBlockSection columns="1" rendered="{!requestEscalationCheck && !statusCompltedReqEscaIsfalse && !cannotEscalateCaseWhenAssig}" >
+                <strong>
+                    <apex:outputField value="{!case.Escalation_Justification__c}" />
+                </strong>
+            </apex:pageBlockSection>
+            </apex:outputPanel>
+            
+            <apex:pageBlockButtons location="bottom" >
+                <left>
+                    <apex:commandButton value="{!$Label.CMAP_Save}" action="{!okSave}"  rendered="{!!requestEscalationCheck && !cannotEscalateCaseWhenAssig && !statusCompltedReqEscaIsfalse && !statusCompltedReqEscaIsTrue && !accountTeamMemberAccess}"/>
+                    <apex:commandButton value="{!$Label.cancel}" action="{!cancel}"/>
+                </left>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

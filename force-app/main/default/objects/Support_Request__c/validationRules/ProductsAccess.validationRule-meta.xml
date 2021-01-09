@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProductsAccess</fullName>
+    <active>false</active>
+    <errorConditionFormula>(TEXT(Segment_Business_Unit__c)  == &quot;CSMB&quot;)  &amp;&amp;  ISBLANK(Anticipated_Anual_Revenue__c)</errorConditionFormula>
+    <errorDisplayField>Products__c</errorDisplayField>
+    <errorMessage>Please select product(s).</errorMessage>
+</ValidationRule>

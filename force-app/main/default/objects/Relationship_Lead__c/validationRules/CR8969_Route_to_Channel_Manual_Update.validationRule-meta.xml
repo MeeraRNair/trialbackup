@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CR8969_Route_to_Channel_Manual_Update</fullName>
+    <active>true</active>
+    <description>&quot;Routed to channel&quot; status option may NOT be manually chosen by a user in any of the following 3 fields. 1) Relationship lead status, 2) Relationship lead accept/ reject/ reassign status, and 3) Lead Status</description>
+    <errorConditionFormula>AND((ISBLANK( Channel_Lead__c )) ,(ISPICKVAL( Status__c , &quot;Routed to Channel&quot;) || ISPICKVAL( Accept_Reject_Status__c ,&quot;Routed to Channel&quot;)))</errorConditionFormula>
+    <errorMessage>Status can be Routed to Channel only if Lead is converted to a Channel Lead through routing . Click on Route to Channel button for routing Lead to Channel Lead.</errorMessage>
+</ValidationRule>

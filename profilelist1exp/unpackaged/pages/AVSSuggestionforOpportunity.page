@@ -1,0 +1,529 @@
+<apex:page standardController="Opportunity" extensions="AVSSuggestion"  action="{!CallAVS}" id="thePage" tabStyle="Opportunity" lightningStylesheets="true">
+    <style type="text/css">
+        
+        .Validation{
+            font-weight: bold;
+            color:Red;
+        }
+        .boldStyle {
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .Bold{
+            font-size: 20px;
+            color:Red;
+        }
+        .Text{
+            font-size: 12px;
+        }
+        .Button {
+            font-weight: bold;
+            font-size: 15px;
+            font-family:Quintessential;
+            background-color:#B2CCCC ;
+        }
+    </style>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/start/jquery-ui.css" type="text/css" media="all" />
+    <apex:form id="theForm">
+           
+        <apex:outputPanel rendered="{!showError}" >
+            <apex:pageMessages id="msgg" />
+            <apex:commandButton value="{!$Label.AVS_Button_Back}" action="{!cancelOppAction}" id="backBtn" />
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{! !showError}" >
+        <apex:pageMessages id="msg" rendered="{!isError1}"/>
+        <apex:pageBlock id="ContInfoblock" rendered="{!NOT(renderEditMode)}" mode="edit"> <!--mode="maindetail">-->
+             <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="{!$Label.AVS_Use_this_Address}" action="{!SaveCurrentAddress}" id="saveButtonId" /> 
+                <apex:commandButton value="{!$Label.edit}" action="{!toggleEditMode}" immediate="true" id="geteditButton" reRender="theForm" />
+                <apex:commandButton value="{!$Label.AVS_Button_Back}" action="{!cancelOppAction}" status="status" id="cancelButton1"  rerender="theForm"/> 
+             </apex:pageBlockButtons>
+             <apex:pageBlockSection title="{!$Label.AVS_Validate_Address_for} - {!oppObj.Name}" collapsible="true" id="conBrnchSec"   columns="1" >
+                <br/>
+                <apex:outputLabel value="{!$Label.AVS_Top_Message1}" styleClass="Text"/>                
+                <br/>
+                <apex:outputLabel value="{!$Label.AVS_Top_Message2}" styleClass="Bold"/>
+                <br/>
+              </apex:pageBlockSection>
+              
+              <table>
+                 <tr>
+                     <td/><td/><td/><td/><td/><td/>
+                     <td>
+                        <apex:outputlabel value="{!$Label.AVS_Street} " id="mailStreet1"/>
+                     </td>
+                     <td>
+                         <apex:outputText value="{!MailingStreet}"/> 
+                     </td>
+                 </tr>
+                 <tr rendered="{!isNARegion}">
+                     <td/><td/><td/><td/><td/><td/>
+                     <td>
+                         <apex:outputlabel value="{!$Label.AVS_Street2}" id="mailStreet2" rendered="{!isNARegion}"/>
+                     </td>
+                     <td>
+                         <apex:outputText value="{!MailingStreet2}" rendered="{!isNARegion}"/>
+                     </td>
+                 </tr>
+                 <tr>
+                     <td/><td/><td/><td/><td/><td/>
+                     <td>
+                         <apex:outputlabel value="{!$Label.AVS_City}" id="mailLocality"/>
+                     </td>
+                     <td>
+                         <apex:outputText value="{!MailingCity}"/>
+                     </td>
+                 </tr>
+                 <tr>
+                     <td/><td/><td/><td/><td/><td/>
+                     <td>
+                         <apex:outputlabel value="{!$Label.AVS_State}" id="mailRegion"/>
+                     </td>
+                     <td>
+                         <apex:outputText value="{!MailingState}"/>
+                     </td>
+                 </tr>
+                 <tr>
+                     <td/><td/><td/><td/><td/><td/>
+                     <td>
+                         <apex:outputlabel value="{!$Label.AVS_Zip}" id="mailPostalCode"/>
+                     </td>
+                     <td>
+                         <apex:outputText value="{!MailingPostalCode}"/>
+                     </td>
+                 </tr>
+                 <tr>
+                     <td/><td/><td/><td/><td/><td/>
+                     <td>
+                         <apex:outputlabel value="{!$Label.AVS_Country}" id="mailCountry"/>
+                     </td>
+                     <td>
+                         <apex:outputText value="{!MailingCountry}"/>
+                     </td>
+                 </tr>
+             </table>
+            
+        </apex:pageblock>
+        <apex:pageBlock id="editAddressBlock" rendered="{!renderEditMode}">
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="{!$Label.search}" action="{!CallAVS}" status="status" id="getButton1"  rerender="AVSblock"/> <!--  style="color:blue;text-align:center;"  styleClass="Bold"/> -->
+                <apex:commandButton value="{!$Label.cancel}" action="{!cancelAction}" status="status" id="cancelButton1"  rerender="theForm"/> <!--  style="color:blue;text-align:center;"  styleClass="Bold"/> --> 
+             </apex:pageBlockButtons>
+             
+            <apex:pageBlockSection title="{!$Label.AVS_Edit_text}" collapsible="false" id="conBrnchSec1"/>
+            <table>
+                <tr>
+                     <td/><td/>
+                     <td>
+                         <apex:outputlabel value="{!$Label.AVS_Street}" id="mailStreet1"/>
+                     </td>
+                     <td>
+                         <apex:inputfield value="{!oppObj.End_User_Mailing_Street__c}"/>
+                     </td>
+                 </tr>
+                 <tr  rendered="{!isNARegion}">
+                    <td/><td/>
+                     <td>
+                         <apex:outputlabel value="{!$Label.AVS_Street2}" id="mailStreet2" rendered="{!isNARegion}" />
+                     </td>
+                     <td>
+                         <apex:inputfield value="{!oppObj.Mailing_Street2__c}"  rendered="{!isNARegion}"/>
+                     </td>
+                 </tr>
+                 <tr>
+                    <td/><td/>
+                     <td>
+                         <apex:outputlabel value="{!$Label.AVS_City}" id="mailCity"/>
+                     </td>
+                     <td>
+                         <apex:inputfield value="{!oppObj.End_User_Mailing_City__c}"/>
+                     </td>
+                 </tr>
+                 <tr>
+                     <td/><td/>
+                     <td>
+                         <apex:outputlabel value="{!$Label.AVS_State}" id="mailState"/>
+                     </td>
+                     <td>
+                         <apex:inputfield value="{!oppObj.End_User_Mailing_State_Province_Region__c}"/>
+                     </td>
+                 </tr>
+                <tr>
+                     <td/><td/>
+                     <td>
+                         <apex:outputlabel value="{!$Label.AVS_Zip}" id="mailZip"/>
+                     </td>
+                     <td>
+                         <apex:inputfield value="{!oppObj.End_User_Mailing_Zip_Postal_Code__c}"/>
+                     </td>
+                 </tr>
+                  <tr>
+                     <td/><td/>
+                     <td>
+                         <apex:outputlabel value="{!$Label.AVS_Country}" id="mailCountry"/>
+                     </td>
+                     <td>
+                         <apex:outputText value="{!oppObj.End_User_Mailing_Country__c}"/>
+                     </td>
+                 </tr>
+            </table>
+        </apex:pageblock>
+        
+        <apex:pageBlock id="AVSblock" rendered="{!!isError1}">
+           <apex:pageMessages id="msg" rendered="{!isError2}"/>   
+           <apex:pageBlockButtons location="both" id="selectButton" onclick="showSection()" rendered="{!!showNoSuggestion}" >
+                <apex:commandButton title="Save Selected Address" value="{!$Label.AVS_Apply_Selected_Address}" action="{!selectSuggestions}" />
+           </apex:pageBlockButtons> 
+            <!--------------------------------------------------------------------------------------------- -->
+            <apex:pageBlockSection collapsible="false" id="AVSBrnchSec1" columns="1">
+                <apex:outputPanel id="out" styleclass="Validation">
+                    <apex:actionstatus id="status" startText="{!$Label.AVS_Validating}" style="color:red" styleclass="Validation">
+                        <apex:facet name="stop">
+                            <apex:outputLabel style="color:red" styleclass="Validation" value="{!$Label.AVS_Opportunity_Error_1}" rendered="{!IF(resultSuggestionCount =='0' && resultCountry != null && resultStatusDesc != 'Assigned Address' ,true,false)}"></apex:outputLabel>
+                        </apex:facet>
+                    </apex:actionstatus>
+                </apex:outputPanel>
+                
+            </apex:pageBlockSection>
+                <!--Start of Table if AVS provide suggestion for NON China n Japan -->
+                   
+                  <!-- <apex:pageBlockSection title="{!$Label.AVS_SelectMsg}" collapsible="false" id="AVSBrnchSec2" columns="1" rendered="{!IF(resultCountry != null,true,false)}">  -->
+                  
+                  <apex:pageBlockSection title="{!$Label.AVS_SelectMsg}" collapsible="false" id="AVSBrnchSec2" columns="1" rendered="{!IF(resultSuggestionCount !='0' && (resultCountry != 'Japan' && resultCountry != 'China' && resultCountry != null),true,false)}">  
+                  <apex:pageBlockTable value="{!lstSuggestion}" var="sug" id="tbl" >
+                    
+                    <apex:column headerValue="{!$Label.AVS_Field_Select}">
+                        <apex:inputCheckbox value="{!sug.selected}" onclick="deselectOther(this); refineSearch(this, '{!sug.PRIMARY_NUMBER_LOW}', '{!sug.PRIMARY_NUMBER_HIGH}', {!showAptNo}, '{!TRIM(sug.UNIT_NUMBER_LOW)}', '{!TRIM(sug.UNIT_NUMBER_HIGH)}',{!showFloorNumber}, '{!sug.FLOOR_NUMBER_HIGH}', '{!sug.FLOOR_NUMBER_LOW}');">
+                        </apex:inputCheckbox>
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_StreetNo}">
+                        <apex:outputPanel rendered="{!IF(sug.PRIMARY_NUMBER_LOW!=sug.PRIMARY_NUMBER_HIGH,true,false)}">
+                            <apex:outputText value="{!sug.PRIMARY_NUMBER_LOW}" />-
+                            <apex:outputText value="{!sug.PRIMARY_NUMBER_HIGH}" />
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!IF(sug.PRIMARY_NUMBER_LOW==sug.PRIMARY_NUMBER_HIGH,true,false)}">
+                            <apex:outputText value="{!sug.PRIMARY_NUMBER_LOW}" />
+                        </apex:outputPanel>
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_Apt_SuiteNo}" rendered="{!showAptNo}">
+                        <apex:outputPanel rendered="{!IF(sug.UNIT_NUMBER_LOW!=sug.UNIT_NUMBER_HIGH,true,false)}">
+                            <apex:outputText value="{!sug.UNIT_NUMBER_LOW}" />-
+                            <apex:outputText value="{!sug.UNIT_NUMBER_HIGH}" />
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!IF(sug.UNIT_NUMBER_LOW==sug.UNIT_NUMBER_HIGH,true,false)}">
+                            <apex:outputText value="{!sug.UNIT_NUMBER_LOW}" />
+                        </apex:outputPanel>
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_Floor_No}" rendered="{!showFloorNumber}">
+                        <apex:outputPanel rendered="{!IF(sug.FLOOR_NUMBER_LOW!=sug.FLOOR_NUMBER_HIGH,true,false)}">
+                            <apex:outputText value="{!sug.FLOOR_NUMBER_LOW}"/>-
+                            <apex:outputText value="{!sug.FLOOR_NUMBER_HIGH}"/>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!IF(sug.FLOOR_NUMBER_LOW==sug.FLOOR_NUMBER_HIGH,true,false)}">
+                            <apex:outputText value="{!sug.FLOOR_DESCRIPTION} {!sug.FLOOR_NUMBER_LOW}"/>
+                        </apex:outputPanel>
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Building_Name}" rendered="{!showFranceBuilding}">
+                        <apex:outputlabel value="{!resultBuilding}" />
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_MailingStreet}">
+                        <apex:outputlabel value="{!sug.PRIMARY_NAME1} {!sug.PRIMARY_TYPE1} {!sug.PRIMARY_POSTFIX1}" />
+                    </apex:column>
+                     <!-- CR: 11957 - Mailing street2 for Secondary Address: Start -->
+                    <apex:column headerValue="{!$Label.AVS_Firm}" rendered="{!showFirm}">
+                        <apex:outputlabel value="{!sug.FIRM}" />
+                    </apex:column>
+                    
+                    <apex:column headerValue="{!$Label.AVS_Stairwell}" rendered="{!showStairwell}">
+                        <apex:outputlabel value="{!sug.STAIRWELL_NAME} {!sug.STAIRWELL_DESCRIPTION}" />
+                    </apex:column> 
+                    <!-- CR: 11957 - Mailing street2 for Secondary Address: End -->
+                    <apex:column headerValue="{!$Label.AVS_Field_Locality}" rendered="{!showLocality2}">
+                        <apex:outputlabel value="{!sug.LOCALITY2}" />
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_MailingCity}">
+                        <apex:outputlabel value="{!sug.LOCALITY1}" />
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_MailingState_Provience}" rendered="{!showMailingState}">
+                        <apex:outputPanel rendered="{!IF(sug.REGION1 != null,true,false)}">
+                            <apex:outputText value="{!sug.REGION1}" />
+                        </apex:outputPanel>
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_MailingZip_PostalCode}">
+                        <apex:outputPanel rendered="{!IF(sug.POSTCODE!=sug.POSTCODE2_EVEN && sug.POSTCODE2_EVEN != null ,true,false)}">
+                            <apex:outputText value="{!sug.POSTCODE}" />-
+                            <apex:outputText value="{!sug.POSTCODE2_EVEN}" />
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!IF(sug.POSTCODE2_EVEN == null && sug.POSTCODE!=sug.POSTCODE2_ODD && sug.POSTCODE2_ODD != null ,true,false)}">
+                            <apex:outputText value="{!sug.POSTCODE}" />-
+                            <apex:outputText value="{!sug.POSTCODE2_ODD}" />
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!IF(sug.POSTCODE==null,true,false)}">
+                            <apex:outputText value="{!sug.POSTCODE1}" />
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!IF(sug.POSTCODE2_EVEN==null && sug.POSTCODE2_ODD == null ,true,false)}">
+                            <apex:outputText value="{!sug.POSTCODE}" />
+                        </apex:outputPanel>
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_MailingCountry}">
+                        <apex:outputlabel value="{!resultCountry}" />
+                    </apex:column>
+                </apex:pageBlockTable>
+                </apex:pageBlockSection>
+                <!--End of Table if AVS provide suggestion for NON China n Japan -->
+                
+                <!--Start of Table if AVS provide suggestion for Japan & China -->
+                <apex:pageBlockSection title="{!$Label.AVS_SelectMsg}" collapsible="false" id="AVSBrnchSec2_1" columns="1" rendered="{!IF(resultSuggestionCount !='0' && resultCountry != null && (resultCountry == 'Japan' || resultCountry == 'China'),true,false)}">
+                
+                <apex:pageBlockTable value="{!lstSuggestion}" var="sug" id="tbl5" >
+                    <apex:column headerValue="{!$Label.AVS_Field_Select}">
+                        <apex:inputCheckbox value="{!sug.selected}" onclick="deselectOther(this); refineSearch(this, '{!sug.PRIMARY_NUMBER_LOW}', '{!sug.PRIMARY_NUMBER_HIGH}', {!showAptNo}, '{!TRIM(sug.UNIT_NUMBER_LOW)}', '{!TRIM(sug.UNIT_NUMBER_HIGH)}',{!showFloorNumber}, '{!sug.FLOOR_NUMBER_HIGH}', '{!sug.FLOOR_NUMBER_LOW}');">
+                        </apex:inputCheckbox>
+                    </apex:column>
+                    
+                    <apex:column headerValue="{!$Label.AVS_Field_MailingStreet}">
+                        <apex:outputlabel value="{!sug.mailStreetJapan}" />
+                    </apex:column>
+                     <!-- CR: 11957 - Mailing street2 for Secondary Address: Start -->
+                    <apex:column headerValue="{!$Label.AVS_Firm}" rendered="{!showFirm}">
+                        <apex:outputlabel value="{!sug.FIRM}" />
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Stairwell}" rendered="{!showStairwell}">
+                        <apex:outputlabel value="{!sug.STAIRWELL_NAME} {!sug.STAIRWELL_DESCRIPTION}" />
+                    </apex:column>
+                    <!-- CR: 11957 - Mailing street2 for Secondary Address: End -->
+                    <apex:column headerValue="{!$Label.AVS_Field_StreetNo}" rendered="{!showStreetNo}">
+                        <apex:outputPanel rendered="{!IF(sug.PRIMARY_NUMBER_LOW!=sug.PRIMARY_NUMBER_HIGH,true,false)}">
+                            <apex:outputText value="{!sug.PRIMARY_NUMBER_LOW}" />-
+                            <apex:outputText value="{!sug.PRIMARY_NUMBER_HIGH} {!sug.PRIMARY_NUMBER_DESCRIPTION}" />
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!IF(sug.PRIMARY_NUMBER_LOW==sug.PRIMARY_NUMBER_HIGH,true,false)}">
+                            <apex:outputText value="{!sug.PRIMARY_NUMBER_LOW} {!sug.PRIMARY_NUMBER_DESCRIPTION}" />
+                        </apex:outputPanel>
+                    </apex:column>
+
+                    <apex:column headerValue="{!$Label.AVS_Building_Name}" rendered="{!IF((resultCountry == 'Japan' && (resultBuilding != NULL || sug.FLOOR_NUMBER_LOW != NULL)),true,false)}">
+                        <apex:outputPanel rendered="{!IF(sug.FLOOR_NUMBER_LOW!=sug.FLOOR_NUMBER_HIGH,true,false)}">
+                            <apex:outputText value="{!resultBuilding} {!sug.FLOOR_NUMBER_LOW}" />-
+                            <apex:outputText value="{!sug.FLOOR_NUMBER_HIGH}" />
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!IF(sug.FLOOR_NUMBER_LOW==sug.FLOOR_NUMBER_HIGH,true,false)}">
+                            <apex:outputText value="{!resultBuilding} {!sug.FLOOR_NUMBER_LOW}" />
+                        </apex:outputPanel>
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Building_Name}" rendered="{!IF((resultCountry == 'China' && resultBuilding != NULL),true,false)}">
+                        <apex:outputlabel value="{!resultBuilding}"/>
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_Apt_SuiteNo}" rendered="{!showAptNo}">
+                        <apex:outputPanel rendered="{!IF(sug.UNIT_NUMBER_LOW!=sug.UNIT_NUMBER_HIGH,true,false)}">
+                            <apex:outputText value="{!sug.UNIT_NUMBER_LOW}" />-
+                            <apex:outputText value="{!sug.UNIT_NUMBER_HIGH}" />
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!IF(sug.UNIT_NUMBER_LOW==sug.UNIT_NUMBER_HIGH,true,false)}">
+                            <apex:outputText value="{!sug.UNIT_NUMBER_LOW}" />
+                        </apex:outputPanel>
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_MailingCity}">
+                        <apex:outputlabel value="{!sug.LOCALITY1}" />
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_MailingState_Provience}" rendered="{!showMailingState}">
+                        <apex:outputlabel value="{!sug.REGION1}" />
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_MailingZip_PostalCode}">
+                        <apex:outputlabel value="{!sug.POSTCODE}" />
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_MailingCountry}">
+                        <apex:outputlabel value="{!resultCountry}" />
+                    </apex:column>
+                </apex:pageBlockTable>
+                </apex:pageBlockSection>
+                <!--End of Table if AVS provide suggestion for Japan & China -->
+                
+                <!--Start of Table if AVS provide assigned suggestion non Japan and China-->
+                <apex:pageBlockSection title="{!$Label.AVS_SelectMsg}" collapsible="false" id="AVSBrnchSec2_2" columns="1" rendered="{!IF(resultStatusDesc == 'Assigned Address' && resultCountry != null && (resultCountry != 'Japan' && resultCountry != 'China') ,true,false)}">
+                <apex:pageBlockTable value="{!lstSuggestion}" var="sug" id="tbl2" > 
+                
+                    <apex:column headerValue="{!$Label.AVS_Field_Select}">
+                        <apex:inputCheckbox value="{!sug.selected}" onclick="deselectOther(this)" />
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_StreetNo}">
+                        <apex:outputText value="{!resultStreetNo}" />
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_Apt_SuiteNo}" rendered="{!IF(resultUnitNum != null || resultUnitNum != '',true,false)}">
+                        <apex:outputText value="{!resultUnitNum}" />
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_Floor_No}"  rendered="{!showFloorNumber}">
+                        <apex:outputText value="{!buildAusFloorNumber}" />                       
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Building_Name}" rendered="{!showFranceBuilding}">
+                        <apex:outputlabel value="{!resultBuilding}" />
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_MailingStreet}">
+                        <apex:outputlabel value="{!resultStreet}" /> 
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_Locality}" rendered="{!showLocality2}">
+                        <apex:outputlabel value="{!resultLocality2}" />
+                    </apex:column>                  
+                    <apex:column headerValue="{!$Label.AVS_Field_MailingCity}">
+                        <apex:outputlabel value="{!resultCity}" />
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_MailingState_Provience}" rendered="{!showMailingState}">
+                            <apex:outputlabel value="{!resultState}" />
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_MailingZip_PostalCode}">
+                        <apex:outputlabel value="{!resultPostalCode}" />
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_MailingCountry}">
+                        <apex:outputlabel value="{!resultCountry}" />
+                    </apex:column>
+                </apex:pageBlockTable>
+                </apex:pageBlockSection>
+                <!--End of Table if AVS provide assigned suggestion -->
+                <!--Start of Table assigned address for China n Japan  -->
+                <apex:pageBlockSection title="{!$Label.AVS_SelectMsg}" collapsible="false" id="AVSBrnchSec2_3" columns="1" rendered="{!IF(resultStatusDesc == 'Assigned Address' && resultCountry != null && (resultCountry == 'Japan'|| resultCountry == 'China'),true,false)}">
+                <apex:pageBlockTable value="{!lstSuggestion}" var="sug" id="tbl3" >                   
+                    <apex:column headerValue="{!$Label.AVS_Field_Select}">
+                        <apex:inputCheckbox value="{!sug.selected}" onclick="deselectOther(this)" />
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_MailingStreet}">
+                        <apex:outputPanel rendered="{!IF(resultCountry == 'Japan' ,true,false)}">
+                            <apex:outputText value="{!resLoc2Loc3}" />
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!IF(resultCountry == 'China' ,true,false)}">
+                            <apex:outputText value="{!resLoc2Loc3China}" />
+                        </apex:outputPanel>
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_StreetNo}">
+                        <apex:outputPanel rendered="{!IF(resultCountry == 'Japan',true,false)}">
+                            <apex:outputText value="{!resJapanSt}" />
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!IF(resultCountry == 'China',true,false)}">
+                            <apex:outputText value="{!resultStreetNo}" />
+                        </apex:outputPanel>
+                    </apex:column>
+                    
+                    <apex:column headerValue="{!$Label.AVS_Building_Name}" rendered="{!IF((resultCountry == 'Japan' && buildNameJapan != NULL),true,false)}">
+                        <apex:outputPanel rendered="{!IF((resultCountry == 'Japan' && buildNameJapan != NULL),true,false)}">
+                            <apex:outputText value="{!buildNameJapan}" />
+                        </apex:outputPanel>
+                    </apex:column>
+                     <apex:column headerValue="{!$Label.AVS_Building_Name}" rendered="{!IF((resultCountry == 'China' && buildNameChina != NULL),true,false)}">
+                        <apex:outputPanel rendered="{!IF((resultCountry == 'China' && buildNameChina != NULL),true,false)}">
+                            <apex:outputText value="{!buildNameChina}" />
+                        </apex:outputPanel>
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_Apt_SuiteNo}" rendered="{!IF(resultUnitNum != null || resultUnitNum != '',true,false)}">
+                        <apex:outputText value="{!resultUnitNum}" />
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_MailingCity}">
+                        <apex:outputlabel value="{!resultCity}" />
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_MailingState_Provience}" rendered="{!IF(resultState != null || resultState != '',true,false)}">
+                        <apex:outputlabel value="{!resultState}" />
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_MailingZip_PostalCode}">
+                        <apex:outputlabel value="{!resultPostalCode}" />
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.AVS_Field_MailingCountry}">
+                        <apex:outputlabel value="{!resultCountry}" />
+                    </apex:column>
+                </apex:pageBlockTable>
+                </apex:pageBlockSection>
+                <!--End of Table assigned address for China n Japan  -->
+                
+            <!-- </apex:pageBlockSection> -->
+        </apex:pageBlock>
+        
+        <div id="divRefreshSearch" style="display: none;">
+            <span id="spanLabel"> </span> &nbsp;&nbsp;
+            <apex:inputText id="itAptOrSuiteNumber" />
+            <script> var searchTag = document.getElementById("{!$Component.itAptOrSuiteNumber}"); </script>
+        </div>
+        <apex:actionFunction name="callSearch" action="{!refineSearch}" rerender="AVSblock, divRefreshSearch" status="status">
+            <apex:param name="pAptOrSuiteNumber" value="" assignTo="{!aptOrSuiteNumber}" />
+        </apex:actionFunction>
+        <script language ="javascript">
+            var selectedChkbox;
+            var tableIdCount = 0;
+                        
+            function deselectOther(chkBox) {
+                if(chkBox.checked) {
+                    if((chkBox != selectedChkbox) && (selectedChkbox != null)) {
+                        selectedChkbox.checked = false;
+                    }
+                    selectedChkbox = chkBox;
+                }
+            }
+            
+            function refineSearch(chkBox, lowStreet, highStreet, showApt, lowUnit, highUnit,showfloorNo, FNH, FNL) {
+                if(chkBox.checked) {
+                        
+                         if(showApt && lowUnit != highUnit) {
+                                            <!-- jQuery("#spanLabel").html("Please enter Apt/Suite #"); -->
+                                            jQuery("#spanLabel").html('{!$Label.AVS_DrillDown_Apt}');
+                                            showPopup();                                                
+                                    }
+                                    else if(showfloorNo==false && lowStreet != highStreet) {
+                            <!-- jQuery("#spanLabel").html("Please enter Street No"); -->
+                            jQuery("#spanLabel").html('{!$Label.AVS_DrillDown_Street}');
+                            showPopup();                                
+                                    }
+                                    else if(showfloorNo==false &&lowStreet == highStreet) {
+                                            callSearch(highStreet);                                                
+                                    }
+                                    else if(showApt && (lowUnit == highUnit)&& showfloorNo==false) {
+                                            callSearch(highUnit);                                                
+                                    }                                        
+                                                                                 
+                         if(showfloorNo){
+                            if(FNL!= FNH){
+                            jQuery("#spanLabel").html('{!$Label.AVS_DrillDown_Floor_Number}');
+                                showPopup();                                 
+                            } 
+                            else if(FNH== FNL){
+                            callSearch(FNH);                            
+                            }                      
+                        }                
+                }
+            }
+            
+            
+            function showPopup() {
+                jQuery("#divRefreshSearch").dialog({
+                                        modal: true,
+                                        width: 500,
+                                        buttons: {
+                                                Ok: function() {
+                                                        if(searchTag.value != '') {
+                                                                callSearch(searchTag.value);
+                                                                searchTag.value = '';
+                                                                jQuery(this).dialog("close");
+                                                        }
+                                                }
+                                        }
+                                });
+            }
+                        
+            function showSection() {
+                //alert('{!$Component.UpdateMailing}');
+                document.getElementById('{!$Component.UpdateMailing}').style.visibility = 'visible';
+            }
+                        
+            function hideSection() {
+                //alert('{!$Component.UpdateMailing}');
+                document.getElementById('{!$Component.UpdateMailing}').style.visibility = "hidden";
+            }
+        </script>
+                
+        <apex:outputPanel id="myStatus" styleclass="Bold">
+            <apex:actionstatus id="statusSelect" startText="Processing..." styleclass="Bold">
+                <apex:facet name="stop">
+                </apex:facet>
+            </apex:actionstatus>
+        </apex:outputPanel>
+    </apex:outputPanel>    
+    </apex:form>
+</apex:page>

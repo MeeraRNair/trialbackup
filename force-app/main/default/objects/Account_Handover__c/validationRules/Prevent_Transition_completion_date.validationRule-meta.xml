@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_Transition_completion_date</fullName>
+    <active>true</active>
+    <description>Date entered on Transition completed date should not be less than the Transition start date</description>
+    <errorConditionFormula>Date_for_Warm_Handover_Call__c  &lt;  Transition_Start_Date__c &amp;&amp; (NOT($User.Alias = &quot;CUser1&quot; || $User.Alias = &quot;CUpda&quot;))</errorConditionFormula>
+    <errorDisplayField>Date_for_Warm_Handover_Call__c</errorDisplayField>
+    <errorMessage>Transition completed date must be later than the transition start date</errorMessage>
+</ValidationRule>

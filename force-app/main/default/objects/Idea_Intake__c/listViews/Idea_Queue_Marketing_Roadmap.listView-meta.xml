@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Idea_Queue_Marketing_Roadmap</fullName>
+    <columns>Record_ID__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Status__c</columns>
+    <columns>NAME</columns>
+    <columns>Original_Requester__c</columns>
+    <columns>TFS_ID__c</columns>
+    <columns>BR__c</columns>
+    <columns>Targeted_Release__c</columns>
+    <columns>Workstream__c</columns>
+    <columns>Requesting_organization__c</columns>
+    <columns>Researcher_Moderator__c</columns>
+    <filterScope>Queue</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>Implemented,Resolved,Rejected</value>
+    </filters>
+    <filters>
+        <field>Request_Type__c</field>
+        <operation>equals</operation>
+        <value>Road Map</value>
+    </filters>
+    <label>Idea Queue - Marketing (Roadmap)</label>
+    <language>en_US</language>
+    <queue>Marketing_Idea_Intake</queue>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
+</ListView>

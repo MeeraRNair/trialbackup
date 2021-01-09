@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Specializing_In__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>To assign Presenter to a subject</description>
+    <externalId>false</externalId>
+    <label>Specializing In</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Agenda_Content__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Topic</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Agenda_Content__c</referenceTo>
+    <relationshipLabel>Topic Experts</relationshipLabel>
+    <relationshipName>Topic_Experts</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

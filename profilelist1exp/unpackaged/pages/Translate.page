@@ -1,0 +1,24 @@
+<apex:page showHeader="false" 
+           standardController="Lead"  extensions="ChinaTranslation" action="{!translateState}" lightningStylesheets="true">
+    <apex:form >
+    <apex:pageBlock >
+    <apex:messages />
+    
+    <table width="600px" cellpadding="0" cellspacing="0" align="center" border="0" >
+        <tr><td>
+                <apex:outputPanel rendered="{!flag}" > 
+                        <apex:pageMessage severity="confirm"
+                            strength="3" 
+                               title="Translation Completed" />
+                        
+                        <table align="center"><tr><td>
+                            <apex:commandButton value="OK" 
+                                                action="{!redirect}" />
+                                                
+                            
+                        </td></tr></table>
+                    </apex:outputPanel>
+       </td></tr> </table>
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

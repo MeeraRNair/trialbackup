@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR701_Either_contact_or_account</fullName>
+    <active>true</active>
+    <description>For each campaign member, either a contact or an account is required</description>
+    <errorConditionFormula>AND ( Account__c =&quot;&quot;, Contact__c =&quot;&quot;)</errorConditionFormula>
+    <errorMessage>Please select either an account or a contact as a campaign member.  One is required for each campaign member.</errorMessage>
+</ValidationRule>

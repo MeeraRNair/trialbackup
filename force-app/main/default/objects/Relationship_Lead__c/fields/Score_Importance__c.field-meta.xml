@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Score_Importance__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( ISPICKVAL( Status__c , &quot;High Priority (Extremely hot leads; SLA = 48 hours)&quot;) , 1,
+IF( ISPICKVAL( Status__c , &quot;TeleQualified Lead (Potential Opportunity; SLA = 48 hours) Not Checked&quot;) , 2,
+IF( ISPICKVAL( Status__c , &quot;Priority (Contact requested follow up; SLA = 1 Week)&quot;) , 3,
+100)))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Score Importance</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

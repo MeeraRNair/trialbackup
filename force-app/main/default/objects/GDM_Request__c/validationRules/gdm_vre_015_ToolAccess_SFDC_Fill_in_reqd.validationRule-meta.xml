@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>gdm_vre_015_ToolAccess_SFDC_Fill_in_reqd</fullName>
+    <active>true</active>
+    <description>If Record Type is &apos;Get Access To Tools&apos; and SFDC is chosen from the tool list</description>
+    <errorConditionFormula>AND (
+
+  RecordType.Name == &quot;Get Access to Tools&quot;,
+  ISPICKVAL(  Tool_List__c , &quot;Update SFDC Access&quot;),
+  AND (
+   ISBLANK(List_of_teammates_with_same_access_right__c) ||
+   ISBLANK( Email_SFDC_Access__c ) ||
+   ISBLANK( TEXT( Profile__c ) )
+  
+  )
+ )</errorConditionFormula>
+    <errorMessage>(015) Please fill in Profile, Email , and teammates with similar access.</errorMessage>
+</ValidationRule>

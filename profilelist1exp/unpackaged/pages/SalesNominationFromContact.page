@@ -1,0 +1,112 @@
+<apex:page standardController="contact" extensions="VFCntrlr_SalesNominationConFromContact" title="Sales Nomination From Contact">
+    <style>
+        #statusPanel{
+            text-align: left;
+            margin: 0 auto;
+            width: 600px;
+            border-style:none; 
+            z-index: 0;
+            padding-top: 10px;
+            padding-bottom: 20px;
+        }
+    </style>
+        <apex:form id="CampResultList" >
+            <apex:pageBlock id="CampResultBlock" title="Campaigns"  rendered="{!IF((isnull(campListToBeDisplayed)||campListToBeDisplayed.size=0) || errormessage!=null || errorMsgForConStatus!=null || confirmMsgForConStatus!=null, false, true)}"> 
+            <apex:pageBlockButtons location="bottom">               
+                <apex:commandButton value="Save Nomination"  action="{!SaveNomination}"/>
+                <apex:commandButton value="Cancel" action="{!Cancel}"/>           
+            </apex:pageBlockButtons>
+            <apex:pageblockTable value="{!campListToBeDisplayed}" var="cmp" id="campResTbl">
+                <apex:column headervalue="">
+                    <apex:inputcheckbox value="{!cmp.isSelected}"/>
+                </apex:column>
+                <apex:column headerValue="Campaign Name">
+                    <apex:outputField value="{!cmp.camp.Name}"/>
+                </apex:column>
+                <apex:column headerValue="Campaign Short Name">
+                    <apex:outputField value="{!cmp.camp.Campaign_Short_Name__c}"/>
+                </apex:column>
+                <apex:column headerValue="Status">
+                    <apex:outputField value="{!cmp.camp.status}"/>                         
+                </apex:column>
+                
+                <!-- CR 10082 -->
+                <apex:column >
+                    <apex:facet name="header">   
+                        <apex:outputpanel >
+                            <apex:commandLink action="{!SortData}" value="Nomination Close Date " id="cmdSort1">
+                                <apex:image value="{!$Resource.UpArrow}" width="6" height="6" rendered="{!AND(sortExp=='Nomination_Close_Date__c',sortDirection=='ASC')}" />
+                                <apex:image value="{!$Resource.DownArrow}" width="6" height="6" rendered="{!AND(sortExp=='Nomination_Close_Date__c',sortDirection=='DESC')}" /> 
+                                <apex:param value="Nomination_Close_Date__c" name="column" assignTo="{!sortExp}" ></apex:param>
+                            </apex:commandLink>
+                        </apex:outputpanel>  
+                    </apex:facet>
+                    <apex:outputField value="{!cmp.camp.Nomination_Close_Date__c}"/>
+                </apex:column>
+
+                <apex:column >
+                    <apex:facet name="header">   
+                        <apex:outputpanel >
+                            <apex:commandLink action="{!SortData}" value="Campaign Vehicle " id="cmdSort">
+                                <apex:image value="{!$Resource.UpArrow}" width="6" height="6" rendered="{!AND(sortExp=='Campaign_Vehicle__c',sortDirection=='ASC')}" />
+                                <apex:image value="{!$Resource.DownArrow}" width="6" height="6" rendered="{!AND(sortExp=='Campaign_Vehicle__c',sortDirection=='DESC')}" /> 
+                                <apex:param value="Campaign_Vehicle__c" name="column" assignTo="{!sortExp}" ></apex:param>
+                            </apex:commandLink>
+                        </apex:outputpanel>  
+                    </apex:facet>
+                    <apex:outputField value="{!cmp.camp.Campaign_Vehicle__c}"/>
+                </apex:column>
+
+                
+                <!--apex:column headerValue="Campaign Vehicle">
+                    <apex:outputField value="{!cmp.camp.Type}"/>
+                </apex:column-->
+                
+                <apex:column headerValue="Focus LOB">
+                    <apex:outputField value="{!cmp.camp.Focus_LOB__c}"/>
+                </apex:column>
+                <apex:column headerValue="StartDate">
+                    <apex:outputField value="{!cmp.camp.startDate}"/>
+                </apex:column>
+                <apex:column headerValue="EndDate">
+                    <apex:outputField value="{!cmp.camp.Enddate}"/>
+                </apex:column>
+            </apex:pageblockTable>
+        </apex:pageBlock>
+        <apex:outputPanel style="'margin-top:20px; margin-bottom:30px'"  id="pageNavTop" rendered="{!IF(isnull(campListToBeDisplayed)||campListToBeDisplayed.size=0, false, true)}">              
+                
+                <div style="float:left; margin-top:5px; margin-bottom:20px; font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: right; width: 52%;">
+                Page {!currentPage} of {!lastPage}
+                </div>
+                
+                <div style="float:right; margin-top:5px; margin-bottom:20px; font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: right; width: 48%;">                
+                    <apex:commandLink action="{!previous}" rendered="{!hasPrevious}" rerender="CampResultList">
+                        &lt; Previous Page
+                    </apex:commandLink>                 
+                    <apex:outputText rendered="{!hasPreviousAndNext}">&nbsp;|&nbsp;</apex:outputText>
+                    <apex:commandLink action="{!next}" rendered="{!hasNext}" rerender="CampResultList">
+                        Next Page &gt;
+                    </apex:commandLink>
+                </div>               
+        </apex:outputPanel>
+    </apex:form>
+    <apex:form id="ErrorForm" rendered="{!IF((errorMessage!=null || confirmMsgForConStatus!=null),true,false)}">
+        <apex:pageblock title="Campaigns" rendered="{!IF((errorMessage!=null && errormsgForConStatus==null),true,false)}">
+            <apex:pageBlockButtons location="bottom" >
+                <apex:commandButton value="Cancel" action="{!Cancel}"/>
+            </apex:pageBlockButtons>    
+            <div id="statusPanel" >
+                <apex:pageMessage severity="ERROR" strength="3" title="" detail="{!errorMessage}" />         
+            </div>
+        </apex:pageblock>
+        <apex:pageBlock title="Campaigns" rendered="{!IF((confirmMsgForConStatus!=null),true,false)}">
+            <apex:pageBlockButtons location="bottom" >
+                <apex:commandButton Value="Ok" action="{!ok}"/>
+                <apex:commandButton value="Cancel" action="{!Cancel}"/>
+            </apex:pageBlockButtons>
+            <div id="statusPanel" >
+                 <apex:pageMessage severity="INFO" strength="3" title="" detail="{!confirmMsgForConStatus}" />         
+            </div> 
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

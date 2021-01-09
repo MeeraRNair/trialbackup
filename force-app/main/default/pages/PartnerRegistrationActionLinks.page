@@ -1,0 +1,157 @@
+<apex:page sidebar="false" 
+	showHeader="false" 
+	standardStylesheets="true" 
+	standardController="Partner_Request__c"
+>
+	<table width="100%" height="500" cellpadding="0" cellspacing="0" border="0" style="background: #F3F3EC">
+		<tr>
+			<td align="left" valign="top">
+
+	<b><apex:outputLabel value="Registration Action(s): "/></b>
+
+	<!-- INITIAL ACTIONS -->
+	<apex:outputPanel rendered="{!
+			OR(
+				Partner_Request__c.Status__c == 'New',
+				Partner_Request__c.Status__c == 'Incomplete',
+				Partner_Request__c.Status__c == 'Re-submitted'
+			)}">
+		<apex:outputLink value="javascript: parent.location.href='/{!Partner_Request__c.id}/e?retURL=/{!Partner_Request__c.id}'" 
+			target="_self">Edit</apex:outputLink>
+		<apex:outputPanel >&nbsp;|&nbsp;</apex:outputPanel>
+		<apex:outputLink value="javascript: parent.location.href='/apex/PartnerRegistrationActionHandler?id={!Partner_Request__c.Id}&action=MarkAsComplete'" 
+			target="_self">Mark as Complete</apex:outputLink>
+		<apex:outputPanel >&nbsp;|&nbsp;</apex:outputPanel>
+		<apex:outputLink value="javascript: parent.location.href='/apex/PartnerRegistrationMarkIncomplt?id={!Partner_Request__c.Id}'" 
+			target="_self">Mark as Incomplete</apex:outputLink>
+	</apex:outputPanel>
+
+	<!-- TASK/APPROVAL ACTIONS -->
+	<apex:outputPanel rendered="{!
+			Partner_Request__c.Status__c == 'In Review'}">
+		<apex:outputLink value="javascript: parent.location.href='/{!Partner_Request__c.id}/e?retURL=/{!Partner_Request__c.id}'" 
+			target="_self">Edit</apex:outputLink>
+		<apex:outputPanel >&nbsp;|&nbsp;</apex:outputPanel>
+		<apex:outputLink value="javascript: parent.location.href='/apex/PartnerRegistrationDupSearch?id={!Partner_Request__c.Id}'" 
+			target="_self">Search for Existing or Duplicate</apex:outputLink>
+		<apex:outputPanel rendered="{!
+			AND(
+				Partner_Request__c.Perform_Credit_Check_Is_Complete_Flag__c = true,
+				Partner_Request__c.Check_Denied_Party_List_Is_Complete_Flag__c = true,
+				Partner_Request__c.Check_For_Duplicates_Is_Complete_Flag__c = true,
+				Partner_Request__c.Export_Compliance_Check_Is_Complete_Flag__c = true,
+				Partner_Request__c.Agreement_Hard_cpy_Rcvd_Is_Complete_Flag__c=true,
+				Partner_Request__c.Enable_Order_Management_access_Flag__c = true,
+				Partner_Request__c.Enable_Premier_Pages_access_Flag__c = true,
+				Partner_Request__c.Send_Welcome_Packet_to_Partner_Flag__c = true
+				
+			)}">
+			<apex:outputPanel >&nbsp;|&nbsp;</apex:outputPanel>
+			<apex:outputLink value="javascript: parent.location.href='/apex/PartnerRegistrationActionHandler?id={!Partner_Request__c.Id}&action=Approve'" 
+				target="_self">Approve</apex:outputLink>
+		</apex:outputPanel>
+		<apex:outputPanel rendered="{!Partner_Request__c.Perform_Credit_Check_Is_Complete_Flag__c = false}">
+			<apex:outputPanel >&nbsp;|&nbsp;</apex:outputPanel>
+			<apex:outputLink value="javascript: parent.location.href='/apex/PartnerRegistrationActionHandler?id={!Partner_Request__c.Id}&action=MarkCreditCheckComplete'" 
+				target="_self">Mark Credit Check Complete</apex:outputLink>
+		</apex:outputPanel>
+		<apex:outputPanel rendered="{!Partner_Request__c.Export_Compliance_Check_Is_Complete_Flag__c = false}">
+			<apex:outputPanel >&nbsp;|&nbsp;</apex:outputPanel>
+			<apex:outputLink value="javascript: parent.location.href='/apex/PartnerRegistrationActionHandler?id={!Partner_Request__c.Id}&action=MarkExportComplianceCheckComplete'" 
+				target="_self">Mark Export Compliance Check Complete</apex:outputLink>
+		</apex:outputPanel>
+		<apex:outputPanel rendered="{!Partner_Request__c.Check_Denied_Party_List_Is_Complete_Flag__c = false}">
+			<apex:outputPanel >&nbsp;|&nbsp;</apex:outputPanel>
+			<apex:outputLink value="javascript: parent.location.href='/apex/PartnerRegistrationActionHandler?id={!Partner_Request__c.Id}&action=MarkDeniedPartyCheckComplete'" 
+				target="_self">Mark Denied Party Check Complete</apex:outputLink>
+		</apex:outputPanel>
+		<apex:outputPanel rendered="{!Partner_Request__c.Agreement_Hard_cpy_Rcvd_Is_Complete_Flag__c = false}">
+			<apex:outputPanel >&nbsp;|&nbsp;</apex:outputPanel>
+			<apex:outputLink value="javascript: parent.location.href='/apex/PartnerRegistrationActionHandler?id={!Partner_Request__c.Id}&action=MarkHardCopyReceivedComplete'" 
+				target="_self">Mark Agreement Hard-copy Received Complete</apex:outputLink>
+		</apex:outputPanel>
+		
+		<!-- 
+			 Author    : Alvin Chew  
+		 	 Date      : 9 July 2009 		
+			 CR        : 1382
+			 Descption : Additional three steps added (Enable Order Management access ,Enable Premier Pages access ,  Send Welcome Packet to Partner. )
+		 -->
+		
+		<apex:outputPanel rendered="{!Partner_Request__c.Enable_Order_Management_access_Flag__c = false}">
+			<apex:outputPanel >&nbsp;|&nbsp;</apex:outputPanel>
+			<apex:outputLink value="javascript: parent.location.href='/apex/PartnerRegistrationActionHandler?id={!Partner_Request__c.Id}&action=MarkEnableOrderManagementAccess'" 
+				target="_self">Enable Order Management access Complete</apex:outputLink>
+		</apex:outputPanel>
+		
+		<apex:outputPanel rendered="{!Partner_Request__c.Enable_Premier_Pages_access_Flag__c = false}">
+			<apex:outputPanel >&nbsp;|&nbsp;</apex:outputPanel>
+			<apex:outputLink value="javascript: parent.location.href='/apex/PartnerRegistrationActionHandler?id={!Partner_Request__c.Id}&action=MarkEnablePremierPagesAccessComplete'" 
+				target="_self">Enable Premier Pages access Complete</apex:outputLink>
+		</apex:outputPanel>
+		
+		<apex:outputPanel rendered="{!Partner_Request__c.Send_Welcome_Packet_to_Partner_Flag__c = false}">
+			<apex:outputPanel >&nbsp;|&nbsp;</apex:outputPanel>
+			<apex:outputLink value="javascript: parent.location.href='/apex/PartnerRegistrationActionHandler?id={!Partner_Request__c.Id}&action=MarkSendWelcomePacketToPartnerComplete'" 
+				target="_self">Send Welcome Packet to Partner Complete</apex:outputLink>
+		</apex:outputPanel>
+
+		<!-- End Of Modification -->
+		
+		<apex:outputPanel rendered="{!Partner_Request__c.recordtype.name !='Existing Partner'}">&nbsp;|&nbsp;</apex:outputPanel>
+		<apex:outputLink rendered="{!Partner_Request__c.recordtype.name !='Existing Partner'}" value="javascript: parent.location.href='/apex/PartnerRegistrationMarkRejected?id={!Partner_Request__c.Id}'" 
+			target="_self">Reject</apex:outputLink>
+	</apex:outputPanel>
+
+	<!-- CREATE SUGGESTION -->
+	<apex:outputPanel rendered="{!
+		AND(
+			Partner_Request__c.Status__c == 'Approved',
+			Partner_Request__c.Account__c = '',
+			Partner_Request__c.recordtype.name !='Existing Partner'
+		)}">			
+		<apex:outputLink value="javascript: parent.location.href='/apex/CreateSuggestion?id={!Partner_Request__c.Id}'" 
+			target="_self">Create Account Suggestion</apex:outputLink>
+	</apex:outputPanel>	
+	
+	<!-- Provision First User for manual linkage-->
+	<apex:outputPanel rendered="{!
+		AND(
+			Partner_Request__c.Status__c == 'Approved',
+			Partner_Request__c.Account__c != '',
+			Partner_Request__c.recordtype.name ='Existing Partner'
+		)}">			
+		<apex:outputLink value="javascript: parent.location.href='/apex/PartnerRegistrationProvisionUser?id={!Partner_Request__c.Id}'" 
+			target="_self">Provision First User</apex:outputLink>
+	</apex:outputPanel>	
+	
+
+	<!-- PROVISION USER -->
+	<apex:outputPanel rendered="{!
+		AND(
+			Partner_Request__c.Status__c == 'Account Suggestion Completed',
+			NOT(Partner_Request__c.Account__c = ''),
+			Partner_Request__c.Provisioned_User__c='')
+		}">
+		<apex:outputLink value="javascript: parent.location.href='/apex/PartnerRegistrationProvisionUser?id={!Partner_Request__c.Id}'" 
+			target="_self">Provision First User</apex:outputLink>
+	</apex:outputPanel>	
+
+	<!-- NO ACTIONS AVAILABLE -->
+	<apex:outputPanel rendered="{!
+			OR(
+				Partner_Request__c.Status__c == 'Rejected',
+				Partner_Request__c.Status__c == 'Complete',
+				Partner_Request__c.Status__c == 'Duplicate',
+				AND(
+					Partner_Request__c.Status__c == 'Approved',
+					NOT(Partner_Request__c.Account__c = ''),
+					NOT(Partner_Request__c.Provisioned_User__c='')
+				)
+			)
+		}">No Actions Available</apex:outputPanel>
+			</td>
+		</tr>
+	</table>
+
+</apex:page>

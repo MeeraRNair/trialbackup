@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Insert_Account_Branch_LOBs</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Insert Account Branch &amp; LOBs</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+    <url>var userId = &apos;{!$User.Id}&apos;;
+var userTitle = &apos;{!$User.Title}&apos;;
+var ownerId = &apos;{!Account.OwnerId}&apos;;
+
+if(userId  == ownerId || userTitle == &quot;GCC Program Manager&quot;){
+	var returnVal = {!IF( Account.Participating_in_LOB_Program__c , 1, 0)};
+	if(returnVal  == 0){
+	   var popupLabel = &quot;{!$Label.CR_2573_Create_Account_Branch}&quot;;
+	   if(confirm(popupLabel )){
+		   window.parent.location.href =&quot;/{!Account.Id}&quot;;
+	   }
+	}else{
+	   window.parent.location.href =&quot;/apex/AccountBranch?id={!Account.Id}&quot;;
+	}
+}else{
+    var popupLabel = &quot;{!$Label.CR_2573_Owner_Privilege_To_Create_AccBr}&quot;;
+    if(confirm(popupLabel )){
+         window.parent.location.href =&quot;/{!Account.Id}&quot;;
+    }
+}</url>
+</WebLink>

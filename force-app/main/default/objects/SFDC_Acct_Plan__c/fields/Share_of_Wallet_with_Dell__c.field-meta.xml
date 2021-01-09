@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Share_of_Wallet_with_Dell__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(Account_Annual_IT_Spend__c = 0, 0, Anticipated_IT_Spend_with_Dell__c / Account_Annual_IT_Spend__c)</formula>
+    <inlineHelpText>Autocalculated based on the Annual IT spend and the IT spend with Dell.</inlineHelpText>
+    <label>Share of Wallet with Dell (%)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Assigned_To__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The DPT handling this request</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Select the DPT member assigned to this request</inlineHelpText>
+    <label>Assigned To</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>GDM_Requests1</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

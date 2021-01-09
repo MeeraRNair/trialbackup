@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MultiplePrimaryContactCreationValidation</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( ISCHANGED(Create_Primary_Contact__c), ISPICKVAL(PRIORVALUE (Create_Primary_Contact__c),  &apos;Created&apos;))</errorConditionFormula>
+    <errorDisplayField>Create_Primary_Contact__c</errorDisplayField>
+    <errorMessage>The Primary Contact has already been created. Please refer to the “Primary Contact” field for viewing the same.</errorMessage>
+</ValidationRule>

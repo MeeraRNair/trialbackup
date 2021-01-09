@@ -1,0 +1,100 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" contentType="text/javascript">
+ /**
+REVISION HISTORY
+================
+Version     Author      Date            Release#        CR#     Description
+-------     ------      ----            --------        ---     -----------
+1.0         Gan         07-Nov-2016     FY17-DCS-0103   13725   Initial based on EditLocationConfirmationBaiduMapJS
+
+**/
+
+var MapController = Class.create({
+    initialize: function(initialAddress,mapElementId){
+        this.initialAddress = initialAddress;
+        this.mapElementId = mapElementId;
+        //alert("initialAddress: " + initialAddress + ", mapElementId: " + mapElementId);
+        
+        map = new BMap.Map($(mapElementId));
+        map.centerAndZoom(new BMap.Point(0,0), 4);
+        var bottom_right_navigation = new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL});
+        map.addControl(bottom_right_navigation);
+    
+        geocoder = new BMap.Geocoder();
+        var countryCodeHint = $('p:f:countryCodeHint');
+        //alert("countryCodeHint: " + countryCodeHint);
+            
+        geocoder.getPoint(this.initialAddress, function(point){
+            if (point) {
+                fireLocationFound();
+                this.setPoint(point,true);
+                //map.centerAndZoom(point, 16);
+                //map.addOverlay(new BMap.Marker(point));
+            }else{
+                //alert("您选择地址没有解析到结果!");
+                fireLocationNotFound();
+                this.setPoint(new BMap.Point(37.4419, -122.1419),false);
+            }
+        }.bind(this));      
+    },
+    setPoint: function(point, showMarker){
+        map.setCenter(point);
+        map.setZoom(12);
+        if(showMarker){
+            var marker = new BMap.Marker(point);
+            marker.setPosition(point);
+            marker.enableDragging();
+            map.addOverlay(marker);
+            
+            this.handleMarkerMoved(marker);
+            
+            
+            marker.addEventListener("dragend",function(e) {
+                $('p:f:longitude').value = marker.getPosition().lng;
+                $('p:f:latitude').value = marker.getPosition().lat;
+            });     
+            
+        }
+    },
+    handleMarkerMoved: function(marker){
+        $('p:f:longitude').value = marker.getPosition().lng;
+        $('p:f:latitude').value = marker.getPosition().lat;
+    }
+});
+
+var controller;
+    
+function initialize() {
+    if($('map_canvas')){
+        
+            try{
+                controller = new MapController($F('p:f:address'),'map_canvas');
+            }catch(err){
+                //alert(err);
+                //alert('Failed to load Baidu Maps.  If you\'re using Internet Explorer, please ensure the permission \'Display mixed content\' is set to \'Enable\'.');
+            }
+            
+    }
+}
+
+
+if(document.readyState != 'loading'){
+     initialize();
+}
+else{
+document.observe('dom:loaded', function() {
+    initialize();
+}, false);
+}
+
+<!--
+document.observe('dom:loaded', function() {
+    if($('map_canvas') &amp;&amp; $('p:f:address')){
+        try{
+            new MapController($F('p:f:address'),'map_canvas');
+        }catch(err){
+            alert('Failed to load Google Maps.  If you\'re using Internet Explorer, please ensure the permission \'Display mixed content\' is set to \'Enable\'.');
+        }
+    }
+}, false);
+--> 
+</apex:page>

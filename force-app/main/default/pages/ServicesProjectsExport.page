@@ -1,0 +1,83 @@
+<apex:page controller="ServicesProjectsCtrl" contentType="application/vnd.ms-excel#SPList.xls" cache="true">
+
+  <apex:pageBlock id="pb">
+          <apex:pageblocktable value="{!exportSpList}" var="sp" >  
+             <apex:column headerValue="Services Project ID">
+                                     
+                 <apex:outputText value="{!sp.Name}"/>                              
+             </apex:column>
+             <apex:column headerValue="Account Affinity ID">
+              
+                 <apex:outputtext value="{!sp.Affinity_Account_ID__c}"/>                              
+             </apex:column> 
+             <apex:column headerValue="Account Name">
+              
+                 
+                 <apex:outputtext value="{!sp.Account_Name__c}"/>                              
+             </apex:column> 
+             <apex:column headerValue="Deal ID">
+             
+             
+                 <apex:outputtext value="{!sp.Deal_ID__c}"/>                              
+             </apex:column> 
+             <apex:column headerValue="Opportunity Name">
+            
+            
+                 <apex:outputtext value="{!sp.Opportunity_Name__c}"/>                              
+             </apex:column> 
+             <apex:column headerValue="Dell Services LOB">
+             
+             
+                 <apex:outputtext value="{!sp.Dell_Services_LOB__c}"/>                              
+             </apex:column> 
+             
+             <apex:column headerValue="Dell Services Industry">  
+                 <apex:outputtext value="{!sp.Dell_Services_Industry__c}"/>                              
+             </apex:column>
+             
+             <apex:column headerValue="Services Unweighted Revenue">
+            
+                 <apex:outputtext value="{!sp.Services_Unweighted_Revenue__c}"/>                              
+             </apex:column> 
+             
+            <apex:column headerValue="Book Date">
+            
+                <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                  <apex:param value="{!sp.Book_Date__c}" />
+                </apex:outputText>                           
+            </apex:column> 
+             <apex:column headerValue="Opportunity Owner">
+             
+                 <apex:outputtext value="{!sp.Opportunity_Owner__c}"/>                              
+             </apex:column> 
+             <apex:column headerValue="Services Sales Owner">
+             
+                 <apex:outputtext value="{!sp.Services_Sales_Owner__c}"/>                              
+             </apex:column> 
+             <apex:column headerValue="CP/Affinity Customer Number">
+                 <apex:outputtext value="{!sp.CP_Affinity_Customer_Number__c}"/>                            
+             </apex:column> 
+             <apex:column headerValue="Project ID">
+            
+                 <apex:outputtext value="{!sp.Project_ID__c}"/>                              
+             </apex:column> 
+             <apex:column headerValue="Project Name">
+            
+                 <apex:outputtext value="{!sp.Project_Name__c}"/>                              
+             </apex:column> 
+             <apex:column headerValue="Project Manager">
+             
+                 <apex:outputtext value="{!sp.Project_Manager__c }"/>                              
+             </apex:column> 
+            <apex:column headerValue="Project Start Date">
+             
+               <apex:outputField value="{!sp.Project_Start_Date__c}"/>                            
+            </apex:column> 
+              
+          </apex:pageBlockTable>
+          
+          <!-- <apex:commandButton value="Services Projects Report" action="{!openReport}"   /> -->
+         
+      </apex:pageBlock>
+    
+</apex:page>

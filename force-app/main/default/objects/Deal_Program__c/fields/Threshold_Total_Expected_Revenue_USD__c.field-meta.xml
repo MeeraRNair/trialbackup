@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Threshold_Total_Expected_Revenue_USD__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE( CurrencyIsoCode, 
+&quot;AUD&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_AUD), 
+&quot;BRL&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_BRL), 
+&quot;CAD&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_CAD), 
+&quot;CHF&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_CHF), 
+&quot;CNY&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_CNY), 
+&quot;DKK&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_DKK), 
+&quot;EUR&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_EUR), 
+&quot;GBP&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_GBP), 
+&quot;HKD&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_HKD), 
+&quot;INR&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_INR), 
+&quot;JPY&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_JPY), 
+&quot;KRW&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_KRW), 
+&quot;MYR&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_MYR), 
+&quot;MXN&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_MXN), 
+&quot;NOK&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_NOK), 
+&quot;NZD&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_NZD), 
+&quot;RUB&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_RUB), 
+&quot;SEK&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_SEK), 
+&quot;SGD&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_SGD), 
+&quot;THB&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_THB), 
+&quot;TWD&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_TWD), 
+&quot;ZAR&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_ZAR), 
+&quot;AED&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_AED), 
+&quot;IDR&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_IDR), 
+&quot;MAD&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_MAD), 
+&quot;PHP&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_PHP), 
+&quot;PLN&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_PLN), 
+&quot;HUF&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_HUF), 
+&quot;UAH&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_UAH), 
+&quot;ILS&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_ILS), 
+&quot;SAR&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_SAR), 
+&quot;TRY&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_TRY), 
+&quot;QAR&quot;, USD_Threshold__c/VALUE($Label.Currency_Rate_QAR), 
+USD_Threshold__c/ 1 
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Threshold(Total Expected Revenue USD)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

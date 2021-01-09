@@ -1,0 +1,94 @@
+<apex:page showHeader="false" contentType="{!contentType}" controller="VOPrintAttendeeDetailsController" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false">
+    <html>
+        <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"/>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta charset="utf-8"/>
+        <apex:includeScript value="{!URLFOR($Resource.VisitOps__VMSResources, 'js/jquery-1.11.1.min.js')}"/>
+        <head>
+            <style>
+                @page WordSection1{
+                    size:8.5in 11in;
+                    margin:.5in .5in .5in .5in;
+                    mso-header-margin: 1.25in;
+                    mso-footer-margin:.2in;
+                    mso-paper-source:0;
+                    
+                }
+                div.WordSection1{
+                    page:WordSection1;
+                }
+                
+                /*Start---Css to download as Word Document*/
+                p.MsoNormal, li.MsoNormal, div.MsoNormal{
+                    mso-style-unhide:no;
+                    mso-style-qformat:yes;
+                    mso-style-parent:"";
+                    margin:0in;
+                    margin-bottom:.0001pt;
+                    mso-pagination:widow-orphan;
+                    font-size:12.0pt;
+                    font-family:"Arial";
+                    mso-fareast-font-family:"Arial";
+                    mso-fareast-theme-font:minor-fareast;
+                }
+            
+                .align_center {text-align:center;}
+                /*End---Css to download as Word Document*/
+            </style>
+                        
+        </head>
+            <apex:repeat value="{!attendeeWrapperList}" var="attendee">
+                
+                <!-- Start: Word Document -->
+                <apex:outputPanel >
+                    <div class="WordSection1">
+                        <table class="MsoTableGrid" border="0" cellspacing="0" cellpadding="0" align="center"
+                            style='border-collapse:collapse;border:none;mso-yfti-tbllook:1184;mso-padding-alt:0in 5.4pt 0in 5.4pt;mso-border-insideh:none;mso-border-insidev:none;mso-table-top:73.25pt;mso-table-left:5pt;'>
+                            <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes;page-break-inside:avoid;height:585.65'>
+                                <td width="125" valign="bottom" style='width:93.5pt;padding:0in 5.4pt 0in 5.4pt;height:585.65'>
+                                    <p class="MsoNormal" align="right" style='margin-bottom:0in;margin-bottom:.0001pt;text-align:right;line-height:normal'>
+                                        <span style='mso-no-proof:yes'>
+                                            <img width="100%" src="{!LeftCompanyLogoUrl}"/>
+                                        </span>
+                                    </p>
+                                </td>
+                                <td width="125" valign="top" style='width:93.5pt;padding:0in 5.4pt 0in 5.4pt;mso-rotate:-90;height:585.65pt'>
+                                    <p class="MsoNormal" align="center" style='margin-top:0in;margin-right:5.65pt;margin-bottom:0in;margin-left:5.65pt;margin-bottom:.0001pt;text-align:center;line-height:normal'>
+                                        <span style='font-size:48.0pt;font-family:Arial;'>{!attendee.Name}</span>
+                                    </p>
+                                    <p class="MsoNormal" align="center" style='margin-top:0in;margin-right:5.65pt;margin-bottom:0in;margin-left:5.65pt;margin-bottom:.0001pt;text-align:center;line-height:normal'>
+                                        <span style='font-size:36.0pt;font-family:Arial;'>&nbsp;{!attendee.Company}&nbsp;</span>
+                                    </p>
+                                </td>
+                                <td width="125pt" valign="top" style='width:125pt;padding:0in 5.4pt 0in 5.4pt;mso-rotate:-90;height:585.65pt'>
+                                    <p class="MsoNormal" align="center" style='margin-top:0in;margin-right:5.65pt;
+                                    margin-bottom:0in;margin-left:5.65pt;margin-bottom:.0001pt;text-align:center;line-height:normal'></p>
+                                </td>
+                                <td width="125" valign="top" style='width:93.5pt;padding:0in 5.4pt 0in 5.4pt;mso-rotate:90;height:585.65pt'>
+                                    <p class="MsoNormal" align="center" style='margin-top:0in;margin-right:5.65pt;
+                                    margin-bottom:0in;margin-left:5.65pt;margin-bottom:.0001pt;text-align:center;line-height:normal'>
+                                        <span style='font-size:48.0pt;font-family:Arial;'>{!attendee.Name}</span>
+                                    </p>
+                                    <p class="MsoNormal" align="center" style='margin-top:0in;margin-right:5.65pt;
+                                    margin-bottom:0in;margin-left:5.65pt;margin-bottom:.0001pt;text-align:center;line-height:normal'>
+                                        <span style='font-size:36.0pt;font-family:Arial;'>&nbsp;{!attendee.Company}&nbsp;</span>
+                                    </p>
+                                </td>
+                                <td width="125" valign="top" style='width:93.5pt;padding:0in 5.4pt 0in 5.4pt;height:585.65pt'>
+                                    <p class="MsoNormal" style='margin-bottom:0in;margin-bottom:.0001pt;line-height:normal'>
+                                        <span style='mso-no-proof:yes'>
+                                            <img width="100%" src="{!RightCompanyLogoUrl}"/>
+                                        </span>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>    
+                    </div>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!IF(attendeeWrapperList.size>1,True,False)}">
+                    <br clear="all" style="page-break-before:always" />
+                </apex:outputPanel>
+                <!-- End: Word Document -->
+            </apex:repeat>
+    </html>
+</apex:page>

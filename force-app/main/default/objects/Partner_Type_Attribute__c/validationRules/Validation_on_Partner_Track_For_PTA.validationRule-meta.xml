@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validation_on_Partner_Track_For_PTA</fullName>
+    <active>true</active>
+    <description>Can&apos;t change Partner Track field once created</description>
+    <errorConditionFormula>AND( !(ISNEW()),ISCHANGED(Partner_Track__c))</errorConditionFormula>
+    <errorMessage>Cannot change the Partner Track</errorMessage>
+</ValidationRule>

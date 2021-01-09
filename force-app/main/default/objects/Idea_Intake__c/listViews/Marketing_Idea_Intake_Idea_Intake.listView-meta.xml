@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Marketing_Idea_Intake_Idea_Intake</fullName>
+    <columns>Record_ID__c</columns>
+    <columns>Status__c</columns>
+    <columns>NAME</columns>
+    <columns>Original_Requester__c</columns>
+    <columns>TFS_ID__c</columns>
+    <columns>Targeted_Release__c</columns>
+    <columns>Workstream__c</columns>
+    <columns>Requesting_organization__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Queue</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>Merged,Implemented,Resolved,Rejected</value>
+    </filters>
+    <label>Idea Queue - Marketing</label>
+    <language>en_GB</language>
+    <queue>Marketing_Idea_Intake</queue>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
+</ListView>

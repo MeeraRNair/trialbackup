@@ -1,0 +1,93 @@
+<apex:page sidebar="false" showHeader="false" tabStyle="Opportunity" controller="Product_Recommendation_Controller" id="pg" >
+    <style>
+        .txt{
+        position: absolute;
+        left: 55%;
+        top: 63%;
+        margin: -75px 0 0 -75px;
+        color:#666666;
+        }
+        .loader {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 1;
+        width: 150px;
+        height: 150px;
+        margin: -75px 0 0 -75px;
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #ff1100;
+        border-bottom: 16px solid #ff1100;
+        width: 120px;
+        height: 120px;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+        }
+        
+        @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+        }
+		
+		.unitPrice {
+			border-left-color: red !important;
+		}
+    </style>
+    <apex:form id="frm">
+        <apex:actionStatus id="myStatus">
+            <apex:facet name="start">
+                <h2 class="txt">Loading...</h2>
+                <div class="loader"></div>
+            </apex:facet>
+            <apex:facet name="stop" >
+            </apex:facet>
+        </apex:actionStatus>
+        <apex:actionFunction name="invoke" action="{!init}" rerender="frm" status="myStatus"/>
+        <apex:pageMessages id="showmsg" ></apex:pageMessages>
+        <apex:pageMessage severity="info" summary="No recommended products are available" rendered="{!IF(AND(lstData.size = 0,isCallout),'true','false')}" strength="3"></apex:pageMessage>
+        <apex:outputPanel rendered="{!IF(lstData.size > 0,'true','false')}" id="pnl">
+            <apex:sectionHeader title="Opportunity Product" subtitle="{!objOli.Product2.Name}"/>
+            <apex:pageBlock id="pgBlock">
+                <apex:pageBlockSection title="EAP : Personalized recommendations for your customer for this system" columns="1" rendered="{!NOT(bIsCommonCatalog)}">
+                    <apex:pageBlockTable value="{!lstData}" var="rec"  >
+                        <apex:column headerValue="Type"><apex:outputText value="{!rec.Type}"/></apex:column>
+                        <apex:column headerValue="SKU"><apex:outputText value="{!rec.sku}"/></apex:column>
+                        <apex:column headerValue="Description"><apex:outputText value="{!rec.skuDesc}"/></apex:column>
+                        <apex:column headerValue="URL"><a href="{!rec.url}" target="_blank"><apex:outputText value="{!rec.url}"/></a></apex:column>
+                        <apex:column headerValue="Recommendation Reason"><apex:outputText value="{!rec.reason}"/></apex:column>
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="EAP : Personalized recommendations for your customer for this system" columns="1" rendered="{!bIsCommonCatalog}">
+                    <apex:pageBlockTable value="{!lstData}" var="rec" id="pageBlockTableId" >
+                        <apex:column headerValue=""><apex:inputCheckbox value="{!rec.bIsChecked}" disabled="{!rec.bProductPresent}" id="validation"><apex:actionSupport event="onchange" rerender="idSaveBtn" onsubmit="show(this)"/></apex:inputCheckbox></apex:column>
+                        <apex:column headerValue="Type"><apex:outputText value="{!rec.Type}"/></apex:column>
+                        <apex:column headerValue="SKU"><apex:outputText value="{!rec.sku}"/></apex:column>
+                        <apex:column headerValue="Description"><apex:outputText value="{!rec.skuDesc}"/></apex:column>
+                        <apex:column headerValue="URL"><a href="{!rec.url}" target="_blank"><apex:outputText value="{!rec.url}"/></a></apex:column>
+                        <apex:column headerValue="Recommendation Reason"><apex:outputText value="{!rec.reason}"/></apex:column>
+                        <apex:column headerValue="Unit Price" headerClass="unitPrice"><apex:inputText value="{!rec.dcUnitPrice}" label="Unit Price" disabled="{!rec.bProductPresent}"/></apex:column>
+                        <apex:column headerValue="Quantity" headerClass="unitPrice"><apex:inputText value="{!rec.dcQuantity}" label="Quantity" disabled="{!rec.bProductPresent}"/></apex:column>
+                        <apex:column headerValue="Service/Support" headerClass="unitPrice"><apex:inputField value="{!rec.oli.Service_Support_US__c}" label="Service/Support" rendered="{!NOT(rec.bProductPresent)}"/><apex:inputField value="{!rec.oli.Service_Support_US__c}" label="Service/Support" rendered="{!rec.bProductPresent}" html-disabled="true"/></apex:column>
+                        <apex:column headerValue="Dell Business Model"><apex:inputField value="{!rec.oli.Dell_Business_Model__c}" label="Dell Business Model" rendered="{!NOT(rec.bProductPresent)}"/><apex:inputField value="{!rec.oli.Dell_Business_Model__c}" label="Dell Business Model" rendered="{!rec.bProductPresent}" html-disabled="true"/></apex:column>
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection>
+                <apex:pageBlockButtons location="bottom">
+                <apex:actionStatus id="mySaveStatus1">
+                    <apex:facet name="stop">
+                        <apex:commandButton action="{!createOli}" value="Save" status="mySaveStatus1" rerender="frm" id="idSaveBtn" rendered="{!bIsCommonCatalog}"/>
+                    </apex:facet>
+                    <apex:facet name="start">
+                        <apex:commandButton action="{!createOli}" value="Processing..." status="mySaveStatus1" rerender="frm" rendered="{!bIsCommonCatalog}" disabled="true"/> 
+                    </apex:facet>
+                </apex:actionStatus>
+                <apex:commandButton action="{!cancel}" value="Cancel" rendered="{!bIsCommonCatalog}"/>
+                </apex:pageBlockButtons>
+            </apex:pageBlock>
+        </apex:outputPanel>
+    </apex:form>
+    
+    <script >
+    invoke();
+    </script>
+</apex:page>

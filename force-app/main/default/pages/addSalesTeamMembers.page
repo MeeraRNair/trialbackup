@@ -1,0 +1,66 @@
+<apex:page Controller="VFCntrlr_UpdateSalesTeamAdd" title="Add Sales Team Members" lightningStyleSheets="true" tabStyle="Opportunity" >
+    <script type="text/javascript">
+    function processOnClick(save,savemore,cancel){
+        document.getElementById('ProcessNote').style.display='block';
+        document.getElementById(savemore).disabled='true';
+        document.getElementById(save).disabled='true';
+        document.getElementById(cancel).disabled='true';
+        
+    }
+    function processOnComplete(){
+        document.getElementById('ProcessNote').style.display='none';
+    }
+    
+    </script>
+    
+    <apex:sectionHeader title="Opportunity : {!Opportunity.name} "  subtitle="New Sales Team Members" rendered="{!DataAvailable}">
+    </apex:sectionHeader>
+    
+    <apex:form id="theform">
+        <apex:pageMessages />
+        <apex:pageBlock id="pageBlockForAdd" mode="edit" rendered="{!DataAvailable}" >
+            
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton id="save" value="Save" Title="Save" action="{!save}" />                    
+                <apex:commandButton id="savemore" value="Save & More" Title="Save & More" Onclick="processOnClick('{!$Component.savemore}','{!$Component.save}','{!$Component.cancel}')"  
+                                    action="{!saveandmore}" rerender="theform" Oncomplete="processOnComplete()"  />      
+                <apex:commandButton id="cancel" value="Cancel" Title="Cancel" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockTable value="{!OpportunityTeamMemberList}" var="TeamMember">
+                
+                <apex:column headerValue="User">
+                    <apex:inputField value="{!TeamMember.UserId}" required="false"/>
+                </apex:column>
+                
+                <apex:column headerValue="Team Role">                                           
+                    <apex:inputField id="inputTeamRole" value="{!TeamMember.teammemberrole}" required="false"/>
+                </apex:column>
+                
+                <!--<apex:message id="MessageforRole" title="Title" for="inputTeamRole" ></apex:message>-->
+                
+                <apex:column headerValue="Opportunity Access">
+                    <apex:selectList value="{!access}" size="1"> 
+                        <apex:selectOptions value="{!items}"/>
+                    </apex:selectList>
+                </apex:column>
+                <!-- Primary/Secondary Specialty SE: STORY 7581005	-->
+                <apex:column headerValue="Primary/Secondary Specialty SE">                                           
+                    <apex:inputField id="inputTeamSE" value="{!TeamMember.Primary_Secondary_Specialty_SE__c}" required="false"/>
+                </apex:column>
+                
+            </apex:pageBlockTable>
+            
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="Error" rendered="{!NOT(DataAvailable)}">
+            Data not available! 
+            <apex:pageBlockButtons location="bottom" > 
+                <apex:commandButton value="Back" action="{!Cancel}"/>
+            </apex:pageBlockButtons>    
+        </apex:pageBlock>
+        
+        
+    </apex:form>
+    <div id="ProcessNote" style="display:none">Processing... Please wait </div> 
+</apex:page>

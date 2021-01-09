@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>To store proflies to display create quote links</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>ProfileName__c</fullName>
+        <externalId>false</externalId>
+        <label>Profile Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>isDSP__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>To store flag to display create quote link.</description>
+        <externalId>false</externalId>
+        <label>isDSP</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>isUSP__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>To control USP button</description>
+        <externalId>false</externalId>
+        <label>isUSP</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Create Quote Profiles</label>
+    <visibility>Public</visibility>
+</CustomObject>

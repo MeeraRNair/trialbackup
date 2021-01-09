@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EOQ_Late_Submission_EMEA</fullName>
+    <booleanFilter>((1 and 2) OR (5 and 4)) and 3 and 4 and 6 and 7</booleanFilter>
+    <columns>Region__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>NAME</columns>
+    <columns>Approval_Status__c</columns>
+    <columns>Approver_1__c</columns>
+    <columns>Approver_1_Response__c</columns>
+    <columns>Request_Type__c</columns>
+    <columns>Country__c</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>Requested_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Approver_1__c</field>
+        <operation>contains</operation>
+        <value>Guillaume Michiels,Brandi Bradley,Rouchdani Mohammed</value>
+    </filters>
+    <filters>
+        <field>Approver_1_Response__c</field>
+        <operation>notContain</operation>
+        <value>Approved,Rejected</value>
+    </filters>
+    <filters>
+        <field>Request_Status__c</field>
+        <operation>notContain</operation>
+        <value>,Approver(s) Approved,Cancelled,Closed,Rejected,Rejected Hold - Missing Info</value>
+    </filters>
+    <filters>
+        <field>Approver_2_Response__c</field>
+        <operation>notContain</operation>
+        <value>Approved,Rejected</value>
+    </filters>
+    <filters>
+        <field>Approver_2__c</field>
+        <operation>contains</operation>
+        <value>Guillaume Michiels,Brandi Bradley,Rouchdani Mohammed</value>
+    </filters>
+    <filters>
+        <field>Region__c</field>
+        <operation>notContain</operation>
+        <value>APJ,LATAM,NAMER</value>
+    </filters>
+    <filters>
+        <field>Assigned_To__c</field>
+        <operation>greaterThan</operation>
+        <value>A</value>
+    </filters>
+    <label>EOQ Late Submission - EMEA</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>GDM_DPTDS</group>
+    </sharedTo>
+</ListView>

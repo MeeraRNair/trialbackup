@@ -1,0 +1,123 @@
+<!-- ***********************************************************
+* Name          : AccountPlanProductOfferingChart
+* Description   : VF Page using Google chart for Product/Offering Unit Report in Account Plan
+* ---------------------------------------------------------
+* Revision  Name                Date             Description
+* 1.0       Goldy Raj           9.Dec.2019    Story 7540275:Account Planning: Strategy Business Unit Component High Impact(Vikings)
+* 
+* 
+************************************************************ -->
+
+<apex:page controller="AccountPlanChartController" showHeader="false" sidebar="false">
+    <apex:includeScript id="a" value="https://www.google.com/jsapi" />
+    <style>
+        .drawchart{
+        overflow: hidden;  
+        height:315px !important;
+        margin-left: 4px;    
+        }
+        .overlay-label{
+        font-size: 17px;
+        font-family: sans-serif;
+        margin-left: 16px;
+        margin-top: 10px;
+        --lwc-salesforceSansBoldItalicWoff: url(/_slds/fonts/v2.3.0/SalesforceSans-BoldItalic.woff);
+        font-size: var(--lwc-fontSize5,1rem);
+        }
+        .strategyFont{
+        text-align: center;
+        margin-top: 10px;
+        <!--  margin-bottom: 5px; -->
+        margin-left: 26px;
+        --lwc-salesforceSansBoldItalicWoff: url(/_slds/fonts/v2.3.0/SalesforceSans-BoldItalic.woff);
+        font-size: var(--lwc-fontSize5,0.8rem);
+        }
+    </style>
+    
+    <script type="text/javascript" src="/soap/ajax/20.0/connection.js"></script>
+    
+    <!-- Javascript Remote Function To Call Apex Controller Method -->
+        <script type="text/javascript">
+            sforce.connection.sessionId = "{!$Api.Session_ID}";
+    
+    //Load google chart
+    google.load('visualization', '1.0', {'packages':['corechart']});
+    
+    google.setOnLoadCallback(drawChart);
+    //Draw google chart
+    function drawChart() {
+        var locationn = window.location.href; 
+        var accData; //Variable to store data
+        //Call remote action method
+        AccountPlanChartController.BusinessUnitControllerFetchStrategy(locationn,function(result, event){
+            accData  = result; //get data from apex controller
+            //Create the data table.
+            var data = new google.visualization.DataTable();
+            //Add datatable columns
+            data.addColumn('string', 'Product / Solutions offered');
+            data.addColumn('number', 'No of Strategies');
+            var maxValue=0;
+            for(var m in accData){
+                data.addRow([m, accData[m]] );
+                var val=accData[m];
+                if(maxValue<val){
+                    maxValue=val;
+                }
+            }
+            var gridValue=0; 
+            if(maxValue==0){
+                gridValue=0;
+            }
+            else {
+                gridValue=maxValue+1;
+            }
+            //Set chart options
+            var options = {
+                legend: { position: 'none'},
+                'chartArea': { top:20,'height': '65%','width' : '56%'},
+                
+                hAxis: {
+                    viewWindow: {
+                        min:0,
+                        
+                    },
+                    gridlines: {
+                        count: gridValue  
+                    },
+                },
+                //  hAxis: {title: 'Strategies',format: '0' ,minValue: '1',viewWindow:{min:0}, },
+                vAxis: {title: 'Product / Solutions',     	
+                        titleTextStyle: {
+                            fontSize: 12, 
+                            fontFamily: 'sans-serif',
+                            bold: false,
+                            italic: false
+                        },
+                        textStyle : {
+                            fontSize: 10, 
+                            fontFamily: 'sans-serif',
+                        }
+                       },
+                'tooltip' : {
+                    trigger: 'none'
+                },
+                height: 400,
+                bar: {groupWidth: "90%"},
+                colors: ['lightseagreen'],
+                FontSize: 5, 
+                
+            };
+            
+            
+            var chart = new google.visualization.BarChart(document.getElementById('barChart'));
+            chart.draw(data,options);
+        },{escape:true});
+    }
+    </script>
+   
+    <div class="overlay-label">Product / Solutions Offered</div>
+    <div class="strategyFont">Strategies</div>
+    <div id="barChart" class="drawchart" />
+    
+    
+</apex:page>

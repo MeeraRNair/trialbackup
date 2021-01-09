@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SOC_APJ_WIP</fullName>
+    <columns>Region_F__c</columns>
+    <columns>NAME</columns>
+    <columns>Opportunity__c</columns>
+    <columns>Deal_ID__c</columns>
+    <columns>Status__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Intake_Manager_SOC__c</columns>
+    <columns>SOM__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Support_Request__c.Request_Solution_Operation_Center_Support</value>
+    </filters>
+    <filters>
+        <field>Region_F__c</field>
+        <operation>equals</operation>
+        <value>APJ</value>
+    </filters>
+    <label>SOC - APJ WIP</label>
+    <language>en_US</language>
+</ListView>

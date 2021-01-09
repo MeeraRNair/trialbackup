@@ -1,0 +1,88 @@
+<apex:page standardcontroller="Opportunity" extensions="Vfcntrl_SalesmotionSelection" action="{!checkAndRedirect}">
+    <style type="text/css">
+        .pbHeader{ 
+          height:20px;
+         font-size:100%
+        } 
+         .bodyDiv{
+         font-size:100%
+        }
+    </style>
+    
+    <apex:pageMessages id="showmsg" rendered="{!bhasError}"></apex:pageMessages>
+    <apex:form rendered="{!!bhasError}" >
+        <apex:pageBlock title="{!$Label.Select_Salesmotion}">
+            <apex:pageBlockTable value="{!listacc}" var="acc">
+                <apex:column >
+                    <apex:facet name="header"></apex:facet>
+                    
+                    <apex:commandLink value="{!$Label.Select_SM}" action="{!updateSelectedAccToCon}">
+                        <apex:param name="strselectSMId"
+                                    value="{!acc.Id}"
+                                    assignTo="{!strselectSMId}"/>
+                    </apex:commandLink>
+                    
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">{!$Label.SalesMotion}</apex:facet>
+                    <apex:outputText value="{!acc.Name}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">{!$Label.SalesMotion_Type}</apex:facet>
+                    <apex:outputText value="{!acc.Partner_Description__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">{!$Label.PartnerAccount}</apex:facet>
+                    <apex:repeat value="{!mapaccIdToName[acc.id]}" var="map">
+                        <apex:outputText value="{!map}"/> <br/>
+                    </apex:repeat>
+                </apex:column>   
+                 <apex:column >
+                    <apex:facet name="header">{!$Label.Storage_Preferred_Distributor}</apex:facet>
+                    <apex:repeat value="{!mapaccIdToSponsoringDist[acc.id]}" var="map">
+                        <apex:outputText value="{!map}"/> <br/>
+                    </apex:repeat>
+                </apex:column>   
+                <apex:column >
+                    <apex:facet name="header">{!$Label.Dell_AffinityId}</apex:facet>
+                    <apex:outputText value="{!acc.Account_ID__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">{!$Label.Channel_Manager_SM}</apex:facet>
+                    <apex:outputText value="{!acc.Owner.Name}"/>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <table border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+               <tr>
+                   <th style="background-color:rgb(204,204,204); border:none;">{!$Label.SalesMotion_Type}</th>
+                   <th style="background-color:rgb(204,204,204); border:none; text-align:center;">{!$Label.Description_SM}</th>
+               </tr> 
+            	<tr>
+                     <td><b>{!$Label.Back_to_Back}</b></td>
+                     <td>{!$Label.Back_to_Back_Description}</td>
+                   </tr>
+            		 <tr>
+                       <td><b>{!$Label.Resell}</b></td>
+                       <td>{!$Label.Resell_Description}</td>
+                   </tr>
+                   <tr>
+                       <td><b>{!$Label.Sell_In}</b></td>
+                       <td>{!$Label.Sell_In_Description}</td>
+                   </tr>                  
+            		<tr>
+                       <td><b>{!$Label.Sell_Out_Dedicated}</b></td>
+                       <td>{!$Label.Sell_Out_Dedicated_Description}</td>
+                   </tr>
+                   
+            		<tr>
+                       <td><b>{!$Label.Stock_and_Sell}</b></td>
+                       <td>{!$Label.Stock_and_Sell_Description}</td>
+                   </tr>
+        </table>            
+    </apex:form>
+</apex:page>

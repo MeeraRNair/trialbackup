@@ -1,0 +1,81 @@
+<apex:page standardController="Opportunity" extensions="VFCntrlr_OpptyMarketingRunRateNewExt">
+    <style>
+        #notificationBox{
+            text-align: left;
+            margin: 0 auto;
+            width: 600px;
+            border-style: solid; 
+            border-color: #000000; 
+            border-width: 1px;
+        }
+    
+        .header{
+            font-weight: bold;
+            font-family:'Verdana','Geneva',sans-serif;
+            border-bottom-style: solid; 
+            border-bottom-color: #000000; 
+            border-bottom-width: 1px; 
+            background-color: #dddddd;
+            height: 20px;
+            padding-top: 5px;
+            padding-left: 20px;
+        }       
+        
+        .footer{
+            border-top-style: solid; 
+            border-top-color: #000000; 
+            border-top-width: 1px; 
+            background-color: #dddddd;
+            text-align: right;
+            padding: 8px 8px 8px 12px;
+        }
+        
+        .content{
+            width: 100%;
+            padding: 5px; 0px;
+        }
+        
+     </style>
+     
+    <apex:outputPanel rendered="{!!showOpptyDetail}">
+          <div id="notificationBox">
+	        <apex:form >
+	            <div class="header"></div>
+	             <div class="content" >
+	                <apex:pageMessage severity="INFO" strength="3" title="Creating Run Rate Opportunity"
+	                        detail="Please do not use Run Rate Opportunity option if the Run Rate volume for any one delivery exceeds 1,000 Notebooks/Desktops or 100 Servers/Storage units. 
+	                                Please enter as a Standard Opportunity so these can go through the LOT process." /> 
+	             </div>
+	             <div class="footer">
+	                 <apex:commandButton id="btnContinueRunrate" value="Continue" action="{!confirmContinue}"></apex:commandButton>	               	                
+	             </div>
+	        </apex:form>
+	    </div>    
+    </apex:outputPanel> 
+
+    <apex:form rendered="{!showOpptyDetail}">
+        <apex:pageBlock mode="Edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="Save"/>
+                <apex:commandButton action="{!cancel}" value="Cancel"/>    
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection >
+                <apex:inputField value="{!Opportunity.Name}"/>
+                <apex:inputField value="{!Opportunity.CurrencyISOCode}"/>
+                <apex:inputField value="{!Opportunity.AccountId}"/>
+                <apex:inputField value="{!Opportunity.Amount}"/>
+                <apex:inputField value="{!Opportunity.Type}"/>
+                <apex:inputField value="{!Opportunity.CloseDate}"/>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Record Type</apex:outputLabel>
+                    <apex:outputText >Run Rate Marketing</apex:outputText>
+                </apex:pageBlockSectionItem>
+                <apex:inputField value="{!Opportunity.StageName}"/>
+                <apex:inputField value="{!Opportunity.CampaignId}"/>
+                <apex:inputField value="{!Opportunity.Probability}"/>  
+                <apex:inputField value="{!Opportunity.Solution_ID__c}"/>                
+            </apex:pageBlockSection>    
+        </apex:pageBlock>
+      </apex:form>
+             
+</apex:page>

@@ -1,0 +1,27 @@
+<apex:page Controller="OpptyProdSupplyChainContact_ctl" tabStyle="Supportability_Contacts__c" lightningStylesheets="true">
+ <apex:form >
+        <apex:pageBlock rendered="{!No_Recs}">
+            <apex:pageBlockSection id="b1">
+                <apex:pageMessage id="recordnotfound" severity="Error" strength="2" title="No Supply Chain Contacts are available!">
+                </apex:pageMessage>
+            </apex:pageBlockSection>
+         </apex:pageBlock>
+         <apex:pageBlock title="Supply Chain Contacts" rendered="{!Recs_Found}">   
+           
+                <apex:pageBlockTable value="{!SupCnts}" var="Cts" cellPadding="10" border="1">           
+                   <apex:column headerValue="Contact Name"> {!Cts.Contact_Name__r.Name}  
+                   </apex:column>
+                   <apex:column headerValue="Regional Parent Name"> {!Cts.Regional_Parent_Name__c}  
+                   </apex:column>
+                   <apex:column headerValue="Regional Sub Parent Name"> {!Cts.Regional_Sub_Parent_Name__c}  
+                   </apex:column>
+                   <apex:column headerValue="Focus"> {!Cts.Focus__c}  
+                   </apex:column>                
+                   <apex:column headerValue="Contact Email"> 
+                      <apex:outputLink value="mailto:{!Cts.Contact_Email__c}">{!Cts.Contact_Email__c}</apex:outputLink>
+                   </apex:column>                
+            </apex:pageBlockTable> 
+            
+        </apex:pageBlock>
+      </apex:form>
+</apex:page>

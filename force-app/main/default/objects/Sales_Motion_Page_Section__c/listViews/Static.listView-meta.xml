@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Static</fullName>
+    <columns>NAME</columns>
+    <columns>Domain__c</columns>
+    <columns>Solution_Type__c</columns>
+    <columns>Solution_Name__c</columns>
+    <columns>Sales_Motion_Name__c</columns>
+    <columns>SalesMotionUniqueID__c</columns>
+    <columns>Country_List__c</columns>
+    <columns>IsActive__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Sales_Motion_Page_Section__c.Static_Content</value>
+    </filters>
+    <label>Static</label>
+    <language>en_US</language>
+</ListView>

@@ -1,0 +1,382 @@
+<apex:page standardController="Territory_Plan__c" extensions="TP_AccRevTrendsCtrlExt,TP_PageNavCtrlExt" sidebar="false" lightningStylesheets="true">
+    
+    <style type="text/css">
+        
+        body .pbBody table.list tr th, body .pbBody table.list tr td {
+    border: 1px solid #ededed;
+    color: #000;
+}
+        body .bPageBlock .pbBody { 
+            padding: 15px 0 0 0;
+        }
+        .tb {
+            border: 0px solid black;
+            border-spacing: 0px 1px; 
+            width:100%
+        }
+        
+        <!-- style header text -->
+        .tb .tg-hdr{
+            font-size:26px;
+            font-family:'Arial White', Gadget, sans-serif !important; 
+            padding: 0px 0px 10px 15px;
+            text-indent:15px;
+        }
+        
+        .tb .tg-tdContent1{
+            border: 0px solid black;
+            width:70%;
+            padding: 0px 0px 0px 0px;
+            vertical-align: top;
+        }
+        
+        <!-- Style table -->
+        .tb .tg-tdContent1 .firsttable{
+            position: relative;
+            top: 5px;
+            border: 1px dotted #42AEAF; 
+            width: 100%;
+            height:500px;
+            padding:10px 5px 5px 5px; 
+            margin-right:10px;
+        }
+        .tb .tg-tdContent1 .firsttable .colmone {
+            color: white !important; 
+            background :#007db8 !important;
+            text-align :center !important;
+        }
+        .tb .tg-tdContent1 .firsttable .colmtwo {
+            color: white !important; 
+            background :#42aeaf !important;
+            text-align :center !important;
+        }
+        .tb .tg-tdContent1 .firsttable .colmthree {
+            color: white !important; 
+            background :#00447c !important;
+            text-align :center !important;
+        }
+        .tb .tg-tdContent1 .firsttable .colmfour {
+            color: white !important; 
+            background :#f2af00 !important;
+            text-align :center !important;
+        }
+        .tb .tg-tdContent1 .firsttable .colmfive-eight {
+            color: white !important; 
+            background :#aaaaaa !important;
+            text-align :center !important;
+        }
+        .tb .tg-tdContent1 .firsttable .colmnine-ten {
+            color: black !important; 
+            background :#eeeeee !important;
+            text-align :center !important;
+        }
+        
+        .tb .tg-tdContent1 .firsttable .outBorder {
+            border:2px solid black !important;
+        }
+        .tb .tg-tdContent1 .firsttable .outBorder .inBorder-top{
+            border-top:1px solid black !important;
+        }
+        .tb .tg-tdContent1 .firsttable .outBorder .inBorder{
+            border-top:1px solid black !important;
+            border-left:1px solid black !important;
+         }
+        .tb .tg-tdContent1 .firsttable .outBorder .colm-bg-colr1{
+            background : #ffffff !important;
+            min-width:250px;
+        }
+        .tb .tg-tdContent1 .firsttable .outBorder .colm-bg-colr2{
+            background : #e3f4f3 !important;
+        }
+        .tb .tg-tdContent1 .firsttable .outBorder .colm-bg-colr3{
+            background : #b2dcff !important;
+        }
+        .tb .tg-tdContent1 .firsttable .outBorder .colm-bg-colr4{
+            background : #fff0c9 !important;
+        }
+        .tb .tg-tdContent1 .firsttable .outBorder .colm-bg-colr5_8{
+            background : #f2f2f2 !important;
+        }
+        
+        .tb .tg-tdContent1 .firsttable .outBorder .colm-bg-colr9_10{
+            background : white !important;
+        }
+        
+        .tb .tg-tdContent1 .firsttable .tablePgntn{
+            position: absolute; 
+            bottom: 5px; left:35%;
+        }
+        
+        <!-- style heading and input field boxes -->
+        .tb .tg-tdContent2{
+            border: 0px solid black;
+            width:30%;
+            padding-left:15px;
+            vertical-align:top;
+        }
+        .tb .tg-tdContent2 .tg-tdContent2-parg{
+            position:relative;
+            display:block;
+            text-align:left;
+            font-size:16px;
+            color: #FFFFFF;
+            background-color:#42AEAF; 
+            padding:15px 0 15px 0px;
+            border: 1px solid #42AEAF;
+            width:100%;
+            top:0px;
+            text-indent:20px;
+        }              
+        .tb .tg-tdContent2 .tg-tdContent2-inputFld{
+            border: 0px solid #AAAAAA;
+            width:99.45%;
+            height:465px;
+            margin-top:0px;
+            background-color:#AAAAAA;
+            color:#FFFFFF;
+            resize:none;
+        }
+        
+        <!-- Style dot circle box left -->
+        .tb .dot1{
+            vertical-align:top;
+            padding-left:25px;
+        }       
+        .rectangle1  { 
+            position:relative;  
+            border: 1px solid #444444; 
+            width: 25px; 
+            height: 25px; 
+            background: #444444; 
+        }
+        .rectangle1 div{ 
+            background: white; 
+            margin: 5px 5px 5px 5px;
+            width: 13px; 
+            height: 13px; 
+            border-radius: 64px; 
+            border : 1px solid white; 
+        } 
+        .dotConnection1{
+            border-bottom: 1px dotted #42AEAF;
+            padding: 0px 35px 0px 0px; 
+            margin:5px 2px 0px 15px; 
+        }
+        
+        <!-- Style dot circle box right -->
+        .tb .dot2{
+            vertical-align:top;
+            padding-left:17px;
+        }
+        .rectangle2  {
+            position:relative;  
+            border: 1px solid #444444; 
+            width: 25px; 
+            height: 25px; 
+            background: #444444; 
+        }
+        .rectangle2 div{ 
+            background: white; 
+            margin: 5px 5px 5px 5px;
+            width: 13px; 
+            height: 13px; 
+            border-radius: 64px; 
+            border : 1px solid white; 
+        }
+        .dotConnection2{
+            border-bottom: 1px dotted #42AEAF; 
+            padding: 0px 0px 0px 0px; 
+            margin:5px 15px 0px -35px;
+        } 
+        
+         <!-- Style hint section -->
+        .Bulb-logo{
+            position: relative; 
+            top: 15px; 
+            left:0px;
+        }
+        .underLine-logo {
+            position: relative; 
+            padding: 5px 0 0 0;
+            top:12px; 
+            left:17px; 
+            border-bottom :1px solid #888888; 
+            border-left: 1px solid #888888; 
+            width: 85%; 
+            height: 20px;
+        }
+        .DellEMC-logo { 
+            position: relative; 
+            top:-10px;
+            float:right;
+            padding: 0px 0px 0px 0px;
+            margin: 0px 10px;
+        }        
+        .hintText{
+            font-style:italic; 
+            font-size: 12px;
+            position: relative;
+            padding:0px 0px 0px 0px;
+            top:-25px;
+            left: 15px;
+            margin:5px;
+        }
+                
+        .tb .tg-tdBtns{
+            text-align:right;
+            padding: 15px 10px 0px 0px; 
+        }
+        
+        .tb .tg-tdBtns .btn{
+            margin-left:3px;
+            margin-right:3px;        
+        }
+        
+        .tb .footer {
+            width: 100%;
+            color:black;
+            text-align: center;
+            padding:0px;
+            font-size:12px;
+        }   
+        <!-- To reduce margin-bottom at bottom of page -->      
+        body .bDetailBlock.bPageBlock, body .individualPalette .bDetailBlock.bPageBlock { 
+            border: 0;
+            background-color: transparent;
+            margin-bottom: 0px;
+        }
+        <!-- to style complete page in classic and lightning and reduce bottom padding -->
+        body .bodyDiv .outerNoSidebar{  
+            padding-bottom: 0px;
+            max-height: 100%;
+            max-width: 100%;
+        }
+        <!-- placeholder color for different browsers -->
+        ::-webkit-input-placeholder { /* Chrome */
+            color: white;
+        }
+        :-ms-input-placeholder { /* IE 10+ */
+            color: white;
+        }
+        ::-moz-placeholder { /* Firefox 19+ */
+            color: white;
+        }
+        :-moz-placeholder { /* Firefox 4 - 18 */
+            color: white;
+        }
+        
+    </style> 
+    
+    <apex:pageBlock mode="maindetail" id="pbId">
+        <apex:pageMessages id="showmsg"></apex:pageMessages>
+        <table class="tb" id="tblId">
+            <tr id="hd-trId">
+                <th class="tg-hdr" id = "hdrId" colspan="4">Account Revenue Trends</th>
+            </tr>
+            <apex:form id="formId">
+                <tr id="content-tr1Id">
+                    <td class="tg-tdContent1" id="content-td1Id">
+                        <div class="firsttable" id="fisttblediv">
+                            <apex:pageblocktable value="{!TPARTShowList}" var="row" columns="10" styleclass="outBorder" id="pbtable" >
+                                <apex:repeat value="{!colHeadersList}" var="col">
+                                    <apex:column headervalue="{!accName}" headerClass="colmone" styleClass="inBorder-top colm-bg-colr1 " id="colmn-1">
+                                        {!row.accountName}
+                                    </apex:column>
+
+                                    <apex:column headervalue="{!col[3]}" headerClass="colmtwo" styleClass="inBorder colm-bg-colr2" id="colmn-2">
+                                        {!row.fy1}
+                                    </apex:column>
+                                    <apex:column headervalue="{!col[2]}" headerClass="colmthree" styleClass="inBorder colm-bg-colr3" id="colmn-3">
+                                        {!row.fy2}
+                                    </apex:column>
+                                    <apex:column headervalue="{!col[1]} YTD" headerClass="colmfour" styleClass="inBorder colm-bg-colr4" id="colmn-4">
+                                        {!row.fy_YTD}
+                                    </apex:column>
+                                    <apex:column headervalue="{!col[1]} Q1" headerClass="colmfive-eight" styleClass="inBorder colm-bg-colr5_8" id="colmn-5">
+                                        {!row.fy_Q1}
+                                    </apex:column>
+                                    <apex:column headervalue="{!col[1]} Q2" headerClass="colmfive-eight" styleClass="inBorder colm-bg-colr5_8" id="colmn-6">
+                                        {!row.fy_Q2}
+                                    </apex:column>
+                                    <apex:column headervalue="{!col[1]} Q3" headerClass="colmfive-eight" styleClass="inBorder colm-bg-colr5_8" id="colmn-7">
+                                        {!row.fy_Q3}
+                                    </apex:column>
+                                    <apex:column headervalue="{!col[1]} Q4" headerClass="colmfive-eight" styleClass="inBorder colm-bg-colr5_8" id="colmn-8">
+                                        {!row.fy_Q4}
+                                    </apex:column>
+                                    <apex:column headervalue="{!qGrowth}" headerClass="colmnine-ten" styleClass="inBorder colm-bg-colr9_10" id="colmn-9">
+                                        {!row.qq_Growth}
+                                    </apex:column>
+                                    <apex:column headervalue="{!yGrowth}" headerClass="colmnine-ten" styleClass="inBorder colm-bg-colr9_10" id="colmn-10">
+                                        {!row.yy_Growth}
+                                    </apex:column>
+                                </apex:repeat>
+                            </apex:pageblocktable>
+                            
+                            <div class="tablePgntn" id="pgnationdiv">
+                                <apex:commandLink value="<<" action="{!first}" rendered="{!NOT(DisablePrevious)}" id="cmdlink-1"/> &nbsp;&nbsp;
+                                <apex:outputText label="<<" value="<<" rendered="{!DisablePrevious}" id="cmdlinktxt-1"/>&nbsp;&nbsp;
+                                
+                                <apex:commandLink value="previous" action="{!previous}" rendered="{!NOT(DisablePrevious)}" id="cmdlink-2"/>&nbsp;&nbsp;
+                                <apex:outputText label="previous" value="previous" rendered="{!DisablePrevious}" id="cmdlinktxt-2"/>&nbsp;&nbsp;
+                                
+                                <apex:commandLink value="next" action="{!next}" rendered="{!NOT(DisableNext)}" id="cmdlink-3"/>&nbsp;&nbsp;
+                                <apex:outputText label="next" value="next" rendered="{!DisableNext}" id="cmdlinktxt-3"/>&nbsp;&nbsp;
+                                
+                                <apex:commandLink value=">>" action="{!last}" rendered="{!NOT(DisableNext)}" id="cmdlink-4"/>&nbsp;&nbsp;
+                                <apex:outputText label=">>" value=">>" rendered="{!DisableNext}" id="cmdlinktxt-4"/>&nbsp;&nbsp;
+                                <apex:outputLabel value=" (table {!table} of {!totalTables})" id="pgenum"/> 
+                            </div>
+                            
+                        </div>
+                    </td>
+                    <td class="dot1" id="dot1Id">
+                        <div class="rectangle1"  id="rect1Id">
+                            <div id="circle1Id">
+                                <p class="dotConnection1" id="connect1Id"></p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="tg-tdContent2" id="content-td2Id">
+                        <apex:outputText styleclass="tg-tdContent2-parg" id="paraId" value="Observations & Actions"></apex:outputText>
+                        <apex:inputfield value="{!Territory_Plan__c.ART_Observations_Actions__c}" styleclass="tg-tdContent2-inputFld" html-placeholder="  Type observations & actions here." id="inputId"/>
+                    </td>
+                    <td class="dot2" id="dot2Id">
+                        <div class="rectangle2"  id="rect2Id">
+                            <div id="circle2Id">
+                                <p class="dotConnection2" id="connect2Id"></p>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                
+                <tr id="hint-trId">
+                    <td class="tg-tdHint" id="hint-tdId" colspan="4">
+                        <div class="Bulb-logo" id="bulb-divId">
+                            <apex:image url="{!URLFOR($Resource.TP_PPT_Images, 'TP_PPT_Images/Bulbicon_hint.png')}" width="35" height="35" alt="Description of image here" id="bulb-logoId"/>
+                        </div>
+                        <div class="underLine-logo" id="underlineDivId">
+                            <apex:outputtext styleClass="hintText" id="hintTextId" value="Use this data to track your revenue trends over the last 3 years. You will also find a by-quarter breakout for the current year’s data. Your accounts are sorted on total revenue, highest to lowest for the current year. Document any growth trends or declining accounts that need more attention. For more details, leverage the BMS Customer Engagement Map."/>
+                        </div>
+                        <apex:image styleClass="DellEMC-logo" url="{!URLFOR($Resource.TP_PPT_Images, 'TP_PPT_Images/DellEMC.png')}" width="90" height="15" alt="Description of image here" id="dellEMClogoId"/>
+                    </td> 
+                </tr>
+                <tr id ="tr-btnId">
+                    <td class="tg-tdBtns" colspan="4" id="td-btnId">
+                        <apex:commandButton action="{!saveRecord}" value="Save" id="saveId" styleClass="btn"/> 
+                        <apex:commandButton action="{!goToPrevPage}" value="Previous" id="backId" styleClass="btn"/>
+                        <apex:commandButton action="{!goToNextPage}" value="Next" id="nextId" styleClass="btn"/>
+                        <apex:commandButton action="{!cancel}" value="Cancel" id="cancelId" styleClass="btn"/>
+                    </td>
+                </tr>
+                <tfoot>
+                    <tr>
+                        <td class="footer" colspan ="5">
+                            [ {!currentPageNum} of {!totalPages} ]
+                        </td>
+                    </tr>
+                </tfoot>
+            </apex:form>
+        </table>
+    </apex:pageBlock>
+</apex:page>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Event_Type__c</fullName>
+    <description>for specifying DSC event type for the subject</description>
+    <externalId>false</externalId>
+    <label>Event Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Engagement_Type__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Briefing</fullName>
+                <default>false</default>
+                <label>Briefing</label>
+            </value>
+            <value>
+                <fullName>Tour</fullName>
+                <default>false</default>
+                <label>Tour</label>
+            </value>
+            <value>
+                <fullName>Architectural Design Session</fullName>
+                <default>false</default>
+                <label>Architectural Design Session</label>
+            </value>
+            <value>
+                <fullName>Proof of Concept</fullName>
+                <default>false</default>
+                <label>Proof of Concept</label>
+            </value>
+            <value>
+                <fullName>Training</fullName>
+                <default>false</default>
+                <label>Training</label>
+            </value>
+            <value>
+                <fullName>Marketing &amp; Analyst Events</fullName>
+                <default>false</default>
+                <label>Marketing &amp; Analyst Events</label>
+            </value>
+            <value>
+                <fullName>Internal Engagements</fullName>
+                <default>false</default>
+                <label>Internal Engagements</label>
+            </value>
+            <value>
+                <fullName>Field Briefing</fullName>
+                <default>false</default>
+                <label>Field Briefing</label>
+            </value>
+            <value>
+                <fullName>Meeting</fullName>
+                <default>false</default>
+                <label>Meeting</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>DSC</controllingFieldValue>
+            <controllingFieldValue>EBC</controllingFieldValue>
+            <valueName>Briefing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>DSC</controllingFieldValue>
+            <valueName>Architectural Design Session</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>DSC</controllingFieldValue>
+            <valueName>Proof of Concept</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>DSC</controllingFieldValue>
+            <valueName>Training</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>DSC</controllingFieldValue>
+            <valueName>Marketing &amp; Analyst Events</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>DSC</controllingFieldValue>
+            <valueName>Internal Engagements</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>EBC</controllingFieldValue>
+            <valueName>Tour</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>EBC</controllingFieldValue>
+            <valueName>Field Briefing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>EBC</controllingFieldValue>
+            <valueName>Meeting</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>5</visibleLines>
+</CustomField>

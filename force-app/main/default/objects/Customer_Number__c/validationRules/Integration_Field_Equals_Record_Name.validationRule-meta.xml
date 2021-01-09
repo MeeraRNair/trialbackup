@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Integration_Field_Equals_Record_Name</fullName>
+    <active>true</active>
+    <description>This validation is primarily for those countries that are not on Affinity and where Customer Number records are being created manually.  INTEGRATION ALSO REQUIRES THIS SYNTAX</description>
+    <errorConditionFormula>AND(RecordType.DeveloperName &lt;&gt; &apos;EMC_RT&apos;,Customer_Number_BU_Integ__c &lt;&gt;(Name &amp; BU_ID__c), 
+NOT(CONTAINS(Name ,&quot;ACQ-EMC&quot;)),
+NOT(AND(Queue_Region__c =&quot;XREF&quot;)))</errorConditionFormula>
+    <errorDisplayField>Customer_Number_BU_Integ__c</errorDisplayField>
+    <errorMessage>This value must equal the Customer Number + BU</errorMessage>
+</ValidationRule>

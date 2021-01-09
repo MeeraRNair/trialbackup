@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approach_to_Disk_Backup__c</fullName>
+    <externalId>false</externalId>
+    <label>Approach to Disk Backup</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Production Disk to Tape</fullName>
+                <default>false</default>
+                <label>Production Disk to Tape</label>
+            </value>
+            <value>
+                <fullName>Production Disk to Archival Disk (like SATA) to Tape</fullName>
+                <default>false</default>
+                <label>Production Disk to Archival Disk (like SATA) to Tape</label>
+            </value>
+            <value>
+                <fullName>Production Disk to Disk based Virtual Tape Library (VTL)</fullName>
+                <default>false</default>
+                <label>Production Disk to Disk based Virtual Tape Library (VTL)</label>
+            </value>
+            <value>
+                <fullName>Production Disk to deduplication appliance no tape</fullName>
+                <default>false</default>
+                <label>Production Disk to deduplication appliance no tape</label>
+            </value>
+            <value>
+                <fullName>Production Disk to deduplication appliance to tape</fullName>
+                <default>false</default>
+                <label>Production Disk to deduplication appliance to tape</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

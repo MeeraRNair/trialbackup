@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Summary_Status__c</fullName>
+    <description>INTEG-N /NON INTEG -Y/ APEX/CC - N ||
+WF / APP/ FU / OM -  N||
+Desc -  This serves the purpose of evaluating the status field anbd sorting it into buckets summary status||
+SFA -Y/PRM -N||
+VAL -N || 
+CR# - ||</description>
+    <externalId>false</externalId>
+    <formula>IF(ISPICKVAL(S__c,&quot;Sent&quot;),&quot;Unqualified&quot;, 
+IF(ISPICKVAL(S__c,&quot;Contacted&quot;),&quot;Unqualified&quot;, 
+IF(ISPICKVAL(S__c,&quot;Identified&quot;),&quot;Unqualified&quot;, 
+IF(ISPICKVAL(S__c,&quot;Contacted/Invited&quot;),&quot;Unqualified&quot;, 
+IF(ISPICKVAL(S__c,&quot;Quoted&quot;),&quot;Qualified&quot;, 
+IF(ISPICKVAL(S__c,&quot;Accepted&quot;),&quot;Qualified&quot;, 
+IF(ISPICKVAL(S__c,&quot;Attended&quot;),&quot;Qualified&quot;, 
+IF(ISPICKVAL(S__c,&quot;Completed&quot;),&quot;Qualified&quot;, 
+IF(ISPICKVAL(S__c,&quot;Qualified&quot;),&quot;Qualified&quot;, 
+IF(ISPICKVAL(S__c,&quot;Fully Certified&quot;),&quot;Qualified&quot;, 
+IF(ISPICKVAL(S__c,&quot;Dead End&quot;),&quot;Dead&quot;, 
+IF(ISPICKVAL(S__c,&quot;FutureInterest 3 months or longer&quot;),&quot;Dead&quot;, 
+IF(ISPICKVAL(S__c,&quot;Not Decision Maker&quot;),&quot;Dead&quot;, 
+IF(ISPICKVAL(S__c,&quot;Not Interested&quot;),&quot;Dead&quot;, 
+IF(ISPICKVAL(S__c,&quot;Declined&quot;),&quot;Dead&quot;, 
+IF(ISPICKVAL(S__c,&quot;Returned/Bounced&quot;),&quot;Dead&quot;, 
+IF(ISPICKVAL(S__c,&quot;Bounced&quot;),&quot;Dead&quot;, 
+IF(ISPICKVAL(S__c,&quot;Returned&quot;),&quot;Dead&quot;, 
+IF(ISPICKVAL(S__c,&quot;Extended Warranty&quot;),&quot;Converted&quot;, 
+IF(ISPICKVAL(S__c,&quot;Opportunity created&quot;),&quot;Converted&quot;, 
+IF(ISPICKVAL(S__c,&quot;Agreedto Purchase&quot;),&quot;Converted&quot;, 
+IF(ISPICKVAL(S__c,&quot;Replaced Hardware&quot;),&quot;Converted&quot;,&quot;In Progress&quot; 
+))))))))))))))))))))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Summary Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

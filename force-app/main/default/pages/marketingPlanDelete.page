@@ -1,0 +1,27 @@
+<apex:page standardController="Marketing_Plan__c" 
+extensions="VFCntrlr_EmailDeleteMarketingPlan" action="{!deleteMPlan}">
+<br></br>
+<apex:pageblock >
+   
+  <table width="600px" cellpadding="0" cellspacing="0" align="center" border="0">
+        <tr>
+            <td>
+                <apex:form >                    
+                    <div>
+                        <apex:pageMessage severity="info" strength="3"  title="Record  cannot be deleted" 
+                        detail="Marketing Plan cannot be deleted because it has been either Submitted for approval, Accepted,Signed or Declined
+                        OR status of Associate Program records of this marketing plan is not Pending"/>
+                        
+                        <table align="center">
+                            <tr><td>
+                                <apex:commandButton value="Back" action="{!Cancel}"/>
+                                
+                            </td></tr>
+                        </table>
+                    </div>                  
+                </apex:form>
+            </td>
+        </tr>
+    </table>
+</apex:pageblock>
+</apex:page>

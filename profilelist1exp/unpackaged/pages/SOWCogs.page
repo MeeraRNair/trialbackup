@@ -1,0 +1,415 @@
+<apex:page standardController="Marketing_Plan__c" extensions="VFCntlr_COGSSOW"  
+    showHeader="False" contentType="application/msword#generateSOW.doc" cache="true">
+<head>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+</head>
+
+    <html Content-Type="application/vnd.msword#generateSOW.doc">
+        <head>                                         
+            <style>
+               @page divbreak
+                 {
+                      margin:.25in .25in .25in .25in;
+                   }
+            div.divbreak {page:divbreak;}
+            td.data{border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;border-collapse:collapse;}
+            table.Bdr{border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;border-collapse:separate;empty-cells:hide;}
+            </style>
+        </head>
+    <body>
+
+    <div class="divbreak">
+        <br clear="all" style="page-break-before:always"/>
+        <table width="90%" align="center" bgcolor="#DCDCDC" class="Bdr">
+            <tr><td align="left"><b>Dell | Software &amp; Peripherals</b></td><td align="right"><b>Dell Vendor Marketing Plan</b></td></tr>
+            <tr><td align="left"><b>{!Marketing_Plan__c.Vendor__r.name}</b></td><td align="right"><b>{!Marketing_Plan__c.fiscal_quarter__c}</b></td></tr>
+        </table>
+        <br></br>
+        <table width="90%" align="center" class="Bdr">
+            <tr><td align="center"><b>{!Marketing_Plan__c.contract_type__c}</b></td></tr>
+            <tr><td></td></tr>
+        </table>
+        <apex:repeat value="{!DisplayDetails}" var="dispDetail">
+            <!-- <table  width="90%" align="center">
+                <tr><td class="data" bgcolor="#DCDCDC"><b>{!dispDetail.packageName}</b></td></tr>         
+            </table>
+            <table width="90%" align="center">
+                <tr> 
+                    <td class="data" width="10%"></td>
+                    <td class="data" width="45%"><b>{!dispDetail.packageName}</b></td>
+                    <td class="data" width="45%"></td>
+                </tr>        
+            </table> -->
+            <table  width="90%" align="center">
+                <tr><td class="data" bgcolor="#DCDCDC" colspan="2"><b>{!dispDetail.businessSegment}</b></td></tr>         
+                <tr>
+                    <td class="data" width="60%"><b>Programs</b> *include but are not limited to the following</td>
+                    <td class="data" width="40%"><b>Program Notes</b></td>
+                </tr> 
+            </table>
+            <!-- <apex:outputPanel rendered="{!dispDetail.packageName!=null}">
+            <table  width="90%" align="center">                 
+                <tr><td colspan="2" class="data">{!dispDetail.packageName}</td></tr>
+            </table>
+            </apex:outputPanel> -->
+            
+             <table width="90%" align="center"   class="Bdr" style="display:{!dispDetail.dispStr}">
+                 <tr>
+                    <td class="data" width="90%">{!dispDetail.packageName}</td>
+                 </tr>
+            </table>
+            
+           <!--  <apex:repeat value="{!dispDetail.apvList}"  var="apvElt">    
+                <table  width="90%" align="center">         
+                    <tr>
+                        <td class="data" width="50%">{!apvElt.MDF_Program__r.name}</td>
+                        <td class="data" width="50%">{!apvElt.Program_Notes__c}</td>
+                    </tr>         
+                </table>
+            </apex:repeat> -->
+            
+            <apex:repeat value="{!dispDetail.apvList}"  var="apvElt">
+                 <table  width="90%" align="center" class="Bdr">
+                     <tr>
+                        <td width="2%"></td>
+                        <td class="data" width="58%">{!apvElt.MDF_Program__r.name}</td>
+                        <td class="data" width="40%">{!apvElt.Program_Notes__c}</td>
+                     </tr>
+                  </table>
+            </apex:repeat> 
+            
+            <apex:repeat value="{!dispDetail.apvListWithoutPkg}"  var="noPkgAPV">
+                 <table  width="90%" align="center" class="Bdr">
+                     <tr>
+                        <td class="data" width="60%">{!noPkgAPV.MDF_Program__r.name}</td>
+                        <td class="data" width="40%">{!noPkgAPV.Program_Notes__c}</td>
+                     </tr>
+                  </table>
+            </apex:repeat>
+            
+            <br></br>   
+        </apex:repeat>
+        
+        
+       <!--  <br></br>
+        <apex:repeat value="{!BSgmntAPV}" var="bsegAPV">
+            <table  width="90%" align="center">
+                <tr><td class="data" bgcolor="#DCDCDC" colspan="2"><b>{!bsegAPV.businessSegment}</b></td></tr>         
+                <tr>
+                    <td class="data" width="50%"><b>Programs</b> *include but are not limited to the following</td>
+                    <td class="data" width="50%"><b>Program Notes</b></td>
+                </tr> 
+            </table>
+            <apex:repeat value="{!bsegAPV.apvList}" var="apvElt">    
+            
+                <apex:outputPanel rendered="{!apvElt.Package__c!=null}">
+                <table  width="90%" align="center">               
+                    <tr><td colspan="2" class="data">{!apvElt.Package__c}</td></tr>
+                </table>
+                </apex:outputPanel>
+
+                <table  width="90%" align="center">         
+                    <tr>
+                        <td class="data" width="50%">{!apvElt.MDF_Program__r.name}</td>
+                        <td class="data" width="50%">{!apvElt.Program_Notes__c}</td>
+                    </tr>
+                </table>
+            </apex:repeat>
+            <br></br>
+        </apex:repeat> -->
+        
+        
+      <!--    <table  width="90%" align="center" style="border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;"> -->
+        <!--    <tr><td class="data" width="50%"><b>PM Name:{!mdfContact.Name}</b></td><td class="data" width="50%">{!TODAY()}</td></tr> -->
+         <!--   <tr><td class="data" width="50%"><b>Phone:{!mdfContact.Phone__c}</b></td><td class="data" width="50%"></td></tr> -->
+       <!-- </table> -->
+      <!--  <br></br> -->
+        <br clear="all" style="page-break-before:always"/>
+    </div>
+
+
+    <div class="divbreak">  
+        <br clear="all" style="page-break-before:always"/>     
+        <table width="90%" align="center" >
+            <tr>
+                <td align="left"><b>{!Marketing_Plan__c.fiscal_quarter__c}</b></td>
+                <td align="right"><b>{!Marketing_Plan__c.Reply_Method__c}</b></td></tr>
+                <tr><td align="left"><b>Dell S &amp; P Marketing Program - COGS ("SOW")</b></td>
+                <td align="right"></td>
+            </tr>
+        </table>
+        <br></br>
+
+        <table  width="90%" align="center"><tr><td style="font-size:12px">
+            <b>Participant Primary Marketing Contact Information: (please print)</b>
+        </td></tr></table>
+        <table  width="90%" align="center" style="border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;">
+            <tr>
+                <td colspan="3" class="data" style="font-size:12px">Company Name:{!Marketing_Plan__c.vendor__r.name}</td>            
+            </tr>
+            <tr>
+                <td  colspan="2" class="data" style="font-size:12px">Primary Marketing Contact Name:{!Marketing_Plan__c.Primary_Marketing_Contact_Name__c}</td>
+                <td class="data" style="font-size:12px">Phone:{!Marketing_Plan__c.Primary_Marketing_Contact_Phone__c}</td>
+            </tr>
+            <tr>
+                <td  colspan="2" class="data" style="font-size:12px">Primary Marketing Contact Title:{!Marketing_Plan__c.Primary_Marketing_Contact_Title__c}</td>
+                <td style="font-size:12px">Fax:{!Marketing_Plan__c.Primary_Marketing_Contact_Fax__c}</td>
+            </tr>
+            <tr>
+                <td  colspan="2" class="data" style="font-size:12px">Primary Marketing Contact E-mail:{!Marketing_Plan__c.Primary_Marketing_Contact_E_mail__c}</td>
+                <td class="data" style="font-size:12px">Cell:{!Marketing_Plan__c.Primary_Marketing_Contact_Cell__c}</td>
+            </tr>
+            <tr>
+                <td  colspan="3" class="data" style="font-size:12px">Address:{!Marketing_Plan__c.Primary_Marketing_Contact_Address__c}</td>            
+            </tr>
+           <!-- <tr>
+                <td class="data" style="font-size:12px">City:{!Marketing_Plan__c.Primary_Marketing_Contact_City__c}</td>
+                <td class="data" style="font-size:12px">State:{!Marketing_Plan__c.Primary_Marketing_Contact_State__c}</td>
+                <td class="data" style="font-size:12px">Zip:{!Marketing_Plan__c.Primary_Marketing_Contact_Zip__c}</td>            
+            </tr> -->
+            <tr>
+                <td colspan="3" class="data" style="font-size:12px">City/State/Postal Code/Country: {!addMarketingStr}</td>            
+            </tr>
+        </table>
+        <br></br>
+        <table  width="90%" align="center" style="font-size:12px"><tr><td>
+            <b>Participant Bill to Contact Information: (please print)</b>
+        </td></tr></table>
+        <table  width="90%" align="center" style="border-style:solid;border-width: 1px 1px 1px 1px;border-color: #000000;">
+            <tr>
+                <td colspan="3" class="data" style="font-size:12px">Company Name:{!Marketing_Plan__c.vendor__r.name}</td>
+            </tr>
+            <tr>
+                <td  colspan="2" class="data" style="font-size:12px">AP / Billing Contact Name:{!Marketing_Plan__c.Billing_Contact_Name__c}</td>
+                <td class="data" style="font-size:12px">Phone:{!Marketing_Plan__c.Billing_Contact_Phone__c}</td>
+            </tr>
+            <tr>
+                <td  colspan="2" class="data" style="font-size:12px">AP / Billing Contact Title:{!Marketing_Plan__c.Billing_Contact_Title__c}</td>
+                <td class="data" style="font-size:12px">Fax:{!Marketing_Plan__c.Billing_Fax__c}</td>
+            </tr>
+            <tr>
+                <td  colspan="2" class="data" style="font-size:12px">AP / Billing Contact E-mail:{!Marketing_Plan__c.Billing_Contact_Email__c}</td>
+                <td class="data" style="font-size:12px">Cell:{!Marketing_Plan__c.Billing_Cell__c}</td>
+            </tr>
+            <tr>
+                <td  colspan="3" class="data" style="font-size:12px">Bill-to Address:{!MarketingPlan.Bill_To_Address__c}</td>            
+            </tr>
+           <!--  <tr>
+                <td class="data" style="font-size:12px">City:{!MarketingPlan.Billing_City__c}</td>
+                <td class="data" style="font-size:12px">State:{!MarketingPlan.Billing_State__c}</td>
+                <td class="data" style="font-size:12px">Zip:{!Marketing_Plan__c.Billing_Zip__c}</td>            
+            </tr> -->
+            <tr>
+                <td colspan="3" class="data" style="font-size:12px">City/State/Postal Code/Country: {!addBillingStr}</td>            
+            </tr>
+            <tr>
+                <td  colspan="3" class="data" style="font-size:12px">Is PO or PA # required for invoicing?
+                Yes () No () If "Yes" , provide PO or PA # : {!Marketing_Plan__c.Purchase_Order__c}</td>            
+            </tr>
+        </table>
+        <br></br>
+        <table  width="90%" align="center" style="border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;">
+            <tr><td style="font-size:12px">Performance Dates: {!Marketing_Plan__c.Fiscal_Quarter__c} {!years}</td></tr>
+            <tr><td style="font-size:12px">Participant Name:{!Marketing_Plan__c.vendor__r.name} </td></tr>
+            <tr><td style="font-size:12px">Program Name: Dell S &amp; P Marketing Program(s), COGS</td></tr>
+            <tr><td style="font-size:12px">Program: Not to exceed {!Marketing_Plan__c.Volume_Based_Rule_Header__r.COGS__c} % of COGS</td></tr>          
+            <tr>
+                <td style="font-size:12px">Calculation Method Details: {!Marketing_Plan__c.Volume_Based_Rule_Header__r.COGS__c} % of COGS payable as MDF <br></br></td></tr>
+                <apex:outputPanel rendered="{!isValueFlatRate}">    
+                    <tr><td style="font-size:12px">Flat Rate Deduction: </td></tr>       
+                    <apex:outputText style="font-size:12px" value="{0,number,USD #,###.00 }"> 
+                        <apex:Param value="{!Marketing_Plan__c.Volume_Based_Rule_Header__r.Flat_Rate_Deduction__c}" />
+                    </apex:OutputText> 
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!isValueDedReason}">
+                <tr><td style="font-size:12px">Deduction Reason: {!Marketing_Plan__c.Volume_Based_Rule_Header__r.Deduction_Reason__c}</td></tr><br></br>
+                </apex:outputPanel>                
+                 <tr><td style="font-size:12px"><b>Volume Based Rule: {!Marketing_Plan__c.Volume_Based_Rule_Header__r.name}</b></td></tr><br></br>              
+                    <table width="90%" align="center" style="border-style:solid;border-width: 1px 1px 1px 1px;border-color:#000000;">
+                        <tr><td class="innerData" colspan="9" style="font-size:11px;"><b>Volume based rule line item details</b></td></tr>
+                        <tr>
+                            <td class="innerData" style="font-size:11px;border:1px solid black;"><b>Accrual%</b></td>
+                            <td class="innerData" style="font-size:11px;border:1px solid black;"><b>Additional Notes </b></td>
+                            <td class="innerData" style="font-size:11px;border:1px solid black;"><b>Amount Per Unit</b></td>
+                            <td class="innerData" style="font-size:11px;border:1px solid black;"><b>Business Segment</b></td>
+                            <td class="innerData" style="font-size:11px;border:1px solid black;"><b>Category</b></td>
+                            <td class="innerData" style="font-size:11px;border:1px solid black;"><b>Class And Sub Class </b></td>
+                            <td class="innerData" style="font-size:11px;border:1px solid black;"><b>DELL SKU #</b></td>
+                            <td class="innerData" style="font-size:11px;border:1px solid black;"><b>Include / Exclude</b></td>
+                            <td class="innerData" style="font-size:11px;border:1px solid black;"><b>Manufacturer</b></td>                    
+                        </tr>                        
+                        <apex:repeat value="{!VBRHLLnList}" var="I">     
+                            <tr>
+                                <td class="innerData" style="font-size:11px;border:1px solid black;"> {!I.Accrual__c} </td>
+                                <td class="innerData" style="font-size:11px;border:1px solid black;"> {!I.Additional_Notes__c} </td>
+                                <td class="innerData" style="font-size:11px;border:1px solid black;">{!Marketing_Plan__c.Currency_Code__c} {!I.Amount_Per_Unit__c*Marketing_Plan__c.Conversion_Rate__c} </td>
+                                <td class="innerData" style="font-size:11px;border:1px solid black;"> {!I.Business_Segment__c} </td>
+                                <td class="innerData" style="font-size:11px;border:1px solid black;"> {!I.Category__c} </td>
+                                <td class="innerData" style="font-size:11px;border:1px solid black;"> {!I.Class_SubClass__c} </td>
+                                <td class="innerData" style="font-size:11px;border:1px solid black;"> {!I.Dell_SKU__c} </td>
+                                <td class="innerData" style="font-size:11px;border:1px solid black;"> {!I.Include_Exclude__c} </td>
+                                <td class="innerData" style="font-size:11px;border:1px solid black;"> {!I.Manufacturer__c} </td>
+                            </tr>                         
+                        </apex:repeat>
+                    </table>
+                    
+                               
+            <tr><td  style="font-size:12px">NOTE: Please be specific in defining formula for MDF calculation as this will be the sole method used to determine COGS-based MDF.</td></tr>       
+            
+        </table>
+        <table  width="90%" align="center"><tr><td style="font-size:12px">{!Marketing_Plan__c.Vendor__r.Terms_Conditions_reference_language__c}</td></tr></table>
+        
+
+        <table  width="90%" align="center" style="border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;">
+            <tr>
+                <td style="width:50%;font-size:12px"><b>AUTHORIZED SIGNATURE (Participant):</b></td>
+                <td style="width:50%;font-size:12px"><b>Company:</b>_________________________________________</td>
+            </tr>
+            <tr>
+                <td style="width:50%;"> </td>
+                <td style="width:50%;font-size:12px"><b>By:______________________________Date:_______________</b></td>           
+            </tr>
+            <tr>
+                <td style="width:50%;"></td>
+                <td style="width:50%;font-size:12px"><b>(Participant Signature)</b></td>
+            </tr>
+            <tr>
+                <td style="width:50%;"></td>
+                <td style="width:50%;">_________________________________________</td>
+            </tr>
+            <tr>
+                <td style="width:50%;"></td>  
+                <td style="width:50%;font-size:12px"><b>(Print name)</b></td>            
+            </tr>
+            <tr>
+                <td style="width:50%;"></td>
+                <td style="width:50%;">_________________________________________</td>
+            </tr>
+            <tr>
+                <td style="width:50%;"></td>  
+                <td style="width:50%;font-size:12px"><b>(Print title)</b></td>            
+            </tr>
+            <tr>
+                <td style="width:50%;font-size:12px"><b>AUTHORIZED SIGNATURE (Dell):</b></td>
+                <td style="width:50%;font-size:12px">{!Marketing_Plan__c.Vendor__r.Dell_Entity__c}</td>
+            </tr>
+            <tr>
+                <td style="width:50%;"> </td>
+                <td style="width:50%;font-size:12px"><b>By:______________________________Date:_______________</b></td>           
+            </tr>
+            <tr>
+                <td style="width:50%;"></td>
+                <!--<td style="width:50%;font-size:12px"><b>(Marketing Contact)</b></td>-->
+            </tr>
+            <tr>
+                <td style="width:50%;"></td>
+                <td style="width:50%;">_________________________________________</td>
+            </tr>
+            <tr>
+                <td style="width:50%;"></td>  
+                <td style="width:50%;font-size:12px"><b>(Print name)</b></td>            
+            </tr>
+            <tr>
+                <td style="width:50%;"></td>
+                <td style="width:50%;">_________________________________________</td>
+            </tr>
+            <tr>
+                <td style="width:50%;"></td>  
+                <td style="width:50%;font-size:12px"><b>(Print title)</b></td>            
+            </tr>
+        </table>
+
+    </div>
+
+    <div  class="divbreak">
+        <br clear="all" style="page-break-before:always"/>
+        <apex:repeat value="{!APVList}" var="mdfPgm">
+            <br></br>
+            <table  width="90%" align="center"  class="Bdr" bgcolor="#DCDCDC" >
+                <tr><td align="left"><b>{!Marketing_Plan__c.Vendor__r.name}</b></td><td align="right"><b>Program Detail Form</b></td></tr>       
+            </table>
+            <br></br>     
+            <table  width="90%" align="center"   class="Bdr">
+                <tr>
+                    <td colspan="2" bgcolor="#DCDCDC"><b>{!mdfPgm.Business_Segment__c} -*{!mdfPgm.MDF_Program__r.Region__c}</b></td>
+                </tr>
+                <tr>
+                    <td class="data" width="60%"><b>{!mdfPgm.MDF_Program__r.name}</b></td>
+                    <td class="data" width="40%"><b>{!Marketing_Plan__c.Vendor__r.name}</b></td>
+                </tr>
+                <tr>
+                    <td class="data" width="60%"><b>{!mdfPgm.MDF_Program__r.Fiscal_Quarter__c}</b></td>
+                    <td class="data" width="40%"></td>
+                </tr>
+            </table>
+            <apex:outputPanel rendered="{!mdfPgm.MDF_Program__r.Program_Type__c!='Headcount'}">
+            <br></br>
+            <table  width="90%" align="center"   class="Bdr">
+                <tr><td bgcolor="#DCDCDC" ><b>Program Objective</b></td></tr>
+                <tr><td class="data" width="60%">{!mdfPgm.MDF_Program__r.Program_Objective__c}</td></tr>
+                <tr><td bgcolor="#DCDCDC"><b>Detail Description</b></td></tr>
+                <tr><td class="data" width="60%">{!mdfPgm.MDF_Program__r.Program_Detail__c}</td></tr>
+            </table>
+            </apex:outputPanel>
+            
+            <apex:outputPanel rendered="{!mdfPgm.MDF_Program__r.Program_Type__c=='Headcount'}">
+            <br></br>
+            <table  width="90%" align="center"   class="Bdr"> 
+            <tr>
+                <td colspan="1" bgcolor="#DCDCDC"><b>Job Description</b></td>
+           </tr>
+           <tr>
+               <td class="data" width="100%">{!mdfPgm.MDF_Program__r.Detailed_Job_Description__c}</td>
+           </tr>
+           </table>
+           </apex:outputPanel>
+           <br></br>
+           <table  width="90%" align="center"   class="Bdr">
+                <tr><td colspan="2" bgcolor="#DCDCDC"><b>Key Information</b></td></tr>
+                <tr>
+                    <td class="data" width="30%">Program Type:</td>
+                    <td class="data" width="70%">{!mdfPgm.MDF_Program__r.recordType.name}</td>
+                </tr>
+                <apex:outputPanel rendered="{!mdfPgm.MDF_Program__r.Program_Type__c!='Headcount'}">
+                <tr>
+                    <td class="data" width="30%">Vendor Materials Needed:</td>
+                    <td class="data" width="70%">{!mdfPgm.MDF_Program__r.Vendor_Materials_Needed__c}</td>
+                </tr>
+                </apex:outputPanel>
+                <tr>
+                    <td class="data" width="30%">Proof of Performance:</td>
+                    <td class="data" width="70%">{!mdfPgm.MDF_Program__r.POP_Details__c}</td>
+                </tr>
+                <tr>
+                    <td class="data" width="30%">POP Owner:</td>
+                    <td class="data" width="70%">{!mdfPgm.MDF_Program__r.POP_Owner__r.name}</td>
+                </tr>
+               <apex:outputPanel rendered="{!mdfPgm.MDF_Program__r.Program_Type__c!='Headcount'}">
+                <tr>
+                    <td class="data" width="30%">Audience Description:</td>
+                    <td class="data" width="70%">{!mdfPgm.MDF_Program__r.Audience_Description__c}</td>
+                </tr>
+                <tr>
+                    <td class="data" width="30%">Audience Size:</td>
+                    <td class="data" width="70%">{!mdfPgm.MDF_Program__r.Audience_Size__c}</td>
+                </tr> 
+                </apex:outputPanel>               
+            </table>
+            <br></br>
+            <br></br>
+            <table width="90%" align="center"  class="Bdr">
+                <tr>
+                    <td class="data" width="30%">Program Owner</td>
+                    <td class="data" width="70%">{!mdfPgm.MDF_Program__r.Program_Owner__r.name}</td>
+                </tr>
+                <tr>
+                    <td class="data" width="30%">Owner Email</td>
+                    <td class="data" width="70%">{!mdfPgm.MDF_Program__r.Email__c}</td>
+                </tr>
+            </table>
+            <br clear="all" style="page-break-before:always"/>
+        </apex:repeat>
+    </div>
+    </body>
+    </html>
+    </apex:page>

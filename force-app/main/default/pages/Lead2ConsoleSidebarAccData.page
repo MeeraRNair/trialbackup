@@ -1,0 +1,357 @@
+<!--*
+ * Author   : Gan
+ * Purpose  : This page is to display opportunity related to particular account 
+ * 
+ * Revision CR Number   Release No    Date            Modified By     Description
+ * -------- ---------   ----------    -----------     ------------    -----------
+ * 1.0       13031      FY17-DCS-0502 12-Apr-2016     Gan             LM2_21-Add opportunity view in right panel on a new tab Account Data
+ * 1.1       13092      FY17-DCS-0502 25-Apr-2016     Gan             Remove hardcoded width
+ * 2.0       13103      FY17-DCS-0602 27-Apr-2016     Azwanti         LM2_21-Adding account product maps views to Sales Console third panel             
+ * 3.0       13389      FY17-DCS-0002 08-Aug-2016     Gan             LM2_New product map for Channel Greenfield
+ * 4.0       13387      FY17-DCS-0902 09-Aug-2016     SuiYee          LM2_New product map for Storage Capacity %
+ * 5.0       13406      FY17-DCS-1002 11-Aug-2016     Sajith          LM2_New product map for Market Intelligence
+ * 6.0       13442      FY17-DCS-1002 11-Aug-2016     Sajith          LM2_Rename product map for Renewals 
+ * 7.0       13731      FY17-DCS-0103 22-Nov-2016     Azwanti         LM2_Channel Greenfield product map fix
+ * 8.0       13850      FY18-DCS-0202 23-Dec-2016     Sajith          LM2_New product map for eRate
+ * 8.1       13854      FY18-DCS-0202 23-Dec-2016     SuiYee          LM2_Add Ship date field into Expiring tags product map
+ * 9.0       14061      FY18-DCS-0403 09-Mar-2017     Ashok           LM2_New product map for open Quote play
+ * 10.0      14307      FY18-DCS-0602 19-May-2017     Sajith          LM2_New product map for Marketing Maintenance
+ * 11.0      14442      FY18-DCS-0702 29-May-2017     Ashok           LM2_New Lead type - To recognize new potential customers contacted by Dell Reps
+ * 12.0      14735      FY18-DCS-1001 08-Aug-2017     Ashok           LM2_Enhance product map - Lead Opportunities
+ * 13.0      15162      FY18-DCS-0102 21-Nov-2017     Ashok           LM2_New product map for Generic Product map
+ * 15.0      15733      FY19-DCS-0602 11-may-2018     Sharad          Premier Pages Product Map 
+ *-->
+<apex:page standardController="Lead" showHeader="true" extensions="Lead2ConsoleSidebarController" title="Related Account Data" lightningStylesheets="true">
+    <style>
+        .statusPanel {
+            margin-left: 10px;
+            width:100%; 
+            height: 22px;
+            font-weight: bold;  
+            font-size: 13px;
+            text-wrap: normal;
+            vertical-align: middle;
+            text-align: left;
+        }
+        
+    </style>
+    
+<apex:form >
+    <apex:outputpanel style="overflow:auto" rendered="{!IF(OR(leadrecord.Lead_Type__c=="Outbound",leadrecord.Lead_Type__c=="Inbound",leadrecord.Lead_Type__c=="Prospect"), true, false)}"> <!-- 11.0 -->
+        <apex:pageBlock > 
+            <apex:facet name="header"> <div class="statusPanel">Account Opportunities</div></apex:facet>
+            <apex:pageblockTable value="{!OpptyDetails}" var="oppty">
+                <apex:column headerValue="Name">
+                    <apex:outputLink value="/{!oppty.id}">
+                        <apex:outputText value="{!oppty.Name}"/>
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Stage" value="{!oppty.StageName}"/>
+                <apex:column headerValue="Unweighted Revenue" value="{!oppty.Unweighted_Rev_Formula__c}"/>
+                <apex:column headerValue="Book Date" value="{!oppty.CloseDate}"/>
+                <apex:column headerValue="DealID" value="{!oppty.Deal_ID__c}"/>
+            </apex:pageblockTable> 
+        </apex:pageBlock>
+        
+        <!-- v2.0 CR13103 Adding account product maps views to Sales Console third panel -->
+        <div style="width:200%">
+        <apex:pageBlock > 
+            <apex:facet name="header"> <div class="statusPanel">Expiring Tags</div></apex:facet>            
+            <apex:pageblockTable value="{!ExpiringTagDetails}" var="expTag">
+                <apex:column width="5" headerValue="Expiring Tag ID">
+                    <apex:outputLink value="/{!expTag.id}">
+                        <apex:outputText value="{!expTag.Name}"/>
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Product" value="{!expTag.Product__c}"/>
+                <apex:column headerValue="LOB" value="{!expTag.LOB__c}"/>
+                <apex:column headerValue="Tag/Serial Number" value="{!expTag.Tag_Serial_Number__c}"/>
+                <apex:column headerValue="Expiration" value="{!expTag.Expiration__c}"/>                
+                <apex:column headerValue="DOMS/Gii Customer Number" value="{!expTag.DOMS_Gii_Customer_Number__c}"/>
+                <apex:column headerValue="Revenue" value="{!expTag.Revenue__c}"/>
+                <apex:column headerValue="DOMS/Gii Order Number" value="{!expTag.DOMS_Gii_Order_Number__c}"/>               
+                <apex:column headerValue="Ship Date" value="{!expTag.Ship_Date__c}"/>
+                <apex:column headerValue="Customer Name" value="{!expTag.Customer_Name__c}"/> 
+            </apex:pageblockTable>             
+        </apex:pageBlock>
+        </div>
+        <div style="width:200%">
+        <apex:pageBlock > 
+            <apex:facet name="header"> <div class="statusPanel">eQuotes</div></apex:facet>
+            <apex:pageblockTable value="{!eQuoteDetails}" var="eQuote">
+                <apex:column width="5" headerValue="eQuote ID">
+                    <apex:outputLink value="/{!eQuote.id}">
+                        <apex:outputText value="{!eQuote.Name}"/>
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Agent" value="{!eQuote.Agent__c}"/>
+                <apex:column headerValue="Email" value="{!eQuote.Email__c}"/>
+                <apex:column headerValue="Expiration Date" value="{!eQuote.Expiration_Date__c}"/>
+                <apex:column headerValue="LOB" value="{!eQuote.LOB__c}"/>
+                <apex:column headerValue="Name" value="{!eQuote.Name__c}"/>
+                <apex:column headerValue="Phone" value="{!eQuote.Phone__c}"/>
+                <apex:column headerValue="Premier eQuotes Store ID" value="{!eQuote.Premier_eQuotes_Store_ID__c}"/>
+                <apex:column headerValue="Product" value="{!eQuote.Product__c}"/>
+                <apex:column headerValue="Quantity" value="{!eQuote.Quantity__c}"/>
+                <apex:column headerValue="Quote Date" value="{!eQuote.Quote_Date__c}"/>
+                <apex:column headerValue="Quote Number" value="{!eQuote.Quote_Number__c}"/>
+                <apex:column headerValue="Quote Revenue" value="{!eQuote.Revenue__c}"/>
+            </apex:pageblockTable>             
+        </apex:pageBlock>
+        </div>
+        
+        <div style="width:230%">
+        <apex:pageBlock > 
+            <apex:facet name="header"> <div class="statusPanel">Enterprise Infrastructure Attach</div></apex:facet>
+            <apex:pageblockTable value="{!EntInstalledBaseDetails}" var="entInfAttach">
+                <apex:column width="5" headerValue="Enterprise Infrastructure Attach ID">
+                    <apex:outputLink value="/{!entInfAttach.id}">
+                        <apex:outputText value="{!entInfAttach.Name}"/>
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Recommended LoB" value="{!entInfAttach.Recommended_LOB__c}"/>
+                <apex:column headerValue="Recommended / Attach SKU" value="{!entInfAttach.Recommended_Attach_SKU__c}"/>
+                <apex:column headerValue="Recommended / Attach SKU #" value="{!entInfAttach.Recommended_Attach_SKU_Name__c}"/>
+                <apex:column headerValue="Installbase Pipeline/Quotation/Order Type" value="{!entInfAttach.Installbase_Type__c}"/>
+                <apex:column headerValue="Pipeline/Quotation/Order Number" value="{!entInfAttach.Number__c}"/>
+                <apex:column headerValue="Quote/Pipeline Creation/Order Date" value="{!entInfAttach.Date__c}"/>
+                <apex:column headerValue="Product" value="{!entInfAttach.Product__c}"/>
+                <apex:column headerValue="Tag/Serial Number" value="{!entInfAttach.Tag_Serial_Number__c}"/>
+                <apex:column headerValue="Installbase Revenue" value="{!entInfAttach.Revenue__c}"/>
+            </apex:pageblockTable>             
+        </apex:pageBlock>
+        </div>
+        
+        <div style="width:200%">
+        <apex:pageBlock > 
+            <apex:facet name="header"> <div class="statusPanel">Order Info</div></apex:facet>
+            <apex:pageblockTable value="{!OrderInfoDetails}" var="orderInfo"> 
+                <apex:column width="5" headerValue="Order Info ID">
+                    <apex:outputLink value="/{!orderInfo.id}">
+                        <apex:outputText value="{!orderInfo.Name}"/>
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Order Number" value="{!orderInfo.Order_Number__c}"/>
+                <apex:column headerValue="Order Date" value="{!orderInfo.Order_Date__c}"/>
+                <apex:column headerValue="Customer Number" value="{!orderInfo.Customer_Number__c}"/>
+                <apex:column headerValue="Account Name" value="{!orderInfo.Account_Name__c}"/>
+                <apex:column headerValue="Product Details" value="{!orderInfo.Product_Details__c}"/>
+                <apex:column headerValue="Product Revenue" value="{!orderInfo.Product_Revenue__c}"/>
+                <apex:column headerValue="Product Margin" value="{!orderInfo.Product_Margin__c}"/>
+                <apex:column headerValue="Product Units" value="{!orderInfo.Product_Units__c}"/>
+                <apex:column headerValue="Quote Number" value="{!orderInfo.Quote_Number__c}"/>
+                
+            </apex:pageblockTable>             
+        </apex:pageBlock>
+        </div>
+        
+        <!-- 3.0 -->
+        <div style="width:200%">
+        <apex:pageBlock > 
+            <apex:facet name="header"> <div class="statusPanel">{!strChannelGreenfieldSectName}</div></apex:facet>
+            <apex:pageblockTable value="{!ChannelGreenfieldDetails}" var="ChannelGreenfieldInfo"> 
+                <apex:column width="5" headerValue="Channel Greenfield ID">
+                    <apex:outputLink value="/{!ChannelGreenfieldInfo.id}">
+                        <apex:outputText value="{!ChannelGreenfieldInfo.Name}"/>
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Lead"> <!-- v7.0: change from Channel Lead to Lead -->
+                    <apex:outputLink value="/{!ChannelGreenfieldInfo.Lead__c}">
+                        <apex:outputText value="{!ChannelGreenfieldInfo.Lead__r.name}"/> <!-- v7.0: change from Channel Lead to Lead -->
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Partner Account" value="{!ChannelGreenfieldInfo.Partner_Account__c}"/>
+                <apex:column headerValue="End-user Account" value="{!ChannelGreenfieldInfo.End_user_account__c}"/>
+                <apex:column headerValue="Created Date" value="{!ChannelGreenfieldInfo.Created_Date__c}"/>
+                <apex:column headerValue="Deal ID" value="{!ChannelGreenfieldInfo.Deal_ID__c}"/>
+                <apex:column headerValue="Stage" value="{!ChannelGreenfieldInfo.Stage__c}"/>
+                <apex:column headerValue="Unweighted Rev" value="{!ChannelGreenfieldInfo.Unweighted_Rev__c}"/>
+            </apex:pageblockTable>             
+        </apex:pageBlock>
+        </div>
+        <!-- 4.0 -->
+        <div style="width:200%">
+        <apex:pageBlock > 
+            <apex:facet name="header"> <div class="statusPanel">Storage Capacity %</div></apex:facet>
+            <apex:pageblockTable value="{!StorageCapacityDetails}" var="StorageCapacityInfo"> 
+                <apex:column width="5" headerValue="Storage Capacity ID">
+                    <apex:outputLink value="/{!StorageCapacityInfo.id}">
+                        <apex:outputText value="{!StorageCapacityInfo.Name}"/>
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Campaign Name" value="{!StorageCapacityInfo.Campaign__c}"/>
+                <apex:column headerValue="Group Name" value="{!StorageCapacityInfo.Group_Name__c}"/>
+                <apex:column headerValue="Service Tag" value="{!StorageCapacityInfo.Service_Tag__c}"/>
+                <apex:column headerValue="Date Recorded" value="{!StorageCapacityInfo.Date_Recorded__c}"/>
+                <apex:column headerValue="Percent Free" value="{!StorageCapacityInfo.Percent_Free__c}"/>
+                <apex:column headerValue="Percent Used" value="{!StorageCapacityInfo.Percent_Used__c}"/>
+                <apex:column headerValue="Member Serial Number" value="{!StorageCapacityInfo.Member_Serial_Number__c}"/>
+                <apex:column headerValue="Member Name" value="{!StorageCapacityInfo.Member_Name__c}"/>
+            </apex:pageblockTable>             
+        </apex:pageBlock>
+        </div>
+        
+        <!-- v5.0 CR13406 LM2_New product map for Market Intelligence -->
+        <div style="width:200%">
+        <apex:pageBlock > 
+            <apex:facet name="header"> <div class="statusPanel">Market Intelligence</div></apex:facet>
+            <apex:pageblockTable value="{!MarketIntelligenceDetails}" var="marketIntelligence"> 
+                <apex:column width="5" headerValue="Market Intelligence ID">
+                    <apex:outputLink value="/{!marketIntelligence.id}">
+                    <apex:outputText value="{!marketIntelligence.Name}"/>
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Campaign" value="{!marketIntelligence.Campaign_Name__c}"/>
+                <apex:column headerValue="Date" value="{!marketIntelligence.Date__c}"/>
+                <apex:column headerValue="Desktop" value="{!marketIntelligence.Desktop__c}"/>
+                <apex:column headerValue="Notebook" value="{!marketIntelligence.Notebook__c}"/>
+                <apex:column headerValue="Server" value="{!marketIntelligence.Server__c}"/>
+                <apex:column headerValue="Storage" value="{!marketIntelligence.Storage__c}"/>
+                <apex:column headerValue="Client" value="{!marketIntelligence.Client__c}"/>
+                <apex:column headerValue="Workstation" value="{!marketIntelligence.Workstation__c}"/>
+                <apex:column headerValue="Enterprise" value="{!marketIntelligence.Enterprise__c}"/>
+                <apex:column headerValue="Tablet" value="{!marketIntelligence.Tablet__c}"/>
+            </apex:pageblockTable>             
+        </apex:pageBlock>
+        </div>
+        <!-- v5.0 end CR13406-->
+        
+        <div style="width:200%">
+        <apex:pageBlock > 
+            <!-- v6.0 LM2_Rename product map for Renewals -->
+            <apex:facet name="header"> <div class="statusPanel">Renewals (HW/SW)</div></apex:facet>
+            <apex:pageblockTable value="{!RenewalSwHwDetails}" var="renewSwHw"> 
+                <apex:column width="5" headerValue="Renewal ID">
+                    <apex:outputLink value="/{!renewSwHw.id}">
+                        <apex:outputText value="{!renewSwHw.Name}"/>
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Product" value="{!renewSwHw.Product__c}"/>
+                <apex:column headerValue="Tag/Serial Number" value="{!renewSwHw.Tag_Serial_Number__c}"/>
+                <apex:column headerValue="Renewal Term Date" value="{!renewSwHw.Renewal_Term_Date__c}"/>
+                <apex:column headerValue="Quantity" value="{!renewSwHw.Quantity__c}"/>
+                <apex:column headerValue="Revenue" value="{!renewSwHw.Revenue__c}"/>
+                <apex:column headerValue="Contact Name" value="{!renewSwHw.Contact_Name__c}"/>
+                <apex:column headerValue="Email" value="{!renewSwHw.Email__c}"/>
+            </apex:pageblockTable>             
+        </apex:pageBlock>
+        </div>        
+        
+        <!-- v2.0 end CR13103-->
+        <!-- v8.0 CR13850 LM2_New product map for eRate -->
+        <div style="width:200%">
+        <apex:pageBlock > 
+            <apex:facet name="header"> <div class="statusPanel">eRate</div></apex:facet>
+            <apex:pageblockTable value="{!eRateDetails}" var="eRate"> 
+                <apex:column width="5" headerValue="eRate ID">
+                    <apex:outputLink value="/{!eRate.id}">
+                    <apex:outputText value="{!eRate.Name}"/>
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Posted Date" value="{!eRate.Posted_Date__c}"/>
+                <apex:column headerValue="View Form URL" value="{!eRate.View_Form_URL__c}"/>
+                <apex:column headerValue="470 App Number" value="{!eRate.X470_App_Number__c}"/>
+                <apex:column headerValue="Name of Applicant" value="{!eRate.Name_of_Applicant__c}"/>
+                <apex:column headerValue="Preferred Method of Contact" value="{!eRate.Preferred_Method_of_Contact__c}"/>
+                <apex:column headerValue="Contact Person" value="{!eRate.Contact_Person__c}"/>
+                <apex:column headerValue="Contact Work Phone" value="{!eRate.Contact_Work_Phone__c}"/>
+                <apex:column headerValue="Contact Email" value="{!eRate.Contact_Email__c}"/>
+                <apex:column headerValue="Name of Technical Contact" value="{!eRate.Name_of_Technical_Contact__c}"/>
+            </apex:pageblockTable>             
+        </apex:pageBlock>
+        </div>
+        <!-- v8.0 end CR13850-->
+        
+        <!-- v9.0 CR14061 LM2_New product map for open Quote Play -->
+        <div style="width:200%">
+        <apex:pageBlock > 
+            <apex:facet name="header"> <div class="statusPanel">Open Quotes</div></apex:facet>
+            <apex:pageblockTable value="{!openQuoteDetails}" var="oQuote"> 
+                <apex:column width="5" headerValue="Quote Number">
+                    <apex:outputLink value="/{!oQuote.id}">
+                    <apex:outputText value="{!oQuote.Name}"/>
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Product brand/Model" value="{!oQuote.Product_brand_model__c}"/>
+                <apex:column headerValue="Quantity" value="{!oQuote.Quantity__c}"/>
+                <apex:column headerValue="Revenue" value="{!oQuote.Revenue__c}"/>
+                <apex:column headerValue="Quote Create Date" value="{!oQuote.Quote_Create_Date__c}"/>                
+            </apex:pageblockTable>             
+        </apex:pageBlock>
+        </div>
+        <!-- v9.0 end CR13850-->
+        
+        <!-- v10.0 CR14307 LM2_New product map for Lead Opportunity -->
+        <!-- v12.0 CR14735 Enhance Product Map for Lead Opportunity -->
+        <div style="width:200%">
+        <apex:pageBlock > 
+            <apex:facet name="header"> <div class="statusPanel">Lead Opportunities</div></apex:facet>
+            <apex:pageblockTable value="{!LeadOpportunityDetails}" var="mktMain"> 
+                <apex:column width="5" headerValue="Lead Opportunity ID">
+                    <apex:outputLink value="/{!mktMain.id}">
+                    <apex:outputText value="{!mktMain.Name}"/>
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Opportunity Name" value="{!mktMain.Opportunity_Name__c}"/>
+                <apex:column headerValue="Deal ID" value="{!mktMain.Opportunity_ID__c}"/>
+                <apex:column headerValue="Brand Description" value="{!mktMain.Brand_Description__c}"/>
+                <apex:column headerValue="Opportunity Created Date" value="{!mktMain.Opportunity_Created_Date__c}"/>  
+                <apex:column headerValue="Stage" value="{!mktMain.Stage__c}"/> 
+                <apex:column headerValue="Total Price" value="{!mktMain.Total_Price__c}"/>
+                <apex:column headerValue="Quantity" value="{!mktMain.Quantity__c}"/>
+            </apex:pageblockTable>             
+        </apex:pageBlock>
+        </div>
+        <!-- v12.0 end CR14735-->
+        <!-- v10.0 end CR14307-->
+        
+        <!-- v13.0 CR 15162  New Generic Product Map -->
+        <div style="width:200%">
+        <apex:pageBlock > 
+            <apex:facet name="header"> <div class="statusPanel">Generic Product Maps</div></apex:facet>
+            <apex:pageblockTable value="{!GenericProductMapDetails}" var="genProdMap"> 
+                <apex:column width="5" headerValue="Generic Product Map ID">
+                    <apex:outputLink value="/{!genProdMap.id}">
+                    <apex:outputText value="{!genProdMap.Name}"/>
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Product Map Type" value="{!genProdMap.Product_Map_Type__c}"/>
+                <apex:column headerValue="Date" value="{!genProdMap.Date__c}"/>
+                <apex:column headerValue="Field 1" value="{!genProdMap.Field_1__c}"/>
+                <apex:column headerValue="Field 2" value="{!genProdMap.Field_2__c}"/>  
+                <apex:column headerValue="Field 3" value="{!genProdMap.Field_3__c}"/> 
+                <apex:column headerValue="Field 4" value="{!genProdMap.Field_4__c}"/>
+                <apex:column headerValue="Field 5" value="{!genProdMap.Field_5__c}"/>
+                <apex:column headerValue="Field 6" value="{!genProdMap.Field_6__c}"/>
+                <apex:column headerValue="Field 7" value="{!genProdMap.Field_7__c}"/>  
+                <apex:column headerValue="Field 8" value="{!genProdMap.Field_8__c}"/> 
+                <apex:column headerValue="Field 9" value="{!genProdMap.Field_9__c}"/>
+                <apex:column headerValue="Field 10" value="{!genProdMap.Field_10__c}"/>
+            </apex:pageblockTable>             
+        </apex:pageBlock>
+        </div>
+        <!-- v13.0 end CR-->      
+       
+        <!-- v15.0 CR 15733  Premier Pages Product Map -->
+        <div style="width:200%">
+        <apex:pageBlock > 
+            <apex:facet name="header"> <div class="statusPanel">Premier Pages</div></apex:facet>
+            <apex:pageblockTable value="{!PremierPagesDetails}" var="premierProdMap"> 
+                <apex:column width="5" headerValue="Premier Pages ID">
+                    <apex:outputLink value="/{!premierProdMap.Id}">
+                    <apex:outputText value="{!premierProdMap.Name}"/>
+                    </apex:outputLink>
+                </apex:column>
+                
+                <apex:column headerValue="Brand Name" value="{!premierProdMap.Brand_Name__c}"/>
+                <apex:column headerValue="Configuration Type" value="{!premierProdMap.Configuration_Type__c}"/>
+                <apex:column headerValue="Opportunity Type" value="{!premierProdMap.Opportunity_Type__c}"/>  
+                <apex:column headerValue="Action Type" value="{!premierProdMap.Action_Type__c}"/>
+            </apex:pageblockTable>             
+        </apex:pageBlock>
+        </div>
+        <!-- v15.0 end CR 15733-->
+        
+    </apex:outputpanel>
+</apex:form>
+</apex:page>

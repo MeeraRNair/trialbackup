@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>New_Status</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISNEW() &amp;&amp; NOT (ISPICKVAL(OEM_Status__c, &quot;New&quot;))</errorConditionFormula>
+    <errorDisplayField>OEM_Status__c</errorDisplayField>
+    <errorMessage>New OEM Rapid Response record shall always be in &quot;New&quot; status</errorMessage>
+</ValidationRule>

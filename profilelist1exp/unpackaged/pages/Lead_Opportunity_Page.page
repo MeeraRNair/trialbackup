@@ -1,0 +1,50 @@
+<!--*
+* Author   : Sajith
+* Purpose  : This page is to override the standard 'Lead Opportunities' Edit
+* 
+* Revision CR Number   Release No    Date            Modified By     Description
+* -------- ---------   ----------    -----------     ------------    -----------
+* 1.0       14735      FY18-DCS-1001 07-Aug-2017     Ashok           Enhance_Lead Opportunities_New product map 
+
+*-->
+<apex:page standardController="Lead_Opportunity__c" title="Lead Opportunities Edit" tabStyle="Lead_Opportunity__c" lightningStylesheets="true"> 
+    <apex:form >  
+        <apex:sectionHeader title="Lead Opportunity Edit" subtitle="{!If(Lead_Opportunity__c.Name!=NULL,Lead_Opportunity__c.Name,'New Lead Opportunity')}" />
+        <apex:outputPanel id="pageMsg">
+            <apex:pageMessages />
+        </apex:outputPanel>
+        <apex:pageBlock id="MarketingMaintenance" title="Lead Opportunity Edit"> 
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!Save}" value="Save" rerender="pageMsg"/>
+                <apex:commandButton action="{!cancel}" value="Cancel"/>   
+            </apex:pageBlockButtons>   
+            <apex:pageBlockSection title="Information" collapsible="false">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel for="Account" value="Account" /> 
+                    <apex:inputField value="{!Lead_Opportunity__c.Account__c}" id="Account"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel for="LP" value="Lattice Play" /> 
+                    <apex:inputField value="{!Lead_Opportunity__c.Lattice_Play__c}" id="LP"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel for="OI" value="Deal Id" /> 
+                    <apex:inputField value="{!Lead_Opportunity__c.Opportunity_ID__c}" id="OI"/> 
+                </apex:pageBlockSectionItem> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel for="Cur" value="Currency" />
+                    <apex:inputField value="{!Lead_Opportunity__c.CurrencyIsoCode}" id="Cur"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem > 
+                    <apex:outputLabel for="BD" value="Brand Description" /> 
+                    <apex:inputField value="{!Lead_Opportunity__c.Brand_Description__c}" id="BD"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem > 
+                    <apex:outputLabel for="Qty" value="Quantity" /> 
+                    <apex:inputField value="{!Lead_Opportunity__c.Quantity__c}" id="Qty"/> 
+                </apex:pageBlockSectionItem> 
+                
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Campaign_Member_ID_or_Lead_ID_Req</fullName>
+    <active>true</active>
+    <description>The Relationship Lead needs to have a corresponding Campaign Member or Lead record, whose ID must be populated.</description>
+    <errorConditionFormula>AND(ISBLANK( CM_Source__c ) ,ISBLANK( Lead_ID_Do_Not_Edit__c ))</errorConditionFormula>
+    <errorDisplayField>font_color_fff_Message1__c</errorDisplayField>
+    <errorMessage>A Relationship Lead record should be only created from the &quot;Convert To Relationship Lead&quot; button on a Campaign Member / Lead record, or through Dataload with the CM Source ID or Lead ID populated in the template.</errorMessage>
+</ValidationRule>

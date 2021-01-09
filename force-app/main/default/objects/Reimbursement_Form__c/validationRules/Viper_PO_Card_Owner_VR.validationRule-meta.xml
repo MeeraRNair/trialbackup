@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Viper_PO_Card_Owner_VR</fullName>
+    <active>true</active>
+    <description>Purchase Order expenses: User must enter PO#.</description>
+    <errorConditionFormula>ISPICKVAL( Method_of_Purchase__c , &quot;Purchase Order&quot;) &amp;&amp;
+                                                 NOT(ISBLANK(Card_Owner_Name__c))</errorConditionFormula>
+    <errorMessage>The Card Owner Name field must be blank for expense types: Purchase Order and Direct Cost   Center Charge. Record not saved.</errorMessage>
+</ValidationRule>

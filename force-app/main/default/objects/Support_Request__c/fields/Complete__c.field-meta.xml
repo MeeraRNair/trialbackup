@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Complete__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( ISPICKVAL(Status__c, &quot;Unassigned&quot;), 0, 
+   IF( ISPICKVAL(Status__c, &quot;In Review&quot;), 10, 
+      IF( ISPICKVAL(Status__c, &quot;In Quote&quot;), 20, 
+          IF( ISPICKVAL(Status__c, &quot;In Process&quot;), 40, 
+             IF( ISPICKVAL(Status__c, &quot;In Sustaining&quot;), 90, 
+                 IF( ISPICKVAL(Status__c, &quot;Pending Final Review&quot;), 98, 
+                      IF( ISPICKVAL(Status__c, &quot;Complete&quot;), 100, null)
+                  )
+              )
+           )
+       )
+    )
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>How far along is the project</inlineHelpText>
+    <label>% Complete</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

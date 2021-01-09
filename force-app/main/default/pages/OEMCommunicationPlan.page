@@ -1,0 +1,26 @@
+<apex:page standardController="OEM_Communication_Plan__c" extensions="OEMCommunicationPlanCntrl" standardStylesheets="true">
+
+    <apex:form id="theForm">
+        <apex:pageMessages id="msg" />
+        
+        
+        <apex:pageBlock title="">
+            <apex:pageBlockButtons > 
+                <apex:commandButton action="{!save}" value="Save"/> 
+                <apex:commandButton action="{!cancel}" value="Cancel"/> 
+            </apex:pageBlockButtons> 
+
+            <apex:pageBlockSection title="OEM Communication Plan Details" columns="2"> 
+                <apex:inputField value="{!comPlan.Type__c}"/> 
+                <apex:inputField value="{!comPlan.Description__c}"/> 
+                <apex:inputField value="{!comPlan.Delivery_Method__c}"/> 
+                <apex:inputField value="{!comPlan.Frequency__c}"/> 
+                <apex:inputField value="{!comPlan.Owner__c}"/> 
+                <apex:inputField value="{!comPlan.Details__c}"/> 
+            </apex:pageBlockSection> 
+
+        </apex:pageBlock> 
+
+    </apex:form>
+
+</apex:page>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lead_Record_Type_Check</fullName>
+    <active>true</active>
+    <description>Created for CR13389</description>
+    <errorConditionFormula>AND(NOT(ISBLANK(Lead__c)), Lead__r.RecordTypeId !=  &apos;012A0000000Vnza&apos;)</errorConditionFormula>
+    <errorDisplayField>Lead__c</errorDisplayField>
+    <errorMessage>Only Direct Lead is allowed</errorMessage>
+</ValidationRule>

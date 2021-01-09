@@ -1,0 +1,109 @@
+<apex:page standardController="Vendor__c" extensions="VFCntrlr_AssociateProgramsNPartners"> 
+        <STYLE>
+            .customTableCol {vertical-align: middle;}
+            .headerRow .displayStyle{display:none;}            
+            .headerRow .columnStyle50{width:50px;} 
+            .headerRow .columnStyle75{width:75px;} 
+            .headerRow .columnStyle250{width:250px;}
+            .columnRow .showStyle{display:none;}
+        </STYLE>
+        
+          
+        <apex:pageMessage rendered="{!ProfileVisibility}" detail="You are not authorised to view this page" severity="Info" strength="3"/>    
+        <apex:form rendered="{!ProfileVisibility=false}">  
+            <b>Select Program(s) to be associated to the Partner : {!Vendor__c.name}</b>    
+            <apex:pageMessages />
+            <apex:pageBlock title="All fields are mandatory" rendered="{!DisplayForm}">
+                <apex:pageBlockSection columns="2">
+                    <apex:inputField value="{!MDFProgram.Fiscal_Quarter__c}"/>
+                    <apex:inputField value="{!MDFProgram.Region__c}"/>                
+                    <apex:inputField value="{!MDFProgram.Sub_Region__c}"/>
+                    <apex:inputField value="{!MDFProgram.Country__c}"/>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+            
+            <apex:pageBlock title="Select Business Segment" id="selectBlock" rendered="{!DisplayForm}">      
+                <table style="align:center">
+                    <tr>
+                        <td class="customTableCol" style="width:230px;">
+                            <b>Available Business segment:</b>
+                            <apex:selectList required="false"  value="{!selected}" multiselect="true" size="10" style="width:230px">
+                                <apex:selectOptions value="{!unSelectedOptions}"/>
+                            </apex:selectList>
+                        </td>
+                        <td style="vertical-align: middle">
+                            <div>
+                                <apex:commandButton value=">>" action="{!DoSelect}" rerender="selectBlock"/>
+                            </div>
+                            <div style="text-align: center; vertical-align: middle; height: 15px; padding: 5px 0px;">
+                                <apex:actionStatus id="RoleChange">
+                                    <apex:facet name="start"><apex:image url="{!$Resource.loading}"/></apex:facet>
+                                </apex:actionStatus>            
+                            </div>
+                            <div>
+                                <apex:commandButton value="<<" action="{!DoUnselect}" rerender="selectBlock"/>
+                            </div>
+                        </td>
+                        <td class="customTableCol"  style="width: 230px;">
+                            <b>Selected business segment:</b>
+                            <apex:selectList required="false" value="{!unselected}" multiselect="true" size="10" style="width:230px">
+                                <apex:selectOptions value="{!selectedOptions}" />
+                            </apex:selectList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right"><apex:commandButton reRender="selectBlock" value="Add All Business segments" action="{!DoSelectALL}" status="RoleChange" style="margin-top: 5px"/></td>
+                        <td></td>
+                        <td style="text-align: right"><apex:commandButton reRender="selectBlock" value="Remove All business segments" action="{!DoUnSelectALL}" status="RoleChange" style="margin-top: 5px"/></td>
+                    </tr>
+                </table>
+                <apex:pageBlockButtons location="bottom">                               
+                    <apex:commandButton action="{!ShowWrapperAPVRecords}" value="Display MDF Programs"/>
+                    <apex:commandButton action="{!Cancel}" value="Cancel"/>
+                </apex:pageBlockButtons> 
+            </apex:pageBlock>
+            <apex:pageMessage rendered="{!NoAPVList}"  detail="No records found."  severity="Info" strength="3"/>            
+            <apex:pageBlock rendered="{!DisplayTable}" title="Program list">
+                <apex:outputText > Only Programs with <b>"Program Status" Equals Approved</b>  is displayed here.</apex:outputText><br/>
+                <apex:pageBlockTable value="{!ThousandRecList}" var="apv" rows="1" style="width:900px">                        
+                    <apex:column style="display:none;align:center"  headerClass="columnStyle50">
+                        <apex:facet name="header">Select</apex:facet>
+                    </apex:column>
+                    <apex:column style="display:none;align:center" headerClass="columnStyle250">
+                        <apex:facet name="header">Program Name</apex:facet>
+                    </apex:column> 
+                    <apex:column style="display:none;align:center" headerClass="columnStyle75">
+                        <apex:facet name="header">Program Type</apex:facet>
+                    </apex:column>  
+                    <apex:column style="display:none;align:center" headerClass="columnStyle75">
+                        <apex:facet name="header">Fiscal Quarter</apex:facet>
+                    </apex:column>
+                    <apex:column style="display:none;align:center"  headerClass="columnStyle75">
+                        <apex:facet name="header">Rate Card Price</apex:facet>
+                    </apex:column>
+                    <apex:column style="display:none;align:center" headerClass="columnStyle75">
+                        <apex:facet name="header">Budgeted Price</apex:facet>
+                    </apex:column>
+                </apex:pageBlockTable> 
+            
+                <div style="position:static;width:900px;height:340px;overflow:auto;overflow-x:hidden;">
+                    <apex:repeat value="{!ThousandRecList}" var="recs">
+                        <apex:pageBlockTable value="{!recs.programWrapperList}" var="pgm" style="width:900px" >
+                            <apex:column headerValue="Select" headerClass="displayStyle" style="width:50px;align:center">
+                                <apex:inputCheckbox value="{!pgm.selected}"/>
+                            </apex:column>
+                            <apex:column value="{!pgm.pgmMpElt.Name}" headerClass="displayStyle" style="width:250px;align:center;"/>
+                            <apex:column value="{!pgm.pgmMpElt.Program_Type__c}" headerClass="displayStyle" style="width:75px;align:center"/>
+                            <apex:column value="{!pgm.pgmMpElt.Fiscal_Quarter__c}" headerClass="displayStyle" style="width:75px;align:center"/>
+                            <apex:column value="{!pgm.pgmMpElt.Rate_Card_Price__c}" headerClass="displayStyle" style="width:75px;align:center"/>
+                            <apex:column value="{!pgm.budgetedPriceDec}" headerClass="displayStyle" style="width:75px;align:center"/>
+                        </apex:pageBlockTable>          
+                    </apex:repeat>
+                </div>  
+                <apex:pageBlockButtons location="top">        
+                    <apex:commandButton action="{!insertPartnerProgramRecs}" value="Associate Program" rendered="{!ThousandRecList.size>0}"/>
+                    <apex:commandButton action="{!Cancel}" value="Cancel"/>
+                </apex:pageBlockButtons>
+            </apex:pageBlock>
+        </apex:form> 
+    </apex:page>

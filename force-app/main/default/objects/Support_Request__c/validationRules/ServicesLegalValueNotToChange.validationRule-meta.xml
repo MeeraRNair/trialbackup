@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ServicesLegalValueNotToChange</fullName>
+    <active>true</active>
+    <description>Once selected &apos;Yes&apos; , Services Legal Support value should not be changed to any other value</description>
+    <errorConditionFormula>ISCHANGED(Services_Legal_Support__c) &amp;&amp; ISPICKVAL(PRIORVALUE   (Services_Legal_Support__c), &apos;Yes&apos;) &amp;&amp; RecordType.Name = &apos;Request Custom Service Support&apos;</errorConditionFormula>
+    <errorDisplayField>Services_Legal_Support__c</errorDisplayField>
+    <errorMessage>You have previously requested support. If you need to cancel your request, please contact the person named for this team to request assistance. If you need to request additional support, click Clone to generate a new request.</errorMessage>
+</ValidationRule>

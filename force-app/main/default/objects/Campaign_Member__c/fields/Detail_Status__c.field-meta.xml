@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Detail_Status__c</fullName>
+    <description>INTEG-N /NON INTEG -Y/ APEX/CC - N ||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/PRM - N||
+VAL -N|| 
+CR# - ||</description>
+    <externalId>false</externalId>
+    <label>Score</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>S__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>High Priority (Extremely hot leads; SLA = 48 hours)</fullName>
+                <default>false</default>
+                <label>High Priority (Extremely hot leads; SLA = 48 hours)</label>
+            </value>
+            <value>
+                <fullName>Priority (Contact requested follow up; SLA = 1 Week)</fullName>
+                <default>false</default>
+                <label>Priority (Contact requested follow up; SLA = 1 Week)</label>
+            </value>
+            <value>
+                <fullName>Interested (Contact attended or registered for event and self selected online properties)</fullName>
+                <default>false</default>
+                <label>Interested (Contact attended or registered for event and self selected online properties)</label>
+            </value>
+            <value>
+                <fullName>Target (Contact attended event but did not self select online properties)</fullName>
+                <default>false</default>
+                <label>Target (Contact attended event but did not self select online properties)</label>
+            </value>
+            <value>
+                <fullName>Visitor (Contact registered for event / other online form but did not attend)</fullName>
+                <default>false</default>
+                <label>Visitor (Contact registered for event / other online form but did not attend)</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Future Interest within 3 months</controllingFieldValue>
+            <controllingFieldValue>Profiled Customer</controllingFieldValue>
+            <controllingFieldValue>Future Interest 3 months or longer</controllingFieldValue>
+            <controllingFieldValue>Purchasing Plans Identified</controllingFieldValue>
+            <controllingFieldValue>Completed</controllingFieldValue>
+            <controllingFieldValue>Returned</controllingFieldValue>
+            <controllingFieldValue>In Progress</controllingFieldValue>
+            <controllingFieldValue>Bounced</controllingFieldValue>
+            <controllingFieldValue>Qualified</controllingFieldValue>
+            <controllingFieldValue>Opened</controllingFieldValue>
+            <controllingFieldValue>Opportunity created</controllingFieldValue>
+            <controllingFieldValue>Clicked</controllingFieldValue>
+            <controllingFieldValue>Dead End</controllingFieldValue>
+            <controllingFieldValue>Added to CTT</controllingFieldValue>
+            <controllingFieldValue>Fully Certified</controllingFieldValue>
+            <controllingFieldValue>Registered</controllingFieldValue>
+            <controllingFieldValue>General Comment</controllingFieldValue>
+            <controllingFieldValue>Agreed to Purchase</controllingFieldValue>
+            <controllingFieldValue>Not Interested</controllingFieldValue>
+            <controllingFieldValue>Not Decision Maker</controllingFieldValue>
+            <controllingFieldValue>Future Follow-up</controllingFieldValue>
+            <controllingFieldValue>Identified</controllingFieldValue>
+            <controllingFieldValue>Tags Sent</controllingFieldValue>
+            <controllingFieldValue>Quoted Hardware</controllingFieldValue>
+            <controllingFieldValue>Quoted Extended Warranty</controllingFieldValue>
+            <controllingFieldValue>Replaced Hardware</controllingFieldValue>
+            <controllingFieldValue>Extended Warranty</controllingFieldValue>
+            <controllingFieldValue>Sent</controllingFieldValue>
+            <controllingFieldValue>Responded</controllingFieldValue>
+            <controllingFieldValue>Returned/Bounced</controllingFieldValue>
+            <controllingFieldValue>Viewed</controllingFieldValue>
+            <controllingFieldValue>Accepted</controllingFieldValue>
+            <controllingFieldValue>Declined</controllingFieldValue>
+            <controllingFieldValue>Attended</controllingFieldValue>
+            <controllingFieldValue>Contacted</controllingFieldValue>
+            <controllingFieldValue>Quoted</controllingFieldValue>
+            <controllingFieldValue>Invited</controllingFieldValue>
+            <controllingFieldValue>Contacted/Invited</controllingFieldValue>
+            <controllingFieldValue>Offered</controllingFieldValue>
+            <controllingFieldValue>Alternative Contact</controllingFieldValue>
+            <controllingFieldValue>Qualified Current Data</controllingFieldValue>
+            <valueName>Interested (Contact attended or registered for event and self selected online properties)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Future Interest within 3 months</controllingFieldValue>
+            <controllingFieldValue>Profiled Customer</controllingFieldValue>
+            <controllingFieldValue>Future Interest 3 months or longer</controllingFieldValue>
+            <controllingFieldValue>Purchasing Plans Identified</controllingFieldValue>
+            <controllingFieldValue>Completed</controllingFieldValue>
+            <controllingFieldValue>Returned</controllingFieldValue>
+            <controllingFieldValue>In Progress</controllingFieldValue>
+            <controllingFieldValue>Bounced</controllingFieldValue>
+            <controllingFieldValue>Qualified</controllingFieldValue>
+            <controllingFieldValue>Opened</controllingFieldValue>
+            <controllingFieldValue>Opportunity created</controllingFieldValue>
+            <controllingFieldValue>Clicked</controllingFieldValue>
+            <controllingFieldValue>Dead End</controllingFieldValue>
+            <controllingFieldValue>Added to CTT</controllingFieldValue>
+            <controllingFieldValue>Fully Certified</controllingFieldValue>
+            <controllingFieldValue>Registered</controllingFieldValue>
+            <controllingFieldValue>General Comment</controllingFieldValue>
+            <controllingFieldValue>Agreed to Purchase</controllingFieldValue>
+            <controllingFieldValue>Not Interested</controllingFieldValue>
+            <controllingFieldValue>Not Decision Maker</controllingFieldValue>
+            <controllingFieldValue>Future Follow-up</controllingFieldValue>
+            <controllingFieldValue>Identified</controllingFieldValue>
+            <controllingFieldValue>Tags Sent</controllingFieldValue>
+            <controllingFieldValue>Quoted Hardware</controllingFieldValue>
+            <controllingFieldValue>Quoted Extended Warranty</controllingFieldValue>
+            <controllingFieldValue>Replaced Hardware</controllingFieldValue>
+            <controllingFieldValue>Extended Warranty</controllingFieldValue>
+            <controllingFieldValue>Sent</controllingFieldValue>
+            <controllingFieldValue>Responded</controllingFieldValue>
+            <controllingFieldValue>Returned/Bounced</controllingFieldValue>
+            <controllingFieldValue>Viewed</controllingFieldValue>
+            <controllingFieldValue>Accepted</controllingFieldValue>
+            <controllingFieldValue>Declined</controllingFieldValue>
+            <controllingFieldValue>Attended</controllingFieldValue>
+            <controllingFieldValue>Contacted</controllingFieldValue>
+            <controllingFieldValue>Quoted</controllingFieldValue>
+            <controllingFieldValue>Invited</controllingFieldValue>
+            <controllingFieldValue>Contacted/Invited</controllingFieldValue>
+            <controllingFieldValue>Offered</controllingFieldValue>
+            <controllingFieldValue>Alternative Contact</controllingFieldValue>
+            <controllingFieldValue>Qualified Current Data</controllingFieldValue>
+            <valueName>Target (Contact attended event but did not self select online properties)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Future Interest within 3 months</controllingFieldValue>
+            <controllingFieldValue>Profiled Customer</controllingFieldValue>
+            <controllingFieldValue>Future Interest 3 months or longer</controllingFieldValue>
+            <controllingFieldValue>Purchasing Plans Identified</controllingFieldValue>
+            <controllingFieldValue>Completed</controllingFieldValue>
+            <controllingFieldValue>Returned</controllingFieldValue>
+            <controllingFieldValue>In Progress</controllingFieldValue>
+            <controllingFieldValue>Bounced</controllingFieldValue>
+            <controllingFieldValue>Qualified</controllingFieldValue>
+            <controllingFieldValue>Opened</controllingFieldValue>
+            <controllingFieldValue>Opportunity created</controllingFieldValue>
+            <controllingFieldValue>Clicked</controllingFieldValue>
+            <controllingFieldValue>Dead End</controllingFieldValue>
+            <controllingFieldValue>Added to CTT</controllingFieldValue>
+            <controllingFieldValue>Fully Certified</controllingFieldValue>
+            <controllingFieldValue>Registered</controllingFieldValue>
+            <controllingFieldValue>General Comment</controllingFieldValue>
+            <controllingFieldValue>Agreed to Purchase</controllingFieldValue>
+            <controllingFieldValue>Not Interested</controllingFieldValue>
+            <controllingFieldValue>Not Decision Maker</controllingFieldValue>
+            <controllingFieldValue>Future Follow-up</controllingFieldValue>
+            <controllingFieldValue>Identified</controllingFieldValue>
+            <controllingFieldValue>Tags Sent</controllingFieldValue>
+            <controllingFieldValue>Quoted Hardware</controllingFieldValue>
+            <controllingFieldValue>Quoted Extended Warranty</controllingFieldValue>
+            <controllingFieldValue>Replaced Hardware</controllingFieldValue>
+            <controllingFieldValue>Extended Warranty</controllingFieldValue>
+            <controllingFieldValue>Sent</controllingFieldValue>
+            <controllingFieldValue>Responded</controllingFieldValue>
+            <controllingFieldValue>Returned/Bounced</controllingFieldValue>
+            <controllingFieldValue>Viewed</controllingFieldValue>
+            <controllingFieldValue>Accepted</controllingFieldValue>
+            <controllingFieldValue>Declined</controllingFieldValue>
+            <controllingFieldValue>Attended</controllingFieldValue>
+            <controllingFieldValue>Contacted</controllingFieldValue>
+            <controllingFieldValue>Quoted</controllingFieldValue>
+            <controllingFieldValue>Invited</controllingFieldValue>
+            <controllingFieldValue>Contacted/Invited</controllingFieldValue>
+            <controllingFieldValue>Offered</controllingFieldValue>
+            <controllingFieldValue>Alternative Contact</controllingFieldValue>
+            <controllingFieldValue>Qualified Current Data</controllingFieldValue>
+            <valueName>Visitor (Contact registered for event / other online form but did not attend)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Requires Follow-Up</controllingFieldValue>
+            <controllingFieldValue>Completed Follow-Up</controllingFieldValue>
+            <valueName>High Priority (Extremely hot leads; SLA = 48 hours)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Requires Follow-Up</controllingFieldValue>
+            <controllingFieldValue>Completed Follow-Up</controllingFieldValue>
+            <valueName>Priority (Contact requested follow up; SLA = 1 Week)</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

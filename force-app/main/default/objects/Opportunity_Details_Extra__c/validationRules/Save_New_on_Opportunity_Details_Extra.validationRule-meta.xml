@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Save_New_on_Opportunity_Details_Extra</fullName>
+    <active>true</active>
+    <errorConditionFormula>Opportunity__c = &quot;&quot; &amp;&amp; NOT($Profile.Name = &quot;System Administrator&quot;)</errorConditionFormula>
+    <errorMessage>You cannot create Opportunity Details Extra record manually. Please edit the related Opportunity to create the record automatically</errorMessage>
+</ValidationRule>

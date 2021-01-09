@@ -1,0 +1,174 @@
+<apex:page standardController="Opportunity" extensions="VFCntrl_OpenOpportunityConflictSelection" sidebar="false" showHeader="false">
+ 
+ <!-- <c:PageBlockTableEnhancer targetPbTableIds="conflictSelectionTableId" paginate="true" defaultPageSize="10" pageSizeOptions="5,10,20,30,40,50,100"/> -->
+  <apex:stylesheet value="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'css/jquery.dataTables.css')}"/>
+<style type="text/css">
+.sorting {
+    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_both.png') }') no-repeat center right !important;
+    padding-right: 20px !important;
+}
+.sorting_asc {
+    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_asc.png') }') no-repeat center right !important;
+    padding-right: 20px !important;
+}
+.sorting_desc {
+    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_desc.png') }') no-repeat center right !important;
+    padding-right: 20px !important;
+}
+.sorting_asc_disabled {
+    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_asc_disabled.png') }') no-repeat center right !important;
+    padding-right: 20px !important;
+}
+.sorting_desc_disabled {
+    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_desc_disabled.png') }') no-repeat center right !important;
+    padding-right: 20px !important;
+}
+table.dataTable tr.odd { background-color: white; }
+table.dataTable tr.even { background-color: white; }
+table.dataTable tr.odd td.sorting_1 { background-color: white; }
+table.dataTable tr.odd td.sorting_2 { background-color: white; }
+table.dataTable tr.odd td.sorting_3 { background-color: white; }
+table.dataTable tr.even td.sorting_1 { background-color: white; }
+table.dataTable tr.even td.sorting_2 { background-color: white; }
+table.dataTable tr.even td.sorting_3 { background-color: white; }
+.dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate {
+    padding: 3px;
+}
+
+.backgroundColorClass {
+    background-color: orange;
+}
+
+</style> 
+ 
+ <apex:form id="frm">
+ 
+  <apex:outputPanel rendered="{!isrefresh}" id="myrefresh">
+  <script>     
+     //window.top.navigate();
+     //window.opener.location.href="/{!$CurrentPage.parameters.id}";
+     //window.top.location = "/{!$CurrentPage.parameters.id}";
+     //alert.reload();
+     //window.opener.parent.location.reload();
+     //setTimeout(function(){
+     //alert('hello');
+
+     window.opener.parent.location.href = "/{!$CurrentPage.parameters.id}";
+     window.close();
+     //},100);       
+  </script>
+  </apex:outputPanel>
+  
+  <style type="text/css">
+    .pbTitle {
+        white-space: nowrap
+    }
+    
+  </style>
+  
+  <br/><br/> 
+  <apex:pageBlock title="Potential Conflict(s) found! Please review Opportunity details below." >
+      <apex:pageBlockTable value="{!Conflictproducts}" var="conProd">
+         <apex:column headerValue="Channel Product LOB" value="{!conProd.Product2.Channel_Product_LOB__c}"/>
+         <apex:column headerValue="Quantity" value="{!conProd.Quantity}"/>
+         <apex:column headerValue="Product" value="{!conProd.Product2.Name}"/>
+      </apex:pageBlockTable>
+  </apex:pageBlock> 
+  
+  <apex:pageBlock title="Opportunity Details" >
+      <apex:pageBlockSection >
+          <apex:outputField value="{!opp.account.name}"/>
+          <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Partner Account Name"></apex:outputLabel>
+          <apex:outputField value="{!opp.PartnerAccount.name}"/>
+          </apex:pageBlockSectionItem>                         
+          <apex:outputField value="{!opp.End_User_Account_Name__c}"/>   
+           <!--// remove dell keyword for story 2749405   -->         
+          <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Total Expected Revenue"></apex:outputLabel> 
+          <apex:outputPanel >
+          <apex:outputText value="{!opp.CurrencyIsoCode}"/> &nbsp;
+              <apex:outputText value=" {0,number,#,##0.00}">
+              <apex:param value="{!opp.Total_Expected_Dell_Revenue__c}" /> 
+              </apex:outputText>                       
+          </apex:outputPanel>
+          </apex:pageBlockSectionItem>          
+          <apex:outputField value="{!opp.End_User_Mailing_City__c}"  />          
+          <apex:pageBlockSectionItem >
+           <apex:outputlabel value="Total Expected Revenue USD"></apex:outputlabel>
+           <apex:outputField value="{!opp.Total_Expected_Dell_Revenue_USD__c}"/>
+          </apex:pageBlockSectionItem>  
+          <apex:outputField value="{!opp.End_User_Mailing_State_Province_Region__c}"/>
+          <apex:pageBlockSectionItem >
+           <apex:outputlabel value="Justification Statement"></apex:outputlabel>
+           <apex:outputField value="{!opp.Justification_Statement__c}" style="WORD-BREAK:NORMAL;WORD-WRAP:NORMAL;WHITE-SPACE:NORMAL" />
+          </apex:pageBlockSectionItem> 
+          </apex:pageBlockSection>
+          </apex:pageBlock>
+ 
+  <apex:pageBlock title="Open Opportunity Conflict Selection">
+  <apex:pageMessages id="errorMsg" rendered="{!noRecordsSelected}"/>
+      <apex:pageblockTable value="{!wcList}" var="w" id="conflictSelectionTableId" styleClass="dataTable" > 
+      
+        <apex:column headerValue="Selected" style="width: 50px;" styleClass="{!IF(w.rejectionFoundCheck == true,'backgroundColorClass','')}">
+          <apex:inputCheckbox value="{!w.selected}"/> 
+        </apex:column>
+        <apex:column headerValue="Deal Id" value="{!w.oli.Opportunity.Deal_ID__c}" styleClass="{!IF(w.rejectionFoundCheck == true,'backgroundColorClass','')}"  />  
+        <apex:column headerValue="End user contact" value="{!w.oli.Opportunity.Quest_Software_Contact__c}" styleClass="{!IF(w.rejectionFoundCheck == true,'backgroundColorClass','')}" />     
+        <apex:column headerValue="Mailing City" value="{!w.oli.opportunity.Quest_Software_Contact__r.MailingCity}" styleClass="{!IF(w.rejectionFoundCheck == true,'backgroundColorClass','')}" /> 
+        <apex:column headerValue="Mailing State/Province" value="{!w.oli.opportunity.Quest_Software_Contact__r.MailingState}" styleClass="{!IF(w.rejectionFoundCheck == true,'backgroundColorClass','')}" />
+        <apex:column headerValue="Brand Desc" styleClass="{!IF(w.rejectionFoundCheck == true,'backgroundColorClass','')}" >
+          <apex:outputLink value="/{!w.oli.ID}" target="_blank" >{!w.oli.Brand_Desc__c}</apex:outputLink>
+        </apex:column>      
+        <apex:column headerValue="Product Group" value="{!w.oli.Product2.Productcode}" styleClass="{!IF(w.rejectionFoundCheck == true,'backgroundColorClass','')}" /> 
+        <apex:column headerValue="Product Desc" value="{!w.oli.Product2.Description}" styleClass="{!IF(w.rejectionFoundCheck == true,'backgroundColorClass','')}" /> 
+        <apex:column headerValue="Channel Product LOB" value="{!w.oli.Product2.Channel_Product_LOB__c}" styleClass="{!IF(w.rejectionFoundCheck == true,'backgroundColorClass','')}" /> 
+        <apex:column headerValue="Opportunity Name" styleClass="{!IF(w.rejectionFoundCheck == true,'backgroundColorClass','')}" >
+          <apex:outputLink value="/{!w.oli.OpportunityID}" target="_blank" >{!w.oli.Opportunity.Name}</apex:outputLink>
+        </apex:column>
+        <apex:column headerValue="Opportunity Owner Email" styleClass="{!IF(w.rejectionFoundCheck == true,'backgroundColorClass','')}" >
+          <apex:outputLink value="/{!w.oli.Opportunity.OwnerID}" target="_blank" >{!w.oli.Opportunity.Owner.Email}</apex:outputLink>
+        </apex:column>
+        <apex:column headerValue="Stage" value="{!w.oli.Opportunity.StageName}" styleClass="{!IF(w.rejectionFoundCheck == true,'backgroundColorClass','')}" />  
+        <apex:column headerValue="Opportunity Type" value="{!w.oli.opportunity.RecordType.Name}" styleClass="{!IF(w.rejectionFoundCheck == true,'backgroundColorClass','')}" /> 
+        <apex:column headerValue="Partner Account" styleClass="{!IF(w.rejectionFoundCheck == true,'backgroundColorClass','')}" >
+          <apex:outputLink value="/{!w.oli.Opportunity.PartnerAccountID}" target="_blank" >{!w.oli.Opportunity.PartnerAccount.Name}</apex:outputLink>
+        </apex:column>
+         <apex:column headerValue="Distributor/Reseller Account Name" value="{!w.oli.Opportunity.Distributor_Reseller_Name__c}" styleClass="{!IF(w.rejectionFoundCheck == true,'backgroundColorClass','')}" /> 
+        <apex:column headerValue="End User Mailing City" value="{!w.oli.Opportunity.End_User_Mailing_City__c}" styleClass="{!IF(w.rejectionFoundCheck == true,'backgroundColorClass','')}" /> 
+        <apex:column headerValue="End User State/Province/Region" value="{!w.oli.Opportunity.End_User_Mailing_State_Province_Region__c}" styleClass="{!IF(w.rejectionFoundCheck == true,'backgroundColorClass','')}"/> 
+        <apex:column headerValue="Deal Expiration Date" value="{!w.oli.Opportunity.Deal_Expiration_Date__c}" styleClass="{!IF(w.rejectionFoundCheck == true,'backgroundColorClass','')}" />
+        <apex:column headerValue="Book Date" value="{!w.oli.opportunity.CloseDate}" styleClass="{!IF(w.rejectionFoundCheck == true,'backgroundColorClass','')}" /> 
+        <apex:column headerValue="End User Account Name" value="{!w.oli.opportunity.End_User_Account_Name__c}" styleClass="{!IF(w.rejectionFoundCheck == true,'backgroundColorClass','')}" /> 
+        <apex:column headerValue="Tier1 Approved/Rejected" value="{!w.oli.opportunity.Tier_1_Approved_Rejected__c}" styleClass="{!IF(w.rejectionFoundCheck == true,'backgroundColorClass','')}" /> 
+      
+      </apex:pageblockTable>
+      
+      <!-- <apex:panelGrid columns="7">               
+          <apex:commandButton value="Previous" action="{!previous}" disabled="{!NOT(hasPrevious)}"/>
+           <apex:commandButton value="Next" action="{!next}" disabled="{!NOT(hasNext)}"/>      
+      </apex:panelGrid> -->
+      <apex:pageBlockButtons location="bottom">
+         <apex:actionStatus id="actStatusId" >
+           <apex:facet name="start">              
+              <apex:image url="{!$Resource.loading}"/>                                    
+           </apex:facet>
+         </apex:actionStatus>
+         <apex:commandButton value="Save" action="{!savefunction}" reRender="frm"  status="actStatusId" />    
+         <apex:commandButton value="Cancel" onclick="window.top.close();"/>  
+                 
+      </apex:pageBlockButtons>
+      
+  </apex:pageBlock>
+  </apex:form>   
+
+  <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'js/jquery.js')}"></script>
+  <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'js/jquery.dataTables.js')}"></script>
+  <script type="text/javascript" language="javascript">
+  var j$ = jQuery.noConflict();
+  j$('table.dataTable').dataTable({
+      sPaginationType: "full_numbers"
+  });
+  </script> 
+
+</apex:page>

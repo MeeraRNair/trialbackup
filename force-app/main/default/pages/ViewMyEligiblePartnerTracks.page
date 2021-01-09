@@ -1,0 +1,26 @@
+<apex:page sidebar="false" showHeader="false" controller="ViewMyEligiblePartnerTracksCtrl"  >
+    <style>
+     body .pbBody table.list tr.headerRow td, body .pbBody table.list tr.headerRow th {
+   
+    border-color: #000;
+        }
+    </style>
+    
+    <apex:form >  <br/> <br/>
+         
+         <apex:pageBlock id="Table" title="{!$Label.Partner_tracks_and_primary_IDs}"    > 
+            <p >
+                {!$Label.EligibletracksInfo}
+            </p>
+            <br/><br/><br/>
+       
+            
+             
+           <apex:pageBlockTable value="{!listtotalPT}" var="co" align="center" style="width:50%; border:1px solid black;" >
+                <apex:column style="border:1px solid black;" headervalue="{!$Label.Partner_Program_Track}" value="{!co.Track_Name__c}" />      
+                <apex:column style="border:1px solid black;" headervalue="{!$Label.Primary_ID}" value="{!co.Primary_Sales_Motion_Affinity_ID__c}" />
+         </apex:pageBlockTable>
+             
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Distributor_Switch__c</fullName>
+    <description>Checks the flag based on time period stored in custom setting</description>
+    <externalId>false</externalId>
+    <formula>AND(TODAY() &gt;= $Setup.Distributor_Switch_Time_Period__c.Start_Date__c &amp;&amp;( ISBLANK($Setup.Distributor_Switch_Time_Period__c.End_Date__c) || TODAY() &lt;= $Setup.Distributor_Switch_Time_Period__c.End_Date__c))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Flag to display change hyperlink in partner portal</inlineHelpText>
+    <label>Distributor Switch On</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

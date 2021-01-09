@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DCBA_Referral_Lead_Read_Only</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(NOT(ISPICKVAL(Boomi_Lead_Status__c,&apos;Created&apos;)), NOT(CONTAINS( $User.Profile_Name__c,&apos;Boomi Integration API Only&apos;)), RecordTypeId =&quot;012A0000000Vhyv&quot;)</errorConditionFormula>
+    <errorMessage>This lead has been submitted to Dell Cloud Business Applications and can no longer be modified.</errorMessage>
+</ValidationRule>

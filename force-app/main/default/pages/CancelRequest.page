@@ -1,0 +1,12 @@
+<apex:page Standardcontroller="Customer_Engagement__c" extensions="CancelRequestController"
+    title="Cancel confirmation message">
+    <apex:form id="cancelForm">
+        <apex:pageBlock rendered="{!Info}" title="Cancel confirmation message">
+            <apex:pageMessages />
+             <apex:pageBlockButtons location="Bottom">
+                <apex:commandButton value="YES" action="{!changeStatus}"/>
+                <apex:commandButton value="NO" action="{!Cancel}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

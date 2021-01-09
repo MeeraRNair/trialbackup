@@ -1,0 +1,71 @@
+<!-- 
+REVISION HISTORY
+================
+Version		Author		Date		Release#	CR#		Description
+-------		------		----		--------	---		-----------
+1.0			TK Chin		17-Apr-2013		14.5	7642	Start versioning.
+1.1			TK Chin		17-Apr-2013		14.5	7642	Allow user to select image to upload.
+ -->
+<apex:page controller="SalesMotionFindNReplaceController" action="{!queryRecords}">
+<apex:form > 
+<apex:pagemessages ></apex:pagemessages>
+    <apex:sectionHeader subtitle="Step 6: Find & replace criteria" title="step 6 of 6"/>
+<apex:pageBlock rendered="{!ShowSearch}" >
+    <apex:pageBlockSection >
+        Search Conditions : <br></br>
+            - Please enter at least two characters in Find box<br></br>                                
+        <table align="Center"  width="100%">
+            <tr><td><b>Find</b></td></tr> 
+            <tr><td><apex:inputTextArea value="{!SearchText}" rows="7" cols="50"/></td>
+            </tr>
+            <tr><td><b>Replace With</b></td></tr> 
+            <tr>
+            	<!-- Version 1.1 - Use inputField with an RTF field -->
+            	<td><apex:inputField label="" value="{!rtfReplaceTextObj.Body}"/></td>
+            </tr>
+            <!-- 
+            <tr>
+	            <td><apex:inputTextarea value="{!ReplaceText}" richText="true" rows="7" cols="50"/></td>
+            </tr> 
+            -->
+        </table>
+    </apex:pageBlockSection>    
+     <apex:pageblockButtons location="bottom">
+         <apex:commandButton action="{!PreviousPage6}" value="Previous"/>
+        <apex:commandButton action="{!searchSectionContent}" value="Submit"/>
+        <apex:commandButton action="{!CancelPage5}" value="Cancel"/>
+    </apex:pageblockButtons>
+   </apex:pageblock>
+   
+   <apex:pageBlock title="Find & replace:Search results" rendered="{!ShowTbl}">
+    <apex:pageBlockTable value="{!SMPageSectionList}" var="section">
+        <apex:column headerValue="Select">
+            <apex:inputCheckbox value="{!section.selected}"/>
+        </apex:column>
+        <apex:column value="{!section.SMPageSection.Section_Content__c}" headerValue="Section Content"/>
+        <apex:column headerValue="Link to Sales Motion Page section">
+            <apex:commandLink action="/{!section.SMPageSection.Id}" value="{!section.SMPageSection.Sales_Motion_Page__r.Sales_Motion_Name__r.name} : {!section.SMPageSection.Sales_Motion_Page__r.name}: {!section.SMPageSection.Name}" 
+            target="_blank"/>
+        </apex:column>
+      
+    </apex:pageBlockTable>
+   <apex:outputText rendered="{!SMPageSectionList.size==0}"><b> No Results To Display.Please change the criteria.</b></apex:outputText>
+    <apex:outputText rendered="{!UserMsg}"><b>Contents replaced successfully</b></apex:outputText>
+    <apex:pageblockButtons location="bottom">
+        <apex:commandButton action="{!replaceSectionContent}" value="Replace" rendered="{!ShowTbl}"/>
+        <apex:commandButton action="{!ChangeFindNReplaceCriteria}" value="Change Find & Replace Criteria"/>        
+        <apex:commandButton action="{!CancelPage5}" value="Cancel"/>
+    </apex:pageblockButtons>
+</apex:pageBlock>
+ 
+ <apex:pageBlock rendered="{!UserMsg}">
+     <apex:pageMessage Summary="Contents is/are replaced successfully" severity="Info" strength="3" 
+    title="Find & Replace: Replace Status"></apex:pageMessage>
+    
+    <apex:pageblockButtons location="bottom"> 
+        <apex:commandButton action="{!exit}" value="Exit"/>
+    </apex:pageblockButtons>    
+</apex:pageBlock>
+
+  </apex:form>
+</apex:page>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>If_BAAAutoRenew_Selected_Dates_Reqrd</fullName>
+    <active>true</active>
+    <description>If BAA Auto-Renew is set to &quot;Yes&quot; or &quot;No&quot;, the corresponding Start Date and End Date must be filled</description>
+    <errorConditionFormula>AND(OR(ISBLANK(BAA_StartDate__c),ISBLANK( BAA_End_Date__c)),NOT(ISPICKVAL(BAA_Auto_Renew__c,&quot;&quot;)))</errorConditionFormula>
+    <errorDisplayField>BAA_Auto_Renew__c</errorDisplayField>
+    <errorMessage>If BAA Auto-Renew is set to &quot;Yes&quot; or &quot;No&quot;, the corresponding Start Date and End Date must be filled</errorMessage>
+</ValidationRule>

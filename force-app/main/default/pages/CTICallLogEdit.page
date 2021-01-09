@@ -1,0 +1,199 @@
+<!-- 
+REVISION HISTORY
+================
+Version     Author          Date            Release#       CR#      Description
+-------     ------          ----            --------       ----     -----------
+1.0         Jessie          30 Mar 2016     0403           12724    Modified to remove Custom Contact Duplication Check VF (directly call Contact Create page)
+
+ -->
+
+<apex:page standardController="CTI_Call_Log__c" extensions="VFCntrlr_CTICallLogEdit" tabStyle="CTI_Call_Log__c" applyBodyTag="true" applyHtmlTag="true" lightningStylesheets="true">
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"/>
+    
+    <script>
+        var cssIncluded = false;
+        var j$ = jQuery.noConflict();
+                function createOpportunity1(paramva2){
+                     function isLightningExperienceOrSalesorce1(){                   
+                        return((typeof sforce != 'undefined') && sforce && (!!sforce.one));
+                    }
+                                if(isLightningExperienceOrSalesorce1()){
+                                             var defaultValues = {
+                               'Name' : ''
+                             };
+                             window.open('/one/one.app#/alohaRedirect/apex/RecordTypeSelection?paramval2='+paramva2);
+                            
+} else {
+                   javascript:openDialog('/setup/ui/recordtypeselect.jsp?ent=Opportunity&{!$Label.Opportunity_CTI_Call_Log_Id}={!objCTI.ID}&retURL={!If($CurrentPage.parameters.retURL!=null, $CurrentPage.parameters.retURL, '%2F006%2Fo')}&save_new_url=%2Fapex%2FchannelOpportunityOveride%3FretURL%3D{!If($CurrentPage.parameters.retURL!=null, $CurrentPage.parameters.retURL, '%252F006%252Fo') }%26accid%3D{!$CurrentPage.parameters.accid}&00NA00000063VZx={!$CurrentPage.parameters.00NA00000063VZx}', 'New Opportunity');
+     }
+                    
+}
+
+                function createContact1(){
+                     function isLightningExperienceOrSalesorce1(){
+                    
+                        return((typeof sforce != 'undefined') && sforce && (!!sforce.one));
+                    }
+                    
+                    if(isLightningExperienceOrSalesorce1()){
+                                             var defaultValues = {
+                               'LastName' : ''
+                             };
+                         sforce.one.createRecord("Contact", null, defaultValues);
+                   
+          } else {
+javascript:openDialog('/003/e?con4_lkid={!objCTI.Account__c}&CF00NA00000064sQh={!URLENCODE($User.FirstName + ' ' + $User.LastName)}&saveURL=%2Fapex%2FAVSContactSuggestion&retURL=%2F003%2Fo&sfdc.override=1&{!$Label.Contact_CTI_Call_Log_Id}={!objCTI.Id}', 'New Contact');    }
+                    
+}
+
+            function createTask1(paramva2){
+                     function isLightningExperienceOrSalesorce1(){
+                    
+                        return((typeof sforce != 'undefined') && sforce && (!!sforce.one));
+                    }
+                    
+                    if(isLightningExperienceOrSalesorce1()){
+                                             var defaultValues = {
+                               'Subject' : ''
+                             };
+                         window.open('/one/one.app#/alohaRedirect/apex/TaskRecordTypeSelector?paramval2='+paramva2);
+                   
+          } else {
+javascript:openDialog('/setup/ui/recordtypeselect.jsp?ent=Task&{!$Label.Task_CTI_Call_Log_Id}={!objCTI.Id}', 'New Task'); 
+  }
+}
+        function requireCssFile(filename)
+        {
+            var fileref = document.createElement('link');
+            fileref.setAttribute('rel', 'stylesheet');
+            fileref.setAttribute('type', 'text/css');
+            fileref.setAttribute('href', filename);
+            document.getElementsByTagName('head')[0].appendChild(fileref);
+        }
+        
+        function requireJSFile(filename)
+        {
+            var fileref = document.createElement('script');
+            fileref.setAttribute('type', 'text/javascript');
+            fileref.setAttribute('src', filename);
+            document.getElementsByTagName('head')[0].appendChild(fileref);
+        }
+        
+        function openDialog(strURL, strTitle)
+        {
+            var windowWidth = j$(window).width() - 40;
+            if(cssIncluded == false)
+            {
+                requireCssFile('https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css');
+                cssIncluded = true;
+            }
+            if(document.getElementById('j_id0:j_id5:j_id6:j_id11:j_id15_lkid').value == '' || document.getElementById('j_id0:j_id5:j_id6:j_id11:j_id15_lkid').value == '000000000000000')
+            {
+                alert('Please select an account before creating an opportunity, contact or task.');
+            }
+            else
+            {                   
+                var iframe_url='';
+                if(strTitle == 'New Opportunity')
+                {
+                    iframe_url = strURL + '&opp4_lkid=' + document.getElementById('j_id0:j_id5:j_id6:j_id11:j_id15_lkid').value;
+                    iframe_url = iframe_url + '&opp4_lkold=' + document.getElementById('j_id0:j_id5:j_id6:j_id11:j_id15_lkold').value;
+                }
+                else if(strTitle == 'New Contact')
+                {
+                    iframe_url = strURL + '&accId=' + document.getElementById('j_id0:j_id5:j_id6:j_id11:j_id15_lkid').value;
+                    iframe_url = iframe_url + '&pno=' + document.getElementById('j_id0:j_id5:j_id6:j_id11:j_id14').value;
+                }
+                else if(strTitle == 'New Task')
+                {
+                    iframe_url = strURL + '&retURL=%2F'+ document.getElementById('j_id0:j_id5:j_id6:j_id11:j_id15_lkid').value;
+                    iframe_url = iframe_url + '&save_new_url=%2F00T%2Fe%3Fwhat_id%3D' + document.getElementById('j_id0:j_id5:j_id6:j_id11:j_id15_lkid').value;
+                    iframe_url = iframe_url + '%26retURL%3D%252F' + document.getElementById('j_id0:j_id5:j_id6:j_id11:j_id15_lkid').value;
+                    if(document.getElementById('j_id0:j_id5:j_id6:j_id11:j_id23:j_id26_lkid').value != '000000000000000' || document.getElementById('j_id0:j_id5:j_id6:j_id11:j_id23:j_id26_lkold').value != 'null')
+                    {
+                        iframe_url = iframe_url + '&tsk2_lkid=' + document.getElementById('j_id0:j_id5:j_id6:j_id11:j_id23:j_id26_lkid').value;
+                        iframe_url = iframe_url + '&tsk2=' + document.getElementById('j_id0:j_id5:j_id6:j_id11:j_id23:j_id26_lkold').value;
+                    }
+                }
+                var j$modalDialog = j$('<div></div>')
+               .html('<iframe id="iframeContentId" style="width: 100%; height:600px; border: none" src="' + iframe_url + '" frameborder="0" marginheight="0" marginwidth="0" scrolling="yes" />')
+               .dialog({
+                    autoOpen: false,
+                    resizable: true,
+                    draggable: true,
+                    width: windowWidth,
+                    height: 'auto',
+                    modal: false,
+                    draggable: true,
+                    closeOnEscape: true,
+                    title: strTitle
+                });
+                j$modalDialog.on('dialogclose', function () {
+                    if(strTitle == 'New Opportunity')
+                    {
+                        refreshOpportunity();
+                    }
+                    else if(strTitle == 'New Contact')
+                    {
+                        refreshContact();
+                    }
+                });
+                j$modalDialog.dialog('open');
+            }
+        }
+    </script>
+    <apex:sectionHeader subtitle="{!objCTI.Name}" title="CTI Call Log Edit"/>
+    <apex:form >
+        <apex:pageBlock title="CTI Call Log Edit" tabStyle="CTI_Call_Log__c" mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!saveRecord}" value="Save" title="Save"/>
+                <apex:commandButton action="{!cancel}" value="Cancel" title="Cancel" immediate="true"/>
+<!--                <apex:commandLink action="{!createOpportunity}" value="Create Opportunity" target="_blank"/>
+-->                <!--<input type="button" value="Create Opportunity" title="Create Opportunity" onclick="javascript:openDialog('/setup/ui/recordtypeselect.jsp?ent=Opportunity&{!$Label.Opportunity_CTI_Call_Log_Id}={!objCTI.Id}&retURL=%2F006%2Fo&save_new_url=%2F006%2Fe%3FretURL%3D%252F006%252Fo', 'New Opportunity');" class="btn"/>-->
+                <input type="button" value="Create Opportunity" title="Create Opportunity" onclick="createOpportunity1('{!objCTI.Id}');" class="btn"/>
+                <!-- v1.0 - start -->
+                <input type="button" value="Create Contact" title="Create Contact" onclick="createContact1();" class="btn"/>
+
+<!--                <input type="button" value="Create Contact" title="Create Contact" onclick="javascript:openDialog('/003/e?con4_lkid={!objCTI.Account__c}&CF00NA00000064sQh={!URLENCODE($User.FirstName + ' ' + $User.LastName)}&saveURL=%2Fapex%2FAVSContactSuggestion&retURL=%2F003%2Fo&sfdc.override=1&{!$Label.Contact_CTI_Call_Log_Id}={!objCTI.Id}', 'New Contact');" class="btn"/>
+-->                <!-- v1.0 - end -->
+                                <input type="button" value="Create Task" title="Create Task" onclick="createTask1('{!objCTI.Id}');" class="btn"/>
+
+<!--                <input type="button" value="Create Task" title="Create Task" onclick="javascript:openDialog('/setup/ui/recordtypeselect.jsp?ent=Task&{!$Label.Task_CTI_Call_Log_Id}={!objCTI.Id}', 'New Task');" class="btn"/>
+-->            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Information" columns="2" >
+                <apex:outputField value="{!objCTI.Name}"/>
+                <apex:inputField value="{!objCTI.Call_Type__c}"/>
+                <apex:inputField value="{!objCTI.Phone_Number__c}"/>
+                <apex:inputField value="{!objCTI.Account__c}" required="true"/>
+                <apex:inputField value="{!objCTI.Call_Start_Time__c}"/>
+                <apex:inputField value="{!objCTI.Partner_Disti_Account__c}"/>
+                <apex:inputField value="{!objCTI.Call_End_Time__c}"/>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Opportunity"></apex:outputLabel>
+                    <apex:outputPanel id="opOpportunity">
+                        <apex:actionRegion >
+                            <apex:inputField value="{!objCTI.Opportunity__c}" id="OppId"/>
+                        </apex:actionRegion>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>   
+                <apex:inputField value="{!objCTI.Trip_Report__c}"/>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Contact"></apex:outputLabel>
+                    <apex:outputPanel id="opContact">
+                        <apex:actionRegion >
+                            <apex:inputField value="{!objCTI.Contact__c}"/>
+                        </apex:actionRegion>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:outputField value="{!objCTI.Owner.name}" label="Owner"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection >
+                <apex:inputField value="{!objCTI.Comments__c}" style="width:100%"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:actionFunction action="{!refreshOpportunity}" reRender="opOpportunity" name="refreshOpportunity"/>
+        <apex:actionFunction action="{!refreshContact}" reRender="opContact" name="refreshContact"/>
+    </apex:form>
+</apex:page>

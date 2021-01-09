@@ -1,0 +1,108 @@
+<apex:page controller="newPOPCreationProcess" id="pg" lightningStylesheets="true"> 
+<apex:form id="form">
+<script>
+function checkAll(cb)
+{
+ var inputElem = document.getElementsByTagName("input");
+ for(var i=0; i<inputElem.length; i++)
+ {
+   if(inputElem[i].id.indexOf("checkedone")!=-1){
+   inputElem[i].checked = cb.checked;
+   }            
+ }
+}
+function checkHeader(cb)
+{
+ var inputElem = document.getElementsByTagName("input");
+ var count = 0;
+ var count1 = 0;
+ for(var i=0; i<inputElem.length; i++)
+ {
+   if(inputElem[i].id.indexOf("checkedone")!=-1){
+     count++;
+     if(document.getElementById(inputElem[i].id).checked){
+       count1++;
+     }
+   }            
+ }
+ if(count == count1){
+     document.getElementById('pg:form:pg1:tbl:hdChk').checked = true;
+ }
+ else{
+     document.getElementById('pg:form:pg1:tbl:hdChk').checked = false;     
+ }
+}
+</script>
+<apex:pageBlock id="block1">
+<apex:outputText ><br/><h3><b>Please enter Fiscal Quarter and Manager Name to search for Associated Vendors (APV) related to Headcount MDF Programs</b></h3></apex:outputText><br/><br/>
+<apex:pageBlockSection columns="1">
+<apex:inputField value="{!mdfPrgram.Fiscal_Quarter__c}" required="true"/>
+<apex:inputField value="{!adsetting.Manager_s_Name__c}" required="true" label="Manager Name"/>                            
+</apex:pageBlockSection>
+<apex:pageBlockButtons location="bottom">                               
+<apex:commandButton action="{!initLoad}" value="Search" reRender="form" oncomplete="checkHeader(this)"/>
+</apex:pageBlockButtons>            
+</apex:pageBlock>
+<apex:pageMessage severity="warning" strength="3" Summary="No Records Found !" id="msg" rendered="{!AND(firstPanel,noOfRecords = 0)}"/>
+<apex:outputPanel id="apvList">
+<apex:outputPanel rendered="{!AND(firstPanel,noOfRecords > 0)}" id="ref">
+<apex:pageBlock id="pg1">
+<apex:pageblocktable value="{!Contact}" var="cc"  id="tbl" rendered="{!firstPanel}"> 
+<apex:column headerValue="Select APV" id="hdr1" > 
+<!-- This is our selected Boolean property in our wrapper class -->
+<apex:facet name="header"> 
+<apex:inputCheckbox id="hdChk">
+<apex:actionSupport event="onclick" action="{!View_Existing}" onsubmit="checkAll(this)"  reRender="apvList,form2"/>
+</apex:inputCheckbox>
+</apex:facet> 
+<apex:inputCheckbox value="{!cc.bool}" id="checkedone">
+<apex:actionSupport event="onclick" action="{!View_Existing}" onsubmit="checkHeader(this)" reRender="apvList,form2"/></apex:inputCheckbox></apex:column> 
+<apex:column value="{!cc.con.Headcount__c}" headerValue="HCID"/> 
+<apex:column value="{!cc.con.MDF_Program__c}" headerValue="Program Name"/> 
+<apex:column value="{!cc.con.Region__c}"/> 
+<apex:column Value="{!cc.con.Sub_Region__c}"/> 
+<apex:column value="{!cc.con.Country__c}"/>
+<apex:column value="{!cc.con.Business_Segment__c}"/> 
+<apex:column value="{!cc.con.Vendor__c}" headerValue="Sub Vendor"/>
+<apex:column value="{!cc.con.Employee_Name__c}"/>    
+</apex:pageblocktable><br/>
+<span style="font-weight:bold;float: left">
+<apex:outputText value="Page {!pageNumber} of {!CEILING(NumberOfPages)}"></apex:outputText>
+</span>
+<span style="float: right;margin-top: -5px">
+<!--apex:pageBlockButtons location="bottom" rendered="{!firstPanel}" style="padding-left: 200px"--> 
+<apex:commandButton value="First" action="{!Setcon.First}" oncomplete="checkHeader(this)" reRender="apvList" disabled="{!!hasPrevious}" rendered="{!firstPanel}"/> 
+<apex:commandButton value="Previous" action="{!Setcon.Previous}" oncomplete="checkHeader(this)" reRender="apvList" disabled="{!!hasPrevious }" rendered="{!firstPanel}"/> 
+<apex:commandButton value="Next" action="{!Setcon.Next}" oncomplete="checkHeader(this)" reRender="apvList" disabled="{!!hasNext}" rendered="{!firstPanel}"/> 
+<apex:commandButton value="Last" action="{!Setcon.Last}" oncomplete="checkHeader(this)" reRender="apvList" disabled="{!!hasNext}" rendered="{!firstPanel}"/> 
+<!--/apex:pageBlockButtons-->
+</span>
+<apex:pageBlockButtons location="bottom"> 
+<apex:commandButton value="Create POPV" action="{!createPOPRecord}" reRender="form2"/> 
+</apex:pageBlockButtons> 
+</apex:pageBlock>
+</apex:outputPanel>
+</apex:outputPanel>
+<apex:outputPanel id="form2">
+<apex:pageMessage severity="warning" strength="3" Summary="POPV records does not exist for selected APV's" id="msg1" rendered="{!panelShow}"/>
+<apex:outputPanel rendered="{!AND(secondPanel,noOfRecords > 0,firstPanel)}" id="sub">
+<apex:pageblock > 
+<apex:pageblocktable value="{!selectedList}" var="w">
+<apex:column headerValue="POPV Name"><a href="/{!w.Id}">{!w.Name}</a></apex:column>
+<!--apex:column headerValue="POPV Name"><apex:outputlink value="{!w.Id}">{!w.Name}</apex:outputlink> </apex:column>-->
+<apex:column value="{!w.Proof_of_Performance_POP__r.mdf_program__r.HCID__c}" headerValue="HCID" />
+<apex:column value="{!w.Proof_of_Performance_POP__r.MDF_Program__c}" headerValue="Program Name"/>
+<apex:column value="{!w.Proof_of_Performance_POP__r.Region__c}" headerValue="Region"/>
+<apex:column value="{!w.Proof_of_Performance_POP__r.Sub_Region__c}" headerValue="Sub Region"/>
+<apex:column value="{!w.Country__c}" headerValue="Country"/> 
+<apex:column value="{!w.Business_Segment__c}" headerValue="Business Segment"/> 
+<apex:column value="{!w.Vendor__c}" headerValue="Sub Vendor"/> 
+<apex:column value="{!w.Proof_of_Performance_POP__r.mdf_program__r.HCID__r.Employee_Name__c}" headerValue="Employee Name"/>
+<apex:column value="{!w.POP_Submission_Status__c}" headerValue="POP Submission Status"/>
+
+</apex:pageblocktable>
+</apex:pageblock>
+</apex:outputPanel>
+</apex:outputPanel>
+</apex:form>
+</apex:page>

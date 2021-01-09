@@ -1,0 +1,53 @@
+<apex:page showHeader="false" showChat="false" sidebar="false" id="thePage" controller="salesMotionLookupCtlr" >
+<apex:form id="theForm">
+
+<apex:sectionHeader title="Lookup"/>
+<div class="bPageTitle" style="margin-left:38px;">
+    <apex:outputlabel for="inputText" value="Search" style="font-weight:bold;" ></apex:outputlabel> &nbsp;
+    <apex:inputText id="inputText" value="{!searchText}" maxlength="80" size="20"/>&nbsp;
+    <apex:commandButton value=" Go! " styleclass="btn"  action="{!go}"/>
+
+</div>
+
+<apex:pageBlock >
+
+<div>
+<h1> Search Results</h1></div>
+<div style="width:300px;">
+<apex:pageBlockTable title="Search Results" value="{!smRecords}" var="sm" id="theTable">
+    <apex:column headerValue="Sales Motion Name" >
+        <apex:commandLink value="{!sm.Name}" onclick="javascript:stampValue('{!sm.Name}','{!sm.Id}');" title="{!sm.Name}"/>
+    </apex:column>
+</apex:pageBlockTable>
+<apex:outputText value="No records were found based on your criteria" style="font-weight:bold;font-style:italic" rendered="{!smRecords.size==0}"/>
+</div>
+
+ <apex:panelGrid columns="7" id="buttons" rendered="{!NOT(flag)}" >             
+                        <apex:commandButton id="p1" status="fetchStatus" disabled="{!previousdis}"  reRender="theTable,errMsg,buttons"  value="<<First" action="{!first}"  title="First Page"/>
+                        <apex:commandButton status="fetchStatus" id="p2" disabled="{!previousdis}" reRender="theTable,errMsg,buttons"  value="<Previous" action="{!previous}"  title="Previous Page"/>
+                       <apex:outputText >Page {!(pageNumber+1)}</apex:outputText> <br/>
+                        <apex:outputText >Records {!IF(((pageNumber) * pageSize)>totalSize, totalSize,((pageNumber) * pageSize))+1}-{!IF(((pageNumber+1) * pageSize)>totalSize, totalSize,((pageNumber+1) * pageSize))} out of {!totalSize}</apex:outputText>
+                        <apex:commandButton status="fetchStatus"  disabled="{!Nextdis}"   reRender="theTable,errMsg,buttons"     value="Next>" action="{!next}"  title="Next Page"/>      
+                        <apex:commandButton status="fetchStatus"  disabled="{!Nextdis}"   reRender="theTable,errMsg,buttons"  value="Last>>" action="{!last}"  title="Last Page"/>
+                        
+                        <apex:outputPanel style="color:#4AA02C;font-weight:bold">
+                            <apex:actionStatus id="fetchStatus" startText="Fetching..." stopText=""/>
+                        </apex:outputPanel>
+                    </apex:panelGrid>                 
+</apex:pageBlock>
+<script>
+    function stampValue(name,Id)
+    {
+        top.window.opener.document.getElementById("thepage:theForm:fieldPanel:GenericSales:smNameItem:smName").value=name;
+        top.window.opener.document.getElementById("thepage:theForm:fieldPanel:GenericSales:smNameItem:smName_lkold").value=name;
+        top.window.opener.document.getElementById("thepage:theForm:fieldPanel:GenericSales:smNameItem:smName_lkid").value=Id;
+        top.window.close();
+        return false;
+       
+    }
+
+
+</script>
+
+</apex:form>
+</apex:page>

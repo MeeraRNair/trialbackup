@@ -1,0 +1,679 @@
+<apex:page standardController="VisitOps__Survey__c" language="{!strSelectedLang}" extensions="VOOwnerPostSurveyExtension" showHeader="false" title="{!$Label.VO_Account_Executive_Survey}">
+    <apex:form id="formId">
+    <style>
+* {
+    font-family: Arial;
+}
+</style>
+        <script>
+        $('li[style*="list-style: none"]').remove();
+        </script>
+        <script>
+        var DOMId = 'j_id0:formId:';
+        function setHiddenVal(eleVal, eleName)
+        {
+            document.getElementById(DOMId+eleName).value = eleVal;
+        }
+        
+        function setRadioButtonValues()
+        {
+            var arr = document.getElementsByTagName('input');
+            for(var i=0;i<arr.length;i++)
+            {
+                var arrEle = arr[i];
+                if(arrEle.type == 'radio')
+                {
+                    //console.log(arrEle.name);
+                    if(document.getElementById(DOMId+arrEle.name) != null)
+                    {
+                        if(document.getElementById(DOMId+arrEle.name).value)
+                        {
+                            if(document.getElementById(DOMId+arrEle.name).value == arrEle.value)
+                            {
+                                arrEle.checked = true;
+                            }
+                        }
+                    }
+                    
+                }
+            }
+            arr = document.getElementsByTagName('p');
+            for(var i=0;i<arr.length;i++)
+            {
+                var arrEle = arr[i];
+                if(document.getElementById(arrEle.name) != null)
+                {
+                    if(document.getElementById(arrEle.name).innerHTML)
+                    {
+                        if(document.getElementById(DOMId+arrEle.name).innerHTML == arrEle.value)
+                        {
+                            arrEle.checked = true;
+                        }
+                    }
+                }
+            }
+        }
+        
+        function disableRadioInputs()
+        {
+            var arr = document.getElementsByTagName('input');
+            for(var i=0;i<arr.length;i++)
+            {
+                var arrEle = arr[i];
+                if(arrEle.type == 'radio')
+                {
+                    arrEle.disabled = true;
+                }
+            }
+        }
+        </script>
+        <apex:styleSheet value="{!$Resource.VisitOps__survey_css}" />
+        <!--apex:styleSheet value="{!$Resource.DellOwnerPostSurveyCSS}" /-->
+		<apex:styleSheet value="{!$Resource.DellPrintSurvey}" />
+        <apex:includeScript value="{!$Resource.VisitOps__jquery1_11_1_min}" />
+        <apex:includeScript value="{!$Resource.VisitOps__function_js}" />
+        
+        
+        <div class="rightContent"> 
+            <!-- <apex:image url="{!DocumentLogoUrl}" style="padding-left:12px;width:186px;height:60px"/> -->
+            <!--<apex:image url="{!DocumentLogoUrl}" style="padding-left:12px;width:128px;height:128px"/>-->
+			<div style="margin-bottom: 15px; margin-left: 15px; white-space: nowrap;"> 
+				{!$Label.VisitOps__Change_Language}:&nbsp;&nbsp; 
+				<apex:actionRegion >
+					<apex:selectList value="{!strSelectedLang}" size="1" style="width: auto;">
+						<apex:selectoptions value="{!listOfLang}"/>
+                        <apex:actionsupport event="onchange" action="{!refreshPage}" reRender="formId"/>
+                    </apex:selectList>
+				</apex:actionRegion> 
+			</div>
+			<apex:actionFunction name="refreshPage" action="{!refreshPage}" immediate="true" reRender="formId" />
+            <apex:image url="{!DocumentLogoUrl}" style="padding-left:12px"/>
+            <div class="screenHeading" style="padding-left:12px;"><br/>{!$Label.VO_Account_Executive_Survey}</div> 
+            <apex:pageMessages />     
+            <apex:outputPanel rendered="{!visitRecord!=null && (attendeeRecord!=null || userRecord!=null) && surveyRecord!=null}">
+                <div class="surveyDetails" style="width:400px;">
+                    <div class="spacing">
+                        <apex:outputPanel id="VisitDetails" rendered="{!visitRecord!=null}">
+                            <!--div class="row">
+<div class="labelText">Visit Number</div>
+<div class="fieldText">
+<apex:outputField value="{!visitRecord.Name}"/>
+</div>
+</div-->
+                            <div class="row">
+                                <div class="labelText" style="width:100px; display:inline-block;">{!$Label.visitops__name}</div>
+                                <div class="fieldText" style="width:250px;">
+                                    <apex:outputField value="{!visitRecord.VisitOps__VisitName__c}"/>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="labelText" style="width:100px; display:inline-block;">{!$Label.visitops__attendee_name}</div>
+                                <div class="fieldText" style="width:250px;">
+                                    <apex:outputText value="{!userRecord.Name}" rendered="{!NOT(userRecord==null)}"/>
+                                    <apex:outputText value="{!attendeeRecord.VisitOps__FirstName__c}" rendered="{!(userRecord==null)}"/>&nbsp;<apex:outputText value="{!attendeeRecord.VisitOps__LastName__c}" rendered="{!(userRecord==null)}"/>
+                                </div>
+                            </div>
+                            <!--div class="row">
+<div class="labelText" style="width:100px; display:inline-block;">Attendee Name</div>
+<div class="fieldText" style="width:250px;">
+<apex:outputText value="{!visitRecord.VisitOps__VisitOwner__r.Name}"/>
+<!--apex:outputField value="{!visitRecord.Owner.Name}"/>
+</div>
+</div-->                  
+                        </apex:outputPanel>
+                    </div> 
+                </div>
+                
+                <!-- <div class="row"> -->
+                <ol  class="surveyQuestions dellGrayText">
+                    
+                    <li>
+                        <apex:outputPanel rendered="{!requiredQ1Flag}">
+                            <div class="requiredBlock">
+                                <div class="redStrip"></div>
+                                <div class="requiredText"><i class="fas fa-exclamation-circle"></i>  {!$Label.VO_Required_Question}</div>
+                            </div>
+                        </apex:outputPanel>
+                        <div class="questions" ><apex:outputText value="{!$ObjectType.VisitOps__Survey__c.fields.VisitOps__Recommendation_Strategy__c.inlineHelpText}"/><div class="redStar">&nbsp;*</div></div>
+                        <br/><br/><table style="width:100%;" class="tableRadioClass">
+                        <tr>
+                            <td class="tableRadioClasstd">{!$Label.VisitOps__Not_Likely_at_all}</td>
+                            <td class="tableRadioClasstd">&nbsp;</td>
+                            <td class="tableRadioClasstd">&nbsp;</td>
+                            <td class="tableRadioClasstd">&nbsp;</td>
+                            <td class="tableRadioClasstd">&nbsp;</td>
+                            <td class="tableRadioClasstd">&nbsp;</td>
+                            <td class="tableRadioClasstd">&nbsp;</td>
+                            <td class="tableRadioClasstd">&nbsp;</td>
+                            <td class="tableRadioClasstd">&nbsp;</td>
+                            <td class="tableRadioClasstd">&nbsp;</td>
+                            <td class="tableRadioClasstd">{!$Label.VisitOps__Extremely_Likely}</td>
+                        </tr>
+                        <tr>
+                            <apex:repeat value="{!RadioOpts}" var="RadioOpt">
+                                <td class="tableRadioClasstd" style="font-size:17px !important;color:#808080 !important;"><input type="radio" value="{!RadioOpt.Value}" dir="LTR" name="VisitOps__Recommendation_Strategy" onClick="setHiddenVal(this.value, this.name);"/><br/><br/>{!RadioOpt.Value}</td>
+                            </apex:repeat>
+                            <!--                           <td class="radioClass">
+<apex:selectRadio value="{!surveyRecord.VisitOps__Recommendation_Strategy__c}"  layout="table" styleClass="radioClass" disabled="{!flag}">
+<apex:selectOptions value="{!RadioOpts}"/>
+</apex:selectRadio>
+
+</td> -->
+                        </tr>
+                        </table>
+                        <apex:inputHidden value="{!VisitOps_Recommendation_Strategy_Buffer}" id="VisitOps__Recommendation_Strategy"/>
+                        
+                    </li>
+                    
+                    
+                    <li>  
+                        <apex:outputPanel rendered="{!requiredQ2Flag}">
+                            <div class="requiredBlock">
+                                <div class="redStrip"></div>
+                                <div class="requiredText"><i class="fas fa-exclamation-circle"></i>  {!$Label.VO_Required_Question}</div>
+                            </div>
+                        </apex:outputPanel>
+                        <div class="questions" ><apex:outputText value="{!$ObjectType.VisitOps__Survey__c.fields.Engagement_Met_Objectives__c.inlineHelpText}"/><div class="redStar">&nbsp;*</div></div>
+                        <table style="width:100%;" class="tableRadioClass">
+                            <tr>
+                                <apex:repeat value="{!EngMetOpts}" var="EngMetOpt">
+                                    <td class="tableRadioClasstd">{!EngMetOpt.Label}</td>
+                                </apex:repeat>
+                            </tr>
+                            <tr>
+                                <apex:repeat value="{!EngMetOpts}" var="EngMetOpt">
+                                    <td class="tableRadioClasstd"><input type="radio" value="{!EngMetOpt.Value}" dir="LTR" name="Engagement_Met_Objectives" onClick="setHiddenVal(this.value, this.name);"/></td>
+                                </apex:repeat>
+                            </tr>
+                        </table>
+                        <apex:inputHidden value="{!surveyRecord.Engagement_Met_Objectives__c}" id="Engagement_Met_Objectives"/> 
+                    </li> 
+                    
+                    <li>         
+                        <apex:outputPanel rendered="{!requiredQ3Flag}">
+                            <div class="requiredBlock">
+                                <div class="redStrip"></div>
+                                <div class="requiredText"><i class="fas fa-exclamation-circle"></i>  {!$Label.VO_Required_Question}</div>
+                            </div>
+                        </apex:outputPanel>
+                        <div class="questions"><apex:outputText value="{!$ObjectType.VisitOps__Survey__c.fields.Engagement_Impact__c.inlineHelpText}"/><div class="redStar">&nbsp;*</div></div><br/><br/>
+                        <table style="width:100%;" class="tableRadioClass">
+                            <tr>
+                                <td class="tableRadioClasstd">&nbsp;</td>
+                                <td class="tableRadioClasstd">{!$Label.VO_Did_Not_Help_At_All}</td>
+                                <td class="tableRadioClasstd">{!$Label.VO_Helped_Very_Little}</td>
+                                <td class="tableRadioClasstd">{!$Label.VO_Neutral}</td>
+                                <td class="tableRadioClasstd">{!$Label.VO_Helped_Somewhat}</td>
+                                <td class="tableRadioClasstd">{!$Label.VO_Helped_Very_Much}</td>
+                                <td class="tableRadioClasstd">{!$Label.VO_N_A}</td>
+                            </tr>
+                            <tr>
+                                <td class="tableRadioClasstd" style="text-align:left;">{!$Label.VO_Improved_relationship_with_customer}</td>
+                                <apex:repeat value="{!EngImpOptsNolabel}" var="EngImpOpt">
+                                    <td class="tableRadioClasstd"><input type="radio" value="{!EngImpOpt.Value}" dir="LTR" name="Improved_Relationship_with_Customer" onClick="setHiddenVal(this.value, this.name);"/></td>
+                                </apex:repeat>
+                            </tr>
+                            <tr>
+                                <td class="tableRadioClasstd" style="text-align:left;">{!$Label.VO_Uncovered_new_opportunities}</td>
+                                <apex:repeat value="{!EngImpOptsNolabel}" var="EngImpOpt">
+                                    <td class="tableRadioClasstd"><input type="radio" value="{!EngImpOpt.Value}" dir="LTR" name="Uncovered_new_opportunities" onClick="setHiddenVal(this.value, this.name);"/></td>
+                                </apex:repeat>
+                            </tr>
+                            <tr>
+                                <td class="tableRadioClasstd" style="text-align:left;">{!$Label.VO_Assisted_in_differentiating_a_product}</td>
+                                <apex:repeat value="{!EngImpOptsNolabel}" var="EngImpOpt">
+                                    <td class="tableRadioClasstd"><input type="radio" value="{!EngImpOpt.Value}" dir="LTR" name="Assisted_in_differentiating_a_product" onClick="setHiddenVal(this.value, this.name);"/></td>
+                                </apex:repeat>
+                            </tr>
+                            <tr>
+                                <td class="tableRadioClasstd" style="text-align:left;">{!$Label.VO_Expanded_deal_size}</td>
+                                <apex:repeat value="{!EngImpOptsNolabel}" var="EngImpOpt">
+                                    <td class="tableRadioClasstd"><input type="radio" value="{!EngImpOpt.Value}" dir="LTR" name="Expanded_deal_size" onClick="setHiddenVal(this.value, this.name);"/></td>
+                                </apex:repeat>
+                            </tr>
+                            <tr><td class="tableRadioClasstd" style="text-align:left;">{!$Label.VO_Accelerated_close_of_deal}</td>
+                                <apex:repeat value="{!EngImpOptsNolabel}" var="EngImpOpt">
+                                    <td class="tableRadioClasstd"><input type="radio" value="{!EngImpOpt.Value}" dir="LTR" name="Accelerated_close_of_deal" onClick="setHiddenVal(this.value, this.name);"/></td>
+                                </apex:repeat>
+                            </tr>
+                        </table>
+                        <apex:inputHidden value="{!surveyRecord.Improved_Relationship_with_Customer__c}" id="Improved_Relationship_with_Customer"/>
+                        <apex:inputHidden value="{!surveyRecord.Uncovered_new_opportunities__c}" id="Uncovered_new_opportunities"/>
+                        <apex:inputHidden value="{!surveyRecord.Assisted_in_differentiating_a_product__c}" id="Assisted_in_differentiating_a_product"/>
+                        <apex:inputHidden value="{!surveyRecord.Expanded_deal_size__c}" id="Expanded_deal_size"/>
+                        <apex:inputHidden value="{!surveyRecord.Accelerated_close_of_deal__c}" id="Accelerated_close_of_deal"/>
+                        
+                    </li>
+                    
+                       
+                    
+                    <li>         
+                        <apex:outputPanel rendered="{!requiredQ4Flag}">
+                            <div class="requiredBlock">
+                                <div class="redStrip"></div>
+                                <div class="requiredText"><i class="fas fa-exclamation-circle"></i>  {!$Label.VO_Required_Question}</div>
+                            </div>
+                        </apex:outputPanel>
+                        <div class="questions" ><apex:outputText value="{!$ObjectType.VisitOps__Survey__c.fields.Ease_of_Engagement_Program_Tools__c.inlineHelpText}"/><div class="redStar">&nbsp;*</div></div><br/><br/>
+                        <table style="width:100%;" class="tableRadioClass">
+                            <tr>
+                                <td class="tableRadioClasstd">&nbsp;</td>
+                                <td class="tableRadioClasstd">{!$Label.VO_Very_Difficult}</td>
+                                <td class="tableRadioClasstd">{!$Label.VO_Difficult}</td>
+                                <td class="tableRadioClasstd">{!$Label.VO_Neutral}</td>
+                                <td class="tableRadioClasstd">{!$Label.VO_Easy}</td>
+                                <td class="tableRadioClasstd">{!$Label.VO_Very_Easy}</td>
+                            </tr>
+                            <tr>
+                                <td class="tableRadioClasstd" style="text-align:left;">{!$Label.VO_Requesting_an_Engagement}</td>
+                                <apex:repeat value="{!EngProgOptsNolabel}" var="EngProgOpt">
+                                    <td class="tableRadioClasstd"><input type="radio" value="{!EngProgOpt.Value}" dir="LTR" name="Requesting_an_engagement" onClick="setHiddenVal(this.value, this.name);"/></td>
+                                </apex:repeat>
+                            </tr>
+                            <tr>
+                                <td class="tableRadioClasstd" style="text-align:left;">{!$Label.VO_Linking_an_Opportunity}</td>
+                                <apex:repeat value="{!EngProgOptsNolabel}" var="EngProgOpt">
+                                    <td class="tableRadioClasstd"><input type="radio" value="{!EngProgOpt.Value}" dir="LTR" name="Linking_an_Opportunity" onClick="setHiddenVal(this.value, this.name);"/></td>
+                                </apex:repeat>
+                            </tr>
+                            <tr>
+                                <td class="tableRadioClasstd" style="text-align:left;">{!$Label.VO_Completing_Profile_POC_Questionnaire}</td>
+                                <apex:repeat value="{!EngProgOptsNolabel}" var="EngProgOpt">
+                                    <td class="tableRadioClasstd"><input type="radio" value="{!EngProgOpt.Value}" dir="LTR" name="Completing_Profile_POC_Questionnaire" onClick="setHiddenVal(this.value, this.name);"/></td>
+                                </apex:repeat>
+                            </tr>
+                        </table>
+                       
+                        <apex:inputHidden value="{!surveyRecord.Requesting_an_engagement__c}" id="Requesting_an_engagement"/>
+                        <apex:inputHidden value="{!surveyRecord.Linking_an_Opportunity__c}" id="Linking_an_Opportunity"/>
+                        <apex:inputHidden value="{!surveyRecord.Completing_Profile_POC_Questionnaire__c}" id="Completing_Profile_POC_Questionnaire"/>
+                     <div> <br></br>
+                     <div class="questions">
+                          <apex:outputText value="{!$Label.VO_Comments}" />
+                      </div>
+                               <div>
+                                    <apex:inputTextArea value="{!surveyRecord.CEP_Tools_Comments__c}" style="width:40%;height:60px;padding-left:1.11px;padding-right:1.11px"
+                                                        />
+                                </div>
+                            </div>                                             
+                           
+                    </li> 
+                    
+                    <li>         
+                        <apex:outputPanel rendered="{!requiredQ5Flag}">
+                            <div class="requiredBlock">
+                                <div class="redStrip"></div>
+                                <div class="requiredText"><i class="fas fa-exclamation-circle"></i>  {!$Label.VO_Required_Question}</div>
+                            </div>
+                        </apex:outputPanel>
+                        <div class="questions" ><apex:outputText value="{!$ObjectType.VisitOps__Survey__c.fields.Experience_with_Engagement_Staff__c.inlineHelpText}"/><div class="redStar">&nbsp;*</div></div><br/><br/>
+                        <table style="width:100%;" class="tableRadioClass">
+                            <tr>
+                                <td class="tableRadioClasstd">&nbsp;</td>
+                                <td class="tableRadioClasstd">{!$Label.VO_Poor}</td>
+                                <td class="tableRadioClasstd">{!$Label.VO_Fair}</td>
+                                <td class="tableRadioClasstd">{!$Label.VO_Neutral}</td>
+                                <td class="tableRadioClasstd">{!$Label.VO_Good}</td>
+                                <td class="tableRadioClasstd">{!$Label.VO_Excellent}</td>
+                            </tr>
+                            <tr>
+                                <td class="tableRadioClasstd" style="text-align:left;">{!$Label.VO_Scheduling_Project_Management}</td>
+                                <apex:repeat value="{!ExpEngOptsNolabel}" var="ExpProgOpt">
+                                    <td class="tableRadioClasstd"><input type="radio" value="{!ExpProgOpt.Value}" dir="LTR" name="Scheduling_Project_Management" onClick="setHiddenVal(this.value, this.name);"/></td>
+                                </apex:repeat>
+                            </tr>
+                            <tr>
+                                <td class="tableRadioClasstd" style="text-align:left;">{!$Label.VO_Logistics}</td>
+                                <apex:repeat value="{!ExpEngOptsNolabel}" var="ExpProgOpt">
+                                    <td class="tableRadioClasstd"><input type="radio" value="{!ExpProgOpt.Value}" dir="LTR" name="Logistics" onClick="setHiddenVal(this.value, this.name);"/></td>
+                                </apex:repeat>
+                            </tr>
+                            <tr>
+                                <td class="tableRadioClasstd" style="text-align:left;">{!$Label.VO_Briefing_Consultant_Solution_Architect}</td>
+                                <apex:repeat value="{!ExpEngOptsNolabel}" var="ExpProgOpt">
+                                    <td class="tableRadioClasstd"><input type="radio" value="{!ExpProgOpt.Value}" dir="LTR" name="Briefing_Consultant_Solution_Architect" onClick="setHiddenVal(this.value, this.name);"/></td>
+                                </apex:repeat>
+                            </tr>
+                            <tr>
+                                <td class="tableRadioClasstd" style="text-align:left;">{!$Label.VO_Day_of_Support}</td>
+                                <apex:repeat value="{!ExpEngOptsNolabel}" var="ExpProgOpt">
+                                    <td class="tableRadioClasstd"><input type="radio" value="{!ExpProgOpt.Value}" dir="LTR" name="Day_of_Support" onClick="setHiddenVal(this.value, this.name);"/></td>
+                                </apex:repeat>
+                            </tr>                         
+                            
+                        </table>
+                        <apex:inputHidden value="{!surveyRecord.Scheduling_Project_Management__c}" id="Scheduling_Project_Management"/>
+                        <apex:inputHidden value="{!surveyRecord.Logistics__c}" id="Logistics"/>
+                        <apex:inputHidden value="{!surveyRecord.Briefing_Consultant_Solution_Architect__c}" id="Briefing_Consultant_Solution_Architect"/>
+                        <apex:inputHidden value="{!surveyRecord.Day_of_Support__c}" id="Day_of_Support"/>
+                        <br></br>
+                        <div class="questions">
+                                <apex:outputText value="{!$Label.VO_Comments}" />  
+                        </div>
+                         <div>                           
+                                <apex:inputTextArea value="{!surveyRecord.Engagement_Staff_Comments__c}" style="width:40%;height:60px;padding-left:1.11px;padding-right:1.11px"/>
+                        </div>    
+                    </li>
+                    
+                    <li>         
+<!--                        <apex:outputPanel rendered="{!requiredQ6Flag}">
+                            <div class="requiredBlock">
+                                <div class="redStrip"></div>
+                                <div class="requiredText"><i class="fas fa-exclamation-circle"></i>  {!$Label.VO_Required_Question}</div>
+                            </div>
+                        </apex:outputPanel>-->
+                        <div class="questions"><apex:outputText value="{!$ObjectType.VisitOps__Survey__c.fields.Logistics_Experience__c.inlineHelpText}"/><!--<div class="redStar">&nbsp;*</div>--></div><br/><br/>
+                        <table style="width:100%;" class="tableRadioClass">
+                            <tr>
+                                <td class="tableRadioClasstd">&nbsp;</td>
+                                <td class="tableRadioClasstd">{!$Label.VO_N_A}</td>
+                                <td class="tableRadioClasstd">{!$Label.VO_Poor}</td>
+                                <td class="tableRadioClasstd">{!$Label.VO_Fair}</td>
+                                <td class="tableRadioClasstd">{!$Label.VO_Neutral}</td>
+                                <td class="tableRadioClasstd">{!$Label.VO_Good}</td>
+                                <td class="tableRadioClasstd">{!$Label.VO_Excellent}</td>
+                                
+                            </tr>
+                            <tr>
+                                <td class="tableRadioClasstd" style="text-align:left;">{!$Label.VO_Catering}</td>
+                                <apex:repeat value="{!LogisticsExpOptsNolabel}" var="LogExpOpt">
+                                    <td class="tableRadioClasstd"><input type="radio" value="{!LogExpOpt.Value}" dir="LTR" name="Catering" onClick="setHiddenVal(this.value, this.name);"/></td>
+                                </apex:repeat>
+                            </tr>
+                            <tr>
+                                <td class="tableRadioClasstd" style="text-align:left;">{!$Label.VO_Transportation}</td>
+                                <apex:repeat value="{!LogisticsExpOptsNolabel}" var="LogExpOpt">
+                                    <td class="tableRadioClasstd"><input type="radio" value="{!LogExpOpt.Value}" dir="LTR" name="Transportation" onClick="setHiddenVal(this.value, this.name);"/></td>
+                                </apex:repeat>
+                            </tr>
+                            <tr>
+                                <td class="tableRadioClasstd" style="text-align:left;">{!$Label.VO_Evening_Events}</td>
+                                <apex:repeat value="{!LogisticsExpOptsNolabel}" var="LogExpOpt">
+                                    <td class="tableRadioClasstd"><input type="radio" value="{!LogExpOpt.Value}" dir="LTR" name="Evening_Events" onClick="setHiddenVal(this.value, this.name);"/></td>
+                                </apex:repeat>
+                            </tr>
+                            <tr>
+                                <td class="tableRadioClasstd" style="text-align:left;">{!$Label.VO_Hotel}</td>
+                                <apex:repeat value="{!LogisticsExpOptsNolabel}" var="LogExpOpt">
+                                    <td class="tableRadioClasstd"><input type="radio" value="{!LogExpOpt.Value}" dir="LTR" name="Hotel" onClick="setHiddenVal(this.value, this.name);"/></td>
+                                </apex:repeat>
+                            </tr>
+                           
+                        </table>
+                        <apex:inputHidden value="{!surveyRecord.Catering__c}" id="Catering"/>
+                        <apex:inputHidden value="{!surveyRecord.Transportation__c}" id="Transportation"/>
+                        <apex:inputHidden value="{!surveyRecord.Evening_Events__c}" id="Evening_Events"/>
+                        <apex:inputHidden value="{!surveyRecord.Hotel__c}" id="Hotel"/>
+                        <br></br>
+                         <div class="questions">
+                                <apex:outputText value="{!$Label.VO_Comments}" />  
+                        </div>
+                         <div>                           
+                                <apex:inputTextArea value="{!surveyRecord.Logistics_Comments__c}" style="width:40%;height:60px;padding-left:1.11px;padding-right:1.11px"/>
+                        </div> 
+                        
+                    </li>
+                   
+                    
+                    <li>
+                        <div class="questions"><apex:outputText value="{!$ObjectType.VisitOps__Survey__c.fields.Further_Impact_Sales_Campaigns__c.inlineHelpText}"/></div>
+                        <!--div class="rowDiv">
+</div>
+<div>
+<apex:inputTextArea value="{!surveyRecord.Further_Impact_Sales_Campaigns__c}" style="width:450px;height:90px margin-left:260px !important;" disabled="{!flag}"/>
+</div--> 
+                        <!--table>
+                            <tr>
+                                <td ><apex:inputTextArea value="{!surveyRecord.Further_Impact_Sales_Campaigns__c}" style="width:550px; margin-left:20px;" disabled="{!flag}"/></td>
+                            </tr>
+                        </table-->
+                        <div>
+                            <apex:inputTextArea value="{!surveyRecord.Further_Impact_Sales_Campaigns__c}" style="width:40%;height:90px;padding-left:1.11px;padding-right:1.11px" disabled="{!flag}"/>
+                        </div>
+                    </li>
+                    
+                    
+                 
+				<li style="display:{!if(agendaPresenterWrapperList.size>0,'','none')}">
+                        <apex:outputPanel rendered="{!requiredQAgendaFlag}">
+                            <div class="requiredBlock">
+                                <div class="redStrip"></div>
+                                <div class="requiredText"><i class="fas fa-exclamation-circle"></i>  {!$Label.VO_Required_Question}</div>
+                     </div>
+                    </apex:outputPanel>
+                        <div class="questions">
+                        <apex:outputText value="{!$ObjectType.VisitOps__Survey__c.fields.VisitOps__Recommendation__c.inlineHelpText}"/>
+                        <div class="redStar">&nbsp;*</div>
+                        </div>                   
+                 
+                  <!--       <tr>
+                                <td class="tableRadioClasstd"></td>                       
+                                <td class="tableRadioClasstd">{!$Label.VO_Poor}</td>                                                            
+                                <td class="tableRadioClasstd">&nbsp;</td>
+                                <td class="tableRadioClasstd">&nbsp;</td>
+                                <td class="tableRadioClasstd">&nbsp;</td>
+                                <td class="tableRadioClasstd">&nbsp;</td>            
+                                <td class="tableRadioClasstd">{!$Label.VO_Excellent}</td>                     
+                                 
+                            </tr> -->
+                           
+                            <!--<div class="rowDiv"></div> 
+                            <div class="ratings">                           
+                                <div class="likelyDiv"> <span class="ratingTxt" style="margin-left: 180px;">Poor</span> </div>
+                                <div class="ntlikelyDiv1"> <span class="ratingTxt" style="margin-right: 70px;">Excellent</span> </div>
+                                <div class="cBoth"></div>
+                             </div>-->
+                        
+                             <table style="width:100%;" class="tableRadioClass">                                                  
+                              <tr>
+                                <td class="tableRadioClasstd" style="padding-right:0">&nbsp;</td>
+                                <td class="tableRadioClasstd" style="padding-left:13px;padding-right:0">{!$Label.VO_N_A}</td>
+                                <td class="tableRadioClasstd" style="padding-left:28px;padding-right:0">{!$Label.VO_Poor}</td>
+                                <td class="tableRadioClasstd" style="padding-left:35px;padding-right:0">{!$Label.VO_Fair}</td>
+                                <td class="tableRadioClasstd" style="padding-left:50px;padding-right:0">{!$Label.VO_Neutral}</td>
+                                <td class="tableRadioClasstd" style="padding-left:66px;padding-right:0">{!$Label.VO_Good}</td>
+                                <td class="tableRadioClasstd" style="padding-left:85px;padding-right:0">{!$Label.VO_Excellent}</td>
+                            </tr>
+                            <apex:repeat value="{!agendaPresenterWrapperList}" var="AG" >
+                                <tr>
+                                    <td class="tableRadioClasstd" style="text-align:left;">{!AG.agendaSurvey.VisitOps__Agenda__r.VisitOps__Agenda_Title__c}</td>
+                                    <td>
+                                        <apex:selectRadio value="{!AG.agendaSurvey.VisitOps__Session_Rating__c}"  layout="table" styleClass="radioClass" disabled="{!flag}">
+                                            <apex:selectOptions value="{!RadioOptsNoLabel}"/>
+                                        </apex:selectRadio>
+                                    </td> 
+                                </tr>
+                                <tr>
+                                    <td class="tableRadioClasstd">&nbsp;</td>
+                                </tr>
+                                <apex:repeat value="{!AG.presenterSurveyList}" var="lp">   
+                                    <tr>
+                                        <td class="tableRadioClasstd" style="text-align:left;" > 
+                                            {!$Label.VisitOps__Presenter} :<apex:outputLabel value="{!lp.VisitOps__Presenter_Agenda_Link__r.VisitOps__Presenter_Name__c}"/> <br/>
+                                        </td>     
+                                        <td>
+                                            <apex:selectRadio value="{!lp.VisitOps__Presenter_Rating__c}"  layout="table" styleClass="radioClass" disabled="{!flag}">
+                                                <apex:selectOptions value="{!RadioOptsNoLabel}"/>
+                                            </apex:selectRadio>
+                                            
+                                        </td> 
+                                    </tr>
+                                    <tr>
+                                        <td class="tableRadioClasstd">&nbsp;</td>
+                                    </tr>
+                                </apex:repeat>
+                            </apex:repeat>                         
+                       </table>
+                      
+                      <div>
+                                <div class="questions">
+                                    <apex:outputText value="{!$Label.VO_Discussion_Comments}" />
+                                </div>
+                                <div>
+                                    <apex:inputTextArea value="{!surveyRecord.Discussion_Comments__c}" style="width:40%;height:60px;padding-left:1.11px;padding-right:1.11px"
+                                                        />
+                                </div>
+                            </div>                          
+                        
+                    </li>
+                </ol>     
+                    
+                <script type="text/javascript">
+                setRadioButtonValues();
+                </script>
+                <center>
+                    <b><apex:commandButton value="{!$Label.visitops__submit_button}" action="{!submitSurvey}" oncomplete="alertUser({!showSubmitButton});" style="width:75px;height:75%;" reRender="formId" rendered="{!showSubmitButton}"/></b><br/><br/><br/><br/>
+                </center><br/><br/>   
+            </apex:outputPanel>
+        </div>
+        <div class="footer"><apex:image url="{!DocumentFooterUrl}" style="padding-left:0px;width:120%;height:60px"/></div> 
+    </apex:form>
+    <link href="https://use.fontawesome.com/releases/v5.0.2/css/all.css" rel="stylesheet"/>
+    
+    <script>
+    function alertUser(errorOccured)
+    {
+        if(errorOccured=='false' || errorOccured==false)
+        {
+            alert('{!$Label.visitops__survey_success_message2}');
+            disableRadioInputs();
+        } 
+    }
+		$(document).ready(function() {
+
+			refreshPage();
+		});
+    </script>
+    <style>
+        p{} 
+        .tableRadioClass
+        {
+        width:1000px !important;
+        table-layout:fixed;
+        }
+        .tableRadioClassth, .tableRadioClasstd 
+        {
+        text-align: center;
+        color:#808080 !important;
+        font-family: Arial;
+        font-size: 0.8em !important;;
+        height:50px;
+        /*word-wrap:break-word;*/
+        padding-right:0;
+        }
+        .requiredBlock
+        {
+        background-color:rgba(255,0,0,0.1);
+        position:relative;
+        margin-bottom:0.7%;
+        width:1200px;
+        }
+        .requiredText
+        {
+        position:absolute;
+        top:7.5px;
+        left:15px;
+        font-family: "Times New Roman", Times, serif;
+        color:black;
+        }
+        .redStrip
+        {
+        position:relative;
+        width:7px;
+        height:30px;
+        background-color:rgba(255,0,0,0.7);
+        }
+        .redStar
+        {
+        color:red;
+        display:inline;
+        font-size:150% !important;
+        }
+        .errorMessage{
+        text-align: center;
+        color : #B40404;
+        font-size:16px; 
+        font-family:sans-serif;
+        }
+        .radioClass td{width:35px; text-align:center; color:#808080;}
+        .radioClass {width:900px!important;}
+        .radioClass label{display:block;}
+        .radioClass input[type="radio"]{vertical-align:top;}
+        .ratingCount1 span {
+        display: inline-block;
+        width: 8%;
+        text-align: center;
+        }
+        .ratingCount1{
+        padding-left:19px!important;
+        padding-right:16px!important;
+        }
+        
+        .ratingCount {
+        margin-left: 16px !important;
+        }
+        
+        .ratingCount span {
+        width: 32px !important;
+        }
+        
+        .row{display: inline-block; width: 100%; }
+        
+        .ntlikelyDiv {float: right;padding-right:0;margin-right:24%;}
+        .ratings {width:100%;}
+        .ratingTxt {
+        color: #808080;
+        font-size: 0.8em;
+        padding-top: 5px;
+        float: left;
+        }
+        .largeColratingtext{width:800px;position:absolute;left:487px;font-size: 0.8em;}
+        .largeColrating{width:429px;}
+        hr {
+        width: 60%;
+        float: left;        
+        }
+        .spacing {
+        padding-left:12px;
+        }
+        .disablable {
+        width: 402px;
+        border-style:hidden;
+        background-color:#DDDDDD;
+        padding: 0.5%;
+        font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+        } 
+        .footer {
+        background-image: none;
+        background-repeat: repeat;
+        background-attachment: scroll;
+        background-position: 0% 0%;
+        position: fixed;
+        bottom: 0pt;
+        left: 0pt;
+        width: 100%;
+        
+        }   
+        .surveyQuestions input[type=text] {
+        width: 5%;
+        padding: 0.5%;
+        color: #808080 !important;
+        height: 2px;
+        font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+        }
+        .questions{
+        color: #808080 !important;
+        }
+        .ol li input[type=radio]{
+        color: #808080 !important;
+        }
+        .ol li{
+        color: #808080 !important;    
+        }
+        fieldset{
+        padding:0px;
+        margin:0px;
+        }
+    </style>
+</apex:page>

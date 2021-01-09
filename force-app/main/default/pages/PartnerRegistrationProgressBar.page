@@ -1,0 +1,36 @@
+<apex:page standardController="Partner_Request__c" 
+	extensions="PartnerRegistrationProgressBarCtrlExt" 
+	showHeader="false" 
+	sidebar="false" 
+	standardStylesheets="true">
+
+    <apex:includeScript value="{!$Resource.prototype}"/>
+    <apex:includeScript value="{!$Page.jsProgressBarHandler}"/>
+
+	<table width="100%" height="400" cellpadding="0" cellspacing="0" border="0" style="background: #F3F3EC">
+		<tr>
+			<td align="center" valign="top">
+				<b>Progress:</b>&nbsp;<span id="partnerRegProgBar">[ Loading Progress Bar ]</span>
+			</td>
+		</tr>
+	</table>
+
+	<script type="text/javascript">
+		document.observe('dom:loaded', function() {
+			manualPB = new JS_BRAMUS.jsProgressBar(
+				$('partnerRegProgBar'),
+				{!percentComplete},
+				{
+					animate		: false,
+					barImage	: Array(
+						'{!$Resource.percentImage_back4}',
+						'{!$Resource.percentImage_back3}',
+						'{!$Resource.percentImage_back2}',
+						'{!$Resource.percentImage_back1}'
+					)
+				}
+			);
+		}, false);
+	</script>
+
+</apex:page>

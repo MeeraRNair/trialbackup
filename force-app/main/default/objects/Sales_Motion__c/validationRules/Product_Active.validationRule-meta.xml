@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Product_Active</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND (
+    NOT (
+        ISBLANK(Product__c)
+    ),
+    Product__r.IsActive = false
+)</errorConditionFormula>
+    <errorMessage>The Product that you are trying to add is an inactive Product</errorMessage>
+</ValidationRule>

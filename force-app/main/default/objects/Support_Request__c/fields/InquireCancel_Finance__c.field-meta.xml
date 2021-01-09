@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>InquireCancel_Finance__c</fullName>
+    <description>This field is created for the Services Finance Support Resource Type</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Select a value from the Inquire/Cancel menu to contact the support team about your request.</inlineHelpText>
+    <label>Inquire/Cancel</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Services_Finance_Support__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Cancel Request</fullName>
+                <default>false</default>
+                <label>Cancel Request</label>
+            </value>
+            <value>
+                <fullName>Submit Inquiry</fullName>
+                <default>false</default>
+                <label>Submit Inquiry</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Cancel Request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Submit Inquiry</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,613 @@
+<apex:page standardcontroller="Opportunity" extensions="clsApproveEligiblePrograms" docType="html-5.0" sidebar="true" showHeader="true" action="{!onPageLoad}" lightningStylesheets="true">
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
+     <script src="https://code.jquery.com/jquery-1.12.4.js"/>
+     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"/>
+     <apex:includeScript value="//code.jquery.com/jquery-1.11.3.min.js"/>
+    
+    
+<script type="text/javascript">
+/*function buttonClick(subEvent)
+{
+    var mainEvent = subEvent ? subEvent : window.event;
+    document.getElementById("j_id0:frm:popup").screenX = mainEvent.screenX;
+
+    alert("This button click occurred at: X(" +
+    mainEvent.screenX + ") and Y(" + mainEvent.screenY + ")");
+}
+*/
+
+
+$(document).ready(function(){
+  
+ var ApprovedTable = $('[cid$="ApprovedTable"]').parent('table').eq(0).DataTable({
+   //enables results highlight
+   searchHighlight: true,
+   //sets record lengths to show in picklist
+   aLengthMenu: [
+     [2,10, 25, 50, 100, 200, -1],
+     [2,10, 25, 50, 100, 200, "All"]
+   ],
+   "iDisplayLength": 10,
+   //adds copy, print buttons...
+   dom: 'lBfrtip', //l=length, B=buttons, f=filter(search), r=processing, t=the table, I=table summary, p=page controls
+   buttons: [
+     'copy', 'csv', 'excel', 'pdf',
+     {
+       extend: 'print',
+       customize: function(win) {
+         $(win.document.body)
+         .css( 'font-size', '10pt' )
+         .prepend('<img src="http://datatables.net/media/images/logo-fade.png" style="position:absolute; top:0; left:0;" />');
+ 
+         $(win.document.body).find( 'table' )
+         .addClass( 'compact' )
+         .css( 'font-size', 'inherit' );
+       }
+     }
+   ],
+ });
+ 
+});
+</script>
+
+<style>
+
+    body .bPageBlock .pbBody .PgBlockBackground .pbSubheader{
+            }
+}
+</style>
+
+  
+   <style>
+
+        table.dataTable tr.odd { background-color: white;border-bottom-width:1px }
+        table.dataTable tr.even { background-color: white;border-bottom-width:1px }
+        .bPageBlock .list .last>td { border-bottom-width:1px }
+        .apexp .bPageBlock .detailList .list .last td { border-bottom-width:1px }
+    </style>
+    
+
+  <style type="text/css">
+       .customPopup{
+            background-color: white;
+                    border-width: 2px;
+                    border-style: solid;
+                    z-index: 9999;
+                    left: 50%;
+                    padding:10px;
+                    position: absolute;
+                    width: 500px;
+                    
+                    margin-left: -250px;
+                    top:50px;
+        }
+        .popupBackground{
+                    background-color:black;
+                    opacity: 0.20;
+                    filter: alpha(opacity = 20);
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    top: 0;
+                    left: 0;
+                    z-index: 9998;
+                }
+    </style>
+<style type="text/css">
+
+        .popup
+        {
+            background-color: white;
+            border-width: 2px;
+            border-style: solid;
+            z-index: 9999;
+            left: 50%;
+            padding:10px;
+            position: absolute;
+            width: 1000px;
+            margin-left: -250px;
+            top:80px;
+        }
+
+        .popupBg
+        {
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 70);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+        }
+
+    </style>
+
+    
+    <script type="text/javascript">
+        var popupWindow = null;
+
+        function child_open() {
+            popupWindow = window.open('/apex/Channel_Program_AllActiveprograms', "_blank", "directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=600, height=280,top=200,left=200");
+            return false;
+        }
+        
+        function parent_disable() {
+            if (popupWindow && !popupWindow.closed)
+                popupWindow.focus();
+        }
+        
+        
+        function selectAllCheckboxesApproved(obj,receivedInputID){
+            var inputCheckBox = document.getElementsByTagName("input"); 
+                                selected_list1 = [];   
+   
+            for(var i=0; i<inputCheckBox.length; i++){          
+                if (inputCheckBox[i].className == receivedInputID)
+                {      
+                   inputCheckBox[i].checked = obj.checked;
+                   if(obj.checked == false)
+                      selected_list1 = [];
+                   else
+                     selected_list1.push(inputCheckBox[i].accessKey);
+               }
+            }
+            
+        }
+        
+        
+        function selectAllCheckboxes(obj,receivedInputID){
+            var inputCheckBox = document.getElementsByTagName("input"); 
+   
+            for(var i=0; i<inputCheckBox.length; i++){          
+                if (inputCheckBox[i].className == receivedInputID)
+                {      
+                   inputCheckBox[i].checked = obj.checked;
+               }
+            }
+            
+        }
+        
+    </script> 
+    
+    <apex:stylesheet value="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'css/jquery.dataTables.css')}"/>
+            <style type="text/css">
+                .sorting {
+                    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_both.png') }') no-repeat center right !important;
+                    padding-right: 20px !important;
+                }
+                .sorting_asc {
+                    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_asc.png') }') no-repeat center right !important;
+                    padding-right: 20px !important;
+                }
+                .sorting_desc {
+                    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_desc.png') }') no-repeat center right !important;
+                    padding-right: 20px !important;
+                }
+                .sorting_asc_disabled {
+                    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_asc_disabled.png') }') no-repeat center right !important;
+                    padding-right: 20px !important;
+                }
+                .sorting_desc_disabled {
+                    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_desc_disabled.png') }') no-repeat center right !important;
+                    padding-right: 20px !important;
+                }
+                table.dataTable tr.odd { background-color: white;border-bottom-width:1px }
+                table.dataTable tr.even { background-color: white;border-bottom-width:1px }
+                .bPageBlock .list .last>td { border-bottom-width:1px }
+                .apexp .bPageBlock .detailList .list .last td { border-bottom-width:1px }
+                table.dataTable tr.odd td.sorting_1 { background-color: white; }
+                table.dataTable tr.odd td.sorting_2 { background-color: white; }
+                table.dataTable tr.odd td.sorting_3 { background-color: white; }
+                table.dataTable tr.even td.sorting_1 { background-color: white; }
+                table.dataTable tr.even td.sorting_2 { background-color: white; }
+                table.dataTable tr.even td.sorting_3 { background-color: white; }
+                .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate {
+                    padding: 3px;
+                }
+             </style>
+
+    
+    
+    <!-- <apex:relatedList title="Qualified Programs" list="Cases" rendered="{!$ObjectType.Qualified_Program__c.accessible}"/> -->
+
+
+<apex:form id="frm">
+<apex:pageMessages rendered="{!showError}"/>
+<apex:commandbutton value="Go Back To Opportunity" action="{!cancel}" rendered="{!showError}" />
+<apex:outputPanel rendered="{!!showError}">
+
+<apex:pageBlock tabStyle="Deal_Program__c" title="Eligible Programs Review Screen" >
+ <apex:commandLink value="{!oppRecord.Name}" action="{!cancel}" target="_blank" style="font-weight:bold"/>
+</apex:pageBlock> 
+<br/>
+<apex:outputpanel id="Message" styleClass="purple">
+                        <apex:commandLink value="Go Back To Opportunity" action="{!cancel}" />
+                        <apex:pageMessages id="errorMsg" escape="false" rendered="{!errorbool}"/>
+ </apex:outputpanel>    
+                <br/>
+
+ 
+ <!--
+<apex:pageBlock title="Custom Object Fields and Data" id="fields">    
+<apex:pageBlockSection title="Dynamic Object">  
+<apex:repeat value="{!lstProd}" var="c"> 
+    <apex:pageBlockTable value="{!listObjectFields}" var="fieldAPIName">       
+       <apex:column headerValue="{!$ObjectType.Product2.Fields[fieldAPIName].label}">{!c[fieldAPIName]}</apex:column>   
+    </apex:pageblocktable>  
+</apex:repeat>
+</apex:pageBlockSection> 
+</apex:pageBlock>
+ -->
+            
+<apex:pageBlock id="approved" tabStyle="Deal_Program__c">
+                    <!-- Already approved records -->
+                    
+                         <apex:outputpanel id="Approvedpanel" layout="block" >
+                                           <apex:pageBlockSection id="section1" columns="1" collapsible="true" title="Qualified Programs" >   
+                                             <apex:outputpanel rendered="{!innerApprovedPrograms.size == 0}">
+                                            
+                                                         <apex:outputText value="No Approved Deal Programs"/>
+                                                    </apex:outputpanel>    
+                                                    
+                                                     <script>
+           $(document).ready(function() {
+    $('#example1').DataTable( {
+     
+        "scrollY":        "300px",
+        "scrollCollapse": true,
+        "paging":         true
+    } );
+} ); 
+                                                 
+ </script>                                           <apex:pageblockTable id="example1"  value="{!innerApprovedPrograms}" var="approved" rendered="{!innerApprovedPrograms.size > 0}"  styleClass="dataTable" > <!--html-cid="ApprovedTable"> -->
+                                                <apex:column headervalue="{!$Label.AVS_Field_Select}" >        
+                                                <apex:facet name="header">
+                                                     <apex:outputPanel layout="none">
+                                                         <apex:inputCheckbox value="{!approved.selected}" onclick="selectAllCheckboxesApproved(this,'prefix')"/><apex:outputText value="Select" />
+                                                      </apex:outputPanel>
+                                                    </apex:facet>                                                                                             
+                                                           <apex:inputCheckbox accesskey="{!approved.ApprovedPrograms.id}" value="{!approved.selected}" onclick="selected_individual1(this,'{!approved.ApprovedPrograms.id}')" styleClass="prefix"></apex:inputCheckbox>    
+                                                           
+                                                </apex:column>
+                                                <apex:column headerValue="Product">
+                                                     <apex:outputLink value="/{!approved.ApprovedPrograms.Product__r.ID}">
+                                                            <apex:outputText value="{!approved.ApprovedPrograms.Product__r.Name}"></apex:outputText>
+                                                       </apex:outputLink>
+                                                </apex:column>
+                                                <apex:column headerValue="Channel Program">
+                                                      <apex:outputLink value="/{!approved.ApprovedPrograms.Deal_Program__r.Id}">
+                                                            <apex:outputText value="{!approved.ApprovedPrograms.Deal_Program__r.Deal_Program_Name__c}"></apex:outputText>
+                                                       </apex:outputLink>
+                                                </apex:column>
+                                               <apex:column headerValue="Deal Type">{!approved.ApprovedPrograms.Deal_Program__r.Deal_Type__c}</apex:column>   
+
+                                                <apex:column headerValue="Stack Rank">{!approved.ApprovedPrograms.Deal_Program__r.Stack_Ranking__c}</apex:column>   
+                                                <apex:column headerValue="Qualified Date">{!approved.strFormattedDate}
+                                                    <!--<apex:outputText value="{0,date,dd/MM/yyyy HH:mm}">               
+                                                        <apex:param value="{!approved.strFormattedDate} " />           
+                                                    </apex:outputText> -->
+                                                
+                                                  </apex:column>
+
+                                               </apex:pageblockTable>
+                 <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'js/jquery.js')}"></script>
+                <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'js/jquery.dataTables.js')}"></script>
+                <script type="text/javascript" language="javascript">
+                  var j$ = jQuery.noConflict();
+                    j$('table.dataTable').DataTable({
+                      sPaginationType: "full_numbers",
+                    aoColumnDefs: [
+                      { "bSortable": false, "aTargets": [ 0 ] }
+                    ]
+              } );
+                </script>
+            </apex:pageBlockSection>
+                                
+                           </apex:outputpanel>    
+                                <apex:pageBlockButtons location="top" >
+                                   <apex:commandButton Value="Delete" reRender="Message,Approvedpanel,approved" onclick="call_next_fun1();return false;"  rendered = "{!if(innerApprovedPrograms.size >0,true,false)}">                                     
+                                          <apex:actionFunction action="{!saveRejected}" status="actStatusId1"  name="call_next1"  reRender="Message,Approvedpanel,approved">                                            
+                                            <apex:param name="selected_ids1" value=""/>                                            
+                                           </apex:actionFunction>
+                                          
+                                            <apex:actionStatus id="actStatusId1">
+                                                <apex:facet name="start" >
+                                                    <img src="/img/loading.gif" />
+                                                </apex:facet>
+                                            </apex:actionStatus> 
+                                                                                 
+                                            
+                                    </apex:commandButton>   
+                                            
+                                </apex:pageBlockButtons>
+                             
+</apex:pageBlock>
+<apex:pageBlock rendered="{!if(lstProd.size = 0,true,false)}" tabStyle="Deal_Program__c">
+    <apex:pageBlockSection columns="1" id="section2" collapsible="true" title="Eligible Programs">                                 
+        No Opportunity Products
+    </apex:pageBlockSection>            
+</apex:pageBlock>
+
+
+<apex:pageBlock id="blkProd" rendered="{!if(lstProd.size >0,true,false)}" tabStyle="Deal_Program__c" >
+           <script>
+            $(document).ready(function() {
+            $('#example').DataTable( {
+            
+                "language": {
+              "emptyTable": "no records for above selection  Or No Data  available",
+             
+            },           
+            } );
+            } );
+            </script>   
+            
+           <Script>
+
+
+
+function disableAllButtons(){
+
+$("[id$= Confirm]").hide();
+return true;
+
+}
+function showButton(){
+
+$("[id$= Confirm]").show();
+
+
+}
+
+
+</Script>
+           
+                      <apex:pageBlockButtons location="top" >
+                                         <apex:commandButton id="Confirm" Value="Confirm" onclick="window.scroll(10,0);disableAllButtons();" status="actStatusId1" action="{!saveApproved}"  rerender="Message,approved,Approvedpanel" oncomplete="showButton();"/>
+                                        <apex:actionStatus id="actStatusId1" >
+                                                <apex:facet name="start" >
+                                                    <img src="/img/loading.gif" />
+                                                </apex:facet>
+                                            </apex:actionStatus> 
+                                        <apex:commandButton action="{!cancel}"  Value="Cancel" />                                       
+                       </apex:pageBlockButtons> 
+                       
+                       
+                       
+                        
+                       <apex:pageBlockSection columns="1" id="section2" collapsible="true" title="Eligible Programs">                                 
+                        <apex:repeat value="{!lstProd}" var="data">
+                        <apex:variable value="{!mapProductInnerList[data]}"  var="myMap"/  >
+                           <apex:outputpanel styleClass="PgBlockBackground">
+                                       <apex:pageBlockSection columns="1" id="section2" collapsible="true" title="{!data.Name}" rendered="{!data.isActive}">   
+                                            <apex:facet name="header">
+                                                    <apex:outputpanel styleClass="PgBlockBackground" >
+                                                    <apex:outputText style="font-color:black;font-weight:bold;font-size:13px;float:left;" value="{!data.Name}"/>
+                                                    <apex:commandLink style="float:right;color:#fff " onclick="window.scroll(10,0);" status="actStatusId1" value="All Active Programs"  action="{!showPopup}" immediate="true" reRender="popup">
+                                                         <apex:param name="ProductId" value="{!data.Id}"/>
+                                                         <apex:param name="ProductName" value="{!data.Name}"/>
+                                                    </apex:commandLink>
+                                                    
+                                                    <apex:actionStatus id="actStatusId1" >
+                                                <apex:facet name="start" >
+                                                    <img src="/img/loading.gif" />
+                                                </apex:facet>
+                                            </apex:actionStatus> 
+                                                    </apex:outputpanel>
+                                            </apex:facet>  
+                                                 <apex:pageBlockSection columns="2">                                                                     
+                                                        <apex:outputField value="{!data.NBI_Category__c}"/>                                                  
+                                                        <apex:outputField value="{!data.NBI_Eligible__c }"/>
+                                                  </apex:pageBlockSection>   
+                                                   <!--<apex:outputpanel rendered="{!if(myMap.size > 1000,true,false)}">                      
+                                                         <apex:outputText value="There are more than 1000 channel Eligible Programs"/>
+                                                    </apex:outputpanel>-->
+                                            
+                                                    <apex:outputpanel rendered="{!if(myMap.size >0,false,true)}">
+                      
+                                                         <apex:outputText value="No Eligible Channel Programs"/>
+                                                    </apex:outputpanel>
+                                                                                                                               
+                                              <apex:pageblockTable value="{!mapProductInnerList[data]}" var="a" rendered="{!if(myMap.size >0,true,false)}" >
+                                                 <!-- {!mapProductInnerList != null &&   mapProductInnerList[data.Id]!=null && mapProductInnerList[data.Id].size != 0} -->
+                                                 
+                                                <apex:column headervalue="{!$Label.AVS_Field_Select}" >
+                                                  <apex:facet name="header">
+                                                     <apex:outputPanel layout="none">
+                                                        <apex:inputCheckbox onclick="selectAllCheckboxes(this,'prefix_{!data.Id}')"/><apex:outputText value="Select" />
+                                                      </apex:outputPanel>
+                                                    </apex:facet>
+                                                               <apex:inputCheckbox value="{!a.selected}" styleClass="prefix_{!data.Id}"/>
+                                                </apex:column>
+                                                <apex:column headerValue="Channel Program Name"><!--{!a.channelprgms.Deal_Program_Name__c}-->
+                                                      <apex:outputLink value="/{!a.channelprgms.ID}">
+                                                            <apex:outputText value="{!a.channelprgms.Deal_Program_Name__c}"></apex:outputText>
+                                                       </apex:outputLink>
+                                                </apex:column>
+                                                <apex:column headerValue="Deal Type">{!a.channelprgms.Deal_Type__c}</apex:column>
+                                                <apex:column headerValue="Stack Rank">{!a.channelprgms.Stack_Ranking__c }</apex:column>   
+                                               </apex:pageblockTable>
+                                           </apex:pageBlockSection>  
+                                      </apex:outputpanel>     
+                           </apex:repeat>    
+                 </apex:pageBlockSection>            
+     </apex:pageBlock>
+ 
+      <apex:outputPanel id="popup"> 
+         <script>
+           $(document).ready(function() {
+    $('#example1').DataTable( {
+     
+        "scrollY":        "300px",
+        "scrollCollapse": true,
+        "paging":         true,
+         "aoColumnDefs": [
+      { "bSortable": false, "aTargets": [ 0 ] }
+    ]
+    } );
+} ); 
+
+
+            </script>   
+      <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!displayPopUp}"/>
+      
+      <apex:outputPanel title="{!prodName}" styleClass="customPopup" layout="block" rendered="{!displayPopup}" >
+           
+        <apex:pageBlock tabStyle="Deal_Program__c" >
+           <apex:outputpanel >
+                 <apex:pageBlockSection columns="1" collapsible="false" id="section2" title="{!prodName}"/>
+               <br/>
+         <div class="popup-panel">
+               <apex:outputPanel id="myPanel">       
+                        <apex:outputLabel value="{!$Label.Keyword}" rendered="{!Reccount > 1000}">
+                            <img src="/s.gif" Class="imgclass" title= "To refine search when search result is more than 1000" />
+                        </apex:outputLabel>
+                        
+            <apex:inputText Value="{!keyword}" rendered="{!Reccount > 1000}"/> &nbsp;
+            <apex:commandButton value="GO" action="{!dealslist}" reRender="popup" rendered="{!Reccount > 1000}"/>
+            <apex:pageMessages ></apex:pageMessages>
+            <br/><br/>
+            
+            <div onclick="call_next_fun();" class="btn" style="margin-left:40%;">Save</div>
+                      <apex:actionFunction action="{!Savelist}" status="actStatusId2"  name="call_next"  reRender="blkProd,popup,theMessages">
+                        <apex:param name="selected_ids" value=""/>
+        
+                    </apex:actionFunction>
+     
+                                         <apex:actionStatus id="actStatusId2" >
+                                                <apex:facet name="start" >
+                                                    <img src="/img/loading.gif" />
+                                                </apex:facet>
+                                            </apex:actionStatus> 
+     
+     <div onclick="closepop();" class="btn">Close</div>
+     <apex:actionFunction action="{!closepopup}"  name="closepop" status="actStatusId2"  reRender="blkProd,popup,theMessages">
+            
+     </apex:actionFunction>
+     <br/>
+      
+            <table id="example1" class="display"  >
+                    
+                    <thead><tr>
+                    <th> Select</th>
+                    <th> Program Name</th>
+                    <th> Deal Type</th>
+                    <th> Stack Rank</th>
+                    </tr>
+                    </thead>
+                            <tbody>
+                            <apex:repeat value="{!innerdealsactive}" var="acc">
+                                <tr>
+                                <td>                                
+                                  <apex:inputCheckbox value="{!acc.selected}" id="checkedone"  onclick="selected_individual(this,'{!acc.channelprgms.id}')"/>
+                                  </td>
+            
+                                  <td>      
+                                       <apex:outputLink value="/{!acc.channelprgms.id}">
+                                                            <apex:outputText value="{!acc.channelprgms.Deal_Program_Name__c}"></apex:outputText>
+                                       </apex:outputLink>                          
+                                      
+                                  </td> 
+                                  <td>                                
+                                      {!acc.channelprgms.Deal_Type__c}
+                                  </td>                                
+                                   
+                                  <td>                                
+                                  {!acc.channelprgms.Stack_Ranking__c}
+                                  </td>     
+                                         
+                                 </tr>
+                            </apex:repeat>
+                      
+                    </tbody>
+                    
+                  
+                </table> 
+        
+          </apex:outputPanel>
+       
+    </div><br/>
+     <div onclick="call_next_fun();" class="btn" style="margin-left:40%;">Save</div>
+     <apex:actionFunction action="{!Savelist}" status="actStatusId1"  name="call_next"  reRender="blkProd,popup,theMessages">
+     
+        <apex:param name="selected_ids" value=""/>
+        
+     </apex:actionFunction>
+     
+                                         <apex:actionStatus id="actStatusId1" >
+                                                <apex:facet name="start" >
+                                                    <img src="/img/loading.gif" />
+                                                </apex:facet>
+                                            </apex:actionStatus> 
+     
+     <div onclick="closepop();" class="btn">Close</div>
+     <apex:actionFunction action="{!closepopup}"  name="closepop" status="actStatusId1"  reRender="blkProd,popup,theMessages">
+            
+     </apex:actionFunction>
+     
+      </apex:outputpanel>      
+        </apex:pageBlock>
+    
+      </apex:outputPanel>
+       
+      </apex:outputPanel>
+      
+     <!-- </apex:outputPanel> -->
+     </apex:outputPanel>
+      </apex:form>
+      
+  
+  <script>
+            var selected_list = [];
+    function selected_individual(passedthis,value)
+    {
+       if($(passedthis)[0].checked){       
+                selected_list.push(value);    
+        }else{
+              
+                var index = selected_list.indexOf(value); 
+                selected_list.splice(index, 1); 
+                //selected_list.splice(passedthis)[0],1);
+        }               
+    }
+    var selected_ids =  ''; 
+    function call_next_fun(){
+    
+    selected_ids = selected_list.join(); 
+    
+        call_next(selected_ids);
+        selected_list = [];   
+    }  
+    
+    
+    
+     var selected_list1 = [];
+    function selected_individual1(passedthis,value)
+    {
+        
+        
+        if($(passedthis)[0].checked){
+                selected_list1.push(value);    
+        }else{
+                var index = selected_list1.indexOf(value); 
+                selected_list1.splice(index, 1); 
+        }        
+       
+    }
+    
+    var selected_ids1 =  ''; 
+    function call_next_fun1(){
+    selected_ids1 = selected_list1.join(); 
+        call_next1(selected_ids1);
+        selected_list1 = [];   
+    }  
+    
+        
+        </script>
+  
+
+  
+</apex:page>

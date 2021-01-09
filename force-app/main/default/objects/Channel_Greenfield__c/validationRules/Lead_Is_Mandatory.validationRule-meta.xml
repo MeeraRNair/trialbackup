@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lead_Is_Mandatory</fullName>
+    <active>true</active>
+    <description>Created for CR13389</description>
+    <errorConditionFormula>ISBLANK(Lead__c)</errorConditionFormula>
+    <errorDisplayField>Lead__c</errorDisplayField>
+    <errorMessage>Lead is mandatory</errorMessage>
+</ValidationRule>

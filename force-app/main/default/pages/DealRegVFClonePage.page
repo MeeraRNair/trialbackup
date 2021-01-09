@@ -1,0 +1,816 @@
+<apex:page standardController="Case" extensions="Vfcntrl_OrderSupportVfPage"  action="{!caseRedirect}" lightningStylesheets="true">  <!--  action="{!cloneMethod}" -->
+    <apex:includeScript value="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.min.js"/>
+    <apex:outputPanel rendered="{!IF(userType == 'PowerPartner', true, false)}">
+            <link rel="stylesheet"  type="text/css" href="{!$Resource.CaseManagement}/CSS/PortalStyling.css"/>
+    </apex:outputPanel>
+    <apex:form >
+        <style>
+            table.detailList {
+                width: 100% !important;
+                text-align: center;
+                margin: 0 auto;
+            }
+            textarea {
+                width: 90%;
+                height: 80px;
+            }
+            .requiredInputRed {
+                border: 1px solid red;
+            }
+            .ErrorDisplay {
+             color:red;
+             white-space: nowrap;
+             Text-decoration:none;
+            } 
+            .ErrorDisplay1 {
+             color:red;
+             white-space: nowrap;
+             padding-top:18px;
+             Text-decoration:none;
+            }            
+            a {
+            Text-decoration:none;
+            }
+        </style>
+        <apex:sectionHeader title="{!$Label.CaseEdit}" subtitle="{!$Label.New_Case}" rendered="{!!isReadOnly}"/>
+        <apex:sectionHeader title="{!$Label.CaseEdit}" subtitle="{!caseObj.CaseNumber}" rendered="{!isReadOnly}"/>
+        <apex:pageMessages rendered="{!exceptionError}" escape="false"/> 
+        <span class="pageErrorMsg"> </span> 
+                
+        <apex:pageBlock title="{!$Label.CaseEdit}" mode="edit">
+            <!-- Case Information section starts here -->
+            <apex:pageBlockSection title="{!$Label.Case_Information}" collapsible="false" columns="2">
+             <!--   <apex:pageBlockSectionItem rendered="{!IF(contains($Profile.Name, 'GBL PRM'),true,false)}">
+                    <apex:outputLabel value="{!$ObjectType.Case.fields.CaseNumber.Label}" />
+                    <apex:outputField value="{!caseObj.CaseNumber}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!IF(contains($Profile.Name, 'GBL PRM'),true,false)}">
+                    <apex:outputLabel value="{!$ObjectType.Case.fields.OwnerId.Label}"/>
+                    <apex:outputField value="{!caseObj.OwnerId}"/>
+                </apex:pageBlockSectionItem>  -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.Case.fields.AccountID.Label}"/>
+                    <apex:outputPanel layout="block" styleClass="requiredInput">
+                        <apex:outputpanel layout="block" ></apex:outputpanel>                     
+                        <apex:outputField value="{!caseObj.AccountID}" styleClass="accountId"/>
+                    </apex:outputPanel> 
+                </apex:pageBlockSectionItem>                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.Case.fields.Status.Label}"/>
+                    <apex:outputField value="{!caseobj.Status}" styleClass="status"/>
+                </apex:pageBlockSectionItem>                        
+                </apex:pageblocksection>
+                
+                <apex:pageblocksection > 
+                    <apex:pageBlockSectionItem >
+                         <apex:outputLabel value="{!$ObjectType.Case.fields.ContactID.Label}"/>
+                        <apex:outputPanel layout="block" styleClass="requiredInput">
+                            <apex:outputpanel layout="block" ></apex:outputpanel> 
+                            <apex:outputField id="cid1" value="{!caseObj.ContactID}" styleClass="contactId"/>
+                        </apex:outputpanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!IF(((contains($Profile.Name, 'Portal') && isPartnerAdmin ) || (!contains($Profile.Name, 'Portal')))  && (recordTypeName=='Deal Registration - Internal only case types'), true, false)}">
+                    
+                    
+                    </apex:pageBlockSectionItem>                                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.Case.fields.Priority.Label}"/>
+                    <apex:outputPanel layout="block" styleClass="requiredInput">
+                        <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                        <apex:inputField value="{!caseobj.Priority}" styleClass="priority" required="true"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.AlternatePhone}"/>
+                    <apex:inputField value="{!caseobj.Alternate_Phone__c}" styleClass="alternatePhone"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!IF((recordTypeName=='Deal Registration - Internal only case types'), true, false)}">
+                    
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!IF((recordTypeName=='Deal Registration'), true, false)}">
+                    <apex:outputLabel value="{!$ObjectType.Case.fields.ParentId.Label}"/>
+                    <apex:inputField value="{!caseobj.ParentId}"/>
+                </apex:pageBlockSectionItem>
+                
+            
+                <apex:pageBlockSectionItem >
+                <!--    <apex:outputLabel value="{!$ObjectType.Case.fields.Opportunity_Title__c.Label}"/>  -->
+                    <apex:outputLabel value="{!$Label.Opportunity_Lookup}"/>
+                    <apex:inputField value="{!caseobj.Opportunity_Title__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.Case.fields.RecordTypeId.Label}"/>
+                    <apex:outputField value="{!caseobj.RecordTypeId}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                  <!--  <apex:outputLabel value="{!$ObjectType.Case.fields.Opportunity_Reference__c.Label}"/>  -->
+                    <apex:outputLabel value="{!$Label.Opportunity_Reference}"/>
+                    <apex:inputField value="{!caseobj.Opportunity_Reference__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!!IF(contains($Profile.Name, 'Portal') ,true,false)}">
+                    <apex:outputLabel value="{!$ObjectType.Case.fields.Origin.Label}"/>
+                    <apex:outputPanel layout="block" styleClass="requiredInput">
+                        <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                        <apex:inputField value="{!caseobj.Origin}" styleClass="origin"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!!IF(contains($Profile.Name, 'Portal') ,true,false)}"/> 
+                                     
+                 <apex:pageBlockSectionItem > 
+                 <!--   <apex:outputLabel value="{!$ObjectType.Case.fields.Sub_Type_Order_Support__c.Label}" rendered="{!IF(((contains($Profile.Name, 'Portal') || caseobj.Origin == 'Partner Portal') && isReadonly) || (contains($Profile.Name, 'Portal') && !isReadOnly), true,false)}"/>-->
+                    <apex:outputLabel value="{!$Label.SubTypeOs}" />
+                    <apex:outputPanel layout="block" styleClass="requiredInput">
+                        <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                        <apex:inputField value="{!caseobj.Sub_Type_Order_Support__c}" styleClass="subType"/>
+                    </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem />
+            <apex:pageBlockSectionItem >
+                 <!--   <apex:outputLabel value="{!$ObjectType.Case.fields.Reason.Label}"/>-->
+                    <apex:outputLabel value="{!$Label.CaseReasonOS}"/>
+                    <apex:inputField value="{!caseobj.Case_Reason_Order_Support__c}" styleClass="caseReason"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem />
+                                
+             <apex:pageBlockSectionItem >
+              <!--  <apex:outputLabel value="{!$ObjectType.Case.fields.Others__c.Label}" />   -->        
+                    <apex:outputLabel value="{!$Label.OthersOs}"/>
+                    <apex:inputField value="{!caseobj.Others__c}"/>
+            </apex:pageBlockSectionItem>                 
+             <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>   
+                             
+            </apex:pageBlockSection>
+            
+            <!-- End User Details section starts here -->
+            <apex:pageBlockSection title="{!$Label.End_User_Details}">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.End_User_Name}"/>
+                    <apex:inputField value="{!caseobj.End_User_Name__c}"  style="height: 15px;width:170px"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.End_User_Email}"/>
+                    <apex:inputField value="{!caseobj.End_User_Email__c}" styleclass="endUserEmailSection"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                 <!--   <apex:outputLabel value="{!$ObjectType.Case.fields.End_User_Company__c.Label}"/>  -->
+                    <apex:outputLabel value="{!$Label.End_User_Company}"/>
+                    <apex:inputField value="{!caseobj.End_User_Company__c}" style="height: 15px;width:170px"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <!-- End User Details section ends here -->
+            
+            <!-- Description Information section starts here -->
+            <apex:pageBlockSection title="{!$Label.Description_Information}">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.Case.fields.Subject.Label}"/>
+                    <apex:outputPanel layout="block" styleClass="requiredInput">
+                        <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                        <apex:inputField value="{!caseobj.Subject}" styleclass="subject" />
+                    </apex:outputpanel>
+                </apex:pageBlockSectionItem>
+
+               <apex:pageBlockSection />
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.Case.fields.Description.Label}"/>
+                    <apex:outputPanel layout="block" styleClass="requiredInput">
+                        <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                        <apex:inputField value="{!caseobj.Description}" styleClass="description"/>
+                    </apex:outputpanel>
+                </apex:pageBlockSectionItem>
+                
+            </apex:pageBlockSection>
+            
+             <!-- Additional Information section starts here -->
+            <apex:pageBlockSection title="{!$Label.Additional_Information}">
+               <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.Case.fields.Additional_Information__c.Label}"/>
+                    <apex:inputField value="{!caseObj.Additional_Information__c}" style="height: 40px;width:200px;"/>
+                </apex:pageBlockSectionItem>
+                <!--
+                <apex:outputpanel id="ReopenJustificationblock">
+                <apex:outputpanel rendered="{!IF(((caseStatus=='Closed (Resolved)' && caseobj.Status=='Re-Open') || (caseStatus=='Re-Open'  && caseobj.Status=='Re-Open')),true,false)}">
+                 <apex:pageblocksection >
+                 <apex:pageBlockSectionItem />             
+                <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Re-Open Justification" />
+                <apex:outputPanel layout="block" styleClass="requiredInput">
+                        <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>                     
+                        <apex:inputField value="{!caseObj.Reopen_Justification__c}" styleClass="reopenjust" style="height: 30px;width:200px;"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                </apex:pageblocksection>
+                </apex:outputpanel>
+                </apex:outputpanel>
+                -->
+                
+            </apex:pageBlockSection>
+            <!-- Additional Information section ends here -->
+            
+            <!-- Additional Recipient Emails section starts here -->
+            <apex:pageBlockSection title="{!$Label.Additional_Recipient_Emails}">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Additional_Recipient_1}"/>
+                    <apex:inputField value="{!caseObj.Additional_Recipient_1__c}" styleClass="additionalRecipient1"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Additional_Recipient_4}"/>
+                    <apex:inputField value="{!caseObj.Additional_Recipient_4__c}" styleClass="additionalRecipient4"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                     <apex:outputLabel value="{!$Label.Additional_Recipient_2}"/>
+                    <apex:inputField value="{!caseObj.Additional_Recipient_2__c}" styleClass="additionalRecipient2"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                     <apex:outputLabel value="{!$Label.Additional_Recipient_5}"/>
+                    <apex:inputField value="{!caseObj.Additional_Recipient_5__c}" styleClass="additionalRecipient5"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                     <apex:outputLabel value="{!$Label.Additional_Recipient_3}"/>
+                    <apex:inputField value="{!caseObj.Additional_Recipient_3__c}" styleClass="additionalRecipient3"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <!-- Additional Recipient Emails section ends here -->
+            
+           
+            
+            <!-- Upload Attachments section starts here -->
+            <!--Hasattachment --disabled to avaoid Multiple Clicks -->
+            <apex:pageBlockSection columns="1"  title="Upload Attachment :" >
+                <font size="1.0" color="blue" > <b>  {!$Label.Attachments_Size_Help_Text} </b> </font> <br/>
+                <apex:pageBlockSectionItem >
+                    <apex:inputFile value="{!attach1.body}" filename="{!attach1.name}" id="file1"/>      
+                    <div class="btn" onclick="javascript:deleteRow('file1')"> {!$Label.Delete} </div>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >                   
+                    <apex:inputFile value="{!attach2.body}" filename="{!attach2.name}" id="file2"/>
+                    <div class="btn" onclick="javascript:deleteRow('file2')"> {!$Label.Delete} </div>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:inputFile value="{!attach3.body}" filename="{!attach3.name}" id="file3"/>               
+                    <div class="btn" onclick="javascript:deleteRow('file3')"> {!$Label.Delete} </div>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:inputFile value="{!attach4.body}" filename="{!attach4.name}" id="file4"/>               
+                    <div class="btn" onclick="javascript:deleteRow('file4')"> {!$Label.Delete} </div>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:inputFile value="{!attach5.body}" filename="{!attach5.name}" id="file5"/>               
+                    <div class="btn" onclick="javascript:deleteRow('file5')"> {!$Label.Delete} </div>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <!-- Upload Attachments section ends here -->
+            
+            <!-- Page buttons section starts here -->
+            <apex:pageBlockButtons >
+                <input type="button" value="{!$Label.Submit}" onclick="validateAndSubmit('save')" class="btn"/>
+                <apex:outputPanel rendered="{!!IF(contains($Profile.Name, 'GBL PRM'),true,false)}">
+                    <input type="button" value="{!$Label.Save_New}" onclick="validateAndSubmit('saveAndNew')" class="btn"/>
+                </apex:outputPanel>
+            <!--    <apex:outputPanel rendered="{!IF(contains($Profile.Name, 'GBL PRM'),true,false)}">
+                    <input type="button" value="Save & Close" onclick="validateAndSubmit('saveAndClose')" class="btn"/>
+                </apex:outputPanel>  -->
+                <apex:commandButton value="{!$Label.cancel}" action="{!Cancel}"  immediate="true"/>
+            </apex:pageBlockButtons>
+            <!-- Page buttons section ends here -->
+            
+            <!-- action functions section starts here -->
+            <apex:actionFunction action="{!saveCase}" name="saveCase"/>
+            <apex:actionFunction action="{!saveAndNew}" name="saveAndNew"/>
+           <!-- <apex:actionFunction action="{!saveAndClose}" name="saveAndClose"/>  -->
+            <!-- action functions section ends here -->
+            
+        </apex:pageBlock>
+        <script>
+            /*
+            * This method is called on page load.
+            * Currently it only contains the removal of Closed status for an open case.
+            */
+            $(document).ready( function () {
+                if(!{!caseObj.isClosed}){
+                    $('option[value="Closed (Resolved)"]').remove();
+                    }
+                    //$(".Onbehalfpartner").eq(1).attr("onclick","return false;");
+                    $(".Onbehalfpartner").children().removeClass('lookupIcon');
+
+            });
+            
+            
+            
+            /*
+            * This method is called by the delete button on the page.
+            * It deletes the added file by the respective file input element
+            */
+            function deleteRow(file) {
+                $("[id$=" +file+ "]").val('');
+            }
+            
+            /*
+            * This method is called by checkFileSize method.
+            * It calculates the size of file for IE
+            */
+            function getIEFileSize(file){
+                var myFSO = new ActiveXObject("Scripting.FileSystemObject"),
+                    filepath = file.value,
+                    thefile = myFSO.getFile(filepath);
+                return thefile.size;
+            }
+            
+            /*
+            * This method is called whenever the form is submitted.
+            * It validates the sizes of files that are uploaded.
+            * If its greater than 25MB, an error is thrown.
+            */
+            function checkFileSize() {
+                $('input[type=file]').each(function() {
+                //alert(($(".file1"))[0].files[0]);
+                //alert(document.getElementById("file1").files[0]);
+                try{
+                    if(typeof this.files[0] !== 'undefined') {
+                    //if(this.files.item(0) !== 'undefined') {
+                        var file = this.files[0];
+                        //alert(file);
+                        if(file!=null){
+                        size = typeof ActiveXObject !== 'undefined' ? getIEFileSize(file) : file.fileSize || file.size;
+                        //alert(size);
+                        //if(size >= 20971520) {
+                        if(size >= (25*1024*1024)) {
+                            isError = true;
+                            //this.parentNode.append(createRequiredErrorDiv('File size cannot be greater than 20MB'));
+                            addErrorMessage(this.parentNode, createRequiredErrorDiv('{!$Label.Upload_Error}'));
+                         }
+                        }
+                    }
+                    }catch(err) {
+                        //alert('catch');
+                        //console.log('In Catch');
+                    }
+                });
+            }
+            
+            /*
+            * This method is called internally by various validation methods.
+            * It creates an error div with the message 'errorMsg' passed as argument.
+            * The div can then be appended to the desired html element
+            */
+            function createRequiredErrorDiv(errorMsg) {
+            
+                var errorHtml = '<strong>'+'{!$Label.Error}'+':</strong> '+errorMsg;
+                var errorCss = 'errorMsg';
+                var errorElement = document.createElement("div");
+                errorElement.className = errorCss;
+                errorElement.innerHTML = errorHtml;
+                 
+                return errorElement;
+            }
+            
+            /*
+            * This method is called internally by various validation methods.
+            * It gives a red border styling to the input elements with error messages
+            */
+            function styleInput(ele) {
+                ele.addClass('requiredInputRed');
+            }
+            
+            /*
+            * This method is called internally by various validation methods.
+            * It removes the various styling being applied for showcasing the error messages before revalidating the form
+            */
+            function removedRequired() {
+                //removed red border from inputs
+                var requiredInputs = $('.requiredInputRed');
+                if(requiredInputs.size() > 0) {
+                        requiredInputs.removeClass('requiredInputRed');
+                }
+                //Delete all error messages
+                $( ".errorMsg" ).remove();
+                $(".ErrorDisplay").remove();
+                $(".ErrorDisplay1").remove();
+            }
+            
+            function addErrorMessage(ele, errorElement) {
+                if(detectIE())
+                    ele.appendChild(errorElement);
+                else
+                    ele.append(errorElement);
+            }
+            
+            /*
+            * This method is called internally by validateAndSubmit method.
+            * It performs all the desired required validations for the form
+            */
+            function validateRequired() {
+                removedRequired();
+                
+                //AccountID required validation
+                var accountId = $("input.accountId");
+                if(accountId.size() >0) {
+                    if(accountId[0].value == "") {
+                        isError = true;
+                        styleInput(accountId);
+                        addErrorMessage(accountId[0].parentNode.parentNode, createRequiredErrorDiv('{!$Label.You_must_enter_a_value}'));
+
+                    }
+                }
+                
+                //ContactId required validation
+                var contactId = $("input.contactId");
+                if(contactId.size() >0) {
+                    if(contactId[0].value == "") {
+                        isError = true;
+                        styleInput(contactId);
+                        addErrorMessage(contactId[0].parentNode.parentNode, createRequiredErrorDiv('{!$Label.You_must_enter_a_value}'));
+                    }
+                }
+                
+                //Status required validation
+                var status =  $("select.status");
+                if(status.size() >0) {
+                    if(status[0].value == "") {
+                        isError = true;
+                        styleInput(status);
+                        addErrorMessage(status[0].parentNode.parentNode, createRequiredErrorDiv('{!$Label.You_must_enter_a_value}'));
+
+                    }
+                }
+                
+                //Priority required validation
+                var priority =  $("select.priority");
+                if(priority.size() >0) {
+                    if(priority[0].value == "-None-") {
+                        isError = true;
+                        styleInput(priority);
+                        addErrorMessage(priority[0].parentNode.parentNode, createRequiredErrorDiv('{!$Label.You_must_enter_a_value}'));
+                    }
+                }
+                
+                //origin required validation
+                var origin =  $("select.origin");
+                if(origin.size() >0) {
+                    if(origin[0].value == "") {
+                        isError = true;
+                        styleInput(origin);
+                        addErrorMessage(origin[0].parentNode.parentNode, createRequiredErrorDiv('{!$Label.You_must_enter_a_value}'));
+
+                    }
+                }
+                
+                //sub type required validation
+                var subType =  $("select.subType");
+                if(subType.size() >0) {
+                    if(subType[0].value == "") {
+                    
+                        isError = true;
+                        styleInput(subType);
+                        addErrorMessage(subType[0].parentNode.parentNode, createRequiredErrorDiv('{!$Label.You_must_enter_a_value}'));
+                    }
+                }                             
+                
+                             
+                
+                //subject required validation
+                var subject = $("input.subject");
+                if(subject.size() >0) {
+                    if(subject[0].value == "") {
+                        isError = true;
+                        styleInput(subject);
+                        addErrorMessage(subject[0].parentNode.parentNode, createRequiredErrorDiv('{!$Label.You_must_enter_a_value}'));
+                    }
+                }
+                
+                //description required validation
+                var description = $("textarea.description");
+                if(description.size() >0) {
+                    if(description[0].value == "") {
+                        isError = true;
+                        styleInput(description);
+                        addErrorMessage(description[0].parentNode.parentNode, createRequiredErrorDiv('{!$Label.You_must_enter_a_value}'));
+                    }
+                }
+                
+                 //End User email required validation
+                var endUserEmail = $("input.endUserEmailSection");
+                    if(endUserEmail.size() >0) {
+                        if(endUserEmail[0].value != "") {
+                            var regex = /^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@{[a-zA-Z0-9_\-\.]+0\.([a-zA-Z]{2,5}){1,25})+)*$/;
+                            var isLocalError = !regex.test(endUserEmail[0].value);
+                            if(isLocalError) {
+                                isError = true;
+                                styleInput(endUserEmail);
+                                addErrorMessage(endUserEmail[0].parentNode, createRequiredErrorDiv('{!$Label.invalid_email_address}'));
+                            }   
+                        }  
+                    }
+                
+                 //additional recipient required validation
+                var additionalRecipient1 = $("input.additionalRecipient1");
+                    if(additionalRecipient1.size() >0) {
+                        if(additionalRecipient1[0].value != "") {
+                            var regex = /^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@{[a-zA-Z0-9_\-\.]+0\.([a-zA-Z]{2,5}){1,25})+)*$/;
+                            var isLocalError = !regex.test(additionalRecipient1[0].value);
+                            if(isLocalError) {
+                                isError = true;
+                                styleInput(additionalRecipient1);
+                                addErrorMessage(additionalRecipient1[0].parentNode, createRequiredErrorDiv('{!$Label.invalid_email_address}'));
+                            }   
+                        }  
+                    }
+                    
+                    var additionalRecipient2 = $("input.additionalRecipient2");
+                    if(additionalRecipient2.size() >0) {
+                        if(additionalRecipient2[0].value != "") {
+                            var regex = /^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@{[a-zA-Z0-9_\-\.]+0\.([a-zA-Z]{2,5}){1,25})+)*$/;
+                            var isLocalError = !regex.test(additionalRecipient2[0].value);
+                            if(isLocalError) {
+                                isError = true;
+                                styleInput(additionalRecipient2);
+                                addErrorMessage(additionalRecipient2[0].parentNode, createRequiredErrorDiv('{!$Label.invalid_email_address}'));
+                            }   
+                        }  
+                    }
+                    
+                    var additionalRecipient3 = $("input.additionalRecipient3");
+                    if(additionalRecipient3.size() >0) {
+                        if(additionalRecipient3[0].value != "") {
+                            var regex = /^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@{[a-zA-Z0-9_\-\.]+0\.([a-zA-Z]{2,5}){1,25})+)*$/;
+                            var isLocalError = !regex.test(additionalRecipient3[0].value);
+                            if(isLocalError) {
+                                isError = true;
+                                styleInput(additionalRecipient3);
+                                addErrorMessage(additionalRecipient3[0].parentNode, createRequiredErrorDiv('{!$Label.invalid_email_address}'));  
+                            }   
+                        }  
+                    }
+                    
+                    var additionalRecipient4 = $("input.additionalRecipient4");
+                    if(additionalRecipient4.size() >0) {
+                        if(additionalRecipient4[0].value != "") {
+                            var regex = /^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@{[a-zA-Z0-9_\-\.]+0\.([a-zA-Z]{2,5}){1,25})+)*$/;
+                            var isLocalError = !regex.test(additionalRecipient4[0].value);
+                            if(isLocalError) {
+                                isError = true;
+                                styleInput(additionalRecipient4);
+                                addErrorMessage(additionalRecipient4[0].parentNode, createRequiredErrorDiv('{!$Label.invalid_email_address}'));
+                            }   
+                        }  
+                    }
+                    
+                    var additionalRecipient5 = $("input.additionalRecipient5");
+                    if(additionalRecipient5.size() >0) {
+                        if(additionalRecipient5[0].value != "") {
+                            var regex = /^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@{[a-zA-Z0-9_\-\.]+0\.([a-zA-Z]{2,5}){1,25})+)*$/;
+                            var isLocalError = !regex.test(additionalRecipient5[0].value);
+                            if(isLocalError) {
+                                isError = true;
+                                styleInput(additionalRecipient5);
+                                addErrorMessage(additionalRecipient5[0].parentNode, createRequiredErrorDiv('{!$Label.invalid_email_address}'));
+                            }   
+                        }  
+                    }
+            }
+            
+            /*
+            * This method is called internally by validateAndSubmit method.
+            * It performs all the desired validations for the form apart from required fields
+            */
+            function formValidations() {
+                
+                 var caseCateg =  $("select.Case Category");
+                 if(caseCateg.size() >0) {
+                    if(caseCateg[0].value == 'Internal') { 
+                    isError = true; 
+                    styleInput(caseCateg);
+                    addErrorMessage(caseCateg[0].parentNode.parentNode, createRequiredErrorDiv('Can not change this value'));    
+                 }
+                }
+                
+                var caseReason =  $("select.caseReason");
+                if(caseReason.size() >0) {
+                    
+                    if(!caseReason[0].disabled && caseReason[0].value == "") {
+                        
+                        isError = true;
+                        styleInput(caseReason);
+                        addErrorMessage(caseReason[0].parentNode, createRequiredErrorDiv('{!$Label.Case_Reason_Mandatory}'));
+                    }
+                }
+                
+                var requestEscalation = $(".requestEscalationcheckImg");
+                var isEscalated = $("input.isEscalated");
+                var escalationDetail = $("textarea.escalationDetail");
+                var escalationReason = $("select.escalationReason");
+                var StatusError=false;
+                if(requestEscalation.size() > 0) {
+                    if(isEscalated.size() > 0 && isEscalated[0].checked && 
+                        ((escalationDetail.size() > 0 && escalationDetail[0].value == '') ||
+                        (escalationReason.size() > 0 && escalationReason[0].value == ''))) {
+                        isError = true;
+                        addPageMessage('{!$Label.Escalation_Error}');
+                    }
+                }
+                
+                if(requestEscalation.size() > 0) {
+                    if(isEscalated.size() > 0 && !isEscalated[0].checked && 
+                        ((escalationDetail.size() > 0 && escalationDetail[0].value != '') ||
+                        (escalationReason.size() > 0 && escalationReason[0].value != ''))) {
+                        isError = true;
+                        addPageMessage('"Escalated","Escalation Reason","Escalation Detail" fields need to be populated, only whne case is escalated');
+                    }
+                }
+                
+                var alternatePhone = $("input.alternatePhone");
+                if(alternatePhone.size() >0) {
+                    if(alternatePhone[0].value != "") {
+                    
+                        var phoneRegex = /[@()_+~`!#$%\^&*=\-\[\]\\';,/{}|\\":<>\?A-Za-z]/;
+                        var isErrorPhone = phoneRegex.test(alternatePhone[0].value);
+                        
+                        if(isErrorPhone) {
+                        isError = true;
+                            styleInput(alternatePhone);
+                            addErrorMessage(alternatePhone[0].parentNode, createRequiredErrorDiv('{!$Label.AlternatePhone_Error}'));
+                        }
+                    }
+                }
+                
+                if(!{!isReadOnly}) {
+                    //Status should be Open validation
+                    var status =  $("select.status");
+                    if(status.size() >0) {
+                        if(status[0].value != "" && status[0].value != 'Open') {
+                            isError = true;
+                            styleInput(status);
+                            addErrorMessage(status[0].parentNode.parentNode, createRequiredErrorDiv('{!$Label.Case_Status_In_progress_Error}'));
+                        }
+                    }
+                }
+              /*  if({!isReadOnly}) {
+                    if(!{!isOpenCase}) {
+                        //Status should be Open validation
+                        var status =  $("select.status");
+                        if(status.size() >0) {
+                            if(status[0].value != "" && status[0].value == 'Open') {
+                                isError = true;
+                                styleInput(status);
+                                addErrorMessage(status[0].parentNode.parentNode, createRequiredErrorDiv('{!$Label.ReOpen_ErrorMessage_3}'));
+                            }
+                        }
+                    }
+                }*/
+                if({!isReOpenedCase}) {
+                    //Case should not be reopened more than once
+                    var status =  $("select.status");
+                    if(status.size() >0) {
+                        if(status[0].value != "" && status[0].value == 'Re-Open') {
+                            isError = true;
+                            styleInput(status);
+                            addErrorMessage(status[0].parentNode.parentNode, createRequiredErrorDiv('{!$Label.ReOpen_ErrorMessage_1}'));
+                        }
+                    }
+                }
+                if(!{!isClosedCase}) {
+                    //Closed Case only can be reopened
+                    var status =  $("select.status");
+                    if(status.size() >0) {
+                        if(status[0].value != "" && status[0].value == 'Re-Open') {
+                            isError = true;
+                            styleInput(status);
+                            addErrorMessage(status[0].parentNode.parentNode, createRequiredErrorDiv('{!$Label.ReOpen_ErrorMessage_2}'));
+                        }
+                    }
+                }
+                
+                //Re-Open Justification mandetory if the status is Re-Open
+                //alert({!isClosedCase});
+                if({!isClosedCase}) {
+                    var status =  $("select.status");
+                    var reopenjustification=$("textarea.reopenjust");
+                    if(status.size() >0) {
+                        if(status[0].value == 'Re-Open' && reopenjustification[0].value==''){
+                            isError = true;
+                            styleInput(reopenjustification);
+                            addErrorMessage(reopenjustification[0].parentNode.parentNode, createRequiredErrorDiv('{!$Label.You_must_enter_a_value}'));
+                        }
+                    }
+                }
+                //Status of completed cases can not be changes
+                var status =  $("select.status");
+                var actualstatus=$("input.oldstatus");
+                //alert(actualstatus[0].value);
+                if(actualstatus.size() >0) {
+                    if(actualstatus[0].value=='Completed' && status[0].value != 'Completed'){
+                        isError = true;
+                        styleInput(status);
+                        addErrorMessage(status[0].parentNode.parentNode, createRequiredErrorDiv('You can not change the status of completed cases'));
+                    
+                    }
+                }
+                /*
+               if(!{!isCaseManager} && StatusError==false) {
+                var status =  $("select.status");
+                var actualstatus=$("input.oldstatus");
+                    if(status.size() >0) {
+                        if(actualstatus[0].value!='' && ((actualstatus[0].value=='Closed (Resolved)' && !(status[0].value == 'Closed (Resolved)' || status[0].value == 'Re-Open')) || (actualstatus[0].value!='Closed (Resolved)' && status[0].value!=actualstatus[0].value))){       
+                            isError = true;
+                            StatusError=true;
+                            styleInput(status);
+                            addErrorMessage(status[0].parentNode.parentNode, createRequiredErrorDiv('{!$Label.Case_Status_Change_Error}'));
+                        }
+                    }
+                }*/
+            } 
+            
+            /*
+            * This method is called internally by various validation methods.
+            * It adds the page level error messages
+            */
+            function addPageMessage(errorMsg) {
+                var errorHtml = '<div class="message errorM3" role="alert">'+
+                        '<table border="0" cellpadding="0" cellspacing="0" class="messageTable" style="padding:0px;margin:0px;">'+
+                            '<tbody>'+
+                                '<tr valign="top">'+
+                                    '<td>'+
+                                        '<img alt="ERROR" class="msgIcon" src="/s.gif" title="ERROR">'+
+                                    '</td>'+
+                                    '<td class="messageCell">'+
+                                        '<div class="messageText">'+
+                                            '<span style="color:#cc0000">'+
+                                                '<h4>Error:</h4>'+
+                                            '</span>'+
+                                            errorMsg+'<br>'+
+                                        '</div>'+
+                                    '</td>'+
+                                '</tr>'+
+                            '</tbody>'+
+                        '</table>'+
+                    '</div>';
+                var errorElement = document.createElement("span");
+                errorElement.innerHTML = errorHtml;
+                var errorDiv = $('.pageErrorMsg');
+                if(errorDiv.size() > 0) {
+                    if(detectIE())
+                        errorDiv[0].appendChild(errorElement);
+                    else
+                        errorDiv[0].append(errorElement);
+                }
+            }
+            
+            
+            /*
+            * This method is called whenever the form is submitted.
+            * It performs all the desired validations on the form. 
+            * If the form passes the validation, server calls are made.
+            */
+            function validateAndSubmit(submitMethod) {            
+                isError = false;
+                validateRequired(); 
+                //alert('After validateRequired');
+                //alert(isError);               
+                formValidations();
+                //alert('After Validations');
+                //alert(isError);
+                checkFileSize();
+                
+                   if(!isError) {
+                    if(submitMethod == 'save')
+                        saveCase();
+                    else if(submitMethod == 'saveAndNew')
+                        saveAndNew();
+                       //  else if(submitMethod == 'saveAndClose')
+                       //   saveAndClose();
+                } else
+                    $('html,body').animate({scrollTop:0},0);
+            }
+            
+            /**
+             * detect IE
+             * returns version of IE or false, if browser is not Internet Explorer
+             */
+            function detectIE() {
+                var ua = window.navigator.userAgent;
+            
+                var msie = ua.indexOf('MSIE ');
+                if (msie > 0) {
+                    // IE 10 or older => return version number
+                    return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+                }
+            
+                var trident = ua.indexOf('Trident/');
+                if (trident > 0) {
+                    // IE 11 => return version number
+                    var rv = ua.indexOf('rv:');
+                    return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+                }
+            
+                var edge = ua.indexOf('Edge/');
+                if (edge > 0) {
+                   // Edge (IE 12+) => return version number
+                   return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+                }
+            
+                // other browser
+                return false;
+            }
+        </script>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>A trigger handler class to run on the given sObject and trigger event</description>
+    <fields>
+        <fullName>Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Should the trigger class be run? Only uncheck this with extreme caution as it disabling an important triggers could cause data inconsistency</description>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <inlineHelpText>Should the trigger class be run? Only uncheck this with extreme caution as it disabling an important triggers could cause data inconsistency</inlineHelpText>
+        <label>Active</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Class_Name__c</fullName>
+        <description>The Apex class to run</description>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <inlineHelpText>The Apex class to run</inlineHelpText>
+        <label>Class Name</label>
+        <length>255</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Description</label>
+        <length>32768</length>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Event__c</fullName>
+        <description>Trigger event to run this handler</description>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <inlineHelpText>Trigger event to run this handler</inlineHelpText>
+        <label>Event</label>
+        <required>true</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>BeforeInsert</fullName>
+                    <default>true</default>
+                    <label>BeforeInsert</label>
+                </value>
+                <value>
+                    <fullName>BeforeUpdate</fullName>
+                    <default>false</default>
+                    <label>BeforeUpdate</label>
+                </value>
+                <value>
+                    <fullName>BeforeDelete</fullName>
+                    <default>false</default>
+                    <label>BeforeDelete</label>
+                </value>
+                <value>
+                    <fullName>BeforeUndelete</fullName>
+                    <default>false</default>
+                    <label>BeforeUndelete</label>
+                </value>
+                <value>
+                    <fullName>AfterInsert</fullName>
+                    <default>false</default>
+                    <label>AfterInsert</label>
+                </value>
+                <value>
+                    <fullName>AfterUpdate</fullName>
+                    <default>false</default>
+                    <label>AfterUpdate</label>
+                </value>
+                <value>
+                    <fullName>AfterDelete</fullName>
+                    <default>false</default>
+                    <label>AfterDelete</label>
+                </value>
+                <value>
+                    <fullName>AfterUndelete</fullName>
+                    <default>false</default>
+                    <label>AfterUndelete</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Order__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Handlers are run in ascending order of this field for a given sObject and Event. If order is unimportant, you can just use 0.</description>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <inlineHelpText>Handlers are run in ascending order of this field for a given sObject and Event Handlers are run in ascending order of this field for a given sObject and Event. If order is unimportant, you can just use 0.</inlineHelpText>
+        <label>Order</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>sObject__c</fullName>
+        <description>The sObject to run the handler on</description>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <inlineHelpText>The sObject to run the handler on</inlineHelpText>
+        <label>sObject</label>
+        <length>255</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Trigger Handler</label>
+    <pluralLabel>Trigger Handlers</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

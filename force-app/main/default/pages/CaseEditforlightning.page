@@ -1,0 +1,22 @@
+<!-- 
+Version    CR Number   Release No      Date            Modified By     Description
+  1.0        18388     FY21-DCS-0202   23-Dec-2019     Yamini Kayam    created for Story 7128749: Lead 2.0 - [LEX] Marketing user should be able to view and access the created GLMI cases
+-->
+<apex:page standardController="Case" title="Edit Case" tabStyle="Case" lightningStylesheets="true">
+    <script type="text/javascript">
+    function goLightning() {
+        if( (typeof sforce != 'undefined') && (sforce != null) ) {
+            var compDefinition = { 
+                "componentDef" : "c:CaseEditPage", 
+                "attributes" :{ 
+                      "recordId" : "{!$CurrentPage.parameters.recordId}",
+                      "opptyType" : "{!$CurrentPage.parameters.opptyType}"
+                 } 
+                };
+            var encodedCompDef = btoa(JSON.stringify(compDefinition));
+            window.parent.location = "/one/one.app#"+encodedCompDef;
+        }
+    }
+    goLightning();
+    </script>
+</apex:page>

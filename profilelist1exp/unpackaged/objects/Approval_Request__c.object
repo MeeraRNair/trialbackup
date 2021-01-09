@@ -1,0 +1,1551 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Action__c</fullName>
+        <externalId>false</externalId>
+        <label>Action</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Approval Request Submitted</fullName>
+                    <default>false</default>
+                    <label>Approval Request Submitted</label>
+                </value>
+                <value>
+                    <fullName>Approval Request Updated</fullName>
+                    <default>false</default>
+                    <label>Approval Request Updated</label>
+                </value>
+                <value>
+                    <fullName>Approval Request Cancelled</fullName>
+                    <default>false</default>
+                    <label>Approval Request Cancelled</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Actions_Available__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+OR( 
+ISPICKVAL(Approval_Status__c, &apos;Submitted&apos;), 
+ISPICKVAL(Approval_Status__c, &apos;Rejected&apos;)
+), 
+HYPERLINK(&apos;/apex/ApprovalRequestMaintenance?appReqId=&apos; &amp;  Id &amp; &apos;&amp;action=recallEntire&apos; , &apos;Cancel Approval Request&apos; ,&apos;_parent&apos;) &amp; &apos; &apos;, 
+&apos;&apos; 
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Actions Available</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Add_Approver__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+AND( 
+NOT(ISPICKVAL(Approval_Status__c , &apos;Cancelled&apos;)), 
+NOT(ISPICKVAL(Approval_Status__c , &apos;Approved&apos;)), 
+NOT(ISPICKVAL(Approval_Status__c , &apos;Closed as Rejected&apos;)) 
+), 
+HYPERLINK(&apos;/apex/ApprovalRequestAddApprover?appReqId=&apos; &amp; Id, &apos;Add Approver&apos; ,&apos;_parent&apos;) &amp; &apos; &apos;, 
+&apos;&apos; 
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>&lt;font color=&quot;#fff&quot;&gt;</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Approval_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Approval Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Approval_Request_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Approval Request Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>DGR Qualify Gate Approval</fullName>
+                    <default>false</default>
+                    <label>DGR Qualify Gate Approval</label>
+                </value>
+                <value>
+                    <fullName>DGR Propose Gate Approval</fullName>
+                    <default>false</default>
+                    <label>DGR Propose Gate Approval</label>
+                </value>
+                <value>
+                    <fullName>DGR Contract Gate Approval</fullName>
+                    <default>false</default>
+                    <label>DGR Contract Gate Approval</label>
+                </value>
+                <value>
+                    <fullName>Technical Certification Tier 1</fullName>
+                    <default>false</default>
+                    <label>Technical Certification Tier 1</label>
+                </value>
+                <value>
+                    <fullName>Technical Certification Tier 2</fullName>
+                    <default>false</default>
+                    <label>Technical Certification Tier 2</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Approval_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Approval Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Submitted</fullName>
+                    <default>true</default>
+                    <label>Submitted</label>
+                </value>
+                <value>
+                    <fullName>Approved</fullName>
+                    <default>false</default>
+                    <label>Approved</label>
+                </value>
+                <value>
+                    <fullName>Rejected</fullName>
+                    <default>false</default>
+                    <label>Rejected</label>
+                </value>
+                <value>
+                    <fullName>Cancelled</fullName>
+                    <default>false</default>
+                    <label>Cancelled</label>
+                </value>
+                <value>
+                    <fullName>Closed as Rejected</fullName>
+                    <default>false</default>
+                    <label>Closed as Rejected</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Assigned_Approver_s__c</fullName>
+        <externalId>false</externalId>
+        <label>Assigned Approver(s)</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Book_Date__c</fullName>
+        <description>SOM R14.10 - populate with values from Opportunity when Services Governance Approval Request is submitted</description>
+        <externalId>false</externalId>
+        <label>Book Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Closed_as_Rejected__c</fullName>
+        <description>To be used by DGR&amp; Product Admin user, and Services Intake Manager/DGC permission set user to close and reject the entire DGR approval request</description>
+        <externalId>false</externalId>
+        <formula>IF(
+OR(
+ISPICKVAL(Approval_Status__c, &apos;Submitted&apos;), 
+ISPICKVAL(Approval_Status__c, &apos;Rejected&apos;)
+), 
+HYPERLINK(&apos;/apex/ApprovalRequestClosedAsRejected?appReqId=&apos; &amp; Id, &apos;Close as Rejected&apos; ,&apos;_parent&apos;) &amp; &apos; &apos;,
+&apos;&apos; 
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>&lt;font color=&quot;#fff&quot;&gt;</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Comments</label>
+        <length>500</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Created_Date__c</fullName>
+        <description>SOM R14.10 - populate with values from Opportunity when Services Governance Approval Request is submitted</description>
+        <externalId>false</externalId>
+        <label>Created Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>DGR_Level__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Opportunity__r.DGR_Level__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>DGR Level</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DGR_Territories__c</fullName>
+        <externalId>false</externalId>
+        <label>DGR Territories</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Deal_Governance_Review_Level__c</fullName>
+        <description>SOM R14.10 - populate with values from Opportunity when Services Governance Approval Request is submitted</description>
+        <externalId>false</externalId>
+        <label>Deal Governance Review Level</label>
+        <length>25</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Deal_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Deal_ID__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Deal ID</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Delivery_Region_s__c</fullName>
+        <externalId>false</externalId>
+        <label>Delivery Region(s)</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>AMER</fullName>
+                    <default>false</default>
+                    <label>AMER</label>
+                </value>
+                <value>
+                    <fullName>APJ</fullName>
+                    <default>false</default>
+                    <label>APJ</label>
+                </value>
+                <value>
+                    <fullName>LATAM</fullName>
+                    <default>false</default>
+                    <label>LATAM</label>
+                </value>
+                <value>
+                    <fullName>EMEA</fullName>
+                    <default>false</default>
+                    <label>EMEA</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Dell_Defined_LOB__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES(Opportunity__r.Dell_Defined_LOB__c,&quot;Infrastructure &amp; Cloud Computing&quot;), &quot;Infrastructure &amp; Cloud Computing; &quot;,&quot;&quot;) &amp;
+
+IF(INCLUDES(Opportunity__r.Dell_Defined_LOB__c,&quot;Applications&quot;), &quot;Applications; &quot;,&quot;&quot;) &amp;
+
+IF(INCLUDES(Opportunity__r.Dell_Defined_LOB__c,&quot;BPO (Business Process Outsourcing)&quot;), &quot;BPO (Business Process Outsourcing); &quot;,&quot;&quot;) &amp;
+
+IF(INCLUDES(Opportunity__r.Dell_Defined_LOB__c,&quot;Security&quot;), &quot;Security; &quot;,&quot;&quot;) &amp;
+
+IF(INCLUDES(Opportunity__r.Dell_Defined_LOB__c,&quot;Support &amp; Deployment&quot;), &quot;Support &amp; Deployment; &quot;,&quot;&quot;) &amp;
+
+IF(INCLUDES(Opportunity__r.Dell_Defined_LOB__c,&quot; Services LOB unavailable for offer(s)&quot;), &quot;Services LOB unavailable for offer(s); &quot;,&quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Dell Services LOB</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Dell_Services_Industry__c</fullName>
+        <externalId>false</externalId>
+        <formula>Text( Opportunity__r.Dell_Defined_Industry__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Dell Services Industry</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Governance_Repository_Link2__c</fullName>
+        <description>SOM R14.10 - populate with values from Opportunity when Services Governance Approval Request is submitted</description>
+        <externalId>false</externalId>
+        <label>Governance Repository Link</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Governance_Repository_Link__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(false, HYPERLINK(&apos;&apos;, &apos;Click Here&apos;, &apos;_blank&apos;), &apos;&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Governance Repository Link</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Initiation_Date__c</fullName>
+        <defaultValue>NOW()</defaultValue>
+        <externalId>false</externalId>
+        <label>Initiation Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Opportunity_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Opportunity Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Opportunity__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipName>Approval_Requests</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Owner__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Owner</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Approval_Requests1</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Regional_Parent_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Regional_Parent_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Regional Parent Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Request_Comments__c</fullName>
+        <description>Created for 16.03 SOM. Comments field for Services Governance Approval Requests.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>These Request Comments are sent to Approver(s) on the DGR Approval Request Notification email.  This includes any request that is RESENT or REASSIGNED.  Please edit Request Comments when appropriate.</inlineHelpText>
+        <label>Request Comments</label>
+        <length>2000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Segment_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Segment__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Segment Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Service_Area_s__c</fullName>
+        <externalId>false</externalId>
+        <label>Service Area (s)</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Asset &amp; Configuration Management</fullName>
+                    <default>false</default>
+                    <label>Asset &amp; Configuration Management</label>
+                </value>
+                <value>
+                    <fullName>Field Services</fullName>
+                    <default>false</default>
+                    <label>Field Services</label>
+                </value>
+                <value>
+                    <fullName>Mobility</fullName>
+                    <default>false</default>
+                    <label>Mobility</label>
+                </value>
+                <value>
+                    <fullName>Reporting</fullName>
+                    <default>false</default>
+                    <label>Reporting</label>
+                </value>
+                <value>
+                    <fullName>Service Desk</fullName>
+                    <default>false</default>
+                    <label>Service Desk</label>
+                </value>
+                <value>
+                    <fullName>Service Management</fullName>
+                    <default>false</default>
+                    <label>Service Management</label>
+                </value>
+                <value>
+                    <fullName>Transition</fullName>
+                    <default>false</default>
+                    <label>Transition</label>
+                </value>
+                <value>
+                    <fullName>Auto &amp; Monitoring</fullName>
+                    <default>false</default>
+                    <label>Auto &amp; Monitoring</label>
+                </value>
+                <value>
+                    <fullName>C3</fullName>
+                    <default>false</default>
+                    <label>C3</label>
+                </value>
+                <value>
+                    <fullName>Capacity Plan/ISIS</fullName>
+                    <default>false</default>
+                    <label>Capacity Plan/ISIS</label>
+                </value>
+                <value>
+                    <fullName>Data Center</fullName>
+                    <default>false</default>
+                    <label>Data Center</label>
+                </value>
+                <value>
+                    <fullName>Database Admin</fullName>
+                    <default>false</default>
+                    <label>Database Admin</label>
+                </value>
+                <value>
+                    <fullName>Desktop Engineering</fullName>
+                    <default>false</default>
+                    <label>Desktop Engineering</label>
+                </value>
+                <value>
+                    <fullName>Disaster Recovery</fullName>
+                    <default>false</default>
+                    <label>Disaster Recovery</label>
+                </value>
+                <value>
+                    <fullName>Mainframe</fullName>
+                    <default>false</default>
+                    <label>Mainframe</label>
+                </value>
+                <value>
+                    <fullName>iSeries (AS400)</fullName>
+                    <default>false</default>
+                    <label>iSeries (AS400)</label>
+                </value>
+                <value>
+                    <fullName>Messaging</fullName>
+                    <default>false</default>
+                    <label>Messaging</label>
+                </value>
+                <value>
+                    <fullName>Network</fullName>
+                    <default>false</default>
+                    <label>Network</label>
+                </value>
+                <value>
+                    <fullName>Platform Hosting Windows</fullName>
+                    <default>false</default>
+                    <label>Platform Hosting Windows</label>
+                </value>
+                <value>
+                    <fullName>Platform Hosting UNIX</fullName>
+                    <default>false</default>
+                    <label>Platform Hosting UNIX</label>
+                </value>
+                <value>
+                    <fullName>Service Desk Voice</fullName>
+                    <default>false</default>
+                    <label>Service Desk Voice</label>
+                </value>
+                <value>
+                    <fullName>Service Management Tools</fullName>
+                    <default>false</default>
+                    <label>Service Management Tools</label>
+                </value>
+                <value>
+                    <fullName>ITDS Service Assurance</fullName>
+                    <default>false</default>
+                    <label>ITDS Service Assurance</label>
+                </value>
+                <value>
+                    <fullName>Storage Systems</fullName>
+                    <default>false</default>
+                    <label>Storage Systems</label>
+                </value>
+                <value>
+                    <fullName>Storage Backup</fullName>
+                    <default>false</default>
+                    <label>Storage Backup</label>
+                </value>
+                <value>
+                    <fullName>System Management Tools</fullName>
+                    <default>false</default>
+                    <label>System Management Tools</label>
+                </value>
+                <value>
+                    <fullName>HCLS Cloud</fullName>
+                    <default>false</default>
+                    <label>HCLS Cloud</label>
+                </value>
+                <value>
+                    <fullName>Private Cloud</fullName>
+                    <default>false</default>
+                    <label>Private Cloud</label>
+                </value>
+                <value>
+                    <fullName>vCloud</fullName>
+                    <default>false</default>
+                    <label>vCloud</label>
+                </value>
+                <value>
+                    <fullName>vDaas</fullName>
+                    <default>false</default>
+                    <label>vDaas</label>
+                </value>
+                <value>
+                    <fullName>End User Computing</fullName>
+                    <default>false</default>
+                    <label>End User Computing</label>
+                </value>
+                <value>
+                    <fullName>Managed Deployment</fullName>
+                    <default>false</default>
+                    <label>Managed Deployment</label>
+                </value>
+                <value>
+                    <fullName>Networking</fullName>
+                    <default>false</default>
+                    <label>Networking</label>
+                </value>
+                <value>
+                    <fullName>Next Gen Compute Solutions</fullName>
+                    <default>false</default>
+                    <label>Next Gen Compute Solutions</label>
+                </value>
+                <value>
+                    <fullName>ARR/Data Wipe</fullName>
+                    <default>false</default>
+                    <label>ARR/Data Wipe</label>
+                </value>
+                <value>
+                    <fullName>Storage Services</fullName>
+                    <default>false</default>
+                    <label>Storage Services</label>
+                </value>
+                <value>
+                    <fullName>Support Services</fullName>
+                    <default>false</default>
+                    <label>Support Services</label>
+                </value>
+                <value>
+                    <fullName>Apps Mgt &amp; Support</fullName>
+                    <default>false</default>
+                    <label>Apps Mgt &amp; Support</label>
+                </value>
+                <value>
+                    <fullName>BI/DWH/MDM</fullName>
+                    <default>false</default>
+                    <label>BI/DWH/MDM</label>
+                </value>
+                <value>
+                    <fullName>Custom Dev/Maint</fullName>
+                    <default>false</default>
+                    <label>Custom Dev/Maint</label>
+                </value>
+                <value>
+                    <fullName>Packaging Imp/Mgt</fullName>
+                    <default>false</default>
+                    <label>Packaging Imp/Mgt</label>
+                </value>
+                <value>
+                    <fullName>Testing</fullName>
+                    <default>false</default>
+                    <label>Testing</label>
+                </value>
+                <value>
+                    <fullName>BPO</fullName>
+                    <default>false</default>
+                    <label>BPO</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Services_Sales_Owner1__c</fullName>
+        <description>SOM R14.10 - populate with values from Opportunity when Services Governance Approval Request is submitted</description>
+        <externalId>false</externalId>
+        <label>Services Sales Owner</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Services_Sales_Owner__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Services Sales Owner</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Approval_Requests</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Services_Top_Opportunity__c</fullName>
+        <description>SOM R14.10 - populate with values from Opportunity when Services Governance Approval Request is submitted</description>
+        <externalId>false</externalId>
+        <label>Services Top Opportunity</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Solution_Architect_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Owner__r.FirstName +&apos; &apos;+ Owner__r.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Solution Architect Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Stage2__c</fullName>
+        <description>SOM R14.10 - populate with values from Opportunity when Services Governance Approval Request is submitted</description>
+        <externalId>false</externalId>
+        <label>Stage</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Stage__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Opportunity__r.StageName)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Stage</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Technical_Certification_Link__c</fullName>
+        <externalId>false</externalId>
+        <label>Technical Certification Link</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Tier_1_Approval_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Tier 1 TC Approval Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Tier_1_Approval_Request__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Tier 1 TC ID</label>
+        <referenceTo>Approval_Request__c</referenceTo>
+        <relationshipLabel>Services Governance Approval Requests</relationshipLabel>
+        <relationshipName>Services_Governance_Approval_Requests</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Tier_1_Approval_Status__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT( Approval_Status__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Tier 1 Approval Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Tier_1_TC_Date_Initiated__c</fullName>
+        <defaultValue>Now()</defaultValue>
+        <externalId>false</externalId>
+        <label>Tier 1 TC Date Initiated</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Tier_2_Approval_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Tier 2 TC Approval Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Tier_2_Approval_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Tier 2 Approval Status</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Tier_2_TC_Date_Initiated__c</fullName>
+        <externalId>false</externalId>
+        <label>Tier 2 TC Date Initiated</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Total_Approver_Approved__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Approver(s) Approved</label>
+        <summaryFilterItems>
+            <field>Approver__c.Approver_Status__c</field>
+            <operation>contains</operation>
+            <value>Approved</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Approver__c.Approval_Request__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Total_Approver_Recalled__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Approver(s) Cancelled</label>
+        <summaryFilterItems>
+            <field>Approver__c.Approver_Status__c</field>
+            <operation>equals</operation>
+            <value>Cancelled</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Approver__c.Approval_Request__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Total_Approver_Rejected__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Approver(s) Rejected</label>
+        <summaryFilterItems>
+            <field>Approver__c.Approver_Status__c</field>
+            <operation>contains</operation>
+            <value>Rejected</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Approver__c.Approval_Request__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Total_Approver__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Approver(s) Requested</label>
+        <summaryFilterItems>
+            <field>Approver__c.Approver_Status__c</field>
+            <operation>notEqual</operation>
+            <value>Cancelled</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Approver__c.Approval_Request__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Total_Margin__c</fullName>
+        <description>SOM R14.10 - populate with values from Opportunity when Services Governance Approval Request is submitted</description>
+        <externalId>false</externalId>
+        <label>Total Margin %</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Unweighted_Rev_Services_Only__c</fullName>
+        <description>SOM R14.10 - populate with values from Opportunity when Services Governance Approval Request is submitted</description>
+        <externalId>false</externalId>
+        <label>Unweighted Rev – Services Only</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Unweighted_Rev__c</fullName>
+        <description>SOM R14.10 - populate with values from Opportunity when Services Governance Approval Request is submitted</description>
+        <externalId>false</externalId>
+        <label>Unweighted Rev</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <label>Services Governance Approval Request</label>
+    <nameField>
+        <displayFormat>AR-{000000}</displayFormat>
+        <label>Approval Request Id</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Services Governance Approval Requests</pluralLabel>
+    <recordTypes>
+        <fullName>DGR</fullName>
+        <active>true</active>
+        <description>R14.10 - Page layout for &quot;DGR Qualify Gate Approval&quot;, &quot;DGR Propose Gate Approval&quot; and &quot;DGR Contract Gate Approval&quot;</description>
+        <label>DGR</label>
+        <picklistValues>
+            <picklist>Action__c</picklist>
+            <values>
+                <fullName>Approval Request Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Request Submitted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Request Updated</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Approval_Request_Type__c</picklist>
+            <values>
+                <fullName>DGR Contract Gate Approval</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DGR Propose Gate Approval</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DGR Qualify Gate Approval</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Technical Certification Tier 1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Technical Certification Tier 2</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Approval_Status__c</picklist>
+            <values>
+                <fullName>Approved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed as Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Submitted</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Delivery_Region_s__c</picklist>
+            <values>
+                <fullName>AMER</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>APJ</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EMEA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LATAM</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Service_Area_s__c</picklist>
+            <values>
+                <fullName>ARR%2FData Wipe</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Apps Mgt %26 Support</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Asset %26 Configuration Management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Auto %26 Monitoring</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BI%2FDWH%2FMDM</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BPO</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>C3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity Plan%2FISIS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Custom Dev%2FMaint</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Data Center</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Database Admin</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Desktop Engineering</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disaster Recovery</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>End User Computing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Field Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>HCLS Cloud</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ITDS Service Assurance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mainframe</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Managed Deployment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Messaging</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mobility</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Network</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Networking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Next Gen Compute Solutions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Packaging Imp%2FMgt</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Platform Hosting UNIX</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Platform Hosting Windows</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Private Cloud</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reporting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Service Desk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Service Desk Voice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Service Management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Service Management Tools</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Storage Backup</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Storage Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Storage Systems</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Support Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>System Management Tools</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Testing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transition</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iSeries %28AS400%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>vCloud</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>vDaas</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Tech_Cert</fullName>
+        <active>true</active>
+        <description>SOM R14.10 - Page layout for Technical Certification Tier 1 and Technical Certification Tier 2</description>
+        <label>Tech Cert</label>
+        <picklistValues>
+            <picklist>Action__c</picklist>
+            <values>
+                <fullName>Approval Request Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Request Submitted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval Request Updated</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Approval_Request_Type__c</picklist>
+            <values>
+                <fullName>DGR Contract Gate Approval</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DGR Propose Gate Approval</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DGR Qualify Gate Approval</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Technical Certification Tier 1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Technical Certification Tier 2</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Approval_Status__c</picklist>
+            <values>
+                <fullName>Approved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Submitted</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Delivery_Region_s__c</picklist>
+            <values>
+                <fullName>AMER</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>APJ</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EMEA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LATAM</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Service_Area_s__c</picklist>
+            <values>
+                <fullName>ARR%2FData Wipe</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Apps Mgt %26 Support</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Asset %26 Configuration Management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Auto %26 Monitoring</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BI%2FDWH%2FMDM</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BPO</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>C3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity Plan%2FISIS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Custom Dev%2FMaint</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Data Center</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Database Admin</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Desktop Engineering</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disaster Recovery</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>End User Computing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Field Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>HCLS Cloud</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ITDS Service Assurance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mainframe</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Managed Deployment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Messaging</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mobility</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Network</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Networking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Next Gen Compute Solutions</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Packaging Imp%2FMgt</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Platform Hosting UNIX</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Platform Hosting Windows</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Private Cloud</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reporting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Service Desk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Service Desk Voice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Service Management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Service Management Tools</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Storage Backup</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Storage Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Storage Systems</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Support Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>System Management Tools</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Testing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transition</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iSeries %28AS400%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>vCloud</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>vDaas</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <excludedStandardButtons>New</excludedStandardButtons>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SnP_Deal_Reg_VMware_FED_Rule</fullName>
+    <active>false</active>
+    <description>If vendor is VMware and segment is set to FED, Program Type and Country field cannot be changed.</description>
+    <errorConditionFormula>AND( S_P_Vendors_Name__c = &apos;VMware&apos; , Segment_Name__c = &apos;FED&apos; , OR( ISCHANGED( Program_Type__c ) , ISCHANGED( Country__c ) ) )</errorConditionFormula>
+    <errorMessage>If Segment is set to FED, Country and Program Type should not be changed</errorMessage>
+</ValidationRule>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reseller_Account__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Reseller Account</label>
+    <lookupFilter>
+        <active>true</active>
+        <booleanFilter>(1 OR 2 OR 3 OR 4 OR 7 OR 8) AND 5 AND 6</booleanFilter>
+        <filterItems>
+            <field>Account.Partner_Type__c</field>
+            <operation>equals</operation>
+            <value>GLOBAL ALLIANCE,SOLUTION PROVIDER,SYSTEM INTEGRATOR (GLOBAL ALLIANCES),MSP/CSP/SERVICE PROVIDER,OEM,COMMERCIAL GENERAL,US FEDERAL,OEM SOLUTION PROVIDER,CLOUD SERVICE PROVIDER,SYSTEMS INTEGRATOR,CONSUMER PARTNER</value>
+        </filterItems>
+        <filterItems>
+            <field>Account.Partner_Type__c</field>
+            <operation>equals</operation>
+            <value>global alliance,solution provider,system integrator (global alliances),MSP/CSP/service provider,OEM,commercial general,us federal,oem solution provider,cloud service provider,systems integrator,consumer partner</value>
+        </filterItems>
+        <filterItems>
+            <field>Account.Partner_Type__c</field>
+            <operation>equals</operation>
+            <value>Global Alliance,Solution Provider,System Integrator (Global Alliances),MSP/CSP/Service Provider,OEM,Commercial General,US Federal,OEM Solution Provider,Cloud Service Provider,Systems Integrator,Consumer Partner</value>
+        </filterItems>
+        <filterItems>
+            <field>Account.Partner_Type__c</field>
+            <operation>equals</operation>
+            <value>managed service provider,Managed Service Provider,MANAGED SERVICE PROVIDER,</value>
+        </filterItems>
+        <filterItems>
+            <field>Account.Partner_Registration__c</field>
+            <operation>notEqual</operation>
+            <value/>
+        </filterItems>
+        <filterItems>
+            <field>Account.Calculated_Status__c</field>
+            <operation>equals</operation>
+            <value>Active</value>
+        </filterItems>
+        <filterItems>
+            <field>Account.Partner_Type__c</field>
+            <operation>equals</operation>
+            <value>Federal Cloud Service Provider, Federal OEM, Federal OEM Solution Provider, Federal OEM Systems Integrator, Federal Solution Provider, Federal Systems Integrator</value>
+        </filterItems>
+        <filterItems>
+            <field>Account.Partner_Type__c</field>
+            <operation>equals</operation>
+            <value>FEDERAL CLOUD SERVICE PROVIDER, FEDERAL OEM, FEDERAL OEM SOLUTION PROVIDER, FEDERAL OEM SYSTEMS INTEGRATOR, FEDERAL SOLUTION PROVIDER, FEDERAL SYSTEMS INTEGRATOR</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Distributor  Relationship</relationshipLabel>
+    <relationshipName>DistributorRelationships</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

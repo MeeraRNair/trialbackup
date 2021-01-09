@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>R12_10_Solution_CRM_Placed_on_Hold</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND ( 
+ISPICKVAL (Support_Status__c , &quot;Placed on hold&quot;), 
+OR ( 
+NOT(ISBLANK( Assigned_System_Engineer_1__c )), 
+NOT(ISBLANK( Assigned_System_Engineer_2__c )) 
+) 
+)</errorConditionFormula>
+    <errorDisplayField>Support_Status__c</errorDisplayField>
+    <errorMessage>System Engineer(s) are not allowed to be assigned to a request that is Placed On Hold.</errorMessage>
+</ValidationRule>

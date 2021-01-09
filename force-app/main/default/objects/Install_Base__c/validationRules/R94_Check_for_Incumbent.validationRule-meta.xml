@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>R94_Check_for_Incumbent</fullName>
+    <active>true</active>
+    <description>If a quantity has been entered there has to be an incumbent.</description>
+    <errorConditionFormula>OR(
+AND(Primary_Quantity__c &gt;0 , ISPICKVAL( Primary_Incumbent__c , &quot;&quot;)),
+AND(Secondary_Quantity__c &gt;0 , ISPICKVAL( Secondary_Incumbent__c , &quot;&quot;)),
+AND(Third_Quantity__c &gt;0 , ISPICKVAL( Third_Incumbent__c , &quot;&quot;)),
+AND(Fourth_Quantity__c &gt;0 , ISPICKVAL( Fourth_Incumbent__c , &quot;&quot;)))</errorConditionFormula>
+    <errorMessage>Please select an incumbent for the quantities entered.</errorMessage>
+</ValidationRule>

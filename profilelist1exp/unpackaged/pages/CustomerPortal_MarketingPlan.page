@@ -1,0 +1,194 @@
+<!--REVISION HISTORY
+Version     Author      Date            Release#    CR#     Description-
+ 1.0         Saurabh    15 -Apr-2013       14.5     8171     “Accept All & Save” and “Reject All & Save” buttons in
+                                                              Viper customer portal should work as expected. 
+-->
+
+<apex:page standardController="Marketing_Plan__c"  extensions="VFCntrlr_CustomerPortal_MarketingPlan" sidebar="false">
+    <!-------------------------- Marketing Plan Section ----------------------------------->
+    <apex:sectionHeader title="Marketing Plan {!Marketing_Plan__c.Name}"/>
+    <apex:form >
+         <apex:messages style="color:red;font-weight:bold;"/>
+        <apex:pageBlock mode="mainDetail">
+            <apex:pageBlockButtons location="Top">
+                <apex:commandButton value="Add/Update Marketing Contact" action="{!addPrimaryContact}" rendered="{!purchaseorder_render}" immediate="true"/>
+                <apex:commandButton value="Add/Update Billing Contact" action="{!addBillingContact}" rendered="{!purchaseorder_render}" immediate="true"/>
+                <apex:commandButton value="Add Purchase Order #" action="{!addpurchaseorder}" rendered="{!purchaseorder_render}" immediate="true"/>
+                <apex:commandButton value="Save" action="{!savepruchaseorder}" rendered="{!NOT(purchaseorder_render)}" />
+                <apex:commandButton value="Cancel" action="{!cancelfn}" rendered="{!NOT(purchaseorder_render)}" immediate="true"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Marketing Plan Details" collapsible="false" columns="2">
+                <apex:outputField value="{!Marketing_Plan__c.Vendor__r.Name}"/>
+                <apex:outputField value="{!Marketing_Plan__c.Contract_Status__c}"/>
+                <apex:outputField value="{!Marketing_Plan__c.Contract_Type__c}"/>
+                <apex:outputField value="{!Marketing_Plan__c.Fiscal_Quarter__c}"/>
+                <apex:outputField value="{!Marketing_Plan__c.Region__c}"/>
+                <apex:outputField value="{!Marketing_Plan__c.Purchase_Order__c}" rendered="{!purchaseorder_render}"/>
+                <apex:inputField value="{!Marketing_Plan__c.Purchase_Order__c}" rendered="{!NOT(purchaseorder_render)}" required="true"/> 
+             </apex:pageBlockSection>
+             <apex:pageBlockSection title="Volume Based Header Details" columns="2">
+                 <apex:outputField value="{!Marketing_Plan__c.Volume_Based_Rule_Header__r.Name}"/>
+                 <apex:outputField value="{!Marketing_Plan__c.Volume_Based_Rule_Header__r.Vendor__r.Name}"/>
+                 <apex:outputField value="{!Marketing_Plan__c.Volume_Based_Rule_Header__r.Fiscal_Quarter__c}"/>
+                 <apex:outputField value="{!Marketing_Plan__c.Volume_Based_Rule_Header__r.Region__c}"/>
+                 <apex:outputField value="{!Marketing_Plan__c.Volume_Based_Rule_Header__r.Sub_Region__c}"/>
+                 <apex:outputField value="{!Marketing_Plan__c.Volume_Based_Rule_Header__r.Country__c}"/>
+                 <apex:outputField value="{!Marketing_Plan__c.Volume_Based_Rule_Header__r.COGS__c}"/>
+                 <apex:outputField value="{!Marketing_Plan__c.Volume_Based_Rule_Header__r.Flat_Rate_Deduction__c}"/>
+                 <apex:outputField value="{!Marketing_Plan__c.Volume_Based_Rule_Header__r.Deduction_Reason__c}"/>                                 
+             </apex:pageBlockSection>             
+                <apex:pageBlock title="LineItem Details" rendered="{!VBHLineItemList.size>0}" mode="mainDetail">
+                         <apex:repeat value="{!VBHLineItemList}" var="obj">
+                         <apex:pageBlockSection columns="2" title="{!obj.Name}">
+                             <apex:outputField value="{!obj.Category__c}"/>
+                             <apex:outputField value="{!obj.Include_Exclude__c}"/>
+                             <apex:outputField value="{!obj.Class_SubClass__c}"/>                             
+                             <apex:outputField value="{!obj.Business_Segment__c}"/>
+                             <apex:outputField value="{!obj.Manufacturer__c}"/>
+                             <apex:outputField value="{!obj.Accrual__c}"/>
+                             <apex:outputField value="{!obj.Amount_Per_Unit__c}"/>
+                         </apex:pageBlockSection>
+                          </apex:repeat>
+                   </apex:pageBlock>            
+            <apex:pageBlockSection title="Marketing Contact Information" collapsible="true" columns="2">
+                <apex:outputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_Name__c}"/>
+                <apex:outputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_Country__c}"/>
+                <apex:outputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_E_mail__c}"/>
+                <apex:outputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_Phone__c}"/>
+                <apex:outputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_Address__c}"/>
+                <apex:outputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_Cell__c}"/>
+                <apex:outputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_City__c}"/>
+                <apex:outputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_State__c}"/>
+                <apex:outputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_Title__c}"/>
+                <apex:outputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_Zip__c}"/>
+                <apex:outputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_Fax__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Billing Contact Information" collapsible="true" columns="2">
+                    <apex:outputField value="{!Marketing_Plan__c.Billing_Contact_Name__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Billing_Contact_Country__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Billing_Contact_Email__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Billing_Contact_Phone__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Bill_To_Address__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Billing_Cell__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Billing_City__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Billing_State__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Billing_Contact_Title__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Billing_Zip__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Billing_Fax__c}"/>
+                </apex:pageBlockSection>
+        </apex:pageBlock> 
+     <!------------------------------- APV Section --------------------------------------->   
+       <!-- Modified for BR 08 ,CR 8171 in Release 14.5-->
+      <apex:pageBlock rendered="{!apvbuttonlist.size>0}"> 
+     <apex:pageBlockButtons location="top" rendered="{!apvbuttonlist.size>0}" >
+         <apex:commandButton value="Accept All&Save" action="{!acceptallapv}" rendered="{!(renderButton)}" immediate="true"/>
+         <apex:commandButton value="Reject All&Save" action="{!rejectallapv}" rendered="{!(renderButton)}" immediate="true"/>                    
+     </apex:pageBlockButtons>
+      </apex:pageBlock> 
+     <apex:sectionHeader title="Associated Programs" rendered="{!apvList.size>0}"/>
+    
+         <apex:pageBlock mode="mainDetail" rendered="{!apvList.size>0}">
+           
+             <apex:pageBlockButtons rendered="{!apvbuttonlist.size>0}" >
+             
+                   <!-- <apex:commandButton value="Accept/Reject" action="{!editAPV}" rendered="{!status_output_rendered &&apvbuttonlist.size>0}" /> -->
+                    <!--<apex:commandButton value="Save" action="{!accept_decline_APV}" rendered="{!(renderButton)}"/>-->
+                     <apex:commandButton value="Save" action="{!accept_decline_APV}" rendered="{!(renderButton)}"/>
+                     <!--<apex:commandButton value="Accept All&Save" action="{!acceptallapv}" rendered="{!(renderButton)}" immediate="true"/>
+                     <apex:commandButton value="Reject All&Save" action="{!rejectallapv}" rendered="{!(renderButton)}" immediate="true"/> -->   
+                    <!--<apex:commandButton value="Cancel" rendered="{!status_input_rendered &&apvbuttonlist.size>0}" action="{!cancelfn}" immediate="true"/> -->
+                </apex:pageBlockButtons>
+              <apex:pageBlockSection columns="1" title="Message">
+                  <apex:outputLabel value="{!$Label.Viper_message_to_partners_2}" ></apex:outputLabel>
+                  <apex:outputLabel value="{!$Label.Viper_message_to_partners_3}" ></apex:outputLabel>
+                  <apex:outputLabel value="{!$Label.Viper_message_to_partners_4}" ></apex:outputLabel>
+                  <apex:outputLabel value="Save, AcceptAll&Save, RejectAll&Save buttons will be available to select only after Marketing & Billing Contact Details have been entered." style="font-weight: bold; color:red "></apex:outputLabel>
+              </apex:pageBlockSection>
+            <apex:repeat value="{!apvList}" var="apvObj">                
+                   <apex:pageBlockSection title="{!apvObj.Name}" collapsible="true" columns="2">
+                        <apex:outputField value="{!apvObj.MDF_Program__r.Name}"/>
+                        <apex:outputField value="{!apvObj.MDF_Program__r.Preferred_Program__c}"/>                        
+                        <apex:outputField value="{!apvObj.APV_Status__c}" rendered="{!AND(apvObj.APV_Status__c!=null,!isError)}"/>
+                        <apex:inputField value="{!apvObj.APV_Status__c}" rendered="{!OR(apvObj.APV_Status__c==null,isError)}"/>
+                        <apex:outputField value="{!apvObj.MDF_Program__r.Region__c}"/>
+                        <apex:outputField value="{!apvObj.MDF_Program__r.Sub_Region__c}"/>
+                        <apex:outputField value="{!apvObj.MDF_Program__r.Business_Segment__c}"/>
+                        <apex:outputField value="{!apvObj.MDF_Program__r.Country__c}"/>
+                        <apex:outputField value="{!apvObj.MDF_Program__r.Event_Date__c}"/>
+                        <apex:outputField value="{!apvObj.MDF_Program__r.Fiscal_Quarter__c}"/>                        
+                        <apex:outputField value="{!apvObj.MDF_Program__r.Program_Detail__c}"/>                                                                
+                        <apex:outputField value="{!apvObj.MDF_Program__r.Program_Owner__c}"/>
+                        <apex:outputField value="{!apvObj.MDF_Program__r.Email__c}"/>
+                        <apex:outputField value="{!apvObj.MDF_Program__r.Phone__c}"/>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Type" for="recordtype"/>
+                            <apex:outputField value="{!apvObj.MDF_Program__r.RecordType.Name}" id="recordtype"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:outputField value="{!apvObj.MDF_Program__r.Audience_Description__c}"/>
+                        <apex:outputField value="{!apvObj.MDF_Program__r.Audience_Size__c}"/>
+                        <apex:outputField value="{!apvObj.MDF_Program__r.Program_Objective__c}"/>
+                        <apex:outputField value="{!apvObj.MDF_Program__r.POP_Details__c}"/>
+                        <apex:outputField value="{!apvObj.MDF_Program__r.Vendor_Materials_Needed__c}"/>
+                        <apex:outputField value="{!apvObj.POP_Status__c}"/>
+                        <apex:outputField value="{!apvObj.POP_Status_Reason__c}"/>
+                        <apex:outputField value="{!apvObj.Accounting_Treatment__c}"/> 
+                        <apex:outputField value="{!apvObj.Program_Notes__c}"/>
+                        <apex:outputField value="{!apvObj.MDF_Program__r.Detailed_Job_Description__c}" rendered="{!apvObj.MDF_Program__r.RecordType.Name == 'Headcount'}"/>                      
+                    </apex:pageBlockSection>
+             </apex:repeat>
+             <apex:pageBlockSection columns="1" title="Message">
+                  <apex:outputLabel value="{!$Label.Viper_message_to_partners_2}" ></apex:outputLabel>
+                  <apex:outputLabel value="{!$Label.Viper_message_to_partners_3}" ></apex:outputLabel>
+                  <apex:outputLabel value="{!$Label.Viper_message_to_partners_4}" ></apex:outputLabel>
+                  <apex:outputLabel value="Save, AcceptAll&Save, RejectAll&Save buttons will be available to select only after Marketing & Billing Contact Details have been entered." style="font-weight: bold; color:red "></apex:outputLabel>
+              </apex:pageBlockSection>            
+              </apex:pageBlock> 
+   <!------------------------------- Package Section ---------------------------------------> 
+             <apex:sectionHeader title="Packages" rendered="{!pkgList.size>0}"/>
+                <apex:pageBlock mode="mainDetail" rendered="{!pkgDetail.size>0}">
+                    <apex:pageBlockButtons rendered="{!IF(pkgbuttonlist.size>0,true,false)}">
+                        <apex:commandButton value="Save" action="{!savePKG}"/>
+                        <!--<apex:outputLabel value="{!pkgbuttonlist.size}"/>-->
+                    </apex:pageBlockButtons> 
+                <apex:repeat value="{!pkgDetail}" var="pkgD">                                
+                <apex:pageBlockSection title="PACKAGE - {!pkgD.packageName}" columns="2">  
+                    <apex:outputField value="{!pkgD.packageObj.Name}"/>
+                    <apex:outputField value="{!pkgD.packageObj.Fiscal_Quarter__c}"/>                   
+                    <apex:outputField value="{!pkgD.packageObj.PKG_Status__c}" rendered="{!pkgD.packageObj.PKG_Status__c!=null}"/>
+                    <apex:inputField value="{!pkgD.packageObj.PKG_Status__c}" rendered="{!pkgD.packageObj.PKG_Status__c==null}" />
+                </apex:pageBlockSection>  
+                <apex:pageBlock rendered="{!pkgD.packageapvList.size>0}" title='Associated Programs' mode="mainDetail">
+                <apex:repeat value="{!pkgD.packageapvList}" var="pkgapv">
+                       <apex:pageBlockSection title="{!pkgapv.Name}" columns="2">
+                            <apex:outputField value="{!pkgapv.MDF_Program__r.Name}"/>
+                            <apex:outputField value="{!pkgapv.MDF_Program__r.Region__c}"/>
+                            <apex:outputField value="{!pkgapv.MDF_Program__r.Sub_Region__c}"/>
+                            <apex:outputField value="{!pkgapv.MDF_Program__r.Business_Segment__c}"/>
+                            <apex:outputField value="{!pkgapv.MDF_Program__r.Country__c}"/>
+                            <apex:outputField value="{!pkgapv.MDF_Program__r.Event_Date__c}"/>
+                            <apex:outputField value="{!pkgapv.MDF_Program__r.Fiscal_Quarter__c}"/>                        
+                            <apex:outputField value="{!pkgapv.MDF_Program__r.Program_Detail__c}"/>                                                                
+                            <apex:outputField value="{!pkgapv.MDF_Program__r.Program_Owner__c}"/>
+                            <apex:outputField value="{!pkgapv.MDF_Program__r.Email__c}"/>
+                            <apex:outputField value="{!pkgapv.MDF_Program__r.Phone__c}"/>
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Type" for="recordtype2"/>
+                                <apex:outputField value="{!pkgapv.MDF_Program__r.RecordType.Name}" id="recordtype2"/>
+                            </apex:pageBlockSectionItem>
+                            <apex:outputField value="{!pkgapv.MDF_Program__r.Audience_Description__c}"/>
+                        <apex:outputField value="{!pkgapv.MDF_Program__r.Audience_Size__c}"/>
+                        <apex:outputField value="{!pkgapv.MDF_Program__r.Program_Objective__c}"/>
+                        <apex:outputField value="{!pkgapv.MDF_Program__r.POP_Details__c}"/>
+                        <apex:outputField value="{!pkgapv.MDF_Program__r.Vendor_Materials_Needed__c}"/>
+                        <apex:outputField value="{!pkgapv.POP_Status__c}"/>
+                        <apex:outputField value="{!pkgapv.POP_Status_Reason__c}"/>
+                        <apex:outputField value="{!pkgapv.Accounting_Treatment__c}"/> 
+                        <apex:outputField value="{!pkgapv.Program_Notes__c}"/>
+                        <apex:outputField value="{!pkgapv.MDF_Program__r.Detailed_Job_Description__c}" rendered="{!pkgapv.MDF_Program__r.RecordType.Name == 'Headcount'}"/>                                          
+                       </apex:pageBlockSection>
+                 </apex:repeat> 
+                 </apex:pageBlock>              
+           </apex:repeat>
+           </apex:pageBlock>
+    </apex:form>  
+</apex:page>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_Reparenting</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( ISCHANGED(Account__c), 
+AND(NOT(CONTAINS( $Profile.Name ,&apos;IT GBL Data Load&apos;)), 
+NOT(CONTAINS( $Profile.Name ,&apos;IT TA User&apos;)), 
+NOT(CONTAINS( $Profile.Name ,&apos;IT Integration API Only&apos;)),
+NOT(CONTAINS( $Profile.Name ,&apos;System Administrator&apos;)),  
+NOT(CONTAINS( $Profile.Name ,&apos;R16.10 Global CRM Support&apos;)), 
+NOT(CONTAINS( $Profile.Name ,&apos;R16.10 Global CRM Support - Non SSO&apos;))))</errorConditionFormula>
+    <errorMessage>Account field cannot be changed after the record is created, please choose cancel to return to the record</errorMessage>
+</ValidationRule>

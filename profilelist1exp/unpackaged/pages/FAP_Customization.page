@@ -1,0 +1,142 @@
+<!-- 
+REVISION HISTORY
+================
+Version     Author      Date            Release#    CR#     Description
+-------     ------      ----            --------    ---     -----------
+1.0         Sheeba      27-May-2012     13.7        7105    The purpose of this is to enable Gbl_PRM_Ops admin/Sysadmin users to customize the ‘Search’ page layout specific to each region
+-->
+<apex:page controller="FAP_CustomizationController" sidebar="false">
+    <apex:form >
+    <!-- Button commands to be linked to functions in controller -->
+        <apex:actionFunction name="rightArrow" action="{!selectToRegular}" reRender="selectionBlock"/>
+        <apex:actionFunction name="leftArrow" action="{!unSelectFromRegular}" reRender="selectionBlock"/>
+      <!--  <apex:actionFunction name="rightArrow1" action="{!selectToAdvanced}" reRender="selectionBlock"/>
+        <apex:actionFunction name="leftArrow1" action="{!unSelectFromAdvanced}" reRender="selectionBlock"/>
+        <apex:actionFunction name="upArrow" action="{!MoveUpRegular}" reRender="selectionBlock"/> -->
+        <apex:actionFunction name="downArrow" action="{!MoveDownRegular}" reRender="selectionBlock"/>
+       <!-- <apex:actionFunction name="upArrow1" action="{!MoveUpAdvanced}" reRender="selectionBlock"/>
+        <apex:actionFunction name="downArrow1" action="{!MoveDownAdvanced}" reRender="selectionBlock"/>-->
+            <apex:pageBlock title="Customize FAP Page">
+                <apex:actionRegion >
+                    <apex:outputLabel value="Region"></apex:outputLabel> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <apex:inputField value="{!fapCustObj.Region__c}" style="width:130px">&nbsp;
+                            <apex:actionSupport event="onchange" status="regionId" reRender="selectionBlock" action="{!doquery}"/>
+                               <apex:actionStatus id="regionId" startText="Loading..." layout="inline">
+                                    <apex:facet name="start" >
+                                        <apex:image value="/img/loading32.gif" width="20" height="20" alt="Loading..."/>      
+                                    </apex:facet>
+                                </apex:actionStatus>
+                        </apex:inputField>
+                </apex:actionRegion> 
+                <apex:actionRegion >                    
+                <br/><br/>
+                    <apex:outputLabel value="User Type "></apex:outputLabel> &nbsp;
+                        <apex:inputField value="{!fapCustObj.User_type__c}" style="width:130px">&nbsp;
+                            <apex:actionSupport event="onchange" status="userId" reRender="selectionBlock" action="{!doquery}"/>
+                                <apex:actionStatus id="userId" startText="Loading..." layout="inline">
+                                    <apex:facet name="start" >
+                                        <apex:image value="/img/loading32.gif" width="20" height="20" alt="Loading..."/>      
+                                    </apex:facet>
+                                </apex:actionStatus>
+                        </apex:inputField>
+                </apex:actionRegion>
+                <apex:actionRegion >                    
+                <br/><br/>
+                    <apex:outputLabel value="Is Active "></apex:outputLabel> &nbsp;
+                        <apex:inputField value="{!fapCustObj.Is_Active__c}" style="width:130px">&nbsp;
+                            <apex:actionSupport event="onchange" status="IsActive" reRender="selectionBlock" action="{!doquery}"/>
+                                <apex:actionStatus id="IsActive" startText="Loading..." layout="inline">
+                                    <apex:facet name="start" >
+                                        <apex:image value="/img/loading32.gif" width="5" height="5" alt="Loading..."/>      
+                                    </apex:facet>
+                                </apex:actionStatus>
+                        </apex:inputField>
+                </apex:actionRegion>
+            </apex:pageBlock>                  
+            <apex:pageBlock id="selectionBlock">
+            <apex:outputLabel value="Note : Multiple Select/De-Select Option is available. Use CTRL+Selection"></apex:outputLabel> &nbsp;&nbsp;
+            
+            <!-- The Selected Hidden Items List -->
+             <apex:pageMessages />  
+                <apex:panelGrid columns="7">
+                    <apex:selectList value="{!selectedHidden}" multiselect="true" size="22" style="width:180px">
+                        <apex:selectOptions value="{!hiddenSelectOptions}"/>
+                    </apex:selectList>                   
+                    
+                <!-- The Left and Right Buttons --> 
+                      
+               <apex:panelGroup >         
+                    <apex:panelGroup layout="block" style="text-align: center; padding:10px;">
+                        <br/>
+                        <a href="javascript:rightArrow();" style="text-decoration:none">
+                        <img src="/s.gif" alt="Select" class="rightArrowIcon" title="Multi-Select+Ctrl"/>
+                        </a><br/>
+                        <a href="javascript:leftArrow();" style="text-decoration:none">
+                        <img src="/s.gif" alt="Unselect" class="leftArrowIcon" title="Multi-Unselect+Ctrl"/>
+                        </a><br/>
+                        <br/>
+                    </apex:panelGroup>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                  <!--  <apex:panelGroup layout="block" style="text-align: center; padding:10px;">
+                        <br/>
+                        <a href="javascript:rightArrow1();" style="text-decoration:none">
+                        <img src="/s.gif" alt="Select" class="rightArrowIcon" title="Multi-Select+Ctrl"/>
+                        </a><br/>
+                        <a href="javascript:leftArrow1();" style="text-decoration:none">
+                        <img src="/s.gif" alt="Unselect" class="leftArrowIcon" title="Multi-Unselect+Ctrl"/>
+                        </a><br/>   
+                        <br/>
+                    </apex:panelGroup> -->
+                </apex:panelGroup> 
+                
+                <!-- The Selected Regular Items List -->
+                       
+                <apex:panelgroup >
+                    <apex:outputPanel id="regularBlock">              
+                    <apex:outputLabel value="Regular Search"></apex:outputLabel> &nbsp;
+                    <br/>
+                        <apex:selectList value="{!selectedRegular}" multiselect="true" size="22" style="width:180px">
+                            <apex:selectOptions value="{!regularSelectOptions}"/>                                   
+                        </apex:selectList>
+                    </apex:outputPanel>  
+                    <br/>      
+                    </apex:panelgroup>
+                    
+                <!-- The Selected Advanced Items List -->  
+                
+                <!--    <apex:outputLabel value="Advanced Search"></apex:outputLabel> &nbsp;
+                    <br/>
+                        <apex:selectList value="{!selectedAdvanced}" multiselect="true" size="10" style="width:160px">
+                            <apex:selectOptions value="{!advancedSelectOptions}"/>
+                        </apex:selectList>
+                </apex:panelgroup> -->
+                
+                <!-- The Up and Down Arrows -->
+                
+              <apex:panelGroup layout="block" style="text-align: center; padding:10px;">
+                        <br/>
+                        <a href="javascript:upArrow();" style="text-decoration:none">
+                        <img src="/s.gif" alt="Move Up" class="upArrowIcon" title="Move Up"/>
+                        </a><br/>
+                        <a href="javascript:downArrow();" style="text-decoration:none">
+                        <img src="/s.gif" alt="Move Down" class="downArrowIcon" title="Move Down"/>
+                        </a> <br/><br/>                               
+                        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>  
+                         <!--<a href="javascript:upArrow1();" style="text-decoration:none">
+                        <img src="/s.gif" alt="Move Up1" class="upArrowIcon" title="Move Up"/>
+                        </a><br/>
+                        <a href="javascript:downArrow1();" style="text-decoration:none">
+                        <img src="/s.gif" alt="Move Down1" class="downArrowIcon" title="Move Down"/>
+                        </a> <br/><br/>
+                        <br/>  -->                  
+                </apex:panelGroup> 
+                 
+            </apex:panelGrid>
+        </apex:pageBlock>
+        <apex:pageBlock >
+            <apex:pageBlockButtons location="bottom">
+                    <apex:commandButton value="Save & continue" action="{!save}" status="Selected"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

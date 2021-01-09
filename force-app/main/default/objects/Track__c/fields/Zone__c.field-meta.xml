@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Zone__c</fullName>
+    <description>A country or group of countries who are bucketed based on their market type. 
+Zone 1 = mature markets
+Zone 2 = emerging and/or smaller markets</description>
+    <externalId>false</externalId>
+    <label>Zone</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Zone 1</fullName>
+                <default>false</default>
+                <label>Zone 1</label>
+            </value>
+            <value>
+                <fullName>Zone 2</fullName>
+                <default>false</default>
+                <label>Zone 2</label>
+            </value>
+            <value>
+                <fullName>Zone 3</fullName>
+                <default>false</default>
+                <label>Zone 3</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

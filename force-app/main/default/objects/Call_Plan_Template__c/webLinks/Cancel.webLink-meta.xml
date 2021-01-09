@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cancel</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Back</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>function getURLParameters(paramName)
+{
+    var sURL = window.document.URL.toString(); 
+    if (sURL.indexOf(&quot;?&quot;) &gt; 0)
+    {
+       var arrParams = sURL.split(&quot;?&quot;);
+       var arrURLParams = arrParams[1].split(&quot;&amp;&quot;);     
+       var arrParamNames = new Array(arrURLParams.length);
+       var arrParamValues = new Array(arrURLParams.length);    
+       var i = 0;
+       for (i=0;i&lt;arrURLParams.length;i++)
+       {
+        var sParam =  arrURLParams[i].split(&quot;=&quot;);
+        arrParamNames[i] = sParam[0];
+        if (sParam[1] != &quot;&quot;)
+            arrParamValues[i] = unescape(sParam[1]);
+        else
+            arrParamValues[i] = &quot;&quot;;
+       }
+
+       for (i=0;i&lt;arrURLParams.length;i++)
+       {
+            if(arrParamNames[i] == paramName){
+            return  arrParamValues[i];
+            }
+       }
+    }
+    return &quot;a3W&quot;;
+}
+window.location = getURLParameters(&quot;retURL&quot;);</url>
+</WebLink>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prefferedlobregistration_should_be_fille</fullName>
+    <active>true</active>
+    <description>Refer CR 3459 -&gt;attachment &apos;VR_preferred LOB should be filled&apos; for the detailed description.</description>
+    <errorConditionFormula>ISBLANK( Preferred_GTM_Partner_Account__c) 
+&amp;&amp; 
+( (ISPICKVAL( LOB_registration_status__c ,&quot;Partner(submit for approval)&quot;) &amp;&amp; (CONTAINS( $User.Profile_Name__c , &apos;Operations&apos;) || $User.Title = &apos;GCC Program Manager&apos;|| $User.Division= &apos;Deal Registration&apos;)) 
+|| 
+(ISPICKVAL( LOB_registration_status__c ,&quot;Partner(approved)&quot;) &amp;&amp;( $User.Id = Registered_End_User__r.OwnerId || $User.Title = &apos;GCC Program Manager&apos;||$User.Division= &apos;Deal Registration&apos; )))</errorConditionFormula>
+    <errorDisplayField>Preferred_GTM_Partner_Account__c</errorDisplayField>
+    <errorMessage>Please enter a Partner before submitting the LOB for sales approval OR approving LOB for a partner.</errorMessage>
+</ValidationRule>

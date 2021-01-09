@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ICAM_Priority__c</fullName>
+    <externalId>false</externalId>
+    <formula>if(
+	Account__r.RecordType.DeveloperName = &apos;GBL_Standard_RT&apos;,
+	if( Team_Member_Role__c = &apos;Inside Sales Rep&apos;,
+		1,
+		if(
+			Team_Member_Role__c = &apos;Client &amp; Compute Inside Sales Rep&apos;,
+			2,
+			-1
+		)
+	),
+	if(	Account__r.RecordType.DeveloperName = &apos;Partner_Account&apos;,
+		if( Team_Member_Role__c = &apos;Inside Channel Account Manager&apos;,
+			1,
+			-1
+		),
+		if(	Account__r.RecordType.DeveloperName = &apos;Master_Account&apos;,
+			if( Team_Member_Role__c = &apos;Inside Channel Account Manager&apos;,
+				1,
+				-1
+			),
+			-1
+		)
+	)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>ICAM Priority</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

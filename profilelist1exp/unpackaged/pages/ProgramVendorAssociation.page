@@ -1,0 +1,197 @@
+<!-- * 
+* Revision CR Number   Release No      Date            Modified By     Description
+* -------- ---------   ----------      -----------     ------------    -----------
+* 1.0 -    CR 16383        FY19-DCS-1002   24-Aug-2018    Raveena Bhagat          added 'lightningStylesheets' attribute for apex component to make the page lightening friendly as part of story 5495651
+*/-->
+
+
+<apex:page controller="ViperProgramManagement" lightningStylesheets="true" tabStyle="MDF_Program__c" >
+
+    <html>
+        <head>
+            <style>
+                .headerRow .displayStyle{display:none;}            
+                .headerRow .columnStyleAction{width:50px;} 
+                .headerRow .columnStyleName{width:150px;}            
+                .headerRow .columnStyleAccount{width:150px;} 
+                .headerRow .columnStylePhone{width:150px;} 
+                .headerRow .columnStyleMobile{width:150px;}            
+                .headerRow .columnStyleEmail{width:150px;}
+                
+                .headerRow .columnStyle75{width:75px;} 
+                .headerRow .columnStyle100{width:100px;} 
+                .headerRow .columnStyle200{width:200px;}
+                .columnRow .showStyle{display:none;}
+            </style>
+                          
+        </head>
+        <body>
+    
+    <apex:form >
+    
+        <apex:sectionHeader subtitle="{!MDFProgram.Name}" title="Program Name" rendered="true"/>
+        <apex:pageMessage severity="info" strength="3"  title="Programs which are not approved cannot be ‘associated’ with Sub Vendors." 
+        rendered="{!PendingErrorMsg}" /> 
+        <apex:pageMessage severity="info" strength="3"  title="Reporting Admin / Product Managers are not authorised to associate program with vendor. Users who are not the POP Owner Or Program Owner of the MDF Program are not authorised to associate program with vendor " 
+        rendered="{!AuthErrorMsg}" /> 
+        <apex:commandButton action="{!CancelAction}" value="Back" rendered="{!PendingErrorMsg}" />
+         <apex:Messages style="color:red; font-weight:bold"/> 
+      
+        <apex:pageBlock rendered="{!DisplaySelectedSubVendors}" title="Sub Vendor List"> 
+            
+            <table width="100%"><tr><td align="center">
+                <apex:commandLink action="{!sortByAlphabet}">A
+                <apex:param name="selected" value="A"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">B
+                <apex:param name="selected" value="B"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">C
+                <apex:param name="selected" value="C"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">D
+                <apex:param name="selected" value="D"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">E
+                <apex:param name="selected" value="E"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">F
+                <apex:param name="selected" value="F"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">G
+                <apex:param name="selected" value="G"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">H
+                <apex:param name="selected" value="H"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">I
+                <apex:param name="selected" value="I"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">J
+                <apex:param name="selected" value="J"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">K
+                <apex:param name="selected" value="K"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">L
+                <apex:param name="selected" value="L"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">M
+                <apex:param name="selected" value="M"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">N
+                <apex:param name="selected" value="N"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">O
+                <apex:param name="selected" value="O"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">P
+                <apex:param name="selected" value="P"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">Q
+                <apex:param name="selected" value="Q"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">R
+                <apex:param name="selected" value="R"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">S
+                <apex:param name="selected" value="S"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">T
+                <apex:param name="selected" value="T"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">U
+                <apex:param name="selected" value="U"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">V
+                <apex:param name="selected" value="V"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">W
+                <apex:param name="selected" value="W"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">X
+                <apex:param name="selected" value="X"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">Y
+                <apex:param name="selected" value="Y"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">Z
+                <apex:param name="selected" value="Z"/>
+                </apex:commandLink>&nbsp;|&nbsp;
+                <apex:commandLink action="{!sortByAlphabet}">All
+                <apex:param name="selected" value="All"/>
+                </apex:commandLink>&nbsp;|&nbsp; 
+                <apex:commandLink action="{!sortByAlphabet}">Other
+                <apex:param name="selected" value="Other"/>
+                </apex:commandLink> 
+            </td></tr></table>
+            
+            <apex:pageBlockTable value="{!AssociatedProgramsVendorsList}" var="apv" rows="1" style="width:1250px">                        
+            <apex:column style="display:none;align:center"  headerClass="columnStyleAction">
+            <apex:facet name="header">Select</apex:facet>
+            </apex:column>                          
+            <apex:column style="display:none;align:center"  headerClass="columnStyleName">
+            <apex:facet name="header">Vendor / Sub Vendor Name</apex:facet>         
+            </apex:column>                          
+            <apex:column style="display:none;align:center"   headerClass="columnStyleAccount" rendered="{!VariablePgm}">
+            <apex:facet name="header">Parent Vendor</apex:facet>
+            </apex:column>                      
+            <apex:column style="display:none;align:center" headerClass="columnStyle75" rendered="{!VariablePgm}">
+            <apex:facet name="header">Partner Type</apex:facet>
+            </apex:column> 
+            <apex:column style="display:none;align:center" headerClass="columnStyle200" rendered="{!VariablePgm}">
+            <apex:facet name="header">Program</apex:facet>
+            </apex:column> 
+            <apex:column style="display:none;align:center" headerClass="columnStyle75" rendered="{!VariablePgm}">
+            <apex:facet name="header">Program Type</apex:facet>
+            </apex:column>  
+            <apex:column style="display:none;align:center" headerClass="columnStyle75" rendered="{!VariablePgm}">
+            <apex:facet name="header">Fiscal Quarter</apex:facet>
+            </apex:column>
+            <apex:column style="display:none;align:center" headerClass="columnStyle100" rendered="{!VariablePgm}">
+            <apex:facet name="header">Business Segment</apex:facet>
+            </apex:column> 
+            <apex:column style="display:none;align:center" headerClass="columnStyle75" rendered="{!VariablePgm}">
+            <apex:facet name="header">Program Status</apex:facet>
+            </apex:column>                           
+            <apex:column style="display:none;align:center"  headerClass="columnStyleMobile">
+            <apex:facet name="header">Rate Card Price</apex:facet>
+            </apex:column>
+            <apex:column style="display:none;align:center" headerClass="columnStyleEmail">
+            <apex:facet name="header">Budgeted Price</apex:facet>
+            </apex:column>
+            </apex:pageBlockTable> 
+            <div style="position:static;width:1250px;height:340px;overflow:auto;overflow-x:hidden;">
+            <apex:pageBlockTable value="{!AssociatedProgramsVendorsList}" var="apv" style="width:1250px" >
+                <apex:column headerValue="Select" headerClass="displayStyle" style="width:50px;align:center">
+                    <apex:inputCheckbox value="{!apv.selected}"/>
+                </apex:column>
+                <apex:column value="{!apv.apvElt.Vendor__c}" headerClass="displayStyle" style="width:150px;align:center"/>
+                <apex:column value="{!apv.subVendorElt.Parent_Vendor__c}" headerClass="displayStyle" style="width:150px;align:center" rendered="{!VariablePgm}"/>
+                <apex:column value="{!apv.subVendorElt.Partner_Type__c}" headerClass="displayStyle" style="width:75px;align:center" rendered="{!VariablePgm}"/>
+                <apex:column value="{!MDFProgram.Name}" headerClass="displayStyle" style="width:200px;align:center" rendered="{!VariablePgm}"/>
+                <apex:column value="{!MDFProgram.Program_Type__c}" headerClass="displayStyle" style="width:75px;align:center" rendered="{!VariablePgm}"/>
+                <apex:column value="{!MDFProgram.Fiscal_Quarter__c}" headerClass="displayStyle" style="width:75px;align:center" rendered="{!VariablePgm}"/>
+                <apex:column headerClass="displayStyle" style="width:100px;align:center" rendered="{!VariablePgm}" value="{!MDFProgram.Business_Segment__c}"/>                    
+                <apex:column headerClass="displayStyle" style="width:75px;align:center" rendered="{!VariablePgm}" value="{!MDFProgram.Program_Status__c}"/>                
+                <apex:column headerClass="displayStyle" value="{!apv.apvElt.Rate_Card_Price__c}" style="width:150px;align:center"/>
+                
+                <apex:column headerClass="displayStyle"  style="width:150px;align:center">
+                    <apex:inputField value="{!apv.apvElt.Budgeted_Price__c}" rendered="{!VariablePgm==false}"/>
+                    <apex:outputText rendered="{!VariablePgm==true}">{!apv.apvElt.Budgeted_Price__c}</apex:outputText>
+                </apex:column>
+                
+            </apex:pageBlockTable>
+            </div>          
+            
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton action="{!insertProgramVendorAssociation}" value="Save"/>
+                <apex:commandButton action="{!CancelAction}" value="Cancel"/>                
+            </apex:pageBlockButtons>
+             
+        </apex:pageBlock>
+       
+    </apex:form>
+    </body>
+    </html>
+</apex:page>

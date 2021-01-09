@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <content>PTACustomDelete</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>false</enableReports>
+    <enableSearch>false</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Action_Performed_By__c</fullName>
+        <description>capture the record modifiers email address</description>
+        <externalId>false</externalId>
+        <label>Action Performed By</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Activate_Delete__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF((now()-LastModifiedDate)*24&gt;24, true, false)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Activate Delete</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Distribution_Channel__c</fullName>
+        <externalId>false</externalId>
+        <label>Distribution Channel</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Distributor</fullName>
+                    <default>false</default>
+                    <label>Distributor</label>
+                </value>
+                <value>
+                    <fullName>OEM</fullName>
+                    <default>false</default>
+                    <label>OEM</label>
+                </value>
+                <value>
+                    <fullName>Service Provider</fullName>
+                    <default>false</default>
+                    <label>Service Provider</label>
+                </value>
+                <value>
+                    <fullName>Tier 1 – Reseller</fullName>
+                    <default>false</default>
+                    <label>Tier 1 – Reseller</label>
+                </value>
+                <value>
+                    <fullName>None</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>None</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>EMC_ID__c</fullName>
+        <caseSensitive>true</caseSensitive>
+        <externalId>true</externalId>
+        <label>EMC ID</label>
+        <length>25</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>EMC_Integration_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>EMC Integration Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Waiting Sync</fullName>
+                    <default>false</default>
+                    <label>Waiting Sync</label>
+                </value>
+                <value>
+                    <fullName>Completed</fullName>
+                    <default>false</default>
+                    <label>Completed</label>
+                </value>
+                <value>
+                    <fullName>Has Error</fullName>
+                    <default>false</default>
+                    <label>Has Error</label>
+                </value>
+                <value>
+                    <fullName>Do Not Sync</fullName>
+                    <default>false</default>
+                    <label>Do Not Sync</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>EMC_Last_Sync_date__c</fullName>
+        <externalId>false</externalId>
+        <label>EMC Last Sync date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>EMC_Operation__c</fullName>
+        <externalId>false</externalId>
+        <label>EMC Operation</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Creation</fullName>
+                    <default>true</default>
+                    <label>Creation</label>
+                </value>
+                <value>
+                    <fullName>Deletion</fullName>
+                    <default>false</default>
+                    <label>Deletion</label>
+                </value>
+                <value>
+                    <fullName>Updation</fullName>
+                    <default>false</default>
+                    <label>Updation</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Exception_message__c</fullName>
+        <externalId>false</externalId>
+        <label>Exception message</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Partner_Price_List_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Partner Price List Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Distribution_Channel__c</controllingField>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Distributor</fullName>
+                    <default>false</default>
+                    <label>Distributor</label>
+                </value>
+                <value>
+                    <fullName>OEM</fullName>
+                    <default>false</default>
+                    <label>OEM</label>
+                </value>
+                <value>
+                    <fullName>ACQ</fullName>
+                    <default>false</default>
+                    <label>ACQ</label>
+                </value>
+                <value>
+                    <fullName>AUTH RESELLER</fullName>
+                    <default>false</default>
+                    <label>AUTH RESELLER</label>
+                </value>
+                <value>
+                    <fullName>GOLD</fullName>
+                    <default>false</default>
+                    <label>GOLD</label>
+                </value>
+                <value>
+                    <fullName>PLATINUM</fullName>
+                    <default>false</default>
+                    <label>PLATINUM</label>
+                </value>
+                <value>
+                    <fullName>SI</fullName>
+                    <default>false</default>
+                    <label>SI</label>
+                </value>
+                <value>
+                    <fullName>SIGNATURE 1 HCP</fullName>
+                    <default>false</default>
+                    <label>SIGNATURE 1 HCP</label>
+                </value>
+                <value>
+                    <fullName>SILVER</fullName>
+                    <default>false</default>
+                    <label>SILVER</label>
+                </value>
+                <value>
+                    <fullName>SYSTEM VENDOR</fullName>
+                    <default>false</default>
+                    <label>SYSTEM VENDOR</label>
+                </value>
+                <value>
+                    <fullName>TITANIUM</fullName>
+                    <default>false</default>
+                    <label>TITANIUM</label>
+                </value>
+                <value>
+                    <fullName>None</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>None</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Distributor</controllingFieldValue>
+                <valueName>Distributor</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>OEM</controllingFieldValue>
+                <valueName>OEM</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tier 1 – Reseller</controllingFieldValue>
+                <valueName>ACQ</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tier 1 – Reseller</controllingFieldValue>
+                <valueName>AUTH RESELLER</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tier 1 – Reseller</controllingFieldValue>
+                <valueName>GOLD</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tier 1 – Reseller</controllingFieldValue>
+                <valueName>PLATINUM</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tier 1 – Reseller</controllingFieldValue>
+                <valueName>SI</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tier 1 – Reseller</controllingFieldValue>
+                <valueName>SIGNATURE 1 HCP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tier 1 – Reseller</controllingFieldValue>
+                <valueName>SILVER</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tier 1 – Reseller</controllingFieldValue>
+                <valueName>SYSTEM VENDOR</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tier 1 – Reseller</controllingFieldValue>
+                <valueName>TITANIUM</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Partner_Track_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&quot;/&quot;&amp; Partner_Track__r.Id , Partner_Track__r.Partner_Track_Name__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Partner Track Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Partner_Track__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Partner Track</label>
+        <referenceTo>Partner_Track__c</referenceTo>
+        <relationshipLabel>Partner Type Attributes</relationshipLabel>
+        <relationshipName>PartnerType_Attributes</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <label>Partner Type Attribute</label>
+    <nameField>
+        <displayFormat>PTA-{000000}</displayFormat>
+        <label>Partner Type Attribute Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Partner Type Attributes</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Partnertrack_Account_PQuotingAcc_False</fullName>
+        <active>true</active>
+        <description>PartnerTrack related account field Partner_Quoting_Account__c is False and Make it true</description>
+        <errorConditionFormula>AND( NOT(ISBLANK(Partner_Track__r.Primary_SMAffinity_Account__c)),
+	NOT(Partner_Track__r.Primary_SMAffinity_Account__r.Partner_Quoting_Account__c),not(isPickval(EMC_Operation__c, &apos;Deletion&apos;)))</errorConditionFormula>
+        <errorMessage>Related Account is not quoting enabled. Please contact Affinity team for making the account quoting enabled.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Validation_on_Partner_Track_For_PTA</fullName>
+        <active>true</active>
+        <description>Can&apos;t change Partner Track field once created</description>
+        <errorConditionFormula>AND( !(ISNEW()),ISCHANGED(Partner_Track__c))</errorConditionFormula>
+        <errorMessage>Cannot change the Partner Track</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>

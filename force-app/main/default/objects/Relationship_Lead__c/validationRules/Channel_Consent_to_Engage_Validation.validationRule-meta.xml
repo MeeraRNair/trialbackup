@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Channel_Consent_to_Engage_Validation</fullName>
+    <active>true</active>
+    <description>To check if the Consent to Engage Dell Channel Partner field is not edited by any user other than RL owner.</description>
+    <errorConditionFormula>ISCHANGED(Consent_to_engage_Dell_Channel_Partner__c ) &amp;&amp; $User.Id != Relationship_Lead_Owner__r.Id &amp;&amp;  !(Channel_Lead__c !=null &amp;&amp;   ISPICKVAL(Status__c, &apos;Requires Follow-Up&apos;))</errorConditionFormula>
+    <errorMessage>Customer consents to engage Partner is only editable to Relationship Lead Owner</errorMessage>
+</ValidationRule>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Acquisition_Competency_ACC__c</fullName>
+    <description>Value is taken from &quot;Acquisition Competency&quot; field in Accounts object.</description>
+    <externalId>false</externalId>
+    <formula>IF(INCLUDES( Account__r.Acquisition_Certification__c  , &quot;Cloud Services&amp;Solutions-Cloud Builder&quot;),&quot; Cloud Services&amp;Solutions-Cloud Builder; &quot;,&quot;&quot;)
+&amp;
+IF(INCLUDES(Account__r.Acquisition_Certification__c , &quot;Cloud Services&amp;Solutions-Cloud Enabler&quot;),&quot; Cloud Services&amp;Solutions-Cloud Enabler; &quot;,&quot;&quot;)
+&amp;
+IF(INCLUDES(Account__r.Acquisition_Certification__c , &quot;Cloud Services&amp;Solutions-Cloud Provider&quot;),&quot; Cloud Services&amp;Solutions-Cloud Provider; &quot;,&quot;&quot;)
+&amp;
+IF(INCLUDES(Account__r.Acquisition_Certification__c , &quot;Desktop Virtualization Solutions&quot;),&quot; Desktop Virtualization Solutions; &quot;,&quot;&quot;)
+&amp;
+IF(INCLUDES(Account__r.Acquisition_Certification__c , &quot;General On Boarding EM EMEA&quot;),&quot; General On Boarding EM EMEA; &quot;,&quot;&quot;)
+&amp;
+IF(INCLUDES(Account__r.Acquisition_Certification__c , &quot;Networking&quot;),&quot; Networking; &quot;,&quot;&quot;)
+&amp;
+IF(INCLUDES(Account__r.Acquisition_Certification__c , &quot;Onboarding - LA English&quot;),&quot; Onboarding - LA English; &quot;,&quot;&quot;)
+&amp;
+IF(INCLUDES(Account__r.Acquisition_Certification__c , &quot;Onboarding - LA Portuguese&quot;),&quot; Onboarding - LA Portuguese; &quot;,&quot;&quot;)
+&amp;
+IF(INCLUDES(Account__r.Acquisition_Certification__c , &quot;Onboarding - LA Spanish&quot;),&quot; Onboarding - LA Spanish; &quot;,&quot;&quot;)
+&amp;
+IF(INCLUDES(Account__r.Acquisition_Certification__c , &quot;Preferred Partner EM EMEA&quot;),&quot; Preferred Partner EM EMEA; &quot;,&quot;&quot;)
+&amp;
+IF(INCLUDES(Account__r.Acquisition_Certification__c , &quot;Premier Partner EM EMEA&quot;),&quot; Premier Partner EM EMEA; &quot;,&quot;&quot;)
+&amp;
+IF(INCLUDES(Account__r.Acquisition_Certification__c , &quot;Security&quot;),&quot; Security; &quot;,&quot;&quot;)
+&amp;
+IF(INCLUDES(Account__r.Acquisition_Certification__c , &quot;Server&quot;),&quot; Server; &quot;,&quot;&quot;)
+&amp;
+IF(INCLUDES(Account__r.Acquisition_Certification__c , &quot;Solutions&quot;),&quot; Solutions; &quot;,&quot;&quot;)
+&amp;
+IF(INCLUDES(Account__r.Acquisition_Certification__c , &quot;Storage&quot;),&quot; Storage; &quot;,&quot;&quot;)
+&amp;
+IF(INCLUDES(Account__r.Acquisition_Certification__c , &quot;Systems Management&quot;),&quot; Systems Management; &quot;,&quot;&quot;)
+&amp;
+IF(INCLUDES(Account__r.Acquisition_Certification__c , &quot;Information Management&quot;),&quot;Information Management; &quot;,&quot;&quot;)
+&amp;
+IF(INCLUDES(Account__r.Acquisition_Certification__c , &quot;Data Protection&quot;),&quot;Data Protection; &quot;,&quot;&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Acquisition Competency</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

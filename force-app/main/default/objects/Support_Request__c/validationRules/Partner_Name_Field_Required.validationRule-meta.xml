@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Partner_Name_Field_Required</fullName>
+    <active>true</active>
+    <description>Partner Name Field is required if Existing Partner Engaged? = Yes for RT &quot;Request OEM Customized Solution Support&quot;</description>
+    <errorConditionFormula>AND(
+ RecordType.DeveloperName=&apos;Request_OEM_Customized_Solution_Support&apos;, 
+ ISBLANK(Partner_Name__c),
+ ISPICKVAL(Existing_Partner_Engaged__c  , &apos;Yes&apos;))</errorConditionFormula>
+    <errorDisplayField>Partner_Name__c</errorDisplayField>
+    <errorMessage>You must enter a value</errorMessage>
+</ValidationRule>

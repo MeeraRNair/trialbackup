@@ -1,0 +1,17 @@
+<apex:page sidebar="false" controller="Vctrl_SelectLeadData" showHeader="true" > 
+    <apex:includeLightning />
+
+    <div id="lightning" />
+
+    <script>
+    // var urlParams = new URLSearchParams(window.location.search);
+        $Lightning.use("c:UCIDSelectionPage", function() {
+          $Lightning.createComponent("c:UCIDSelection",
+          { },
+          "lightning",
+          function(cmp) {
+            // do some stuff
+          });
+        });
+    </script>
+</apex:page>

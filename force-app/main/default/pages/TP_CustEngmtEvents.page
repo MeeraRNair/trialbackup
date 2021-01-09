@@ -1,0 +1,362 @@
+<apex:page standardController="Territory_Plan__c" extensions="TP_PageNavCtrlExt" sidebar="false" lightningStylesheets="true">
+    <style type="text/css">       
+        .tb{
+            border:0px solid white; 
+            width:100%;
+            background-color:#808080 !important;
+        }                 
+        
+        .tb1{
+            padding-right:2%;
+            padding-left:2%;
+            border-collapse:separate;
+            border-spacing:0px 0px;
+            width:100%;
+            background-color:#808080 !important;
+        }              
+        
+        <!-- style header text -->
+        .tb .tg-hdr{
+            font-size:30px;
+            font-family:"Arial White", Gadget, sans-serif !important;
+            text-align:left;
+            padding:30px 0px 10px 23px;      
+            color:white;
+            text-indent:9px;
+        }
+        
+        <!-- style heading and input field boxes -->        
+        .tb1 .tdContent-parg{
+            width:24%;
+            height:32px;
+            font-size:15px;
+            text-indent:10px;
+            border:1px solid white;
+            border-bottom:0px;
+            background-color:#000000;
+            color:white;
+        }
+        
+        .tb1 .tdContent-outputtext-parg{
+            width:98.5%;
+            resize:none;
+        }
+        
+        .blankline{
+            width:24%;
+            height:10px;
+            border-left:1px solid white;
+            border-right:1px solid white;
+            background-color:#F7F4F4;
+        }        
+        
+        .tb1 .tdContent-inputFld-parg{
+            width:24%;
+            height:40px; 
+            border:0px solid white;
+            font-size:13px; 
+            background-color:white;
+            resize:none;
+        }
+        
+        .tb1 .tdContent-inputFld-col1{            
+            width:98.7%;
+            height:40px; 
+            background-color:#42AEAF;
+            color:white;
+            border-top:1px solid #42AEAF; 
+            border-bottom:1px solid #42AEAF;
+            border-left:0px;
+            border-right:0px;
+            resize:none;
+            overflow:hidden;
+        }
+        
+        .tb1 .tdContent-inputFld-row6-col1{
+            width:98.7%;
+            height:40px; 
+            background-color:#42AEAF;
+            color:white;
+            border-top:1px solid #42AEAF; 
+            border-bottom:1px solid #42AEAF;
+            border-left:0px;
+            border-right:0px;
+            resize:none;
+            overflow:hidden;
+        }
+        
+        .tb1 .tdContent-inputFld-col234{           
+            width:98.7%;
+            height:40px; 
+            background-color:#DBD6D3;           
+            border-top:1px solid #42AEAF;
+            border-bottom:1px solid #42AEAF;
+            border-left:0px;
+            border-right:0px;
+            resize:none;     
+            overflow:hidden;       
+        }
+        
+        .tb1 .tdContent-inputFld-row6-col234{
+            width:98.7%;
+            height:40px; 
+            background-color:#DBD6D3;           
+            border-top:1px solid #42AEAF;
+            border-bottom:1px solid #DBD6D3;
+            border-left:0px;
+            border-right:0px;
+            resize:none;
+            overflow:hidden;
+        }        
+        
+        <!-- Style hint section -->        
+        .Bulb-logo{
+            position:relative; 
+            top:15px; 
+            left:0px;
+        }
+        
+        .underLine-logo{
+            position:relative; 
+            padding:5px 0 0 0;
+            top:12px; 
+            left:17px; 
+            border-bottom:1px solid #FFFFFF; 
+            border-left:1px solid #FFFFFF; 
+            width:85%; 
+            max-height:30px;
+        }
+        
+        .DellEMC-logo{ 
+            position:relative; 
+            top:-15px;
+            float:right;
+            padding:0px 0px 0px 0px;
+            margin:0px 10px;
+        }
+                
+        .hintText{
+            font-style:normal; 
+            font-size:12px;
+            position:relative;
+            color:#FFFFFF;
+            top:-25px;
+            left:15px;
+            margin:5px;
+        }                
+         
+        .tg-tdBtns{
+            text-align:right;
+            padding:5px 10px 5px 0px;             
+        }
+        
+        .tg-tdBtns .btn{
+            margin-left:3px;
+            margin-right:3px;        
+        }
+        
+        <!-- Style footer -->
+        .tb .footer{
+            width:100%;
+            color:white;
+            text-align:center;
+            padding:0px;
+            font-size:12px;
+        }
+    </style>
+    <apex:pageBlock mode="maindetail" id="pbId">
+        <apex:pageMessages id="showmsg"></apex:pageMessages>
+            <!-- Header -->
+            <table class="tb" id="tb-tbl1">   
+                <tr id="hd-tr">
+                <th class="tg-hdr" id = "hdr" colspan="2">Customer Engagement via Events</th>
+                </tr>
+            <apex:form >
+            
+            <!-- Title -->    
+            <table class="tb1" id="tb1-tbl1"> 
+                <tr>
+                    <td class="tdContent-parg" id="tdContent-parg1">
+                        <apex:outputtext value="Target Account" styleclass="tdContent-outputtext-parg" /> 
+                    </td> 
+                    <td class="tdContent-parg" id="tdContent-parg2">
+                        <apex:outputtext value="Event" styleclass="tdContent-outputtext-parg" /> 
+                    </td> 
+                    <td class="tdContent-parg" id="tdContent-parg3">
+                        <apex:outputtext value="Timing" styleclass="tdContent-outputtext-parg" /> 
+                    </td> 
+                    <td class="tdContent-parg" id="tdContent-parg4">
+                        <apex:outputtext value="Comments" styleclass="tdContent-outputtext-parg" /> 
+                    </td> 
+                </tr>
+                <tr>      
+                    <td class="blankline" id="blankline1"></td>
+                    <td class="blankline" id="blankline2"></td>
+                    <td class="blankline" id="blankline3"></td>
+                    <td class="blankline" id="blankline4"></td>                                                                         
+                </tr> 
+                
+                <!-- Row 1 -->
+                <tr>
+                    <td class="tdContent-inputFld-parg">
+                        <apex:inputfield value="{!Territory_Plan__c.Target_Account_1__c}" styleclass="tdContent-inputFld-col1" id="inputFld1-1"/> 
+                    </td>                   
+                    <td class="tdContent-inputFld-parg">
+                        <apex:inputfield value="{!Territory_Plan__c.Target_Account_1_Event__c}" styleclass="tdContent-inputFld-col234" id="inputFld1-2"/> 
+                    </td>
+                    <td class="tdContent-inputFld-parg">
+                        <apex:inputfield value="{!Territory_Plan__c.Target_Account_1_Timing__c}" styleclass="tdContent-inputFld-col234" id="inputFld1-3"/> 
+                    </td>
+                    <td class="tdContent-inputFld-parg">
+                        <apex:inputfield value="{!Territory_Plan__c.Target_Account_1_Comments__c}" styleclass="tdContent-inputFld-col234" id="inputFld1-4"/> 
+                     </td>
+                </tr>
+                <tr>      
+                    <td class="blankline" id="blankline1"></td>
+                    <td class="blankline" id="blankline2"></td>
+                    <td class="blankline" id="blankline3"></td>
+                    <td class="blankline" id="blankline4"></td>
+                </tr> 
+                
+                <!-- Row 2 -->
+                <tr>
+                    <td class="tdContent-inputFld-parg" id="inputFld-parg2-1">
+                        <apex:inputfield value="{!Territory_Plan__c.Target_Account_2__c}" styleclass="tdContent-inputFld-col1" id="inputFld2-1"/> 
+                    </td>
+                    <td class="tdContent-inputFld-parg" id="inputFld-parg2-2">
+                        <apex:inputfield value="{!Territory_Plan__c.Target_Account_2_Event__c}" styleclass="tdContent-inputFld-col234" id="inputFld2-2"/> 
+                    </td>
+                    <td class="tdContent-inputFld-parg" id="inputFld-parg2-3">
+                        <apex:inputfield value="{!Territory_Plan__c.Target_Account_2_Timing__c}" styleclass="tdContent-inputFld-col234" id="inputFld2-3"/> 
+                    </td>
+                    <td class="tdContent-inputFld-parg" id="inputFld-parg1-4">
+                        <apex:inputfield value="{!Territory_Plan__c.Target_Account_2_Comments__c}" styleclass="tdContent-inputFld-col234" id="inputFld2-4"/> 
+                    </td>
+                </tr>
+                <tr>      
+                    <td class="blankline" id="blankline1"></td>
+                    <td class="blankline" id="blankline2"></td>
+                    <td class="blankline" id="blankline3"></td>
+                    <td class="blankline" id="blankline4"></td>
+                </tr> 
+                
+                <!-- Row 3 -->
+                <tr>
+                    <td class="tdContent-inputFld-parg" id="inputFld-parg3-1">
+                        <apex:inputfield value="{!Territory_Plan__c.Target_Account_3__c}" styleclass="tdContent-inputFld-col1" id="inputFld3-1"/> 
+                    </td>
+                    <td class="tdContent-inputFld-parg" id="inputFld-parg3-1">
+                        <apex:inputfield value="{!Territory_Plan__c.Target_Account_3_Event__c}" styleclass="tdContent-inputFld-col234" id="inputFld3-2"/> 
+                    </td>
+                    <td class="tdContent-inputFld-parg" id="inputFld-parg3-1">
+                        <apex:inputfield value="{!Territory_Plan__c.Target_Account_3_Timing__c}" styleclass="tdContent-inputFld-col234" id="inputFld3-3"/> 
+                    </td>
+                    <td class="tdContent-inputFld-parg" id="inputFld-parg3-1">
+                        <apex:inputfield value="{!Territory_Plan__c.Target_Account_3_Comments__c}" styleclass="tdContent-inputFld-col234" id="inputFld3-4"/> 
+                    </td>
+                </tr>    
+                <tr>      
+                    <td class="blankline" id="blankline1"></td>
+                    <td class="blankline" id="blankline2"></td>
+                    <td class="blankline" id="blankline3"></td>
+                    <td class="blankline" id="blankline4"></td>
+                </tr>
+                
+                <!-- Row 4 --> 
+                <tr>
+                    <td class="tdContent-inputFld-parg" id="inputFld-parg4-1">
+                        <apex:inputfield value="{!Territory_Plan__c.Target_Account_4__c}" styleclass="tdContent-inputFld-col1" id="inputFld4-1"/> 
+                    </td>
+                    <td class="tdContent-inputFld-parg" id="inputFld-parg4-1">
+                        <apex:inputfield value="{!Territory_Plan__c.Target_Account_4_Event__c}" styleclass="tdContent-inputFld-col234" id="inputFld4-2"/> 
+                    </td>
+                    <td class="tdContent-inputFld-parg" id="inputFld-parg4-1">
+                        <apex:inputfield value="{!Territory_Plan__c.Target_Account_4_Timing__c}" styleclass="tdContent-inputFld-col234" id="inputFld4-3"/> 
+                    </td>
+                    <td class="tdContent-inputFld-parg" id="inputFld-parg4-1">
+                        <apex:inputfield value="{!Territory_Plan__c.Target_Account_4_Comments__c}" styleclass="tdContent-inputFld-col234" id="inputFld4-4"/> 
+                    </td>
+                </tr>
+                <tr>      
+                    <td class="blankline" id="blankline1"></td>
+                    <td class="blankline" id="blankline2"></td>
+                    <td class="blankline" id="blankline3"></td>
+                    <td class="blankline" id="blankline4"></td>
+                </tr> 
+                
+                <!-- Row 5 -->
+                <tr>
+                    <td class="tdContent-inputFld-parg" id="inputFld-parg5-1">
+                        <apex:inputfield value="{!Territory_Plan__c.Target_Account_5__c}" styleclass="tdContent-inputFld-col1" id="inputFld5-1"/> 
+                    </td>
+                    <td class="tdContent-inputFld-parg" id="inputFld-parg5-1">
+                        <apex:inputfield value="{!Territory_Plan__c.Target_Account_5_Event__c}" styleclass="tdContent-inputFld-col234" id="inputFld5-2"/> 
+                    </td>
+                    <td class="tdContent-inputFld-parg" id="inputFld-parg5-1">
+                        <apex:inputfield value="{!Territory_Plan__c.Target_Account_5_Timing__c}" styleclass="tdContent-inputFld-col234" id="inputFld5-3"/> 
+                    </td>
+                    <td class="tdContent-inputFld-parg" id="inputFld-parg5-1">
+                        <apex:inputfield value="{!Territory_Plan__c.Target_Account_5_Comments__c}" styleclass="tdContent-inputFld-col234" id="inputFld5-4"/> 
+                    </td>
+                </tr>
+                <tr>      
+                    <td class="blankline" id="blankline1"></td>
+                    <td class="blankline" id="blankline2"></td>
+                    <td class="blankline" id="blankline3"></td>
+                    <td class="blankline" id="blankline4"></td>
+                </tr> 
+                
+                <!-- Row 6 -->
+                <tr>
+                    <td class="tdContent-inputFld-parg" id="inputFld-parg6-1">
+                        <apex:inputfield value="{!Territory_Plan__c.Target_Account_6__c}" styleclass="tdContent-inputFld-row6-col1" id="inputFld6-1"/> 
+                    </td>
+                    <td class="tdContent-inputFld-parg" id="inputFld-parg6-1">
+                        <apex:inputfield value="{!Territory_Plan__c.Target_Account_6_Event__c}" styleclass="tdContent-inputFld-row6-col234" id="inputFld6-2"/> 
+                    </td>
+                    <td class="tdContent-inputFld-parg" id="inputFld-parg6-1">
+                        <apex:inputfield value="{!Territory_Plan__c.Target_Account_6_Timing__c}" styleclass="tdContent-inputFld-row6-col234" id="inputFld6-3"/> 
+                    </td>
+                    <td class="tdContent-inputFld-parg" id="inputFld-parg6-1">
+                        <apex:inputfield value="{!Territory_Plan__c.Target_Account_6_Comments__c}" styleclass="tdContent-inputFld-row6-col234" id="inputFld6-4"/> 
+                    </td>
+                </tr> 
+            </table> 
+       
+            <!-- Helpful Hint -->
+            <table class="tb" id="tb-tbl2">
+                <tr id="hint-trId">
+                    <td class="tg-tdHint" id="hint-tdId" colspan="3">
+                        <div class="Bulb-logo" id="bulb-divId">
+                            <apex:image url="{!URLFOR($Resource.TP_PPT_Images, 'TP_PPT_Images/Bulbicon_hint_White.png')}" width="35" height="35" alt="Description of image here" id="bulb-logoId"/>
+                        </div>
+                        <div class="underLine-logo" id="underlineDivId">
+                            <apex:outputtext styleClass="hintText" id="hintTextId" value="Typical event priority is Dell EMC World, EBC, in-territory and national events. Also, make sure to document special events you may have planned for your region or specific accounts. The goal is to make sure you are bringing key accounts to as many Dell events as possible. Are you maximizing these opportunities for more customer face time?"/>
+                        </div>
+                            <apex:image styleClass="DellEMC-logo" url="{!URLFOR($Resource.TP_PPT_Images, 'TP_PPT_Images/DellEMC_White.png')}" width="100" height="25" alt="Description of image here" id="dellEMClogoId"/>
+                    </td> 
+                </tr>                            
+                
+                <!-- Buttons -->
+                <tr id="btn-tr">
+                    <td class="tg-tdBtns" colspan="4" id="btn-td" >
+                        <apex:commandButton action="{!saveRecord}" value="Save" id="save-ID"/> 
+                        <apex:commandButton action="{!goToPrevPage}" value="Previous" id="back-ID"/>
+                        <apex:commandButton action="{!goToNextPage}" value="Next" id="next-ID"/>
+                        <apex:commandButton action="{!cancel}" value="Cancel" id="cancel-ID"/>
+                    </td>
+                </tr>
+                
+                <!-- Footer -->
+                <tfoot>
+                    <tr>
+                        <td class="footer" colspan ="3">
+                            [ {!currentPageNum} of {!totalPages} ]
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+            </apex:form>
+        </table>   
+    </apex:pageBlock>
+</apex:page>

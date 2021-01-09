@@ -1,0 +1,6 @@
+<apex:page controller="UploadSTFPriceController" showHeader="false" standardStylesheets="false" cache="true" contentType="application/octet-stream#AllianceSTFPriceFile.csv" >
+    <apex:outputText value="SFDC Id, Proc ID, Part, Net Price"/>
+    <apex:repeat value="{!stfPriceResults}" var="stfPrice">
+        {!stfPrice.Id}, {!stfPrice.Name}, {!stfPrice.Part__c}, {!stfPrice.Net_Price__c}
+    </apex:repeat>  
+</apex:page>

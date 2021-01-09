@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Buddy_Request_Less_than_1_day</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( RecordType.DeveloperName = &apos;Buddy_Access&apos;,Buddy_Access_Start_Date__c &gt;= TODAY(),Buddy_Access_End_Date__c &gt;=TODAY(),Buddy_Access_End_Date__c -  Buddy_Access_Start_Date__c  &lt;= 0)</errorConditionFormula>
+    <errorMessage>The Buddy Access End Date falls on or before the Start Date. Please adjust to ensure that the request duration is for at least a minimum of 1 day.</errorMessage>
+</ValidationRule>

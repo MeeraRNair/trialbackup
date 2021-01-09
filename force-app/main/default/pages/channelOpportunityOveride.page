@@ -1,0 +1,96 @@
+<apex:page standardController="Opportunity" extensions="channelOpportunityController" tabStyle="Opportunity" action="{!redirect}">
+  <apex:form >
+        <apex:pageBlock rendered="!{!isSearch}">
+            <apex:pagemessages />
+        </apex:pageBlock>
+        <apex:pageBlock >
+            <apex:pageBlockSection title="{!$Label.CMAP_New_Opportunity}" collapsible="False" columns="1">
+                <h> 
+                    <b>{!$Label.CMAP_OpportunityLeadlinking1}</b>
+                    <br/>
+                    {!$Label.CMAP_OpportunityLeadlinking2}
+                </h>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="{!$Label.CMAP_LeadSearch}"  collapsible="False" columns="2" rendered="{!isPartner}">
+                <apex:inputText value="{!FirstName}" label="{!$Label.CMAP_FirstName}"/>
+                <apex:inputText value="{!Company}" label="{!$Label.CMAP_CompanyName}"/>
+                <apex:inputText value="{!LastName}" label="{!$Label.CMAP_LastName}"/>
+                <apex:inputField value="{!leadRec.Follow_up_Date__c}" label="{!$Label.CMAP_LeadCaptureDate}"/>
+                <apex:inputText value="{!PartnerAccount}" label="{!$Label.CMAP_AccountName}" />
+                <apex:inputText value="{!Campaign}" label="{!$Label.CMAP_Campaign_Name}"/>
+                <apex:inputText value="{!Email}" label="{!$Label.CMAP_EmailAddress}"/>
+                <apex:inputField value="{!oppRec.CloseDate}" required="False" label="{!$Label.CMAP_DateofEvent}"/>
+            </apex:pageBlockSection>
+            <apex:pageblockButtons location="bottom">
+                 <apex:commandButton value="{!$Label.CMAP_Search}" action="{!search}" reRender="pb"/>
+                 <apex:commandButton value="{!$Label.CMAP_SkipSearch}" action="{!skipSearch}"/>
+            </apex:pageblockButtons>
+            
+             
+        </apex:pageBlock>
+        <apex:outputPanel id="pb">
+            <apex:PageBlock rendered="{!isSearch}">
+                <apex:pageMessages />
+                <apex:pageBlockSection columns="1" >
+                <!--<apex:pageBlockSection id="Block88" title="{!$Label.CMAP_Page} #{!pageNumber} {!$Label.CMAP_of} {!totalPages}" columns="1" collapsible="false">-->
+                  <apex:pageblocktable value="{!LeadList}" align="center" width="100%" var="ld" rendered="{!isRecordExist}">  
+                     <apex:column headerValue="{!$Label.CMAP_Action}" width="5%">
+                        <apex:commandLink id="link1" action="{!selectButton}">{!$Label.CMAP_Select}
+                             <apex:param name="LeadId" value="{!ld.Id}" assignTo="{!leadId}"/>
+                             <apex:param name="LeadOwnerId" value="{!ld.OwnerId}" assignTo="{!leadOwnerId}"/>
+                             <apex:param name="LeadName" value="{!ld.Name}" assignTo="{!LeadName}"/>
+                             <apex:param name="LeadcampName" value="{!ld.Source_Campaign_Name__c}" assignTo="{!LeadcampName}"/>
+                             <apex:param name="LeadcampId" value="{!ld.Source_Campaign_Id__c}" assignTo="{!LeadcampId}"/>
+                        </apex:commandLink>
+                     </apex:column>
+                     <apex:column headerValue="{!$Label.CMAP_Name}" width="25%">
+                         <apex:outputText value="{!ld.Name}"/>                             
+                     </apex:column>
+                      <apex:column headerValue="{!$Label.CMAP_Mobile}" width="10%">
+                         <apex:outputText value="{!ld.MobilePhone}"/>                              
+                     </apex:column>
+                     <apex:column headerValue="{!$Label.CMAP_Email}" width="15%">
+                         <apex:outputField value="{!ld.Email}" />                              
+                     </apex:column>
+                     <apex:column headerValue="{!$Label.CMAP_Company}" width="10%">
+                         <apex:outputText value="{!ld.Company}"/>                              
+                     </apex:column>
+                     <apex:column headerValue="{!$Label.CMAP_Country}" width="10%">
+                         <apex:outputText value="{!ld.Country}"/>                              
+                     </apex:column>
+                     <apex:column headerValue="{!$Label.CMAP_Campaign}" width="10%">
+                         <apex:outputText value="{!ld.Campaign__r.Name}" />                              
+                     </apex:column>
+                     <apex:column headerValue="{!$Label.CMAP_PartnerLeadStatus}" width="10%">
+                         <apex:outputText value="{!ld.Partner_Lead_Status__c}"/>                              
+                     </apex:column>
+                     <apex:column width="10%" headerValue="{!$ObjectType.Lead.Fields.Partner_User__c.Label}">
+                     	<apex:outputField value="{!ld.Partner_User__r.Name}"/>
+                     </apex:column>
+                     <apex:column headerValue="{!$Label.CMAP_CreatedDate}" width="10%">
+                         <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                             <apex:param value="{!ld.CreatedDate}" /> 
+                         </apex:outputText>                             
+                     </apex:column>
+                     <apex:column headerValue="{!$Label.CMAP_LeadAcceptedDate}" width="10%">
+                         <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                             <apex:param value="{!ld.Lead_Accepted_date__c }" /> 
+                         </apex:outputText>                             
+                     </apex:column>
+                     
+                  </apex:pageblocktable>
+                  
+                  <apex:panelGrid columns="4" rendered="{!totalPages >1}">
+                      <apex:commandLink action="{!first}" value="{!$Label.CMAP_First}" rendered="{!hasPrevious}" reRender="pb"></apex:commandlink>
+                      <apex:commandLink action="{!previous}" rendered="{!hasPrevious}" value="{!$Label.CMAP_Previous}" reRender="pb"></apex:commandlink>
+                      <apex:commandLink action="{!next}" rendered="{!hasNext}" value="{!$Label.CMAP_Next}" reRender="pb"></apex:commandlink>
+                      <apex:commandLink action="{!last}" rendered="{!hasNext}" value="{!$Label.CMAP_Last}" reRender="pb"></apex:commandlink>
+                      
+                  </apex:panelGrid>  
+                  <apex:outputtext rendered="{!totalPages >1}" Value="{!$Label.CMAP_Page} #{!pageNumber} {!$Label.CMAP_of} {!totalPages}" > </apex:outputtext>
+                </apex:pageBlockSection>
+            
+            </apex:PageBlock>
+        </apex:outputPanel>
+  </apex:form>
+</apex:page>

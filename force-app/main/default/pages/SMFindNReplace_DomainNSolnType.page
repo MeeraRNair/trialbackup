@@ -1,0 +1,141 @@
+<apex:page Controller="SalesMotionFindNReplaceController" lightningStylesheets="true"> 
+       <style>
+            .customTableCol{vertical-align: middle;}
+            
+            .picklistArrowLeft, .picklistArrowRight, .rightArrowIcon, .leftArrowIcon, .doubleArrowUp, .upArrowIcon, .downArrowIcon, .doubleArrowDwn {
+            background: transparent url(/img/alohaSkin/combobox_arrows_sprite.gif) no-repeat;
+            width: 24px;
+            height: 20px;
+            margin: 0 2px;
+            }
+            .picklistArrowLeft, .leftArrowIcon {
+                background-position: left -60px;
+            }
+        </style>
+        <apex:sectionHeader subtitle="Step1:Select Domain & Solution Type" title="Step 1 of 6"/>
+        <apex:pagemessages ></apex:pagemessages>
+          <apex:form >
+            <apex:pageBlock id="selectBlock" title="Select Domain">      
+                <table style="align:center">
+                    <tr>
+                        <td class="customTableCol">
+                            <b>Available Domains:</b><br></br>  
+                            <apex:selectList required="false"  value="{!selected}" multiselect="true" size="10">
+                                <apex:selectOptions value="{!unSelectedOptions}"/>
+                            </apex:selectList>
+                        </td>
+                        <td style="vertical-align: middle">
+                            <div>
+                                <apex:commandLink action="{!DoSelect}" rerender="selectBlock">
+                                    <img src="/s.gif" alt="Add" class="picklistArrowRight" style="cursor: pointer; " title="Add"/>
+                                </apex:commandLink>
+                            </div>
+                            <div style="text-align: center; vertical-align: middle; height: 15px; padding: 5px 0px;">
+                                <apex:actionStatus id="RoleChange">
+                                    <apex:facet name="start"><apex:image url="{!$Resource.loading}"/></apex:facet>
+                                </apex:actionStatus>            
+                            </div>
+                            <div>
+                                <apex:commandLink action="{!DoUnselect}" rerender="selectBlock">
+                                    <img src="/s.gif" alt="Remove" class="picklistArrowLeft" style="cursor: pointer; " title="Remove"/>
+                                </apex:commandLink>
+                            </div>
+                        </td>
+                        <td class="customTableCol">
+                            <b>Selected Domains :</b><br></br>  
+                            <apex:selectList required="false" value="{!unselected}" multiselect="true" size="10">
+                                <apex:selectOptions value="{!selectedOptions}" />
+                            </apex:selectList>
+                        </td>
+                    </tr>
+                   
+                </table>
+                 
+            </apex:pageBlock>
+            
+            <apex:pageBlock id="sBlock" title="Select Solution type">      
+                <table style="align:center">
+                    <tr>
+                        <td class="customTableCol">
+                            <b>Available Solution Types:</b><br></br>  
+                            <apex:selectList required="false"  value="{!SelectedSolutionTypes}" multiselect="true" size="10">
+                                <apex:selectOptions value="{!UnSelectedSolutionTypeOptions}"/>
+                            </apex:selectList>
+                        </td>
+                        <td style="vertical-align: middle">
+                            <div>
+                                <apex:commandLink action="{!doSelectSolutionTypes}" rerender="sBlock">
+                                    <img src="/s.gif" alt="Add" class="picklistArrowRight" style="cursor: pointer; " title="Add"/>
+                                </apex:commandLink>
+                            </div>
+                            <div style="text-align: center; vertical-align: middle; height: 15px; padding: 5px 0px;">
+                                <apex:actionStatus id="RoleChange">
+                                    <apex:facet name="start"><apex:image url="{!$Resource.loading}"/></apex:facet>
+                                </apex:actionStatus>            
+                            </div>
+                            <div>
+                                <apex:commandLink action="{!doUnSelectSolutionTypes}" rerender="sBlock">
+                                    <img src="/s.gif" alt="Remove" class="picklistArrowLeft" style="cursor: pointer; " title="Remove"/>
+                                </apex:commandLink>
+                            </div>
+                        </td>
+                        <td class="customTableCol">
+                            <b>Selected Solution Types:</b><br></br>  
+                            <apex:selectList required="false" value="{!UnSelectedSolutionTypes}" multiselect="true" size="10">
+                                <apex:selectOptions value="{!SelectedSolutionTypeOptions}" />
+                            </apex:selectList>
+                        </td>
+                    </tr>
+                   
+                </table>
+               
+            </apex:pageBlock>
+            
+              <apex:pageBlock id="pBlock" title="Select Product">      
+                <table style="align:center">
+                    <tr>
+                        <td class="customTableCol">
+                            <b>Available Products:</b><br></br>  
+                            <apex:selectList required="false"  value="{!productsToAdd}" multiselect="true" size="10">
+                                <apex:selectOptions value="{!availableProducts}"/>
+                            </apex:selectList>
+                        </td>
+                        <td style="vertical-align: middle">
+                            <div>
+                                <apex:commandLink action="{!addCurSelectedProduct}" rerender="pBlock">
+                                    <img src="/s.gif" alt="Add" class="picklistArrowRight" style="cursor: pointer; " title="Add"/>
+                                </apex:commandLink>
+                            </div>
+                            <div style="text-align: center; vertical-align: middle; height: 15px; padding: 5px 0px;">
+                                <apex:actionStatus id="RoleChange">
+                                    <apex:facet name="start"><apex:image url="{!$Resource.loading}"/></apex:facet>
+                                </apex:actionStatus>            
+                            </div>
+                            <div>
+                                <apex:commandLink action="{!removeCurSelectedProduct}" rerender="pBlock">
+                                    <img src="/s.gif" alt="Remove" class="picklistArrowLeft" style="cursor: pointer; " title="Remove"/>
+                                </apex:commandLink>
+                            </div>
+                        </td>
+                        <td class="customTableCol">
+                            <b>Selected Products:</b><br></br>  
+                            <apex:selectList required="false" value="{!productsToRemove}" multiselect="true" size="10">
+                                <apex:selectOptions value="{!selectedProducts}" />
+                            </apex:selectList>
+                        </td>
+                    </tr>
+                   
+                </table>
+               
+            </apex:pageBlock>
+            
+            
+            <apex:pageBlock >
+                Click <b>Next</b> to go to next page  
+            <apex:pageblockbuttons location="bottom">
+                <apex:commandButton action="{!NextPage1}" value="Next" /> 
+            </apex:pageblockbuttons>  
+            </apex:pageBlock>           
+            </apex:form>
+            
+            </apex:page>

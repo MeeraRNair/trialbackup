@@ -1,0 +1,10 @@
+<apex:page standardController="Lead" extensions="RouteLeadsController" action="{!redirect}">
+	<apex:form >
+		<apex:pageBlock >
+			<apex:pageMessages escape="false" />
+			<br/>
+			<!-- <apex:commandButton value="Back" action="{!goBack}"/> -->
+			<apex:commandLink value="Back"  styleClass="btn" style="text-decoration:none;padding:4px;" action="{!goBack}" target="_parent"/>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

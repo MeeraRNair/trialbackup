@@ -1,0 +1,38 @@
+<apex:page controller="VFCntrlr_MasterProgram_lookup" showheader="false" id="pgAddMasterProgramName"> 
+<script language="javascript">
+    function setMasterProgramLookup(str){
+        // when popup window is closed return selected master program name to main window
+        window.returnValue = str;    
+        self.close();
+        return false;       
+    }  
+</script>
+
+<apex:form id="frmAddMasterProgramName">    
+    <apex:pageBlock mode="edit" id="pgBlkAddMasterProgramName" >
+        <apex:pageMessages />
+        <!-- Block Section for 'Search Master Program Name' Starts-->
+        <apex:pageBlockSection title="Search Master Program Name" id="pgBlkSecAddMasterProgramName" >                        
+             <apex:outputtext >Search</apex:outputtext>
+             <apex:pageBlockSectionitem id="pgBlkSecItemAddMasterProgramName">               
+                <apex:inputtext id="txt" size="30" value="{!search_MP}"/>                               
+                <apex:commandButton id="go" action="{!go}" rerender="pgBlkAddMasterProgramName" value="Go"/>
+            </apex:pageBlockSectionitem> 
+        </apex:pageBlockSection>
+        
+         <apex:pageBlockSection title="Search Results" id="results" columns="1">
+            <apex:pageBlockTable value="{!Results}" id="pgblkTbl" var="l" rendered="{!NOT(ISNULL(Results))}">                
+                <apex:column headerValue="Master Program Name">
+                      <apex:commandlink value="{!l.Master_Program_Name__c}"  onclick="{setMasterProgramLookup('{!l.Master_Program_Name__c}');return false;}" />
+                </apex:column>       
+                <apex:column value="{!l.Active__c}"/>
+            </apex:pageBlockTable>  
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockButtons location="bottom" id="pgBtns">              
+            <!-- Command buttons for Search Master Program Name section '' -->    
+            <apex:commandButton value="Cancel" id="cmdCancel"    onclick="{self.close();return false;}" />
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

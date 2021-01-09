@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Legal_Address_Country__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(Primary_SMAffinity_Account__r.BillingCountry!=&apos;&apos;, Primary_SMAffinity_Account__r.BillingCountry, Master_Group_Id__r.BillingCountry)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Legal Address Country</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

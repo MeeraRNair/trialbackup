@@ -1,0 +1,621 @@
+<!--
+REVISION HISTORY
+================
+Version     Author      Date            Release#        CR#     Description
+-------     ------      ----            --------        ---     -----------
+1.0         Murphy      03-May-2012     13.7            7111    Migrate Google Maps API v2 to v3
+2.0         Kokila      08-Oct-2015     16.10           11865   User Story 192359 - CMS: Update Location Tab
+3.0         Gan         14-Nov-2016     FY17-DCS-0103   13725   Baidu Map Implementation
+4.0         Vismy       29-May-2019     FY20-0702       17537   Defect 6726751: SDET- Wunderkind- FAP- Unable to delete locations and error message displayed on Partner Portal(using workaround)
+5.0         Vismy       15-Oct-2019     FY20-1101       18088   Defect 7493297: SDET-Wunderkind-FAP- Translations for French for 'I Agree' button and Location text  is incorrect
+6.0         Naga        16-Oct-2019     FY20-0102       18213   Removed the Save button on First Page.
+-->
+
+<!--<apex:page showHeader="{!IF($CurrentPage.parameters.showHeader == 'false','false','true')}" 
+    sidebar="{!IF($CurrentPage.parameters.showHeader == 'false','false','true')}" 
+    -->
+    <apex:page showHeader="{!IF($CurrentPage.parameters.showHeader == 'false','false','true')}" 
+    sidebar="false"
+    
+    standardController="Partner_Location__c" 
+    extensions="FAP_EditLocationControllerExtension"
+    standardStylesheets="false"
+    action="{!doOnLoad}"
+    id="p"
+    language="{!preferredLanguageCode}">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style type="text/css">
+
+body{
+    margin-left:0px;
+    margin-top:0px;
+    margin-right:0px;
+    margin-bottom:0px;
+    background:url({!$Resource.bg_gif}) top left repeat-x;
+    font: normal 13px Trebuchet MS, sans-serif;
+}
+
+h2 {
+    width: 700px;
+    margin-top: 0px;
+    margin-right: auto;
+    font-family: Trebuchet MS, Arial, Sans-Serif;
+    font-weight: bold;  
+    color:#333333;
+    
+}
+
+h3 {
+    width: 700px;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    font-family: Trebuchet MS, Arial, Sans-Serif;
+    font-weight: bold;  
+    color:#333333;
+    padding: 2px 0 2px 0;
+    Background-color: #dadada;
+    padding-left: 5px;
+}
+
+.container{
+    width:700px;
+    margin-top:0px;
+    margin-right:auto;
+    margin-bottom:0px;
+    margin-left:auto;
+    padding:10px 10px 10px 10px;
+    background:url({!$Resource.bg_container_gif}) top center;
+    background-repeat:no-repeat
+}
+
+.container:after{ 
+    content:"."; 
+    display:block; 
+    height:0; 
+    clear:both; 
+    visibility:hidden
+}
+
+.container table th{ 
+    padding-right:40px;
+    padding-bottom: 20px;
+    padding-left:0px;
+    text-align:left;
+}
+
+.bottom_bar {
+    width:964px;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    clear:both;
+}
+
+.memberSortBox{
+    background:transparent url({!$Resource.sort_round_bg_png}) no-repeat scroll 100% 50%;
+    height:30px;
+    line-height:30px;
+    margin:0;
+    padding:0;
+    clear:both
+}
+
+.memberSortBox .left_round{
+    background:transparent url({!$Resource.sort_left_png}) no-repeat scroll 0 0;
+    float:left;
+    padding:0 10px
+}
+
+.message{    
+    width: 880px;
+    background-color: #ffc;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.message .messageTable .messageCell{vertical-align:middle;padding-bottom: 5px}
+.errorM2,.errorS1{    border-color:#c00}
+.errorM2 .messageText,.confirmM2 .messageText,.infoM2 .messageText,.warningM2 .messageText{ margin-left:-410px}
+
+.errorM2 .msgIcon,.errorLarge{
+    background-image:url(/img/msg_icons/error32.png);
+    background-position:0px 0px;
+    width:32px;
+    height:32px
+}
+    
+a.ovalbutton{
+    background:transparent url('{!$Resource.left_button_png}') no-repeat top left;
+    display:block;
+    float:right;
+    line-height:14px;
+    height:24px;
+    padding-left:11px;
+    text-decoration:none
+}
+
+a:link.ovalbutton,a:visited.ovalbutton,a:active.ovalbutton,a:hover.avalbutton{text-decoration:none}
+
+a.ovalbutton span{
+    background:transparent url('{!$Resource.right_button_png}') no-repeat top right;
+    font:12px Trebuchet MS Bold, sans-serif Bold;
+    color:#FFF;
+    display:block;
+    padding:2px 11px 4px 0
+}
+
+.field_label {
+    font-weight: bold;
+    padding-bottom: 12px;
+   
+}    
+
+input,select,textarea{
+    font: normal 13px Trebuchet MS, sans-serif;
+    width:250px;
+    border: 1px solid #dadada; 
+    background: transparent;
+    margin: 0px 0px;
+}
+
+.styled-select {
+   width: 250px;
+   height: 20px;
+   overflow: hidden;
+   background:url('{!$Resource.arrow_down_png}') no-repeat right;
+   border: 1px solid #dadada;
+}
+
+.loc-wizard {
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #eaeaea;
+    border-left: 1px solid #eaeaea;
+    border-right: 1px solid #eaeaea;
+    border-radius: 4px;
+    height:20px;
+    padding-top:10px;
+}
+
+<apex:outputText value=".styled-select select{background: transparent;width: 250px;height: 22px;margin: 0px 0px;border-width: 0px;}" rendered="{!isIE}"/>
+<apex:outputText value=".styled-select select{background: transparent;-moz-appearance: none;-webkit-appearance: none;width: 270px;height: 22px;margin: 0px 0px;border-width: 0px;}" rendered="{!OR(isFirefox,isChrome)}"/>
+
+/***** Override standard CSS *****/
+.requiredExample{
+    background-color: #C00;
+}
+
+.pbSubsection {
+    width: 915px;
+    padding: 15px 15px 0 15px;
+    margin:0;
+}
+
+.pbSubsection p {
+    margin:0 0 10px 0;
+    padding:0;
+}
+
+.pbSubsection table {
+    border-collapse: collapse; 
+    margin-bottom:20px;  
+}
+
+.pbSubsection table td {
+    padding-top: 0px;
+    padding-bottom: 15px;
+    padding-left: 0px;
+    vertical-align: top;
+    width: 565px;
+}
+
+.pbSubsection table td.border {
+    border-bottom: #D5D5D5 1px solid;
+}
+
+.pbSubsection table td.labelCol {
+    font-weight: bold;
+    border-bottom: #D5D5D5 1px solid;
+    width: 250px;
+}
+
+.pbButton{
+    padding-left: 10px;
+}
+    
+.pbButtonb .btn, .pbButton .btn{
+    width: 80px;
+    /*background-color: #2488B9;
+    background-repeat: no-repeat;
+    background-position: top right;
+    background-image: url('{!$Resource.right_button_png}');*/
+    background: url('{!$Resource.command_button_gif}') no-repeat;
+    alignment-baseline: middle;
+    color: #FFFFFF;
+    font: bold 12px Trebuchet MS, sans-serif;
+    border-width: 0px;
+    margin: 2px 3px;
+    padding: 2px 3px 5px 3px;
+    /*border-radius :15px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    behavior: url(ie-css3.htc); */
+}
+
+.commandButtonHover{
+    width: 80px;
+    /*height: 23px;
+    background-color: #2488B9;
+    background-repeat: no-repeat;
+    background-position: top right;
+    background-image: url('{!$Resource.right_button_png_hover}');*/
+    background: url('{!$Resource.command_button_hover_gif}') no-repeat;
+    alignment-baseline: middle;
+    color: #FFFFFF;
+    /*font: bold 12px Arial,Helvetica,sans-serif;*/
+    font: bold 12px Trebuchet MS, sans-serif;
+    border-width: 0px;
+    margin: 2px 3px;
+    padding: 2px 3px 5px 3px;
+    cursor: pointer;
+    /*border-radius :15px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    behavior: url(ie-css3.htc); */
+}
+
+.errorMsg{
+    color: #C00;
+}
+
+.pbSubExtra{
+    float: right;
+    margin-right: 2em;
+}
+
+.bPageBlock .requiredInput {
+    position: relative;
+    height: 100%;
+}
+
+.bPageBlock .requiredInput .requiredBlock {
+    background-color: #C00;
+    position: absolute;
+    left: -4px;
+    width: 3px;
+    top: 1px;
+    bottom: 1px;
+}
+
+
+.bEditBlock input, .bEditBlock select, .bEditBlock img, .quickCreateModule input, .quickCreateModule select, .quickCreateModule img {
+    vertical-align: middle;
+    margin-right: .25em;
+}
+
+label{
+    float:left;
+    padding-right:20px;
+    vertical-align:top;
+}
+
+</style>
+</head>
+
+    <apex:pageMessages id="Messages" />
+    
+    <!-- DISPLAY PAGE LOAD ERROR IF ONE EXISTS -->
+    <apex:outputPanel id="PageMessages" rendered="{!errorOccurred}" layout="block">
+        <apex:variable var="errorMsg" value="{!JSENCODE(HTMLENCODE($Label.msgnogeoapikey))}" rendered="{!errorCode == errorNoMapAPIKEY}"/>
+        <apex:variable var="errorMsg" value="{!JSENCODE(HTMLENCODE($Label.msginvalidpagestate))}" rendered="{!errorCode == errorNoAccountId}"/>
+        <!-- <apex:pageMessage severity="error" strength="2" title="{!errorMsg}"/> -->        
+        <table align="center"><tr><td>
+            <div class="message errorM2">
+                <table border="0" cellpadding="0" cellspacing="0" class="messageTable" style="padding:0px;margin:0px;">
+                    <tr valign="top">
+                        <td><img alt="error" src="/s.gif" class="msgIcon" title="error" /></td>
+                        <td class="messageCell">
+                            <div class="messageText">
+                                <ul>
+                                    <li>{!errorMsg}</li>
+                                    <apex:repeat value="{!messages}" var="msg">
+    
+                                            <li>{!msg}</li>
+                                        
+                                    </apex:repeat>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div></td></tr></table>
+    </apex:outputPanel>
+    
+        <script language="javascript">
+                //alert("{!country}")
+                if("{!JSENCODE(HTMLENCODE(country))}" != "{!JSENCODE(HTMLENCODE($Label.Map_Excluded_Countries))}"){
+                    //Load Script and show the map
+                    var html_doc = document.getElementsByTagName('head')[0];
+                    js = document.createElement('script');
+                    js.setAttribute('type', 'text/javascript');
+                    js.setAttribute('src', "{!googleMapsApiURL}");
+                    html_doc.appendChild(js);
+                
+                    js.onreadystatechange = function () {
+                        if (js.readyState == 'complete') {
+                            //alert('JS onreadystate fired');       
+                        }
+                    }
+                    js.onload = function () {
+                        //alert('JS onload fired'+"{!$Page.FAP_EditLocationConfirmationJS}");       
+                        jsMap = document.createElement('script');
+                        jsMap.setAttribute('type', 'text/javascript');
+                        jsMap.setAttribute('src', "{!$Page.FAP_EditLocationConfirmationJS}");
+                        html_doc.appendChild(jsMap);
+                    }
+                }
+                //3.0 GAN POC
+                else {
+                    //Load Script and show the map
+                    var html_doc = document.getElementsByTagName('head')[0];
+                    js = document.createElement('script');
+                    js.setAttribute('type', 'text/javascript');
+                    js.setAttribute('src', "{!strBaiduMapsApiUrl}");
+                    html_doc.appendChild(js);
+                
+                    js.onreadystatechange = function () {
+                        if (js.readyState == 'complete') {      
+                        }
+                    }
+                    js.onload = function () {       
+                        jsMap = document.createElement('script');
+                        jsMap.setAttribute('type', 'text/javascript');
+                        jsMap.setAttribute('src', "{!$Page.FAP_EditLocationConfirmationBaiduMapJS}");
+                        html_doc.appendChild(jsMap);
+                    }
+                }
+               
+        </script>
+                
+    <!-- OTHERWISE, DISPLAY DETAILS SCREEN -->
+    <apex:outputPanel rendered="{!AND(NOT(errorOccurred),NOT(showConfirmation))}" >
+    
+    <!-- <apex:sectionHeader title="{!JSENCODE(HTMLENCODE($Label.locationwizardtitle))}" subtitle="{!JSENCODE(HTMLENCODE($Label.step1of2subtitle))}"/> -->
+        <apex:form id="theForm1">
+        <div class="container" layout="block">
+       <apex:pageBlock title="{!JSENCODE(HTMLENCODE($Label.locationwizardtitle))}">
+            
+            <!--5.0 Start fix for Defect 7493297 --> 
+            <apex:outputLabel escape="false" value="{!$Label.step1of2subtitle}" />
+            <!--5.0 End fix for Defect 7493297 --> 
+                
+            <!-- <apex:pageBlock title="{!JSENCODE(HTMLENCODE($Label.titlelocationedit))}" mode="edit"> -->
+            <apex:pageBlock mode="edit">
+            <apex:pageBlockButtons location="top" >
+                    <!-- 3.0 GAN POC 
+                    <apex:commandButton action="{!doDetailsDone}" id="nextBtn" value="{!JSENCODE(HTMLENCODE($Label.btnnext))}" styleClass="btn"
+                        onmouseover="javascript:document.getElementById('{!$Component.nextBtn}').className='commandButtonHover';"
+                        onmouseout="javascript:document.getElementById('{!$Component.nextBtn}').className='btn';" rendered="{!IF(country == JSENCODE(HTMLENCODE($Label.Map_Excluded_Countries)), false,true)}"/>
+                    <apex:commandButton id="saveTop" action="{!doConfirmationDone}" value="{!JSENCODE(HTMLENCODE($Label.btnsave))}" styleClass="btn"
+                        onmouseover="javascript:document.getElementById('{!$Component.saveTop}').className='commandButtonHover';"
+                        onmouseout="javascript:document.getElementById('{!$Component.saveTop}').className='btn';" rendered="{!IF(country == JSENCODE(HTMLENCODE($Label.Map_Excluded_Countries)), true,false)}"/>    
+                    -->
+                    <apex:commandButton action="{!doDetailsDone}" id="nextBtn" value="{!JSENCODE(HTMLENCODE($Label.btnnext))}" styleClass="btn"
+                        onmouseover="javascript:document.getElementById('{!$Component.nextBtn}').className='commandButtonHover';"
+                        onmouseout="javascript:document.getElementById('{!$Component.nextBtn}').className='btn';" />
+                    <!-- 6.0 Naga changes start --> 
+                    <!--<apex:commandButton id="saveTop" action="{!doConfirmationDone}" value="{!JSENCODE(HTMLENCODE($Label.btnsave))}" styleClass="btn"
+                        onmouseover="javascript:document.getElementById('{!$Component.saveTop}').className='commandButtonHover';"
+                        onmouseout="javascript:document.getElementById('{!$Component.saveTop}').className='btn';" />-->
+                    <!-- 6.0 Naga changes End -->
+                    <apex:commandButton action="{!doCancel}" immediate="true" value="{!JSENCODE(HTMLENCODE($Label.btncancel))}" id="cancelBtn" styleClass="btn"
+                        onmouseover="javascript:document.getElementById('{!$Component.cancelBtn}').className='commandButtonHover';"
+                        onmouseout="javascript:document.getElementById('{!$Component.cancelBtn}').className='btn';"/>
+                </apex:pageBlockButtons><br/>
+                <apex:inputHidden rendered="{!idUsedInVFpage!=null}" value="{!idUsedInVFpage}"/>
+                     
+               <apex:pageBlockSection title="{!JSENCODE(HTMLENCODE($Label.titleinformation))}" columns="1" showHeader="true">              
+                                    
+                    <apex:pageBlockSectionItem >
+                      <apex:outputLabel value="{!JSENCODE(HTMLENCODE($Label.location_name))}" styleclass="field_label"/> 
+                        <apex:inputField required="true" value="{!location.Name}"/>
+                    </apex:pageBlockSectionItem>
+                          <!--  <apex:inputField value="{!location.Website__c}"/> --> 
+                          <!--v2.0 Start - Commenting to bring the Point of Contact fields as section under Contact Address by Kokila -->                
+                          <!--  <apex:inputField value="{!location.Point_of_Contact_Name__c}"/>
+                            <apex:inputField value="{!location.Point_of_Contact_Phone__c}"/>
+                            <apex:inputField value="{!location.Point_of_Contact_Email__c}"/>  -->  
+                          <!--v2.0 End - Commenting to bring the Point of Contact fields as section under Contact Address by Kokila -->                                    
+                          <!--  <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="{!JSENCODE(HTMLENCODE($Label.description))}" for="description"/>
+                                <apex:inputTextarea cols="80" rows="3" id="description" value="{!location.Description__c}" />
+                            </apex:pageBlockSectionItem>  -->
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!JSENCODE(HTMLENCODE($Label.headofficeincountry))}" for="primary" styleclass="field_label"/>
+                        <!--v2.0 Start - Head Office in country field should behave like dropbox in UI by Kokila --> 
+                             <apex:outputPanel styleClass="requiredInput" layout="block">
+                                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                                
+                                <!-- <apex:inputCheckbox id="primary" value="{!location.Is_Primary__c}" 
+                                     disabled="{!IF(ISNULL(primary),'true','false')}" style="width:15px;border:none;"/>  -->
+                                     
+                                <apex:selectList value="{!IsPrimary}" id="primary" size="1" required="true" disabled="{!IF(ISNULL(primary),'true','false')}">
+                                     <apex:selectOptions value="{!IsPrimaryOptions}"  />
+                                </apex:selectList>
+                             </apex:outputPanel>
+                        <!--v2.0 End - Head Office in country field should behave like dropbox in UI  by Kokila --> 
+                    </apex:pageBlockSectionItem> 
+                                        
+                    <apex:outputLabel value="{!JSENCODE(HTMLENCODE($Label.headofficemessage))}"/>
+                    
+                </apex:pageBlockSection>
+                <apex:inputHidden value="{!location.Latitude__c}"/>
+                    <apex:inputHidden value="{!location.Longitude__c}"/> 
+
+                <apex:pageBlockSection title="{!JSENCODE(HTMLENCODE($Label.contactaddress))}" columns="1" showHeader="true" >
+                
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!JSENCODE(HTMLENCODE($Label.Street))}" styleclass="field_label" /> 
+                        <apex:inputField required="true" value="{!location.Street__c}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!JSENCODE(HTMLENCODE($Label.city))}" styleclass="field_label"/> 
+                        <apex:inputField required="true" value="{!location.City__c}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!JSENCODE(HTMLENCODE($Label.state_province))}" styleclass="field_label"/> 
+                        <apex:inputField required="false" value="{!location.State_Province__c}" />
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!JSENCODE(HTMLENCODE($Label.postal_code))}" styleclass="field_label"/> 
+                        <apex:inputField required="true" value="{!location.Postal_Code__c}"/>
+                    </apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!JSENCODE(HTMLENCODE($Label.country))}" styleclass="field_label"/> 
+                        <apex:inputField required="true" value="{!location.Country__c}">
+                              <!--  <apex:actionSupport event="onchange" action="{!validationForCountry}"   />-->
+
+                        </apex:inputField>
+                    </apex:pageBlockSectionItem>
+                   
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="{!JSENCODE(HTMLENCODE($Label.searchresultpointofcontact))}" columns="1" showHeader="true">
+                    <apex:outputLabel value="{!JSENCODE(HTMLENCODE($Label.Location_POC_Help))}"/>
+                    <apex:outputLabel value="{!JSENCODE(HTMLENCODE($Label.Location_POC_Help1))}"/>
+                    <apex:pageBlockSectionItem >
+                          <apex:outputLabel value="{!JSENCODE(HTMLENCODE($Label.Point_of_Contact_Email))}" styleclass="field_label"/> 
+                          <apex:inputField required="true" value="{!location.Point_of_Contact_Email__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                          <apex:outputLabel value="{!JSENCODE(HTMLENCODE($Label.Point_of_Contact_Name))}" styleclass="field_label"/> 
+                           <apex:inputField required="false" value="{!location.Point_of_Contact_Name__c}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                          <apex:outputLabel value="{!JSENCODE(HTMLENCODE($Label.Point_of_Contact_Phone))}" styleclass="field_label"/> 
+                          <apex:inputField required="false" value="{!location.Point_of_Contact_Phone__c}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                </apex:pageBlockSection>
+            <!--    <apex:pageBlockSection title="{!JSENCODE(HTMLENCODE($Label.titleeditcustomfield))}" rendered="{!fields.size>0}" columns="1" showHeader="true">
+                    <c:EditFields editFields="{!fields}" rendered="true" />
+                </apex:pageBlockSection> -->
+            <apex:pageBlockButtons location="bottom" >
+                    <!-- 3.0 GAN POC
+                    <apex:commandButton action="{!doDetailsDone}" value="{!JSENCODE(HTMLENCODE($Label.btnnext)}" id="nextBtnb" styleClass="btn"
+                        onmouseover="javascript:document.getElementById('{!$Component.nextBtnb}').className='commandButtonHover';"
+                        onmouseout="javascript:document.getElementById('{!$Component.nextBtnb}').className='btn';" rendered="{!IF(country == JSENCODE(HTMLENCODE($Label.Map_Excluded_Countries)), false,true)}"/>
+                    <apex:commandButton id="saveBtm" action="{!doConfirmationDone}" value="{!JSENCODE(HTMLENCODE($Label.btnsave))}" styleClass="btn"
+                        onmouseover="javascript:document.getElementById('{!$Component.saveBtm}').className='commandButtonHover';"
+                        onmouseout="javascript:document.getElementById('{!$Component.saveBtm}').className='btn';" rendered="{!IF(country == JSENCODE(HTMLENCODE($Label.Map_Excluded_Countries)), true,false)}"/>    
+                    -->
+                    <apex:commandButton action="{!doDetailsDone}" value="{!JSENCODE(HTMLENCODE($Label.btnnext))}" id="nextBtnb" styleClass="btn"
+                        onmouseover="javascript:document.getElementById('{!$Component.nextBtnb}').className='commandButtonHover';"
+                        onmouseout="javascript:document.getElementById('{!$Component.nextBtnb}').className='btn';" />
+                    <!-- 6.0 Naga changes start  -->
+                    <!--<apex:commandButton id="saveBtm" action="{!doConfirmationDone}" value="{!JSENCODE(HTMLENCODE($Label.btnsave))}" styleClass="btn"
+                        onmouseover="javascript:document.getElementById('{!$Component.saveBtm}').className='commandButtonHover';"
+                        onmouseout="javascript:document.getElementById('{!$Component.saveBtm}').className='btn';" />--> 
+                    <!-- 6.0 Naga changes End-->
+                    <apex:commandButton action="{!doCancel}" immediate="true" value="{!JSENCODE(HTMLENCODE($Label.btncancel))}" id="cancelBtnb" styleClass="btn"
+                        onmouseover="javascript:document.getElementById('{!$Component.cancelBtnb}').className='commandButtonHover';"
+                        onmouseout="javascript:document.getElementById('{!$Component.cancelBtnb}').className='btn';"/>
+                </apex:pageBlockButtons>
+            </apex:pageBlock>
+                
+         </apex:pageBlock>
+         </div>
+        </apex:form>
+    </apex:outputPanel>
+
+    <!-- GAN POC --
+    <apex:outputPanel rendered="{!IF(country == JSENCODE(HTMLENCODE($Label.Map_Excluded_Countries)), false,true)}">-->
+    <apex:outputPanel >    
+    <apex:outputPanel rendered="{!AND(NOT(errorOccurred),showConfirmation)}">
+    <form>
+        <input id="p:f:address" type="hidden" value="{!location.Street__c} {!location.City__c}, {!location.State_Province__c}  {!location.Postal_Code__c}"/>
+        <input id="p:f:partnerName" type="hidden" value="{!location.Name}"/>
+        <input id="p:f:isNew" type="hidden" value="{!IF(ISNULL(location.ID),'true','false')}"/>
+        <input id="p:f:countryCodeHint" type="hidden" value="{!countryCodeHint}"/>
+    </form>
+
+    <apex:includeScript value="{!$Resource.prototype_js}"/>
+    <!-- 1.0 Change google maps api url from v2 to v3 -->
+    <!-- <apex:includeScript value="http://maps.google.com/maps?file=api&v=2&sensor=false&key={!config.googleMapsApiKey}"/> -->
+    <!-- <apex:includeScript value="https://maps.googleapis.com/maps/api/js?sensor=false&v=3.7"/> -->
+    <!--     <apex:includeScript value="{!googleMapsApiURL}"/>
+    <apex:includeScript value="{!$Resource.EditLocationConfirmation_js}"/>-->
+    <!-- <apex:sectionHeader title="{!JSENCODE(HTMLENCODE($Label.locationwizardtitle))}" subtitle="{!JSENCODE(HTMLENCODE($Label.Step2Of2SubTitle))} &quot;{!location.Street__c} {!location.City__c}, {!location.State_Province__c}  {!location.Postal_Code__c}&quot;"/> -->
+    <apex:form id="f">  
+
+             <div class="loc-wizard">
+            <h2>{!JSENCODE(HTMLENCODE($Label.locationwizardtitle))}</h2>
+            </div>
+            <div class="loc-wizard">
+            <span class="left_round">&nbsp;</span>  
+            <!--5.0 Start fix for Defect 7493297 -->
+                <apex:outputLabel escape="false" value="{!$Label.step2of2subtitle} {!location.Street__c}, {!location.City__c}, {!location.State_Province__c}, {!location.Postal_Code__c}" />
+            <!--5.0 End fix for Defect 7493297 -->
+            </div>
+      <div>
+  <!--    <apex:pageBlock title="{!JSENCODE(HTMLENCODE($Label.locationwizardtitle))}"> -->
+        <apex:actionFunction action="{!handleLocationFound}" name="fireLocationFound" rerender="save,message"/>
+        <apex:actionFunction action="{!handleLocationNotFound}" name="fireLocationNotFound" rerender="save,message"/>
+        
+           
+           
+             <!--   <apex:outputLabel value="{!JSENCODE(HTMLENCODE($Label.Step2Of2SubTitle))} &quot;{!location.Street__c} {!location.City__c}, {!location.State_Province__c}  {!location.Postal_Code__c}&quot;" /> -->
+            
+
+
+        <apex:inputHidden id="longitude" value="{!location.Longitude__c}"/>
+        <apex:inputHidden id="latitude" value="{!location.Latitude__c}"/>
+        
+        <!-- <apex:pageBlock id="pb" title="{!JSENCODE(HTMLENCODE($Label.partner_location_edit))}" mode="edit"> -->
+            <apex:pageBlock id="pb" mode="edit">
+            <apex:pageBlockButtons location="top" id="pbb" >
+                <apex:commandButton action="{!doConfirmationPrevious}" value="{!JSENCODE(HTMLENCODE($Label.previous))}" id="previousBtn" styleClass="btn"
+                        onmouseover="javascript:document.getElementById('{!$Component.previousBtn}').className='commandButtonHover';"
+                        onmouseout="javascript:document.getElementById('{!$Component.previousBtn}').className='btn';"/>
+                <apex:commandButton disabled="{!IF(OR(lookingForLocation,NOT(locationFound)),'true','false')}"
+                        id="save" action="{!doConfirmationDone}" value="{!JSENCODE(HTMLENCODE($Label.btnsave))}" styleClass="btn"
+                        onmouseover="javascript:document.getElementById('{!$Component.save}').className='commandButtonHover';"
+                        onmouseout="javascript:document.getElementById('{!$Component.save}').className='btn';"/>
+                <apex:commandButton action="{!doCancel}" immediate="true" value="{!JSENCODE(HTMLENCODE($Label.btncancel))}" id="cancelBtn2" styleClass="btn"
+                        onmouseover="javascript:document.getElementById('{!$Component.cancelBtn2}').className='commandButtonHover';"
+                        onmouseout="javascript:document.getElementById('{!$Component.cancelBtn2}').className='btn';"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="{!JSENCODE(HTMLENCODE($Label.map))}" columns="1" showHeader="false" collapsible="false">
+                <apex:outputPanel id="message"> 
+                    <apex:pageMessage summary="{!JSENCODE(HTMLENCODE($Label.msgfindingaddress))}, {!location.Street__c}, {!location.City__c}, {!location.State_Province__c},  {!location.Postal_Code__c}.  {!JSENCODE(HTMLENCODE($Label.msgpleasewait))}" 
+                        severity="info" 
+                        strength="3" 
+                        rendered="{!IF(lookingForLocation,'true','false')}"/>
+                    <apex:pageMessage summary="{!JSENCODE(HTMLENCODE($Label.locationnotfound))}, {!location.Street__c}, {!location.City__c}, {!location.State_Province__c},  {!location.Postal_Code__c}.  {!JSENCODE(HTMLENCODE($Label.msgdifferentaddress))}" 
+                        severity="error" 
+                        strength="3" 
+                        rendered="{!IF(AND(NOT(lookingForLocation),NOT(locationFound)),'true','false')}"/>
+                    <apex:pageMessage summary="{!JSENCODE(HTMLENCODE($Label.msgconfirmlocation))},{!location.Street__c}, {!location.City__c}, {!location.State_Province__c},  {!location.Postal_Code__c}.  {!JSENCODE(HTMLENCODE($Label.msgdragcorrectlocation))}" 
+                        severity="confirm" 
+                        strength="3"  
+                        rendered="{!IF(AND(NOT(lookingForLocation),locationFound),'true','false')}"/>
+                </apex:outputPanel>
+                
+            <div id="map_canvas" style="width: 895px; height: 400px"></div>
+            </apex:pageBlockSection>
+           
+            <!-- 4.0 Comment the pageBlock -->
+           <!-- </apex:pageBlock>  -->
+                </apex:pageBlock>
+   </div>
+    </apex:form>
+    </apex:outputPanel>
+    </apex:outputPanel>
+</apex:page>

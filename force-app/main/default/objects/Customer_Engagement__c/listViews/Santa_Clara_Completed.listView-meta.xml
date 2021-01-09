@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Santa_Clara_Completed</fullName>
+    <columns>Primary_Account__c</columns>
+    <columns>NAME</columns>
+    <columns>Lead_Architect__c</columns>
+    <columns>Confirmed_End_Date__c</columns>
+    <filterScope>Queue</filterScope>
+    <filters>
+        <field>Site__c</field>
+        <operation>contains</operation>
+        <value>Santa Clara</value>
+    </filters>
+    <filters>
+        <field>Event_Status__c</field>
+        <operation>equals</operation>
+        <value>Completed</value>
+    </filters>
+    <label>Santa Clara Completed</label>
+    <language>en_US</language>
+    <queue>DellSolutionCentersSchedulingQueue</queue>
+</ListView>

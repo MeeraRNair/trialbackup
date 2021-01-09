@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_Change_Request_POC_ORAN</fullName>
+    <active>true</active>
+    <description>Changes to Request POC ORAN is not allowed after Sent to Vendor</description>
+    <errorConditionFormula>AND(
+ISCHANGED(Request_POC_ORAN__c ),
+Automated__c = true,
+RecordType.DeveloperName = &apos;VMware&apos;,
+ISPICKVAL(S_P_Deal_Status__c, &apos;Approved&apos;)
+)</errorConditionFormula>
+    <errorDisplayField>Request_POC_ORAN__c</errorDisplayField>
+    <errorMessage>Changes to Request POC ORAN is not allowed after Sent to Vendor</errorMessage>
+</ValidationRule>

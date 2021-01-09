@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Route_to_Channel__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( AND(ISBLANK(Channel_Lead__c), 
+	RecordTypeId = &apos;012A0000000TWRX&apos;, 
+	OR(ISPICKVAL( Status__c , &apos;Opened&apos;),
+           ISPICKVAL(Status__c, &apos;Contacted&apos;),
+           ISPICKVAL(Status__c, &apos;Assign to Channel Partner&apos;) 
+        ), 
+	OR( $User.Id = Account_Executive__c, 
+		$User.Id = Account_Play_Owner__c, 
+		$User.Id = Inside_Sales_Manager__c , 
+		$User.Id = Inside_Sales_Rep__c, 
+		$User.Id = Technical_Sales_Rep__c , 
+		$User.Id = Solution_Specialist__c) 
+) 
+, HYPERLINK(&apos;/apex/CMAP_RouteAccountPlay?APId=&apos;+Id, 
+IMAGE(&apos;resource/1362106041000/CMAP_RouteToChannel&apos;, &apos;RouteToChannelButton&apos;),&apos;_parent&apos;), &quot;&quot;)</formula>
+    <inlineHelpText>Routing Segment Account Play to Channel</inlineHelpText>
+    <label>Route to Channel</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

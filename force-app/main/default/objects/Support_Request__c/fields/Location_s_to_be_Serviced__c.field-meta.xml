@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Location_s_to_be_Serviced__c</fullName>
+    <description>This field will display the value pulled from Location (s) to be Serviced field on Opportunity object</description>
+    <externalId>false</externalId>
+    <formula>Opportunity__r.Location_APJ__c &amp; &quot; &quot; &amp; Opportunity__r.Location_EMEA__c &amp; &quot; &quot; &amp; Opportunity__r.Location_LATAM__c &amp; &quot; &quot; &amp; Opportunity__r.Location_NAMER__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Location (s) to be Serviced</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

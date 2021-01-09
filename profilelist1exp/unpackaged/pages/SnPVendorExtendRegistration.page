@@ -1,0 +1,78 @@
+<!--
+ Name          : SnPVendorExtendRegistration
+ Description   : Extend Registration for S&P Vendor record
+ ---------------------------------------------------------
+ Revision      Release             Name         Date            Description
+ 1.0           FY18-DCS-1001       Jessie Tan   16.08.2017      Story 3686076:VMware API – Registration Extensions (button logic)                                    
+-->
+<apex:page standardController="S_P_Vendors__c" extensions="SnPVendorExtendRegistrationCtrl" action="{!loadUI}" lightningStyleSheets="true">
+
+    <style type="text/css">
+        .messageBox {
+            background-color: #F5F5F5;
+            width: 719px;
+            height: 150px;
+            position: relative;
+            top: 10px;
+            left: 40px;
+        }
+        
+        .messageText {
+            font-size: 14px;
+            position: relative;
+            top: 20px;
+            left: 20px;
+        }
+        
+        .messageBoxButton {
+            position: relative;
+            top: -40px;
+            left: 400px;
+        }
+        
+        .loadingBox {
+            border: 0px solid white;
+            position: relative;
+            top: 50px;
+            left: 40%;
+        }
+    </style>
+        
+    <apex:form id="formid"> 
+        <apex:actionFunction name="routeToDetailPage" action="{!routeToDetailPage}" rerender="formid" />
+        <apex:outputPanel rendered="{!hasError }" >
+        
+            <apex:sectionHeader title="Extend Registration" subtitle="S&P Vendors"/>
+            
+            <div class="messageBox">
+                <apex:outputText value="{!msgText}" styleClass="messageText"/>
+            </div>
+                    
+            <apex:commandButton value="Go back to the previous page" styleClass="messageBoxButton" action="{!cancel}"/>
+                    
+        </apex:outputPanel>
+            
+            
+        <apex:outputPanel rendered="{!!hasError }">            
+          
+            <apex:sectionHeader title="Extend Registration" subtitle="S&P Vendors"/>
+          
+            <apex:pageBlock >
+            <div class="messageBox">
+                <apex:outputText value="Your registration extension request has been submitted, the vendor record will be updated with a new expiration date once VMware has accepted the extension request." styleClass="messageText"/>
+            </div>
+                        
+            </apex:pageBlock>
+            <script>
+            
+            if('{!hasError}' == 'false'){
+            
+                    setTimeout(function(){routeToDetailPage();}, 3000);
+                }
+            </script>
+        </apex:outputPanel>
+        
+       
+    </apex:form>
+
+</apex:page>

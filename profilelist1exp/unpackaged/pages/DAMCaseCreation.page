@@ -1,0 +1,84 @@
+<!--*
+* Author   : SuiYee
+* Purpose  : This page is for external DAM to create Case in Salesforce 
+* 
+* Revision CR Number   Release No    Date            Modified By     Description
+* -------- ---------   ----------    -----------     ------------    -----------
+* 1.0       13031      FY17-DCS-1002 30-Aug-2016     SuiYee          LM2_21-Add opportunity view in right panel on a new tab Account Data
+* 2.0       13766      FY17-DCS-0103 15-Dec-2016     Sajith          Corrections for View State Error
+*-->
+<apex:page StandardController="Case" extensions="DAMCaseCreationCtrl" sidebar="false" showHeader="false" >
+    <div><a href="http://www.dell.com/" target="_blank"> <img alt="Dell" src="http://i.dell.com/images/global/brand/ui/storm80/logo80.png" /> </a></div>
+    <apex:form >  
+        <apex:outputPanel rendered="false">
+            {!case.caseNumber}
+        </apex:outputPanel>
+        <apex:pageBlock title="DAM Tool Case submission form" mode="edit">
+            <apex:pageMessages id="messages"/>
+            <apex:pageBlockSection showHeader="false" columns="1">
+            	<apex:outputlabel value="Please provide all the details below and click on Submit button to raise a case for DAM Support Team." /> 
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Case Details" columns="2" collapsible="true">
+                <apex:inputText label="Contact Name :" value="{!case.SuppliedName}" />
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Contact Email :" />
+                    <apex:outputPanel >
+                        <div class="requiredInput">
+                            <div class="requiredBlock"></div>
+                            <apex:inputText value="{!case.SUPPLIEDEMAIL}" label="Contact Email :"/>
+                            <div class="errorMsg" style="{!strIsBlankEmail}"><strong>Error:</strong> {!strInvalidEmailError}</div>
+                        </div>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:inputText label="Contact Phone :" value="{!case.SUPPLIEDPHONE}" />
+                <apex:inputText label="Contact Company :" value="{!case.SuppliedCompany}" />
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Subject :" />
+                    <apex:outputPanel >
+                        <div class="requiredInput">
+                            <div class="requiredBlock"></div>
+                            <apex:inputField value="{!case.Subject}"/>
+                            <div class="errorMsg" style="{!strIsBlankSubject}"><strong>Error:</strong> You must enter a value</div>
+                        </div>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Reason :" />
+                    <apex:outputPanel >
+                        <div class="requiredInput">
+                            <div class="requiredBlock"></div>
+                            <apex:inputField label="Reason :" value="{!case.Reason}" />
+                            <div class="errorMsg" style="{!strIsInvalidReason}"><strong>Error:</strong> You must enter a value</div>
+                        </div>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Priority :" />
+                    <apex:outputPanel >
+                        <div class="requiredInput">
+                            <div class="requiredBlock"></div>
+                            <apex:inputField label="Priority :" value="{!case.PRIORITY}" />
+                            <div class="errorMsg" style="{!strIsInvalidPriority}"><strong>Error:</strong> You must enter a value</div>
+                        </div>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Description :" />
+                    <apex:outputPanel >
+                        <div class="requiredInput">
+                            <div class="requiredBlock"></div>
+                            <apex:inputField value="{!case.Description}" />
+                            <div class="errorMsg" style="{!strIsBlankDescription}"><strong>Error:</strong> You must enter a value</div>
+                        </div>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+            <apex:pageBlockSection title="Attachment" columns="2" collapsible="true">
+                <apex:inputFile id="FileToUpload" value="{!fileBody}" filename="{!fileName}" />
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Submit Case" action="{!submitCase}"/>
+            </apex:pageBlockButtons>        
+        </apex:pageBlock>
+    </apex:form> 
+</apex:page>

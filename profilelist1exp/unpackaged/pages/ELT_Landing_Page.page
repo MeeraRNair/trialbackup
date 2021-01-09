@@ -1,0 +1,151 @@
+<apex:page controller="CBOELTDashboardController" lightningStylesheets="true">
+<html>
+<head>
+    <title>ELT Landing Page</title>
+</head>
+<style type="text/css">
+    .odd { 
+        background-color: #FCF7F7;
+    }
+    .even {
+        background-color: #E3DCDB;
+    }
+    .pbSubheader {
+        background-color: #3399ff !important;
+        border-color: none !important;
+    }
+     
+
+</style>
+
+<body>
+
+
+  <apex:pageBlock title="ELT Landing Page">
+  </apex:pageBlock>
+  
+  
+  
+  <apex:pageBlock >
+  <apex:variable value="{!1}" var="count"/>
+  <apex:pageBlockSection title="Financial Documents" columns="1">
+    <apex:pageBlockTable value="{!ELTFinancialDocuments}"
+                    var="ELTFinancialDocument"
+                    cellPadding="2" border="2" 
+                    style="Helvetica, Arial, sans-serif" 
+                    rowClasses="even,odd" columnsWidth="30px, 325px, 175px, 175px, 400px">
+                    
+      <apex:column >
+           <apex:facet name="header">#</apex:facet>       
+           {!count}
+           <apex:variable var="count" value="{!count+ 1}"/>
+      </apex:column>
+      
+      <apex:column >
+         <apex:facet name="header">Report Name</apex:facet>
+        <apex:outputlink target="_blank" value="{!ELTFinancialDocument.ReportURL__c}">{!ELTFinancialDocument.ReportName__c}</apex:outputlink>
+      </apex:column>
+
+      <apex:column >
+       <apex:facet name="header">Source</apex:facet>
+        {!ELTFinancialDocument.Source__c}
+      </apex:column>
+
+      <apex:column >
+       <apex:facet name="header">Last Updated</apex:facet>
+        {!ELTFinancialDocument.LastUpdated__c} 
+      </apex:column>
+                
+      <apex:column >
+       <apex:facet name="header">Report Comment</apex:facet>
+        {!ELTFinancialDocument.Description__c}
+      </apex:column>
+      
+    </apex:pageBlockTable>
+    </apex:pageBlockSection>
+  </apex:pageBlock>
+
+  <apex:pageBlock >
+    <apex:variable value="{!1}" var="count"/>
+    <apex:pageBlockSection title="Bus. Divisions SFDC Pipeline Dashboards" columns="1" collapsible="true">
+    <apex:pageblockTable value="{!ELTPipelineDashboards}"
+                    var="ELTPipelineDashboard"
+                    cellPadding="2" border="2" 
+                    style="Helvetica, Arial, sans-serif" 
+                    rowClasses="even,odd" columnsWidth="30px, 325px, 175px, 175px, 400px">
+                    
+       <apex:column >
+           <apex:facet name="header">#</apex:facet>
+           {!count}
+           <apex:variable var="count" value="{!count+ 1}"/>
+      </apex:column>
+      
+      <apex:column >
+      <apex:facet name="header">Report Name</apex:facet>
+        <apex:outputlink target="_blank" value="{!ELTPipelineDashboard.ReportURL__c}">{!ELTPipelineDashboard.ReportName__c}</apex:outputlink>
+      </apex:column>
+            
+      <apex:column >
+       <apex:facet name="header">Source</apex:facet>
+        {!ELTPipelineDashboard.Source__c}
+      </apex:column>                
+
+      <apex:column >
+       <apex:facet name="header">Last Updated</apex:facet>
+        {!ELTPipelineDashboard.LastUpdated__c} 
+      </apex:column>
+ 
+       <apex:column >
+       <apex:facet name="header">Report Comment</apex:facet>
+        {!ELTPipelineDashboard.Description__c}
+      </apex:column>
+      
+    </apex:pageblockTable>
+   </apex:pageBlockSection>
+  </apex:pageBlock>
+  
+  
+   <apex:pageBlock >
+    <apex:variable value="{!1}" var="count"/>
+ <apex:pageBlockSection title="Sales Performance Reporting" columns="1" collapsible="true" >
+    <apex:pageblockTable value="{!ELTSalesPerformanceReportings}"
+                    var="ELTSalesPerformanceReporting"
+                    cellPadding="2" border="2" 
+                    style="Helvetica, Arial, sans-serif" 
+                    rowClasses="even,odd" columnsWidth="30px, 325px, 175px, 175px, 400px"  >
+                    
+       <apex:column >
+           <apex:facet name="header">#</apex:facet>
+           {!count}
+           <apex:variable var="count" value="{!count+ 1}"/>
+      </apex:column>
+      
+      <apex:column >
+      <apex:facet name="header">Report Name</apex:facet>
+        <apex:outputlink target="_blank" value="{!ELTSalesPerformanceReporting.ReportURL__c}">{!ELTSalesPerformanceReporting.ReportName__c}</apex:outputlink>
+      </apex:column>
+      
+            
+      <apex:column >
+       <apex:facet name="header">Source</apex:facet>
+        {!ELTSalesPerformanceReporting.Source__c}
+      </apex:column>                
+
+      <apex:column >
+       <apex:facet name="header">Last Updated</apex:facet>
+        {!ELTSalesPerformanceReporting.LastUpdated__c} 
+      </apex:column>
+ 
+       <apex:column >
+       <apex:facet name="header">Report Comment</apex:facet>
+        {!ELTSalesPerformanceReporting.Description__c}
+      </apex:column>
+      
+    </apex:pageblockTable>
+   </apex:pageBlockSection>
+  </apex:pageBlock>
+  
+
+  </body>
+  </html>
+</apex:page>

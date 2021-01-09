@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Channel_Partner_Company_Legal_Name_Req</fullName>
+    <active>true</active>
+    <description>&quot;Channel Partner Company Legal Name&quot; field is required if Channel Partner Involved? = Yes</description>
+    <errorConditionFormula>AND(RecordType.DeveloperName = &apos;Request_OEM_Tech_Partner_Support&apos;,ISBLANK(Channel_Partner_Company_Legal_Name__c), ISPICKVAL(Channel_Partner_Involved__c, &apos;Yes&apos;))</errorConditionFormula>
+    <errorDisplayField>Channel_Partner_Company_Legal_Name__c</errorDisplayField>
+    <errorMessage>You must enter a value</errorMessage>
+</ValidationRule>

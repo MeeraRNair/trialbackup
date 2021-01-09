@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Related__c</fullName>
+    <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc -This field is linked to either an account or a lead. When the potential partner is still in the approval process, a link to the related lead will be displayed. After the partner is approved, it will display a link to the related Account.||
+SFA -Y/PRM-Y||
+VAL -  N||
+CR# -R10.2 # 816  ||</description>
+    <externalId>false</externalId>
+    <formula>IF(ISPICKVAL(Status__c,&quot;Duplicate&quot;),
+IF(Duplicate_Account__c != &quot;&quot;,
+Hyperlink(&quot;/&quot; + Duplicate_Account__c, &quot;Duplicate of Account: &quot; + Duplicate_Account__r.Name, &quot;_self&quot; ), 
+Hyperlink(&quot;/&quot; + Duplicate_Registration__c, &quot;Duplicate of Registration: &quot; + Duplicate_Registration__r.Name, &quot;_self&quot; )
+),
+IF( Account__c = &quot;&quot; ,
+Hyperlink(&quot;/&quot; + Lead__c, &quot;Lead: &quot; + Lead__r.Company, &quot;_self&quot; ), 
+Hyperlink(&quot;/&quot; + Account__c, &quot;Account: &quot; + Account__r.Name, &quot;_self&quot;)
+)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Related</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

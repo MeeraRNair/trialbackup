@@ -1,0 +1,281 @@
+<apex:page showHeader="{!IF($CurrentPage.parameters.strshowHeader == 'false','false','true')}" 
+    sidebar="{!IF($CurrentPage.parameters.strshowHeader == 'false','false','true')}" 
+    standardController="Logo__c" extensions="FAP_LogoExtension"
+    action="{!doOnLoad}"
+    standardStylesheets="false" 
+    language="{!preferredLanguageCode}"
+    cache="false">
+
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+
+body{
+    margin-left:0px;
+    margin-top:0px;
+    margin-right:0px;
+    margin-bottom:0px;
+    background:url({!$Resource.bg_gif}) top left repeat-x;
+    font-family: Trebuchet MS, Arial, sans-serif;
+    font-size: 13px;
+}
+
+h2 {
+    width: 915px;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    font-family: Trebuchet MS, Arial, Sans-Serif; 
+    font-weight: bold;
+    color:#333333;
+    padding: 15px 0 15px 0;
+    
+}
+
+h3 {
+    width: 915px;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    font-family: Trebuchet MS, Arial, Sans-Serif; 
+    font-weight: bold;
+    color:#333333;
+    padding: 2px 0 2px 0;
+    Background-color: #dadada;
+    padding-left: 5px;
+}
+
+.container{
+    width:945px;
+    margin-top:0px;
+    margin-right:auto;
+    margin-bottom:0px;
+    margin-left:auto;
+    padding:10px 10px 10px 10px;
+    background:url({!$Resource.bg_container_gif}) top center;
+    background-repeat:no-repeat
+}
+
+.bottom_bar {
+    width:964px;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    clear:both;
+}
+    
+a.ovalbutton{
+    background:transparent url('{!$Resource.left_button_png}') no-repeat top left;
+    display:block;
+    float:left;
+    line-height:14px;
+    height:24px;
+    padding-left:11px;
+    text-decoration:none
+}
+
+a:link.ovalbutton,a:visited.ovalbutton,a:active.ovalbutton,a:hover.avalbutton{text-decoration:none}
+
+a.ovalbutton span{
+    background:transparent url('{!$Resource.right_button_png}') no-repeat top right;
+    <!--font:12px Trebuchet MS Bold, Arial Bold, sans-serif Bold;-->
+    font-family: Trebuchet MS, Arial, Sans-Serif; 
+    font-size:12px;
+    font-weight: bold;
+    color:#FFF;
+    display:block;
+    padding:4px 11px 4px 0
+}
+
+a.ovalbutton:hover{
+    background:transparent url('{!$Resource.left_button_png_hover}') no-repeat top left;
+    display:block;
+    float:left;
+    line-height:14px;
+    height:24px;
+    padding-left:11px;
+    text-decoration:none
+}
+
+a.ovalbutton:hover span{
+    background:transparent url('{!$Resource.right_button_png_hover}') no-repeat top right;
+    <!--font:12px Trebuchet MS Bold, Arial Bold, sans-serif Bold;-->
+    font-family: Trebuchet MS, Arial, Sans-Serif; 
+    font-size:12px;
+    font-weight: bold;
+    color:#FFF;
+    display:block;
+    padding:4px 11px 4px 0
+}
+
+a:link {
+    font: 12px Trebuchet MS, sans-serif; color:#3399cc; text-decoration:none; margin-bottom:10px;
+}
+
+a:visited {
+    font: 12px Trebuchet MS, sans-serif; color:#003366; text-decoration:none; margin-bottom:10px;
+}
+
+a:hover {
+    font: 12px Trebuchet MS, sans-serif; color:#3399cc; text-decoration:underline; margin-bottom:10px;
+}
+
+.message{    
+    padding:6px 8px 6px 2px;    
+}
+
+.message .messageTable .messageCell{vertical-align:middle}
+.errorM2,.errorS1{    border-color:#c00}
+.errorM2 .messageText,.confirmM2 .messageText,.infoM2 .messageText,.warningM2 .messageText{ margin-left:40px}
+
+.errorM2 .msgIcon,.errorLarge{
+    background-image:url(/img/msg_icons/error32.png);
+    background-position:0px 0px;
+    width:32px;
+    height:32px
+}
+
+.memberSortBox{
+    background:transparent url({!$Resource.sort_round_bg_png}) no-repeat scroll 100% 50%;
+    height:30px;
+    line-height:30px;
+    margin:0;
+    padding:0;
+    clear:both
+}
+
+.memberSortBox .left_round{
+    background:transparent url({!$Resource.sort_left_png}) no-repeat scroll 0 0;
+    float:left;
+    padding:0 10px
+}
+
+input,select,textarea{
+    <!--font: normal 13px Trebuchet MS, sans-serif;-->
+    font-family: Trebuchet MS, Arial, Sans-Serif; 
+    font-size:13px;
+    width:250px;
+    border: 1px solid #dadada; 
+    background: transparent;
+    margin: 0px 0px;
+}
+    
+.button{
+    width: 80px;
+    background-color: #2F81AA;
+    color: #FFFFFF;
+    font-weight: bold;
+    border-width: 0px;
+    margin: 2px;
+    border-radius :15px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    behavior: url(ie-css3.htc); 
+}
+
+/***** Override standard CSS *****/
+.pbSubsection {
+    width: 915px;
+    padding: 15px 15px 0 15px;
+    margin:0;
+}
+
+.pbSubsection p {
+    margin:0 0 10px 0;
+    padding:0;
+}
+
+.pbSubsection table {
+    border-collapse: collapse; margin-bottom:20px;  
+}
+
+.pbSubsection table td {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 10px;
+    vertical-align: top;
+}
+
+.pbSubsection table td.border {
+    border-bottom: #D5D5D5 1px solid;
+}
+
+.pbSubsection table td.labelCol {
+    font-weight: bold;
+    border-bottom: #D5D5D5 1px solid;
+    width: 250px;
+}
+
+</style>
+
+</head>    
+    <apex:outputPanel rendered="{!AND(strerrorOccurred,strerror == strinvalidPageFlow)}">
+        <apex:pageMessage title="{!$Label.invalid_page_flow}" severity="error" strength="3" />
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!NOT(strerrorOccurred)}">
+    <apex:pageBlock title="{!IF(logoRecord.id != null,$Label.editlogo,$Label.addlogo)}">
+      <!--  <div class="container" layout="block"> -->
+        <apex:form >
+            <apex:commandLink action="{!doReturn}" value="{!$Label.go_back}"/>
+            &nbsp;|&nbsp;
+            <apex:commandLink action="{!doCancel}" value="{!$Label.cancel}"/>
+        </apex:form>
+        <br/>       
+        <!-- <apex:sectionHeader title="{!$Label.logo}" subtitle="{!Logo__c.name}"/> -->
+        <apex:pageMessages />   
+            <div >
+           <!--  <span class="left_round">&nbsp;</span>  -->
+         <apex:outputLabel value="{!$Label.logo}: {!Logo__c.name}" />
+            </div>
+        <apex:form >
+          <div >   
+            <apex:pageMessage title="{!$Label.no_logo_exists_for_account}"
+                summary="{!$Label.to_add_a_logo_click_browse_and_select_an} {!$Label.The_Recommended_Logo_Format}"
+                severity="info" strength="2"
+                rendered="{!ISNULL(logoAttachment)}" />
+            <apex:pageMessage title="{!$Label.the_below_logo_is_active_for_account}"
+                summary="{!$Label.to_add_a_logo_click_browse_and_select_an} {!$Label.The_Recommended_Logo_Format}"
+                severity="info" strength="2"
+                rendered="{!NOT(ISNULL(logoAttachment))}" />
+            <table >
+            <tr>
+            <!--<td width="{!IF(bisFirefox, '470px', '')}">-->
+             <td>
+                <apex:inputFile contentType="{!strattachmentContentType}" 
+                    size="60" fileName="{!strattachmentFileName}" value="{!blbattachmentFile}"/>
+                <!-- <apex:commandButton value="{!$Label.replace}" action="{!doReplaceLogo}" styleClass="button"/> -->
+            </td>
+            <td>
+               <apex:commandLink action="{!doReplaceLogo}" styleClass="ovalbutton" style="margin-bottom:0px;">
+                   <span>{!$Label.replace}</span>
+               </apex:commandLink>
+            </td>
+            </tr>
+            </table>
+           </div>
+        </apex:form>
+        <br/>
+        <h3>{!$Label.logo_detail}</h3>
+        <!-- <apex:pageBlock title="{!$Label.logo_detail}" mode="view" rendered="{!NOT(ISNULL(logoAttachment))}"> -->
+        <apex:pageBlock mode="view" rendered="{!NOT(ISNULL(logoAttachment))}">
+            <apex:pageBlockSection showHeader="false" title="" columns="1">
+                <apex:outputField value="{!Logo__c.name}"/>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.logo}" for="account__name"/>
+                    <apex:image height="50" width="150" rendered="{!NOT(ISNULL(logoAttachment.id))}" value="{!URLFOR($Action.Attachment.Download, logoAttachment.id)}"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <br/>
+        <apex:form >
+            <apex:commandLink action="{!doReturn}" value="{!$Label.go_back}"/>
+            &nbsp;|&nbsp;
+            <apex:commandLink action="{!doCancel}" value="{!$Label.cancel}"/>
+        </apex:form>
+        <!--</div>-->
+       </apex:pageBlock> 
+    </apex:outputPanel>
+</apex:page>

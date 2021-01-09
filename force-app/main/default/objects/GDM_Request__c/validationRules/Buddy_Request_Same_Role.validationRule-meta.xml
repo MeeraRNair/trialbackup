@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Buddy_Request_Same_Role</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( 
+RecordType.DeveloperName = &apos;Buddy_Access&apos;, OR(Buddy__r.UserRole.Id &lt;&gt; Rep_on_Leave__r.UserRole.Id,Buddy__r.ManagerId &lt;&gt; Rep_on_Leave__r.ManagerId),ISNEW() 
+)</errorConditionFormula>
+    <errorMessage>The Buddy you have selected is not part of the same Sales Team as the Rep on Leave. Please select a Buddy that reports up to the same Sales Manager as the Rep on Leave.</errorMessage>
+</ValidationRule>

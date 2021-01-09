@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>s_t__c</fullName>
+    <description>read only field for using on the CEM email template.</description>
+    <externalId>false</externalId>
+    <formula>IF ( ISPICKVAL(Segment_Business_Unit__c , &quot;PLE&quot;) ,CASE ( CSMB_Contract_Request_Type__c, 
+  &quot;Amendment/Addendum&quot;, &quot;Amendment/Addendum&quot;, 
+  &quot;New Contract&quot;, &quot;New Contract&quot;, 
+  &quot;Statement of Work&quot;, &quot;Statement of Work&quot;, 
+  &quot;Other Contract Support/Enquiry&quot;, &quot;Other Contract Support/Enquiry&quot;,
+  &quot;RFx/Bid/Proposal/Tender&quot;, &quot;RFx/Bid/Proposal/Tender&quot;,
+  &quot;Add-On SOWs&quot;, &quot;Add-On SOWs&quot;,
+  &quot;Advising on Disputes&quot;, &quot;Advising on Disputes&quot;,
+  &quot;Amending existing terms&quot;, &quot;Amending existing terms&quot;,
+  &quot;Interpretation/Contract Compliance&quot;, &quot;Interpretation/Contract Compliance&quot;,
+  &quot;NDA&quot;, &quot;NDA&quot;,
+  &quot;Task Orders&quot;, &quot;Task Orders&quot;,
+  &quot;&quot; 
+  ), 
+IF (RecordTypeId =&quot;012700000005e26&quot;,CASE ( Custom_Service_Support__c,
+&quot;Custom Service Solution&quot;,&quot;Custom Service Solution&quot;,
+&quot;On Site SDM/TAM Support&quot;, &quot;On Site SDM/TAM Support&quot;,
+&quot;US FED Specialized Support&quot;, &quot;US FED Specialized Support&quot;,
+&quot;&quot;
+),
+IF(RecordTypeId=&quot;012700000005e2B&quot;, CASE ( Proposal_Support__c,
+&quot;RFI/PQQ&quot;,&quot;RFI/PQQ&quot;,
+&quot;RFP/RFQ&quot;, &quot;RFP/RFQ&quot;,
+&quot;Other Proposal Support&quot;, &quot;Other Proposal Support&quot;,
+&quot;&quot;
+),
+&quot;&quot;)
+)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Support Type (for email template ONLY)</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

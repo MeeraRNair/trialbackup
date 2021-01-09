@@ -1,0 +1,36 @@
+<!-- * 
+* Revision CR Number   Release No      Date            Modified By     Description
+* -------- ---------   ----------      -----------     ------------    -----------
+* 1.0 -    CR 16393       FY19-DCS-1002   27-Aug-2018    Raveena Bhagat          added 'lightningStylesheets' attribute for apex component to make the page lightening friendly as part of story 5495589
+*/-->
+
+<apex:page standardController="Package__c" extensions="DeletePackageProgramAsccociationVFctrlr" lightningStylesheets="true">
+<apex:form >  
+    <apex:sectionHeader title="Available Associated Programs/Vendors that could be deleted from " subtitle="{!Package__c.name}"/>
+    <apex:pageMessage severity="info" strength="3"  title="No Associated Programs/Vendors are available for deletion from {!Package__c.name}" rendered="{!IsApvavailable}" /> 
+    <apex:commandButton action="{!Cancel}" value="Back" rendered="{!IsApvavailable}" />
+    <apex:Messages style="color:red; font-weight:bold"/>
+     
+    <apex:pageBlock rendered="{!(!IsApvavailable)}"> 
+    <apex:pageblockSection title="List of Associated Programs " collapsible="false" columns="1">
+        <apex:pageBlockTable value="{!ListofAvailableApvs}" var="apv">
+            <apex:column headerValue="Select">
+                <apex:inputCheckbox value="{!apv.selected}"/>
+            </apex:column>   
+            <apex:column headerValue="APV Name">
+                <apex:outputLink value="{!apv.apvPkgElt.id}">{!apv.apvPkgElt.name} 
+                </apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Program" value="{!apv.apvPkgElt.MDF_Program__c}"/>
+            <apex:column headerValue="Business Segment" value="{!apv.apvPkgElt.Business_Segment__c}"/>
+            <apex:column headerValue="Status" value="{!apv.apvPkgElt.Status__c}"/>
+            <apex:column headerValue="Budgeted Price" value="{!apv.apvPkgElt.Budgeted_Price__c}"/>  
+        </apex:pageBlockTable>
+    </apex:pageblockSection>
+    
+    <apex:commandButton value="Delete Associated Program" action="{!deleteAPVFromPackage}"/>
+    <apex:commandButton action="{!Cancel}" value="Cancel"/>
+    </apex:pageBlock>
+
+</apex:form>  
+</apex:page>

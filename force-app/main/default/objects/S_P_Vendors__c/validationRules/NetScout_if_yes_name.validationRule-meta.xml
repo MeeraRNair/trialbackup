@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NetScout_if_yes_name</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF( AND( If_Yes_name_of_the_NetScout_Acct_Mgr__c =&quot;&quot;, ISPICKVAL( Work_with_a_local_NetScout_Account_Mgr__c , &quot;Yes&quot;) ) , TRUE, FALSE)</errorConditionFormula>
+    <errorDisplayField>If_Yes_name_of_the_NetScout_Acct_Mgr__c</errorDisplayField>
+    <errorMessage>If &quot;Work with a local NetScout Account Mgr.?&quot; is Yes, then &quot;If Yes,name of the NetScout Acct. Mgr.?&quot; field must be specified.</errorMessage>
+</ValidationRule>

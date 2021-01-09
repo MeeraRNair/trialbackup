@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Terminated_in_SFDC__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF (Employee_Name__c = null, &quot;User Not Found&quot;,
+IF( Employee_Name__r.IsActive = true, &apos;No&apos;, &apos;Yes&apos;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Status of SFDC Deactivation</inlineHelpText>
+    <label>Terminated in SFDC</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

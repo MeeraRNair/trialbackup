@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TemplateName_Owner__c</fullName>
+    <externalId>false</externalId>
+    <formula>if (ISPICKVAL(Folder__c , &apos;Public Call Plan Templates&apos;) , Name + &apos;_Public&apos;, Name + &apos;_&apos;+CASESAFEID(OwnerId))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>TemplateName_Owner</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

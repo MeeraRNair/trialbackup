@@ -1,0 +1,31 @@
+<!-- 
+REVISION HISTORY
+================
+Version     Author                      Date            Release#    CR#     Description
+-------     ------                      ----            --------    ---     -----------
+1.0       Pawan Kumar Nitin Vasigala    2-May-2017     Sprint 7    CR14268  VF page to show a pop up to Channel Users on Incumbent Products being added to a
+                                                                            Opportunity of Incumbent Account.
+-->
+<apex:page standardController="Opportunity" extensions="OppProdIncumbencyPopup_Ctrl" action="{!removeNewlyAddedIds}"> 
+<apex:form >
+<script>
+
+      console.log('------->'+'{!showPopUp}'); 
+</script>
+
+    <apex:outputPanel rendered="{!showPopUp}">
+   <script>
+      console.log('------->'+'{!showPopUp}'); 
+
+
+            if('{!showPopUp}' == 'true'){
+                alert('{!incumbencyAlertMessage}');
+               
+           }           
+            
+            
+      
+    </script>
+    </apex:outputPanel>
+   </apex:form> 
+</apex:page>

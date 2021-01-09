@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>gdm_vre_027_CustomerName_Required</fullName>
+    <active>true</active>
+    <description>In change ownership Customer Name is required for APJ</description>
+    <errorConditionFormula>AND ( ISPICKVAL( Region__c, &quot;APJ&quot;)
+     , ISBLANK ( TRIM(  Customer_Name__c ) )
+     ,  RecordType.Name = &quot;Add Customer To Account&quot;
+
+)</errorConditionFormula>
+    <errorDisplayField>Customer_Name__c</errorDisplayField>
+    <errorMessage>(027) Customer Name is required for APJ</errorMessage>
+</ValidationRule>

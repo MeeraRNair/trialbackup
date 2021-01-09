@@ -1,0 +1,91 @@
+<apex:page standardController="Case" extensions="VFCntrlr_AddInternalContact" tabStyle="Case" title="Select Internal Contact" id="thePage" lightningStylesheets="true">
+
+<script>          
+    var selectedChkbox;
+    var tableIdCount = 0;
+    
+    function deselectOther(chkBox) {
+        if (chkBox.checked) {     
+            if ((chkBox != selectedChkbox) && (selectedChkbox!= null)) {
+                selectedChkbox.checked = false;
+            }
+                selectedChkbox = chkBox;
+            }            
+        }
+</script>
+
+<br>
+    <Center>
+        <apex:Messages style="color:red; font-weight:bold; font-size:small" />     
+    </center>  
+</br>
+
+<apex:form id="theForm">  
+    <table align="center" cellpadding="0" border="0" width="60%" id="CaseNum2">  
+        <tr><td>
+            <!-- Display Case Number-->                
+            <apex:pageblock id="CaseNum" mode="maindetail">  
+                <p style="font-size:large;"><b> Case : {!Case.CaseNumber}</b></p>
+            </apex:pageblock>                
+        </td></tr>   
+        
+        <tr><td>      
+            <!-- Display Message if no Account is found for the Case-->          
+            <apex:pageblock id="Casedetail1" mode="maindetail"  rendered="{!Case.AccountId == null}">  
+                <apex:pageMessage severity="info" strength="3" title="No Account Found" detail="Please select a Partner Account before associating an Internal Contact."> 
+                </apex:pageMessage> 
+                <apex:commandButton value="Back" title="Back" action="{!doCancel}"/>                     
+            </apex:pageblock>                
+        </td></tr>
+        
+        <tr><td>      
+            <!-- Display Message if no Account Team Member is found for the Account-->          
+            <apex:pageblock id="Casedetail2" mode="maindetail"  rendered="{!!reShowATM && Case.AccountId != null}">  
+                <apex:pageMessage severity="info" strength="3" title="No Account Team Member Found" detail="No Account Team Member available for this partner account to be associated as Internal Contact."> 
+                </apex:pageMessage> 
+                <apex:commandButton value="Back" title="Back" action="{!doCancel}"/>                     
+            </apex:pageblock>                
+        </td></tr>
+        
+         <tr><td> 
+            <!-- Display Existing Internal Contact-->                   
+            <apex:pageblock title="Existing Internal Contact" id="ExistingATMBlock" rendered="{!!reExistATM && Case.AccountId != null}" >  
+                <apex:pageBlockTable id="ListOfExtATM" value="{!existingATM}" var="ExtATMember" title="Existing Account Team Member" >
+                    <apex:column headerValue="Select">
+                        <apex:inputCheckbox id="selectChkBox" value="{!ExtATMember.selected}" onclick="deselectOther(this)"> 
+                        </apex:inputcheckbox>   
+                    </apex:column>
+                    <apex:column headerValue="Sales Team Member" width="50%">{!ExtATMember.ATM.User.Name}</apex:column>
+                    <apex:column headerValue="Role" width="70%">{!ExtATMember.ATM.TeamMemberRole}</apex:column> 
+                </apex:pageBlockTable>            
+            </apex:pageblock>                
+        </td></tr>
+        
+        <tr><td>
+            <!-- Display Other Sales Team Members-->                   
+            <apex:pageblock title="List of Account Team Members" id="ListOfOtherATMPageBlock" rendered="{!!reotherATMList && Case.AccountId != null}">  
+                <apex:pageBlockTable id="ListOfOtrATM" value="{!otherATMList}" var="OtherATMember" title="All Account Team Member">
+                    <apex:column headerValue="Select">
+                        <apex:inputCheckbox id="selectChkBox" value="{!OtherATMember.selected}" onclick="deselectOther(this)"> 
+                        </apex:inputcheckbox>                          
+                    </apex:column>
+                    <apex:column headerValue="Sales Team Member" width="50%">{!OtherATMember.ATM.User.Name}</apex:column>
+                    <apex:column headerValue="Role" width="50%">{!OtherATMember.ATM.TeamMemberRole}</apex:column> 
+                </apex:pageBlockTable>            
+            </apex:pageblock>                
+        </td></tr>                
+        
+        <tr><td>
+            <!-- Buttons--> 
+            <apex:commandButton action="{!doSave}" dir="LTR" value="Add Contact" rendered="{!reShowATM && Case.AccountId != null}"/>
+            <apex:commandButton value="Cancel" title="Cancel" action="{!doCancel}" rendered="{!reShowATM && Case.AccountId != null}"/>
+        </td></tr>           
+    </table> 
+             
+    <script>
+        //Initialize selectChkBox with existing Internal contact checkbox
+        selectedChkbox = document.getElementById('thePage:theForm:ExistingATMBlock:ListOfExtATM:0:selectChkBox');
+    </script> 
+</apex:form> 
+
+</apex:page>

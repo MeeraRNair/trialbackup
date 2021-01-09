@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Buddy_Request_21_days</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(ISPICKVAL(Buddy_Access_Status__c,&apos;&apos;),Buddy_Access_Start_Date__c + 21 &lt;  Buddy_Access_End_Date__c, RecordType.DeveloperName = &apos;Buddy_Access&apos;)</errorConditionFormula>
+    <errorMessage>The request exceeds the maximum time frame of 3 weeks. Please adjust the Start Date and/or End Date.</errorMessage>
+</ValidationRule>

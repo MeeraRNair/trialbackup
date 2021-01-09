@@ -1,0 +1,35 @@
+<!-- 
+Revision CR Number  Release No      Date            Modified By     Description
+1.0      13872      FY18-DCS-0202   03-Jan-2017     Gan             Implement for Lead
+2.0      18286      FY20-0102       07-Nov-2019     Siva            Enabled Available for Lightning Experience, Lightning Communities, and the mobile app & append lightningStylesheets=true
+
+-->
+<apex:page standardController="Lead" lightningStylesheets="true">
+  <!-- 2.0 version-->
+  <apex:slds />
+  <style>
+    body .pbSubsection {
+    padding-top: 0rem;
+    }
+    body .bPageBlock{
+    border: 0rem;
+    }
+  </style>
+  <!-- 2.0 version-->
+  <apex:pageBlock mode="maindetail">
+    <apex:pageBlockSection columns="2">
+      <!-- 2.0 version
+         <apex:pageBlockSectionItem labelStyle="display:none;">
+                    <apex:outputLabel />
+                </apex:pageBlockSectionItem>
+        -->
+      <apex:pageBlockSectionItem rendered="{!IF(Lead.Account__c != null, true, false)}">
+        <apex:outputpanel >
+          <apex:outputLink value="/apex/C360_Dashboard?id={!Id}&obj=Lead&t=1" target="_blank">
+            <apex:image value="{!$Resource.C360}" title="360 Account Home" style="padding-left: 175px;"/>
+          </apex:outputLink>
+        </apex:outputpanel>
+      </apex:pageBlockSectionItem>
+    </apex:pageBlockSection>
+  </apex:pageBlock>
+</apex:page>

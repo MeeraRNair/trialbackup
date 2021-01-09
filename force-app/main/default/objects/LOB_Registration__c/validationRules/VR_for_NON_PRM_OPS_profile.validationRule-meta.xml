@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR_for_NON_PRM_OPS_profile</fullName>
+    <active>false</active>
+    <description>This VR will restrcit NON PRM OPS/ADMIN profiles from Editing fields on the LOB Registration award</description>
+    <errorConditionFormula>AND(NOT(ISCHANGED(LOB_registration_status__c)),NOT(CONTAINS($Profile.Name,&apos;PRM Operations&apos;)))</errorConditionFormula>
+    <errorMessage>You Cannot Perform This Action</errorMessage>
+</ValidationRule>

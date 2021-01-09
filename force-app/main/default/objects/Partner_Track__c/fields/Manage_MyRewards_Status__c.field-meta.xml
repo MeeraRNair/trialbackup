@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Manage_MyRewards_Status__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( AND(Partner_Account__c==true,Status__c==true,
+
+ISPICKVAL(Partner_Track__c, &apos;Solution Provider&apos;),
+NOT( ISBLANK(Partner_Registration_Number__c)),
+NOT(AND ( 
+OR( 
+CONTAINS(Regional_Area_Name__c, &apos;EMEA&apos;), 
+CONTAINS(Regional_Area_Name__c, &apos;EC-EMEA&apos;) 
+), 
+CONTAINS(Partner_Program_Tier__c, &apos;Authorized&apos;) 
+) 
+), 
+
+
+OR(
+CONTAINS(Partner_Program_Tier__c, &apos;Authorized&apos;),
+CONTAINS( Partner_Program_Tier__c, &apos;Gold&apos;),
+CONTAINS( Partner_Program_Tier__c, &apos;Platinum&apos;),
+CONTAINS( Partner_Program_Tier__c, &apos;Titanium&apos;),
+CONTAINS( Partner_Program_Tier__c, &apos;Titanium Black&apos;)
+
+
+),
+AND(
+NOT(CONTAINS( Country_Code__c, &apos;RU&apos;)),
+NOT(CONTAINS( Country_Code__c, &apos;PL&apos;)),
+NOT(CONTAINS( Country_Code__c, &apos;CN&apos;)),
+NOT(CONTAINS( Country_Code__c, &apos;HK&apos;)),
+NOT(CONTAINS( Country_Code__c, &apos;TW&apos;)),
+NOT(CONTAINS( Country_Code__c, &apos;MO&apos;))
+
+),
+OR( 
+( $User.ProfileId == &apos;00e30000000nJ6K&apos; ), 
+( $User.ProfileId == &apos;00e70000000wzqq&apos; ), 
+( $User.ProfileId == &apos;00e70000000x0Xj&apos; ), 
+( $User.ProfileId == &apos;00eA0000000hOpn&apos; ), 
+( $User.ProfileId == &apos;00eA0000000hOps&apos; ), 
+( $User.ProfileId == &apos;00eA0000000hORl&apos; ), 
+( $User.ProfileId == &apos;00eA0000000hORq&apos; ) 
+) 
+),
+HYPERLINK(&apos;/apex/PartnerSelfServiceIncentiveBulkNominate?accountId=&apos; &amp; Master_Group_Id__c &amp; &apos;&amp;partnerTrackId=&apos;&amp;Id, &apos;Manage access here&apos;, &apos;_self&apos;), 
+&apos;No actions available&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Manage MyRewards Company Status and Enable Users</inlineHelpText>
+    <label>Manage MyRewards Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

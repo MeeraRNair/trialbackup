@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SnP_VMware_EA_Number_Limit_Rule</fullName>
+    <active>true</active>
+    <errorConditionFormula>Customer_EA__c &gt; 999999999</errorConditionFormula>
+    <errorDisplayField>Customer_EA__c</errorDisplayField>
+    <errorMessage>Customer EA# must not be greater than 999,999,999</errorMessage>
+</ValidationRule>

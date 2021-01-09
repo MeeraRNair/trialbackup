@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Internal_Topic_Experts</fullName>
+    <columns>NAME</columns>
+    <columns>Topic_Expert_Name__c</columns>
+    <columns>Title__c</columns>
+    <columns>External_Resource_Email__c</columns>
+    <columns>Specializing_In__c</columns>
+    <columns>Expertise__c</columns>
+    <columns>Site__c</columns>
+    <columns>Expert_Location__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Topic_Experts__c.Internal_Topic_Expert</value>
+    </filters>
+    <label>Internal Topic Experts</label>
+    <language>en_US</language>
+</ListView>

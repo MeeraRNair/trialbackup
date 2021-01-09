@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RL_record_shouldnt_exist_for_Sales_Touch</fullName>
+    <active>true</active>
+    <description>Relationship Lead records should not be created for Account campaigns</description>
+    <errorConditionFormula>Campaign__r.Is_this_Account_Play_Campaign__c = TRUE</errorConditionFormula>
+    <errorMessage>Relationship Lead records should not be created for Account campaigns</errorMessage>
+</ValidationRule>

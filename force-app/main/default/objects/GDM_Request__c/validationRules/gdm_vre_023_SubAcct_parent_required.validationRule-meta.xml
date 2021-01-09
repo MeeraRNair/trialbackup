@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>gdm_vre_023_SubAcct_parent_required</fullName>
+    <active>true</active>
+    <description>In Create Account if sub-account, then parent ID is required</description>
+    <errorConditionFormula>AND (  Is_Sub_Account__c == True,
+      ISBLANK(  Parent_Account_ID__c  )
+   )</errorConditionFormula>
+    <errorDisplayField>Parent_Account_ID__c</errorDisplayField>
+    <errorMessage>(023)  Please enter the Parent Account ID.</errorMessage>
+</ValidationRule>

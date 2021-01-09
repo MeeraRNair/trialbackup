@@ -1,0 +1,43 @@
+<apex:page controller="VfController_AddCateringBreak">
+
+<apex:form >
+
+    <apex:actionRegion >
+
+   <apex:pageBlock >
+  <apex:pageBlockButtons location="Bottom">
+                <apex:commandButton value="Add Catering Breaks" action="{!addCateringBreaks}"/> 
+                <apex:commandButton value="Back to Customer Engagement"  action="{!backToCE}"/>                
+                            
+  </apex:pageBlockButtons>
+  
+  </apex:pageBlock>
+  
+  
+  <apex:pageBlock title="Select Catering Breaks">
+  
+ 
+   
+  <apex:pageblockTable id="agendaContentTable" value="{!agendaContent}"
+                    var="content"
+                    cellPadding="1" >
+    <!--<apex:dataTable id="agendaContentTable" value="{!agendaContent}"
+                    var="content"
+                    cellPadding="4" border="0"> -->
+      <apex:column headerValue="Select" width="10%">
+          <apex:inputCheckbox value="{!content.isChecked}" />
+      </apex:column>
+      
+      <apex:column headerValue="Catering Breaks" colspan="2">
+        {!content.agendaContent.Name}
+      </apex:column>
+    <!-- </apex:dataTable> -->
+     
+   </apex:pageblockTable>
+  </apex:pageBlock>
+  </apex:actionRegion>
+  
+  </apex:form>
+  
+  
+</apex:page>

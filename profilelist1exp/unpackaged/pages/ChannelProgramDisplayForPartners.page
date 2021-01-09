@@ -1,0 +1,19 @@
+<apex:page standardController="Qualified_Program__c" extensions="ChannelProgramFieldDisplay">
+  <apex:form >
+      <apex:pageBlock >
+      <apex:pageBlockSection title=" {!$Label.Channel_Program_Details} {!opptyname } " collapsible="false" columns="1" >
+      <apex:pageMessages />
+
+        <apex:pageblockTable value="{!Cqp}" var="a" rendered="{!hasContractedReseller }" >
+           <apex:column headerValue="{!$Label.Channel_Program_Name}"   style="width: 300px;">
+           <apex:outputField value="{!a.Channel_Program_Name__c}"  ></apex:outputField> 
+           <!-- <apex:outputText value="{!a.Channel_Program_Name__c}"  ></apex:outputText> -->
+          </apex:column>
+            <apex:column headerValue="{!$Label.Channel_Program_Description}">
+                <apex:outputText value="{!a.Program_Description_From_Channel_Program__c}" escape="false"></apex:outputText>
+          </apex:column>
+        </apex:pageblockTable>
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

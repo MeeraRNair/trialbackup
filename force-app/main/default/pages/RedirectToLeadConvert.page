@@ -1,0 +1,187 @@
+<apex:page id="page" standardController="Lead" extensions="RedirectToLeadConvertExtension" >
+
+ <script src="/soap/ajax/28.0/connection.js" type="text/javascript"> </script >
+<script src="/soap/ajax/28.0/apex.js" type="text/javascript"> </script >
+<apex:slds />
+<apex:form id="frm">
+    <!-- <apex:commandButton id = "cmdBtn" action = "{!doRedirect}" style="display:none;"/> -->
+    <apex:actionFunction name="callRedirect" action="{!doRedirect}" reRender="xyz"/>
+</apex:form>
+
+
+<!-- This page is developed to remove the js button(Convert_Lead) and creating the VF page button 
+and previously the script associated with the button was as follows:
+NOTE: newer js version is uesed on page
+ in onclick javascript field :
+ {!REQUIRESCRIPT("/soap/ajax/28.0/connection.js")} 
+{!REQUIRESCRIPT("/soap/ajax/28.0/apex.js")} 
+and the script used below was as it is -->
+<Script>
+    sforce.connection.sessionId = "{!$Api.Session_ID}";
+    var queryId = "select Id,Contact__c from Lead where Id =\'{!Lead.Id}\'"; 
+    var result = sforce.connection.query(queryId); 
+    
+    var records = result.getArray("records"); 
+    
+    var contObj = records[0].Contact__c; 
+    
+    var firstname = "{!JSENCODE(Lead.FirstName)}";
+    var lastname = "{!JSENCODE(Lead.LastName)}"; 
+    var email = "{!JSENCODE(Lead.Email)}"; 
+    var mobile = "{!JSENCODE(Lead.MobilePhone)}"; 
+    var phone = "{!JSENCODE(Lead.Phone)}"; 
+    var contact = "{!JSENCODE(Lead.Contact__c)}"; 
+    var type = "{!Lead.Lead_Type__c}"; 
+    var account = "{!JSENCODE(Lead.Account__c)}"; 
+    var cmpny = "{!JSENCODE(Lead.Company)}"; 
+    var isError = "false"; 
+    
+    if(contact!=''){ 
+    try{ 
+    
+    var conQ= "select Id from Contact where Id ='"+contObj+"' limit 1"; 
+    var conR= sforce.connection.query(conQ); 
+    var rCons= conR.getArray("records"); 
+    var uCon= rCons[0]; 
+    var uCon1= sforce.connection.update([uCon]); 
+    //alert(uCon1); 
+    if(!uCon1[0].getBoolean("success")){ 
+    var eMsgs=''; 
+    var eMsgs1 = 'You must correct the '; 
+    var eMsgs2= "false"; 
+    isError = "true"; 
+    var recs1 = uCon1[0].getArray("errors"); 
+    for(var i=0; i<recs1.length; i++){ 
+    if(recs1[i].fields == "FirstName"){ 
+eMsgs += 'First Name provided in the related contact is listed in the exclusion list.'+'\n'; 
+    eMsgs1 +='First Name,'; 
+    }else if(recs1[i].fields == "LastName"){ 
+eMsgs += 'Last Name provided in the related contact is listed in the exclusion list.'+'\n'; 
+    eMsgs1 +='Last Name,' 
+    }else if(recs1[i].fields == "Email"){ 
+eMsgs += 'Email provided in the related contact is listed in the exclusion list.'+'\n'; 
+    eMsgs1 +='Email,' 
+    }else if(recs1[i].fields == "Phone"){ 
+eMsgs += 'Phone provided in the related contact is listed in the exclusion list.'+'\n'; 
+    eMsgs1 +='Phone,' 
+    }else if(recs1[i].fields == "MobilePhone"){ 
+    eMsgs += 'Mobile provided in the related contact is listed in the exclusion list.'+'\n'; 
+    eMsgs1 +='Mobile,'; 
+    }else{ 
+    eMsgs2 = "true"; 
+    } 
+    } 
+    if(eMsgs!=''){ 
+    eMsgs1 = (eMsgs1.charAt(eMsgs1.length - 1)==",")?eMsgs1.substring(0,eMsgs1.length-1):eMsgs1; 
+    eMsgs = eMsgs+'\n'+eMsgs1+' in the related contact before starting the lead conversion process.'; 
+    alert(eMsgs);
+    goLightningCheck(); 
+    }else if(eMsgs2=='true'){ 
+    isError = 'false'; 
+    } 
+    } 
+    }catch(e){ 
+    alert('----------------------------'+e); 
+    } 
+    }else{ 
+    
+    var eMsgs = ''; 
+    var eMsgs1 = 'You must correct the '; 
+    if(firstname!= '' && firstname !=null){ 
+         firstname = firstname.replace(/'/g,"\\'");                   
+    var conQ14 = "select Id, First_Name__c from Contact_Exclusion__c where Active__c = true AND First_Name__c ='"+firstname+"'"; 
+    var conR14 = sforce.connection.query(conQ14); 
+    var rCons14= conR14.getArray("records"); 
+    if(rCons14.length > 0){ 
+    eMsgs += 'First Name provided is listed in the exclusion list'+'\n'; 
+    eMsgs1 += 'First Name,'; 
+    } 
+    } 
+    
+    if(lastname!= '' && lastname !=null){ 
+        lastname = lastname.replace(/'/g,"\\'");
+    var conQ15 = "select Id, Last_Name__c from Contact_Exclusion__c where Active__c = true AND Last_name__c ='"+lastname+"'"; 
+    var conR15= sforce.connection.query(conQ15); 
+    var rCons15= conR15.getArray("records"); 
+    if(rCons15.length > 0){ 
+eMsgs += 'Last Name provided is listed in the exclusion list'+'\n'; 
+    eMsgs1 += 'Last Name,'; 
+    } 
+    } 
+    
+    if(email != '' && email!=null){ 
+         email = email.replace(/'/g,"\\'");
+    var conQ1 = "select Id, Email__c from Contact_Exclusion__c where Active__c = true AND Email__c ='"+email+"'"; 
+    var conR1= sforce.connection.query(conQ1); 
+    var rCons1= conR1.getArray("records"); 
+    if(rCons1.length > 0){ 
+eMsgs += 'Email provided is listed in the exclusion list'+'\n'; 
+    eMsgs1 += 'Email,'; 
+    } 
+    } 
+    
+    if(phone != '' && phone !=null){ 
+        phone = phone.replace(/'/g,"\\'");
+    var conQ12 = "select Id, Phone__c from Contact_Exclusion__c where Active__c = true AND Phone__c ='"+phone+"'"; 
+    var conR12= sforce.connection.query(conQ12); 
+    var rCons12= conR12.getArray("records"); 
+    if(rCons12.length > 0){ 
+eMsgs += 'Phone provided is listed in the exclusion list'+'\n'; 
+    eMsgs1 += 'Phone,'; 
+    } 
+    } 
+    
+    if(mobile != '' && mobile !=null){ 
+        mobile = mobile.replace(/'/g,"\\'");
+    var conQ13 = "select Id, Phone__c from Contact_Exclusion__c where Active__c = true AND Phone__c ='"+mobile+"'"; 
+    var conR13 = sforce.connection.query(conQ13); 
+    var rCons13= conR13.getArray("records"); 
+    if(rCons13.length > 0){ 
+    eMsgs += 'Mobile provided is listed in the exclusion list'+'\n'; 
+    eMsgs1 += 'Mobile'; 
+    } 
+    } 
+    
+    
+    if(eMsgs != ''){ 
+    isError = "true"; 
+    eMsgs1 = (eMsgs1.charAt(eMsgs1.length - 1)==",")?eMsgs1.substring(0,eMsgs1.length-1):eMsgs1; 
+    eMsgs = eMsgs+'\n'+eMsgs1+' before starting the lead conversion process'; 
+    alert(eMsgs); 
+    goLightningCheck();
+    } 
+    
+    } 
+    
+    
+    if(email == '' && mobile == '' && phone == '' && contact == '' && type == 'Outbound'){ 
+    isError = "true"; 
+    alert('{!$Label.LM2_Required_Contact_Detail}'); 
+    goLightningCheck();
+    }else if(cmpny.length <=1 && account == '' && type == 'Inbound'){ 
+    isError = "true"; 
+    alert('{!$Label.LM2_1Char_Companyname}'); 
+    goLightningCheck(); 
+    } 
+    
+    if(isError!='true'){ 
+        //previously window.location method was used here like below
+        //window.location.href = '/apex/leadConvertPage?scontrolCaching=1&id={!Lead.Id}'; 
+        
+        callRedirect();
+        console.log('------->');
+        
+    }
+    //Method to Redirect in classic & Lightning 
+    function goLightningCheck() {
+
+        if('{!$User.UITheme}'=='Theme3')  {
+            location.assign('/{!Lead.Id}');         
+        } else{
+           sforce.one.navigateToURL('/{!Lead.Id}', true);
+        }
+      
+    }
+
+</Script>
+</apex:page>

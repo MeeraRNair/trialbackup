@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DGR</fullName>
+    <active>true</active>
+    <description>R14.10 - Page layout for &quot;DGR Qualify Gate Approval&quot;, &quot;DGR Propose Gate Approval&quot; and &quot;DGR Contract Gate Approval&quot;</description>
+    <label>DGR</label>
+    <picklistValues>
+        <picklist>Action__c</picklist>
+        <values>
+            <fullName>Approval Request Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Approval Request Submitted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Approval Request Updated</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Approval_Request_Type__c</picklist>
+        <values>
+            <fullName>DGR Contract Gate Approval</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DGR Propose Gate Approval</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DGR Qualify Gate Approval</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technical Certification Tier 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technical Certification Tier 2</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Approval_Status__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed as Rejected</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Submitted</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Delivery_Region_s__c</picklist>
+        <values>
+            <fullName>AMER</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>APJ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EMEA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LATAM</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Service_Area_s__c</picklist>
+        <values>
+            <fullName>ARR%2FData Wipe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Apps Mgt %26 Support</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Asset %26 Configuration Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Auto %26 Monitoring</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BI%2FDWH%2FMDM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BPO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>C3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Capacity Plan%2FISIS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Custom Dev%2FMaint</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data Center</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Database Admin</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Desktop Engineering</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disaster Recovery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>End User Computing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Field Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HCLS Cloud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ITDS Service Assurance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mainframe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Managed Deployment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Messaging</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobility</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Network</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Networking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Next Gen Compute Solutions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Packaging Imp%2FMgt</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Platform Hosting UNIX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Platform Hosting Windows</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private Cloud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reporting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service Desk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service Desk Voice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service Management Tools</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Storage Backup</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Storage Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Storage Systems</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Support Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>System Management Tools</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Testing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transition</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>iSeries %28AS400%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>vCloud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>vDaas</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

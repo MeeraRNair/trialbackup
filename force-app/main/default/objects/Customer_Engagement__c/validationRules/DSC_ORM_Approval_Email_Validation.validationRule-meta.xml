@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DSC_ORM_Approval_Email_Validation</fullName>
+    <active>true</active>
+    <description>Validate for assigned ORM before sending approval email</description>
+    <errorConditionFormula>ISBLANK( Resource_Manager__c )  &amp;&amp;  Send_Approval_Request_to_ORM__c = TRUE</errorConditionFormula>
+    <errorDisplayField>Resource_Manager__c</errorDisplayField>
+    <errorMessage>Please assign ORM before sending approval request.</errorMessage>
+</ValidationRule>

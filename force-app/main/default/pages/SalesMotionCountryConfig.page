@@ -1,0 +1,401 @@
+<apex:page extensions="VFCntrlr_SalesMotionCountryConfig" standardcontroller="Sales_Motion_Page_Section__c"  tabStyle="Sales_Motion_Page_Section__c">
+<STYLE>
+
+    .customPanel {
+
+        margin-bottom: 10px;
+
+      }
+
+      
+
+      .customHR {
+
+        color: #7eb47e;
+
+      }
+
+      
+
+      .customLinkBtn {    
+
+        background-image: url(/img/bgButton.gif);
+
+        background-repeat: repeat-x;
+
+        background-position: left top;
+
+        border-right-width-value: 1px;
+ 
+        border-right-style-value: solid;
+
+        border-right-color-value: #5c5d61;
+
+        border-bottom-width: 1px;
+
+        border-bottom-style: solid;
+
+        border-bottom-color: #5c5d61;
+
+        border-top-width: medium;
+
+        border-top-style: none;
+
+        border-top-color: -moz-use-text-color;
+
+        border-left-width-value: medium;
+
+        border-left-style-value: none;
+
+        border-left-color-value: -moz-use-text-color;
+
+        padding-top: 1px;
+
+        padding-right: 3px;
+
+        padding-bottom: 1px;
+
+        padding-left: 3px;
+
+        cursor: pointer;
+
+        display: inline;
+
+        font-size: 80%;
+
+      }
+
+      
+
+      .customLinkBtnText
+
+      {
+
+        font-family: 'Verdana','Geneva',sans-serif;
+
+        color: #ffffff;
+
+        font-weight: bold;
+
+      }
+
+      
+
+      a:visited, a:link {text-decoration: none;}
+
+      
+
+    
+
+      .customTableCol {
+
+          vertical-align: middle;
+
+      }
+
+    .cErrorMessage {
+        font-weight: bold;
+    }
+
+    .bPageTitle   
+    { 
+        margin-bottom: 1px;
+    }
+  </STYLE>
+
+<apex:form rendered="true"> 
+
+<apex:inputHidden value="{!Sales_Motion_Page_Section__c.Id}" id="Id"/>
+<apex:inputHidden value="{!Sales_Motion_Page_Section__c.Country_List__c}" id="Country_List__c"/>
+<apex:inputHidden value="{!Sales_Motion_Page_Section__c.Region_List__c}" id="Region_List__c"/>  
+<apex:inputHidden value="{!Sales_Motion_Page_Section__c.Business_Unit_List__c}" id="Business_Unit_List__c"/> 
+<apex:inputHidden value="{!Sales_Motion_Page_Section__c.Language_List__c}" id="Language_List__c"/>  
+
+ 
+ <apex:pageBlock title="Select Countries" id="ConCountries" rendered="{!passedpage=='country'}">
+ 
+          <table>
+          
+          
+ 
+            <tr>  
+ 
+              <td class="customTableCol" style="width: 230px;">
+
+                <b>Available Countries:</b>  
+
+                <apex:selectList multiselect="true" value="{!smCountriesToAdd}" size="30" style="width: 230px;" id="ava">
+
+                  <apex:selectOptions value="{!availableCountries}"/><br/> 
+
+                </apex:selectList>
+ 
+              </td>
+
+              <td style="vertical-align: middle">
+
+                <!-- <apex:commandButton action="{!addCountries}" reRender="ConCountries" status="status" styleClass="rightArrowIcon" style="border: 0px; width: 24px" title="Add"/> -->
+                <apex:commandLink action="{!addCountries}" reRender="ConCountries,ava" status="status" title="Add"><img src="/s.gif" alt="Add" class="picklistArrowRight" style="cursor: pointer; " title="Add"/></apex:commandLink>
+
+                <br/>
+
+                <br/>
+
+                <!-- <apex:commandButton action="{!removeCountries}" reRender="ConCountries" status="status" styleClass="leftArrowIcon" style="border: 0px; width: 24px" title="Remove" /> -->
+                <apex:commandLink action="{!removeCountries}" reRender="ConCountries,ava" status="status" title="Add"><img src="/s.gif" alt="Remove" class="picklistArrowLeft" style="cursor: pointer; " title="Remove"/></apex:commandLink>
+
+              </td>
+
+              <td class="customTableCol"  style="width: 230px;">
+
+                <b>Selected Contact Countries:</b>
+
+                <apex:selectList multiselect="true" value="{!countriesToRemove}" size="30" style="width: 230px">
+
+                  <apex:selectOptions value="{!selectedCountries}"/><br/>
+
+                </apex:selectList>
+
+              </td>
+
+            </tr>
+
+            <tr>
+
+                <td style="text-align: right"><apex:commandButton reRender="ConCountries" value="Add All Available Countries" action="{!addAllCountries}" style="margin-top: 5px"/></td>
+
+                <td></td>
+
+                <td><apex:commandButton reRender="ConCountries" value="Remove All Selected Countries" action="{!removeAllCountries}" style="margin-top: 5px"/></td>
+
+            </tr>
+
+             <tr> 
+
+                <td style="text-align: right"><apex:commandButton value="Save" action="{!saveCountries}"  status="status" style="margin-top: 5px"/></td>
+
+                <td></td>
+                 <td><apex:commandButton value="Cancel" action="{!redirectBack}"  style="margin-top: 5px"/></td>
+                           </tr>
+                
+
+          </table>   
+
+
+    </apex:pageBlock>
+    <apex:pageBlock title="Select Regions" id="ConRegion" rendered="{!passedpage=='region'}">
+ 
+          <table>
+          
+          
+ 
+            <tr>  
+ 
+              <td class="customTableCol" style="width: 230px;">
+
+                <b>Available Regions:</b>  
+
+                <apex:selectList multiselect="true" value="{!smRegionsToAdd}" size="30" style="width: 230px;" id="avaReg">
+
+                  <apex:selectOptions value="{!availableRegions}"/><br/> 
+
+                </apex:selectList>
+ 
+              </td>
+
+              <td style="vertical-align: middle">
+
+                <!-- <apex:commandButton action="{!addCountries}" reRender="ConCountries" status="status" styleClass="rightArrowIcon" style="border: 0px; width: 24px" title="Add"/> -->
+                <apex:commandLink action="{!addRegions}" reRender="ConRegion,avaReg" status="status" title="Add"><img src="/s.gif" alt="Add" class="picklistArrowRight" style="cursor: pointer; " title="Add"/></apex:commandLink>
+
+                <br/>
+
+                <br/>
+
+                <!-- <apex:commandButton action="{!removeCountries}" reRender="ConCountries" status="status" styleClass="leftArrowIcon" style="border: 0px; width: 24px" title="Remove" /> -->
+                <apex:commandLink action="{!removeRegions}" reRender="ConRegion,avaReg" status="status" title="Add"><img src="/s.gif" alt="Remove" class="picklistArrowLeft" style="cursor: pointer; " title="Remove"/></apex:commandLink>
+
+              </td>
+
+              <td class="customTableCol"  style="width: 230px;">
+
+                <b>Selected Regions:</b>
+
+                <apex:selectList multiselect="true" value="{!regionsToRemove}" size="30" style="width: 230px">
+
+                  <apex:selectOptions value="{!selectedRegions}"/><br/>
+
+                </apex:selectList>
+
+              </td>
+
+            </tr>
+
+            <tr>
+
+                <td style="text-align: right"><apex:commandButton reRender="ConRegion" value="Add All Available Regions" action="{!addAllRegions}" style="margin-top: 5px"/></td>
+
+                <td></td>
+
+                <td><apex:commandButton reRender="ConRegion" value="Remove All Selected Regions" action="{!removeAllRegions}" style="margin-top: 5px"/></td>
+
+            </tr>
+
+             <tr> 
+
+                <td style="text-align: right"><apex:commandButton value="Save" action="{!saveRegions}"  status="status" style="margin-top: 5px"/></td>
+
+                <td></td>
+                 <td><apex:commandButton value="Cancel" action="{!redirectBack}"  style="margin-top: 5px"/></td>
+                           </tr>
+                
+
+          </table>   
+
+
+    </apex:pageBlock>
+    <apex:pageBlock title="Select Business Units" id="ConBusinessUnit" rendered="{!passedpage=='businessunit'}">
+ 
+          <table>
+          
+          
+ 
+            <tr>  
+ 
+              <td class="customTableCol" style="width: 230px;">
+
+                <b>Available Business Unit:</b>  
+
+                <apex:selectList multiselect="true" value="{!smBusinessUnitsToAdd}" size="30" style="width: 230px;" id="avaBusUnit">
+
+                  <apex:selectOptions value="{!availableBusinessUnits}"/><br/> 
+
+                </apex:selectList>
+ 
+              </td>
+
+              <td style="vertical-align: middle">
+
+                <!-- <apex:commandButton action="{!addCountries}" reRender="ConCountries" status="status" styleClass="rightArrowIcon" style="border: 0px; width: 24px" title="Add"/> -->
+                <apex:commandLink action="{!addBusinessUnits}" reRender="ConBusinessUnit,avaBusUnit" status="status" title="Add"><img src="/s.gif" alt="Add" class="picklistArrowRight" style="cursor: pointer; " title="Add"/></apex:commandLink>
+
+                <br/>
+
+                <br/>
+
+                <!-- <apex:commandButton action="{!removeCountries}" reRender="ConCountries" status="status" styleClass="leftArrowIcon" style="border: 0px; width: 24px" title="Remove" /> -->
+                <apex:commandLink action="{!removeBusinessUnits}" reRender="ConBusinessUnit,avaBusUnit" status="status" title="Add"><img src="/s.gif" alt="Remove" class="picklistArrowLeft" style="cursor: pointer; " title="Remove"/></apex:commandLink>
+
+              </td>
+
+              <td class="customTableCol"  style="width: 230px;">
+
+                <b>Selected Business Unit:</b>
+
+                <apex:selectList multiselect="true" value="{!businessunitsToRemove}" size="30" style="width: 230px">
+
+                  <apex:selectOptions value="{!selectedBusinessUnits}"/><br/>
+
+                </apex:selectList>
+
+              </td>
+
+            </tr>
+
+            <tr>
+
+                <td style="text-align: right"><apex:commandButton reRender="ConBusinessUnit" value="Add All Available Business Units" action="{!addAllBusinessUnits}" style="margin-top: 5px"/></td>
+
+                <td></td>
+
+                <td><apex:commandButton reRender="ConBusinessUnit" value="Remove All Selected Business Units" action="{!removeAllBusinessUnits}" style="margin-top: 5px"/></td>
+
+            </tr>
+
+             <tr> 
+
+                <td style="text-align: right"><apex:commandButton value="Save" action="{!saveBusinessUnits}"  status="status" style="margin-top: 5px"/></td>
+
+                <td></td>
+                 <td><apex:commandButton value="Cancel" action="{!redirectBack}"  style="margin-top: 5px"/></td>
+                           </tr>
+                
+
+          </table>   
+
+
+    </apex:pageBlock>
+    
+    <apex:pageBlock title="Select Languages" id="ConLanguages" rendered="{!passedpage=='language'}">
+ 
+          <table>
+          
+          
+ 
+            <tr>  
+ 
+              <td class="customTableCol" style="width: 230px;">
+
+                <b>Available Languages:</b>  
+
+                <apex:selectList multiselect="true" value="{!smLanguagesToAdd}" size="30" style="width: 230px;" id="avaLanguages">
+
+                  <apex:selectOptions value="{!availableLanguages}"/><br/> 
+
+                </apex:selectList>
+ 
+              </td>
+
+              <td style="vertical-align: middle">
+
+                <!-- <apex:commandButton action="{!addCountries}" reRender="ConCountries" status="status" styleClass="rightArrowIcon" style="border: 0px; width: 24px" title="Add"/> -->
+                <apex:commandLink action="{!addLanguages}" reRender="ConLanguages,avaLanguages" status="status" title="Add"><img src="/s.gif" alt="Add" class="picklistArrowRight" style="cursor: pointer; " title="Add"/></apex:commandLink>
+
+                <br/>
+
+                <br/>
+
+                <!-- <apex:commandButton action="{!removeCountries}" reRender="ConCountries" status="status" styleClass="leftArrowIcon" style="border: 0px; width: 24px" title="Remove" /> -->
+                <apex:commandLink action="{!removeLanguages}" reRender="ConLanguages,avaLanguages" status="status" title="Add"><img src="/s.gif" alt="Remove" class="picklistArrowLeft" style="cursor: pointer; " title="Remove"/></apex:commandLink>
+
+              </td>
+
+              <td class="customTableCol"  style="width: 230px;">
+
+                <b>Selected Languages:</b>
+
+                <apex:selectList multiselect="true" value="{!languagesToRemove}" size="30" style="width: 230px">
+
+                  <apex:selectOptions value="{!selectedLanguages}"/><br/>
+
+                </apex:selectList>
+
+              </td>
+
+            </tr>
+
+            <tr>
+
+                <td style="text-align: right"><apex:commandButton reRender="ConLanguages" value="Add All Available Languages" action="{!addAllLanguages}" style="margin-top: 5px"/></td>
+
+                <td></td>
+
+                <td><apex:commandButton reRender="ConLanguages" value="Remove All Selected Languages" action="{!removeAllLanguages}" style="margin-top: 5px"/></td>
+
+            </tr>
+
+             <tr> 
+
+                <td style="text-align: right"><apex:commandButton value="Save" action="{!saveLanguages}"  status="status" style="margin-top: 5px"/></td>
+
+                <td></td>
+                 <td><apex:commandButton value="Cancel" action="{!redirectBack}"  style="margin-top: 5px"/></td>
+                           </tr>
+                
+
+          </table>   
+
+
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

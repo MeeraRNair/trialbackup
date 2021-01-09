@@ -1,0 +1,35 @@
+<apex:page standardcontroller="Account_Handover__c" extensions="AccntHandoverKeyContactsCtrl" lightningStyleSheets="true" action="{!getContacts}" lightningStylesheets="true">
+              
+    <apex:pageBlock >
+        
+        <apex:outputPanel rendered="{!IF(contacts.size>0,false,true)}">   
+            No records to display
+        </apex:outputPanel>
+        
+        <apex:pageBlockTable value="{!contacts}" var="contact" rows="10" rendered="{!IF(contacts.size>0,true,false)}">
+            
+            <apex:column styleClass="actionColumn" headerValue="Action">
+                <apex:outputLink styleClass="actionLink" value="/{!contact.Id}/e?retURL=%2F{!accHandover.Id}" target="_parent">Edit</apex:outputLink>
+            </apex:column>
+            
+            <apex:column headerValue="Contact Name">
+                <apex:outputLink value="/{!contact.Id}" target="_parent">{!contact.Name}</apex:outputLink>
+            </apex:column> 
+            
+            <apex:column value="{!contact.Title}"/> 
+            <apex:column value="{!contact.Email}"/> 
+            <apex:column value="{!contact.Phone}"/> 
+            <apex:column value="{!contact.Phone_Extn__c}"/> 
+            <apex:column value="{!contact.NPS_Category__c }"/>             
+           
+        </apex:pageBlockTable>
+        
+        <div class="pShowMore">
+            <apex:outputLink rendered="{!IF(contacts.size>10, true, false)}" target="_parent" value="/apex/AccntHandoverKeyContactsAll?Id={!accHandover.Id}">Go to list (10+) »</apex:outputLink>
+        </div>
+        
+    </apex:pageBlock>
+    
+  
+    
+</apex:page>

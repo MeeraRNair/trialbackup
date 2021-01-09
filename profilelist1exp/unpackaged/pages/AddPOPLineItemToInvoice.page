@@ -1,0 +1,62 @@
+<apex:page standardController="Invoice__c" standardStylesheets="true" action="{!AddPOPLineItemToInvoice}" extensions="AddPOPLineItemToInvoiceController" lightningStylesheets="true">
+    <apex:form >
+      
+      <apex:pageBlock title="Publish to partner portal" mode="mainDetail"> 
+      <apex:pageBlockSection collapsible="false" title="POP Line Items" columns="1">
+          <apex:pageBlockTable value="{!PopLineItemList}" var="pop">
+                  <apex:column headerValue="POP Line Item">
+                 {!pop.name}            
+                </apex:column>                  
+                <apex:column headerValue="POP">
+                 {!pop.Proof_of_Performance_POP__r.name}            
+                </apex:column>            
+                <apex:column headerValue="Program">
+                {!pop.Proof_of_Performance_POP__r.MDF_Program__r.name} 
+                </apex:column>
+                <apex:column headerValue="Business Segment">
+                {!pop.Business_Segment__c} 
+                </apex:column>
+                <apex:column headerValue="POP submission status">
+                {!pop.POP_Submission_Status__c} 
+                </apex:column>
+          </apex:pageBlockTable> 
+          
+          <apex:pageMessage rendered="{!POPMessage}" severity="Info" strength="3" summary="No POP Line Items to publish to partner portal"/>
+          
+       </apex:pageblockSection>
+      <apex:pageBlockSection collapsible="false" title="Select Partners" columns="1">
+          <apex:pageBlockTable value="{!Partner}" var="mdfC">
+              <apex:column headerValue="Select">
+                    <apex:inputCheckbox value="{!mdfC.selected}"/>
+              </apex:column>   
+                <apex:column headerValue="MDF Contact name">
+                 {!mdfC.Partner.MDF_Contact__r.name}            
+                </apex:column>            
+                <apex:column headerValue="Email">
+                {!mdfC.Partner.MDF_Contact__r.Email__c } 
+                </apex:column>              
+                <apex:column headerValue="Record Type">  
+                  {!mdfC.Partner.MDF_Contact__r.recordtype.name} 
+                </apex:column>  
+          </apex:pageBlockTable> 
+          <apex:pageMessage rendered="{!Message}" severity="Info" strength="3" summary="No partner contacts to display"/>
+          
+       </apex:pageblockSection>
+      <br/><br/>
+      Enter additional email_ids separated with 'Semi-Colon' :&nbsp;&nbsp;<apex:inputtext value="{!EmailTxt}" maxlength="75" Style="Width:200px" html-placeholder="Enter emailId"/> 
+      <br/><br/>      
+      Click on <b>"Send to partner"</b> button to send email to the partners.      
+     
+     <apex:Messages style="color:red; font-weight:bold"/>
+     <apex:pageBlockButtons >
+         <apex:commandButton action="{!sendToPartner}" value="Send to partner"/>
+         <apex:commandButton action="{!Cancel}" value="Cancel"/>
+     </apex:pageBlockButtons>
+     <script>
+         window.onload = function() {
+         jQuery('input[type=text]').blur();
+         };
+     </script>
+     </apex:pageBlock>
+</apex:form>
+</apex:page>

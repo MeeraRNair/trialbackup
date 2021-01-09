@@ -1,0 +1,12 @@
+<apex:page Controller="mdm_insufficientaccesscntrlr" showHeader="false" sidebar="false">  
+   <p vertical-align="center"> <b> {!$Label.MDM_Message_4} </b> <br> </br>
+   <b>  {!$Label.MDM_Message_5} </b> <br> </br>
+     <br></br>
+    <b> {!$Label.MDM_Field_AccountID} </b>: {!affiid}<br> </br>
+    <b> {!$Label.MDM_Field_SFDCID} </b>: {!aid}<br> </br>
+    <b> {!$Label.MDM_Field_AccountName} </b>: {!accname} <br> </br>
+    <b> {!$Label.MDM_Field_AccountOwner} </b>: <apex:outputlink value="mailto:{!owneremail}">{!accowner}
+                    </apex:outputlink>
+                     <br> </br>
+      </p> 
+</apex:page>

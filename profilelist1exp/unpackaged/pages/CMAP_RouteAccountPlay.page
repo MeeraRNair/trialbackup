@@ -1,0 +1,82 @@
+<apex:page standardController="Account_Play__c" extensions="CMAP_APRoutingController" lightningStylesheets="true" tabStyle="Account_Play__c" action="{!addToPermissionset}">
+    <apex:form >
+        <apex:pagemessages />
+       
+        <apex:pageBlock rendered="{!showFirstBlock }" title="Select Primary Contact">
+            <apex:pageBlockSection title="{!$Label.CMAP_Page} #{!pageNumber} {!$Label.CMAP_of} {!totalPages}"  columns="1" collapsible="false" rendered="{!IF(ContactDetails.size>0,'true','false')}">
+                    <apex:pageBlockTable id="pb1" value="{!ContactDetails}" var="contact" rendered="{!AND(ContactDetails.size>0, (!valCheck))}">
+                        <apex:column width="25px" headerValue="{!$Label.CMAP_Action}">
+                            <input type="radio" name="radioName" value="{!contact.Id}" >
+                               <apex:actionSupport event="onclick" action="{!enableContinueButton}" reRender="buttons" status="primaryContactStatus"/>
+                                 <apex:actionStatus id="primaryContactStatus" startText="Loading..." layout="inline">
+                                     <apex:facet name="start" >
+                                         <apex:image value="/img/loading32.gif" alt="Loading..."/> 
+                                     </apex:facet>
+                                 </apex:actionStatus>
+                           </input>  
+                        </apex:column>
+                       <apex:column value="{!contact.contactName}" headerValue="{!$Label.CMAP_Name}" />
+                    </apex:pageBlockTable>
+                    <apex:pageBlockTable id="pb2" value="{!ContactDetails}" var="contact" rendered="{!AND(ContactDetails.size>0, valCheck)}">
+                        <apex:column width="25px" headerValue="{!$Label.CMAP_Action}" rendered="{!IF(contact.isChecked == valCheck,'true','false')}">
+                           <input type="radio" name="radioName" value="{!contact.Id}"   checked="true"  >
+                              <apex:actionSupport event="onclick" action="{!enableContinueButton}" reRender="buttons" status="primaryContactStatus"/>
+                                 <apex:actionStatus id="primaryContactStatus" startText="Loading..." layout="inline">
+                                     <apex:facet name="start" >
+                                         <apex:image value="/img/loading32.gif" alt="Loading..."/> 
+                                     </apex:facet>
+                                 </apex:actionStatus> 
+                            </input>
+                        </apex:column>
+                        <apex:column width="25px" headerValue="{!$Label.CMAP_Action}" rendered="{!IF(contact.isChecked == valCheck,'false','true')}">
+                           <input type="radio" name="radioName" value="{!contact.Id}" >
+                            <apex:actionSupport event="onclick" action="{!enableContinueButton}" reRender="buttons" status="primaryContactStatus1"/>
+                                 <apex:actionStatus id="primaryContactStatus1" startText="Loading..." layout="inline">
+                                     <apex:facet name="start" >
+                                         <apex:image value="/img/loading32.gif" alt="Loading..."/> 
+                                     </apex:facet>
+                                 </apex:actionStatus> 
+                            </input>
+                        </apex:column>
+                        <apex:column value="{!contact.contactName}" headerValue="{!$Label.CMAP_Name}" />  
+                     </apex:pageBlockTable> 
+            </apex:pageBlockSection>
+              
+            <apex:panelGrid columns="4" rendered="{!totalPages >1}">
+                <apex:commandLink action="{!first}" value="{!$Label.CMAP_First}" rendered="{!hasPrevious}"></apex:commandlink>
+                <apex:commandLink action="{!previous}" rendered="{!hasPrevious}" value="{!$Label.CMAP_Previous}"></apex:commandlink>
+                <apex:commandLink action="{!next}" rendered="{!hasNext}" value="{!$Label.CMAP_Next}"></apex:commandlink>
+                <apex:commandLink action="{!last}" rendered="{!hasNext}">{!$Label.CMAP_Last}</apex:commandlink>
+                
+            </apex:panelGrid>   
+            <br/>
+            <br/>
+            <apex:pageBlockSection >
+                 <apex:inputField value="{!APObj.Customer_Consents_to_Engage_Dell_Partner__c}" required="True" >
+                     <apex:actionSupport event="onclick" action="{!enableContinueButton}" reRender="buttons"  status="consent"/>
+                     <apex:actionStatus id="consent" startText="Loading..." layout="inline">
+                         <apex:facet name="start" >
+                             <apex:image value="/img/loading32.gif" alt="Loading..."/> 
+                         </apex:facet>
+                     </apex:actionStatus>
+                 </apex:inputfield>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock id="buttons" rendered="{!showButtonBlock }">
+            <apex:pageblockButtons location="bottom">
+                 <apex:commandButton value="Continue" action="{!redirect}" rendered="{!enableContinue}"/>
+                 <apex:commandButton value="Cancel" action="{!cancelButton}"/>
+            </apex:pageblockButtons>
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="Please Edit or Enter Comments" rendered="{!Show2ndBlock}">
+            <apex:pageBlockSection columns="1">
+                <apex:inputField value="{!clRecord.Questions_Comments__c}" required="True"  style="Width:60%"/>
+                <apex:inputField value="{!clRecord.Sales_Comments__c}" required="True"  style="Width:60%"/>               
+            </apex:pageBlockSection>
+            <apex:pageblockButtons location="bottom">
+                 <apex:commandButton value="Save" action="{!saveButton}"/>
+            </apex:pageblockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

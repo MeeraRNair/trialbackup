@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Services_Support_Request_Finance</fullName>
+    <columns>Created_Date__c</columns>
+    <columns>Deal_ID__c</columns>
+    <columns>NAME</columns>
+    <columns>Opportunity__c</columns>
+    <columns>Project_Type__c</columns>
+    <columns>Dell_Services_Industry__c</columns>
+    <columns>Dell_Services_LOB__c</columns>
+    <columns>Unweighted_Rev_Services_Only__c</columns>
+    <columns>Stage__c</columns>
+    <columns>Decision_Date__c</columns>
+    <columns>Account_Country__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Services_Finance_Support__c</field>
+        <operation>equals</operation>
+        <value>Yes</value>
+    </filters>
+    <filters>
+        <field>Services_Finance_Support_Status__c</field>
+        <operation>equals</operation>
+        <value>Resource Requested</value>
+    </filters>
+    <label>Services Support Request – Finance</label>
+    <language>en_US</language>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
+</ListView>

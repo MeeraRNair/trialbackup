@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Require_State_If_There_Were_Options</fullName>
+    <active>true</active>
+    <description>Require State field if Country is equals to ‘Australia’, ‘Brazil’, ‘Canada’, ‘China’, ‘India’, ‘Japan’, ‘Mexico’, and ‘United States’</description>
+    <errorConditionFormula>IF( OR( ISPICKVAL( State__c , &apos;Australia&apos;), ISPICKVAL( State__c , &apos;Brazil&apos;), ISPICKVAL( State__c , &apos;Canada&apos;), ISPICKVAL( State__c , &apos;China&apos;), ISPICKVAL( State__c , &apos;India&apos;), ISPICKVAL( State__c , &apos;Japan&apos;), ISPICKVAL( State__c , &apos;Mexico&apos;), ISPICKVAL( State__c , &apos;United States&apos;) ) , ISPICKVAL( State__c, &apos;&apos; ) , False)</errorConditionFormula>
+    <errorDisplayField>State__c</errorDisplayField>
+    <errorMessage>State should have a value if Country is equals to ‘Australia’, ‘Brazil’, ‘Canada’, ‘China’, ‘India’, ‘Japan’, ‘Mexico’, or ‘United States’</errorMessage>
+</ValidationRule>

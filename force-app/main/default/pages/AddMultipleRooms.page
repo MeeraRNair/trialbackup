@@ -1,0 +1,30 @@
+<apex:page standardController="Calendar_Management__c" extensions="AddMultipleRoomsController" 
+id="pageId"  standardStylesheets="true">  
+    <style>
+        .fontstyle {
+            font-style:bold;
+            font-size:16px;
+            height:40px;
+            width:20px;
+        }
+    </style>
+    <apex:form id="formId">
+    <p>
+        <b><apex:outputLabel value=" The Site selected is : {!CalMngmntObj.Site__r.name}" styleClass="fontstyle"/></b>
+    </p>
+    <p>
+        <b><apex:outputLabel value="Rooms Available: " for="r1" styleClass="fontstyle"/>
+        <apex:selectList value="{!availableRooms}" multiselect="true" id="r1">
+            <apex:selectOptions value="{!RoomDispaly}" />
+        </apex:selectList></b>
+    </p>
+    <p>
+        <apex:commandButton value="Continue with Selection" disabled="{!roomsUnavailable}" action="{!createRecords}">
+          <apex:param name="room" value="{!availableRooms}"/>
+        </apex:commandButton>
+        
+        <apex:commandButton value="Cancel" action="{!Cancel}">
+        </apex:commandButton>
+    </p>                              
+    </apex:form>
+</apex:page>

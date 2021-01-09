@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Utilization__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>STANDARD: Standard deals, no review required 
+MEDIUM: ~ 5 hours of support
+CUSTOM: ~ 20 hours to support (15 hours for SOWs)
+COMPLEX: ~ 50 hours to support 
+MEGA: ~ 200 hours</inlineHelpText>
+    <label>Utilization</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Low/Standard</fullName>
+                <default>false</default>
+                <label>Low/Standard</label>
+            </value>
+            <value>
+                <fullName>Medium</fullName>
+                <default>false</default>
+                <label>Medium</label>
+            </value>
+            <value>
+                <fullName>Custom</fullName>
+                <default>false</default>
+                <label>Custom</label>
+            </value>
+            <value>
+                <fullName>Complex</fullName>
+                <default>false</default>
+                <label>Complex</label>
+            </value>
+            <value>
+                <fullName>Mega</fullName>
+                <default>false</default>
+                <label>Mega</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_LOB_Mailbox_Admin_Create_Update</fullName>
+    <active>true</active>
+    <description>Only users with LOB title as &quot;GCC Global Program Manager&quot; should be allowed to create or update LOB mailbox administration records.</description>
+    <errorConditionFormula>$User.LOB_Title__c  &lt;&gt; &quot;GCC Global Program Manager&quot;</errorConditionFormula>
+    <errorMessage>Your &quot;LOB Title&quot; is not &quot;GCC Global Program Manager&quot;.You cannot create or update the details.</errorMessage>
+</ValidationRule>

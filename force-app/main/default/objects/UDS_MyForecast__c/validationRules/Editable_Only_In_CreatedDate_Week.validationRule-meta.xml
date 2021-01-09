@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Editable_Only_In_CreatedDate_Week</fullName>
+    <active>true</active>
+    <description>If CreatedDate &lt;&gt; THIS MONTH, do not allow edits.</description>
+    <errorConditionFormula>NOT(ISNULL(CreatedDate))&amp;&amp;IF(CASE(MOD(DATEVALUE(CreatedDate) - DATE(1900, 1, 6), 7),
+0, IF((TODAY()&lt;(DATEVALUE(CreatedDate) + 0)),&quot;true&quot;,&quot;false&quot;),
+1, IF((TODAY()&lt;(DATEVALUE(CreatedDate) + 6)),&quot;true&quot;,&quot;false&quot;),
+2, IF((TODAY()&lt;(DATEVALUE(CreatedDate) + 5)),&quot;true&quot;,&quot;false&quot;),
+3, IF((TODAY()&lt;(DATEVALUE(CreatedDate) + 4)),&quot;true&quot;,&quot;false&quot;),
+4, IF((TODAY()&lt;(DATEVALUE(CreatedDate) + 3)),&quot;true&quot;,&quot;false&quot;),
+5, IF((TODAY()&lt;(DATEVALUE(CreatedDate) + 2)),&quot;true&quot;,&quot;false&quot;),
+6, IF((TODAY()&lt;(DATEVALUE(CreatedDate) + 1)),&quot;true&quot;,&quot;false&quot;),
+&quot;false&quot;)
+=&quot;true&quot;,false,true)</errorConditionFormula>
+    <errorMessage>You cannot edit record past the week it was created.</errorMessage>
+</ValidationRule>

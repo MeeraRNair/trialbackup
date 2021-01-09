@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Workload_Name__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(NOT(ISBLANK(TEXT(Custom_Reporting_Group__c))),TEXT(Custom_Reporting_Group__c),&quot;&quot;) +
+
+IF(ISBLANK(TEXT(Custom_Reporting_Group__c)),TEXT(Workload_Environment__c),IF(NOT(ISBLANK(TEXT(Workload_Environment__c))),&quot;-&quot;+TEXT(Workload_Environment__c),&quot;&quot;)) +
+
+IF(NOT(ISBLANK(TEXT(Application__c))),&quot;-&quot;+TEXT(Application__c),&quot;&quot;)+
+
+IF(NOT(ISBLANK(TEXT(Database__c))),&quot;-&quot;+TEXT(Database__c),&quot;&quot;)</formula>
+    <label>Workload Name</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

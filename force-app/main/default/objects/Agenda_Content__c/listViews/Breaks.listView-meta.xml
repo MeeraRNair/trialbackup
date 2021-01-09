@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Breaks</fullName>
+    <columns>NAME</columns>
+    <columns>Engagement_Type__c</columns>
+    <columns>Apply_to_Site__c</columns>
+    <columns>Active__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Agenda_Content__c.Breaks</value>
+    </filters>
+    <label>Breaks</label>
+    <language>en_US</language>
+</ListView>

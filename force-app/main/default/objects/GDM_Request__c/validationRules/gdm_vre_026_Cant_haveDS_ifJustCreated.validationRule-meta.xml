@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>gdm_vre_026_Cant_haveDS_ifJustCreated</fullName>
+    <active>true</active>
+    <description>The DS Reviewer field can&apos;t be set during initial request creation</description>
+    <errorConditionFormula>TEXT(New_Request_Status__c) == &quot;&quot; &amp;&amp;
+NOT ISBLANK(DS_Reviewer__c) &amp;&amp;
+ISNEW()</errorConditionFormula>
+    <errorDisplayField>DS_Reviewer__c</errorDisplayField>
+    <errorMessage>(026) You can&apos;t assign a DS Reviewer at this time.</errorMessage>
+</ValidationRule>

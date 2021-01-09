@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_Channel_Model__c</fullName>
+    <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc -|What type of business are they in, a Retail shop vs. a Distributor etc. (Used in the Partner Registration form) |
+SFA -Y/PRM-Y||
+VAL -  N||
+CR# -R10.2 # 816  ||</description>
+    <externalId>false</externalId>
+    <label>Primary Channel Business Model</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>OEM (Original Equipment Manufacturer)</fullName>
+                <default>false</default>
+                <label>OEM (Original Equipment Manufacturer)</label>
+            </value>
+            <value>
+                <fullName>CSP (Cloud Service Provider)</fullName>
+                <default>false</default>
+                <label>CSP (Cloud Service Provider)</label>
+            </value>
+            <value>
+                <fullName>Solution Provider (Reseller)</fullName>
+                <default>false</default>
+                <label>Solution Provider (Reseller)</label>
+            </value>
+            <value>
+                <fullName>Consumer Partner</fullName>
+                <default>false</default>
+                <label>Consumer Partner</label>
+            </value>
+            <value>
+                <fullName>Distributor</fullName>
+                <default>false</default>
+                <label>Distributor</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

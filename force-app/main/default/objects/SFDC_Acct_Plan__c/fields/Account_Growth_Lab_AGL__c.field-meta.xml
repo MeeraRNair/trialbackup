@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_Growth_Lab_AGL__c</fullName>
+    <description>SOM R15.07 – This field show same value as “Account Growth Lab (AGL)?” in Account object</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field indicates whether an Account Growth Lab (AGL) has been held for the account. An AGL is a cross-BU event aimed at developing an actionable growth strategy for an account.</inlineHelpText>
+    <label>Account Growth Lab (AGL)?</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Needed</fullName>
+                <default>false</default>
+                <label>Needed</label>
+            </value>
+            <value>
+                <fullName>In Planning</fullName>
+                <default>false</default>
+                <label>In Planning</label>
+            </value>
+            <value>
+                <fullName>Complete</fullName>
+                <default>false</default>
+                <label>Complete</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

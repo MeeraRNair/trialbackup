@@ -1,0 +1,56 @@
+<apex:page standardController="Alliance_Rebate_Request__c" extensions="AllianceReabteRequestController" showHeader="false">
+ <apex:slds />
+    <apex:pageBlock >
+        <apex:outputPanel layout="block" style="overflow:auto;height:180px" >  <!-- width:750px; -->
+        <apex:pageBlockTable value="{!originalSavedProducts}" var="rebReq"> 
+           <apex:column headerValue="Sl. No." > 
+                <apex:outputField value="{!rebReq.Sl_No__c}" /> 
+           </apex:column>
+           <apex:column headerValue="Part Requested" rendered="{!AND(allianceRebateReqObj.System_Partner_Name__c == 'Intel', allianceRebateReqObj.Client_Enterprise__c == 'Enterprise')}"> 
+               <apex:outputField value="{!rebReq.Part_Requested__c}" /> 
+           </apex:column>
+           <apex:column headerValue="Part Name & Part Number" >
+               <apex:outputField value="{!rebReq.Part_Name_Part_Number__c}" />
+           </apex:column>
+           <apex:column headerValue="Quantity"> 
+                <apex:outputField value="{!rebReq.Quantity__c}" />
+           </apex:column>
+           <apex:column headerValue="Price Requested">               
+               <apex:outputField value="{!rebReq.Price_Requested__c}" />
+           </apex:column>
+           <apex:column headerValue="Competitor Name & Competitor Part">                
+               <apex:outputField value="{!rebReq.Competitor_Name_Competitor_Part__c}" />
+           </apex:column>
+           <apex:column headerValue="Dell System (Model, type)">                
+               <apex:outputField value="{!rebReq.Dell_System_Model_type__c}" />
+           </apex:column>
+
+            <apex:column headerValue="Quantity Approved" rendered="{!OR( AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ) , OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead') )}"> 
+               <apex:outputField value="{!rebReq.Quantity_Approved__c}" rendered="{!OR(OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead'), AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ), rebReq.Status__c == 'Expired')}"  /> 
+           </apex:column>
+            <apex:column headerValue="Cost Price Per Unit" rendered="{!OR( AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ) , OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead') )}" > 
+               <apex:outputField value="{!rebReq.Cost_Per_Unit__c}" rendered="{!OR(OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead'), AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ), rebReq.Status__c == 'Expired')}" /> 
+           </apex:column>
+          <apex:column headerValue="Approved Price per unit" rendered="{!OR( AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ) , OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead') )}" > 
+               <apex:outputField value="{!rebReq.Approved_Price_per_unit__c}" rendered="{!OR(OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead'), AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ), rebReq.Status__c == 'Expired')}" /> 
+           </apex:column>
+           <apex:column headerValue="Rebate per unit" rendered="{!OR( AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ) , OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead') )}"> 
+               <apex:outputField value="{!rebReq.Rebate_Per_Units__c}" rendered="{!OR(OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead'), AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ), rebReq.Status__c == 'Expired')}" /> 
+           </apex:column>  
+           <apex:column headerValue="Effective Date" rendered="{!OR( AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ) , OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead') )}"> 
+               <apex:outputField value="{!rebReq.Start_Date__c}" rendered="{!OR(OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead'), AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ), rebReq.Status__c == 'Expired')}" /> 
+           </apex:column>
+           <apex:column headerValue="Expiration Date" rendered="{!OR( AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ) , OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead') )}"> 
+               <apex:outputField value="{!rebReq.End_Date__c}" rendered="{!OR(OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead'), AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ), rebReq.Status__c == 'Expired')}" /> 
+           </apex:column>
+           <apex:column headerValue="Quantity Claimed" rendered="{!OR( AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ) , OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead') )}"> 
+               <apex:outputField value="{!rebReq.Quantity_Claimed__c}" rendered="{!OR(OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead'), AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ), rebReq.Status__c == 'Expired')}" /> 
+           </apex:column>
+           <apex:column headerValue="Quantity Remaining" rendered="{!OR( AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ) , OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead') )}" >
+                <apex:outputField value="{!rebReq.Quantity_Remaining__c}" rendered="{!OR(OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead'), AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ), rebReq.Status__c == 'Expired')}" />
+           </apex:column>
+        </apex:pageBlockTable>
+        </apex:outputPanel>
+    </apex:pageBlock>
+
+</apex:page>

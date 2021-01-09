@@ -1,0 +1,75 @@
+<apex:page standardController="Opportunity" extensions="VFCntrl_newOppQuickCreate" recordSetVar="opp" lightningStylesheets="true" sidebar="false" id="mypage">
+  <apex:outputPanel id="myvar">
+    <script type="text/javascript">
+  
+      function Cancelhome(e){          
+           e.preventDefault();
+           if("{! $User.UIThemeDisplayed }" == "Theme4t" || "{! $User.UIThemeDisplayed }" == "Theme4d" || "{! $User.UIThemeDisplayed }" == "Theme4u"){
+               //sforce.one.back(true);
+               sforce.one.navigateToURL('#/sObject/Opportunity/home');
+           }
+           else {           
+               location.href = "/006/o";
+               //cancel();
+               return false;
+           }
+          
+      }
+    
+    function redirect(){
+        //alert("hi:{!oppid}");
+        var oppid = '{!oppid}';
+        var isSucces = '{!isSuccess}';        
+        
+      if(isSucces == "true"){
+          if("{! $User.UIThemeDisplayed }" == "Theme4t" || "{! $User.UIThemeDisplayed }" == "Theme4d" || "{! $User.UIThemeDisplayed }" == "Theme4u"){             
+            sforce.one.navigateToSObject(oppid);
+           }
+           else {           
+               location.href = "/"+oppid;               
+               return false;
+           }
+              
+      }
+       
+    }
+    
+  </script>
+      </apex:outputPanel>
+  <apex:form id="myform">
+  
+  <apex:pageMessages id="msg" escape="false"/>
+      <apex:pageblock title="New Opportunity" id="blk">
+          <apex:pageblockSection columns="1" id="sec">
+               
+                  <apex:inputField value="{!opp.name}"/>
+                  <apex:inputField value="{!opp.accountid}" required="true"/>
+                  <apex:inputField value="{!opp.Type}" required="true"/>
+                  <apex:inputField value="{!opp.Domain__c}" required="true"/>
+                  <apex:inputField value="{!opp.CurrencyIsoCode}"/>
+                  <apex:inputField value="{!opp.StageName}"/>
+                  <apex:inputField value="{!opp.closedate}"/>
+                  <apex:inputField value="{!opp.Solution_Type__c}" required="true"/>
+                  <apex:inputField value="{!opp.Solution_Name__c}" required="true"/>
+                  <apex:inputField value="{!opp.Forecast_Category_Override__c}"/>
+                  <apex:inputField value="{!opp.Quest_Software_Contact__c}"/>
+                  <apex:inputField value="{!opp.Region__c}"/>
+                  <apex:inputField value="{!opp.Competitor_Lost_To__c}"/>
+                  <apex:inputField value="{!opp.Other_Competitor_Lost_To__c}"/>
+          
+          </apex:pageblockSection>
+          <apex:pageblockbuttons location="bottom">              
+              <apex:commandButton value="Save" action="{!Save}" oncomplete="redirect()" reRender="myvar,msg" status="actStatusId"/>
+              <apex:commandButton value="Cancel" onclick="Cancelhome(event)" immediate="true" id="can"/>
+              <!--<apex:commandButton value="Save & Add Products" action="{!Save}" reRender="myvar,msg" oncomplete="redirectprod()" status="actStatusId"/>-->
+              <apex:actionStatus id="actStatusId" >
+                <apex:facet name="start" >
+                  <img src="/img/loading.gif" />                     
+                </apex:facet>
+            </apex:actionStatus>
+          </apex:pageblockbuttons>
+      </apex:pageblock>
+  
+  </apex:form> 
+  
+</apex:page>

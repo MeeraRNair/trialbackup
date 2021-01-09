@@ -1,0 +1,149 @@
+<!-- 
+REVISION HISTORY
+======================================================================================================================
+Version     Author      Date            Release#    CR#     Description
+1.0         Afiq        18/8/2015       16.09       11665   To add Segment DEscription search field 
+1.11        Afiq        14/10/2015      16.10       12102   Added new button and error prompt when adding all search partners
+-->
+
+
+<apex:page standardController="Partner_Campaign_Management__c" extensions="CMAP_AddMultiplePartnersCntrlr" recordSetVar="relatedPartners">
+
+<!-- 1.1 Start -->
+<script type="text/javascript">
+function confirmAddAllPartners()
+{
+    if(confirm('{!URLFOR($Label.CMAP_AddAllPartnerConfirmation)}')) {
+        AddAllPartners();
+        return false;
+    }
+    return false;
+}
+</script>
+<!-- 1.1 End -->
+
+  <apex:form >
+    <apex:outputPanel id="hiddenblock1" >
+        <apex:pageMessages rendered="{!(noFilter == true && noResult == false)}"/>
+    </apex:outputPanel>
+    <apex:pageBlock title="Partner Search Filter" >
+        <apex:pageBlockButtons >
+            <apex:commandButton action="{!doSearch}" value=" Search ">
+                <apex:param name="p1" value="CMAP_AddMultiplePartners" />
+            </apex:commandButton>
+            <apex:commandButton value=" Cancel " action="{!cancel}"/>
+        </apex:pageBlockButtons>
+        <apex:pageBlockSection columns="2">
+            
+            <apex:inputText value="{!AccountName}" label="Account Name"/>
+            <apex:selectList value="{!AccountType}" label="Account Type Integration" multiselect="false" size="1">
+                <apex:selectOptions value="{!type}"/>
+            </apex:selectList>
+            <apex:inputText value="{!AccountOwner}" label="Account Owner"/>
+            <apex:inputText value="{!PartnerAccountID}" label="Partner Account ID"/>
+            <apex:inputText value="{!BillingCity}" label="Billing City"/>
+            <apex:inputText value="{!AffinityAccountID}" label="Affinity Account ID"/>
+            <apex:inputText value="{!BillingState}" label="Billing State/Province"/>
+            <apex:inputText value="{!PartnerTier}" label="Partner Tier"/>
+            <apex:inputText value="{!BillingPostal}" label="Billing Postal Code"/>
+            <apex:inputText value="{!PartnerRelationship}" label="Partner Relationship"/>
+            <apex:inputText value="{!BillingCountry}" label="Billing Country"/>
+            <!--Ver 1.0 Start-->
+            <apex:inputText value="{!SegmentDescription}" label="Segment Description"/>
+            <!--Ver 1.0 End-->
+            <apex:outputText value="This is a hidden output text" style="visibility:hidden;"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="1">
+        <apex:panelGrid columns="6" id="DellCompetencies">
+                <apex:outputText value="-----------------------------" style="visibility:hidden;"/>
+                <apex:outputText value="Dell Competencies" style="font-size: 11.49px; font-weight: bold; color: #43433F;"/>
+                <apex:outputText value="---" style="visibility:hidden;"/>
+                <apex:selectList id="sel1" value="{!DellCertificationAvailable}" multiselect="true" size="4" label="Available" title="Dell Competencies - Available">
+                    <apex:selectOptions value="{!certification}" />
+                </apex:selectList>
+                <apex:panelGroup >
+                    <apex:image value="{!$Resource.DGR_multiselected}">
+                        <apex:actionSupport event="onclick" action="{!selectclick}" reRender="DellCompetencies"/>
+                    </apex:image>
+                <br/><br/>
+                    <apex:image value="{!$Resource.DGR_multiunselected}">
+                        <apex:actionSupport event="onclick" action="{!unselectclick}" reRender="DellCompetencies" />
+                    </apex:image>
+
+                </apex:panelGroup>
+
+                <apex:selectList id="sel2" value="{!DellCertificationChosen}" multiselect="true" size="4" title="Dell Competencies - Chosen" style="width:270px" >
+                    <apex:selectOptions value="{!certificationChosen}" />
+                </apex:selectList>
+            </apex:panelGrid>
+        </apex:pageBlockSection>
+        <apex:actionFunction name="doSelect"  action="{!selectclick}" rerender="DellCompetencies"/>
+    </apex:pageBlock>
+    <apex:outputPanel id="hiddenblock2" >
+        <apex:pagemessages rendered="{!(noResult == true && noFilter == false)}" />
+    </apex:outputPanel>
+    
+    <!--<apex:outputPanel id="testing" >
+        {!accountQuery}
+    </apex:outputPanel>
+    <input type = "button" onclick = "doSearch();" value = " Test "/>
+    <apex:actionFunction name="doSearch"  action="{!doSearch}" rerender="testing"/>-->
+    
+    <apex:outputPanel id="accountTable" >
+        <apex:pageBlock title="Search Results" rendered="{!(displaySearch == true)}">
+            <apex:pageBlockTable value="{!customAcctListWrap}" var="ca" id="pubTable">
+                <apex:column headerValue="SELECT" >
+                    <apex:facet name="header">
+                        <apex:inputCheckbox label="Select All" onclick="selectAll();" value="{!colCheck}" />
+                    </apex:facet>
+                    
+                    <apex:inputCheckbox value="{!ca.acctCheck}"/>
+                </apex:column> 
+                <apex:column headerValue="Account Name" value="{!ca.custAcct.Name}"/>
+                <apex:column headerValue="Affinity Account ID" value="{!ca.custAcct.Account_ID__c}"/>
+                <apex:column headerValue="Segment Description" value="{!ca.custAcct.Segment_Desc__c}"/>
+                <apex:column headerValue="Segment Business Unit" value="{!ca.custAcct.Segment_Business_Unit_Name__c}"/>
+                <apex:column headerValue="Billing City" value="{!ca.custAcct.BillingCity}"/>
+                <apex:column headerValue="Billing State/Province" value="{!ca.custAcct.BillingState}"/>
+                <apex:column headerValue="Billing Country" value="{!ca.custAcct.BillingCountry}"/>
+                <apex:column headerValue="Account Owner" value="{!ca.custAcct.Owner.Alias}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    
+    
+            
+    <apex:outputPanel style="margin-top: 5px"  id="pageNavBottom" rendered="{!(displaySearch == true)}">
+        <!--<div style="float: center;font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: right; width: 52%;">
+            <apex:commandButton value=" Add Partners " action="{!doAddPartners}"/>
+        </div>-->
+        <div style="float: left;font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: right; width: 52%;">
+            Page {!currentPage} of {!lastPage}
+        </div>
+        
+        <div style="float: right; font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: right; width: 48%;">                
+            <apex:commandLink action="{!previous}" rendered="{!hasPrevious}" rerender="pubTable,pageNavBottom" status="searchStatus">
+                &lt; Previous Page
+            </apex:commandLink>                 
+            <apex:outputText rendered="{!hasPreviousAndNext}">&nbsp;|&nbsp;</apex:outputText>
+            <apex:commandLink action="{!next}" rendered="{!hasNext}" rerender="pubTable,pageNavBottom" status="searchStatus">
+                Next Page &gt;
+            </apex:commandLink>
+        </div>
+        <div style="float: left;font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: right;  width: 55%;">
+            <apex:commandButton value=" Add Partners " action="{!doAddPartners}"/>
+            <!-- 1.1 Start -->
+            <apex:actionFunction action="{!AddAllPartners}" name="AddAllPartners" rerender="form" status="LoadingStatus"/>
+            <apex:commandButton value="{!$Label.CMAP_AddAllPartners}" onclick="return confirmAddAllPartners()"/>
+            <!-- 1.1 End -->
+            <apex:commandButton value=" Cancel " action="{!cancel}"/>          
+        </div>
+        
+                
+    </apex:outputPanel>
+    </apex:outputPanel>
+    <apex:actionFunction name="selectAll"  action="{!selectAllAccounts}" rerender="accountTable"/>
+    <!--<apex:actionFunction name="doSearch"  action="{!doSearch}" rerender="testOut, accountTable, hiddenblock1, hiddenblock2"/>-->  
+      
+  </apex:form>
+  
+</apex:page>

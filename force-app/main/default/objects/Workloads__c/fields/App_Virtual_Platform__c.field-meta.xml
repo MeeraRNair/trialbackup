@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>App_Virtual_Platform__c</fullName>
+    <externalId>false</externalId>
+    <label>App Virtual Platform</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>App_Infrastructure_Platform__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>AWS</fullName>
+                <default>false</default>
+                <label>AWS</label>
+            </value>
+            <value>
+                <fullName>Cisco UCS</fullName>
+                <default>false</default>
+                <label>Cisco UCS</label>
+            </value>
+            <value>
+                <fullName>Citrix Xenserver</fullName>
+                <default>false</default>
+                <label>Citrix Xenserver</label>
+            </value>
+            <value>
+                <fullName>Dell EMC EHC</fullName>
+                <default>false</default>
+                <label>Dell EMC EHC</label>
+            </value>
+            <value>
+                <fullName>Dell EMC HCI</fullName>
+                <default>false</default>
+                <label>Dell EMC HCI</label>
+            </value>
+            <value>
+                <fullName>Google</fullName>
+                <default>false</default>
+                <label>Google</label>
+            </value>
+            <value>
+                <fullName>HPE Simplivity</fullName>
+                <default>false</default>
+                <label>HPE Simplivity</label>
+            </value>
+            <value>
+                <fullName>Huawei</fullName>
+                <default>false</default>
+                <label>Huawei</label>
+            </value>
+            <value>
+                <fullName>KVM</fullName>
+                <default>false</default>
+                <label>KVM</label>
+            </value>
+            <value>
+                <fullName>Lenovo</fullName>
+                <default>false</default>
+                <label>Lenovo</label>
+            </value>
+            <value>
+                <fullName>Microsoft Azure</fullName>
+                <default>false</default>
+                <label>Microsoft Azure</label>
+            </value>
+            <value>
+                <fullName>Microsoft Azure Stack</fullName>
+                <default>false</default>
+                <label>Microsoft Azure Stack</label>
+            </value>
+            <value>
+                <fullName>Microsoft CPS / Azure PAC</fullName>
+                <default>false</default>
+                <label>Microsoft CPS / Azure PAC</label>
+            </value>
+            <value>
+                <fullName>MS Hyper-V</fullName>
+                <default>false</default>
+                <label>MS Hyper-V</label>
+            </value>
+            <value>
+                <fullName>None</fullName>
+                <default>false</default>
+                <label>None</label>
+            </value>
+            <value>
+                <fullName>Nutanix</fullName>
+                <default>false</default>
+                <label>Nutanix</label>
+            </value>
+            <value>
+                <fullName>Oracle</fullName>
+                <default>false</default>
+                <label>Oracle</label>
+            </value>
+            <value>
+                <fullName>OS Native</fullName>
+                <default>false</default>
+                <label>OS Native</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Other OpenStack</fullName>
+                <default>false</default>
+                <label>Other OpenStack</label>
+            </value>
+            <value>
+                <fullName>RedHat OpenStack</fullName>
+                <default>false</default>
+                <label>RedHat OpenStack</label>
+            </value>
+            <value>
+                <fullName>SUSE OpenStack</fullName>
+                <default>false</default>
+                <label>SUSE OpenStack</label>
+            </value>
+            <value>
+                <fullName>UCS</fullName>
+                <default>false</default>
+                <label>UCS</label>
+            </value>
+            <value>
+                <fullName>VCE</fullName>
+                <default>false</default>
+                <label>VCE</label>
+            </value>
+            <value>
+                <fullName>Virtustream</fullName>
+                <default>false</default>
+                <label>Virtustream</label>
+            </value>
+            <value>
+                <fullName>VMware ESX</fullName>
+                <default>false</default>
+                <label>VMware ESX</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>GPU</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>Citrix Xenserver</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>GPU</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>KVM</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>GPU</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>MS Hyper-V</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>GPU</controllingFieldValue>
+            <controllingFieldValue>Mainframe/IBMi</controllingFieldValue>
+            <controllingFieldValue>RISC</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>None</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>GPU</controllingFieldValue>
+            <controllingFieldValue>Public Cloud</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>Oracle</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>GPU</controllingFieldValue>
+            <controllingFieldValue>x86</controllingFieldValue>
+            <valueName>VMware ESX</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hyperconverged</controllingFieldValue>
+            <valueName>Cisco UCS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hyperconverged</controllingFieldValue>
+            <valueName>Dell EMC HCI</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hyperconverged</controllingFieldValue>
+            <valueName>HPE Simplivity</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hyperconverged</controllingFieldValue>
+            <controllingFieldValue>Public Cloud</controllingFieldValue>
+            <valueName>Huawei</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hyperconverged</controllingFieldValue>
+            <valueName>Lenovo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hyperconverged</controllingFieldValue>
+            <valueName>Nutanix</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hyperconverged</controllingFieldValue>
+            <controllingFieldValue>Public Cloud</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hyperconverged</controllingFieldValue>
+            <valueName>UCS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hyperconverged</controllingFieldValue>
+            <valueName>VCE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Mainframe/IBMi</controllingFieldValue>
+            <controllingFieldValue>RISC</controllingFieldValue>
+            <valueName>OS Native</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <valueName>Dell EMC EHC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <valueName>Microsoft Azure Stack</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <valueName>Microsoft CPS / Azure PAC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <valueName>Other OpenStack</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <valueName>RedHat OpenStack</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Private/hybrid Cloud</controllingFieldValue>
+            <valueName>SUSE OpenStack</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Public Cloud</controllingFieldValue>
+            <valueName>AWS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Public Cloud</controllingFieldValue>
+            <valueName>Google</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Public Cloud</controllingFieldValue>
+            <valueName>Microsoft Azure</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Public Cloud</controllingFieldValue>
+            <valueName>Virtustream</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

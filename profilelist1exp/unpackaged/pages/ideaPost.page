@@ -1,0 +1,259 @@
+<apex:page standardController="Idea" extensions="IdeaPostController" showHeader="false">
+
+  <apex:composition template="{!layoutPage}">
+    <apex:define name="content">
+      <span class="basePageName">Post Idea</span>
+
+      <apex:outputPanel styleClass="ideaPostPage" layout="block">
+        <apex:form id="postIdeaForm" styleClass="postIdeaForm">
+          <!--
+          <apex:actionRegion >
+          
+          <apex:outputPanel layout="none" rendered="{!!previewing}">
+            <h2>POST YOUR IDEA</h2>
+
+            //Idea Title
+            <apex:outputPanel styleClass="baseFormRow">
+              <apex:outputLabel for="ideaTitle" value="Title:"/>
+              <apex:outputPanel >
+                <apex:inputField styleClass="ideaTitleField" value="{!idea.Title}" id="ideaTitle" onblur="javascriptLoadSimilar()"/>
+              </apex:outputPanel>
+            </apex:outputPanel>
+            
+            <apex:outputPanel styleClass="baseFormRow" rendered="{!isHealthcareStormCommunity}">
+              <apex:outputLabel for="facilityType" value="Facility Type:"/>
+              <apex:outputPanel >
+                <apex:inputField styleClass="ideaTitleField" value="{!idea.Facility_Type__c}" id="facilityType"/>
+              </apex:outputPanel>
+            </apex:outputPanel>
+
+            Upon selecting categories for your idea, you will be presented with potentially similar ideas. Please review before submitting your idea.
+
+            <apex:actionFunction action="{!loadSimilar}" name="javascriptLoadSimilar" rerender="similarResults"/>
+
+            <apex:outputPanel layout="block" id="similarResults" styleClass="similarResults">
+              <apex:outputPanel layout="none" rendered="{!hasSimilarIdeas}">
+                <br/>
+                Possibly similar ideas:
+                <apex:dataList value="{!similarIdeas}" var="similarIdea">
+                  <apex:outputLink value="{!viewUrl}?id={!similarIdea.id}" target="_blank"><apex:outputText value="{!similarIdea.title}" escape="true"/></apex:outputLink>
+                </apex:dataList>
+              </apex:outputPanel>
+            </apex:outputPanel>
+
+              <apex:outputPanel styleClass="baseFormRow">
+                <apex:outputLabel for="ideaCategories" value="Category:"/>
+
+                <apex:outputPanel layout="none" rendered="{!OR(isIdeastormCommunity, isHealthcareStormCommunity)}">
+                    <div>Select{!categoryMaxDescription} categories.</div>
+                </apex:outputPanel>
+                <apex:outputPanel layout="none" rendered="{!isEmployeestormCommunity}">
+                    <div>Select categories which best fit your idea.</div>
+                </apex:outputPanel>
+                <apex:outputPanel layout="none" rendered="{!isPremierstormCommunity}">
+                    <div>Select{!categoryMaxDescription} categories.</div>
+                </apex:outputPanel>
+                <table class="categoryList">
+                    <apex:repeat value="{!categoryGroups}" var="multiColumnItemGroup">
+                        <tr>
+                            <th colspan="3">{!multiColumnItemGroup.groupName}</th>
+                        </tr>
+                        <tr>
+                            <apex:repeat value="{!multiColumnItemGroup.selectOptionsAsColumns}" var="items">
+                              <td>
+                                <apex:selectCheckboxes layout="pageDirection" value="{!categoriesForIdea}">
+                                    <apex:selectOptions value="{!items}"/>
+                                </apex:selectCheckboxes>
+                              </td>
+                            </apex:repeat>
+                        </tr>
+                    </apex:repeat>
+                </table>
+              </apex:outputPanel>
+
+              //Idea Body
+              <apex:outputPanel styleClass="baseFormRow">
+                <apex:outputLabel for="ideaBody" value="Editorial Summary:"/>
+                <apex:outputPanel >
+                  <apex:inputField id="ideaBody" value="{!idea.Body}" styleClass="ideaBodyField"/>
+                </apex:outputPanel>
+              </apex:outputPanel>
+
+            </apex:outputPanel>
+            
+             <apex:outputPanel styleClass="baseFormRow">
+                <apex:outputLabel for="SFDC_CR_Reason" value="Business Justification (Required for SFDC Change Requests only): "/>
+                <apex:outputPanel >
+                  <apex:inputField id="SFDC_CR_Reason" value="{!idea.SFDC_CR_Reason__C}" style="width:75%"/>
+                </apex:outputPanel>
+              </apex:outputPanel>
+
+           <b> The following fields are optional: </b>
+  
+            <apex:outputPanel styleClass="baseFormRow">
+            <apex:outputLabel for="Segment" value="Business Unit: "/>
+             <apex:outputPanel >
+             <apex:inputField value="{!idea.Segment__c}" id="Segment" style="width:50%"/>
+            </apex:outputPanel>
+          </apex:outputPanel>
+      
+       
+        //  Is this idea related to an Account, Contact, or Opportunity you're working on? 
+          
+            <apex:outputPanel styleClass="baseFormRow">
+            <apex:outputLabel for="Account" value="Related Account: "/>
+             <apex:outputPanel >
+             <apex:inputField value="{!idea.Account__c}" id="Account" style="width:50%"/>
+            </apex:outputPanel>
+          </apex:outputPanel>
+  
+          <apex:outputPanel styleClass="baseFormRow">
+            <apex:outputLabel for="Contact" value="Related Contact: "/>
+             <apex:outputPanel >
+             <apex:inputField value="{!idea.Contact__c}" id="Contact" style="width:50%"/>
+             </apex:outputPanel>
+          </apex:outputPanel>
+          
+          /*starts<apex:outputPanel styleClass="baseFormRow">
+            <apex:outputLabel for="Opportunity" value="Opportunity:"/>
+             <apex:outputPanel >
+             <apex:inputField value="{!idea.Opportunity__c}" id="Opportunity" style="width:50%"/>
+              </apex:outputPanel>
+          </apex:outputPanel> 
+           Ends */
+        </apex:actionRegion>
+        
+        <apex:actionRegion >
+            <apex:actionSupport reRender="attBlock"/>
+            //R14.2 CR7806 - Add 5 attachments, added actionRegions to the form to allow inputFile
+            <apex:outputPanel id="attBlock" styleClass="baseFormRow" rendered="{!!previewing}">
+               <apex:outputLabel value="Attachments: "></apex:outputLabel><br />
+               Please attach any relevant documents in support of your Idea (max. 5)<br />
+               <apex:outputText rendered="{!previewing}">Note: Attachments are not visible in Preview Mode</apex:outputText>
+               <br /><br /><apex:outputText rendered="{!!previewing}">Attachment 1: </apex:outputText><apex:inputFile id="inputFile1" value="{!attBody1}" fileName="{!attName1}" rendered="{!!previewing}" fileSize="{!fileSize1}"></apex:inputFile>
+               <br /><br /><apex:outputText rendered="{!!previewing}">Attachment 2: </apex:outputText><apex:inputFile id="inputFile2" value="{!attBody2}" fileName="{!attName2}" rendered="{!!previewing}" fileSize="{!fileSize2}"></apex:inputFile>
+               <br /><br /><apex:outputText rendered="{!!previewing}">Attachment 3: </apex:outputText><apex:inputFile id="inputFile3" value="{!attBody3}" fileName="{!attName3}" rendered="{!!previewing}" fileSize="{!fileSize3}"></apex:inputFile>
+               <br /><br /><apex:outputText rendered="{!!previewing}">Attachment 4: </apex:outputText><apex:inputFile id="inputFile4" value="{!attBody4}" fileName="{!attName4}" rendered="{!!previewing}" fileSize="{!fileSize4}"></apex:inputFile>
+               <br /><br /><apex:outputText rendered="{!!previewing}">Attachment 5: </apex:outputText><apex:inputFile id="inputFile5" value="{!attBody5}" fileName="{!attName5}" rendered="{!!previewing}" fileSize="{!fileSize5}"></apex:inputFile>
+               <br /><br /><apex:outputText rendered="{!!previewing}"><strong>Note: </strong>Attachments will be lost when viewing the Idea in Preview mode!</apex:outputText>
+            </apex:outputPanel>
+            <apex:outputPanel id="attBlockPreview" styleClass="baseFormRow" rendered="{!previewing}">
+               <apex:outputLabel value="Attachments: "></apex:outputLabel><br />
+               <apex:outputText rendered="{!previewing}"><br /><strong>Note: </strong>
+               <br />Attachments previously added to the Idea will be lost in Preview Mode!
+               <br />Please re-attach any relevant documents in Edit Mode and Post your Idea</apex:outputText>
+            </apex:outputPanel>
+        </apex:actionRegion>
+        
+        <apex:actionRegion >
+            <apex:outputPanel layout="none" rendered="{!previewing}">
+              <h2 style="margin-bottom:5px;">Idea Preview</h2>
+              <table class="ideaDetails">
+                <tr>
+                  <td>
+                    <div class="baseVoteContainer">
+                      <div class="votesDiv"></div>
+                      <div class="voteTotal">0</div>
+                      <div class="promoteDemoteDiv">
+                        <div class="baseVotedButton">
+                          <div class="voteButton votedUpButton"></div>
+                          <div class="voteButton votedDownButton"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td style="vertical-align: top;">
+                    <table style="width: 100%; margin-left: 7px;">
+                      <tr>
+                        <td>
+                          <span class="ideaTitle userContent">{!idea.title}</span>
+                          <span class="ideaByline">By&nbsp;<c:ideaUserLink userId="{!$User.Id}" communityNickname="{!$User.CommunityNickname}"/></span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="ideaBody">
+                          <div class="ideaBodyInner">
+                            <apex:outputText value="{!idea.body}" escape="false" styleClass="baseIdeaBody"/>
+                          </div>
+                        </td>
+                      </tr>
+                      <apex:outputPanel layout="none" rendered="{!idea.categories != null}">
+                        <tr>
+                          <td>
+                            <span class="ideaDetailsLabel">Categories:</span>
+                            <span class="ideaCategories">
+                              <apex:repeat value="{!categoriesForIdea}" var="c">
+                                <c:ideaCategoryOrStatusLink value="{!c}" paramName="{!categoryParamName}"/> &nbsp;
+                              </apex:repeat>
+                            </span>
+                          </td>
+                        </tr>
+                      </apex:outputPanel>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <apex:inputHidden value="{!idea.Title}" />
+              <apex:inputHidden value="{!idea.Body}" />
+              <apex:inputHidden value="{!selectedCategoryString}" />
+            </apex:outputPanel>
+        
+        </apex:actionRegion>
+        
+        <apex:actionRegion >
+        
+            //Submit Buttons
+            <apex:outputPanel layout="block" styleClass="commands" rendered="{!OR(isIdeastormCommunity, isHealthcareStormCommunity)}">
+              <apex:outputPanel layout="none" rendered="{!!previewing}">
+                <apex:commandButton action="{!preview}" value="Preview" image="{!$Resource.image_Preview}" styleClass="inputButton preview"/>
+              </apex:outputPanel>
+              <apex:outputPanel layout="none" rendered="{!previewing}">
+                <apex:commandButton action="{!modify}" value="Edit" image="{!$Resource.image_Edit}" styleClass="inputButton edit" />
+              </apex:outputPanel>
+              <apex:commandButton action="{!save}" value="Post" image="{!$Resource.image_Post}" styleClass="inputButton post"/>
+              <apex:commandButton action="{!cancel}" value="Cancel" image="{!$Resource.image_cancel}" styleClass="inputButton cancel"/>
+            </apex:outputPanel>
+
+            <apex:outputPanel layout="block" styleClass="commands" rendered="{!isEmployeestormCommunity}">
+              <apex:outputPanel layout="none" rendered="{!!previewing}">
+                <apex:commandButton action="{!preview}" value="Preview" image="{!$Resource.image_PreviewEmployee}" styleClass="employeeButtons inputButton preview"/>
+              </apex:outputPanel>
+              
+              <apex:outputPanel layout="none" rendered="{!previewing}">
+                <apex:commandButton action="{!modify}" value="Edit" image="{!$Resource.image_EditEmployee}" styleClass="inputButton edit"/>
+              </apex:outputPanel>
+              <apex:commandButton action="{!save}" value="Post" image="{!$Resource.image_PostEmployee}" styleClass="inputButton post"/>
+              <apex:commandButton action="{!cancel}" value="Cancel" image="{!$Resource.image_cancelEmployee}" styleClass="inputButton cancel"/>
+                <div style="color:#9c9c9c;">
+                  <p>If you have a concern or idea that you’d like to submit anonymously, please read more about Dell’s Open Door Policy and how to raise issues or concerns <a href="http://insideclassic.dell.com/ethics/compliance/open_door.asp" target="_blank">here</a>.</p>
+                </div>
+            </apex:outputPanel>
+            
+              <apex:outputPanel layout="block" styleClass="commands" rendered="{!isPremierstormCommunity}">
+              <apex:outputPanel layout="none" rendered="{!!previewing}">
+                <apex:commandButton action="{!preview}" value="Preview" image="{!$Resource.image_PreviewEmployee}" styleClass="employeeButtons inputButton preview"/>
+              </apex:outputPanel>
+              
+              <apex:outputPanel layout="none" rendered="{!previewing}">
+                <apex:commandButton action="{!modify}" value="Edit" image="{!$Resource.image_EditEmployee}" styleClass="inputButton edit"/>
+              </apex:outputPanel>
+              <apex:commandButton action="{!save}" value="Post" image="{!$Resource.image_PostEmployee}" styleClass="inputButton post"/>
+              <apex:commandButton action="{!cancel}" value="Cancel" image="{!$Resource.image_cancelEmployee}" styleClass="inputButton cancel"/>
+            </apex:outputPanel>
+        
+        </apex:actionRegion>
+        -->
+        <!-- R16.03 CR 10828 Starts -->
+        <apex:outputLabel style="font-weight:bold;font-size:20px;color:red">Account Storm will no longer be used for SFDC change request ideas, please refer to the new SFDC ‘Idea Intake’ tab to post a request
+        </apex:outputLabel>
+        <br/><br/>
+        <apex:commandLink action="{!getIdeaLink}" value="Idea Intake Tab" style="font-weight:bold;font-size:20px;"/>
+        <!-- R16.03 CR 10828 Ends-->
+        </apex:form>
+          
+      </apex:outputPanel>        
+    </apex:define>
+  </apex:composition>
+
+</apex:page>

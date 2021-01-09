@@ -1,0 +1,261 @@
+<!--
+--  Revision#       Author          Date            CR#     Description
+    ---------       ------          ----            ---     -----------
+    1.0             Fenny           18-Sep-2015     11975   Adding new field Services_Project__c.Project_End_Date__c to the view
+-->
+<apex:page controller="ServicesProjectsCtrl" sidebar="false" tabStyle="Services_projects__tab" lightningStylesheets="true">
+  <apex:form id="theform">
+      <apex:pageBlock id="SearchBlock" title="Search">
+           <apex:pageBlockSection columns="2">
+           
+               <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Deal ID"/>
+                   <apex:inputText value="{!dealID}"/>
+               </apex:pageBlockSectionItem>
+               
+               <apex:pageBlockSectionItem >     
+                   <apex:outputLabel value="Dell Services LOB"/>       
+                   <apex:inputField value="{!opp.Dell_Defined_LOB__c}"/>          
+               </apex:pageBlockSectionItem>       
+               
+               <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Affinity Account ID"/>
+                   <apex:inputText value="{!affinityAccountID}"/>
+               </apex:pageBlockSectionItem>
+               
+               <!-------------------- CR 8954 -Start------------------------>
+               
+                <apex:pageBlockSectionItem >
+                <apex:outputLabel >Dell Services Industry</apex:outputLabel>  
+                <apex:panelGrid columns="5" cellspacing="0px" id="dellServInd"> <!--fix defect #97371 : added cellspacing -->
+                    <apex:selectList id="sel1" value="{!dellServIndLeftselected}" multiselect="true" style="width:300px" size="6"> <!--fix defect #97371 : change width -->
+                        <apex:actionSupport event="ondblclick" action="{!dellServIndSelectclick}" reRender="dellServInd" />
+                        <apex:selectOptions value="{!dellServIndUnselectedvalues}"/>
+                    </apex:selectList>
+                <apex:panelGroup >
+                        <br/>
+                        <apex:image value="{!$Resource.DGR_multiselected}">
+                            <apex:actionSupport event="onclick" action="{!dellServIndSelectclick}" reRender="dellServInd" />
+                        </apex:image>
+                        <br/><br/>
+                        <apex:image value="{!$Resource.DGR_multiunselected}">
+                            <apex:actionSupport event="onclick" action="{!dellServIndUnselectclick}" reRender="dellServInd" />
+                        </apex:image>
+                    </apex:panelGroup>
+                    <apex:selectList id="sel2" value="{!dellServIndRightselected}" multiselect="true" style="width:300px" size="6"> <!--fix defect #97371 : change width -->
+                        <apex:actionSupport event="ondblclick" action="{!dellServIndUnselectclick}" reRender="dellServInd" />
+                        <apex:selectOptions value="{!dellServIndSelectedValues}" />
+                    </apex:selectList>
+                </apex:panelGrid>                    
+                </apex:pageBlockSectionItem>
+                <!-------------------- CR 8954 -End-------------------------->
+               
+               <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Project ID"/>
+                   <apex:inputText value="{!projectID}"/>
+               </apex:pageBlockSectionItem>
+           
+           </apex:pageBlockSection>
+           <apex:pageBlockButtons location="bottom">
+               <apex:commandButton value="Search" action="{!search}"/>
+           </apex:pageBlockButtons>
+           
+      </apex:pageBlock>
+      
+      <b> <apex:outputLabel value="Views"/> </b> 
+           <apex:selectList >
+            <apex:selectOption itemValue="Services Projects" itemLabel="Services Projects"/>
+           </apex:selectList><p/>
+           
+      <apex:pageBlock id="pb" >
+          <apex:outputText rendered="{!spList.size>0}"><b>Services Project List View</b></apex:outputText>
+          <apex:outputText rendered="{!spList.size<=0}">No Services Projects Found</apex:outputText>
+          <apex:pageblocktable value="{!spList}" var="sp" rendered="{!spList.size>0}">  
+             <apex:column >
+                 <apex:facet name="header">                    
+                    <apex:commandLink action="{!ViewData}" value="Services Project ID{!IF(sortExpression=='Name',IF(sortDirection='ASC','▼','▲'),'')}" >                                     
+                       <apex:param value="Name" name="column" assignTo="{!sortExpression}" ></apex:param>
+                    </apex:commandLink>
+                 </apex:facet> 
+                 <apex:outputLink value="/{!sp.id}" id="theLink" target="_blank">{!sp.Name}</apex:outputLink>                              
+             </apex:column>
+             <apex:column >
+             <apex:facet name="header"> 
+                 <apex:commandLink action="{!ViewData}" value="Affinity Account ID{!IF(sortExpression=='Affinity_Account_ID__c',IF(sortDirection='ASC','▼','▲'),'')}" >                                     
+                       <apex:param value="Affinity_Account_ID__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                    </apex:commandLink>
+                    </apex:facet> 
+                 <apex:outputField value="{!sp.Affinity_Account_ID__c}"/>                              
+             </apex:column> 
+             <apex:column >
+             <apex:facet name="header"> 
+                 <apex:commandLink action="{!ViewData}" value="Account Name{!IF(sortExpression=='Account_Name__c',IF(sortDirection='ASC','▼','▲'),'')}" >                                     
+                       <apex:param value="Account_Name__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                    </apex:commandLink>
+                    </apex:facet>
+                 <apex:outputtext value="{!sp.Account_Name__c}"/>                              
+             </apex:column> 
+             <apex:column >
+             <apex:facet name="header"> 
+             <apex:commandLink action="{!ViewData}" value="Deal ID{!IF(sortExpression=='Deal_ID__c',IF(sortDirection='ASC','▼','▲'),'')}" >                                     
+                       <apex:param value="Deal_ID__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                    </apex:commandLink>
+                     </apex:facet>
+                 <apex:outputtext value="{!sp.Deal_ID__c}"/>                              
+             </apex:column> 
+             <apex:column >
+             <apex:facet name="header"> 
+             <apex:commandLink action="{!ViewData}" value="Opportunity Name{!IF(sortExpression=='Opportunity_Name__c',IF(sortDirection='ASC','▼','▲'),'')}" >                                     
+                       <apex:param value="Opportunity_Name__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                    </apex:commandLink>
+                     </apex:facet>
+                 <apex:outputField value="{!sp.Opportunity__c}"/>                              
+             </apex:column> 
+             <apex:column >
+             <apex:facet name="header"> 
+             <apex:commandLink action="{!ViewData}" value="Dell Services LOB{!IF(sortExpression=='Dell_Services_LOB__c',IF(sortDirection='ASC','▼','▲'),'')}" >                                     
+                       <apex:param value="Dell_Services_LOB__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                    </apex:commandLink>
+                     </apex:facet>
+                 <apex:outputtext value="{!sp.Dell_Services_LOB__c}"/>                              
+             </apex:column> 
+             <!-- CR8954 -->
+             <apex:column >
+             <apex:facet name="header"> 
+             <apex:commandLink action="{!ViewData}" value="Dell Services Industry{!IF(sortExpression=='Dell_Services_Industry__c',IF(sortDirection='ASC','▼','▲'),'')}" >                                     
+                       <apex:param value="Dell_Services_Industry__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                    </apex:commandLink>
+                     </apex:facet>
+                 <apex:outputtext value="{!sp.Dell_Services_Industry__c}"/>                              
+             </apex:column>
+             <!-- CR8954 -->
+             <apex:column >
+             <apex:facet name="header"> 
+             <apex:commandLink action="{!ViewData}" value="Services Unweighted Revenue{!IF(sortExpression=='Services_Unweighted_Revenue__c',IF(sortDirection='ASC','▼','▲'),'')}" >                                     
+                       <apex:param value="Services_Unweighted_Revenue__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                    </apex:commandLink>
+                     </apex:facet>
+                 <apex:outputField value="{!sp.Services_Unweighted_Revenue__c}"/>                              
+             </apex:column> 
+             <apex:column >
+             <apex:facet name="header"> 
+             <apex:commandLink action="{!ViewData}" value="Book Date{!IF(sortExpression=='Book_Date__c',IF(sortDirection='ASC','▼','▲'),'')}" >                                     
+                       <apex:param value="Book_Date__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                    </apex:commandLink>
+                     </apex:facet>
+                 <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                     <apex:param value="{!sp.Book_Date__c}" /> 
+                 </apex:outputText>                              
+             </apex:column> 
+             <apex:column >
+             <apex:facet name="header"> 
+             <apex:commandLink action="{!ViewData}" value="Opportunity Owner{!IF(sortExpression=='Opportunity_Owner__c',IF(sortDirection='ASC','▼','▲'),'')}" >                                     
+                       <apex:param value="Opportunity_Owner__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                    </apex:commandLink>
+                     </apex:facet>
+                 <apex:outputField value="{!sp.Opportunity_Owner__c}"/>                              
+             </apex:column> 
+             <apex:column >
+             <apex:facet name="header"> 
+             <apex:commandLink action="{!ViewData}" value="Services Sales Owner{!IF(sortExpression=='Services_Sales_Owner__c',IF(sortDirection='ASC','▼','▲'),'')}" >                                     
+                       <apex:param value="Services_Sales_Owner__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                    </apex:commandLink>
+                     </apex:facet>
+                 <apex:outputField value="{!sp.Services_Sales_Owner__c}"/>                              
+             </apex:column> 
+             <apex:column >
+             <apex:facet name="header"> 
+             <apex:commandLink action="{!ViewData}" value="CP/Affinity Customer Number{!IF(sortExpression=='CP_Affinity_Customer_Number__c',IF(sortDirection='ASC','▼','▲'),'')}" >                                     
+                       <apex:param value="CP_Affinity_Customer_Number__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                    </apex:commandLink>
+                     </apex:facet>
+                 <apex:outputtext value="{!sp.CP_Affinity_Customer_Number__c}"/>                            
+             </apex:column> 
+             <apex:column >
+             <apex:facet name="header"> 
+             <apex:commandLink action="{!ViewData}" value="Project ID{!IF(sortExpression=='Project_ID__c',IF(sortDirection='ASC','▼','▲'),'')}" >                                     
+                       <apex:param value="Project_ID__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                    </apex:commandLink>
+                     </apex:facet>
+                 <apex:outputtext value="{!sp.Project_ID__c}"/>                              
+             </apex:column> 
+             <apex:column >
+             <apex:facet name="header"> 
+             <apex:commandLink action="{!ViewData}" value="Project Name{!IF(sortExpression=='Project_Name__c',IF(sortDirection='ASC','▼','▲'),'')}" >                                     
+                       <apex:param value="Project_Name__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                    </apex:commandLink>
+                     </apex:facet>
+                 <apex:outputtext value="{!sp.Project_Name__c}"/>                              
+             </apex:column> 
+             <apex:column >
+             <apex:facet name="header"> 
+             <apex:commandLink action="{!ViewData}" value="Project Manager{!IF(sortExpression=='Project_Manager__c ',IF(sortDirection='ASC','▼','▲'),'')}" >                                     
+                       <apex:param value="Project_Manager__c " name="column" assignTo="{!sortExpression}" ></apex:param>
+                    </apex:commandLink>
+                     </apex:facet>
+                 <apex:outputtext value="{!sp.Project_Manager__c }"/>                              
+             </apex:column> 
+            
+            <apex:column >
+             <apex:facet name="header"> 
+             <apex:commandLink action="{!ViewData}" value="Project Start Date{!IF(sortExpression=='Project_Start_Date__c',IF(sortDirection='ASC','▼','▲'),'')}" >                                     
+                       <apex:param value="Project_Start_Date__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                    </apex:commandLink>
+                     </apex:facet>
+                 <apex:outputField value="{!sp.Project_Start_Date__c}"/>                              
+             </apex:column>
+
+            <!-- 1.0 : Start -->
+            <apex:column >
+             <apex:facet name="header"> 
+             <apex:commandLink action="{!ViewData}" value="Project End Date{!IF(sortExpression=='Project_End_Date__c',IF(sortDirection='ASC','▼','▲'),'')}" >                                     
+                       <apex:param value="Project_End_Date__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                    </apex:commandLink>
+                     </apex:facet>
+                 <apex:outputField value="{!sp.Project_End_Date__c}"/>                              
+             </apex:column>
+             <!-- 1.0 : End -->
+              
+          </apex:pageBlockTable>
+          
+          
+          
+              <br/>
+          <apex:outputPanel >
+              <apex:outputText rendered="{!spList.size>0}"><b>Export these search results:</b></apex:outputText><br/>
+              <apex:commandButton value="Services Projects Export" action="{!openReport}" rendered="{!spList.size>0}"  disabled="{!noOfRecords>=1000}"/>
+          </apex:outputPanel>
+          <br/>
+          <br/>
+          <apex:outputText rendered="{!spList.size>0}"><b>When search result over 1,000 records, refer to complete Services Projects list here:</b></apex:outputText><br/>
+          <apex:commandButton value="Services Projects Report" onclick="window.open('{!openNewReport}', '_blank', 'toolbar=yes,scrollbars=yes, resizable=yes, width=600, height=600');" rendered="{!spList.size>0}"/>
+          <br/>
+          <br/>
+      </apex:pageBlock>
+     
+<apex:pageBlock mode="maindetail" id="pb2" rendered="{!spList.size>0}"><apex:pageBlockSection columns="3">
+            <apex:outputPanel >
+                <apex:outputText >{!(setCon.pageNumber * PAGE_SIZE )+1-PAGE_SIZE }-{!IF((setCon.pageNumber * PAGE_SIZE )>noOfRecords, noOfRecords,(setCon.pageNumber * PAGE_SIZE ))} of {!noOfRecords}</apex:outputText>
+            </apex:outputPanel>
+            
+            <apex:outputPanel >
+            <div style="align:center">
+                <apex:commandButton status="fetchStatus" reRender="pb,pb2" value="|<" action="{!setCon.first}" disabled="{!!setCon.hasPrevious}" title="First Page"/>
+                <apex:commandButton status="fetchStatus" reRender="pb,pb2" value="< Previous" action="{!setCon.previous}" disabled="{!!setCon.hasPrevious}" title="Previous Page"/>
+                <apex:commandButton status="fetchStatus" reRender="pb,pb2" value="Next >" action="{!setCon.next}" disabled="{!!setCon.hasNext}" title="Next Page"/>
+                <apex:commandButton status="fetchStatus" reRender="pb,pb2" value=">|" action="{!setCon.last}" disabled="{!!setCon.hasNext}" title="Last Page"/>
+            </div> 
+            </apex:outputPanel>
+            
+            <apex:outputPanel style="margin-top: 5px;"  id="pageNavBottom3"> 
+              <div style="float:right; font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: right; width: 25%;">                                     
+              <b> Page &nbsp; 
+                  <apex:inputText id="txtReqPage" value="{!currentPageNo }" style=" text-align:center; font-size:90%;font-weight:bold; width :20px;" /> of {!TotalPages} </b>                 
+                  <!--<apex:commandButton id="goToPagebtn" value="Go" action="{!navigate}" style="display:none;"/>                  -->
+              </div>                      
+            </apex:outputPanel>  
+                 
+</apex:pageBlockSection></apex:pageBlock>     
+
+  </apex:form>
+</apex:page>

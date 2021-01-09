@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MSITEStartDate_shdnt_greater_MSITEEndDat</fullName>
+    <active>true</active>
+    <description>The MSITE Start Date should not be after MSITE End Date.</description>
+    <errorConditionFormula>MSITE_Start_Date__c  &gt;  MSITE_EndDate__c</errorConditionFormula>
+    <errorDisplayField>MSITE_Start_Date__c</errorDisplayField>
+    <errorMessage>The MSITE Start Date should not be after MSITE End Date.</errorMessage>
+</ValidationRule>

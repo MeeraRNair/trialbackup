@@ -1,0 +1,324 @@
+<!--
+* Revision CR Number   Release No      Date            Modified By     Description
+* -------- ---------   ----------      -----------     ------------    -----------
+* 1.0 -    CR 16018    FY19-DCS-0802    6-June-2018:   Jatin Puri      Commented 'Feature_Request_Training__c?' field from the VF page 
+*/
+-->
+<apex:page standardController="Partner_Request__c"
+    extensions="PartnerRegistrationActionPanelCtrlExt"
+    showHeader="false"
+    sidebar="false"
+    standardStylesheets="true"
+    action="{!doOnLoad}"
+    cache="false"
+    id="p">
+
+    <!-- INCLUDE STYLESHEET  -->
+    <apex:stylesheet value="{!$Resource.PartnerRegistrationActionPanel_css}"/>
+    <apex:stylesheet value="{!$Resource.jquery_ui_1_7_2_custom_zip}/css/smoothness/jquery-ui-1.7.2.custom.css"/>
+    <apex:form >
+    <apex:actionFunction action="{!removeAll}" name="removeAll" oncomplete="parent.location.reload()"/> 
+    <apex:actionFunction action="{!ownedStatus}" name="doOwned" oncomplete="parent.location.reload()"/>
+    <script>
+    function confirmRemoveAll() {
+    if(confirm('{!$Label.Popup_Message}')) {
+       removeAll();
+       
+        return true;
+        }
+      return false; 
+    }
+    </script>
+        <apex:inputHidden value="{!Partner_Request__c.RecordTypeId}"/>
+        <apex:inputHidden value="{!Partner_Request__c.Status__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.Country__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.Review_for_Completeness_Is_Complete_Flag__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.Profile_UCID_as_Partner_Is_Complete_Flag__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.Update_Profile_Is_Complete_Flag__c}"/>
+         <apex:inputHidden value="{!Partner_Request__c.MUP_Profile_Creation__c}"/> 
+         <apex:inputHidden value="{!Partner_Request__c.Update_Account_In_GAMA_Is_Complete_Flag__c}"/>  
+        <apex:inputHidden value="{!Partner_Request__c.Check_For_Duplicates_Is_Complete_Flag__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.Export_Compliance_Check_Is_Complete_Flag__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.Check_Denied_Party_List_Is_Complete_Flag__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.Perform_Credit_Check_Is_Complete_Flag__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.Agreement_Hard_cpy_Rcvd_Is_Complete_Flag__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.Enable_Order_Management_access_Flag__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.Enable_Premier_Pages_access_Flag__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.Send_Welcome_Packet_to_Partner_Flag__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.Approve_Is_Complete_Flag__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.Send_Account_Suggestion_Is_Complete_Flag__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.Link_to_Account_Record_Is_Complete_Flag__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.Provision_First_User_Is_Complete_Flag__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.Task_Agreement_Hard_copy_Received__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.Task_Check_Credit__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.Task_Check_Denied_Party_List__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.Task_Check_Export_Compliance__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.Task_Enable_Order_Management_access__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.Task_Enable_Premier_Pages_access__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.Task_Send_Welcome_Packet_to_Partner__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.NA_Agreement_Hard_copy_Received__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.NA_Check_Credit__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.NA_Check_Denied_Party_List__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.NA_Check_Export_Compliance__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.NA_Enable_Order_Management_access__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.NA_Enable_Premier_Pages_access__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.NA_Send_Welcome_Packet_to_Partner__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.Prevetting_completed__c}"/>
+        
+        
+        <apex:inputHidden value="{!Partner_Request__c.ShowCheckDeniedPartyAfterNA__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.ShowexportComplianceCheckAfterNA__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.ShowPerformCreditCheckAfterNA__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.ShowagreementHardcpyRcvdAfterNA__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.ShowenableOrderManagementaccessAfterNA__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.ShowenablePremierPagesaccessAfterNA__c}"/>
+        <apex:inputHidden value="{!Partner_Request__c.ShowSendWelcomePackettoPartnerAfterNA__c}"/>
+    </apex:form>
+
+    <!-- DISPLAY PAGE LOAD ERROR IF ONE EXISTS -->
+    <apex:outputPanel rendered="{!errorOccurred}">
+        <div id="all">
+            <apex:variable rendered="{!errorCode == PAGE_FLOW_ERROR}" var="errorMessage"
+                value="Navigation error." />
+            <apex:variable rendered="{!errorCode == INVALID_RECORD_TYPE}" var="errorMessage"
+                value="Invalid record type: {!Partner_Request__c.RecordType.Name}" />
+
+            <apex:pageMessage severity="ERROR"
+                strength="3"
+                title="Error: {!Partner_Request__c.name} cannot be actioned."
+                detail="{!errorMessage}"/>
+        </div>
+    </apex:outputPanel>
+
+    <!-- OTHERWISE, DISPLAY -->
+    <apex:outputPanel rendered="{!NOT(errorOccurred)}" id="request_panel">
+  
+        <!-- MARKUP -->
+        <div id="all">
+            <table border="0" width="100%" align="left" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="500" valign="top">
+                        <div id="basicsPanel">
+                            <div id="header" class="statusContainer">
+                                Request Tracking
+                                <!-- <div style="float: left">Request Tracking</div> -->
+                                <div class="clear"></div>
+                            </div>
+                            <div id="statusMonitor">
+                                <div id="steps" class="statusContainer">
+                                    <table width="100%" cellspacing="2" cellpadding="0">
+                                        <tr>
+                                            <td class="label" style="border-top: 0px;">Record Type</td>
+                                            <td>{!Partner_Request__c.RecordType.name}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label">Number</td>
+                                            <td class="labelData">{!Partner_Request__c.name}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label">Related</td>
+                                            <td class="labelData">
+                                                <apex:outputLink rendered="{!AND(Partner_Request__c.Status__c=='Duplicate',Partner_Request__c.Duplicate_Account__c == '')}"
+                                                    value="javascript: loading(); doRedirect('/{!Partner_Request__c.Duplicate_Registration__c}');">
+                                                        Duplicate of Registration: {!Partner_Request__c.Duplicate_Registration__r.Name}</apex:outputLink>
+                                            
+                                                <apex:outputLink rendered="{!AND(Partner_Request__c.Status__c=='Duplicate',Partner_Request__c.Duplicate_Account__c != '')}"
+                                                    value="javascript: loading(); doRedirect('/{!Partner_Request__c.Duplicate_Account__c}');">
+                                                        Duplicate of Account: {!Partner_Request__c.Duplicate_Account__r.Name}</apex:outputLink>
+                                       
+                                                <apex:outputLink rendered="{!AND(Partner_Request__c.Status__c!='Duplicate',Partner_Request__c.Account__c == '')}"
+                                                    value="javascript: loading(); doRedirect('/{!Partner_Request__c.Lead__c}');">
+                                                        Lead: {!Partner_Request__c.Lead__r.Company}</apex:outputLink>
+                                                        
+                                                <apex:outputLink rendered="{!AND(Partner_Request__c.Status__c!='Duplicate',Partner_Request__c.Account__c != '')}"
+                                                    value="javascript: loading(); doRedirect('/{!Partner_Request__c.Account__c}');">
+                                                        Account: {!Partner_Request__c.Account__r.Name}</apex:outputLink> 
+                                                       
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label">Status</td>
+                                            <td class="labelData">{!Partner_Request__c.Status__c}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label">Provisioned User</td>
+                                            <td class="labelData"><apex:outputField value="{!Partner_Request__c.Provisioned_User__c}"/></td>
+                                        </tr>
+
+                                        <tr>
+                                        <apex:form id="own">
+                                            <td class="label">Owner</td>
+                                            <td class="labelData">
+                                                <apex:outputLink value="javascript: loading(); doRedirect('/{!Partner_Request__c.owner.id}');">{!Partner_Request__c.owner.name}</apex:outputLink>&nbsp;<apex:outputLink value="javascript: loading(); doRedirect('/{!Partner_Request__c.id}/a?retURL=/{!Partner_Request__c.id}');">[Change]</apex:outputLink>
+                                                <apex:outputPanel onclick="doOwned()" rendered="{!Partner_Request__c.Status__c == 'New' || Partner_Request__c.Status__c == 'Owned' || Partner_Request__c.Status__c == 'Re-submitted'}">
+                                              <a href="#">[OWN PR]</a>
+                                          </apex:outputPanel>
+                                            </td>
+                                            </apex:form>
+                                        </tr>
+                                        <tr><!--CR 7823 - Rename field label -->
+                                            <td class="label">Feature Request: Deal Reg & Lead Mgmt</td>
+                                            <td class="labelData"><apex:outputField value="{!Partner_Request__c.Feature_Request_Deal_Registration__c}"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label">Feature Request: Rebates</td>
+                                            <td class="labelData"><apex:outputField value="{!Partner_Request__c.Feature_Request_Rebates__c}"/></td>
+                                        </tr>
+                                        <tr>
+                                            
+                                            <td class="label">Feature Request: Partner Finder</td>
+                                            <td class="labelData"><apex:outputField value="{!Partner_Request__c.Feature_Request_Partner_Finder__c}"/></td>
+                                            
+                                            
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td width="10" valign="top">&nbsp;</td>
+                    <td width="500" valign="top">
+                        <div id="actionPanel">
+                            <div id="header" class="statusContainer">
+                                Action Panel  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b style="float: right;"> <b>Progress:</b>&nbsp;<span id="partnerRegProgBar">[ Loading Progress Bar ]</span></b>
+                              <!--  <div style="float: left">Action Panel</div>
+                                <div ><b>Progress:</b>&nbsp;<span id="partnerRegProgBar">[ Loading Progress Bar ]</span></div> -->
+                                <div class="clear"></div>
+                            </div>
+
+                            <apex:form id="f">
+                                <apex:inputHidden id="redirectUrl" value="{!redirectUrl}"/>
+                            </apex:form>
+                            <div id="statusMonitor">
+                                <div id="steps" class="statusContainer">
+                                  <apex:outputPanel >
+                                  <table border="0" width="100%" align="left" cellspacing="0" cellpadding="0">
+                                   <apex:form > 
+                                        <apex:variable value="{!1}" var="taskCount"/>
+                                        <apex:repeat value="{!tasks}" var="task">
+                                            <apex:outputPanel rendered="{!task.show}">
+                                                <div class="{!IF(taskCount>1,'task','')}">
+                                                    <div style="float: right">
+                                                    <tr>
+                                                    <apex:image styleClass="stepImage" value="{!$Resource.not_applicable_png}"
+                                                        rendered="{!AND(task.complete,task.notApplicable,NOT(task.CompletedAfterNAMarked))}"/>
+                                                     </tr>
+                                                     <tr>
+                                                    <apex:image styleClass="stepImage" value="{!$Resource.checkbox_checked}"
+                                                        rendered="{!OR(AND(task.complete,NOT(task.notApplicable)),task.CompletedAfterNAMarked)}"/>
+                                                   </tr>
+                                                        <tr>
+                                                            <apex:image styleClass="stepImage" value="{!$Resource.checkbox_unchecked}"
+                                                        rendered="{!NOT(task.complete)}"/>
+                                                            </tr>
+                                                       <tr>
+                                                    <span style="{!IF(AND(task.notApplicable,NOT(task.CompletedAfterNAMarked)),'text-decoration: line-through;','')}">{!task.label}</span>
+                                                  </tr> 
+                                                           <tr>
+                                                            
+                                                  <apex:outputPanel rendered="{!IF((task.label ==$Label.Send_DST_Account_Suggestion && Partner_Request__c.Status__c==$Label.Account_Suggestion_Submitted),'true','false')}">       
+                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                      <a href="#" onclick="return confirmRemoveAll();" id="theLink" > {!$Label.Hyper_link_Reject_PR} </a>                                                                                                                
+                                                    </apex:outputPanel>
+                                                  </tr>
+                                                    </div>
+                                                    <div style="float: right;vertical-align: middle;">
+                                                        <apex:variable value="{!1}" var="actionCount"/>
+                                                        <apex:repeat var="action" value="{!task.actions}">
+                                                            <apex:outputPanel rendered="{!action.show}">
+                                                                   <apex:outputPanel rendered="{!IF(actionCount!=1,'true','false')}">&nbsp;|&nbsp;</apex:outputPanel> 
+                                                                    <a onclick="javascript: if(document.getElementById('com.salesforce.visualforce.ViewState') == null){alert('Please wait, the page is still loading...');} else {loading();doAction{!ROUND(taskCount,0)}_{!ROUND(actionCount,0)}();}" href="#">
+                                                                       <span>{!action.label}</span>
+                                                                    </a>
+                                                                <apex:variable value="{!action.redirectUrl}" var="theUrl"/>
+                                                                <apex:actionFunction name="doAction{!ROUND(taskCount,0)}_{!ROUND(actionCount,0)}"
+                                                                    action="{!action.doAction}"
+                                                                    rerender="p:f"
+                                                                    oncomplete="doRefresh(false);"
+                                                                    rendered="{!action.redirectUrl==''}"/>
+                                                                <apex:actionFunction name="doAction{!ROUND(taskCount,0)}_{!ROUND(actionCount,0)}"
+                                                                    action="{!action.doAction}"
+                                                                    rerender="p:f"
+                                                                    oncomplete="doRefresh(true);"
+                                                                    rendered="{!action.redirectUrl!=''}"/>
+                                                                <apex:variable var="actionCount" value="{!actionCount + 1}" />
+                                                            </apex:outputPanel>
+                                                        </apex:repeat>
+                                                    </div>
+                                                    
+                                                </div>
+                                             <div class="clear"></div>
+                                            </apex:outputPanel>
+                                            <apex:variable var="taskCount" value="{!taskCount + 1}"/>
+                                        </apex:repeat>
+                                   </apex:form>
+                                      </table>
+                                </apex:outputPanel>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+                            <apex:includeScript value="{!$Resource.prototype}"/>
+                            <apex:includeScript value="{!$Resource.scriptaculous_builder}"/>
+                            <apex:includeScript value="{!$Resource.scriptaculous_effects}"/>
+                            <apex:includeScript value="{!$Page.jsProgressBarHandler}"/>
+                            <apex:includeScript value="{!$Resource.jquery_ui_1_7_2_custom_zip}/js/jquery-1.3.2.min.js"/>
+                            <apex:includeScript value="{!$Resource.jquery_ui_1_7_2_custom_zip}/js/jquery-ui-1.7.2.custom.min.js"/>
+                            <script type="text/javascript">
+                                jQuery.noConflict();
+                                function loading(){
+                                    jQuery('#dialog').dialog('open');
+                                }
+                                function doRefresh(redir){
+                                    if(redir){
+                                        doRedirect($F('p:f:redirectUrl'));
+                                    } else {
+                                        doRedirect(parent.location.href='/{!Partner_Request__c.Id}');
+                                    }
+                                }
+                                function doRedirect(theUrl){
+                                    parent.location.href=theUrl;
+                                }
+                                document.observe('dom:loaded', function() {
+                                    manualPB = new JS_BRAMUS.jsProgressBar(
+                                        $('partnerRegProgBar'),
+                                        {!percentComplete},
+                                        {
+                                            animate     : false,
+                                            barImage    : Array(
+                                                '{!$Resource.percentImage_back4}',
+                                                '{!$Resource.percentImage_back3}',
+                                                '{!$Resource.percentImage_back2}',
+                                                '{!$Resource.percentImage_back1}'
+                                            )
+                                        }
+                                    );
+                                    jQuery('#dialog').dialog({
+                                        autoOpen: false,
+                                        bgiframe: true,
+                                        closeOnEscape: false,
+                                        dialogClass: 'dialog_style',
+                                        draggable: false,
+                                        height: 100,
+                                        minHeight: 100,
+                                        modal: true,
+                                        open: function(event, ui) { jQuery(".ui-dialog-titlebar-close").hide(); },
+                                        position: 'top',
+                                        resizable: false
+                                    });
+                                }, false);
+                            </script>
+        <div id="dialog" title="Loading...">
+           <table border="0" width="100%" cellpadding="0" cellspacing="3"><tr><td width="20"> 
+                <apex:image value="{!$Resource.spinner_gif}"/>
+                </td><td>Please wait...</td></tr></table>
+        </div>
+
+    </apex:outputPanel>
+</apex:page>

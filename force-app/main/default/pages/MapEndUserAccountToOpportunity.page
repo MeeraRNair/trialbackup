@@ -1,0 +1,163 @@
+<apex:page standardController="Opportunity" showHeader="false" sidebar="false" extensions="MapEndUserAccountToOpportunityController" lightningStylesheets="true">
+  <Script>
+    function refreshWindow(){
+        window.close();
+        window.opener.location.reload();
+        
+    }
+    function closeWindow(){
+        window.close();        
+    }
+  </script>
+  <apex:form id="frm" >
+  <br/> <br/>
+   <apex:actionFunction action="{!goBack}" name="callGoBack" oncomplete="alert('Executed')"/>
+   <apex:outputPanel rendered="{!suffpriv}">
+    <apex:pageblock title="End User Information">
+      <apex:pageBlockSection >      
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel >End User Account Name</apex:outputLabel>
+          <apex:inputText value="{!accName}" onkeydown="if(event.keyCode==13){this.blur();actionFunction();}" />
+        </apex:pageBlockSectionItem> 
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel >End User Mailing Street</apex:outputLabel>
+          <apex:inputText value="{!Street}" onkeydown="if(event.keyCode==13){this.blur();actionFunction();}"/>
+        </apex:pageBlockSectionItem> 
+                
+        <apex:outputField value="{!oppRecord.End_User_Mailing_City__c}"/>         
+        <apex:outputField value="{!oppRecord.End_User_Mailing_State_Province_Region__c}"/>         
+        <apex:outputField value="{!oppRecord.End_User_Mailing_Zip_Postal_Code__c}"/>  
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel >End User Email Domain</apex:outputLabel>
+          <apex:inputText value="{!EmailDomain}" onkeydown="if(event.keyCode==13){this.blur();actionFunction();}" />
+        </apex:pageBlockSectionItem>
+        <apex:pageblocksectionItem >
+        <apex:outputLabel value="Search By" />
+        <apex:selectlist value="{!SelectedItem}" size="1" id="so">
+         <apex:selectOptions value="{!Items}">
+          </apex:selectOptions>
+        </apex:selectlist>       
+        </apex:pageblocksectionItem>
+     </apex:pageBlockSection> 
+ 
+      <apex:actionFunction action="{!searchAccounts}" name="searchFunction" status="Accountsearch" reRender="frm,pb,table,errorMsg,savebutton"/>
+      <apex:pageblockbuttons location="bottom">
+        <apex:actionstatus id="Accountsearch">
+        <apex:facet name="stop">
+          <apex:commandButton value="Search" action="{!searchAccounts}" status="Accountsearch" reRender="frm,pb,table,errorMsg,savebutton "/>
+        </apex:facet>
+        <apex:facet name="start">
+        <apex:outputpanel >
+          <apex:image value="/img/loading32.gif" style="height: 15px;"/> 
+          <apex:commandButton value="Searching..." status="Accountsearch" disabled="true"/>
+        </apex:outputpanel>  
+        </apex:facet>
+        </apex:actionstatus>
+        <apex:commandButton value="Cancel" onclick="cancelPage();"/>      
+        <script>
+        function cancelPage()
+        {
+        if( (typeof sforce != 'undefined') && (sforce != null) ) {
+         callGoBack();
+        }
+        else{
+        window.close();
+        }
+        }       
+        </script> 
+      </apex:pageblockbuttons>
+                         
+     <br/> <br/>      
+     </apex:pageBlock>
+      </apex:outputPanel> 
+      
+     <apex:pageMessages id="errorMsg" rendered="{!hidetable}"/>
+          
+     <apex:outputPanel rendered="{!NOT(hidetable)}"  id="pb"> 
+     <apex:pageBlock >         
+     <apex:actionStatus id="accountSelect">   
+     <apex:facet name="start" >
+           <apex:image url="{!$Resource.loading}"/>        
+         </apex:facet>              
+     </apex:actionStatus>
+      <apex:actionFunction action="{!saveOppRecord}" name="saveFunction" status="search-status"/>       
+     
+     <apex:outputPanel id="table"  rendered="{!NOT(hidetable)}"> <!-- NOT hide table rendered-->
+     <apex:pageBlockTable value="{!Accounts}" var="accLst">
+       <apex:column headerValue="Selected" width="50px" rendered="{!IF((selectedAccId == accLst.Id),true,false)}" >
+         <input type="radio" name="selectedAccId" value="{!accLst.Id}" checked="checked" >
+           <apex:actionSupport event="onclick" action="{!enableSaveButton}" reRender="savebutton" status="accountSelect">                     
+           </apex:actionSupport>
+         </input>
+       </apex:column>
+       <apex:column headerValue="Selected" width="50px" rendered="{!IF((selectedAccId != accLst.Id),true,false)}">
+         <input type="radio" name="selectedAccId" value="{!accLst.Id}">
+           <apex:actionSupport event="onclick" action="{!enableSaveButton}" reRender="savebutton" status="accountSelect">                     
+           </apex:actionSupport>
+         </input>
+       </apex:column>
+       <apex:column headerValue="Account Name"> {!accLst.Name}</apex:column>
+       <apex:column headerValue="Account Name (Local)"> {!accLst.NameLocal}</apex:column>
+       <apex:column headerValue="Affinity Account Id"> {!accLst.Account_ID__c}</apex:column>
+       <apex:column headerValue="Segment Desc"> {!accLst.Segment_Desc__c}</apex:column>      
+       <apex:column headerValue="Segment Business Unit Name">{!accLst.Segment_Business_Unit_Name__c}</apex:column>
+       <!-- <apex:column headerValue="Primary Shipping Address">{!accLst.ShippingStreet},<br/>{!accLst.ShippingCity}, {!accLst.ShippingState}, {!accLst.ShippingPostalCode},<br/>{!accLst.ShippingCountry}</apex:column>      -->
+       <apex:column headerValue="Primary Shipping Address">
+        <apex:outputText value="{!accLst.ShippingStreet}" rendered="{!IF(accLst.ShippingStreet != null,true,false)}"></apex:outputText>
+        <apex:outputText value="," rendered="{!IF(accLst.ShippingStreet != null && accLst.ShippingCity !=null,true,false)}"/>
+        <apex:outputText value="{!newLine}" rendered="{!IF(accLst.ShippingStreet != null,true,false)}" escape="false"/>
+        
+        <apex:outputText value="{!accLst.ShippingCity}" rendered="{!IF(accLst.ShippingCity != null,true,false)}"></apex:outputText>        
+        <apex:outputText value="," rendered="{!IF(accLst.ShippingState!= null && accLst.ShippingCity !=null,true,false)}"/>
+         
+        <apex:outputText value="{!accLst.ShippingState}" rendered="{!IF(accLst.ShippingState != null,true,false)}"></apex:outputText>       
+        <apex:outputText value="," rendered="{!IF(accLst.ShippingState!= null && accLst.ShippingPostalCode!=null,true,false)}"/>
+         
+        <apex:outputText value="{!accLst.ShippingPostalCode}" rendered="{!IF(accLst.ShippingPostalCode != null,true,false)}"></apex:outputText>     
+        <apex:outputText value="," rendered="{!IF(accLst.ShippingCountry!= null && accLst.ShippingPostalCode!=null,true,false)}"/>
+        <apex:outputText value="{!newLine}" rendered="{!IF(accLst.ShippingState!= null && accLst.ShippingCity!=null && accLst.ShippingPostalCode!=null,true,false)}" escape="false"/>
+        
+        <apex:outputText value="{!accLst.ShippingCountry}" rendered="{!IF(accLst.ShippingCountry!= null,true,false)}"></apex:outputText>               
+       </apex:column>
+       <apex:column headerValue="Billing City"> {!accLst.BillingCity}</apex:column>
+       <apex:column headerValue="Billing State"> {!accLst.BillingState}</apex:column>      
+       <apex:column headerValue="Billing Country"> {!accLst.BillingCountry}</apex:column> 
+       <apex:column headerValue="Account Owner Alias"> {!accLst.Owner.Alias}</apex:column> 
+       <apex:column headerValue="Account Type Integration"> {!accLst.Account_Type_Integration__c}</apex:column>
+       <apex:column headerValue="Account Record Type"> {!accLst.RecordType.Name}</apex:column>
+   
+     </apex:pageBlockTable> 
+     
+     
+     <apex:panelGrid columns="7" rendered="{!IF(noOfRecords == 0  || showError == true,false,true)}">
+               <!-- <apex:commandButton status="fetchStatus" reRender="pb" value="|<" action="{!first}" disabled="{!!hasPrevious}" title="First Page"/>-->
+                <apex:commandButton status="fetchStatus" reRender="pb" value="<" action="{!previous}" disabled="{!!hasPrevious}" title="Previous Page"/>
+                <apex:commandButton status="fetchStatus" reRender="pb" value=">" action="{!next}" disabled="{!!hasNext}" title="Next Page"/>
+<!--                <apex:commandButton status="fetchStatus" reRender="pb" value=">|" action="{!last}" disabled="{!!hasNext}" title="Last Page"/> -->
+                <apex:outputText rendered="{!IF(noOfRecords == 0,false,true)}" >{!(pageNumber * size)+1-size}-{!IF((pageNumber * size) > noOfRecords, noOfRecords,(pageNumber * size))} of {!noOfRecords}</apex:outputText>
+            <apex:outputPanel style="color:#4AA02C;font-weight:bold">
+                    <apex:actionStatus id="fetchStatus" startText="Fetching..." stopText=""/>
+            </apex:outputPanel>
+     </apex:panelGrid>     
+     </apex:outputPanel>
+     <br/>
+    <!-- <apex:outputText escape="false" rendered="{!IF(noOfRecords == 0,true,false)}" value="<b>***No Records Found***<b/>"/> -->
+         
+     <apex:pageBlockButtons location="bottom">   
+     <apex:outputPanel id="savebutton">
+         <apex:commandButton value="Save"  disabled="{!NOT(showSaveButton)}" action="{!saveOppRecord}" reRender="errorMsg" status="saveRecord"/> 
+         <!--<apex:commandButton value="View More" action="{!viewMoreResults}" reRender="frm"/>-->
+     </apex:outputPanel>
+     <apex:actionStatus id="saveRecord">   
+       <apex:facet name="start" >
+           <apex:image url="{!$Resource.loading}"/>        
+         </apex:facet>              
+       </apex:actionStatus>
+     </apex:pageBlockButtons>   
+   
+   </apex:pageblock> 
+  </apex:outputpanel>
+   <br/><br/>
+  
+  </apex:form>
+</apex:page>

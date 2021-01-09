@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Display_Error_Message_Program_is_Active</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(OR(ISCLONE(),ISNEW(),ISCHANGED(Active__c), ISCHANGED( Start_Date__c)), Active__c = TRUE, 
+Start_Date__c &lt; TODAY())</errorConditionFormula>
+    <errorMessage>Change the Start Date to Today&apos;s date before making the program active.</errorMessage>
+</ValidationRule>

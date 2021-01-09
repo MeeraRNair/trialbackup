@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_Duplicate_Contact_creation</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(ISPICKVAL(Create_Service_Lead__c,&apos;Yes&apos;), (Services_Lead_Email__c =  Email__c) , OR(RecordType.Id = &apos;012700000005cfa&apos; || RecordType.Id =&apos;012A0000000TWie&apos;))</errorConditionFormula>
+    <errorDisplayField>Create_Service_Lead__c</errorDisplayField>
+    <errorMessage>Service Lead email is same as Provisioned User email. Cannot create duplicate Contact for the Service Lead Information.</errorMessage>
+</ValidationRule>

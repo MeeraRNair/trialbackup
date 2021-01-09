@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Actions_Available__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( AND( ISPICKVAL(Status__c, &apos;Requires Follow-Up&apos;), OR (ISPICKVAL(Accept_Reject_Status__c, &apos;&apos;), ISPICKVAL(Accept_Reject_Status__c, &apos;Reassigned By Sales&apos;))) , HYPERLINK(Id &amp; &apos;/e?nooverride=1&amp;retURL=/&apos; &amp; Id &amp; &apos;&amp;00NA0000000b8a3=Accepted By Sales&apos;, IMAGE(&quot;resource/1257839368000/MA_Accept&quot;, &apos;Accept&apos;), &apos;_parent&apos;) &amp; &apos; &apos; &amp; 
+HYPERLINK(Id &amp; &apos;/e?nooverride=1&amp;retURL=/&apos; &amp; Id &amp; &apos;&amp;00NA0000000b8a3=Rejected By Sales&amp;00NA0000000b8af=Rejected - Completed Follow-Up&apos;, IMAGE(&quot;resource/1257839368000/MA_Reject&quot;, &apos;Reject&apos;), &apos;_parent&apos;) &amp; &apos; &apos; &amp; 
+HYPERLINK(&apos;/apex/RelationshipLeadAccPlayTM?Id=&apos;+Id+&apos;&amp;AccId=&apos;+ Contact__r.Account.Id+&apos;&amp;OwnerId=&apos;+ Relationship_Lead_Owner__c , IMAGE(&apos;resource/1266470716000/MA_Reassign&apos;, &apos;Reassign&apos;) ,&apos;_parent&apos;) , 
+
+IF( AND(OR(ISPICKVAL(Status__c, &apos;Attempted to Contact - Awaiting Response&apos;),ISPICKVAL(Status__c, &apos;Future Follow-Up&apos;)),NOT( ISPICKVAL( Lead_Quality__c , &apos;Qualified&apos;) )) , 
+HYPERLINK(Id &amp; &apos;/e?nooverride=1&amp;retURL=/&apos; &amp; Id, IMAGE(&quot;resource/1257839368000/MA_UpdateRecord&quot;, &apos;Update Record&apos;), &apos;_parent&apos;), 
+IF(AND( ISPICKVAL(Lead_Quality__c, &apos;Qualified&apos;), OR(ISPICKVAL(Opportunity_Status__c,&apos;New Opportunity&apos;), ISPICKVAL(Opportunity_Status__c,&apos;Existing Opportunity&apos;),ISPICKVAL(Opportunity_Status__c,&apos;Run Rate Opportunity&apos;)) , Opportunity__c=null ), 
+HYPERLINK(&apos;006/e?retURL=/&apos; &amp; Id &amp; &apos;&amp;RecordType=012300000004zf2&amp;00NA0000000bC8S=&apos; &amp; Id&amp;&apos;&amp;opp4=&apos;&amp; Account__c &amp;&apos;&amp;opp4_lkid=&apos; &amp; Contact__r.AccountId&amp;&apos;&amp;opp17=&apos;&amp; Campaign__r.Name&amp;&apos;&amp;00NA0000000b8l9=1&amp;opp5=Deal/Bid - Direct&amp;opp11=Plan - 1%25&amp;00NA00000063VHF=&apos;&amp; Solution_ID__c &amp;&apos;&amp;nooverride=1&apos; , IMAGE(&quot;resource/1257839368000/MA_NewOpptys&quot;, &apos;New Opportunity&apos;),&apos;_parent&apos;) &amp; &apos; &apos; &amp; 
+HYPERLINK(&apos;apex/MarketingExistingOppAssn?retURL=%2F&apos; &amp; Id &amp; &apos;&amp;relationshipLeadId=&apos; &amp; Id &amp; &apos;&amp;accid=&apos; &amp; Contact__r.AccountId &amp; &apos;&amp;campaignid=&apos; &amp; Campaign__c &amp; &apos;&amp;solutionid=&apos; &amp; Solution_ID__c, IMAGE(&quot;resource/1257839368000/MA_ExistingOpptys&quot;, &apos;Existing Opportunity&apos;),&apos;_parent&apos;), 
+
+&apos;[No Action Available]&apos;)))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Actions Available</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

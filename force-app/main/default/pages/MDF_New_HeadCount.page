@@ -1,0 +1,23 @@
+<apex:page standardcontroller="MDF_Program__c" extensions="MDFRedirect" action="{!if($CurrentPage.parameters.RecordType != '012A0000000VhMu',urlfor('/a1R/e',null,[retURL='/a1R/o',ent='01IA00000016E5P',RecordType=$CurrentPage.parameters.RecordType],true),'')}">
+<apex:form >        
+        <apex:outputPanel >        
+            <apex:pageBlock id="pageBlkId1" title="Please Enter HCID Value"><apex:pageMessages /><br />
+                <table cellspacing="0"><tr><td> 
+                    <apex:outputLabel value="HCID : " style="font-Weight:bold;" /></td>&nbsp;&nbsp;            
+                <td style="padding-left: 57px;">
+                <div class="requiredInput">
+                <div class="requiredBlock"></div>
+                    <apex:inputField value="{!mdfPrgram.HCID__c}" style="height: 20px" id="HCValue"/>
+                </div>
+                </td></tr></table><br/>
+                    <apex:outputLabel value="Fiscal Quarter : " style="font-Weight:bold;" />&nbsp;&nbsp;
+                    <apex:selectList value="{!strFYQ}" multiselect="false" size="1" style="height: 20px">
+                       <apex:selectOptions value="{!FYQ}" />
+                    </apex:selectList>  <br/><br/> 
+                <apex:commandButton value="{!$Label.CMAP_Continue}" action="{!continueButton}" />&nbsp;&nbsp;
+                <apex:commandButton value="{!$Label.CMAP_Cancel}" action="{!cancelButton}" />    
+            </apex:pageBlock>
+        </apex:outputPanel>
+
+</apex:form>
+ </apex:page>

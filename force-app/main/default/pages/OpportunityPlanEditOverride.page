@@ -1,0 +1,306 @@
+<apex:page standardController="Opportunity_Plan__c" extensions="OpportunityPlanOverrideController" lightningStylesheets="true">
+<apex:form >
+    <apex:pageBlock title="Edit Opportunity Plan" mode="edit" >
+        <apex:pageMessages id="message" />
+        <apex:pageBlockButtons >
+            <apex:commandButton action="{!save}" value="Save"/>
+            <apex:commandButton action="{!cancel}" value="Cancel"/>
+        </apex:pageBlockButtons>
+        <!-- R13.4 Manju - To add a Note on Opportunity        -->
+        <table>
+            <tr>
+                <td>
+                    <br/><br/><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note:</b> &nbsp;You can only create one Opportunity
+                                    Plan per Opportunity <br/><br/><br/>
+                </td>
+            </tr>
+        </table>
+        <!-- End -->
+        <apex:pageBlockSection title="Opportunity Plan Details"  >
+            <apex:inputField required="true" value="{!Opportunity_Plan__c.Name}"/>
+            <!-- <apex:inputField value="{!Opportunity_Plan__c.CreatedById}"/> -->
+            <apex:inputField value="{!Opportunity_Plan__c.Opportunity__c}"/>
+            <!-- <<apex:inputField value="{!Opportunity_Plan__c.LastModifiedById}"/> -->
+            <apex:inputField value="{!Opportunity_Plan__c.Percent_Complete__c}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Percent_Validated__c}"/>
+        </apex:pageBlockSection>
+
+        <apex:pageBlockSection columns="1" title="Background"  >      
+            <apex:inputField value="{!Opportunity_Plan__c.Nature_of_the_Opportunity__c}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Opportunity_Source__c}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Opportunity_Contacts__c}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Upcoming_Milestones__c}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Selling_Barriers__c}" style="width:223px;"/>
+        </apex:pageBlockSection>
+
+        <apex:pageBlockSection title="Issues, Evidence & Impact"  id="IssuesSection"  >
+
+            <apex:pageBlockSectionItem >
+                <apex:outputText ></apex:outputText>
+
+                <apex:outputPanel >
+                <apex:commandbutton action="{!showMoreIssuesFieldSet}" value="Add New Issues, Evidence & Impact" reRender="IssuesSection,message" status="AddIssuesButtonStatus" rendered="{!IssueMaxIndex < 10}"/>
+                <apex:actionStatus id="AddIssuesButtonStatus">
+                    <apex:facet name="start">
+                        <apex:image value="{!$Resource.loading}" alt="Loading..."/>
+                    </apex:facet>
+                </apex:actionStatus>
+                </apex:outputPanel>
+
+
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem />
+            <apex:pageBlockSectionItem />
+            <apex:pageBlockSectionItem />
+            <apex:inputField value="{!Opportunity_Plan__c.Customer_Problem_1__c}" rendered="{!IssueMaxIndex >= 1}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Problem_Evidence_1__c}" rendered="{!IssueMaxIndex >= 1}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Problem_Impact_1__c}" rendered="{!IssueMaxIndex >= 1}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Quantifiable_Benefit_1__c}" rendered="{!IssueMaxIndex >= 1}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Customer_Problem_2__c}" rendered="{!IssueMaxIndex >= 2}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Problem_Evidence_2__c}" rendered="{!IssueMaxIndex >= 2}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Problem_Impact_2__c}" rendered="{!IssueMaxIndex >= 2}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Quantifiable_Benefit_2__c}" rendered="{!IssueMaxIndex >= 2}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Customer_Problem_3__c}" rendered="{!IssueMaxIndex >= 3}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Problem_Evidence_3__c}" rendered="{!IssueMaxIndex >= 3}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Problem_Impact_3__c}" rendered="{!IssueMaxIndex >= 3}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Quantifiable_Benefit_3__c}" rendered="{!IssueMaxIndex >= 3}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Customer_Problem_4__c}" rendered="{!IssueMaxIndex >= 4}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Problem_Evidence_4__c}" rendered="{!IssueMaxIndex >= 4}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Problem_Impact_4__c}" rendered="{!IssueMaxIndex >= 4}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Quantifiable_Benefit_4__c}" rendered="{!IssueMaxIndex >= 4}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Customer_Problem_5__c}" rendered="{!IssueMaxIndex >= 5}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Problem_Evidence_5__c}" rendered="{!IssueMaxIndex >= 5}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Problem_Impact_5__c}" rendered="{!IssueMaxIndex >= 5}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Quantifiable_Benefit_5__c}" rendered="{!IssueMaxIndex >= 5}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Customer_Problem_6__c}" rendered="{!IssueMaxIndex >= 6}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Problem_Evidence_6__c}" rendered="{!IssueMaxIndex >= 6}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Problem_Impact_6__c}" rendered="{!IssueMaxIndex >= 6}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Quantifiable_Benefit_6__c}" rendered="{!IssueMaxIndex >= 6}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Customer_Problem_7__c}" rendered="{!IssueMaxIndex >= 7}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Problem_Evidence_7__c}" rendered="{!IssueMaxIndex >= 7}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Problem_Impact_7__c}" rendered="{!IssueMaxIndex >= 7}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Quantifiable_Benefit_7__c}" rendered="{!IssueMaxIndex >= 7}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Customer_Problem_8__c}" rendered="{!IssueMaxIndex >= 8}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Problem_Evidence_8__c}" rendered="{!IssueMaxIndex >= 8}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Problem_Impact_8__c}" rendered="{!IssueMaxIndex >= 8}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Quantifiable_Benefit_8__c}" rendered="{!IssueMaxIndex >= 8}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Customer_Problem_9__c}" rendered="{!IssueMaxIndex >= 9}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Problem_Evidence_9__c}" rendered="{!IssueMaxIndex >= 9}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Problem_Impact_9__c}" rendered="{!IssueMaxIndex >= 9}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Quantifiable_Benefit_9__c}" rendered="{!IssueMaxIndex >= 9}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Customer_Problem_10__c}" rendered="{!IssueMaxIndex >= 10}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Problem_Evidence_10__c}" rendered="{!IssueMaxIndex >= 10}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Problem_Impact_10__c}" rendered="{!IssueMaxIndex >= 10}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Quantifiable_Benefit_10__c}" rendered="{!IssueMaxIndex >= 10}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Problems_Results_Evidence_Validated__c}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Problems_Results_Impact_Validated__c}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Problems_Results_Validated__c}"/>
+        </apex:pageBlockSection>
+
+        <apex:pageBlockSection title="Customer Context and Constraints">
+            <apex:inputField value="{!Opportunity_Plan__c.Context__c}"  style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Context_Validated__c}" />
+            <apex:inputField value="{!Opportunity_Plan__c.Constraints__c}"  style="width:223px;" />
+            <apex:inputField value="{!Opportunity_Plan__c.Constraints_Validated__c}" />
+        </apex:pageBlockSection>
+
+        <apex:pageBlockSection title="Customer Resource">
+            <apex:inputField value="{!Opportunity_Plan__c.Time__c}" />
+            <apex:inputField value="{!Opportunity_Plan__c.People__c}" />
+            <apex:inputField value="{!Opportunity_Plan__c.Money__c}" />
+            <apex:inputField value="{!Opportunity_Plan__c.Resources_Validated__c}" />
+        </apex:pageBlockSection>
+        <apex:pageBlockSection title="Decision Process (Decision Grid)"  id="DecisionGridSection"  >
+
+            <apex:pageBlockSectionItem >
+                <apex:outputText ></apex:outputText>
+
+                <apex:outputPanel >
+                <apex:commandbutton action="{!showMoreDecisionFieldSet}" value="Add New Decision Process" reRender="DecisionGridSection,message" status="AddDecisionButtonStatus" rendered="{!DecisionMaxIndex < 10}"/>
+                <apex:actionStatus id="AddDecisionButtonStatus">
+                    <apex:facet name="start">
+                        <apex:image value="{!$Resource.loading}" alt="Loading..."/>
+                    </apex:facet>
+                </apex:actionStatus>
+                </apex:outputPanel>
+
+
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem />
+            <apex:pageBlockSectionItem />
+            <apex:pageBlockSectionItem />
+            <apex:inputField value="{!Opportunity_Plan__c.Decision_Step_1__c}" rendered="{!DecisionMaxIndex >= 1}"  style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Actual_Decision_1__c}" rendered="{!DecisionMaxIndex >= 1}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.When_1__c}" rendered="{!DecisionMaxIndex >= 1}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Who_is_involved_1__c}" rendered="{!DecisionMaxIndex >= 1}" />
+            <apex:inputField value="{!Opportunity_Plan__c.Criteria_for_deciding_1__c}" rendered="{!DecisionMaxIndex >= 1}"/>
+            <apex:pageBlockSectionItem />
+            <apex:inputField value="{!Opportunity_Plan__c.Decision_Step_2__c}" rendered="{!DecisionMaxIndex >= 2}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Actual_Decision_2__c}" rendered="{!DecisionMaxIndex >= 2}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.When_2__c}" rendered="{!DecisionMaxIndex >= 2}" />
+            <apex:inputField value="{!Opportunity_Plan__c.Who_is_involved_2__c}" rendered="{!DecisionMaxIndex >= 2}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Criteria_for_deciding_2__c}" rendered="{!DecisionMaxIndex >= 2}" />
+            <apex:pageBlockSectionItem />
+            <apex:inputField value="{!Opportunity_Plan__c.Decision_Step_3__c}" rendered="{!DecisionMaxIndex >= 3}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Actual_Decision_3__c}" rendered="{!DecisionMaxIndex >= 3}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.When_3__c}" rendered="{!DecisionMaxIndex >= 3}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Who_is_involved_3__c}" rendered="{!DecisionMaxIndex >= 3}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Criteria_for_deciding_3__c}" rendered="{!DecisionMaxIndex >= 3}"/>
+            <apex:pageBlockSectionItem />
+            <apex:inputField value="{!Opportunity_Plan__c.Decision_Step_4__c}" rendered="{!DecisionMaxIndex >= 4}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Actual_Decision_4__c}" rendered="{!DecisionMaxIndex >= 4}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.When_4__c}" rendered="{!DecisionMaxIndex >= 4}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Who_is_involved_4__c}" rendered="{!DecisionMaxIndex >= 4}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Criteria_for_deciding_4__c}" rendered="{!DecisionMaxIndex >= 4}"/>
+            <apex:pageBlockSectionItem />
+            <apex:inputField value="{!Opportunity_Plan__c.Decision_Step_5__c}" rendered="{!DecisionMaxIndex >= 5}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Actual_Decision_5__c}" rendered="{!DecisionMaxIndex >= 5}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.When_5__c}" rendered="{!DecisionMaxIndex >= 5}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Who_is_involved_5__c}" rendered="{!DecisionMaxIndex >= 5}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Criteria_for_deciding_5__c}" rendered="{!DecisionMaxIndex >= 5}"/>
+            <apex:pageBlockSectionItem />
+            <apex:inputField value="{!Opportunity_Plan__c.Decision_Step_6__c}" rendered="{!DecisionMaxIndex >= 6}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Actual_Decision_6__c}" rendered="{!DecisionMaxIndex >= 6}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.When_6__c}" rendered="{!DecisionMaxIndex >= 6}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Who_is_involved_6__c}" rendered="{!DecisionMaxIndex >= 6}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Criteria_for_deciding_6__c}" rendered="{!DecisionMaxIndex >= 6}"/>
+            <apex:pageBlockSectionItem />
+            <apex:inputField value="{!Opportunity_Plan__c.Decision_Step_7__c}" rendered="{!DecisionMaxIndex >= 7}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Actual_Decision_7__c}" rendered="{!DecisionMaxIndex >= 7}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.When_7__c}" rendered="{!DecisionMaxIndex >= 7}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Who_is_involved_7__c}" rendered="{!DecisionMaxIndex >= 7}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Criteria_for_deciding_7__c}" rendered="{!DecisionMaxIndex >= 7}"/>
+            <apex:pageBlockSectionItem />
+            <apex:inputField value="{!Opportunity_Plan__c.Decision_Step_8__c}" rendered="{!DecisionMaxIndex >= 8}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Actual_Decision_8__c}" rendered="{!DecisionMaxIndex >= 8}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.When_8__c}" rendered="{!DecisionMaxIndex >= 8}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Who_is_involved_8__c}" rendered="{!DecisionMaxIndex >= 8}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Criteria_for_deciding_8__c}" rendered="{!DecisionMaxIndex >= 8}"/>
+            <apex:pageBlockSectionItem />
+            <apex:inputField value="{!Opportunity_Plan__c.Decision_Step_9__c}" rendered="{!DecisionMaxIndex >= 9}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Actual_Decision_9__c}" rendered="{!DecisionMaxIndex >= 9}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.When_9__c}" rendered="{!DecisionMaxIndex >= 9}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Who_is_involved_9__c}" rendered="{!DecisionMaxIndex >= 9}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Criteria_for_deciding_9__c}" rendered="{!DecisionMaxIndex >= 9}"/>
+            <apex:pageBlockSectionItem />
+            <apex:inputField value="{!Opportunity_Plan__c.Decision_Step_10__c}" rendered="{!DecisionMaxIndex >= 10}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Actual_Decision_10__c}" rendered="{!DecisionMaxIndex >= 10}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.When_10__c}" rendered="{!DecisionMaxIndex >= 10}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Who_is_involved_10__c}" rendered="{!DecisionMaxIndex >= 10}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Criteria_for_deciding_10__c}" rendered="{!DecisionMaxIndex >= 10}"/>
+            <apex:pageBlockSectionItem />
+            <apex:inputField value="{!Opportunity_Plan__c.Decisions_Validated__c}"/>
+
+        </apex:pageBlockSection>
+        <apex:pageBlockSection title="People Involved"  id="PeopleInvolvedSection"  >
+
+            <apex:pageBlockSectionItem >
+                <apex:outputText ></apex:outputText>
+
+                <apex:outputPanel >
+                <apex:commandbutton action="{!showMorePeopleInvolvedFieldSet}" value="Add New People Involved" reRender="PeopleInvolvedSection,message" status="AddPeopleInvolvedStatus" rendered="{!PeopleInvolvedMaxIndex < 10}"/>
+                <apex:actionStatus id="AddPeopleInvolvedStatus">
+                    <apex:facet name="start">
+                        <apex:image value="{!$Resource.loading}" alt="Loading..."/>
+                    </apex:facet>
+                </apex:actionStatus>
+                </apex:outputPanel>
+
+
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem / >
+            <apex:pageBlockSectionItem / >
+            <apex:pageBlockSectionItem / >
+            <apex:inputField value="{!Opportunity_Plan__c.Person_1__c}" rendered="{!PeopleInvolvedMaxIndex >= 1}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Onboard_Person_1__c}" rendered="{!PeopleInvolvedMaxIndex >= 1}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Person_2__c}" rendered="{!PeopleInvolvedMaxIndex >= 2}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Onboard_Person_2__c}" rendered="{!PeopleInvolvedMaxIndex >= 2}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Person_3__c}" rendered="{!PeopleInvolvedMaxIndex >= 3}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Onboard_Person_3__c}" rendered="{!PeopleInvolvedMaxIndex >= 3}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Person_4__c}" rendered="{!PeopleInvolvedMaxIndex >= 4}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Onboard_Person_4__c}" rendered="{!PeopleInvolvedMaxIndex >= 4}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Person_5__c}" rendered="{!PeopleInvolvedMaxIndex >= 5}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Onboard_Person_5__c}" rendered="{!PeopleInvolvedMaxIndex >= 5}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Person_6__c}" rendered="{!PeopleInvolvedMaxIndex >= 6}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Onboard_Person_6__c}" rendered="{!PeopleInvolvedMaxIndex >= 6}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Person_7__c}" rendered="{!PeopleInvolvedMaxIndex >= 7}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Onboard_Person_7__c}" rendered="{!PeopleInvolvedMaxIndex >= 7}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Person_8__c}" rendered="{!PeopleInvolvedMaxIndex >= 8}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Onboard_Person_8__c}" rendered="{!PeopleInvolvedMaxIndex >= 8}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Person_9__c}" rendered="{!PeopleInvolvedMaxIndex >= 9}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Onboard_Person_9__c}" rendered="{!PeopleInvolvedMaxIndex >= 9}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Person_10__c}" rendered="{!PeopleInvolvedMaxIndex >= 10}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Onboard_Person_10__c}" rendered="{!PeopleInvolvedMaxIndex >= 10}"/>
+
+
+
+        </apex:pageBlockSection>
+
+        <apex:pageBlockSection title="Our Exact Solution">
+            <apex:inputField value="{!Opportunity_Plan__c.Our_Solution__c}"  style="width:223px;" />
+            <apex:inputField value="{!Opportunity_Plan__c.Solution_Validated__c}" />
+            <apex:inputField value="{!Opportunity_Plan__c.Customer_Reasons__c}" style="width:223px;" />
+            <apex:inputField value="{!Opportunity_Plan__c.Reasons_Validated__c}" />
+        </apex:pageBlockSection>
+
+        <apex:pageBlockSection title="Competitive Considerations" id="CompetitiveConsiderationSection" >
+            <apex:pageBlockSectionItem >
+                <apex:outputText ></apex:outputText>
+
+                <apex:outputPanel >
+                <apex:commandbutton action="{!showMoreCompetitiveConsiderationFieldSet}" value="Add New Competitive Consideration" reRender="CompetitiveConsiderationSection,message" status="AddCompetitiveConsiderationStatus" rendered="{!CompetitiveConsiderationMaxIndex < 3}"/>
+                <apex:actionStatus id="AddCompetitiveConsiderationStatus">
+                    <apex:facet name="start">
+                        <apex:image value="{!$Resource.loading}" alt="Loading..."/>
+                    </apex:facet>
+                </apex:actionStatus>
+                </apex:outputPanel>
+
+
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem / >
+            <apex:pageBlockSectionItem / >
+            <apex:pageBlockSectionItem / >
+            <apex:inputField value="{!Opportunity_Plan__c.Our_Position_Approach__c}" style="width:223px;" />
+            <apex:pageBlockSectionItem />
+            <apex:inputField value="{!Opportunity_Plan__c.Strength_1__c}" style="width:223px;" />
+            <apex:inputField value="{!Opportunity_Plan__c.Weakness_1__c}"  style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Strength_2__c}" style="width:223px;" />
+            <apex:inputField value="{!Opportunity_Plan__c.Weakness_2__c}" style="width:223px;" />
+            <apex:inputField value="{!Opportunity_Plan__c.Strength_3__c}"  style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Weakness_3__c}"  style="width:223px;"/>
+
+            <apex:inputField value="{!Opportunity_Plan__c.Primary_Competitor_A__c}" rendered="{!CompetitiveConsiderationMaxIndex >= 2}"  style="width:223px;"/>
+            <apex:pageBlockSectionItem rendered="{!CompetitiveConsiderationMaxIndex >= 2}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Competitor_A_Strength_1__c}" rendered="{!CompetitiveConsiderationMaxIndex >= 2}" style="width:223px;" />
+            <apex:inputField value="{!Opportunity_Plan__c.Competitor_A_Weakness_1__c}" rendered="{!CompetitiveConsiderationMaxIndex >= 2}"  style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Competitor_A_Strength_2__c}" rendered="{!CompetitiveConsiderationMaxIndex >= 2}" style="width:223px;" />
+            <apex:inputField value="{!Opportunity_Plan__c.Competitor_A_Weakness_2__c}" rendered="{!CompetitiveConsiderationMaxIndex >= 2}" style="width:223px;" />
+            <apex:inputField value="{!Opportunity_Plan__c.Strength_3_a__c}" rendered="{!CompetitiveConsiderationMaxIndex >= 2}" style="width:223px;" />
+            <apex:inputField value="{!Opportunity_Plan__c.Competitor_A_Weakness_3__c}" rendered="{!CompetitiveConsiderationMaxIndex >= 2}"  style="width:223px;"/>
+
+            <apex:inputField value="{!Opportunity_Plan__c.Primary_Competitor_B__c}" rendered="{!CompetitiveConsiderationMaxIndex >= 3}" style="width:223px;" />
+            <apex:pageBlockSectionItem rendered="{!CompetitiveConsiderationMaxIndex >= 3}"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Competitor_B_Strength_1__c}"  rendered="{!CompetitiveConsiderationMaxIndex >= 3}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Competitor_B_Weakness_1__c}"  rendered="{!CompetitiveConsiderationMaxIndex >= 3}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Competitor_B_Strength_2__c}"  rendered="{!CompetitiveConsiderationMaxIndex >= 3}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Competitor_B_Weakness_2__c}"  rendered="{!CompetitiveConsiderationMaxIndex >= 3}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Strength_3_b__c}"  rendered="{!CompetitiveConsiderationMaxIndex >= 3}" style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.Competitor_B_Weakness_3__c}"  rendered="{!CompetitiveConsiderationMaxIndex >= 3}" style="width:223px;"/>
+        </apex:pageBlockSection>
+
+        <apex:pageBlockSection title="Results">
+            <apex:inputField value="{!Opportunity_Plan__c.Deal_Results__c}" />
+            <apex:pageBlockSectionItem />
+            <apex:inputField value="{!Opportunity_Plan__c.Reasons__c}"  style="width:223px;"/>
+            <apex:inputField value="{!Opportunity_Plan__c.New_Opportunities__c}" style="width:223px;" />
+            <apex:inputField value="{!Opportunity_Plan__c.Stay_in_Touch__c}" />
+            <apex:inputField value="{!Opportunity_Plan__c.Delivery_Plan__c}" style="width:223px;" />
+            <apex:inputField value="{!Opportunity_Plan__c.Referral_Plan__c}" style="width:223px;" />
+            <apex:inputField value="{!Opportunity_Plan__c.Lessons_Learned__c}" style="width:223px;" />
+        </apex:pageBlockSection>
+
+    </apex:pageBlock>
+</apex:form>
+
+</apex:page>

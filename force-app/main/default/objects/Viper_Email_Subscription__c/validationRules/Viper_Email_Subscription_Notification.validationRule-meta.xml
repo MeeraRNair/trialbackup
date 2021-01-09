@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Viper_Email_Subscription_Notification</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( Email__c  &lt;&gt;  $User.Email ,NOT(Contains( $Profile.Name,&apos;Marketing&apos;)))</errorConditionFormula>
+    <errorDisplayField>CurrencyIsoCode</errorDisplayField>
+    <errorMessage>Users are only allowed to create/ update their own email subscription.</errorMessage>
+</ValidationRule>

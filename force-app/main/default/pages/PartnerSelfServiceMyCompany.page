@@ -1,0 +1,1001 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="true" standardController="Partner_Request__c" extensions="PartnerSelfServiceMyCompanyCtrlExt" id="p">
+
+    <apex:includeScript value="{!$Resource.prototype}"/>
+    <apex:includeScript value="{!$Resource.jquery_ui_1_7_2_custom_zip}/js/jquery-1.3.2.min.js"/>
+    <apex:includeScript value="{!$Resource.jquery_ui_1_7_2_custom_zip}/js/jquery-ui-1.7.2.custom.min.js"/>
+    
+    <style>
+    .bPageBlock .detailList .labelCol  
+    {
+       white-space:normal; 
+    }
+    .bPageBlock .detailList .data2Col {
+        vertical-align: middle;
+        white-space: pre-wrap;
+    }
+    a.ovalbutton{background:transparent url('{!$Resource.left_button_png}') no-repeat top left;display:block;float:left;font:normal 11px Arial;line-height:14px;height:24px;padding-left:11px;text-decoration:none}
+    a:link.ovalbutton,a:visited.ovalbutton,a:active.ovalbutton{color:#494949}
+    a.ovalbutton span{background:transparent url('{!$Resource.right_button_png}') no-repeat top right;color:#FFF;display:block;padding:4px 11px 4px 0}
+    a.ovalbutton:hover{background-position:top left}
+    a.ovalbutton:hover span{background-position:top right}
+    buttonwrapper{overflow:hidden;width:100%}
+    
+    </style>
+    <!-- ====================================================================================== -->
+    <apex:outputPanel rendered="{!errorNotEnabledAsPartnerAdmin}">
+        <!-- BEGIN ACCESS DENIED -->
+        <!--  Display a specific error message explaining to the user access denied because they're not
+                enabled as a parter admin.  Also display a list of users who are admins for user's Partner
+                Portal Account. -->
+
+        <apex:pageMessage severity="ERROR"
+            strength="3"
+            title="{!$Label.access_denied}"
+            detail="{!$Label.partner_admin_denied_detailed_message}"/>
+
+        <apex:pageBlock title="{!$Label.administrators_for_your_account}" mode="view">
+            <apex:pageBlockSection title="" showHeader="false" columns="1">
+                <apex:pageBlockTable width="100%" value="{!partnerAdminsForAccount}" var="admin">
+                    <apex:column headerValue="{!$Label.first_name}" value="{!admin.Contact.FirstName}"></apex:column>
+                    <apex:column headerValue="{!$Label.last_name}" value="{!admin.Contact.LastName}"></apex:column>
+                    <apex:column headerValue="{!$Label.email}" value="{!admin.Contact.Email}"></apex:column>
+                    <apex:column headerValue="{!$Label.job_title}" value="{!admin.Contact.Title}"></apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <!-- END ACCESS DENIED -->
+    </apex:outputPanel>
+     
+   <!-- ====================================================================================== -->
+    <apex:outputPanel rendered="{!AND(NOT(errorNotEnabledAsPartnerAdmin),NOT(ISNULL(confirmInactivateUser)))}">
+        <!-- BEGIN INACTIVATE USER CONFIRMATION -->
+        <!--  Display inactivate user confirmation -->
+        <apex:sectionHeader title="{!$Label.my_company}"
+             subtitle="{!Partner_Request__c.Company__c}"/>
+        <apex:pageMessages />
+        <apex:pageMessage severity="confirm"
+            strength="3"
+            title="{!$Label.please_confirm}"
+            detail="{!$Label.confirm_inactivate_user_details}  {!confirmInactivateUser.name}"
+        />
+        <apex:pageMessages />
+        <table cellpadding="5" cellspacing="5" border="0"><tr><td>
+            <apex:form >
+                <apex:actionFunction name="inactivateUser" action="{!doConfirmInactivateUser}"/>
+
+                <apex:commandButton value="{!$Label.yes}" action="{!createInactivateUserPartnerRequest}" oncomplete="inactivateUser();"/>
+                <!-- <apex:commandButton value="{!$Label.yes}" action="{!doConfirmInactivateUser}"/> -->
+
+                <apex:commandButton value="{!$Label.no}" action="{!doCancelInactivateUser}"/>
+            </apex:form>
+            </td></tr></table>
+        <!-- END INACTIVATE USER CONFIRMATION -->
+    </apex:outputPanel>
+    <!-- ====================================================================================== -->
+
+    <!-- ====================================================================================== -->
+   <apex:outputPanel rendered="{!AND(NOT(errorNotEnabledAsPartnerAdmin),ISNULL(confirmInactivateUser))}">
+  
+        <!-- BEGIN MAIN MY COMPANY SCREEN -->
+        <apex:form id="f">
+        <apex:inputHidden value="{!bestDescribeAPIName}" id="bestDesAPIName"/>
+      
+            <apex:sectionHeader title="{!$Label.my_company}"
+                 subtitle="{!Partner_Request__c.Company__c}"/>
+            <apex:pageMessages />
+            <!-- VIEW MODE -->
+            <apex:pageBlock title="{!$Label.company_details}" mode="view" rendered="{!NOT(editMode)}">
+                <apex:pageBlockButtons >
+                    <apex:commandButton action="{!doEdit}" value="{!$Label.edit}"/>
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection title="{!$Label.company_information}" columns="2" showHeader="false" collapsible="false">
+                    <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Company}" for="salutation" styleClass="label"/><apex:outputField value="{!Partner_Request__c.Company__c}" id="company"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.doing_business_as}" for="salutation" styleClass="label"/>
+                        <apex:outputField value="{!Partner_Request__c.Does_Business_As__c}" id="DoingBusinessAs"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.organization_phone_number}" for="salutation" styleClass="label"/><apex:outputField value="{!Partner_Request__c.Org_Phone__c}" id="Organization_phone_number"/></apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.address}"/>
+                        <apex:outputPanel >
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr><td><apex:outputField value="{!Partner_Request__c.Org_Address_1__c}"/></td></tr>
+                                <apex:outputPanel rendered="{!Partner_Request__c.Org_Address_2__c == ''}">
+                                    <tr><td><apex:outputField value="{!Partner_Request__c.Org_Address_2__c}"/></td></tr>
+                                </apex:outputPanel>
+                                <apex:outputPanel rendered="{!Partner_Request__c.Org_Address_3__c == ''}">
+                                    <tr><td><apex:outputField value="{!Partner_Request__c.Org_Address_3__c}"/></td></tr>
+                                </apex:outputPanel>
+                                <tr><td><apex:outputField value="{!Partner_Request__c.Org_City__c}"/>,&nbsp;<apex:outputField value="{!Partner_Request__c.Org_State__c}"/>&nbsp;&nbsp;<apex:outputField value="{!Partner_Request__c.Org_Postal_Code__c}"/></td></tr>
+                                <tr><td><apex:outputField value="{!Partner_Request__c.Org_Country__c}"/></td></tr>
+                            </table>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+
+
+                <apex:pageBlockSection title="{!$Label.detailed_information}" columns="2"
+                     collapsible="false">
+
+                    <!-- Field for Primary Contact  -->
+                    <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.company_website_url}" for="salutation" styleClass="label"/><apex:outputField value="{!Partner_Request__c.Website__c}" id="website"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.form_of_organization}" for="salutation" styleClass="label"/><apex:outputField value="{!Partner_Request__c.Form_of_Organization__c}" id="formOfOrg"/></apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.number_of_years_in_business}" for="salutation" styleClass="label"/><apex:outputField value="{!Partner_Request__c.Number_of_years_in_business__c}" id="numYearInBusiness"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.preferred_language}" for="salutation" styleClass="label"/><apex:outputField value="{!Partner_Request__c.Preferred_Language__c}" id="preferred_Language"/></apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Reseller_Tax_ID__c == 'Yes'}"><apex:outputLabel value="{!$Label.reseller_tax_id}" for="salutation" styleClass="label" rendered="{!country.Show_Reseller_Tax_ID__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.Reseller_Tax_ID__c}" id="reseller_tax_id" rendered="{!country.Show_Reseller_Tax_ID__c == 'Yes'}"/></apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem rendered="{!country.Show_States_Provinces_doing_bus__c == 'Yes'}" ><apex:outputLabel value="{!$Label.state_province}" for="salutation" styleClass="label" rendered="{!country.Show_States_Provinces_doing_bus__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.States_Provinces_doing_business__c}" id="state_provinces" rendered="{!country.Show_States_Provinces_doing_bus__c == 'Yes'}"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Total_Employees__c == 'Yes'}" ><apex:outputLabel value="{!$Label.total_employees_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Total_Employees__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.NumberOfEmployees__c}" id="total_employees" rendered="{!country.Show_Total_Employees__c == 'Yes'}"/></apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Percent_Technical_Prof__c == 'Yes'}"><apex:outputLabel value="{!$Label.percent_technical_prof_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Percent_Technical_Prof__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.Percent_Technical_Professionals__c}" id="percent_technical" rendered="{!country.Show_Percent_Technical_Prof__c == 'Yes'}"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Percent_Sales_Force__c == 'Yes'}" ><apex:outputLabel value="{!$Label.percent_sales_force_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Percent_Sales_Force__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.Percent_Sales_Force__c}" id="percent_sales_force" rendered="{!country.Show_Percent_Sales_Force__c == 'Yes'}"/></apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Hardware_Revenue_Percent__c == 'Yes'}" ><apex:outputLabel value="{!$Label.hardware_revenue_percent_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Hardware_Revenue_Percent__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.Hardware_Revenue_Percent__c}" id="percent_hardware" rendered="{!country.Show_Hardware_Revenue_Percent__c == 'Yes'}"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Software_Revenue_Percent__c == 'Yes'}"><apex:outputLabel value="{!$Label.software_revenue_percent_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Software_Revenue_Percent__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.Software_Revenue_Percent__c}" id="percent_software" rendered="{!country.Show_Software_Revenue_Percent__c == 'Yes'}"/></apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Service_Revenue_Percent__c == 'Yes'}"><apex:outputLabel value="{!$Label.service_revenue_percent_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Service_Revenue_Percent__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.Service_Revenue_Percent__c}" id="service_revenue" rendered="{!country.Show_Service_Revenue_Percent__c == 'Yes'}"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Currently_Selling_Dell__c == 'Yes'}" ><apex:outputLabel value="{!$Label.currently_selling_dell_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Currently_Selling_Dell__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.Currently_Selling_Dell__c}" id="currently_selling_dell" rendered="{!country.Show_Currently_Selling_Dell__c == 'Yes'}"/></apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Dell_Revenue_Percent__c == 'Yes'}"><apex:outputLabel value="{!$Label.dell_revenue_percent_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Dell_Revenue_Percent__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.Dell_Revenue_Percent__c}" id="dell_revenue" rendered="{!country.Show_Dell_Revenue_Percent__c == 'Yes'}"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Primary_Routes_to_Market__c == 'Yes'}"><apex:outputLabel value="{!$Label.primary_route_to_market}" for="salutation" styleClass="label" rendered="{!country.Show_Primary_Routes_to_Market__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.Primary_Routes_to_Market__c}" id="peimary_route" rendered="{!country.Show_Primary_Routes_to_Market__c == 'Yes'}"/></apex:pageBlockSectionItem>
+
+                     <apex:pageBlockSectionItem rendered="{!Partner_Request__c.Primary_Routes_to_Market__c == 'Other'}" >
+                        <apex:outputLabel value="{!$Label.Other_Primary_Route_to_Market}"/>
+                        <apex:outputText value="{!manualPrimaryRouteToMarket}"/>
+                     </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Preferred_Dell_Distr_Partner__c == 'Yes'}"><apex:outputLabel value="{!$Label.preferred_dell_distr_partner_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Preferred_Dell_Distr_Partner__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.Preferred_Dell_Distribution_Partner__c}" id="peimary_route" rendered="{!country.Show_Preferred_Dell_Distr_Partner__c == 'Yes'}"/></apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Product_Focus__c == 'Yes'}"><apex:outputLabel value="{!$Label.product_focus_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Product_Focus__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.Product_Focus__c}" id="peimary_route" rendered="{!country.Show_Product_Focus__c == 'Yes'}"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Primary_Customer__c == 'Yes'}"><apex:outputLabel value="{!$Label.primary_customer_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Primary_Customer__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.Primary_Customer__c}" id="peimary_route" rendered="{!country.Show_Primary_Customer__c == 'Yes'}"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!Partner_Request__c.Primary_Customer__c == 'Other'}" >
+                        <apex:outputLabel value="{!$Label.Other_Primary_Customer}"/>
+                        <apex:outputText value="{!manualPrimaryCustomer}"/>
+                     </apex:pageBlockSectionItem>
+                   <apex:pageBlockSectionItem rendered="{!country.Show_Other_Customers__c == 'Yes'}"><apex:outputLabel value="{!$Label.other_customers_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Other_Customers__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.Other_Customers__c}" id="peimary_route" rendered="{!country.Show_Other_Customers__c == 'Yes'}"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Primary_Channel_Model__c == 'Yes'}"><apex:outputLabel value="{!$Label.primary_channel_model_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Primary_Channel_Model__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.Primary_Channel_Model__c}" id="peimary_route" rendered="{!country.Show_Primary_Channel_Model__c == 'Yes'}"/></apex:pageBlockSectionItem>
+                
+                    <!--Added by Vikas -->
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Join_Dell_PartnerDirect_Program__c == 'Yes'}"><apex:outputLabel value="{!$Label.Join_Dell_PartnerDirect_Program}" for="salutation" styleClass="label" rendered="{!country.Show_Join_Dell_PartnerDirect_Program__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.Join_Dell_PartnerDirect_Program__c}" rendered="{!country.Show_Join_Dell_PartnerDirect_Program__c == 'Yes'}"/></apex:pageBlockSectionItem>
+                     <apex:pageBlockSectionItem rendered="{!country.Show_Primary_Contact_Aligned__c == 'Yes'}" > <apex:outputLabel value="{!$Label.Primary_Contact}" for="primaryContact" styleClass="label"/><apex:define name="primaryContact"> <apex:outputField value="{!request.Primary_Contact__c}" id="primaryContact" /> <a href="/apex/AccountPrimaryContact?Id={!request.Account__c}&retUrl=/apex/partnerselfservicemycompany" target="_self">{!$Label.Primary_Contact_Change}</a></apex:define> </apex:pageBlockSectionItem>                   
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Number_of_Branches_Subsidiaries__c == 'Yes'}"><apex:outputLabel value="{!$Label.Number_of_Branches_Subsidiaries}" for="salutation" styleClass="label" rendered="{!country.Show_Number_of_Branches_Subsidiaries__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.Number_of_Branches_Subsidiaries__c}" rendered="{!country.Show_Number_of_Branches_Subsidiaries__c == 'Yes'}"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Principle_Name__c == 'Yes'}"><apex:outputLabel value="{!$Label.Principle_Name}" for="salutation" styleClass="label" rendered="{!country.Show_Principle_Name__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.Principle_Name__c}" rendered="{!country.Show_Principle_Name__c == 'Yes'}"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Principle_Title__c == 'Yes'}"><apex:outputLabel value="{!$Label.Principle_Title}" for="salutation" styleClass="label" rendered="{!country.Show_Principle_Title__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.Principle_Title__c}" rendered="{!country.Show_Principle_Title__c == 'Yes'}"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Secondary_Customer__c == 'Yes'}"><apex:outputLabel value="{!$Label.Secondary_Customer}" for="salutation" styleClass="label" rendered="{!country.Show_Secondary_Customer__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.Secondary_Customer__c}" rendered="{!country.Show_Secondary_Customer__c == 'Yes'}"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Primary_Vertical_Market_Segment__c == 'Yes'}"><apex:outputLabel value="{!$Label.Primary_Vertical_Market_Segment}" for="salutation" styleClass="label" rendered="{!country.Show_Primary_Vertical_Market_Segment__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.Primary_Vertical_Market_Segment__c}" rendered="{!country.Show_Primary_Vertical_Market_Segment__c == 'Yes'}"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Secondary_Vertical_Market_Segment__c == 'Yes'}"><apex:outputLabel value="{!$Label.Secondary_Vertical_Market_Segment}" for="salutation" styleClass="label" rendered="{!country.Show_Secondary_Vertical_Market_Segment__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.Secondary_Vertical_Market_Segment__c}" rendered="{!country.Show_Secondary_Vertical_Market_Segment__c == 'Yes'}"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Top_3_Vendors__c == 'Yes'}"><apex:outputLabel value="{!$Label.Top_3_Vendors}" for="salutation" styleClass="label" rendered="{!country.Show_Top_3_Vendors__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.Top_3_Vendors__c}" rendered="{!country.Show_Top_3_Vendors__c == 'Yes'}"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Organization_Industry_Certificate__c == 'Yes'}"><apex:outputLabel value="{!$Label.Organization_Industry_Certificate}" for="salutation" styleClass="label" rendered="{!country.Show_Organization_Industry_Certificate__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.Organization_Industry_Certificate__c}" rendered="{!country.Show_Organization_Industry_Certificate__c == 'Yes'}"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Size_of_Customer_Base__c == 'Yes'}"><apex:outputLabel value="{!$Label.Size_of_Customer_Base}" for="salutation" styleClass="label" rendered="{!country.Show_Size_of_Customer_Base__c == 'Yes'}"/><apex:outputField value="{!Partner_Request__c.Size_of_Customer_Base__c}" rendered="{!country.Show_Size_of_Customer_Base__c == 'Yes'}"/></apex:pageBlockSectionItem>
+             </apex:pageBlockSection>      
+            <apex:pageBlockSection title="{!$Label.Best_Describe_Your_Company}" columns="2" collapsible="false">
+                    <!--Changing the code for Radio Button -->
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Hardware_Reseller__c == 'Yes'}"><apex:outputLabel value="{!$Label.Hardware_Reseller_Checkbox}" for="salutation" styleClass="label" rendered="{!country.Show_Hardware_Reseller__c == 'Yes'}"/><input type="radio" value="Hardware_Reseller__c" name="bestDescribe" id="Read_Hardware_Reseller__c" disabled="true"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Software_Reseller__c == 'Yes'}"><apex:outputLabel value="{!$Label.Software_Reseller_Checkbox}" for="salutation" styleClass="label" rendered="{!country.Show_Software_Reseller__c == 'Yes'}"/><input type="radio" value="Software_Reseller__c" name="bestDescribe" id="Read_Software_Reseller__c" disabled="true"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Referral_Partner__c == 'Yes'}"><apex:outputLabel value="{!$Label.Referral_Partner_Checkbox}" for="salutation" styleClass="label" rendered="{!country.Show_Referral_Partner__c == 'Yes'}"/><input type="radio" value="Referral_Partner__c" name="bestDescribe" id="Read_Referral_Partner__c" disabled="true"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Distributor__c == 'Yes'}"><apex:outputLabel value="{!$Label.Distributor_Checkbox}" for="salutation" styleClass="label" rendered="{!country.Show_Distributor__c == 'Yes'}"/><input type="radio" value="Distributor__c" name="bestDescribe" id="Read_Distributor__c" disabled="true"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_System_Integrator__c == 'Yes'}"><apex:outputLabel value="{!$Label.System_Integrator_Checkbox}" for="salutation" styleClass="label" rendered="{!country.Show_System_Integrator__c == 'Yes'}"/><input type="radio" value="System_Integrator__c" name="bestDescribe" id="Read_System_Integrator__c" disabled="true"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Managed_Service_Provider__c == 'Yes'}" ><apex:outputLabel value="{!$Label.Managed_Service_Provider_Checkbox}" for="salutation" styleClass="label" rendered="{!country.Show_Managed_Service_Provider__c == 'Yes'}" />    <input type="radio" id="Read_Managed_Service_Provider__c" name="bestDescribe" value="Managed_Service_Provider__c" disabled="true" /></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Technology_Partner__c == 'Yes'}"><apex:outputLabel value="{!$Label.Technology_Partner_Checkbox}" for="salutation" styleClass="label" rendered="{!country.Show_Technology_Partner__c == 'Yes'}"/><input type="radio" value="Technology_Partner__c" name="bestDescribe" id="Read_Technology_Partner__c" disabled="true"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_OEM__c == 'Yes'}"><apex:outputLabel value="{!$Label.OEM_Checkbox}" for="salutation" styleClass="label" rendered="{!country.Show_OEM__c == 'Yes'}"/><input type="radio" value="OEM__c" name="bestDescribe" id="Read_OEM__c" disabled="true"/> </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Telco__c == 'Yes'}"><apex:outputLabel value="{!$Label.Telco_Checkbox}" for="salutation" styleClass="label" rendered="{!country.Show_Telco__c == 'Yes'}"/><input type="radio" value="Telco__c" name="bestDescribe" id="Read_Telco__c" disabled="true"/> </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_ISV__c == 'Yes'}"><apex:outputLabel value="{!$Label.ISV_Checkbox}" for="salutation" styleClass="label" rendered="{!country.Show_ISV__c == 'Yes'}"/><input type="radio" value="ISV__c" name="bestDescribe" id="Read_ISV__c" disabled="true"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Other__c == 'Yes'}"><apex:outputLabel value="{!$Label.Other_Checkbox}" for="salutation" styleClass="label" rendered="{!country.Show_Other__c == 'Yes'}"/><input type="radio" value="Other__c" name="bestDescribe" id="Read_Other__c" disabled="true"/> </apex:pageBlockSectionItem>
+                    <!-- To be removed on 15.03 -->
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Solution_Oriented_Reseller__c == 'Yes'}"><apex:outputLabel value="{!$Label.Solution_Oriented_Reseller_Checkbox}" for="salutation" styleClass="label" rendered="{!country.Show_Solution_Oriented_Reseller__c == 'Yes'}"/><input type="radio" value="Solution_Oriented_Reseller__c" name="bestDescribe" id="Read_Solution_Oriented_Reseller__c" disabled="true"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Boutique_Firm__c == 'Yes'}"><apex:outputLabel value="{!$Label.Boutique_Firm_Checkbox}" for="salutation" styleClass="label" rendered="{!country.Show_Boutique_Firm__c == 'Yes'}"/><input type="radio" value="Boutique_Firm__c" name="bestDescribe" id="Read_Boutique_Firm__c" disabled="true"/> </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Large_Enterprise__c == 'Yes'}"><apex:outputLabel value="{!$Label.Large_Enterprise_Checkbox}" for="salutation" styleClass="label" rendered="{!country.Show_Large_Enterprise__c == 'Yes'}"/><input type="radio" value="Large_Enterprise__c" name="bestDescribe" id="Read_Large_Enterprise__c" disabled="true"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Traditional_Reseller__c == 'Yes'}"><apex:outputLabel value="{!$Label.Traditional_Reseller_Checkbox}" for="salutation" styleClass="label" rendered="{!country.Show_Traditional_Reseller__c == 'Yes'}"/><input type="radio" value="Traditional_Reseller__c" name="bestDescribe" id="Read_Traditional_Reseller__c" disabled="true"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Value_Added_Reseller__c == 'Yes'}"><apex:outputLabel value="{!$Label.Value_Added_Reseller_Checkbox}" for="salutation" styleClass="label" rendered="{!country.Show_Value_Added_Reseller__c == 'Yes'}"/><input type="radio" value="Value_Added_Reseller__c" name="bestDescribe" id="Read_Value_Added_Reseller__c" disabled="true"/> </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Retailer__c == 'Yes'}"><apex:outputLabel value="{!$Label.Retailer_Checkbox}" for="salutation" styleClass="label" rendered="{!country.Show_Retailer__c == 'Yes'}"/><input type="radio" value="Retailer__c" name="bestDescribe" id="Read_Retailer__c" disabled="true"/></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!country.Show_eTailer__c == 'Yes'}"><apex:outputLabel value="{!$Label.eTailer_Checkbox}" for="salutation" styleClass="label" rendered="{!country.Show_eTailer__c == 'Yes'}"/><input type="radio" value="eTailer__c" name="bestDescribe" id="Read_eTailer__c" disabled="true"/></apex:pageBlockSectionItem>
+                    
+                    <script>
+                        // Stamp Value of Best Describe for Input Mode
+                        if(document.getElementById('p:f:bestDesAPIName')!=null)
+                        {
+                            // Get selected Radio Button API Name
+                            var apiName=document.getElementById('p:f:bestDesAPIName').value;
+                            if(document.getElementById('Read_'+apiName)!=null)
+                                document.getElementById('Read_'+apiName).checked=true;
+                        }
+                    </script>   
+                    
+                    <!--Changing the code for Radio Button-->
+                
+                </apex:pageBlockSection>
+                
+                <!-- R16.03 changes starts for View Mode of the MyCompany Page -->
+                <apex:pageBlockSection title="{!$Label.Service_Information}" columns="1" collapsible="false">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Do_you}" for="salutation" styleClass="label"/>
+                        <apex:outputField value="{!Partner_Request__c.Service_Type__c}" id="doyou"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Service_Capability}" for="salutation" styleClass="label"/>
+                        <apex:outputField value="{!Partner_Request__c.Service_Capability__c}" id="sc"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Mode_of_Service}" for="salutation" styleClass="label"/>
+                        <apex:outputField value="{!Partner_Request__c.Mode_Of_Service__c}" id="mos"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Hardware_warranty_Break_fix_support}" for="salutation" styleClass="label"/>
+                        <apex:outputField value="{!Partner_Request__c.Hardware_warranty_Break_fix_support__c}" id="hwbfs"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Software_Technical_Support}" for="salutation" styleClass="label"/>
+                        <apex:outputField value="{!Partner_Request__c.Software_Technical_Support__c}" id="sts"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Installation_Deployment_Services}" for="salutation" styleClass="label"/>
+                        <apex:outputField value="{!Partner_Request__c.Installation_Deployment_Services__c}" id="ids"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Installation_Deployment_Services_Market}" for="salutation" styleClass="label"/>
+                        <apex:outputField value="{!Partner_Request__c.Installation_Deployment_Services_Market__c}" id="idsm"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Custom_Configuration_Imaging}" for="salutation" styleClass="label"/>
+                        <apex:outputField value="{!Partner_Request__c.Custom_Configuration_Imaging__c}" id="cci"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Data_Migration}" for="salutation" styleClass="label"/>
+                        <apex:outputField value="{!Partner_Request__c.Data_Migration__c}" id="dm"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Asset_recovery_resale_recycling}" for="salutation" styleClass="label"/>
+                        <apex:outputField value="{!Partner_Request__c.Asset_recovery_resale_recycling__c}" id="arrr"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Consulting}" for="salutation" styleClass="label"/>
+                        <apex:outputField value="{!Partner_Request__c.Consulting__c}" id="cons"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Consulting_Market}" for="salutation" styleClass="label"/>
+                        <apex:outputField value="{!Partner_Request__c.Consulting_Market__c}" id="consm"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Education_Training}" for="salutation" styleClass="label"/>
+                        <apex:outputField value="{!Partner_Request__c.Education_Training__c}" id="et"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Managed_Deployment}" for="salutation" styleClass="label"/>
+                        <apex:outputField value="{!Partner_Request__c.Managed_Deployment__c}" id="md"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Custom_enterprise_data_center_services}" for="salutation" styleClass="label"/>
+                        <apex:outputField value="{!Partner_Request__c.Custom_enterprise_data_center_services__c}" id="doyou"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Dell_Service_Tools_Used}" for="salutation" styleClass="label"/>
+                        <apex:outputField value="{!Partner_Request__c.Dell_Service_Tools_Used__c}" id="dst"/>
+                    </apex:pageBlockSectionItem>
+                    
+                </apex:pageBlockSection>
+                <!-- R16.03 Ends -->
+                
+                <apex:pageBlockSection title="{!$Label.partner_finder}" columns="2"
+                     collapsible="false" rendered="{!country.Partner_Finder_Enabled__c == 'Yes'}">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.partner_finder_opt_in}"/>
+                        <apex:outputField value="{!Partner_Request__c.Partner_Finder_Opt_In__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.partner_finder_contact_me_email}"/>
+                        <apex:outputField value="{!Partner_Request__c.Partner_Finder_Contact_Me_Email__c}"/>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+                        
+            <apex:pageBlock id="pb1" title="{!$Label.partner_portal_users}" mode="view" rendered="{!NOT(editMode)}">
+                <apex:pageBlockButtons >
+                    <apex:commandButton action="{!doNewUser}" value="{!$Label.new}"/>
+                </apex:pageBlockButtons>
+                <!-- <apex:pageBlockSection title="" showHeader="false" columns="1"> -->
+                <!--Below code modified for CR#7631 by Vikram Kamboj on 05/10/2012-->
+                       <!--<apex:pageBlockTable width="100%" value="{!partnerUsers}" var="user">-->
+                        <apex:pageBlockTable style="table-layout:fixed" width="100%" value="{!Users}" var="user">
+                        <apex:column style="white-space:normal;word-wrap:break-word;" headerValue="{!$Label.actions}">
+                            <apex:commandLink style="white-space:normal;word-wrap:break-word;" action="{!doEditUser}" value="{!$Label.edit}">
+                                <apex:param name="userId" value="{!user.id}"/>
+                            </apex:commandLink>
+                            &nbsp;
+                            <apex:commandLink style="white-space:normal;word-wrap:break-word;" action="{!doInactivateUser}" value="{!$Label.inactivate}">
+                                <apex:param name="userId" value="{!user.id}"/>
+                            </apex:commandLink>
+                        </apex:column>
+                        <apex:column style="white-space:normal;word-wrap:break-word;">         
+                            <apex:facet name="header">              
+                                <apex:commandLink reRender="pb1" style="white-space:normal;word-wrap:break-word;float:left;"  action="{!ViewData}" value="{!$Label.name}{!IF(sortExpression=='Name',IF(sortDirection='ASC','?','?'),'')}" id="cmdSort">            
+                                    <apex:param value="Name" name="column" assignTo="{!sortExpression}" ></apex:param>
+                                </apex:commandLink>         
+                            </apex:facet>
+                            <apex:outputLabel value="{!user.Name}"></apex:outputLabel>       
+                        </apex:column>
+                        <apex:column style="white-space:normal;word-wrap:break-word;" >         
+                            <apex:facet name="header">              
+                                <apex:commandLink reRender="pb1" style="white-space:normal;word-wrap:break-word;float:left;"  action="{!ViewData}" value="{!$Label.job_title}{!IF(sortExpression=='Title',IF(sortDirection='ASC','?','?'),'')}" id="cmdSort1">            
+                                    <apex:param value="Title" name="column" assignTo="{!sortExpression}" ></apex:param>
+                                </apex:commandLink>         
+                            </apex:facet>
+                            <apex:outputLabel value="{!user.Title}"></apex:outputLabel>       
+                        </apex:column>
+                        <apex:column style="white-space:normal;word-wrap:break-word;" >
+                               <apex:facet name="header">
+                                 <apex:commandLink reRender="pb1" style="white-space:normal;word-wrap:break-word;float:left;"  action="{!ViewData}" value="{!$Label.email}{!IF(sortExpression=='Email',IF(sortDirection='ASC','?','?'),'')}" id="cmdSort2">            
+                                    <apex:param value="Email" name="column" assignTo="{!sortExpression}" ></apex:param>
+                                 </apex:commandLink>
+                               </apex:facet>          
+                               <apex:outputLabel value="{!user.Email}"></apex:outputLabel>       
+                        </apex:column>
+                        <!--
+                         <apex:column style="white-space:normal;word-wrap:break-word;" >
+                               <apex:facet name="header">
+                                    <apex:outputText value="Primary Contact"/>
+                               </apex:facet>          
+                               <apex:outputLabel value="{!user.contact.Primary_Contact__c}"></apex:outputLabel>       
+                        </apex:column>
+                        -->
+                        
+                        <apex:column style="white-space:normal;word-wrap:break-word;" >         
+                            <apex:facet name="header" >              
+                                <apex:commandLink reRender="pb1" style="white-space:normal;word-wrap:break-word;float:left;" action="{!ViewData}" value="{!$Label.Created_Date}{!IF(sortExpression=='CreatedDate',IF(sortDirection='ASC','?','?'),'')}" id="cmdSort4">            
+                                    <apex:param value="CreatedDate" name="column" assignTo="{!sortExpression}" ></apex:param>
+                                </apex:commandLink>         
+                            </apex:facet>
+                            <apex:outputLabel value="{!MONTH(user.CreatedDate)}/{!DAY(user.CreatedDate)}/{!YEAR(user.CreatedDate)}"></apex:outputLabel>
+                            <!--<apex:outputLabel value="{!user.CreatedDate}"></apex:outputLabel>-->       
+                        </apex:column>
+                         <apex:column style="white-space:normal;word-wrap:break-word;">         
+                            <apex:facet name="header">              
+                                <apex:commandLink reRender="pb1" style="white-space:normal;word-wrap:break-word;float:left;" action="{!ViewData}" value="{!$Label.Last_Modified_Date}{!IF(sortExpression=='LastModifiedDate',IF(sortDirection='ASC','?','?'),'')}" id="cmdSort3">            
+                                    <apex:param value="LastModifiedDate" name="column" assignTo="{!sortExpression}" ></apex:param>
+                                </apex:commandLink>         
+                            </apex:facet>
+                            <apex:outputLabel value="{!MONTH(user.LastModifiedDate)}/{!DAY(user.LastModifiedDate)}/{!YEAR(user.LastModifiedDate)}"></apex:outputLabel>
+                            <!--<apex:outputLabel value="{!user.LastModifiedDate}"></apex:outputLabel>-->       
+                        </apex:column>
+                        <!-- <apex:column headerValue="Last Modified Date" value="{!user.LastModifiedDate}"></apex:column>-->
+                        <!--<apex:column headerValue="{!$Label.job_title}" value="{!user.Title}"></apex:column>-->
+                        <!--<apex:column headerValue="{!$Label.email}" value="{!user.Email}"></apex:column>-->
+                       </apex:pageBlockTable>
+                 <!-- </apex:pageBlockSection> -->
+                <apex:panelGrid columns="8">
+                    <apex:commandButton status="fetchStatus" reRender="pb1" value="|<" action="{!first}" disabled="{!!hasPrevious}" title="First Page"/>
+                    <apex:commandButton status="fetchStatus" reRender="pb1" value="<" action="{!previous}" disabled="{!!hasPrevious}" title="Previous Page"/>
+                    <apex:commandButton status="fetchStatus" reRender="pb1" value=">" action="{!next}" disabled="{!!hasNext}" title="Next Page"/>
+                    <apex:commandButton status="fetchStatus" reRender="pb1" value=">|" action="{!last}" disabled="{!!hasNext}" title="Last Page"/>
+                    <apex:outputText >{!(pageNumber * size)+1-size}-{!IF((pageNumber * size)>noOfRecords, noOfRecords,(pageNumber * size))} of {!noOfRecords}</apex:outputText>
+                    <apex:selectlist value="{!pagesize}" size="1" style="background-color:lightgrey;width:auto;">
+                        <apex:actionSupport status="fetchStatus1" action="{!changeSize}" event="onchange" reRender="pb1" />                                
+                        <apex:selectOptions value="{!items}"/>
+                    </apex:selectlist>
+                     <apex:outputPanel style="color:#4AA02C;font-weight:bold">
+                            <apex:actionStatus id="fetchStatus1" startText="Loading..." stopText=""/>
+                     </apex:outputPanel>
+                    <apex:outputPanel style="color:#4AA02C;font-weight:bold">
+                        <apex:actionStatus id="fetchStatus" startText="Fetching..." stopText=""/>
+                    </apex:outputPanel>
+            </apex:panelGrid>
+            <!--Chnages done by Vikram Kamboj ends-->
+
+            </apex:pageBlock>
+            <!-- EDIT MODE -->
+            <apex:pageBlock id="pb" title="{!$Label.details}" mode="edit" rendered="{!editMode}" >
+                <apex:pageBlockButtons >
+                    <apex:commandButton action="{!doSave}" value="{!$Label.save}" onclick="javascript: doSaveScript();"/>
+                    <apex:commandButton action="{!doCancel}" value="{!$Label.cancel}" immediate="true" onclick="javascript: onCancel();"/>
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection title="{!$Label.company_information} {!$Label.changes_will_not_be_applied_until}" columns="1">
+                    
+                
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company}"/>
+                        <apex:inputField value="{!Partner_Request__c.Company__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                     <apex:outputLabel value="{!$Label.doing_business_as}"/>
+                    <apex:inputField value="{!Partner_Request__c.Does_Business_As__c}"/>
+                     </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.phone_number}"/>
+                        <apex:inputField value="{!Partner_Request__c.Org_Phone__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.organization_address_1}"/>
+                        <apex:inputField value="{!Partner_Request__c.Org_Address_1__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.organization_address_2}"/>
+                        <apex:inputField value="{!Partner_Request__c.Org_Address_2__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.organization_address_3}"/>
+                        <apex:inputField value="{!Partner_Request__c.Org_Address_3__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.city}"/>
+                        <apex:inputField value="{!Partner_Request__c.Org_City__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.state_province}"/>
+                        <apex:inputField value="{!Partner_Request__c.Org_State__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.postal_code}"/>
+                        <apex:inputField value="{!Partner_Request__c.Org_Postal_Code__c}"/>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection id="pbs" title="{!$Label.detailed_information} {!$Label.changes_will_be_applied_immediately}" columns="1"
+                     collapsible="false">
+                    <apex:pageBlockSectionItem >
+                     <apex:actionStatus startText="Updating..." id="status"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.company_website_url}"/>
+                        <apex:inputField value="{!Partner_Request__c.Website__c}"/>
+                    </apex:pageBlockSectionItem>
+
+
+                    <apex:pageBlockSectionItem >
+                         <apex:outputLabel value="{!$Label.form_of_organization}" for="salutation" styleClass="label" />
+                         <apex:inputField value="{!Partner_Request__c.Form_of_Organization__c}" id="formOfOrg" />
+                         </apex:pageBlockSectionItem>
+
+                          <apex:pageBlockSectionItem >
+                         <apex:outputLabel value="{!$Label.number_of_years_in_business}" for="salutation" styleClass="label" />
+                         <apex:inputField value="{!Partner_Request__c.Number_of_years_in_business__c}" id="NumOfYearBusiness" />
+                         </apex:pageBlockSectionItem>
+
+                         <apex:pageBlockSectionItem >
+                             <apex:outputLabel value="{!$Label.preferred_language}" for="salutation" styleClass="label" />
+                             <apex:inputField value="{!Partner_Request__c.Preferred_Language__c}" id="preferred_lang" />
+                         </apex:pageBlockSectionItem>
+
+                         <apex:pageBlockSectionItem rendered="{!country.Show_Reseller_Tax_ID__c == 'Yes'}">
+                         <apex:outputLabel value="{!$Label.reseller_tax_id}" for="salutation" styleClass="label" rendered="{!country.Show_Reseller_Tax_ID__c == 'Yes'}"/>
+                         <apex:inputField value="{!Partner_Request__c.Reseller_Tax_ID__c}" id="dell_revenue" rendered="{!country.Show_Reseller_Tax_ID__c == 'Yes'}"/>
+                         </apex:pageBlockSectionItem>
+
+                          <apex:pageBlockSectionItem rendered="{!country.Show_States_Provinces_doing_bus__c == 'Yes'}">
+                         <apex:outputLabel value="{!$Label.state_province}" for="salutation" styleClass="label" rendered="{!country.Show_States_Provinces_doing_bus__c == 'Yes'}"/>
+                         <apex:inputField value="{!Partner_Request__c.States_Provinces_doing_business__c}" id="dell_revenue" rendered="{!country.Show_States_Provinces_doing_bus__c == 'Yes'}"/>
+                         </apex:pageBlockSectionItem>
+
+                          <apex:pageBlockSectionItem rendered="{!country.Show_Total_Employees__c == 'Yes'}">
+                         <apex:outputLabel value="{!$Label.total_employees_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Total_Employees__c == 'Yes'}"/>
+                         <apex:inputField value="{!Partner_Request__c.NumberOfEmployees__c}" id="dell_revenue" rendered="{!country.Show_Total_Employees__c == 'Yes'}"/>
+                         </apex:pageBlockSectionItem>
+
+                          <apex:pageBlockSectionItem rendered="{!country.Show_Percent_Technical_Prof__c == 'Yes'}">
+                         <apex:outputLabel value="{!$Label.percent_technical_prof_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Percent_Technical_Prof__c == 'Yes'}"/>
+                         <apex:inputField value="{!Partner_Request__c.Percent_Technical_Professionals__c}" id="dell_revenue" rendered="{!country.Show_Percent_Technical_Prof__c == 'Yes'}"/>
+                         </apex:pageBlockSectionItem>
+
+                          <apex:pageBlockSectionItem rendered="{!country.Show_Percent_Sales_Force__c == 'Yes'}">
+                         <apex:outputLabel value="{!$Label.percent_sales_force_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Percent_Sales_Force__c == 'Yes'}"/>
+                         <apex:inputField value="{!Partner_Request__c.Percent_Sales_Force__c}" id="dell_revenue" rendered="{!country.Show_Percent_Sales_Force__c == 'Yes'}"/>
+                         </apex:pageBlockSectionItem>
+
+                          <apex:pageBlockSectionItem rendered="{!country.Show_Hardware_Revenue_Percent__c == 'Yes'}">
+                         <apex:outputLabel value="{!$Label.hardware_revenue_percent_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Hardware_Revenue_Percent__c == 'Yes'}"/>
+                         <apex:inputField value="{!Partner_Request__c.Hardware_Revenue_Percent__c}" id="dell_revenue" rendered="{!country.Show_Hardware_Revenue_Percent__c == 'Yes'}"/>
+                         </apex:pageBlockSectionItem>
+
+                          <apex:pageBlockSectionItem rendered="{!country.Show_Software_Revenue_Percent__c == 'Yes'}">
+                         <apex:outputLabel value="{!$Label.software_revenue_percent_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Software_Revenue_Percent__c == 'Yes'}"/>
+                         <apex:inputField value="{!Partner_Request__c.Software_Revenue_Percent__c}" id="dell_revenue" rendered="{!country.Show_Software_Revenue_Percent__c == 'Yes'}"/>
+                         </apex:pageBlockSectionItem>
+
+                          <apex:pageBlockSectionItem rendered="{!country.Show_Service_Revenue_Percent__c == 'Yes'}">
+                         <apex:outputLabel value="{!$Label.service_revenue_percent_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Service_Revenue_Percent__c == 'Yes'}"/>
+                         <apex:inputField value="{!Partner_Request__c.Service_Revenue_Percent__c}" id="dell_revenue" rendered="{!country.Show_Service_Revenue_Percent__c == 'Yes'}"/>
+                         </apex:pageBlockSectionItem>
+
+                     
+                    <!-- <apex:actionFunction name="doReload" action="{!doReload}" rerender="pb" status="status" />-->
+                    
+                       <apex:pageBlockSectionItem rendered="{!country.Show_Currently_Selling_Dell__c == 'Yes'}">
+                        <apex:outputLabel value="{!$Label.currently_selling_dell_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Currently_Selling_Dell__c == 'Yes'}"/>
+                   <apex:actionRegion >
+                        <apex:inputField value="{!Partner_Request__c.Currently_Selling_Dell__c}"
+                        rendered="{!country.Show_Currently_Selling_Dell__c == 'Yes'}"
+                        required="{!country.Require_Currently_Selling_Dell__c == 'Yes'}"
+                        id="csd" >
+                            <apex:actionSupport event="onclick" reRender="drpPanel" status="status"/>
+                        </apex:inputField>
+                    </apex:actionRegion>
+                        </apex:pageBlockSectionItem>
+                    
+                     <apex:pageBlockSectionItem rendered="{!country.Show_Dell_Revenue_Percent__c == 'Yes'}">
+                        <apex:outputLabel value="{!$Label.dell_revenue_percent_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Dell_Revenue_Percent__c == 'Yes'}"/>
+                        
+                        <apex:outputPanel id="drpPanel">
+                            <apex:define name="dr">
+                         <apex:inputField value="{!Partner_Request__c.Dell_Revenue_Percent__c}"
+                            rendered="{!AND(country.Show_Dell_Revenue_Percent__c == 'Yes',Partner_Request__c.Currently_Selling_Dell__c)}"
+                            required="{!AND(country.Require_Dell_Revenue_Percent__c == 'Yes',Partner_Request__c.Currently_Selling_Dell__c)}"
+                            id="drp"/>
+                            </apex:define>
+                        </apex:outputPanel>
+                 </apex:pageBlockSectionItem>
+
+                  <apex:pageBlockSectionItem rendered="{!country.Show_Primary_Routes_to_Market__c == 'Yes'}">
+                        <apex:outputLabel value="{!$Label.primary_route_to_market}" for="salutation" styleClass="label" rendered="{!country.Show_Primary_Routes_to_Market__c == 'Yes'}"/>
+                    <apex:actionRegion >
+                          <apex:inputField value="{!Partner_Request__c.Primary_Routes_to_Market__c}"
+                                    rendered="{!country.Show_Primary_Routes_to_Market__c == 'Yes'}"
+                                    required="{!country.Require_Primary_Routes_to_Market__c == 'Yes'}">
+                            <apex:actionSupport event="onchange" reRender="primaryRoutOther,primaryRoutOtherL" status="status"/>
+                         </apex:inputField>
+                    </apex:actionRegion>
+                 </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputPanel id="primaryRoutOtherL">
+                        <apex:outputLabel value="{!$Label.Other_Primary_Route_to_Market}" rendered="{!Partner_Request__c.Primary_Routes_to_Market__c == 'Other'}"/>
+                    </apex:outputPanel>
+                   <apex:outputPanel id="primaryRoutOther">
+                            <apex:define name="dr">
+                                <apex:inputText value="{!manualPrimaryRouteToMarket}" rendered="{!Partner_Request__c.Primary_Routes_to_Market__c == 'Other'}"/>
+                            </apex:define>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+            
+
+                  <apex:pageBlockSectionItem rendered="{!country.Show_Preferred_Dell_Distr_Partner__c == 'Yes'}">
+                        <apex:outputLabel value="{!$Label.preferred_dell_distr_partner_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Preferred_Dell_Distr_Partner__c == 'Yes'}"/>
+                         <apex:inputField value="{!Partner_Request__c.Preferred_Dell_Distribution_Partner__c}"
+                                        rendered="{!country.Show_Preferred_Dell_Distr_Partner__c == 'Yes'}"
+                                        required="{!country.Require_Preferred_Dell_Distr_Partner__c == 'Yes'}"
+                                        />
+                 </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem rendered="{!country.Show_Product_Focus__c == 'Yes'}">
+                        <apex:outputLabel value="{!$Label.product_focus_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Product_Focus__c == 'Yes'}"/>
+                         <apex:inputField value="{!Partner_Request__c.Product_Focus__c}"
+                                        rendered="{!country.Show_Product_Focus__c == 'Yes'}"
+                                        required="{!country.Require_Product_Focus__c  == 'Yes'}"
+
+                                        />
+                </apex:pageBlockSectionItem>
+
+
+                 <apex:pageBlockSectionItem rendered="{!country.Show_Primary_Customer__c == 'Yes'}">
+                        <apex:outputLabel value="{!$Label.primary_customer_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Primary_Customer__c == 'Yes'}"/>
+                    <apex:actionRegion >
+                        <apex:inputField value="{!Partner_Request__c.Primary_Customer__c}"
+                                        rendered="{!country.Show_Primary_Customer__c == 'Yes'}"
+                                        required="{!country.Require_Primary_Customer__c == 'Yes'}">
+                         <apex:actionSupport event="onchange" reRender="prCustomerOtherL,prCustomerOtherT" status="status"/>
+                         </apex:inputField>
+                    </apex:actionRegion>
+                    </apex:pageBlockSectionItem>
+
+                
+                     <apex:pageBlockSectionItem >
+                       <apex:outputPanel id="prCustomerOtherL">
+                            <apex:outputLabel value="{!$Label.Other_Primary_Customer}" rendered="{!Partner_Request__c.Primary_Customer__c == 'Other'}" />
+                        </apex:outputPanel>
+                        <apex:outputPanel id="prCustomerOtherT">
+                            <apex:inputText value="{!manualPrimaryCustomer}" rendered="{!Partner_Request__c.Primary_Customer__c == 'Other'}" />
+                        </apex:outputPanel>
+                     </apex:pageBlockSectionItem>
+              
+
+
+                    <apex:pageBlockSectionItem rendered="{!country.Show_Other_Customers__c == 'Yes'}">
+                        <apex:outputLabel value="{!$Label.other_customers_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Other_Customers__c == 'Yes'}"/>
+                         <apex:inputField value="{!Partner_Request__c.Other_Customers__c}"
+                                        rendered="{!country.Show_Other_Customers__c == 'Yes'}"
+                                        required="{!country.Require_Other_Customers__c  == 'Yes'}"
+
+                                        />
+                 </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem rendered="{!country.Show_Primary_Channel_Model__c == 'Yes'}">
+                    <apex:outputLabel value="{!$Label.primary_channel_model_prompt}" for="salutation" styleClass="label" rendered="{!country.Show_Primary_Channel_Model__c == 'Yes'}"/>
+                     <apex:inputField value="{!Partner_Request__c.Primary_Channel_Model__c}"
+                                    rendered="{!country.Show_Primary_Channel_Model__c == 'Yes'}"
+                                    required="{!country.Require_Primary_Channel_Model__c  == 'Yes'}"
+
+                                    />
+                </apex:pageBlockSectionItem>
+                
+                <!--Added by Vikas -->
+                <apex:pageBlockSectionItem rendered="{!country.Show_Join_Dell_PartnerDirect_Program__c == 'Yes'}">
+                    <apex:outputLabel value="{!$Label.Join_Dell_PartnerDirect_Program}" for="salutation" styleClass="label" rendered="{!country.Show_Join_Dell_PartnerDirect_Program__c == 'Yes'}"/>
+                     <apex:inputField value="{!Partner_Request__c.Join_Dell_PartnerDirect_Program__c}"
+                                    rendered="{!country.Show_Join_Dell_PartnerDirect_Program__c == 'Yes'}"
+                                    required="{!country.Require_Join_Dell_PartnerDirect_Program__c  == 'Yes'}"
+                                    />
+                </apex:pageBlockSectionItem>                
+               
+                <apex:pageBlockSectionItem rendered="{!country.Show_Number_of_Branches_Subsidiaries__c == 'Yes'}">
+                    <apex:outputLabel value="{!$Label.Number_of_Branches_Subsidiaries}" for="salutation" styleClass="label" rendered="{!country.Show_Number_of_Branches_Subsidiaries__c == 'Yes'}"/>
+                     <apex:inputField value="{!Partner_Request__c.Number_of_Branches_Subsidiaries__c}"
+                                    rendered="{!country.Show_Number_of_Branches_Subsidiaries__c == 'Yes'}"
+                                    required="{!country.Require_Number_of_Branches_Subsidiaries__c == 'Yes'}" 
+                                    />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!country.Show_Principle_Name__c == 'Yes'}">
+                    <apex:outputLabel value="{!$Label.Principle_Name}" for="salutation" styleClass="label" rendered="{!country.Show_Principle_Name__c == 'Yes'}"/>
+                     <apex:inputField value="{!Partner_Request__c.Principle_Name__c}"
+                                    rendered="{!country.Show_Principle_Name__c == 'Yes'}"
+                                    required="{!country.Require_Principle_Name__c == 'Yes'}" 
+                                    />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!country.Show_Principle_Title__c == 'Yes'}">
+                    <apex:outputLabel value="{!$Label.Principle_Title}" for="salutation" styleClass="label" rendered="{!country.Show_Principle_Title__c == 'Yes'}"/>
+                     <apex:inputField value="{!Partner_Request__c.Principle_Title__c}"
+                                    rendered="{!country.Show_Principle_Title__c == 'Yes'}"
+                                    required="{!country.Require_Principle_Title__c == 'Yes'}" 
+                                    />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!country.Show_Secondary_Customer__c == 'Yes'}">
+                    <apex:outputLabel value="{!$Label.Secondary_Customer}" for="salutation" styleClass="label" rendered="{!country.Show_Secondary_Customer__c == 'Yes'}"/>
+                     <apex:inputField value="{!Partner_Request__c.Secondary_Customer__c}"
+                                    rendered="{!country.Show_Secondary_Customer__c == 'Yes'}"
+                                    required="{!country.Require_Secondary_Customer__c == 'Yes'}" 
+                                    />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!country.Show_Primary_Vertical_Market_Segment__c == 'Yes'}">
+                    <apex:outputLabel value="{!$Label.Primary_Vertical_Market_Segment}" for="salutation" styleClass="label" rendered="{!country.Show_Primary_Vertical_Market_Segment__c == 'Yes'}"/>
+                     <apex:inputField value="{!Partner_Request__c.Primary_Vertical_Market_Segment__c}"
+                                    rendered="{!country.Show_Primary_Vertical_Market_Segment__c == 'Yes'}"
+                                    required="{!country.Require_Primary_Vertical_Market_Segment__c == 'Yes'}" 
+                                    />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!country.Show_Secondary_Vertical_Market_Segment__c == 'Yes'}">
+                    <apex:outputLabel value="{!$Label.Secondary_Vertical_Market_Segment}" for="salutation" styleClass="label" rendered="{!country.Show_Secondary_Vertical_Market_Segment__c == 'Yes'}"/>
+                     <apex:inputField value="{!Partner_Request__c.Secondary_Vertical_Market_Segment__c}"
+                                    rendered="{!country.Show_Secondary_Vertical_Market_Segment__c == 'Yes'}"
+                                    required="{!country.Require_Secondary_Vertical_Market_Segmen__c == 'Yes'}" 
+                                    />
+                </apex:pageBlockSectionItem>
+               <!-- required="{!country.Require_Top_3_Vendors__c == 'Yes'}"   -->
+           
+                <apex:pageBlockSectionItem rendered="{!country.Show_Top_3_Vendors__c == 'Yes'}" id="top3VendorItem" >
+                
+                    <apex:outputLabel value="{!$Label.Top_3_Vendors}" for="salutation" styleClass="label" rendered="{!country.Show_Top_3_Vendors__c == 'Yes'}"/>
+                    <apex:outputPanel id="top3VendorPanel">
+                    <apex:define name="top3Vendor">
+                     <apex:inputField value="{!Partner_Request__c.Top_3_Vendors__c}" rendered="{!country.Show_Top_3_Vendors__c == 'Yes'}"
+                            required="{!country.Require_Top_3_Vendors__c == 'Yes'}"   id="top3VendorsMultiPick" />
+                                     <!-- required="{!country.Require_Top_3_Vendors__c == 'Yes'}"   -->
+                     
+                     <div>
+                         <div id="showButton" style="{!if(showaddBtn=false,'','display:none;')}">
+                         <br/>
+                                <a class="ovalbutton" href="javascript: void(0);" onclick="stamp_BestDescribe_Top3_Value();toggleAddDiv();">
+                                    <span>{!$Label.specify_other_value}</span>
+                                </a>
+                          </div>
+                           <div id="hideButton"  style="{!if(showaddBtn=false,'display:none;','')}" >
+                           <br/>
+                            <apex:inputText value="{!top3VendorOtherValue}" id="otherValue"/><br/>
+                             <a class="ovalbutton" onClick="stamp_BestDescribe_Top3_Value();addOtherValue();" href="javascript: void(0);" > 
+                                <span>{!$Label.Add_New_Value}</span> 
+                            </a>
+                           </div>
+                    </div>
+                    <apex:actionFunction name="toggleAddDiv" action="{!toggleAddDiv}" reRender="top3VendorPanel" immediate="true"/>
+                    <apex:actionFunction name="addOtherValue" action="{!addOtherValue}" reRender="top3VendorPanel"/>
+                    
+                    </apex:define>
+                      </apex:outputPanel>             
+                </apex:pageBlockSectionItem>
+    
+                
+                <apex:pageBlockSectionItem rendered="{!country.Show_Organization_Industry_Certificate__c == 'Yes'}">
+                    <apex:outputLabel value="{!$Label.Organization_Industry_Certificate}" for="salutation" styleClass="label" rendered="{!country.Show_Organization_Industry_Certificate__c == 'Yes'}"/>
+                     <apex:inputField value="{!Partner_Request__c.Organization_Industry_Certificate__c}"
+                                    rendered="{!country.Show_Organization_Industry_Certificate__c == 'Yes'}"
+                                    required="{!country.Require_Organization_Industry_Certificat__c == 'Yes'}" 
+                                    />
+                </apex:pageBlockSectionItem>
+
+                 <apex:pageBlockSectionItem rendered="{!country.Show_Size_of_Customer_Base__c == 'Yes'}">
+                    <apex:outputLabel value="{!$Label.Size_of_Customer_Base}" for="salutation" styleClass="label" rendered="{!country.Show_Size_of_Customer_Base__c == 'Yes'}"/>
+                     <apex:inputField value="{!Partner_Request__c.Size_of_Customer_Base__c}"
+                                    rendered="{!country.Show_Size_of_Customer_Base__c == 'Yes'}"
+                                    required="{!country.Require_Size_of_Customer_Base__c == 'Yes'}" 
+                                    />
+                </apex:pageBlockSectionItem>
+                  </apex:pageBlockSection>
+        <apex:pageBlockSection title="{!$Label.Best_Describe_Your_Company}" columns="2" collapsible="false">
+                <apex:pageBlockSectionItem rendered="{!country.Show_Hardware_Reseller__c == 'Yes'}">
+                    <apex:outputLabel value="{!LEFT($Label.Hardware_Reseller_Checkbox,FIND(':',$Label.Hardware_Reseller_Checkbox)-1)}"  styleClass="label" rendered="{!country.Show_Hardware_Reseller__c == 'Yes'}"/>
+                    <apex:outputLabel value="{!MID($Label.Hardware_Reseller_Checkbox,FIND(':',$Label.Hardware_Reseller_Checkbox)+1,LEN($Label.Hardware_Reseller_Checkbox))}"  styleClass="label" rendered="{!country.Show_Hardware_Reseller__c == 'Yes'}"/>
+                 </apex:pageBlockSectionItem>
+                 <apex:pageBlockSectionItem rendered="{!country.Show_Hardware_Reseller__c == 'Yes'}">
+                    <input type="radio" value="Hardware_Reseller__c" name="input_bestDescribe" id="Input_Hardware_Reseller__c" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!country.Show_Software_Reseller__c == 'Yes'}">
+                    <apex:outputLabel value="{!LEFT($Label.Software_Reseller_Checkbox,FIND(':',$Label.Software_Reseller_Checkbox)-1)}"  styleClass="label" rendered="{!country.Show_Software_Reseller__c == 'Yes'}"/>
+                    <apex:outputLabel value="{!MID($Label.Software_Reseller_Checkbox,FIND(':',$Label.Software_Reseller_Checkbox)+1,LEN($Label.Software_Reseller_Checkbox))}"  styleClass="label" rendered="{!country.Show_Software_Reseller__c == 'Yes'}"/>
+                 </apex:pageBlockSectionItem>
+                 <apex:pageBlockSectionItem rendered="{!country.Show_Software_Reseller__c == 'Yes'}">
+                    <input type="radio" value="Software_Reseller__c" name="input_bestDescribe" id="Input_Software_Reseller__c" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!country.Show_Referral_Partner__c == 'Yes'}">
+                    <apex:outputLabel value="{!LEFT($Label.Referral_Partner_Checkbox,FIND(':',$Label.Referral_Partner_Checkbox)-1)}"  styleClass="label" rendered="{!country.Show_Referral_Partner__c == 'Yes'}"/>
+                    <apex:outputLabel value="{!MID($Label.Referral_Partner_Checkbox,FIND(':',$Label.Referral_Partner_Checkbox)+1,LEN($Label.Referral_Partner_Checkbox))}"  styleClass="label" rendered="{!country.Show_Referral_Partner__c == 'Yes'}"/>
+                 </apex:pageBlockSectionItem>
+                 <apex:pageBlockSectionItem rendered="{!country.Show_Referral_Partner__c == 'Yes'}">
+                    <input type="radio" value="Referral_Partner__c " name="input_bestDescribe" id="Input_Referral_Partner__c " />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!country.Show_Distributor__c == 'Yes'}">
+                    <apex:outputLabel value="{!LEFT($Label.Distributor_Checkbox,FIND(':',$Label.Distributor_Checkbox)-1)}"  styleClass="label" rendered="{!country.Show_Distributor__c == 'Yes'}"/>
+                    <apex:outputLabel value="{!MID($Label.Distributor_Checkbox,FIND(':',$Label.Distributor_Checkbox)+1,LEN($Label.Distributor_Checkbox))}"  styleClass="label" rendered="{!country.Show_Distributor__c == 'Yes'}"/>
+                 </apex:pageBlockSectionItem>
+                 <apex:pageBlockSectionItem rendered="{!country.Show_Distributor__c == 'Yes'}">
+                    <input type="radio" value="Distributor__c " name="input_bestDescribe" id="Input_Distributor__c" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!country.Show_System_Integrator__c == 'Yes'}">
+                    <apex:outputLabel value="{!LEFT($Label.System_Integrator_Checkbox,FIND(':',$Label.System_Integrator_Checkbox)-1)}"  styleClass="label" rendered="{!country.Show_System_Integrator__c == 'Yes'}"/>
+                    <apex:outputLabel value="{!MID($Label.System_Integrator_Checkbox,FIND(':',$Label.System_Integrator_Checkbox)+1,LEN($Label.System_Integrator_Checkbox))}"  styleClass="label" rendered="{!country.Show_System_Integrator__c == 'Yes'}"/>
+                 </apex:pageBlockSectionItem>
+                 <apex:pageBlockSectionItem rendered="{!country.Show_System_Integrator__c == 'Yes'}">
+                    <input type="radio" value="System_Integrator__c" name="input_bestDescribe" id="Input_System_Integrator__c" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!country.Show_Managed_Service_Provider__c == 'Yes'}">
+                    <apex:outputLabel value="{!LEFT($Label.Managed_Service_Provider_Checkbox,FIND(':',$Label.Managed_Service_Provider_Checkbox)-1)}" styleClass="label" rendered="{!country.Show_Managed_Service_Provider__c == 'Yes'}"/>
+                    <apex:outputLabel value="{!MID($Label.Managed_Service_Provider_Checkbox,FIND(':',$Label.Managed_Service_Provider_Checkbox)+1,LEN($Label.Managed_Service_Provider_Checkbox))}" styleClass="label" rendered="{!country.Show_Managed_Service_Provider__c == 'Yes'}"/>
+                 </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!country.Show_Managed_Service_Provider__c == 'Yes'}">  
+                    <input type="radio" id="Input_Managed_Service_Provider__c" name="input_bestDescribe" value="Managed_Service_Provider__c"  />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!country.Show_Technology_Partner__c == 'Yes'}">
+                    <apex:outputLabel value="{!LEFT($Label.Technology_Partner_Checkbox,FIND(':',$Label.Technology_Partner_Checkbox)-1)}"  styleClass="label" rendered="{!country.Show_Technology_Partner__c == 'Yes'}"/>
+                    <apex:outputLabel value="{!MID($Label.Technology_Partner_Checkbox,FIND(':',$Label.Technology_Partner_Checkbox)+1,LEN($Label.Technology_Partner_Checkbox))}"  styleClass="label" rendered="{!country.Show_Technology_Partner__c == 'Yes'}"/>
+                 </apex:pageBlockSectionItem>
+                 <apex:pageBlockSectionItem rendered="{!country.Show_Technology_Partner__c == 'Yes'}">
+                    <input type="radio" value="Technology_Partner__c " name="input_bestDescribe" id="Input_Technology_Partner__c " />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!country.Show_OEM__c == 'Yes'}">
+                    <apex:outputLabel value="{!LEFT($Label.OEM_Checkbox,FIND(':',$Label.OEM_Checkbox)-1)}" for="salutation" styleClass="label" rendered="{!country.Show_OEM__c == 'Yes'}"/>
+                    <apex:outputLabel value="{!MID($Label.OEM_Checkbox,FIND(':',$Label.OEM_Checkbox)+1,LEN($Label.OEM_Checkbox))}" for="salutation" styleClass="label" rendered="{!country.Show_OEM__c == 'Yes'}"/>
+                 </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!country.Show_OEM__c == 'Yes'}">
+                    <input type="radio" value="OEM__c" name="input_bestDescribe" id="Input_OEM__c" /> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!country.Show_Telco__c == 'Yes'}">
+                    <apex:outputLabel value="{!LEFT($Label.Telco_Checkbox,FIND(':',$Label.Telco_Checkbox)-1)}"  styleClass="label" rendered="{!country.Show_Telco__c == 'Yes'}"/>
+                    <apex:outputLabel value="{!MID($Label.Telco_Checkbox,FIND(':',$Label.Telco_Checkbox)+1,LEN($Label.Telco_Checkbox))}"  styleClass="label" rendered="{!country.Show_Telco__c == 'Yes'}"/>
+                 </apex:pageBlockSectionItem>
+                  <apex:pageBlockSectionItem rendered="{!country.Show_Telco__c == 'Yes'}">
+                    <input type="radio" value="Telco__c" name="input_bestDescribe" id="Input_Telco__c" /> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!country.Show_ISV__c == 'Yes'}">
+                    <apex:outputLabel value="{!LEFT($Label.ISV_Checkbox,FIND(':',$Label.ISV_Checkbox)-1)}"  styleClass="label" rendered="{!country.Show_ISV__c == 'Yes'}"/>
+                    <apex:outputLabel value="{!MID($Label.ISV_Checkbox,FIND(':',$Label.ISV_Checkbox)+1,LEN($Label.ISV_Checkbox))}"  styleClass="label" rendered="{!country.Show_ISV__c == 'Yes'}"/>
+                 </apex:pageBlockSectionItem>
+                 <apex:pageBlockSectionItem rendered="{!country.Show_ISV__c == 'Yes'}">
+                    <input type="radio" value="ISV__c" name="input_bestDescribe" id="Input_ISV__c" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!country.Show_Other__c == 'Yes'}">
+                    <apex:outputLabel value="{!LEFT($Label.Other_Checkbox,FIND(':',$Label.Other_Checkbox)-1)}"  styleClass="label" rendered="{!country.Show_Other__c == 'Yes'}"/>
+                    <apex:outputLabel value="{!MID($Label.Other_Checkbox,FIND(':',$Label.Other_Checkbox)+1,LEN($Label.Other_Checkbox))}"  styleClass="label" rendered="{!country.Show_Other__c == 'Yes'}"/>
+                 </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!country.Show_Other__c == 'Yes'}">
+                    <input type="radio" value="Other__c" name="input_bestDescribe" id="Input_Other__c" /> 
+                </apex:pageBlockSectionItem>
+                
+                <!-- to be removed part for R15.03 -->                         
+                <apex:pageBlockSectionItem rendered="{!country.Show_Solution_Oriented_Reseller__c == 'Yes'}">
+                    <apex:outputLabel value="{!LEFT($Label.Solution_Oriented_Reseller_Checkbox,FIND(':',$Label.Solution_Oriented_Reseller_Checkbox)-1)}"  styleClass="label" rendered="{!country.Show_Solution_Oriented_Reseller__c == 'Yes'}"/>
+                    <apex:outputLabel value="{!MID($Label.Solution_Oriented_Reseller_Checkbox,FIND(':',$Label.Solution_Oriented_Reseller_Checkbox)+1,LEN($Label.Solution_Oriented_Reseller_Checkbox))}"  styleClass="label" rendered="{!country.Show_Solution_Oriented_Reseller__c == 'Yes'}"/>
+                 </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!country.Show_Solution_Oriented_Reseller__c == 'Yes'}">
+                    <input type="radio" value="Solution_Oriented_Reseller__c" name="input_bestDescribe" id="Input_Solution_Oriented_Reseller__c" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!country.Show_Boutique_Firm__c == 'Yes'}">
+                    <apex:outputLabel value="{!LEFT($Label.Boutique_Firm_Checkbox,FIND(':',$Label.Boutique_Firm_Checkbox)-1)}"  styleClass="label" rendered="{!country.Show_Boutique_Firm__c == 'Yes'}"/>
+                    <apex:outputLabel value="{!MID($Label.Boutique_Firm_Checkbox,FIND(':',$Label.Boutique_Firm_Checkbox)+1,LEN($Label.Boutique_Firm_Checkbox))}"  styleClass="label" rendered="{!country.Show_Boutique_Firm__c == 'Yes'}"/>
+                 </apex:pageBlockSectionItem>
+                 <apex:pageBlockSectionItem rendered="{!country.Show_Boutique_Firm__c == 'Yes'}">       
+                    <input type="radio" value="Boutique_Firm__c" name="input_bestDescribe" id="Input_Boutique_Firm__c" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!country.Show_Large_Enterprise__c == 'Yes'}">
+                    <apex:outputLabel value="{!LEFT($Label.Large_Enterprise_Checkbox,FIND(':',$Label.Large_Enterprise_Checkbox)-1)}"  styleClass="label" rendered="{!country.Show_Large_Enterprise__c == 'Yes'}"/>
+                    <apex:outputLabel value="{!MID($Label.Large_Enterprise_Checkbox,FIND(':',$Label.Large_Enterprise_Checkbox)+1,LEN($Label.Large_Enterprise_Checkbox))}"  styleClass="label" rendered="{!country.Show_Large_Enterprise__c == 'Yes'}"/>
+                 </apex:pageBlockSectionItem>
+                 <apex:pageBlockSectionItem rendered="{!country.Show_Large_Enterprise__c == 'Yes'}">
+                    <input type="radio" value="Large_Enterprise__c" name="input_bestDescribe" id="Input_Large_Enterprise__c" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!country.Show_Traditional_Reseller__c == 'Yes'}">
+                    <apex:outputLabel value="{!LEFT($Label.Traditional_Reseller_Checkbox,FIND(':',$Label.Traditional_Reseller_Checkbox)-1)}"  styleClass="label" rendered="{!country.Show_Traditional_Reseller__c == 'Yes'}"/>
+                    <apex:outputLabel value="{!MID($Label.Traditional_Reseller_Checkbox,FIND(':',$Label.Traditional_Reseller_Checkbox)+1,LEN($Label.Traditional_Reseller_Checkbox))}"  styleClass="label" rendered="{!country.Show_Traditional_Reseller__c == 'Yes'}"/>
+                 </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!country.Show_Traditional_Reseller__c == 'Yes'}">
+                    <input type="radio" value="Traditional_Reseller__c" name="input_bestDescribe" id="Input_Traditional_Reseller__c" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!country.Show_Value_Added_Reseller__c == 'Yes'}">
+                    <apex:outputLabel value="{!LEFT($Label.Value_Added_Reseller_Checkbox,FIND(':',$Label.Value_Added_Reseller_Checkbox)-1)}"  styleClass="label" rendered="{!country.Show_Value_Added_Reseller__c == 'Yes'}"/>
+                    <apex:outputLabel value="{!MID($Label.Value_Added_Reseller_Checkbox,FIND(':',$Label.Value_Added_Reseller_Checkbox)+1,LEN($Label.Value_Added_Reseller_Checkbox))}"  styleClass="label" rendered="{!country.Show_Value_Added_Reseller__c == 'Yes'}"/>
+                 </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!country.Show_Value_Added_Reseller__c == 'Yes'}">
+                    <input type="radio" value="Value_Added_Reseller__c" name="input_bestDescribe" id="Input_Value_Added_Reseller__c" /> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!country.Show_Retailer__c == 'Yes'}">
+                    <apex:outputLabel value="{!LEFT($Label.Retailer_Checkbox,FIND(':',$Label.Retailer_Checkbox)-1)}"  styleClass="label" rendered="{!country.Show_Retailer__c == 'Yes'}"/>
+                    <apex:outputLabel value="{!MID($Label.Retailer_Checkbox,FIND(':',$Label.Retailer_Checkbox)+1,LEN($Label.Retailer_Checkbox))}"  styleClass="label" rendered="{!country.Show_Retailer__c == 'Yes'}"/>
+                 </apex:pageBlockSectionItem>
+                 <apex:pageBlockSectionItem rendered="{!country.Show_Retailer__c == 'Yes'}">
+                    <input type="radio" value="Retailer__c" name="input_bestDescribe" id="Input_Retailer__c" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!country.Show_eTailer__c == 'Yes'}">
+                    <apex:outputLabel value="{!LEFT($Label.eTailer_Checkbox,FIND(':',$Label.eTailer_Checkbox)-1)}"  styleClass="label" rendered="{!country.Show_eTailer__c == 'Yes'}"/>
+                    <apex:outputLabel value="{!MID($Label.eTailer_Checkbox,FIND(':',$Label.eTailer_Checkbox)+1,LEN($Label.eTailer_Checkbox))}"  styleClass="label" rendered="{!country.Show_eTailer__c == 'Yes'}"/>
+                 </apex:pageBlockSectionItem>
+                 <apex:pageBlockSectionItem rendered="{!country.Show_eTailer__c == 'Yes'}">
+                    <input type="radio" value="eTailer__c" name="input_bestDescribe" id="Input_eTailer__c" />
+                </apex:pageBlockSectionItem>
+                      
+                <script>
+                    // Stamp Value of Best Describe for Input Mode
+                    
+                    if(document.getElementById('p:f:bestDesAPIName')!=null)
+                    {
+                        // Get selected Radio Button API Name
+                        var apiName=document.getElementById('p:f:bestDesAPIName').value;
+                        if(document.getElementById('Input_'+apiName)!=null)
+                            document.getElementById('Input_'+apiName).checked=true;
+                    }
+               </script>
+                
+   </apex:pageBlockSection>
+           <!-- R16.03 starts -->
+           <apex:pageblockSection title="{!$Label.Service_Information} {!$Label.changes_will_be_applied_immediately}" collapsible="false" columns="1">
+           
+                   <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Do_you}"/>
+                        <apex:inputField value="{!Partner_Request__c.Service_Type__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Service_Capability}" for="salutation" styleClass="label"/>
+                        <apex:inputField value="{!Partner_Request__c.Service_Capability__c}" id="sc"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Mode_of_Service}" for="salutation" styleClass="label"/>
+                        <apex:inputField value="{!Partner_Request__c.Mode_Of_Service__c}" id="mos"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Hardware_warranty_Break_fix_support}" for="salutation" styleClass="label"/>
+                        <apex:inputField value="{!Partner_Request__c.Hardware_warranty_Break_fix_support__c}" id="hwbfs"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Software_Technical_Support}" for="salutation" styleClass="label"/>
+                        <apex:inputField value="{!Partner_Request__c.Software_Technical_Support__c}" id="sts"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Installation_Deployment_Services}" for="salutation" styleClass="label"/>
+                        <apex:inputField value="{!Partner_Request__c.Installation_Deployment_Services__c}" id="ids"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Installation_Deployment_Services_Market}" for="salutation" styleClass="label"/>
+                        <apex:inputField value="{!Partner_Request__c.Installation_Deployment_Services_Market__c}" id="idsm"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Custom_Configuration_Imaging}" for="salutation" styleClass="label"/>
+                        <apex:inputField value="{!Partner_Request__c.Custom_Configuration_Imaging__c}" id="cci"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Data_Migration}" for="salutation" styleClass="label"/>
+                        <apex:inputField value="{!Partner_Request__c.Data_Migration__c}" id="dm"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Asset_recovery_resale_recycling}" for="salutation" styleClass="label"/>
+                        <apex:inputField value="{!Partner_Request__c.Asset_recovery_resale_recycling__c}" id="arrr"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Consulting}" for="salutation" styleClass="label"/>
+                        <apex:inputField value="{!Partner_Request__c.Consulting__c}" id="cons"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Consulting_Market}" for="salutation" styleClass="label"/>
+                        <apex:inputField value="{!Partner_Request__c.Consulting_Market__c}" id="consm"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Education_Training}" for="salutation" styleClass="label"/>
+                        <apex:inputField value="{!Partner_Request__c.Education_Training__c}" id="et"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Managed_Deployment}" for="salutation" styleClass="label"/>
+                        <apex:inputField value="{!Partner_Request__c.Managed_Deployment__c}" id="md"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Custom_enterprise_data_center_services}" for="salutation" styleClass="label"/>
+                        <apex:inputField value="{!Partner_Request__c.Custom_enterprise_data_center_services__c}" id="doyou"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Dell_Service_Tools_Used}" for="salutation" styleClass="label"/>
+                        <apex:inputField value="{!Partner_Request__c.Dell_Service_Tools_Used__c}" id="dst"/>
+                    </apex:pageBlockSectionItem>
+                  
+           </apex:pageblockSection>
+   
+   <!-- R16.03 ends -->
+   <apex:pageBlockSection title="{!$Label.partner_finder} {!$Label.changes_will_be_applied_immediately}" columns="2" rendered="{!country.Partner_Finder_Enabled__c == 'Yes'}">
+       <apex:pageBlockSectionItem >
+           <apex:outputLabel value="{!$Label.partner_finder_opt_in}"/>
+           <apex:inputCheckbox value="{!Partner_Request__c.Partner_Finder_Opt_In__c}"/>
+       </apex:pageBlockSectionItem>
+       <apex:pageBlockSectionItem >
+           <apex:outputLabel value="{!$Label.partner_finder_contact_me_email}"/>
+           <apex:inputField value="{!Partner_Request__c.Partner_Finder_Contact_Me_Email__c}"/>
+       </apex:pageBlockSectionItem>
+   </apex:pageBlockSection>
+   </apex:pageBlock>
+   </apex:form>
+        <!-- END MAIN MY COMPANY SCREEN -->
+    </apex:outputPanel>
+
+    <script type="text/javascript">
+        var $j = jQuery.noConflict();
+        function handleOtherFieldChange(orig,elmt)
+        {
+            var value = null;
+            if(!Object.isUndefined(elmt) && elmt != null){
+                value = elmt.value;
+            }
+            if(!Object.isUndefined(value) && value != null){
+                value = value.toLowerCase();
+            }
+            if(!Object.isUndefined(orig) && orig != null){
+                orig = orig.toLowerCase();
+            }
+            if(value != orig){
+                doReload();
+            }
+        }
+        
+        function doSaveScript()
+        { 
+            // Assignment of Radio Button Value 
+            if($j("input[name='input_bestDescribe']:checked").val()!=null && $j("input[name='input_bestDescribe']:checked").val()!='')
+            {
+                $j("input[id*='bestDesAPIName']").val($j("input[name='input_bestDescribe']:checked").val());
+            }
+        }
+        function stamp_BestDescribe_Top3_Value()
+        { 
+            // Assignment of Radio Button Value  
+            if($j("input[name='input_bestDescribe']:checked").val()!=null && $j("input[name='input_bestDescribe']:checked").val()!='')
+            {
+                $j("input[id*='bestDesAPIName']").val($j("input[name='input_bestDescribe']:checked").val());
+            }
+        }
+        function onCancel()
+        {
+            $j("input[id*='bestDesAPIName']").val('{!bestOrgDescribeAPIName}');
+        }
+    
+    </script>
+
+    <!-- ====================================================================================== -->
+
+</apex:page>

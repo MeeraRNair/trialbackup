@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Include_Exclude_Partner_Account</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Include/Exclude Partner Account</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/39.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/39.0/apex.js&quot;)} 
+if(&apos;{!$Organization.Id}&apos;==&apos;00D3B000000DR8l&apos;)
+{ 
+var win = window.open(&apos;/a8F/e?CF00N0m000000Hhk3={!Deal_Program__c.Name}&amp;CF00N0m000000Hhk3_lkid={!Deal_Program__c.Id}&amp;retURL=/{!Deal_Program__c.Id}&apos;, &apos;_top&apos;);
+}
+if(&apos;{!$Organization.Id}&apos;==&apos;00DK000000XGEIX&apos;) { 
+var win = window.open(&apos;/a8Q/e?CF00NK000000212u2={!Deal_Program__c.Name}&amp;CF00NK000000212u2_lkid={!Deal_Program__c.Id}&amp;retURL=/{!Deal_Program__c.Id}&apos;, &apos;_top&apos;);
+}
+if(&apos;{!$Organization.Id}&apos;==&apos;00D4B0000009GoP&apos;) { 
+var win = window.open(&apos;/a8N/e?CF00N4B0000018pOO={!Deal_Program__c.Name}&amp;CF00N4B0000018pOO_lkid={!Deal_Program__c.Id}&amp;retURL=/{!Deal_Program__c.Id}&apos;, &apos;_top&apos;);
+}
+if(&apos;{!$Organization.Id}&apos;==&apos;00D300000006urq&apos;) {   
+var win = window.open(&apos;/a8L/e?CF00NA000000BkifO={!Deal_Program__c.Name}&amp;CF00NA000000BkifO_lkid={!Deal_Program__c.Id}&amp;retURL=/{!Deal_Program__c.Id}&apos;, &apos;_top&apos;); 
+}</url>
+</WebLink>

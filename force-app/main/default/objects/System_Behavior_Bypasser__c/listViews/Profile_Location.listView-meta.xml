@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Profile_Location</fullName>
+    <booleanFilter>1 OR  2 OR 3</booleanFilter>
+    <columns>SETUP_OWNER_NAME</columns>
+    <columns>SETUP_TYPE</columns>
+    <columns>Bypass_Account_VRs__c</columns>
+    <columns>Bypass_Contact_VRs__c</columns>
+    <columns>Bypass_Lead_VRs__c</columns>
+    <columns>Bypass_Opportunity_Line_Item_VRs__c</columns>
+    <columns>Bypass_Opportunity_VRs__c</columns>
+    <columns>Bypass_Trip_Report_VRs__c</columns>
+    <columns>Bypass_Account_PBs__c</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <columns>LAST_UPDATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>SETUP_TYPE</field>
+        <operation>equals</operation>
+        <value>Profile</value>
+    </filters>
+    <filters>
+        <field>SETUP_TYPE</field>
+        <operation>equals</operation>
+        <value>User</value>
+    </filters>
+    <filters>
+        <field>SETUP_TYPE</field>
+        <operation>notEqual</operation>
+    </filters>
+    <label>Profile Location</label>
+    <language>en_US</language>
+</ListView>

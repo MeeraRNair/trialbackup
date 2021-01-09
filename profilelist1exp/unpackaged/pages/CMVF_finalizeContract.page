@@ -1,0 +1,21 @@
+<apex:page standardController="Contract" extensions="CMFinalizeContractController" action="{!autoApproveContract}">
+      <table width="600px" cellpadding="0" cellspacing="0" align="center" border="0">
+        <tr>
+            <td>
+                   <apex:form rendered="{!bolMessage}">                 
+                    <div>
+                        <apex:pageMessage severity="info" strength="3"  detail="This record cannot Finalized 
+                    because it does not have a Status = Approved."/>
+                        
+                        <table align="center">
+                            <tr><td>
+                                <apex:commandButton value="Back" action="{!Cancel}"/>
+                                
+                            </td></tr>
+                        </table>
+                    </div>                  
+                 </apex:form>
+            </td>
+        </tr>
+    </table>             
+</apex:page>

@@ -1,0 +1,13 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" controller="FAP_PartnerSearchAutoCompleteController">
+<ul>
+
+    <apex:repeat value="{!results}" var="choice" id="theRepeat">
+        <!-- Ver 1.0 - Commenting existing code -->
+        <li>{!choice}</li>
+        <!-- Workaround 1 -->
+        <!-- <li style="float:left;width:auto;white-space:nowrap;">{!choice}</li> -->
+        <!-- Workaround 2 -->
+        <!-- <li style="overflow: hidden">{!choice}</li> -->
+    </apex:repeat>
+</ul>
+</apex:page>

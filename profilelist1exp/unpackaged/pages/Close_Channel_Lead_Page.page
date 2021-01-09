@@ -1,0 +1,29 @@
+<!--*
+ * Author   : Subramani Ramamurthy
+ * Purpose  : This page is used to update the Lead Status Field to Closed - Work.
+ *
+ * Revision CR Number   Release No      Date            Modified By             Description
+ * -------- ---------   ----------      -----------     -----------             -----------
+ * 1.0      CR 15625    FY19-DCE-0502   19-APr-2018     Subramani Ramamurthy    Channel Lead Status Field.
+
+
+*-->
+
+<apex:page standardController="Lead" tabStyle="Lead" recordSetVar="leads" lightningStylesheets="{!$User.UITheme != 'Theme3'}" action="{!PerformMassLeadUpdate}" extensions="CloseChannelLeadExtension"  >
+  
+  <apex:form >
+    <apex:pageBlock title="">
+        <apex:pagemessages id="messageId" />
+        
+        <!--<apex:outputPanel rendered="{!isFilterEmpty}">
+        <apex:commandButton value="Yes" action="{!Yes}" />
+        <apex:commandButton value="No" action="{!No}" />
+        </apex:outputpanel>
+        
+        <apex:pageBlockButtons location="top">
+            <apex:commandButton value="Cancel" action="{!cancel}"/>
+        </apex:pageBlockButtons> -->
+    </apex:pageBlock>
+  </apex:form>
+  
+</apex:page>

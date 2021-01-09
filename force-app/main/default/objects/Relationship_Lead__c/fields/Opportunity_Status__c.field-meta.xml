@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opportunity_Status__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Please click on the relevant opportunity buttons after selecting opportunity status to complete lead follow up</inlineHelpText>
+    <label>Opportunity Status?</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Lead_Quality__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New Opportunity</fullName>
+                <color>#0B6FCE</color>
+                <default>false</default>
+                <label>New Opportunity</label>
+            </value>
+            <value>
+                <fullName>Existing Opportunity</fullName>
+                <color>#78C953</color>
+                <default>false</default>
+                <label>Existing Opportunity</label>
+            </value>
+            <value>
+                <fullName>SMB Opportunity</fullName>
+                <color>#F3D904</color>
+                <default>false</default>
+                <label>SMB Opportunity</label>
+            </value>
+            <value>
+                <fullName>Run Rate Opportunity</fullName>
+                <default>false</default>
+                <label>Run Rate Opportunity</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Qualified</controllingFieldValue>
+            <valueName>New Opportunity</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Qualified</controllingFieldValue>
+            <valueName>Existing Opportunity</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Qualified</controllingFieldValue>
+            <valueName>SMB Opportunity</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Qualified</controllingFieldValue>
+            <valueName>Run Rate Opportunity</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

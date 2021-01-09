@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Specialist_Name_Field_Required</fullName>
+    <active>true</active>
+    <description>Specialist Name field is required If the record type is Request_OEM_Customized_Solution_Support and if OEM Express PM =  Assigned</description>
+    <errorConditionFormula>AND( 
+RecordType.DeveloperName=&apos;Request_OEM_Customized_Solution_Support&apos;,
+CONTAINS( $Label.OEM_Support_Request_access_profiles ,$Profile.Name),  
+ISBLANK( Specialist_Name__c ), 
+ISPICKVAL( OEM_Express_PM__c, &apos;Assigned&apos;))</errorConditionFormula>
+    <errorDisplayField>Specialist_Name__c</errorDisplayField>
+    <errorMessage>You must enter a value</errorMessage>
+</ValidationRule>

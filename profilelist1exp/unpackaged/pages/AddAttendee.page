@@ -1,0 +1,30 @@
+<!-- * 
+* Revision CR Number   Release No      Date            Modified By     Description
+* -------- ---------   ----------      -----------     ------------    -----------
+* 1.0 -    CR16428     FY19-DCS-1002   31-Aug-2018:    manip4          added 'lightningStylesheets' attribute for apex component to make the page lightening friendly for the story 5537351
+*/-->
+
+<apex:page standardController="Transportation__c" extensions="VFCtlr_AddAtendees"  
+standardStylesheets="true" lightningStylesheets="true">
+<apex:form >
+
+<apex:pageBlock title="Select Attendees"> 
+    <apex:pageBlockTable value="{!AttendeeList}" var="attendee" rendered="{!DisplayTbl}">
+        <apex:column headerValue="Select">
+            <apex:inputCheckbox value="{!attendee.selected}"/>
+        </apex:column>        
+        <apex:column value="{!attendee.attendeeElt.Attendee_Name__c}" headerValue="Name of attendee"/>
+        <apex:column value="{!attendee.attendeeElt.Customer_Engagement__c}" headerValue="Customer Engagement"/>
+        <apex:column value="{!attendee.attendeeElt.recordType.name}" headerValue="Attendee type"/>
+    </apex:pageBlockTable>
+    <apex:pageBlockButtons rendered="{!DisplayTbl}">
+        <apex:commandButton action="{!addAttendee}" value="Add Attendee"/>
+        <apex:commandButton action="{!Cancel}" value="Cancel"/>
+    </apex:pageBlockButtons>    
+</apex:pageBlock>
+<apex:pageMessage severity="Info" strength="3" 
+title="No Attendees to display" rendered="{!ErrorMsg}">
+<apex:commandButton action="{!Cancel}" value="Cancel"/>
+</apex:pageMessage>
+</apex:form>
+ </apex:page>

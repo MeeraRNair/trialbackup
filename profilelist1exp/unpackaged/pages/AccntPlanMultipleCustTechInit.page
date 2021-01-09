@@ -1,0 +1,159 @@
+<apex:page controller="AccntPlanMultipleCustTechInitCtrl" title="{!$ObjectType.SFDC_Acct_Plan__c.Fields.Customer_Technology_Initiatives__c.Label}" tabStyle="SFDC_Acct_Plan__c">
+    <style>
+        .error { color: red; font-weight: strong;}
+        .dataClass { width: 400px; } 
+        .dataClassWithButton { width: 400px}   
+        
+    </style>
+    <script>
+        
+    </script>
+    <body>
+    
+    <apex:form id="theform">
+        
+        <!-- error block that will prevent (entire UI block) action to proceed -->
+        <apex:pageBlock id="errorBlock" title="{!$ObjectType.SFDC_Acct_Plan__c.Fields.Customer_Technology_Initiatives__c.Label}" rendered="{!IF(canProceed, false, true)}">
+            <apex:pageMessages />
+            <br/>
+            <apex:commandButton value="{!$Label.AccntPlan_CustTechInit_CancelButton}" action="{!cancel}" immediate="true"/>
+        </apex:pageBlock>
+        
+        <!-- the entire UI to be shown -->                          
+        <apex:pageBlock id="submitBlock" title="{!$ObjectType.SFDC_Acct_Plan__c.Fields.Customer_Technology_Initiatives__c.Label}" rendered="{!IF(canProceed, true, false)}">
+              
+            <apex:pageMessages />
+            
+            <apex:PageBlockSection columns="1" id="dataBlock"> 
+                
+                <!--apex:repeat value="{!fieldNames}" var="fieldName" rows="{!noOfFilledFields}"> 
+                   
+                   <apex:pageBlockSectionItem >
+                       
+                       <apex:outputPanel >
+                           <table>
+                           <tr>
+                               <td>
+                                   <apex:inputField value="{!accountPlan[fieldName]}" styleClass="{!IF(noOfFilledFields==1, 'dataClass', 'dataClassWithButton')}"/> 
+                               </td>
+                               <td style="vertical-align:bottom">
+                                   <apex:commandButton value="{!$Label.AccntPlan_CustTechInit_RemoveInitButton}" styleClass="btnClass" action="{!remove}" reRender="dataBlock" rendered="{!IF(noOfFilledFields==1, false, true)}" immediate="false">
+                                       <apex:param name="removedFieldParam" value="{!fieldName}" assignTo="{!removedFieldName}"/>
+                                   </apex:commandButton>  
+                               </td>
+                           </tr>
+                           </table>
+                       </apex:outputPanel>
+                   </apex:pageBlockSectionItem>
+                   
+                </apex:repeat--> 
+                
+                <apex:pageBlockSectionItem rendered="{!IF(noOfFilledFields>=1, true, false)}"> 
+                    <apex:outputLabel value="{!$ObjectType.SFDC_Acct_Plan__c.Fields.Large_Scale_Related_Initiatives_Planned__c.Label}"/>
+                    <apex:outputPanel >
+                        <table>
+                        <tr>
+                            <td>
+                                <apex:inputField value="{!accountPlan.Large_Scale_Related_Initiatives_Planned__c}" styleClass="{!IF(noOfFilledFields==1, 'dataClass', 'dataClassWithButton')}"/>
+                            </td>
+                            <td style="vertical-align:bottom">
+                               <apex:commandButton value="{!$Label.AccntPlan_CustTechInit_RemoveInitButton}" styleClass="btnClass" action="{!remove}" reRender="dataBlock" rendered="{!IF(noOfFilledFields==1, false, true)}" immediate="false">
+                                   <apex:param name="removedFieldParam" value="Large_Scale_Related_Initiatives_Planned__c" assignTo="{!removedFieldName}"/>
+                               </apex:commandButton>  
+                            </td>
+                        </tr>
+                        </table>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!IF(noOfFilledFields>=2, true, false)}">
+                    <apex:outputLabel value="{!$ObjectType.SFDC_Acct_Plan__c.Fields.Large_Scale_Related_Initiatives_Planned2__c.Label}"/>
+                    <apex:outputPanel >
+                        <table>
+                        <tr>
+                            <td>
+                               <apex:inputField value="{!accountPlan.Large_Scale_Related_Initiatives_Planned2__c}" styleClass="{!IF(noOfFilledFields==1, 'dataClass', 'dataClassWithButton')}"/>
+                            </td>
+                            <td style="vertical-align:bottom">
+                               <apex:commandButton value="{!$Label.AccntPlan_CustTechInit_RemoveInitButton}" styleClass="btnClass" action="{!remove}" reRender="dataBlock" immediate="false">
+                                   <apex:param name="removedFieldParam" value="Large_Scale_Related_Initiatives_Planned2__c" assignTo="{!removedFieldName}"/>
+                               </apex:commandButton>  
+                            </td>
+                        </tr>
+                        </table>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!IF(noOfFilledFields>=3, true, false)}">
+                    <apex:outputLabel value="{!$ObjectType.SFDC_Acct_Plan__c.Fields.Large_Scale_Related_Initiatives_Planned3__c.Label}"/>
+                    <apex:outputPanel >
+                        <table>
+                        <tr>
+                            <td>
+                               <apex:inputField value="{!accountPlan.Large_Scale_Related_Initiatives_Planned3__c}" styleClass="{!IF(noOfFilledFields==1, 'dataClass', 'dataClassWithButton')}"/>
+                            </td>
+                            <td style="vertical-align:bottom">
+                               <apex:commandButton value="{!$Label.AccntPlan_CustTechInit_RemoveInitButton}" styleClass="btnClass" action="{!remove}" reRender="dataBlock" immediate="false">
+                                   <apex:param name="removedFieldParam" value="Large_Scale_Related_Initiatives_Planned3__c" assignTo="{!removedFieldName}"/>
+                               </apex:commandButton>  
+                            </td>
+                        </tr>
+                        </table>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!IF(noOfFilledFields>=4, true, false)}">
+                    <apex:outputLabel value="{!$ObjectType.SFDC_Acct_Plan__c.Fields.Large_Scale_Related_Initiatives_Planned4__c.Label}"/>
+                    <apex:outputPanel >
+                        <table>
+                        <tr>
+                            <td>
+                               <apex:inputField value="{!accountPlan.Large_Scale_Related_Initiatives_Planned4__c}" styleClass="{!IF(noOfFilledFields==1, 'dataClass', 'dataClassWithButton')}"/>
+                            </td>
+                            <td style="vertical-align:bottom">
+                               <apex:commandButton value="{!$Label.AccntPlan_CustTechInit_RemoveInitButton}" styleClass="btnClass" action="{!remove}" reRender="dataBlock" immediate="false">
+                                   <apex:param name="removedFieldParam" value="Large_Scale_Related_Initiatives_Planned4__c" assignTo="{!removedFieldName}"/>
+                               </apex:commandButton>  
+                            </td>
+                        </tr>
+                        </table>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!IF(noOfFilledFields>=5, true, false)}">
+                    <apex:outputLabel value="{!$ObjectType.SFDC_Acct_Plan__c.Fields.Large_Scale_Related_Initiatives_Planned5__c.Label}" />
+                    <apex:outputPanel >
+                        <table>
+                        <tr>
+                            <td>
+                                <apex:inputField value="{!accountPlan.Large_Scale_Related_Initiatives_Planned5__c}" styleClass="{!IF(noOfFilledFields==1, 'dataClass', 'dataClassWithButton')}"/>     
+                            </td>
+                            <td style="vertical-align:bottom">
+                               <apex:commandButton value="{!$Label.AccntPlan_CustTechInit_RemoveInitButton}" styleClass="btnClass" action="{!remove}" reRender="dataBlock" immediate="false">
+                                   <apex:param name="removedFieldParam" value="Large_Scale_Related_Initiatives_Planned5__c" assignTo="{!removedFieldName}"/>
+                               </apex:commandButton>  
+                            </td>
+                        </tr>
+                        </table>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                                
+                <apex:pageBlockSectionItem >
+                    &nbsp;
+                    <apex:commandButton value="{!$Label.AccntPlan_CustTechInit_AddInitButton}"  action="{!add}" reRender="dataBlock" rendered="{!IF(noOfFilledFields==maxOfFields, false, true)}" immediate="true"/>
+                </apex:pageBlockSectionItem>
+                
+            </apex:PageBlockSection>
+                     
+            <apex:pageBlockButtons location="bottom"> 
+                <apex:commandButton value="{!$Label.AccntPlan_CustTechInit_SaveButton}" action="{!save}"/>                
+                <apex:commandButton value="{!$Label.AccntPlan_CustTechInit_CancelButton}" action="{!cancel}" immediate="true" />
+            </apex:pageBlockButtons>
+            
+        </apex:pageBlock>                          
+            
+    </apex:form>    
+   
+    </body>
+    
+</apex:page>

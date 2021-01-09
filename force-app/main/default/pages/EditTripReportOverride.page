@@ -1,0 +1,22 @@
+<apex:page standardController="CustomerInteraction__c" title="Edit Trip Report" tabStyle="CustomerInteraction__c">
+
+<script type="text/javascript">
+
+function gotoTripReport() {
+    
+    if( (typeof sforce != 'undefined') && (sforce != null) ) {
+        
+       sforce.one.editRecord('{!CustomerInteraction__c.Id }');
+       
+    } else {
+    //CR13476 - fix : delete parent. 
+        location.assign("/apex/NewTripReportPage?sfdc.override=1&id={!CustomerInteraction__c.Id }&retURL=%2F{!CustomerInteraction__c.Id }&scontrolCaching=1");
+    }
+      
+}
+ 
+gotoTripReport();
+
+</script> 
+
+</apex:page>

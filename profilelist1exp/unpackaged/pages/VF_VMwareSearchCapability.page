@@ -1,0 +1,132 @@
+<!--
+  * Author   : 
+  * Purpose  : 
+  *
+  * Revision   CR Number   Release No          Date          Modified By      Description
+  * --------  ---------   ----------        -----------     ------------      -----------
+  * 1.0                   FY18-DCS-1001       09-Aug-17      Ravali - UST       
+  *
+-->
+
+<apex:page controller="VMwareSearchCapabilityController">
+<apex:includeScript value="{!URLFOR($Resource.Jquery_10, 'jquery-ui-1.10.4.custom/js/jquery-1.10.2.js')}"  />
+<apex:includeScript value="{!URLFOR($Resource.Jquery_10, 'jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js')}"  />
+ <style type='text/css'>
+    .popup
+    {
+        background-color: white;
+        border-width: 2px;
+        border-style: solid;
+        z-index: 9999;
+        left: 50%;
+        padding:10px;
+        position: absolute;
+        width: 500px;
+        margin-left: -250px;
+        top:250px;
+    }
+
+    .popupBg
+    {
+        background-color:black;
+        opacity: 0.20;
+        filter: alpha(opacity = 70);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 9998;
+    }
+</style>  
+
+ <script type="text/javascript">
+        function setFocusOnLoad() {}
+
+      $j = jQuery.noConflict();
+      
+      $j(document).ready(function() {
+            
+      });
+
+      ShowPopUp = function(){
+        var selectedRow = $j('input[name=selectRadio]:checked'); 
+        var id = selectedRow.attr('id');
+        //alert('--'+id);
+        var r = confirm("Are you sure you want to override/update the company information in the S&P Vendor record?");
+        if(r == true){
+            SaveRecord(id);
+        }else{
+            return false;    
+        }
+      }
+
+ </script>
+    
+<apex:form id="frm">
+    <apex:pageMessages ></apex:pageMessages>
+    <apex:actionFunction name="SaveRecord" action="{!save}" reRender="frm,PB2">
+        <apex:param name="selectedRow" value="" />
+    </apex:actionFunction>
+    <apex:pageBlock title="Company Search">
+        <apex:pageBlockSection columns="1" >
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Country" />
+                <apex:outputPanel >
+                    <div class="requiredInput">
+                        <div class="requiredBlock"></div>
+                        <apex:inputField label="Country" value="{!SnPRecord.Country__c}" required="true">
+                           
+                        </apex:inputField>
+                    </div>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Company Name" />
+                <apex:outputPanel >
+                    <div class="requiredInput">
+                        <div class="requiredBlock"></div>
+                        <apex:inputText label="Company Name" value="{!companyname}" required="true"  />
+                    </div>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:inputText label="State" value="{!state}" />
+            <apex:outputLabel style="text-align:center;color:red" escape="false" value="<b>Note:</b> Please enter at least 3 characters to search for company, and enter more information to refine your search. Maximum of 5 results will return at a time " />
+        </apex:pageBlockSection>
+        <apex:pageBlockButtons location="bottom">
+                <apex:actionStatus id="status" >
+                    <apex:facet name="start">
+                        <apex:outputPanel >
+                            Searching... <apex:image value="{!URLFOR($Resource.spinner_gif)}"/>
+                        </apex:outputPanel>
+                    </apex:facet>
+                    <apex:facet name="stop">
+                        <apex:outputPanel >
+                            <apex:commandButton value="Search" action="{!search}" rerender="frm" status="status"/>                            
+                        </apex:outputPanel>
+                    </apex:facet>
+                </apex:actionStatus>
+                <apex:commandButton styleClass="saveButton" value="Back" immediate="true" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+    </apex:pageBlock>
+    <apex:pageBlock id="PB2" title="Company List" rendered="{!ShowCompanylist}">
+        <apex:pageBlockTable value="{!CompanyList}" var="Cmplist" title="Company List" headerClass="Company List" rows="5">
+            <apex:column headerValue="Update">
+               <input type="radio" name="selectRadio" id="{!Cmplist.CustomerID}" value="{!Cmplist.isSelected}"/>
+            </apex:column>
+            <apex:column value="{!Cmplist.Name}" headerValue="CompanyName"/>
+            <apex:column value="{!Cmplist.DomainName}" headerValue="Customer Domain"/>
+            <apex:column value="{!Cmplist.Address_1_del}" headerValue="Ship to Address"/>
+            <apex:column value="{!Cmplist.Country}" headerValue="Country"/>
+            <apex:column value="{!Cmplist.City}" headerValue="City"/>
+            <apex:column value="{!Cmplist.StateProvince}" headerValue="StateProvince"/>
+            <apex:column value="{!Cmplist.ZipPostalCode}" headerValue="ZipPostalCode"/>
+        </apex:pageBlockTable>
+        <apex:pageBlockButtons location="bottom">
+                <apex:commandButton styleClass="saveButton" value="Select" onclick="return ShowPopUp();" reRender="PB2"/>        
+                <apex:commandButton styleClass="saveButton" value="Back" action="{!cancel}"/>
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

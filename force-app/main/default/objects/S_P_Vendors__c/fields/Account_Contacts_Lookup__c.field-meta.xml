@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_Contacts_Lookup__c</fullName>
+    <externalId>false</externalId>
+    <formula>HYPERLINK(&apos;/apex/SnP_ContactSelectionPage?id=&apos; + Id, &apos;Pull In an Account Contact&apos;,&apos;_parent&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Click Add/Update Contacts to enable account contacts lookup</inlineHelpText>
+    <label>Account Contacts Lookup</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

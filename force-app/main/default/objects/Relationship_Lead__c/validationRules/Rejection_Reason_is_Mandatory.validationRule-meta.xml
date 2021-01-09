@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rejection_Reason_is_Mandatory</fullName>
+    <active>false</active>
+    <description>Rejection Reason is Mandatory for rejected leads</description>
+    <errorConditionFormula>AND(ISPICKVAL( Accept_Reject_Status__c , &quot;Rejected By Sales&quot;), ISPICKVAL( Rejection_Reason__c , &quot;&quot;))</errorConditionFormula>
+    <errorDisplayField>Rejection_Reason__c</errorDisplayField>
+    <errorMessage>Please select a Rejection Reason</errorMessage>
+</ValidationRule>

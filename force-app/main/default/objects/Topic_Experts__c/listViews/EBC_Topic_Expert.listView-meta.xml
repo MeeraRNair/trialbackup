@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EBC_Topic_Expert</fullName>
+    <columns>NAME</columns>
+    <columns>Topic_Expert_Name__c</columns>
+    <columns>Title__c</columns>
+    <columns>External_Resource_Email__c</columns>
+    <columns>Specializing_In__c</columns>
+    <columns>Expertise__c</columns>
+    <columns>Site__c</columns>
+    <columns>Expert_Location__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Engagement_Type__c</field>
+        <operation>equals</operation>
+        <value>EBC</value>
+    </filters>
+    <label>EBC Topic Expert</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>ExecutiveBriefingCenterStaff</group>
+    </sharedTo>
+</ListView>

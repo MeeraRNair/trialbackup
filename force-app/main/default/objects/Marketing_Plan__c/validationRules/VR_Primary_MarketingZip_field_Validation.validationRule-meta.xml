@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR_Primary_MarketingZip_field_Validation</fullName>
+    <active>false</active>
+    <description>allow users to enter only numbers in the  Primary Marketing Contact : Zip fields.</description>
+    <errorConditionFormula>( LEN( Primary_Marketing_Contact_Zip__c ) &gt;0  &amp;&amp;  NOT( ISNUMBER(Primary_Marketing_Contact_Zip__c) ) )</errorConditionFormula>
+    <errorDisplayField>Primary_Marketing_Contact_Zip__c</errorDisplayField>
+    <errorMessage>Please enter only numbers in the Zip field</errorMessage>
+</ValidationRule>

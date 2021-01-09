@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EU_Affinity_ID_cannot_be_Edited</fullName>
+    <active>true</active>
+    <description>EU Affinity Field cannot be edited by the Sales User when End User Account is already linked.</description>
+    <errorConditionFormula>CONTAINS($Profile.Name,&apos;Sales&apos;)&amp;&amp; NOT(ISBLANK( End_User_Account__c )) &amp;&amp; ISCHANGED(EU_Affinity_ID__c) &amp;&amp; PRIORVALUE(EU_Affinity_ID__c) &lt;&gt; NULL</errorConditionFormula>
+    <errorDisplayField>EU_Affinity_ID__c</errorDisplayField>
+    <errorMessage>EU Affinity ID cannot be edited</errorMessage>
+</ValidationRule>

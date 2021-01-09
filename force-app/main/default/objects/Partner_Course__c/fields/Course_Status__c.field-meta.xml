@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Course_Status__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( AND( NOT( ISNULL( Course_Completed_Date__c)), Course_Expiration_Date__c &gt;= TODAY() ), &apos;Completed&apos;, 
+IF( Days_Valid__c &lt; 0, &apos;Expired&apos;, 
+IF(NOT( OR( ISNull(NetExam_Course_Status__c ),ISBlank( NetExam_Course_Status__c ) )), NetExam_Course_Status__c , &apos;Enrolled&apos; )))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Course Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

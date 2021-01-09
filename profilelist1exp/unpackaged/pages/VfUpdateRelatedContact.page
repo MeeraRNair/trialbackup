@@ -1,0 +1,59 @@
+<apex:page controller="VfCntrlUpdateRelatedContact" lightningStylesheets="true">
+   <head>
+        <script>
+            function uncheckOtherCompare(obj) {
+                var objId = obj.id;
+
+                if (objId.indexOf('leadVal') >= 0) {
+                  objId = objId.replace('leadVal', 'conVal');  
+                } else {
+                  objId = objId.replace('conVal', 'leadVal'); 
+                }
+
+                if (obj.checked) {
+                  document.getElementById(objId).checked = false; 
+                } else if (!document.getElementById(objId).checked) {
+                   obj.checked = true; 
+                }
+            }
+        </script>
+    </head>
+    <apex:form id="form1">
+    <apex:pageblock title="Update Related Contact">
+        <apex:pageMessages />
+        <apex:pageblocksection columns="1" collapsible="false" rendered="{!Not(errMsg)}">
+            <apex:outputlabel > Use check boxes near fields to select data to be updated from Lead to Contact. After completing selection press ‘Update Contact’ button to continue, ‘Cancel’ button to abort action.
+            </apex:outputlabel> 
+        
+        <apex:pageblocktable value="{!leadToContact}" var="compare" rules="all" border="10px" frame="lhs">
+            <apex:column style="{!IF(NOT(compare.isSame), 'background-color: #cccccc', '')}" width="24%">
+                <apex:facet name="header">Field Name</apex:facet>
+                <b>{!compare.name}</b>
+            </apex:column>
+            
+            <apex:column width="3%" >
+                <apex:inputcheckbox rendered="{!NOT(compare.isSame)}" id="leadVal" label="{!compare.leadVal}" onclick="uncheckOtherCompare(this);" title="{!compare.leadVal}" value="{!compare.selectLead}" />
+            </apex:column>
+            <apex:column width="35%" >
+                <apex:facet name="header">Value in Lead</apex:facet>
+                <apex:outputlabel value="{!compare.leadVal}" />
+            </apex:column>
+            
+            <apex:column width="3%" >
+                <apex:inputcheckbox rendered="{!NOT(compare.isSame)}"  id="conVal" label="{!compare.conVal}" onclick="uncheckOtherCompare(this);" value="{!compare.selectContact}" /> 
+            </apex:column>
+            <apex:column width="35%">
+                <apex:facet name="header">Value in Contact</apex:facet>
+                <apex:outputlabel escape="false" value="{!compare.conVal}" />
+            </apex:column>
+        </apex:pageblocktable>
+        
+        </apex:pageblocksection>
+        
+        <apex:pageBlockButtons style="align:center;" location="bottom" >
+            <apex:commandButton rendered="{!NOT(errMsg)}" value="Update Contact" action="{!Save}" />
+            <apex:commandButton value="Cancel" action="{!cancel}"/> 
+        </apex:pageBlockButtons>     
+    </apex:pageblock>
+    </apex:form>
+</apex:page>

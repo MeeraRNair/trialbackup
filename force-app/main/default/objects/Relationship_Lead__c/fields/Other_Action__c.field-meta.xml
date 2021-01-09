@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Other_Action__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(ISPICKVAL(Status__c, &apos;Closed - Expired&apos;),&apos;[No Action Available]&apos;,IF( AND( ISPICKVAL(Status__c, &apos;Requires Follow-Up&apos;), OR (ISPICKVAL(Accept_Reject_Status__c, &apos;&apos;), ISPICKVAL(Accept_Reject_Status__c, &apos;Reassigned By Sales&apos;))) , 
+&apos;[No Action Available]&apos;, 
+IF( AND(OR(ISPICKVAL(Status__c, &apos;Awaiting Follow Up&apos;),ISPICKVAL(Status__c, &apos;Future Follow-Up&apos;)),NOT( ISPICKVAL( Lead_Quality__c , &apos;Qualified&apos;) ),NOT( ISPICKVAL(Status__c, &apos;Closed - Expired&apos;) )) , 
+&apos;[No Action Available]&apos;, 
+IF(AND( ISPICKVAL(Lead_Quality__c, &apos;Qualified&apos;),(ISPICKVAL(Opportunity_Status__c,&apos;SMB Opportunity&apos;)), Opportunity__c=null ), 
+HYPERLINK(&apos;006/e?retURL=/&apos; &amp; Id &amp; &apos;&amp;RecordType=012A0000000Vhy7&amp;00NA0000000bC8S=&apos; &amp; Id&amp;&apos;&amp;opp4=&apos;&amp; Account__c &amp;&apos;&amp;opp4_lkid=&apos; &amp; Contact__r.AccountId&amp;&apos;&amp;opp17=&apos;&amp; Campaign__r.Name&amp;&apos;&amp;00NA0000000b8l9=1&amp;opp5=Deal/Bid - Direct&amp;opp11=Plan - 1%25&amp;00NA00000063VHF=&apos;&amp; Solution_ID__c &amp;&apos;&amp;nooverride=1&apos; , IMAGE(&quot;resource/1352358599000/MA_NewSMBOpptys&quot;, &apos;New SMB Opportunity&apos;),&apos;_parent&apos;), 
+&apos;[No Action Available]&apos;))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Other Action</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

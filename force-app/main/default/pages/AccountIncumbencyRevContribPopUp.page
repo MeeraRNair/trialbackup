@@ -1,0 +1,132 @@
+<apex:page standardController="Account" extensions="AccountIncumbencyRevContribPopUp_Ctrl" showHeader="false" sidebar="false">
+    
+    <style type="text/css">
+        .custPopup{
+            background-color: #00BFFF;
+            border-width: 2px;
+            border-radius: 25px; 
+            z-index: 9999;
+            left: 50%;
+            padding:10px;
+            position: absolute;
+            height : 180px;
+            width : 600 px;
+            /* These are the 3 css properties you will need to change so the popup 
+            displays in the center of the screen. First set the width. Then set 
+            margin-left to negative half of what the width is. You can add 
+            the height property for a fixed size pop up if you want.*/
+            width: 500px;
+            margin-left: -250px;
+            top:100px;
+        }
+        .popupBackground{
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+        }
+        .button {
+            position: absolute;
+            bottom: 5px;
+            left: 45%;
+            margin-left: -104.5px; 
+        }
+        .headerLine{
+            color : white;
+            text-align : center;
+            font-weight : bold;
+            font-size : 12pt;
+        }
+        table.datatable{
+            width : 500px;
+            height : 100px;
+            border : 2px;
+            border-style: solid;
+            border-color: #000000;
+
+        }
+        th,td .dataTableAttribs {
+            border: 1px solid black;
+            font-weight : bold;
+            font-size : 10pt;
+            vertical-align: text-top;
+
+        }
+        th {
+            background-color:#075F8B;   
+            color : white;
+        }
+        tr.rev {
+            background-color : #DADDDE;
+            border: 1px solid black;
+        }
+        tr.link {
+            background-color : #ffffff;
+            border: 1px solid black;
+        }
+        .tinytext{
+           color : white;
+           font-size : 6pt;
+        }
+    </style>
+    <apex:form >
+        <apex:outputPanel id="tstpopup" >
+          <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!displayPopUp}"/>
+            <apex:outputPanel styleClass="custPopup" layout="block" rendered="{!displayPopUp}">
+                <div class="headerLine">
+                    Top {!incumbencyType} Partners by Revenue for past 24 months
+                </div>
+                <br/>
+                <table class="datatable" style="width: 100%;">
+                    <tr>
+                        <th class="dataTableAttribs" style="width: 50%;overflow: hidden;white-space: inherit;">
+                          <br/>   Partner 1: {!partner1name} 
+                        </th>
+                        <th class="dataTableAttribs" style="width: 50%;overflow: hidden;white-space: inherit;">
+                        <br/>     Partner 2: {!partner2name }
+                        </th>            
+                    </tr>
+                    
+                    <tr class="rev">
+                        <td class="dataTableAttribs" style="width: 50%;">
+                            Total Revenue : <apex:outputText rendered="{!IF(partner1rev != null,True,False)}"> $</apex:outputText>{!partner1rev}
+                        </td >
+                        <td class="dataTableAttribs" style="width: 50%;">
+                        Total Revenue : <apex:outputText rendered="{!IF(partner2rev != null,True,False)}"> $</apex:outputText>{!partner2rev}
+                      
+                        </td>
+                    </tr>
+            
+                </table>
+                <br/>
+
+
+
+
+                <apex:commandButton styleclass="button" value="Close" action="{!closePopup}" reRender="tstpopup"/>
+            </apex:outputPanel>
+             <apex:outputPanel rendered="{!NOT(displayPopUp)}">
+             <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!NOT(displayPopUp)}"/>
+            <apex:outputPanel styleClass="custPopup" layout="block" rendered="{!NOT(displayPopUp)}"> <br/>
+                <br/>
+                 <table class="datatable">
+                    <tr>
+                        <th class="dataTableAttribs">
+                      <br/><br/>  Data Unavailable, please review SFDC Partner Opportunity history
+                        </th>
+                        </tr>
+                        </table>
+         <apex:commandButton styleclass="button" value="Close" action="{!closePopup}" reRender="tstpopup"/>
+
+               </apex:outputPanel> 
+             
+             </apex:outputPanel>
+        </apex:outputPanel>
+        
+    </apex:form>
+</apex:page>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Step_6__c</fullName>
+    <description>To Display the values as per &quot;Tier to Step Dependency&quot;</description>
+    <externalId>false</externalId>
+    <label>Step 6</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Tier_level__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>If Customer indicates need for leadership communication, add as a task to the strategy within Account Plan</fullName>
+                <default>false</default>
+                <label>If Customer indicates need for leadership communication, add as a task to the strategy within Account Plan</label>
+            </value>
+            <value>
+                <fullName>Leadership communication required, add as a task to the strategy within Account Plan</fullName>
+                <default>false</default>
+                <label>Leadership communication required, add as a task to the strategy within Account Plan</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>ACQ to R&amp;D</controllingFieldValue>
+            <valueName>Leadership communication required, add as a task to the strategy within Account Plan</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Tier 1A</controllingFieldValue>
+            <controllingFieldValue>Tier 1B</controllingFieldValue>
+            <valueName>If Customer indicates need for leadership communication, add as a task to the strategy within Account Plan</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

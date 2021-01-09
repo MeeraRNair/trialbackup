@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rep_on_Leave__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>This field is available on the Buddy Access request</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The Rep for which Buddy Access is requested</inlineHelpText>
+    <label>Rep on Leave</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>$User.IsActive</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>User</referenceTo>
+    <relationshipName>GDM_Requests8</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

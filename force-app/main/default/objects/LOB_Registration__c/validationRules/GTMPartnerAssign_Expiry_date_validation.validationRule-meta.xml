@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GTMPartnerAssign_Expiry_date_validation</fullName>
+    <active>true</active>
+    <description>This validation rule will make sure that the biz/channel rep will be prompted to select a future date but not a previous date or today as the expiry date of the assignment.</description>
+    <errorConditionFormula>AND( 
+(GTM_Linkage_Expiry_Date__c &lt;=Today()), NOT(ISNULL(GTM_Linkage_Expiry_Date__c)), ISCHANGED(GTM_Linkage_Expiry_Date__c) 
+)</errorConditionFormula>
+    <errorDisplayField>GTM_Linkage_Expiry_Date__c</errorDisplayField>
+    <errorMessage>Expiry date should be a future date.</errorMessage>
+</ValidationRule>

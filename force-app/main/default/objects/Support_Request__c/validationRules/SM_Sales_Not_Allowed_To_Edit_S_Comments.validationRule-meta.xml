@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SM_Sales_Not_Allowed_To_Edit_S_Comments</fullName>
+    <active>true</active>
+    <description>Sales user should be not able to edit Specialist Comments.</description>
+    <errorConditionFormula>AND(RecordTypeId = &apos;012A0000000ViNJ&apos;, $User.Id !=   PRIORVALUE(Specialist_Name__c), OR( AND( ISNEW() , NOT(ISBLANK( Specialist_Comments__c ))) ,  AND( NOT( ISNEW()) ,ISCHANGED( Specialist_Comments__c ))))</errorConditionFormula>
+    <errorDisplayField>Specialist_Comments__c</errorDisplayField>
+    <errorMessage>Specialist Comments field only editable for Specialist.</errorMessage>
+</ValidationRule>

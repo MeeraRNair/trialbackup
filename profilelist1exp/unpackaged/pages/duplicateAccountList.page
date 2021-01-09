@@ -1,0 +1,34 @@
+<apex:page standardController="Lead" extensions="LeadConvertPageCtrl" lightningStylesheets="true">
+<apex:form >
+<apex:pageBlock > 
+<apex:pageMessage severity="info">Duplicate Account found! Please verify the record(s) before choosing to ignore and continue with current account creation</apex:pageMessage>
+  <apex:pageMessages />
+  <apex:pageBlockButtons >
+
+            <apex:commandButton action="{!continueProcess}" value="Continue"/>
+            <apex:commandButton action="{!cancel}" value="Cancel"/>
+               
+  </apex:pageBlockButtons> 
+  
+ <apex:pageBlockTable value="{!accountList}" var="acct">
+  <apex:column headervalue="Select Account">
+     <input type="radio" name="chosen" id="{!acct.accountId}" VALUE="{!acct.accountId}" onclick="changeValue(this,'{!$Component.RadioButtonValue}');"/>
+  </apex:column>
+  <apex:column value="{!acct.accountId}" headerValue="Account Id"/> 
+  <apex:column value="{!acct.accountName}" headerValue="Account Name"/> 
+  <apex:column value="{!acct.accountType}" headerValue="Account Type"/> 
+  <apex:column value="{!acct.City}" headerValue="City"/> 
+  <apex:column value="{!acct.country}" headerValue="Country"/> 
+  <apex:column value="{!acct.postalCode}" headerValue="Postal Code"/>   
+  <apex:column value="{!acct.state}" headerValue="State"/> 
+ </apex:pageBlockTable>
+ 
+ <apex:inputHidden value="{!selectedAccountId}" id="RadioButtonValue" />
+</apex:pageBlock> 
+</apex:form>
+<script>
+function changeValue(input, textid) {
+    document.getElementById(textid).value = input.value;
+}   
+</script>
+</apex:page>

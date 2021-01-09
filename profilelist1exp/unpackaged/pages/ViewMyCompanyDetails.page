@@ -1,0 +1,525 @@
+<!--
+    Author   : Vasu
+    * Story  : Pull the data from Partner Track, Account, Service Information objects and display on the Company page.
+    * Save   : Saves the data in their respective objects.
+    * Edit   : Only Admins can edit the page and save the data.
+               Non-Admins can't view the Edit button.
+    * Cancel : Cancel will redirect from Edit mode to View mode.
+-->
+<apex:page id="pg" standardController="Partner_Request__c" extensions="ViewMyCompanyDetailsCtrl" sidebar="false" showHeader="false" standardStylesheets="true">
+    <apex:form id="fm">
+        <style>
+            .tooltip {
+            position: relative;
+            display: grid;
+            text-decoration: underline;
+            }
+            
+            .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: white;
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            top: -5px;
+            left: 110%;
+            overflow:auto; 
+            border-style: 1px solid black;
+            }
+            
+            .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            margin-top: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent black transparent transparent;
+            
+            }
+            .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+            }
+            
+            div:hover {background: none; text-decoration:none;} /*BG color is a must for IE6*/
+            div.tooltip p {display:none; padding:2px 3px;margin-top: 4px; margin-left:30px; height: 100px; overflow:auto;}
+            div.tooltip:hover p{display:block; position:absolute; background:#ffffff; border:1px solid #cccccc; color:#6c6c6c; border-color: darkgray; z-index: 9999;}
+            
+        </style>
+        
+        <apex:pageMessages /> 
+        
+        <!-- BEGIN MAIN MY COMPANY SCREEN -->
+        
+        <!-- VIEW MODE Starts-->
+    <apex:outputPanel id="pnlEdit" rendered="{! NOT(bisEditMode)}">
+        
+        <apex:pageBlock id="pgview" >          
+            <apex:pageBlockButtons location="top">
+               <apex:commandButton value="{!$Label.edit}" action="{!doEditJob}" rendered="{!bisAdmin}" status="status" />
+            </apex:pageBlockButtons>
+            
+            <apex:outputLabel value="{!$Label.Company_Text}" style="font-weight: bold; font-style: italic;" /> <br/> 
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="{!$Label.Company_MyCompanydetails}">            
+               <apex:pageBlockSection columns="2" collapsible="false">
+                   
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_LegalName}"/>
+                        <apex:outputField value="{!ptCompany.Primary_SMAffinity_Account__r.Name}" rendered="{!ptCompany.Primary_SMAffinity_Account__r.Name != null}" /> 
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Year_Of_Foundation}"/>
+                        <apex:outputField value="{!request.Number_of_years_in_business__c}" rendered="{!request.Number_of_years_in_business__c != null}" />
+                    </apex:pageBlockSectionItem>
+                   
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Local_Company_Name_As_Customer_Know_You}"/>
+                        <apex:outputField value="{!request.Partner_Track_Account_Local_Name__c}" rendered="{!request.Partner_Track_Account_Local_Name__c != null}" />
+                    </apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Countries_Doing_Business_In}"/>
+                        <apex:outputField value="{!request.States_Provinces_doing_business__c}" rendered="{!request.States_Provinces_doing_business__c != null}" />                        
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Trading_As}"/>
+                        <apex:outputField value="{!request.Does_Business_As__c}" rendered="{!request.Does_Business_As__c != null}" />
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Number_Of_Branches_Subsidiaries}"/>
+                        <apex:outputField value="{!ptCompany.Master_Group_Id__r.Number_of_Branches_Subsidiaries__c}" rendered="{!ptCompany.Master_Group_Id__r.Number_of_Branches_Subsidiaries__c != null}" />
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Organization_Phone_Number}"/>
+                        <apex:outputField value="{!request.Org_Phone__c}" rendered="{!request.Org_Phone__c != null}" /> 
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Name_Of_Head_Of_Company}"/>
+                        <apex:outputField value="{! request.Principle_Name__c}" rendered="{! request.Principle_Name__c != null}" />
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Organization_Address}"/>
+                        <apex:outputField value="{!ptCompany.Primary_SMAffinity_Account__r.BillingStreet}" rendered="{!ptCompany.Primary_SMAffinity_Account__r.BillingStreet != null}" />
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Head_Of_Company_Title}"/>
+                        <apex:outputField value="{!request.Principle_Title__c}" rendered="{!request.Principle_Title__c != null}" />
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.organization_city}"/>
+                        <apex:outputField value="{!ptCompany.Primary_SMAffinity_Account__r.BillingCity}" rendered="{!ptCompany.Primary_SMAffinity_Account__r.BillingCity != null}" />                        
+                    </apex:pageBlockSectionItem>
+                    
+                  <!--  <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Primary_Contact}" id="pbsContact" />
+                        <apex:define name="primaryContact"> 
+                           <apex:outputPanel >
+                                   <apex:outputField value="{!request.Primary_Contact__c}" id="primaryContact" rendered="{!(request.Primary_Contact__c != '')}">                                    
+                                     <a href="/apex/AccountPrimaryContact?Id={!loggedInAccId}&selConId={!loggedInUser.Contact.Id}" target="_self">                            
+                                      {!$Label.Primary_Contact_Change}
+                                      </a>
+                                 </apex:outputField>
+                                  
+                                 <apex:outputField value="{!request.Primary_Contact__c}" id="primaryContact1" rendered="{! AND((request.Primary_Contact__c == null),(ptCompany.Master_Group_Id__r.Primary_Contact__c == ''))}"> 
+                                    <!-- <a href="/apex/AccountPrimaryContact?Id={!loggedInAccId}&selConId={!loggedInUser.Contact.Id}" target="_self">                            
+                                        {!$Label.Primary_Contact_Change}
+                                      </a>
+                              </apex:outputField>
+                          </apex:outputPanel>
+                        </apex:define>
+                        
+                    </apex:pageBlockSectionItem>-->
+                   
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Form_Of_Organization}"/>
+                        <apex:outputField value="{!request.Form_of_Organization__c}" rendered="{!request.Form_of_Organization__c != null}" />
+                    </apex:pageBlockSectionItem> 
+                   
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.organization_state_province}"/>
+                        <apex:outputField value="{!ptCompany.Primary_SMAffinity_Account__r.BillingState}" rendered="{!ptCompany.Primary_SMAffinity_Account__r.BillingState != null}" />                        
+                    </apex:pageBlockSectionItem>
+                    
+                   <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Website}"/>
+                        <apex:outputField value="{!request.Website__c}" rendered="{!request.Website__c != null}" />  <!-- {!ptCompany.Primary_SMAffinity_Account__r.Website} -->
+                    </apex:pageBlockSectionItem>
+                    
+                   
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.organization_postal_code}"/>
+                        <apex:outputField value="{!ptCompany.Primary_SMAffinity_Account__r.BillingPostalCode}" rendered="{!ptCompany.Primary_SMAffinity_Account__r.BillingPostalCode != null}" />                        
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Reseller_TaxID}"/>
+                        <apex:outputField value="{!ptCompany.Primary_SMAffinity_Account__r.Reseller_Tax_ID__c}" rendered="{!ptCompany.Primary_SMAffinity_Account__r.Reseller_Tax_ID__c != null}" />
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Organization_Country}"/>
+                        <apex:outputField value="{!ptCompany.Primary_SMAffinity_Account__r.BillingCountry}" rendered="{!ptCompany.Primary_SMAffinity_Account__r.BillingCountry != null}" />                        
+                    </apex:pageBlockSectionItem>
+                    
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_DUNS_Number}"/>
+                        <apex:outputField value="{!ptCompany.Primary_SMAffinity_Account__r.D_U_N_S__c}" rendered="{!ptCompany.Primary_SMAffinity_Account__r.D_U_N_S__c != null}" />
+                    </apex:pageBlockSectionItem>
+                    
+                    
+                </apex:pageBlockSection>
+                <br/>
+                <apex:outputLabel value="{!$Label.Company_RaiseCase} "/> <a href="/500/o" style="color:blue;">{!$Label.Company_case}</a>
+          </apex:pageBlock>
+        
+        <apex:pageBlock id="pg-ppd" title="{!$Label.Company_PartnerProgramDetails}">
+            <apex:pageBlockSection id="pbs" columns="2">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Company_Sponsoring_Distributor}" />
+                    <apex:outputLabel value="{!strsponsoringDistributor}" rendered="{!strsponsoringDistributor != null}" />          
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Company_Product_Solutions_Competencies}" />
+                    <apex:outputField value="{!ptCompany.Dell_Certification_Areas__c}" rendered="{!ptCompany.Dell_Certification_Areas__c != null}" /> <!-- Product_Solutions_Competencies__c  changed to  Dell_Certification_Areas__c  @Siva told -->
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Company_Preferred_Storage_Distributor}" />
+                    <apex:outputField value="{!ptCompany.Preferred_Distributor__c}" rendered="{!ptCompany.Preferred_Distributor__c != null}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Services_Competencies}" />
+                    <apex:outputField value="{!ptCompany.Services_Competencies__c}" rendered="{!ptCompany.Services_Competencies__c != null}" />                 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="pbsiView" >
+                    <apex:outputLabel value="{!$Label.Company_ProgramTracks_PartnerStatus}" />
+                   <!-- <apex:outputLabel value="{!strptTierNames}{!strmore}" /> -->
+                    <apex:outputLabel id="lbl" rendered="{!strptTierNames != null}">
+                    {!strptTierNames}
+                        <apex:outputPanel id="pnl" rendered="{!strmore != ''}" >
+                            <!--<div class="tooltip" data-html="true" data-tooltip="{!strptTierNames}{!strmore}" >
+                                <label class="lblmore">strmore..</label>
+                            </div>-->
+                             <div class="tooltip" href="#" >{!$Label.MoreForPT} 
+                             <p><apex:outputText value="{!strmore}" escape="false"/></p>
+                            </div>
+                             
+                        </apex:outputPanel>
+                    </apex:outputLabel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Company_Services_Performance_Deploy}" />
+                    <apex:outputField value="{!request.Services_Performance_Deploy__c}" rendered="{!request.Services_Performance_Deploy__c != null}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Company_Purchasing_Path}" />
+                    <apex:outputField value="{!ptCompany.Purchase_Path__c}" rendered="{!ptCompany.Purchase_Path__c != null}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Company_Services_Performance_Support}" />
+                    <apex:outputField value="{!request.Services_Performance_Support__c}" rendered="{!request.Services_Performance_Support__c != null}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Company_Storage_Purchasing_Path}" />
+                    <apex:outputField value="{!ptCompany.Speciality_Product_Purchase_Path__c}" rendered="{!ptCompany.Speciality_Product_Purchase_Path__c != null}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.MyRewards_Company_Status}" />
+                    <apex:outputfield value="{!ptCompany.MyRewards_Company_Status__c}" rendered="{!ptCompany.MyRewards_Company_Status__c != null}" />
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <br/>
+            <apex:outputLabel value="{!$Label.Company_Guidelines}" /> <a href="https://www.dellemc.com/partner/en-us/auth/partner-programs.htm" target="_blank" style="color:blue;">{!$Label.Company_PartnerDetailsPage}</a>
+        </apex:pageBlock> 
+        
+        <apex:pageBlock title="{!$Label.Company_FurtherDetails}">
+            <apex:pageBlockSection columns="2" collapsible="false">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Company_Product_Focus}" />
+                    <apex:outputField value="{!request.Product_Focus__c}" rendered="{!request.Product_Focus__c != null}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Company_Diverse_Owned_Business}" />
+                    <apex:outputField value="{!request.Diverse_Owned_Business__c}" rendered="{!request.Diverse_Owned_Business__c != null}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Geographic_Coverage_Label}" />
+                    <apex:outputfield value="{!request.Capability__c}" rendered="{!request.Capability__c != null}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Company_Diversity_Certification}" />
+                    <apex:outputField value="{!request.Diversity_Certification__c}" rendered="{!request.Diversity_Certification__c != null}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem />
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Other_diversity_certification}" />
+                    <apex:outputField value="{!request.Other_diversity_certification__c}" rendered="{!request.Other_diversity_certification__c != null}" />
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+            
+     <!--  </apex:pageBlock> -->
+    </apex:outputPanel>
+        <!-- VIEW MODE ENDS -->
+        
+        
+        <!-- EDIT MODE STARTS -->
+    <apex:outputPanel id="pnlView" rendered="{!bisEditMode}">
+        <apex:pageBlock >          
+            <apex:pageBlockButtons location="top">                 
+                 <apex:commandButton value="{!$Label.save}" action="{!doSaveJob}" rendered="{!bisAdmin}"/>  
+                 <apex:commandButton value="{!$Label.cancel}" action="{!doCancelJob}" rendered="{!bisAdmin}"/>
+            </apex:pageBlockButtons>
+            <apex:outputLabel value="{!$Label.Company_Text}" style="font-weight: bold; font-style: italic;" /> <br/> 
+        </apex:pageBlock>  
+            
+            <apex:pageBlock title="{!$Label.Company_MyCompanydetails}">               
+               <apex:pageBlockSection columns="2" collapsible="false">
+                   
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_LegalName}"/>
+                        <apex:outputField value="{!ptCompany.Primary_SMAffinity_Account__r.Name}"/> 
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Year_Of_Foundation}"/>
+                        <apex:inputField value="{!request.Number_of_years_in_business__c}" />
+                    </apex:pageBlockSectionItem>
+                   
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Local_Company_Name_As_Customer_Know_You}"/>
+                        <apex:inputField value="{!request.Partner_Track_Account_Local_Name__c}" />
+                    </apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Countries_Doing_Business_In}"/>
+                        <apex:inputField value="{!request.States_Provinces_doing_business__c}" />                        
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Trading_As}"/>
+                        <apex:outputField value="{!request.Does_Business_As__c}" />
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Number_Of_Branches_Subsidiaries}"/>
+                        <apex:outputField value="{!ptCompany.Master_Group_Id__r.Number_of_Branches_Subsidiaries__c}" />
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Organization_Phone_Number}"/>
+                        <apex:inputField value="{!request.Org_Phone__c}" />
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Name_Of_Head_Of_Company}"/>
+                        <apex:inputField value="{!request.Principle_Name__c}" />
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Organization_Address}"/>
+                        <apex:outputField value="{!ptCompany.Primary_SMAffinity_Account__r.BillingStreet}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Head_Of_Company_Title}"/>
+                        <apex:inputField value="{!request.Principle_Title__c}" />
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.organization_city}"/>
+                        <apex:outputField value="{!ptCompany.Primary_SMAffinity_Account__r.BillingCity}"/>                        
+                    </apex:pageBlockSectionItem>
+                    <!--
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Primary_Contact}"/>
+                       <apex:define name="primaryContact"> 
+                          <apex:outputField value="{!request.Primary_Contact__c}" id="primaryContact" rendered="{! AND((request.Primary_Contact__c != null),(request.Primary_Contact__c != ''))}"> 
+                         <!-- <a href="/apex/AccountPrimaryContact?Id={!request.Account__c}&retUrl=/apex/ViewMyCompanyDetails" target="_self">                            
+                                {!$Label.Primary_Contact_Change}
+                              </a> -
+                           </apex:outputField>
+                        </apex:define>
+                        
+                    </apex:pageBlockSectionItem>
+                    -->
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Form_Of_Organization}"/>
+                        <apex:inputField value="{!request.Form_of_Organization__c}" />
+                    </apex:pageBlockSectionItem>
+                   
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.organization_state_province}"/>
+                        <apex:outputField value="{!ptCompany.Primary_SMAffinity_Account__r.BillingState}"/>                        
+                    </apex:pageBlockSectionItem>
+                    
+                   <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.company_website_url}"/>
+                        <apex:outputField value="{!ptCompany.Primary_SMAffinity_Account__r.Website}" />
+                    </apex:pageBlockSectionItem>
+                   
+                   
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.organization_postal_code}"/>
+                        <apex:outputField value="{!ptCompany.Primary_SMAffinity_Account__r.BillingPostalCode}"/>                        
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Reseller_TaxID}"/>
+                        <apex:outputField value="{!ptCompany.Primary_SMAffinity_Account__r.Reseller_Tax_ID__c}" />
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_Organization_Country}"/>
+                        <apex:outputField value="{!ptCompany.Primary_SMAffinity_Account__r.BillingCountry}"/>                        
+                    </apex:pageBlockSectionItem>
+                    
+
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Company_DUNS_Number}"/>
+                        <apex:outputField value="{!ptCompany.Primary_SMAffinity_Account__r.D_U_N_S__c}" />
+                    </apex:pageBlockSectionItem>
+                    
+                    
+                </apex:pageBlockSection>
+                <br/>
+               <apex:outputLabel value="{!$Label.Company_RaiseCase} "/> <a href="/500/o" style="color:blue;">{!$Label.Company_case}</a>
+          </apex:pageBlock>
+        
+            <apex:pageBlock title="{!$Label.Company_PartnerProgramDetails}">
+            <apex:pageBlockSection columns="2">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Company_Sponsoring_Distributor}" />
+                    <apex:outputLabel value="{!strsponsoringDistributor}" />          
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Company_Product_Solutions_Competencies}" />
+                    <apex:outputField value="{!ptCompany.Dell_Certification_Areas__c}" />  <!-- Product_Solutions_Competencies__c  changed to  Dell_Certification_Areas__c Info given by Siva -->
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Company_Preferred_Storage_Distributor}" />
+                    <apex:outputField value="{!ptCompany.Preferred_Distributor__c}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Services_Competencies}" />
+                    <apex:outputField value="{!ptCompany.Services_Competencies__c}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Company_ProgramTracks_PartnerStatus}" />
+                    <!-- <apex:outputLabel value="{!strptTierNames}{!strmore}" /> -->
+                    <apex:outputLabel id="lbl" rendered="{!strptTierNames != null}">
+                    {!strptTierNames}
+                        <apex:outputPanel id="pnl" rendered="{!strmore != ''}">
+                          <!--  <div class="tooltip" data-tooltip="{!strmore}" >
+                                <label>strmore..</label>
+                            </div> -->
+                           <div class="tooltip" href="#" >{!$Label.MoreForPT} 
+                             <p><apex:outputText value="{!strmore}" escape="false"/></p>
+                            </div>
+                        </apex:outputPanel>
+                    </apex:outputLabel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Company_Services_Performance_Deploy}" />
+                    <apex:outputField value="{!request.Services_Performance_Deploy__c}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Company_Purchasing_Path}" />
+                    <apex:outputField value="{!ptCompany.Purchase_Path__c}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Company_Services_Performance_Support}" />
+                    <apex:outputField value="{!request.Services_Performance_Support__c}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Company_Storage_Purchasing_Path}" />
+                    <apex:outputField value="{!ptCompany.Speciality_Product_Purchase_Path__c}"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.MyRewards_Company_Status}" />
+                    <apex:outputfield value="{!ptCompany.MyRewards_Company_Status__c}" rendered="{!ptCompany.MyRewards_Company_Status__c != null}" />
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <br/>
+            <apex:outputLabel value="{!$Label.Company_Guidelines}" /> <a href="https://www.dellemc.com/partner/en-us/auth/partner-programs.htm" target="_blank" style="color:blue;">{!$Label.Company_PartnerDetailsPage}</a>
+        </apex:pageBlock> 
+        
+            <apex:pageBlock title="{!$Label.Company_FurtherDetails}">
+            <apex:pageBlockSection columns="2" collapsible="false">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Company_Product_Focus}" />
+                    <apex:inputField value="{!request.Product_Focus__c}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Company_Diverse_Owned_Business}" />
+                    <apex:inputField value="{!request.Diverse_Owned_Business__c}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Geographic_Coverage_Label}" />
+                    <apex:inputField value="{!request.Capability__c}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Company_Diversity_Certification}" />
+                    <apex:inputField value="{!request.Diversity_Certification__c}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem />
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.Other_diversity_certification}" />
+                    <apex:inputField value="{!request.Other_diversity_certification__c}" />
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+            
+      <!--  </apex:pageBlock> -->
+    </apex:outputPanel>
+        <!-- EDIT MODE ENDS -->
+        
+        
+    </apex:form>
+    
+</apex:page>

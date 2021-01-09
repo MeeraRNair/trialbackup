@@ -1,0 +1,10 @@
+<apex:page id="pg" sidebar="true" standardController="Certified_by_Certification__c" extensions="CertifiedByCompetencyCntrlr" action="{!redirect}" lightningStylesheets="true">
+  <apex:form >  
+    <apex:pageBlock title="Certified by Competency">
+        <apex:pageMessage summary="You don't have permission to access this record." severity="Error" strength="1" />
+        <apex:pageBlockButtons location="bottom">          
+            <apex:commandButton value="Cancel" action="{!Cancel}"  />
+        </apex:pageBlockButtons>    
+    </apex:pageBlock>   
+    </apex:form>
+</apex:page>

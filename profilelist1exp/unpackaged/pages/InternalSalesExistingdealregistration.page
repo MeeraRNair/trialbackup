@@ -1,0 +1,234 @@
+<!-- 
+    * Revision CR Number   Release No      Date            Created By     Description
+    * -------- ---------   ----------      -----------     ------------    -----------
+    * 2.0 -    16676       FY20-DCS-0202   26-Nov-2018   Raveena Bhagat   Removed pick list value of "Win - 100%Lost, Cancelled - 0% and Deal Registration Status filter"
+      -->
+
+
+<apex:page tabStyle="Opportunity" controller="InternalSalesExistingDealRegistrationCls" id="pg" sidebar="false" cache="true">
+<script type="text/javascript">
+function chckfunction(){
+
+    if(document.getElementById('pg:frm:pb:pbs:pbs4:Checkbox').checked == true){
+        document.getElementById('pg:frm:pb:pbs:pbs4:Plan').setAttribute('disabled', 'disabled');    
+        document.getElementById('pg:frm:pb:pbs:pbs4:Discover').setAttribute("disabled","disabled");
+        document.getElementById('pg:frm:pb:pbs:pbs4:Qualify').setAttribute("disabled","disabled");    
+        document.getElementById('pg:frm:pb:pbs:pbs4:Propose').setAttribute("disabled","disabled");    
+        document.getElementById('pg:frm:pb:pbs:pbs4:Commit').setAttribute("disabled","disabled");
+        document.getElementById('pg:frm:pb:pbs:pbs4:OrderSubmitted').setAttribute("disabled","disabled");
+        document.getElementById('pg:frm:pb:pbs:pbs4:Plan').checked=false;
+        document.getElementById('pg:frm:pb:pbs:pbs4:Discover').checked=false;
+        document.getElementById('pg:frm:pb:pbs:pbs4:Qualify').checked=false;  
+        document.getElementById('pg:frm:pb:pbs:pbs4:Propose').checked=false; 
+        document.getElementById('pg:frm:pb:pbs:pbs4:Commit').checked=false;
+        document.getElementById('pg:frm:pb:pbs:pbs4:OrderSubmitted').checked=false;
+    }
+        else  {
+        document.getElementById('pg:frm:pb:pbs:pbs4:Plan').removeAttribute("disabled");           
+        document.getElementById('pg:frm:pb:pbs:pbs4:Discover').removeAttribute("disabled");    
+        document.getElementById('pg:frm:pb:pbs:pbs4:Qualify').removeAttribute("disabled");      
+        document.getElementById('pg:frm:pb:pbs:pbs4:Propose').removeAttribute("disabled");   
+        document.getElementById('pg:frm:pb:pbs:pbs4:Commit').removeAttribute("disabled");
+        document.getElementById('pg:frm:pb:pbs:pbs4:OrderSubmitted').removeAttribute("disabled"); 
+        
+    }
+}
+
+function chckAll(){
+if(document.getElementById('pg:frm:pb:pbs:pbs4:Plan').value != '' || document.getElementById('pg:frm:pb:pbs:pbs4:Discover').value != '' ||
+document.getElementById('pg:frm:pb:pbs:pbs4:Qualify').value != '' || document.getElementById('pg:frm:pb:pbs:pbs4:Propose').value != '' ||
+document.getElementById('pg:frm:pb:pbs:pbs4:Commit').value != ''  || document.getElementById('pg:frm:pb:pbs:pbs4:OrderSubmitted').value != '')
+{
+document.getElementById('pg:frm:pb:pbs:pbs4:Checkbox').setAttribute('disabled', 'disabled');
+document.getElementById('pg:frm:pb:pbs:pbs4:Checkbox').checked=false;
+}    
+     
+}
+function uncheck(){
+if(document.getElementById('pg:frm:pb:pbs:pbs4:Plan').checked == false && document.getElementById('pg:frm:pb:pbs:pbs4:Discover').checked == false &&
+document.getElementById('pg:frm:pb:pbs:pbs4:Qualify').checked == false && document.getElementById('pg:frm:pb:pbs:pbs4:Propose').checked == false &&
+document.getElementById('pg:frm:pb:pbs:pbs4:Commit').checked == false && document.getElementById('pg:frm:pb:pbs:pbs4:OrderSubmitted').checked == false)
+{
+document.getElementById('pg:frm:pb:pbs:pbs4:Checkbox').removeAttribute("disabled");
+}
+}
+
+function bkdatefrom(){
+    
+    if(document.getElementById('pg:frm:pb:pbs:pbs3:searchBookDate').value == ''){
+    
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; 
+    var yyyy = today.getFullYear()-1;
+    if(dd<10) {
+        dd='0'+dd
+        } 
+
+    if(mm<10) {
+        mm='0'+mm
+     } 
+
+   today = mm+'/'+dd+'/'+yyyy;
+   
+      document.getElementById('pg:frm:pb:pbs:pbs3:searchBookDate').value = today;
+    
+      }
+}
+
+function bkdateto(){
+    
+    if(document.getElementById('pg:frm:pb:pbs:pbs3:searchBookDate1').value == ''){
+    
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; 
+    var yyyy = today.getFullYear();
+    if(dd<10) {
+        dd='0'+dd
+        } 
+
+    if(mm<10) {
+        mm='0'+mm
+     } 
+
+   today = mm+'/'+dd+'/'+yyyy;
+   
+      document.getElementById('pg:frm:pb:pbs:pbs3:searchBookDate1').value = today;
+    
+      }
+}
+</script>
+
+<style>
+
+.ModifiedTextStyle{
+    color: #4a4a56 !important;
+    font-size: 91%;
+    font-weight: bold;
+    font-family: Arial,Helvetica,sans-serif;
+}
+.BookDateLabel{
+   margin-left: 119px;
+}
+.Bookadatetextbox{
+    margin-left: 21px;
+}
+</style>
+
+<apex:form acceptcharset="UTF-8" id="frm">
+    <apex:sectionHeader subtitle="{!$Label.My_Open_Opportunities}" title="Deals"/>
+      
+    
+    <apex:outputPanel id="op1">
+    <apex:pageMessage summary="{!cnfmsg}" severity="error" strength="3" rendered="{!temperr}" />
+    </apex:outputpanel>
+   
+    
+    <apex:pageBlock id="pb">
+        
+       <!-- R16.03 - Add Search/filter -->
+       
+       
+        <apex:pageblockSection columns="1" rendered="{!isSfdcUsers }" id="pbs"  >
+        
+           <apex:pageBlockSectionItem id="pbs1" >
+            <apex:outputLabel value="Opportunity Name" for="searchOppName"  />
+            <apex:inputText id="searchOppName" value="{!searchOppName}" />
+           </apex:pageBlockSectionItem>
+           
+           
+           <apex:pageBlockSectionItem id="pbs2" >
+               <apex:outputLabel value="End User Account" for="searchEndUserAccName"/>
+               <apex:inputText id="searchEndUserAccName" value="{!searchEndUserAccName}"  />
+           </apex:pageBlockSectionItem>  
+           
+                      
+               <apex:pageBlockSectionItem id="pbs3" > 
+                    <apex:outputpanel styleClass="ModifiedTextStyle">                       
+                       <apex:outputLabel styleClass="BookDateLabel" value="Book Date Range" for="searchBookDate"/>
+                       <apex:inputField styleClass="Bookadatetextbox" id="searchBookDate" value="{!searchOpp.Earliest_Delivery_Date__c}" onchange="bkdatefrom()" />
+                       &nbsp;&nbsp;&nbsp;  
+                       <apex:outputLabel value="To" for="searchBookDate1"/>
+                        &nbsp;&nbsp;&nbsp;
+                       <apex:inputField id="searchBookDate1" value="{!searchOpp.Decision_Date__c}" onchange="bkdateto()" />
+                  </apex:outputpanel>                  
+              </apex:pageBlockSectionItem> 
+          
+              
+     
+          <apex:pageBlockSectionItem id="pbs4" >
+            <apex:outputPanel styleClass="ModifiedTextStyle">       
+              <apex:outputLabel value="Stage" style="margin-left: 180px;margin-right: 20px;" />
+              <apex:inputCheckbox id="Checkbox" value="{!vr8}" onchange="chckfunction();" /> &nbsp;  
+                    <!-- OSC#5611705 -Renamed Lable name from "All"  to "All - Open"-->  
+              <apex:outputLabel value="All - Open" for="Checkbox"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        
+              <apex:inputCheckbox id="Plan" value="{!vr1}" onchange="chckAll();uncheck();" /> &nbsp;
+              <apex:outputLabel value="{!$Setup.OWD__c.Oppty_Stage1__c}" for="Plan"  />   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     
+              <apex:inputCheckbox id="Discover" value="{!vr2}" onchange="chckAll();uncheck();" /> &nbsp;
+              <apex:outputLabel value="{!$Setup.OWD__c.Oppty_Stage10__c}" for="Discover"  />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <apex:inputCheckbox id="Qualify" value="{!vr3}" onchange="chckAll();uncheck();" /> &nbsp;
+              <apex:outputLabel value="{!$Setup.OWD__c.Oppty_Stage30__c}" for="Qualify"  />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <apex:inputCheckbox id="Propose" value="{!vr4}" onchange="chckAll();uncheck();" /> &nbsp;
+              <apex:outputLabel value="{!$Setup.OWD__c.Oppty_Stage60__c}" for="Propose"  />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <apex:inputCheckbox id="Commit" value="{!vr5}" onchange="chckAll();uncheck();" /> &nbsp;
+              <apex:outputLabel value="{!$Setup.OWD__c.Oppty_Stage90__c}" for="Commit"  />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <!-- US#3302968 - Add new pick list value of "Order Submitted - 99%" : Start-->
+              <apex:inputCheckbox id="OrderSubmitted" value="{!vr9}" onchange="chckAll();uncheck();" /> &nbsp;
+              <apex:outputLabel value="{!$Setup.OWD__c.Oppty_Stage99__c}" for="OrderSubmitted"  />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <!-- US#3302968 - Add new pick list value of "Order Submitted - 99%" : End -->
+              <!-- OSC#5611705 - Removed pick list value of "Win - 100% Lost, Cancelled - 0%%"  -->
+          </apex:outputPanel>
+        </apex:pageBlockSectionItem>
+           
+       <!-- OSC#5611705 - Removed Deal Registration Status filter  -->
+                         
+           <apex:pageBlockSectionItem >
+             <apex:commandButton value="Search" action="{!SearchAction}" status="consent" reRender="pbss,op1,op2"/>
+             <apex:actionStatus id="consent" startText="Loading..." layout="inline">
+              <apex:facet name="start" >
+                 <apex:image value="/img/loading32.gif" alt="Loading..."/> 
+               </apex:facet>
+               <apex:facet name="stop"  />
+            </apex:actionStatus>
+           </apex:pageBlockSectionItem> 
+           
+       </apex:pageblockSection>
+        
+        
+       
+       <apex:pageBlockSection columns="1" rendered="{!isSfdcUsers }" id="pbss" >
+           <apex:outputText value="Search result displays maximum {!$Label.OSC_Row_Limit} records"  style="font-weight:bold;color:Red;float:right;" ></apex:outputText>
+           <apex:pageBlockTable value="{!lstopp}" var="l" >
+               <apex:column headerValue="{!$Label.OSC_Action}">
+                   <apex:commandLink value="{!$Label.Associate}" action="{!associate}" Style="text-decoration:none; color:#1797C0">
+                   <apex:param name="oppid" value="{!l.id}" assignTo="{!oppid}"/>
+                   </apex:commandLink>
+               </apex:column>
+               
+               <apex:column value="{!l.name}" headerValue="{!$Label.Opportunity_Name}"/>      
+               <apex:column value="{!l.Account.Name}" headerValue="{!$Label.End_User_Account_Name}"/>
+               <apex:column value="{!l.closedate}" headerValue="{!$Label.Book_Date}"/>
+               <apex:column value="{!l.stagename}" headerValue="{!$Label.Stage}"/>
+               <apex:column value="{!l.Deal_Registration_Status__c}" headerValue="{!$Label.Deal_Registration_Status}" /> 
+               </apex:pageBlockTable>
+       </apex:pageBlockSection>
+   </apex:pageBlock>
+   
+      <apex:outputPanel id="op2" >
+       <div align="center">
+         <apex:panelGrid columns="6"> 
+          <apex:commandButton value="<<" action="{!showFirst}" rerender="pbss,op2" disabled="{!!showPrevious}"/>
+          <apex:commandButton value="< Previous" action="{!showPrevious}" rerender="pbss,op2" disabled="{!!showPrevious}"/>
+          <apex:commandButton value="Next >" action="{!showNext}" rerender="pbss,op2" disabled="{!!showNext}" />
+          <apex:commandButton value=">>" action="{!showLast}" rerender="pbss,op2" disabled="{!!showNext}"/>
+        </apex:panelGrid> 
+       </div> 
+        <br/>
+        <center>
+         <apex:outputText value="{!currentPageInfo}" />
+        </center>       
+      </apex:outputPanel>
+   </apex:form>
+
+</apex:page>

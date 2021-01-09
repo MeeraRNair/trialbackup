@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PrimaryContact_Restrictchange_Validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( 
+ ISPICKVAL(PRIORVALUE (Create_Primary_Contact__c), &apos;Created&apos;),
+ISPICKVAL(Create_Primary_Contact__c,&apos;Created&apos;), 
+OR( ISCHANGED(Primary_Contact_Aligned__c),
+ ISCHANGED(Primary_Contact__c),
+ ISCHANGED(Primary_Contact_Creation_Status__c),
+ ISCHANGED(Primary_Contact_Last_Name__c),
+ ISCHANGED(Primary_Contact_First_Name__c),
+ ISCHANGED(Primary_Contact_Job_Category__c),
+ ISCHANGED(Primary_Contact_Job_Title__c),
+ ISCHANGED(Primary_Contact_Other_Job_Category__c),
+ ISCHANGED(Primary_Contact_Mobile_Number__c),
+ ISCHANGED(Primary_Contact_Phone_Number__c),
+ ISCHANGED(Primary_Contact_Email__c),
+ ISCHANGED(Primary_Contact_Address_1__c),
+ ISCHANGED(Primary_Contact_Address_2__c),
+ ISCHANGED(Primary_Contact_Address_3__c),
+ ISCHANGED(Primary_Contact_City__c),
+ ISCHANGED(Primary_Contact_State_Province__c),
+ ISCHANGED(Primary_Contact_Postal_Code__c)
+) 
+)</errorConditionFormula>
+    <errorDisplayField>Create_Primary_Contact__c</errorDisplayField>
+    <errorMessage>Primary Contact details cannot be updated as contact has been created.</errorMessage>
+</ValidationRule>

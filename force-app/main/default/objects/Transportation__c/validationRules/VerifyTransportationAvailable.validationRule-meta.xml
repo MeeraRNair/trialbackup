@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VerifyTransportationAvailable</fullName>
+    <active>true</active>
+    <description>Looks at the Transportation Available question on the site record</description>
+    <errorConditionFormula>ISPICKVAL(Customer_Engagement__r.Calendar_Management__r.Site__r.Offer_Transportation__c, &quot;No&quot;) || (ISPICKVAL(Customer_Engagement__r.Dell_Solution_Center_Site__r.Offer_Transportation__c, &quot;No&quot;))</errorConditionFormula>
+    <errorMessage>Transportation is not available for the selected site.</errorMessage>
+</ValidationRule>

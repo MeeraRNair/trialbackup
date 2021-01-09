@@ -1,0 +1,82 @@
+<apex:page controller="VFcntrl_Case_SalesMotionSelection" action="{!checkAndRedirect}">
+    <style type="text/css">
+            .pbHeader{ 
+                        height:20px;
+                        font-size:100%
+                    } 
+            .bodyDiv{
+                        font-size:100%
+                    }
+    </style>
+    <apex:pageMessages id="showmsg" rendered="{!bhasError}"></apex:pageMessages>
+    <apex:form rendered="{!!bhasError}">
+    <apex:pageBlock title="Please Select Sales Motion Account">
+    <apex:pageBlockTable value="{!listacc}" var="acc">
+        <apex:column >
+        <apex:facet name="header"></apex:facet>
+    <!--    <apex:outputlink value="/apex/EndCustomerSelectionPage">Select</apex:outputlink> -->
+            
+        <apex:commandLink value="Select" action="{!updateSelectedAccToCon}">
+            <apex:param name="salesMotionName"
+                value="{!acc.Id}"
+                assignTo="{!salesMotionName}"/>
+        </apex:commandLink>
+            
+        </apex:column>
+        <apex:column >
+        <apex:facet name="header">Sales Motion</apex:facet>
+        <apex:outputText value="{!acc.Name}"/>
+        </apex:column>
+        <apex:column >
+                    <apex:facet name="header">Sales Motion Type</apex:facet>
+                    <apex:outputText value="{!acc.Partner_Description__c}"/>
+                </apex:column>
+        <apex:column >
+         <apex:facet name="header">Partner Account</apex:facet>
+        <apex:repeat value="{!mapaccIdToName[acc.id]}" var="map">
+          <apex:outputText value="{!map}"/> <br/>
+        </apex:repeat>
+         </apex:column>   
+        <!--<apex:facet name="header">Partner Account</apex:facet>
+        <apex:outputText value="{!acc.Master_Group_Id__r.Name}"/>
+        </apex:column>-->
+        <apex:column >
+        <apex:facet name="header">Dell Affinity ID</apex:facet>
+        <apex:outputText value="{!acc.Account_ID__c}"/>
+        </apex:column>
+        <apex:column >
+        <apex:facet name="header">Channel Manager</apex:facet>
+        <apex:outputText value="{!acc.Owner.Name}"/>
+        </apex:column>
+    </apex:pageBlockTable>
+    </apex:pageBlock>
+        <br/>
+        <table border="1px">
+               <tr>
+                   <th>Sales Motion Type</th>
+                   <th>Description</th>
+               </tr> 
+                <tr>
+                     <td><b>Back to Back</b></td>
+                     <td>Dell EMC sells to a Distributor and sells to another partner; partner sells to end user.  Partner is known at the time of the sale.</td>
+                   </tr>
+                     <tr>
+                       <td><b>Resell</b></td>
+                       <td>Partner buys Dell EMC products and services for a specific customer. The customer owns title of the assets. The asset is at the customer or partner’s site, the partner or customer manages the environment.</td>
+                   </tr>
+                   <tr>
+                       <td><b>Sell In</b></td>
+                       <td>Dell EMC Sells to the partner for Sell Out as-a-Service or Outsource/Managed Services. The partner owns title of the assets and manages the service offering. The location of the asset is at the partner’s or customer’s site.</td>
+                   </tr>                  
+                    <tr>
+                       <td><b>Sell Out Dedicated</b></td>
+                       <td>Partner sells out to one customer that consumes As-a-Service on a dedicated environment.</td>
+                   </tr>
+                   
+                    <tr>
+                       <td><b>Stock and Sell</b></td>
+                       <td>Dell EMC sells to a Distributor; Partner will send to an end user, however Partner information and End User information is not known at time of the sale.</td>
+                   </tr>
+        </table>
+        </apex:form>
+</apex:page>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Adobe_License_Type_Rule</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( $User.Id &lt;&gt; &apos;005A0000002QyR3&apos;, OR( ISPICKVAL( Adobe_Enterprise_Program__c , &apos;EA&apos; ) , ISPICKVAL( Adobe_Enterprise_Program__c , &apos;CLP&apos; ) , ISPICKVAL( Adobe_Enterprise_Program__c , &apos;VIP&apos; ) ) , ISBLANK( CLP_number__c ) , S_P_Vendors_Name__c = &apos;Adobe&apos;)</errorConditionFormula>
+    <errorDisplayField>CLP_number__c</errorDisplayField>
+    <errorMessage>If “EA”, “CLP”, or “VIP” was selected, Program Number is required.</errorMessage>
+</ValidationRule>

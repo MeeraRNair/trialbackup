@@ -1,0 +1,2660 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Account__c</fullName>
+        <externalId>false</externalId>
+        <label>Account Name</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Services Accounts</relationshipLabel>
+        <relationshipName>Services_Accounts</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Affinity_Account_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>TRIM(Account__r.Account_ID__c)</formula>
+        <label>Affinity Account ID</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BAA_Auto_Renew__c</fullName>
+        <externalId>false</externalId>
+        <label>BAA Auto-Renew</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>BAA_End_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>BAA End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>BAA_StartDate__c</fullName>
+        <externalId>false</externalId>
+        <label>BAA Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Backup_Vendor__c</fullName>
+        <externalId>false</externalId>
+        <label>Backup Vendor</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>EMC Networker</fullName>
+                    <default>false</default>
+                    <label>EMC Networker</label>
+                </value>
+                <value>
+                    <fullName>Bridgehead</fullName>
+                    <default>false</default>
+                    <label>Bridgehead</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Bed_Size__c</fullName>
+        <externalId>false</externalId>
+        <label>Bed Size</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Client_Annual_Revenue__c</fullName>
+        <description>Client revenue to be received each year in an executed contract</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the annual revenue the client books</inlineHelpText>
+        <label>Client Annual Revenue</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Credit_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Credit Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Credit OK</fullName>
+                    <default>false</default>
+                    <label>Credit OK</label>
+                </value>
+                <value>
+                    <fullName>Credit Hold</fullName>
+                    <default>false</default>
+                    <label>Credit Hold</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Dell_Services_Industry__c</fullName>
+        <description>SOM R15.07 – This field show same value as Dell Services Industry in Account object</description>
+        <externalId>false</externalId>
+        <formula>Account__r.Dell_Services_Industry__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Dell Services Industry is the alignment of Accounts to Verticals as established by Services Sales Leadership.</inlineHelpText>
+        <label>Dell Services Industry</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Hospital_Chain__c</fullName>
+        <externalId>false</externalId>
+        <label>Hospital Chain</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Adventist Health</fullName>
+                    <default>false</default>
+                    <label>Adventist Health</label>
+                </value>
+                <value>
+                    <fullName>Affinity - Ministry</fullName>
+                    <default>false</default>
+                    <label>Affinity - Ministry</label>
+                </value>
+                <value>
+                    <fullName>Akron General Health System</fullName>
+                    <default>false</default>
+                    <label>Akron General Health System</label>
+                </value>
+                <value>
+                    <fullName>Alexian Brothers</fullName>
+                    <default>false</default>
+                    <label>Alexian Brothers</label>
+                </value>
+                <value>
+                    <fullName>Alliance</fullName>
+                    <default>false</default>
+                    <label>Alliance</label>
+                </value>
+                <value>
+                    <fullName>American MedTrust</fullName>
+                    <default>false</default>
+                    <label>American MedTrust</label>
+                </value>
+                <value>
+                    <fullName>Ancilla</fullName>
+                    <default>false</default>
+                    <label>Ancilla</label>
+                </value>
+                <value>
+                    <fullName>Ascension /PtCt Only</fullName>
+                    <default>false</default>
+                    <label>Ascension /PtCt Only</label>
+                </value>
+                <value>
+                    <fullName>Ascension Health</fullName>
+                    <default>false</default>
+                    <label>Ascension Health</label>
+                </value>
+                <value>
+                    <fullName>Associated Hospitals</fullName>
+                    <default>false</default>
+                    <label>Associated Hospitals</label>
+                </value>
+                <value>
+                    <fullName>Atlantic Health Sciences Corporation</fullName>
+                    <default>false</default>
+                    <label>Atlantic Health Sciences Corporation</label>
+                </value>
+                <value>
+                    <fullName>Augusta</fullName>
+                    <default>false</default>
+                    <label>Augusta</label>
+                </value>
+                <value>
+                    <fullName>Avalon Healthcare</fullName>
+                    <default>false</default>
+                    <label>Avalon Healthcare</label>
+                </value>
+                <value>
+                    <fullName>Avera Health</fullName>
+                    <default>false</default>
+                    <label>Avera Health</label>
+                </value>
+                <value>
+                    <fullName>Baylor</fullName>
+                    <default>false</default>
+                    <label>Baylor</label>
+                </value>
+                <value>
+                    <fullName>Baylor Health Care System</fullName>
+                    <default>false</default>
+                    <label>Baylor Health Care System</label>
+                </value>
+                <value>
+                    <fullName>Beausejour Hospital</fullName>
+                    <default>false</default>
+                    <label>Beausejour Hospital</label>
+                </value>
+                <value>
+                    <fullName>Benefis Healthcare</fullName>
+                    <default>false</default>
+                    <label>Benefis Healthcare</label>
+                </value>
+                <value>
+                    <fullName>Berkshire Health System</fullName>
+                    <default>false</default>
+                    <label>Berkshire Health System</label>
+                </value>
+                <value>
+                    <fullName>Beth Israel Medical Center</fullName>
+                    <default>false</default>
+                    <label>Beth Israel Medical Center</label>
+                </value>
+                <value>
+                    <fullName>Bethany Methodist Corporation</fullName>
+                    <default>false</default>
+                    <label>Bethany Methodist Corporation</label>
+                </value>
+                <value>
+                    <fullName>Bethesda/Good Samaritan</fullName>
+                    <default>false</default>
+                    <label>Bethesda/Good Samaritan</label>
+                </value>
+                <value>
+                    <fullName>Blackrock Medical Partners</fullName>
+                    <default>false</default>
+                    <label>Blackrock Medical Partners</label>
+                </value>
+                <value>
+                    <fullName>Blanchard Valley Hospital</fullName>
+                    <default>false</default>
+                    <label>Blanchard Valley Hospital</label>
+                </value>
+                <value>
+                    <fullName>Blue Mountain Health</fullName>
+                    <default>false</default>
+                    <label>Blue Mountain Health</label>
+                </value>
+                <value>
+                    <fullName>Bluewater Health</fullName>
+                    <default>false</default>
+                    <label>Bluewater Health</label>
+                </value>
+                <value>
+                    <fullName>Brant Community Healthcare</fullName>
+                    <default>false</default>
+                    <label>Brant Community Healthcare</label>
+                </value>
+                <value>
+                    <fullName>Brim</fullName>
+                    <default>false</default>
+                    <label>Brim</label>
+                </value>
+                <value>
+                    <fullName>Calgary Health Region</fullName>
+                    <default>false</default>
+                    <label>Calgary Health Region</label>
+                </value>
+                <value>
+                    <fullName>Cambridge Health Alliance</fullName>
+                    <default>false</default>
+                    <label>Cambridge Health Alliance</label>
+                </value>
+                <value>
+                    <fullName>Capella</fullName>
+                    <default>false</default>
+                    <label>Capella</label>
+                </value>
+                <value>
+                    <fullName>Capital Health Region</fullName>
+                    <default>false</default>
+                    <label>Capital Health Region</label>
+                </value>
+                <value>
+                    <fullName>Care Group</fullName>
+                    <default>false</default>
+                    <label>Care Group</label>
+                </value>
+                <value>
+                    <fullName>Care New England</fullName>
+                    <default>false</default>
+                    <label>Care New England</label>
+                </value>
+                <value>
+                    <fullName>Caritas Christi</fullName>
+                    <default>false</default>
+                    <label>Caritas Christi</label>
+                </value>
+                <value>
+                    <fullName>Carondelet</fullName>
+                    <default>false</default>
+                    <label>Carondelet</label>
+                </value>
+                <value>
+                    <fullName>Catholic Health East</fullName>
+                    <default>false</default>
+                    <label>Catholic Health East</label>
+                </value>
+                <value>
+                    <fullName>Catholic Health Initiative</fullName>
+                    <default>false</default>
+                    <label>Catholic Health Initiative</label>
+                </value>
+                <value>
+                    <fullName>CDVA</fullName>
+                    <default>false</default>
+                    <label>CDVA</label>
+                </value>
+                <value>
+                    <fullName>Centegra Health System</fullName>
+                    <default>false</default>
+                    <label>Centegra Health System</label>
+                </value>
+                <value>
+                    <fullName>Central Connecticut</fullName>
+                    <default>false</default>
+                    <label>Central Connecticut</label>
+                </value>
+                <value>
+                    <fullName>Central East Health</fullName>
+                    <default>false</default>
+                    <label>Central East Health</label>
+                </value>
+                <value>
+                    <fullName>Central Maine</fullName>
+                    <default>false</default>
+                    <label>Central Maine</label>
+                </value>
+                <value>
+                    <fullName>Central West Health</fullName>
+                    <default>false</default>
+                    <label>Central West Health</label>
+                </value>
+                <value>
+                    <fullName>Centura Health</fullName>
+                    <default>false</default>
+                    <label>Centura Health</label>
+                </value>
+                <value>
+                    <fullName>CFHS Holdings, Inc.</fullName>
+                    <default>false</default>
+                    <label>CFHS Holdings, Inc.</label>
+                </value>
+                <value>
+                    <fullName>Champain Valley</fullName>
+                    <default>false</default>
+                    <label>Champain Valley</label>
+                </value>
+                <value>
+                    <fullName>CHC</fullName>
+                    <default>false</default>
+                    <label>CHC</label>
+                </value>
+                <value>
+                    <fullName>CHE</fullName>
+                    <default>false</default>
+                    <label>CHE</label>
+                </value>
+                <value>
+                    <fullName>Chinook Health Region</fullName>
+                    <default>false</default>
+                    <label>Chinook Health Region</label>
+                </value>
+                <value>
+                    <fullName>Christus Health</fullName>
+                    <default>false</default>
+                    <label>Christus Health</label>
+                </value>
+                <value>
+                    <fullName>CHUM</fullName>
+                    <default>false</default>
+                    <label>CHUM</label>
+                </value>
+                <value>
+                    <fullName>Citrus Valley Health</fullName>
+                    <default>false</default>
+                    <label>Citrus Valley Health</label>
+                </value>
+                <value>
+                    <fullName>Cleveland Clinics</fullName>
+                    <default>false</default>
+                    <label>Cleveland Clinics</label>
+                </value>
+                <value>
+                    <fullName>Coffee Health Group</fullName>
+                    <default>false</default>
+                    <label>Coffee Health Group</label>
+                </value>
+                <value>
+                    <fullName>Commonwealth Health</fullName>
+                    <default>false</default>
+                    <label>Commonwealth Health</label>
+                </value>
+                <value>
+                    <fullName>Commonwealth of Massachusetts</fullName>
+                    <default>false</default>
+                    <label>Commonwealth of Massachusetts</label>
+                </value>
+                <value>
+                    <fullName>Community Health</fullName>
+                    <default>false</default>
+                    <label>Community Health</label>
+                </value>
+                <value>
+                    <fullName>Community Health Network</fullName>
+                    <default>false</default>
+                    <label>Community Health Network</label>
+                </value>
+                <value>
+                    <fullName>Community Health System</fullName>
+                    <default>false</default>
+                    <label>Community Health System</label>
+                </value>
+                <value>
+                    <fullName>Community Healthcare</fullName>
+                    <default>false</default>
+                    <label>Community Healthcare</label>
+                </value>
+                <value>
+                    <fullName>Conemaugh Health System</fullName>
+                    <default>false</default>
+                    <label>Conemaugh Health System</label>
+                </value>
+                <value>
+                    <fullName>Conway Regional Hospital</fullName>
+                    <default>false</default>
+                    <label>Conway Regional Hospital</label>
+                </value>
+                <value>
+                    <fullName>CornerStone Regional</fullName>
+                    <default>false</default>
+                    <label>CornerStone Regional</label>
+                </value>
+                <value>
+                    <fullName>Cottage Health</fullName>
+                    <default>false</default>
+                    <label>Cottage Health</label>
+                </value>
+                <value>
+                    <fullName>Dartmouth - Hitchcock</fullName>
+                    <default>false</default>
+                    <label>Dartmouth - Hitchcock</label>
+                </value>
+                <value>
+                    <fullName>Daughters of Charity</fullName>
+                    <default>false</default>
+                    <label>Daughters of Charity</label>
+                </value>
+                <value>
+                    <fullName>David Thompson Health Region</fullName>
+                    <default>false</default>
+                    <label>David Thompson Health Region</label>
+                </value>
+                <value>
+                    <fullName>DCH</fullName>
+                    <default>false</default>
+                    <label>DCH</label>
+                </value>
+                <value>
+                    <fullName>DeSoto Health System</fullName>
+                    <default>false</default>
+                    <label>DeSoto Health System</label>
+                </value>
+                <value>
+                    <fullName>Diocese of Providence Rhode Island</fullName>
+                    <default>false</default>
+                    <label>Diocese of Providence Rhode Island</label>
+                </value>
+                <value>
+                    <fullName>District Health Authority 9</fullName>
+                    <default>false</default>
+                    <label>District Health Authority 9</label>
+                </value>
+                <value>
+                    <fullName>Doctors Community</fullName>
+                    <default>false</default>
+                    <label>Doctors Community</label>
+                </value>
+                <value>
+                    <fullName>Dufferin-Caledon Health Care</fullName>
+                    <default>false</default>
+                    <label>Dufferin-Caledon Health Care</label>
+                </value>
+                <value>
+                    <fullName>Duke Health</fullName>
+                    <default>false</default>
+                    <label>Duke Health</label>
+                </value>
+                <value>
+                    <fullName>East Central Health</fullName>
+                    <default>false</default>
+                    <label>East Central Health</label>
+                </value>
+                <value>
+                    <fullName>Eastern Health</fullName>
+                    <default>false</default>
+                    <label>Eastern Health</label>
+                </value>
+                <value>
+                    <fullName>ECHN</fullName>
+                    <default>false</default>
+                    <label>ECHN</label>
+                </value>
+                <value>
+                    <fullName>Envision Hospital Corporation</fullName>
+                    <default>false</default>
+                    <label>Envision Hospital Corporation</label>
+                </value>
+                <value>
+                    <fullName>Essent Healthcare</fullName>
+                    <default>false</default>
+                    <label>Essent Healthcare</label>
+                </value>
+                <value>
+                    <fullName>Fairview Health System</fullName>
+                    <default>false</default>
+                    <label>Fairview Health System</label>
+                </value>
+                <value>
+                    <fullName>FHN</fullName>
+                    <default>false</default>
+                    <label>FHN</label>
+                </value>
+                <value>
+                    <fullName>Finger Lakes Health</fullName>
+                    <default>false</default>
+                    <label>Finger Lakes Health</label>
+                </value>
+                <value>
+                    <fullName>Forum Health</fullName>
+                    <default>false</default>
+                    <label>Forum Health</label>
+                </value>
+                <value>
+                    <fullName>Franciscan Health</fullName>
+                    <default>false</default>
+                    <label>Franciscan Health</label>
+                </value>
+                <value>
+                    <fullName>Fraser Health Authority</fullName>
+                    <default>false</default>
+                    <label>Fraser Health Authority</label>
+                </value>
+                <value>
+                    <fullName>Freeman Health System</fullName>
+                    <default>false</default>
+                    <label>Freeman Health System</label>
+                </value>
+                <value>
+                    <fullName>Gauthier</fullName>
+                    <default>false</default>
+                    <label>Gauthier</label>
+                </value>
+                <value>
+                    <fullName>Genesis Health System</fullName>
+                    <default>false</default>
+                    <label>Genesis Health System</label>
+                </value>
+                <value>
+                    <fullName>Great Lake Health Sytem</fullName>
+                    <default>false</default>
+                    <label>Great Lake Health Sytem</label>
+                </value>
+                <value>
+                    <fullName>Greater Hazleton Health</fullName>
+                    <default>false</default>
+                    <label>Greater Hazleton Health</label>
+                </value>
+                <value>
+                    <fullName>Greater Hudson Valley</fullName>
+                    <default>false</default>
+                    <label>Greater Hudson Valley</label>
+                </value>
+                <value>
+                    <fullName>Greater Waterbury Health</fullName>
+                    <default>false</default>
+                    <label>Greater Waterbury Health</label>
+                </value>
+                <value>
+                    <fullName>Guelph General Hospital</fullName>
+                    <default>false</default>
+                    <label>Guelph General Hospital</label>
+                </value>
+                <value>
+                    <fullName>Halifax</fullName>
+                    <default>false</default>
+                    <label>Halifax</label>
+                </value>
+                <value>
+                    <fullName>Hallmark Healthcare</fullName>
+                    <default>false</default>
+                    <label>Hallmark Healthcare</label>
+                </value>
+                <value>
+                    <fullName>Halton Healthcare Services</fullName>
+                    <default>false</default>
+                    <label>Halton Healthcare Services</label>
+                </value>
+                <value>
+                    <fullName>Hamilton Health Sciences</fullName>
+                    <default>false</default>
+                    <label>Hamilton Health Sciences</label>
+                </value>
+                <value>
+                    <fullName>HCA</fullName>
+                    <default>false</default>
+                    <label>HCA</label>
+                </value>
+                <value>
+                    <fullName>Health Group Partner</fullName>
+                    <default>false</default>
+                    <label>Health Group Partner</label>
+                </value>
+                <value>
+                    <fullName>Health Labrador Corporation</fullName>
+                    <default>false</default>
+                    <label>Health Labrador Corporation</label>
+                </value>
+                <value>
+                    <fullName>Health Management Associates</fullName>
+                    <default>false</default>
+                    <label>Health Management Associates</label>
+                </value>
+                <value>
+                    <fullName>Health Plus Corporation</fullName>
+                    <default>false</default>
+                    <label>Health Plus Corporation</label>
+                </value>
+                <value>
+                    <fullName>Healthnet</fullName>
+                    <default>false</default>
+                    <label>Healthnet</label>
+                </value>
+                <value>
+                    <fullName>HealthQuest</fullName>
+                    <default>false</default>
+                    <label>HealthQuest</label>
+                </value>
+                <value>
+                    <fullName>Hillcrest</fullName>
+                    <default>false</default>
+                    <label>Hillcrest</label>
+                </value>
+                <value>
+                    <fullName>Home Health</fullName>
+                    <default>false</default>
+                    <label>Home Health</label>
+                </value>
+                <value>
+                    <fullName>Horizon</fullName>
+                    <default>false</default>
+                    <label>Horizon</label>
+                </value>
+                <value>
+                    <fullName>Hospital Sisters Health</fullName>
+                    <default>false</default>
+                    <label>Hospital Sisters Health</label>
+                </value>
+                <value>
+                    <fullName>Houston Healthcare</fullName>
+                    <default>false</default>
+                    <label>Houston Healthcare</label>
+                </value>
+                <value>
+                    <fullName>CHW</fullName>
+                    <default>false</default>
+                    <label>CHW</label>
+                </value>
+                <value>
+                    <fullName>Huron Perth</fullName>
+                    <default>false</default>
+                    <label>Huron Perth</label>
+                </value>
+                <value>
+                    <fullName>ICE Technologies</fullName>
+                    <default>false</default>
+                    <label>ICE Technologies</label>
+                </value>
+                <value>
+                    <fullName>Incarnate Word Health</fullName>
+                    <default>false</default>
+                    <label>Incarnate Word Health</label>
+                </value>
+                <value>
+                    <fullName>Independent Health Foundation</fullName>
+                    <default>false</default>
+                    <label>Independent Health Foundation</label>
+                </value>
+                <value>
+                    <fullName>INHS</fullName>
+                    <default>false</default>
+                    <label>INHS</label>
+                </value>
+                <value>
+                    <fullName>Inova Health System</fullName>
+                    <default>false</default>
+                    <label>Inova Health System</label>
+                </value>
+                <value>
+                    <fullName>Interior Health Authority</fullName>
+                    <default>false</default>
+                    <label>Interior Health Authority</label>
+                </value>
+                <value>
+                    <fullName>Iowa Health System</fullName>
+                    <default>false</default>
+                    <label>Iowa Health System</label>
+                </value>
+                <value>
+                    <fullName>IWK Health Centre</fullName>
+                    <default>false</default>
+                    <label>IWK Health Centre</label>
+                </value>
+                <value>
+                    <fullName>Jackson County Health</fullName>
+                    <default>false</default>
+                    <label>Jackson County Health</label>
+                </value>
+                <value>
+                    <fullName>Jackson Madison Asso</fullName>
+                    <default>false</default>
+                    <label>Jackson Madison Asso</label>
+                </value>
+                <value>
+                    <fullName>John C. Lincoln Health</fullName>
+                    <default>false</default>
+                    <label>John C. Lincoln Health</label>
+                </value>
+                <value>
+                    <fullName>John Muir Health</fullName>
+                    <default>false</default>
+                    <label>John Muir Health</label>
+                </value>
+                <value>
+                    <fullName>Johns Hopkins</fullName>
+                    <default>false</default>
+                    <label>Johns Hopkins</label>
+                </value>
+                <value>
+                    <fullName>Joseph Brant Community Health</fullName>
+                    <default>false</default>
+                    <label>Joseph Brant Community Health</label>
+                </value>
+                <value>
+                    <fullName>Junta de Beneficencia de Guayaquil</fullName>
+                    <default>false</default>
+                    <label>Junta de Beneficencia de Guayaquil</label>
+                </value>
+                <value>
+                    <fullName>Kindred Health System</fullName>
+                    <default>false</default>
+                    <label>Kindred Health System</label>
+                </value>
+                <value>
+                    <fullName>Kirkland &amp; District</fullName>
+                    <default>false</default>
+                    <label>Kirkland &amp; District</label>
+                </value>
+                <value>
+                    <fullName>KishHealth System</fullName>
+                    <default>false</default>
+                    <label>KishHealth System</label>
+                </value>
+                <value>
+                    <fullName>Kitchener-Waterloo</fullName>
+                    <default>false</default>
+                    <label>Kitchener-Waterloo</label>
+                </value>
+                <value>
+                    <fullName>Lake Erie Regional</fullName>
+                    <default>false</default>
+                    <label>Lake Erie Regional</label>
+                </value>
+                <value>
+                    <fullName>Lakeridge Health Corporation</fullName>
+                    <default>false</default>
+                    <label>Lakeridge Health Corporation</label>
+                </value>
+                <value>
+                    <fullName>Lambton Hospital Group</fullName>
+                    <default>false</default>
+                    <label>Lambton Hospital Group</label>
+                </value>
+                <value>
+                    <fullName>Leland Medical Centers</fullName>
+                    <default>false</default>
+                    <label>Leland Medical Centers</label>
+                </value>
+                <value>
+                    <fullName>Lennox &amp; Addington</fullName>
+                    <default>false</default>
+                    <label>Lennox &amp; Addington</label>
+                </value>
+                <value>
+                    <fullName>LHIN 9 Central East</fullName>
+                    <default>false</default>
+                    <label>LHIN 9 Central East</label>
+                </value>
+                <value>
+                    <fullName>Liberty Management Group</fullName>
+                    <default>false</default>
+                    <label>Liberty Management Group</label>
+                </value>
+                <value>
+                    <fullName>LifePoint</fullName>
+                    <default>false</default>
+                    <label>LifePoint</label>
+                </value>
+                <value>
+                    <fullName>Lifespan Health</fullName>
+                    <default>false</default>
+                    <label>Lifespan Health</label>
+                </value>
+                <value>
+                    <fullName>London Health Sciences</fullName>
+                    <default>false</default>
+                    <label>London Health Sciences</label>
+                </value>
+                <value>
+                    <fullName>Madera</fullName>
+                    <default>false</default>
+                    <label>Madera</label>
+                </value>
+                <value>
+                    <fullName>Magic Valley</fullName>
+                    <default>false</default>
+                    <label>Magic Valley</label>
+                </value>
+                <value>
+                    <fullName>Maine Health</fullName>
+                    <default>false</default>
+                    <label>Maine Health</label>
+                </value>
+                <value>
+                    <fullName>Maine Medical</fullName>
+                    <default>false</default>
+                    <label>Maine Medical</label>
+                </value>
+                <value>
+                    <fullName>Manitoba Health</fullName>
+                    <default>false</default>
+                    <label>Manitoba Health</label>
+                </value>
+                <value>
+                    <fullName>Markham Stoufville</fullName>
+                    <default>false</default>
+                    <label>Markham Stoufville</label>
+                </value>
+                <value>
+                    <fullName>Mayo Health Systems</fullName>
+                    <default>false</default>
+                    <label>Mayo Health Systems</label>
+                </value>
+                <value>
+                    <fullName>MedStar Health</fullName>
+                    <default>false</default>
+                    <label>MedStar Health</label>
+                </value>
+                <value>
+                    <fullName>Mercy Health Systems</fullName>
+                    <default>false</default>
+                    <label>Mercy Health Systems</label>
+                </value>
+                <value>
+                    <fullName>Merit Health Systems</fullName>
+                    <default>false</default>
+                    <label>Merit Health Systems</label>
+                </value>
+                <value>
+                    <fullName>Methodist Health System</fullName>
+                    <default>false</default>
+                    <label>Methodist Health System</label>
+                </value>
+                <value>
+                    <fullName>Milford Hospital</fullName>
+                    <default>false</default>
+                    <label>Milford Hospital</label>
+                </value>
+                <value>
+                    <fullName>Ministry Health Care</fullName>
+                    <default>false</default>
+                    <label>Ministry Health Care</label>
+                </value>
+                <value>
+                    <fullName>Mount States Health Alliance</fullName>
+                    <default>false</default>
+                    <label>Mount States Health Alliance</label>
+                </value>
+                <value>
+                    <fullName>New York Hospital Corporation</fullName>
+                    <default>false</default>
+                    <label>New York Hospital Corporation</label>
+                </value>
+                <value>
+                    <fullName>New York Presbyterian Health</fullName>
+                    <default>false</default>
+                    <label>New York Presbyterian Health</label>
+                </value>
+                <value>
+                    <fullName>NAATP</fullName>
+                    <default>false</default>
+                    <label>NAATP</label>
+                </value>
+                <value>
+                    <fullName>National Surgical Hospital</fullName>
+                    <default>false</default>
+                    <label>National Surgical Hospital</label>
+                </value>
+                <value>
+                    <fullName>New York City Health</fullName>
+                    <default>false</default>
+                    <label>New York City Health</label>
+                </value>
+                <value>
+                    <fullName>Nexus Health</fullName>
+                    <default>false</default>
+                    <label>Nexus Health</label>
+                </value>
+                <value>
+                    <fullName>North Bay General</fullName>
+                    <default>false</default>
+                    <label>North Bay General</label>
+                </value>
+                <value>
+                    <fullName>North Shore - Long Island</fullName>
+                    <default>false</default>
+                    <label>North Shore - Long Island</label>
+                </value>
+                <value>
+                    <fullName>North Simcoe Hospital</fullName>
+                    <default>false</default>
+                    <label>North Simcoe Hospital</label>
+                </value>
+                <value>
+                    <fullName>North York General Hospital</fullName>
+                    <default>false</default>
+                    <label>North York General Hospital</label>
+                </value>
+                <value>
+                    <fullName>Northeast Health (NY)</fullName>
+                    <default>false</default>
+                    <label>Northeast Health (NY)</label>
+                </value>
+                <value>
+                    <fullName>Northeast Health System</fullName>
+                    <default>false</default>
+                    <label>Northeast Health System</label>
+                </value>
+                <value>
+                    <fullName>Northeast Health (ME)</fullName>
+                    <default>false</default>
+                    <label>Northeast Health (ME)</label>
+                </value>
+                <value>
+                    <fullName>Northeast Ohio Health</fullName>
+                    <default>false</default>
+                    <label>Northeast Ohio Health</label>
+                </value>
+                <value>
+                    <fullName>Northern Health Authority</fullName>
+                    <default>false</default>
+                    <label>Northern Health Authority</label>
+                </value>
+                <value>
+                    <fullName>Northern Lights Regional Health Authority</fullName>
+                    <default>false</default>
+                    <label>Northern Lights Regional Health Authority</label>
+                </value>
+                <value>
+                    <fullName>Northhumberland Health</fullName>
+                    <default>false</default>
+                    <label>Northhumberland Health</label>
+                </value>
+                <value>
+                    <fullName>Norton</fullName>
+                    <default>false</default>
+                    <label>Norton</label>
+                </value>
+                <value>
+                    <fullName>Nova Scotia Dept. of Health</fullName>
+                    <default>false</default>
+                    <label>Nova Scotia Dept. of Health</label>
+                </value>
+                <value>
+                    <fullName>Novant Health</fullName>
+                    <default>false</default>
+                    <label>Novant Health</label>
+                </value>
+                <value>
+                    <fullName>Ohio Valley Health System</fullName>
+                    <default>false</default>
+                    <label>Ohio Valley Health System</label>
+                </value>
+                <value>
+                    <fullName>OSF HealthCare System</fullName>
+                    <default>false</default>
+                    <label>OSF HealthCare System</label>
+                </value>
+                <value>
+                    <fullName>Ottawa Hospital</fullName>
+                    <default>false</default>
+                    <label>Ottawa Hospital</label>
+                </value>
+                <value>
+                    <fullName>Paracelsus</fullName>
+                    <default>false</default>
+                    <label>Paracelsus</label>
+                </value>
+                <value>
+                    <fullName>Partners Healthcare</fullName>
+                    <default>false</default>
+                    <label>Partners Healthcare</label>
+                </value>
+                <value>
+                    <fullName>Peace Country Health</fullName>
+                    <default>false</default>
+                    <label>Peace Country Health</label>
+                </value>
+                <value>
+                    <fullName>Peace Health Region</fullName>
+                    <default>false</default>
+                    <label>Peace Health Region</label>
+                </value>
+                <value>
+                    <fullName>Peninsulas Health Care</fullName>
+                    <default>false</default>
+                    <label>Peninsulas Health Care</label>
+                </value>
+                <value>
+                    <fullName>Perth &amp; Smith Falls</fullName>
+                    <default>false</default>
+                    <label>Perth &amp; Smith Falls</label>
+                </value>
+                <value>
+                    <fullName>Peterborough Regional</fullName>
+                    <default>false</default>
+                    <label>Peterborough Regional</label>
+                </value>
+                <value>
+                    <fullName>PHMA</fullName>
+                    <default>false</default>
+                    <label>PHMA</label>
+                </value>
+                <value>
+                    <fullName>Prime Health</fullName>
+                    <default>false</default>
+                    <label>Prime Health</label>
+                </value>
+                <value>
+                    <fullName>Promise</fullName>
+                    <default>false</default>
+                    <label>Promise</label>
+                </value>
+                <value>
+                    <fullName>Protestant Memorial</fullName>
+                    <default>false</default>
+                    <label>Protestant Memorial</label>
+                </value>
+                <value>
+                    <fullName>Provena Health</fullName>
+                    <default>false</default>
+                    <label>Provena Health</label>
+                </value>
+                <value>
+                    <fullName>Providence Continuing Care Centre</fullName>
+                    <default>false</default>
+                    <label>Providence Continuing Care Centre</label>
+                </value>
+                <value>
+                    <fullName>Providence (Littleton, CO)</fullName>
+                    <default>false</default>
+                    <label>Providence (Littleton, CO)</label>
+                </value>
+                <value>
+                    <fullName>Provincial Health</fullName>
+                    <default>false</default>
+                    <label>Provincial Health</label>
+                </value>
+                <value>
+                    <fullName>Quinte Healthcare</fullName>
+                    <default>false</default>
+                    <label>Quinte Healthcare</label>
+                </value>
+                <value>
+                    <fullName>Ramsay Health Services</fullName>
+                    <default>false</default>
+                    <label>Ramsay Health Services</label>
+                </value>
+                <value>
+                    <fullName>Redlands Community Hospital</fullName>
+                    <default>false</default>
+                    <label>Redlands Community Hospital</label>
+                </value>
+                <value>
+                    <fullName>Region 1 Hospital Corporation</fullName>
+                    <default>false</default>
+                    <label>Region 1 Hospital Corporation</label>
+                </value>
+                <value>
+                    <fullName>Region 4 Hospital Corporation</fullName>
+                    <default>false</default>
+                    <label>Region 4 Hospital Corporation</label>
+                </value>
+                <value>
+                    <fullName>Region 6 Hospital Corporation</fullName>
+                    <default>false</default>
+                    <label>Region 6 Hospital Corporation</label>
+                </value>
+                <value>
+                    <fullName>Region 7 Hospital Corporation</fullName>
+                    <default>false</default>
+                    <label>Region 7 Hospital Corporation</label>
+                </value>
+                <value>
+                    <fullName>Restigouce Health Corporation</fullName>
+                    <default>false</default>
+                    <label>Restigouce Health Corporation</label>
+                </value>
+                <value>
+                    <fullName>Resurrection Health</fullName>
+                    <default>false</default>
+                    <label>Resurrection Health</label>
+                </value>
+                <value>
+                    <fullName>River Valley Health</fullName>
+                    <default>false</default>
+                    <label>River Valley Health</label>
+                </value>
+                <value>
+                    <fullName>Riverside Health Care</fullName>
+                    <default>false</default>
+                    <label>Riverside Health Care</label>
+                </value>
+                <value>
+                    <fullName>Rockwall Hospitals</fullName>
+                    <default>false</default>
+                    <label>Rockwall Hospitals</label>
+                </value>
+                <value>
+                    <fullName>Rouge Valley Health</fullName>
+                    <default>false</default>
+                    <label>Rouge Valley Health</label>
+                </value>
+                <value>
+                    <fullName>Royal Ottawa Hospital</fullName>
+                    <default>false</default>
+                    <label>Royal Ottawa Hospital</label>
+                </value>
+                <value>
+                    <fullName>RSHIP</fullName>
+                    <default>false</default>
+                    <label>RSHIP</label>
+                </value>
+                <value>
+                    <fullName>Rush System for Health</fullName>
+                    <default>false</default>
+                    <label>Rush System for Health</label>
+                </value>
+                <value>
+                    <fullName>Scarborough Hospital</fullName>
+                    <default>false</default>
+                    <label>Scarborough Hospital</label>
+                </value>
+                <value>
+                    <fullName>Sisters of Charity</fullName>
+                    <default>false</default>
+                    <label>Sisters of Charity</label>
+                </value>
+                <value>
+                    <fullName>Seacoast Regional Health</fullName>
+                    <default>false</default>
+                    <label>Seacoast Regional Health</label>
+                </value>
+                <value>
+                    <fullName>Sentara Healthcare</fullName>
+                    <default>false</default>
+                    <label>Sentara Healthcare</label>
+                </value>
+                <value>
+                    <fullName>Shore Health System</fullName>
+                    <default>false</default>
+                    <label>Shore Health System</label>
+                </value>
+                <value>
+                    <fullName>Signature Healthcare</fullName>
+                    <default>false</default>
+                    <label>Signature Healthcare</label>
+                </value>
+                <value>
+                    <fullName>Sinai Health System</fullName>
+                    <default>false</default>
+                    <label>Sinai Health System</label>
+                </value>
+                <value>
+                    <fullName>Sisters of Mary PHC</fullName>
+                    <default>false</default>
+                    <label>Sisters of Mary PHC</label>
+                </value>
+                <value>
+                    <fullName>Sisters of Mercy</fullName>
+                    <default>false</default>
+                    <label>Sisters of Mercy</label>
+                </value>
+                <value>
+                    <fullName>Sisters of Saint Joseph</fullName>
+                    <default>false</default>
+                    <label>Sisters of Saint Joseph</label>
+                </value>
+                <value>
+                    <fullName>SISU Medical Systems</fullName>
+                    <default>false</default>
+                    <label>SISU Medical Systems</label>
+                </value>
+                <value>
+                    <fullName>Sound Shore</fullName>
+                    <default>false</default>
+                    <label>Sound Shore</label>
+                </value>
+                <value>
+                    <fullName>South East Healthcare Corporation</fullName>
+                    <default>false</default>
+                    <label>South East Healthcare Corporation</label>
+                </value>
+                <value>
+                    <fullName>South Shore Hospital</fullName>
+                    <default>false</default>
+                    <label>South Shore Hospital</label>
+                </value>
+                <value>
+                    <fullName>Southcoast</fullName>
+                    <default>false</default>
+                    <label>Southcoast</label>
+                </value>
+                <value>
+                    <fullName>Southern Illinois Health</fullName>
+                    <default>false</default>
+                    <label>Southern Illinois Health</label>
+                </value>
+                <value>
+                    <fullName>Southwest Health System</fullName>
+                    <default>false</default>
+                    <label>Southwest Health System</label>
+                </value>
+                <value>
+                    <fullName>St. Joseph Health System</fullName>
+                    <default>false</default>
+                    <label>St. Joseph Health System</label>
+                </value>
+                <value>
+                    <fullName>Stellaris Health Network</fullName>
+                    <default>false</default>
+                    <label>Stellaris Health Network</label>
+                </value>
+                <value>
+                    <fullName>Stratford General Hospital</fullName>
+                    <default>false</default>
+                    <label>Stratford General Hospital</label>
+                </value>
+                <value>
+                    <fullName>Sudbury Regional</fullName>
+                    <default>false</default>
+                    <label>Sudbury Regional</label>
+                </value>
+                <value>
+                    <fullName>Sutter Health Care</fullName>
+                    <default>false</default>
+                    <label>Sutter Health Care</label>
+                </value>
+                <value>
+                    <fullName>TechRx Inc.</fullName>
+                    <default>false</default>
+                    <label>TechRx Inc.</label>
+                </value>
+                <value>
+                    <fullName>Temple University</fullName>
+                    <default>false</default>
+                    <label>Temple University</label>
+                </value>
+                <value>
+                    <fullName>Tenet Healthcare</fullName>
+                    <default>false</default>
+                    <label>Tenet Healthcare</label>
+                </value>
+                <value>
+                    <fullName>The Ottawa Hospitals</fullName>
+                    <default>false</default>
+                    <label>The Ottawa Hospitals</label>
+                </value>
+                <value>
+                    <fullName>The Rotherham NHS Foundation</fullName>
+                    <default>false</default>
+                    <label>The Rotherham NHS Foundation</label>
+                </value>
+                <value>
+                    <fullName>The Valley Hospital</fullName>
+                    <default>false</default>
+                    <label>The Valley Hospital</label>
+                </value>
+                <value>
+                    <fullName>Thunder Bay Regional</fullName>
+                    <default>false</default>
+                    <label>Thunder Bay Regional</label>
+                </value>
+                <value>
+                    <fullName>Triad</fullName>
+                    <default>false</default>
+                    <label>Triad</label>
+                </value>
+                <value>
+                    <fullName>Trillium</fullName>
+                    <default>false</default>
+                    <label>Trillium</label>
+                </value>
+                <value>
+                    <fullName>Trinity</fullName>
+                    <default>false</default>
+                    <label>Trinity</label>
+                </value>
+                <value>
+                    <fullName>Trinity Health</fullName>
+                    <default>false</default>
+                    <label>Trinity Health</label>
+                </value>
+                <value>
+                    <fullName>UAB Medical West</fullName>
+                    <default>false</default>
+                    <label>UAB Medical West</label>
+                </value>
+                <value>
+                    <fullName>UMass Memorial Healthcare</fullName>
+                    <default>false</default>
+                    <label>UMass Memorial Healthcare</label>
+                </value>
+                <value>
+                    <fullName>Universal Health Services</fullName>
+                    <default>false</default>
+                    <label>Universal Health Services</label>
+                </value>
+                <value>
+                    <fullName>University Health Network</fullName>
+                    <default>false</default>
+                    <label>University Health Network</label>
+                </value>
+                <value>
+                    <fullName>University Hospital</fullName>
+                    <default>false</default>
+                    <label>University Hospital</label>
+                </value>
+                <value>
+                    <fullName>University Hospitals</fullName>
+                    <default>false</default>
+                    <label>University Hospitals</label>
+                </value>
+                <value>
+                    <fullName>University of Alabama</fullName>
+                    <default>false</default>
+                    <label>University of Alabama</label>
+                </value>
+                <value>
+                    <fullName>University of Maryland Medical</fullName>
+                    <default>false</default>
+                    <label>University of Maryland Medical</label>
+                </value>
+                <value>
+                    <fullName>UPMC</fullName>
+                    <default>false</default>
+                    <label>UPMC</label>
+                </value>
+                <value>
+                    <fullName>Upper Island/Central</fullName>
+                    <default>false</default>
+                    <label>Upper Island/Central</label>
+                </value>
+                <value>
+                    <fullName>Valley Health System</fullName>
+                    <default>false</default>
+                    <label>Valley Health System</label>
+                </value>
+                <value>
+                    <fullName>Vancouver Coastal Healthcare</fullName>
+                    <default>false</default>
+                    <label>Vancouver Coastal Healthcare</label>
+                </value>
+                <value>
+                    <fullName>Vancouver Island Healthcare</fullName>
+                    <default>false</default>
+                    <label>Vancouver Island Healthcare</label>
+                </value>
+                <value>
+                    <fullName>Vantage Health Network</fullName>
+                    <default>false</default>
+                    <label>Vantage Health Network</label>
+                </value>
+                <value>
+                    <fullName>Via Christi</fullName>
+                    <default>false</default>
+                    <label>Via Christi</label>
+                </value>
+                <value>
+                    <fullName>Vibra Healthcare</fullName>
+                    <default>false</default>
+                    <label>Vibra Healthcare</label>
+                </value>
+                <value>
+                    <fullName>West Tennessee Health</fullName>
+                    <default>false</default>
+                    <label>West Tennessee Health</label>
+                </value>
+                <value>
+                    <fullName>Western Health Care</fullName>
+                    <default>false</default>
+                    <label>Western Health Care</label>
+                </value>
+                <value>
+                    <fullName>Western Maryland Hea</fullName>
+                    <default>false</default>
+                    <label>Western Maryland Hea</label>
+                </value>
+                <value>
+                    <fullName>Wheaton Franciscan</fullName>
+                    <default>false</default>
+                    <label>Wheaton Franciscan</label>
+                </value>
+                <value>
+                    <fullName>William Osler Health</fullName>
+                    <default>false</default>
+                    <label>William Osler Health</label>
+                </value>
+                <value>
+                    <fullName>Winnipeg Regional Health</fullName>
+                    <default>false</default>
+                    <label>Winnipeg Regional Health</label>
+                </value>
+                <value>
+                    <fullName>WPHS</fullName>
+                    <default>false</default>
+                    <label>WPHS</label>
+                </value>
+                <value>
+                    <fullName>Yukon Hospital Corporation</fullName>
+                    <default>false</default>
+                    <label>Yukon Hospital Corporation</label>
+                </value>
+                <value>
+                    <fullName>To be Determined</fullName>
+                    <default>false</default>
+                    <label>To be Determined</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>JSITE_Auto_Renew__c</fullName>
+        <externalId>false</externalId>
+        <label>JSITE Auto-Renew</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>JSITE_EndDate__c</fullName>
+        <externalId>false</externalId>
+        <label>JSITE End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>JSITE_Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>JSITE Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Link_to_Account_in_SHARE__c</fullName>
+        <description>URL to sharepoint containing addition account information</description>
+        <externalId>false</externalId>
+        <label>Link to Account in SHARE</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>MEDITECH_Rep__c</fullName>
+        <externalId>false</externalId>
+        <label>MEDITECH Rep</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MPA_Auto_Renew__c</fullName>
+        <externalId>false</externalId>
+        <label>MPA Auto-Renew</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>MPA_EndDate__c</fullName>
+        <externalId>false</externalId>
+        <label>MPA End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>MPA_StartDate__c</fullName>
+        <externalId>false</externalId>
+        <label>MPA Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>MSGNum__c</fullName>
+        <caseSensitive>true</caseSensitive>
+        <externalId>true</externalId>
+        <inlineHelpText>This value is the &quot;Customer Number&quot; on MSG Goldmine system. This is to help reference Accounts which were mapped during the initial MSG data migration. For any new Accounts created/mapped later, this field will be blank.</inlineHelpText>
+        <label>MSGNum</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>MSG_Account__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>MSG Account</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>MSITE_Auto_Renew__c</fullName>
+        <externalId>false</externalId>
+        <label>MSITE Auto-Renew</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>MSITE_EndDate__c</fullName>
+        <externalId>false</externalId>
+        <label>MSITE End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>MSITE_Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>MSITE Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Meditech_Platform__c</fullName>
+        <externalId>false</externalId>
+        <label>Meditech Platform</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Magic</fullName>
+                    <default>false</default>
+                    <label>Magic</label>
+                </value>
+                <value>
+                    <fullName>Client/Server</fullName>
+                    <default>false</default>
+                    <label>Client/Server</label>
+                </value>
+                <value>
+                    <fullName>6.x</fullName>
+                    <default>false</default>
+                    <label>6.x</label>
+                </value>
+                <value>
+                    <fullName>Continuing Care</fullName>
+                    <default>false</default>
+                    <label>Continuing Care</label>
+                </value>
+                <value>
+                    <fullName>United Kingdom</fullName>
+                    <default>false</default>
+                    <label>United Kingdom</label>
+                </value>
+                <value>
+                    <fullName>LSS – MPM Suite</fullName>
+                    <default>false</default>
+                    <label>LSS – MPM Suite</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Meditech_Version__c</fullName>
+        <externalId>false</externalId>
+        <label>Meditech Version</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Meditech_Platform__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>5.4</fullName>
+                    <default>false</default>
+                    <label>5.4</label>
+                </value>
+                <value>
+                    <fullName>5.5</fullName>
+                    <default>false</default>
+                    <label>5.5</label>
+                </value>
+                <value>
+                    <fullName>5.53</fullName>
+                    <default>false</default>
+                    <label>5.53</label>
+                </value>
+                <value>
+                    <fullName>5.54</fullName>
+                    <default>false</default>
+                    <label>5.54</label>
+                </value>
+                <value>
+                    <fullName>5.55</fullName>
+                    <default>false</default>
+                    <label>5.55</label>
+                </value>
+                <value>
+                    <fullName>5.56</fullName>
+                    <default>false</default>
+                    <label>5.56</label>
+                </value>
+                <value>
+                    <fullName>5.57</fullName>
+                    <default>false</default>
+                    <label>5.57</label>
+                </value>
+                <value>
+                    <fullName>5.6</fullName>
+                    <default>false</default>
+                    <label>5.6</label>
+                </value>
+                <value>
+                    <fullName>5.61</fullName>
+                    <default>false</default>
+                    <label>5.61</label>
+                </value>
+                <value>
+                    <fullName>5.62</fullName>
+                    <default>false</default>
+                    <label>5.62</label>
+                </value>
+                <value>
+                    <fullName>5.63</fullName>
+                    <default>false</default>
+                    <label>5.63</label>
+                </value>
+                <value>
+                    <fullName>5.64</fullName>
+                    <default>false</default>
+                    <label>5.64</label>
+                </value>
+                <value>
+                    <fullName>5.65</fullName>
+                    <default>false</default>
+                    <label>5.65</label>
+                </value>
+                <value>
+                    <fullName>6.0</fullName>
+                    <default>false</default>
+                    <label>6.0</label>
+                </value>
+                <value>
+                    <fullName>6.03</fullName>
+                    <default>false</default>
+                    <label>6.03</label>
+                </value>
+                <value>
+                    <fullName>6.04</fullName>
+                    <default>false</default>
+                    <label>6.04</label>
+                </value>
+                <value>
+                    <fullName>6.05</fullName>
+                    <default>false</default>
+                    <label>6.05</label>
+                </value>
+                <value>
+                    <fullName>6.11</fullName>
+                    <default>false</default>
+                    <label>6.11</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Magic</controllingFieldValue>
+                <controllingFieldValue>Client/Server</controllingFieldValue>
+                <controllingFieldValue>Continuing Care</controllingFieldValue>
+                <controllingFieldValue>United Kingdom</controllingFieldValue>
+                <valueName>5.4</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Magic</controllingFieldValue>
+                <controllingFieldValue>Client/Server</controllingFieldValue>
+                <controllingFieldValue>Continuing Care</controllingFieldValue>
+                <valueName>5.5</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Magic</controllingFieldValue>
+                <controllingFieldValue>Client/Server</controllingFieldValue>
+                <valueName>5.53</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Magic</controllingFieldValue>
+                <controllingFieldValue>Client/Server</controllingFieldValue>
+                <controllingFieldValue>Continuing Care</controllingFieldValue>
+                <valueName>5.54</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Magic</controllingFieldValue>
+                <controllingFieldValue>Client/Server</controllingFieldValue>
+                <controllingFieldValue>Continuing Care</controllingFieldValue>
+                <controllingFieldValue>United Kingdom</controllingFieldValue>
+                <valueName>5.6</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Magic</controllingFieldValue>
+                <controllingFieldValue>Client/Server</controllingFieldValue>
+                <valueName>5.61</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Magic</controllingFieldValue>
+                <controllingFieldValue>Client/Server</controllingFieldValue>
+                <valueName>5.62</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Magic</controllingFieldValue>
+                <controllingFieldValue>Client/Server</controllingFieldValue>
+                <valueName>5.63</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Magic</controllingFieldValue>
+                <controllingFieldValue>Client/Server</controllingFieldValue>
+                <controllingFieldValue>Continuing Care</controllingFieldValue>
+                <valueName>5.64</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Client/Server</controllingFieldValue>
+                <controllingFieldValue>Continuing Care</controllingFieldValue>
+                <valueName>5.55</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Client/Server</controllingFieldValue>
+                <valueName>5.56</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Client/Server</controllingFieldValue>
+                <valueName>5.57</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Client/Server</controllingFieldValue>
+                <valueName>5.65</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>6.x</controllingFieldValue>
+                <controllingFieldValue>LSS – MPM Suite</controllingFieldValue>
+                <valueName>6.0</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>6.x</controllingFieldValue>
+                <valueName>6.03</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>6.x</controllingFieldValue>
+                <valueName>6.04</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>6.x</controllingFieldValue>
+                <controllingFieldValue>United Kingdom</controllingFieldValue>
+                <valueName>6.05</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>6.x</controllingFieldValue>
+                <valueName>6.11</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Meets_Services_NPS_Requirements__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>For Services Customer Experience Use Only</inlineHelpText>
+        <label>Meets Services NPS Requirements</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>NPS_Primary_Point_of_Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>The Services account team member assigned as Primary POC for all NPS activities</inlineHelpText>
+        <label>NPS Primary Point of Contact</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Services_Accounts7</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>NPS_Segment_Lead__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>For Services Customer Experience Use Only</inlineHelpText>
+        <label>NPS Segment Lead</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Services_Accounts8</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Notes</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Primary_Apps_CDE__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Primary Apps CDE</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Services_Accounts2</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Primary_BPO_CDE__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Primary BPO CDE</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Services_Accounts3</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Primary_CE__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Primary Client Exec on the account</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select Primary Client Exec if account status is current</inlineHelpText>
+        <label>Primary CE</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Services_Accounts</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Primary_ICC_CDE__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Primary ICC CDE</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Services_Accounts4</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Primary_Security_CDE__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Primary Security CDE</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Services_Accounts5</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Primary_Support_CDE_TAM__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Primary Support CDE (TAM)</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Services_Accounts6</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Relationship__c</fullName>
+        <externalId>false</externalId>
+        <label>Relationship</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>MSG_Account__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Customer/MEDITECH Install</fullName>
+                    <default>false</default>
+                    <label>Customer/MEDITECH Install</label>
+                </value>
+                <value>
+                    <fullName>Customer/Non-MEDITECH</fullName>
+                    <default>false</default>
+                    <label>Customer/Non-MEDITECH</label>
+                </value>
+                <value>
+                    <fullName>Customer/MEDITECH Prospect</fullName>
+                    <default>false</default>
+                    <label>Customer/MEDITECH Prospect</label>
+                </value>
+                <value>
+                    <fullName>Non-Customer/MEDITECH Install</fullName>
+                    <default>false</default>
+                    <label>Non-Customer/MEDITECH Install</label>
+                </value>
+                <value>
+                    <fullName>Non-Customer/Non-MEDITECH</fullName>
+                    <default>false</default>
+                    <label>Non-Customer/Non-MEDITECH</label>
+                </value>
+                <value>
+                    <fullName>Non-Customer/MEDITECH Prospect</fullName>
+                    <default>false</default>
+                    <label>Non-Customer/MEDITECH Prospect</label>
+                </value>
+                <value>
+                    <fullName>To be defined</fullName>
+                    <default>false</default>
+                    <label>To be defined</label>
+                </value>
+                <value>
+                    <fullName>Vendor</fullName>
+                    <default>false</default>
+                    <label>Vendor</label>
+                </value>
+                <value>
+                    <fullName>Channel</fullName>
+                    <default>false</default>
+                    <label>Channel</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>checked</controllingFieldValue>
+                <valueName>Customer/MEDITECH Install</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>checked</controllingFieldValue>
+                <valueName>Customer/Non-MEDITECH</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>checked</controllingFieldValue>
+                <valueName>Customer/MEDITECH Prospect</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>checked</controllingFieldValue>
+                <valueName>Non-Customer/MEDITECH Install</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>checked</controllingFieldValue>
+                <valueName>Non-Customer/Non-MEDITECH</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>checked</controllingFieldValue>
+                <valueName>Non-Customer/MEDITECH Prospect</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>checked</controllingFieldValue>
+                <valueName>To be defined</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>checked</controllingFieldValue>
+                <valueName>Vendor</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>checked</controllingFieldValue>
+                <valueName>Channel</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>checked</controllingFieldValue>
+                <valueName>Other</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>SMI_ID__c</fullName>
+        <description>SOM R15.07 – This field show same value as SMI ID in Account object</description>
+        <externalId>false</externalId>
+        <formula>Account__r.SMI_ID__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>SMI ID is a unique identifier used to support Services’ go-to-market strategy.</inlineHelpText>
+        <label>SMI ID</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Secondary_CE__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Secondary Client Exec</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the secondary client exec</inlineHelpText>
+        <label>Secondary CE</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Services_Accounts1</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Server_Vendor__c</fullName>
+        <externalId>false</externalId>
+        <label>Server Vendor</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>IBM</fullName>
+                    <default>false</default>
+                    <label>IBM</label>
+                </value>
+                <value>
+                    <fullName>Dell</fullName>
+                    <default>false</default>
+                    <label>Dell</label>
+                </value>
+                <value>
+                    <fullName>HP</fullName>
+                    <default>false</default>
+                    <label>HP</label>
+                </value>
+                <value>
+                    <fullName>Stratus</fullName>
+                    <default>false</default>
+                    <label>Stratus</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Service_Account_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Service Account Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Service_Account_Status__c</fullName>
+        <description>State of the Dell Services Account</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Dell Perot Systems Account State</inlineHelpText>
+        <label>Service Account Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Prospect</fullName>
+                    <default>false</default>
+                    <label>Prospect</label>
+                </value>
+                <value>
+                    <fullName>Current</fullName>
+                    <default>false</default>
+                    <label>Current</label>
+                </value>
+                <value>
+                    <fullName>Former</fullName>
+                    <default>false</default>
+                    <label>Former</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Service_Account__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Indicates account migrated from Perot Legacy</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select to indicate a Perot Legacy Account</inlineHelpText>
+        <label>Service Account</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Services_Account_Category__c</fullName>
+        <description>SOM R15.07 – This field show same value as Services Account Category in Account object</description>
+        <externalId>false</externalId>
+        <formula>Account__r.Services_Account_Category__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Services Account Category displays Services&apos; categorization of accounts in support of Services&apos; go-to-market strategy.</inlineHelpText>
+        <label>Services Account Category</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Services_Account_Health_Modified_By__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>SOM R15.3 – Populate by trigger in Services Account when Services Account Health is edited</description>
+        <externalId>false</externalId>
+        <label>Services Account Health Modified By</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Services_Accounts9</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Services_Account_Health_Modified_Date__c</fullName>
+        <description>SOM R15.3 – Populate by trigger in Services Account when Services Account Health is edited</description>
+        <externalId>false</externalId>
+        <label>Services Account Health Modified Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Services_Account_Health__c</fullName>
+        <description>SOM R15.3 – Services Account Health</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This field is an indicator of overall account health for large CE-led service accounts, and can be overridden by the PEG and/or GAT teams. Select Red to indicate potentially significant delivery or customer experience issues such as Legal or Credit Hold</inlineHelpText>
+        <label>Services Account Health</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Green</fullName>
+                    <default>false</default>
+                    <label>Green</label>
+                </value>
+                <value>
+                    <fullName>Amber</fullName>
+                    <default>false</default>
+                    <label>Amber</label>
+                </value>
+                <value>
+                    <fullName>Red</fullName>
+                    <default>false</default>
+                    <label>Red</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Services_Annual_Revenue_Goal__c</fullName>
+        <description>Annual revenue goal for services that aren’t guaranteed</description>
+        <externalId>false</externalId>
+        <label>Services Annual Revenue Goal</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Services_NPS_Participation__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>For Services Customer Experience Use Only</inlineHelpText>
+        <label>Services NPS Participation</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Include</fullName>
+                    <default>false</default>
+                    <label>Include</label>
+                </value>
+                <value>
+                    <fullName>Exclude</fullName>
+                    <default>false</default>
+                    <label>Exclude</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Services_Operating_Segment__c</fullName>
+        <description>Operating Segment providing the service</description>
+        <externalId>false</externalId>
+        <label>Services Operating Segment</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>BFSI&amp;DA</fullName>
+                    <default>false</default>
+                    <label>BFSI&amp;DA</label>
+                </value>
+                <value>
+                    <fullName>Federal</fullName>
+                    <default>false</default>
+                    <label>Federal</label>
+                </value>
+                <value>
+                    <fullName>HCLS</fullName>
+                    <default>false</default>
+                    <label>HCLS</label>
+                </value>
+                <value>
+                    <fullName>MRL&amp;E</fullName>
+                    <default>false</default>
+                    <label>MRL&amp;E</label>
+                </value>
+                <value>
+                    <fullName>TT&amp;H</fullName>
+                    <default>false</default>
+                    <label>TT&amp;H</label>
+                </value>
+                <value>
+                    <fullName>LOB Managed - Apps</fullName>
+                    <default>false</default>
+                    <label>LOB Managed - Apps</label>
+                </value>
+                <value>
+                    <fullName>LOB Managed - BPO</fullName>
+                    <default>false</default>
+                    <label>LOB Managed - BPO</label>
+                </value>
+                <value>
+                    <fullName>LOB Managed - I&amp;CC</fullName>
+                    <default>false</default>
+                    <label>LOB Managed - I&amp;CC</label>
+                </value>
+                <value>
+                    <fullName>To Be Reviewed</fullName>
+                    <default>false</default>
+                    <label>To Be Reviewed</label>
+                </value>
+                <value>
+                    <fullName>No Longer a Services Account</fullName>
+                    <default>false</default>
+                    <label>No Longer a Services Account</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Storage_Vendor__c</fullName>
+        <externalId>false</externalId>
+        <label>Storage Vendor</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>IBM</fullName>
+                    <default>false</default>
+                    <label>IBM</label>
+                </value>
+                <value>
+                    <fullName>Dell</fullName>
+                    <default>false</default>
+                    <label>Dell</label>
+                </value>
+                <value>
+                    <fullName>HP</fullName>
+                    <default>false</default>
+                    <label>HP</label>
+                </value>
+                <value>
+                    <fullName>EMC</fullName>
+                    <default>false</default>
+                    <label>EMC</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>Services Account</label>
+    <nameField>
+        <displayFormat>S-{000000}</displayFormat>
+        <label>Service Account Record</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Services Accounts</pluralLabel>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>Service_Account_Name__c</lookupDialogsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>BAAStartDate_shouldnt_greater_BAAEndDate</fullName>
+        <active>true</active>
+        <description>The BAA Start Date should not be after BAA End Date.</description>
+        <errorConditionFormula>BAA_StartDate__c  &gt;  BAA_End_Date__c</errorConditionFormula>
+        <errorDisplayField>BAA_StartDate__c</errorDisplayField>
+        <errorMessage>The BAA Start Date should not be after BAA End Date.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>If_BAAAutoRenew_Selected_Dates_Reqrd</fullName>
+        <active>true</active>
+        <description>If BAA Auto-Renew is set to &quot;Yes&quot; or &quot;No&quot;, the corresponding Start Date and End Date must be filled</description>
+        <errorConditionFormula>AND(OR(ISBLANK(BAA_StartDate__c),ISBLANK( BAA_End_Date__c)),NOT(ISPICKVAL(BAA_Auto_Renew__c,&quot;&quot;)))</errorConditionFormula>
+        <errorDisplayField>BAA_Auto_Renew__c</errorDisplayField>
+        <errorMessage>If BAA Auto-Renew is set to &quot;Yes&quot; or &quot;No&quot;, the corresponding Start Date and End Date must be filled</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>If_JSITEAutoRenew_Selected_Dates_Reqrd</fullName>
+        <active>true</active>
+        <description>If JSITE Auto-Renew is set to &quot;Yes&quot; or &quot;No&quot;, the corresponding Start Date and End Date must be filled</description>
+        <errorConditionFormula>AND(OR(ISBLANK(JSITE_Start_Date__c),ISBLANK(JSITE_EndDate__c)),NOT(ISPICKVAL(JSITE_Auto_Renew__c,&quot;&quot;)))</errorConditionFormula>
+        <errorDisplayField>JSITE_Auto_Renew__c</errorDisplayField>
+        <errorMessage>If JSITE Auto-Renew is set to &quot;Yes&quot; or &quot;No&quot;, the corresponding Start Date and End Date must be filled</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>If_MPAAutoRenew_Selected_Dates_Reqrd</fullName>
+        <active>true</active>
+        <description>If MPA Auto-Renew is set to &quot;Yes&quot; or &quot;No&quot;, the corresponding Start Date and End Date must be filled</description>
+        <errorConditionFormula>AND(OR(ISBLANK(MPA_StartDate__c),ISBLANK(MPA_EndDate__c)),NOT(ISPICKVAL(MPA_Auto_Renew__c,&quot;&quot;)))</errorConditionFormula>
+        <errorDisplayField>MPA_Auto_Renew__c</errorDisplayField>
+        <errorMessage>If MPA Auto-Renew is set to &quot;Yes&quot; or &quot;No&quot;, the corresponding Start Date and End Date must be filled</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>If_MSITEAutoRenew_Selected_Dates_Reqrd</fullName>
+        <active>true</active>
+        <description>If MSITE Auto-Renew is set to &quot;Yes&quot; or &quot;No&quot;, the corresponding Start Date and End Date must be filled</description>
+        <errorConditionFormula>AND(OR(ISBLANK(MSITE_Start_Date__c),ISBLANK(MSITE_EndDate__c)),NOT(ISPICKVAL(MSITE_Auto_Renew__c,&quot;&quot;)))</errorConditionFormula>
+        <errorDisplayField>MSITE_Auto_Renew__c</errorDisplayField>
+        <errorMessage>If MSITE Auto-Renew is set to &quot;Yes&quot; or &quot;No&quot;, the corresponding Start Date and End Date must be filled</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>JSITEStartDate_shdnt_greater_JSITEEndDat</fullName>
+        <active>true</active>
+        <description>The JSITE Start Date should not be after JSITE End Date.</description>
+        <errorConditionFormula>JSITE_Start_Date__c  &gt;  JSITE_EndDate__c</errorConditionFormula>
+        <errorDisplayField>JSITE_Start_Date__c</errorDisplayField>
+        <errorMessage>The JSITE Start Date should not be after JSITE End Date.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>MPAStartDate_shouldnt_greater_MPAEndDate</fullName>
+        <active>true</active>
+        <description>The MPA Start Date should not be after MPA End Date.</description>
+        <errorConditionFormula>MPA_StartDate__c  &gt;  MPA_EndDate__c</errorConditionFormula>
+        <errorDisplayField>MPA_StartDate__c</errorDisplayField>
+        <errorMessage>The MPA Start Date should not be after MPA End Date.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>MSITEStartDate_shdnt_greater_MSITEEndDat</fullName>
+        <active>true</active>
+        <description>The MSITE Start Date should not be after MSITE End Date.</description>
+        <errorConditionFormula>MSITE_Start_Date__c  &gt;  MSITE_EndDate__c</errorConditionFormula>
+        <errorDisplayField>MSITE_Start_Date__c</errorDisplayField>
+        <errorMessage>The MSITE Start Date should not be after MSITE End Date.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Service_Account_Status_Req_fields</fullName>
+        <active>false</active>
+        <errorConditionFormula>AND (ISPICKVAL (Service_Account_Status__c, &quot;Current&quot;), 
+  ISBLANK (Client_Annual_Revenue__c)
+)</errorConditionFormula>
+        <errorMessage>Client Account Revenue is Required if Account Status is Current.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>

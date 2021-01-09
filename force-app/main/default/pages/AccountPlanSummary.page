@@ -1,0 +1,204 @@
+<apex:page controller="VFC_AccountPlanSummary" showHeader="false">
+
+<head>
+<style> 
+    .fontMainTitle {font-family:verdana; font-weight:bold;font-size:8pt;}
+    .fontMainHeading {font-family:verdana; font-weight:bold;font-size:8pt;height:18px;border:1px #000000 solid;background-color:#dcdcdc; height=18px;}
+    .fontMain {font-family:verdana; font-weight:normal;font-size:8pt;height=18px;}
+    .fontMainTable {font-family:verdana; font-weight:normal;font-size:8pt;border:1px #dcdcdc solid;height:20px;}    
+    body .bPageBlock {
+      margin-bottom: 1px;      
+      margin-top:1px;      
+    }
+    
+</style>
+ 
+<apex:includeScript value="{!URLFOR($Resource.JQuery, '/jquery-1.8.2.min.js')}"/>    
+<apex:includeScript value="{!URLFOR($Resource.JQuery, '/postmessage/jquery.ba-postmessage.js')}"/>      
+ 
+<script type="text/javascript">        
+    var j$ = jQuery.noConflict();           
+    var parent_domain = '{!$CurrentPage.parameters.parent_domain}';           
+    j$(document).ready(function() 
+    {             
+        j$('input[id$=btnCloseModalDialog]').click(function(event) 
+        {                 
+            event.preventDefault();                 
+            closeModalDialog();             
+        });         
+    });                   
+ 
+    function closeModalDialog() 
+    {             
+        var cross_result = new Object();             
+        cross_result.action = 'close_modal_dialog';                       
+        
+        j$.postMessage(                 
+            cross_result,                 
+            parent_domain,                 
+            parent             
+        );         
+    }     
+</script>
+</head>
+
+    <apex:form id="form1">
+    
+        <apex:outputPanel style="font-weight: Bold; Color: Red" rendered="{!IF(errorMessage <> null, true,false)}">        
+            <apex:outputLabel escape="false" value="{!errorMessage}" /> <br/><br/>
+        </apex:outputPanel>
+            
+        <apex:pageBlock id="pb1">
+            <!--<apex:outputLabel styleClass="fontMain" value="WW Account Planning Dynamic Dashboard  -- for later"/><br/>-->
+            
+            <!--
+            <apex:pageBlockSection columns="1">
+                <apex:outputPanel styleClass="fontMain"><apex:outputLabel value="Account Name"/><apex:outputField value="{!accPlan.Account__c}"/></apex:outputPanel>
+                <apex:outputPanel styleClass="fontMain"><apex:outputLabel value="Account plan name"/><apex:outputField value="{!accPlan.Name}"/></apex:outputPanel>
+                <apex:outputPanel styleClass="fontMain"><apex:outputLabel value="Account plan ID"/><apex:outputField value="{!accPlan.Account_Plan_ID__c}"/></apex:outputPanel>
+                <apex:outputPanel styleClass="fontMain"><apex:outputLabel value="Planning Year"/><apex:outputField value="{!accPlan.Plan_Starting_Fiscal_Year__c}"/></apex:outputPanel>
+                <apex:outputPanel styleClass="fontMain"><apex:outputLabel value="Account plan Owner"/><apex:outputField value="{!accPlan.Account_Plan_Owner__c}"/></apex:outputPanel>
+            </apex:pageBlockSection>
+           -->
+            
+            <table width="100%" cellspacing="0" cellpadding="3" border="0" id="tbl1">                
+                <tr>
+                    <td class="fontMain" valign="middle" width="25%" style="height:18px;"><b>Account Name</b></td>
+                    <td class="fontMain" valign="middle" width="75%"><b>:&nbsp;<apex:outputField value="{!accPlan.Account__r.Name}"/></b></td>
+                </tr>
+                <tr>
+                    <td class="fontMain" valign="middle">Account Plan Name</td>
+                    <td class="fontMain" valign="middle">:&nbsp;<apex:outputField value="{!accPlan.Name}"/></td>
+                </tr>
+                <tr>
+                    <td class="fontMain" valign="middle">Account Plan ID</td>
+                    <td class="fontMain" valign="middle">:&nbsp;<apex:outputField value="{!accPlan.Account_Plan_ID__c}"/></td>
+                </tr>
+                <tr>
+                    <td class="fontMain" valign="middle">Planning Year</td>
+                    <td class="fontMain" valign="middle">:&nbsp;<apex:outputField value="{!accPlan.Plan_Starting_Fiscal_Year__c}"/></td>
+                </tr>
+                <tr>
+                    <td class="fontMain" valign="middle">Account Plan Owner</td>
+                    <td class="fontMain" valign="middle">:&nbsp;<apex:outputField value="{!accPlan.Account_Plan_Owner__r.Name}"/></td>
+                </tr>
+                <tr>
+                    <td class="fontMain" valign="middle">Status</td>
+                    <td class="fontMain" valign="middle">:&nbsp;<apex:outputField value="{!accPlan.Status__c}"/></td>
+                </tr>
+                <tr>
+                    <td class="fontMain" valign="middle">Created Date</td>
+                    <td class="fontMain" valign="middle">:&nbsp;<apex:outputText value="{!createdDateStr}"/></td>
+                </tr>
+                <tr>
+                    <td class="fontMain" valign="middle">Approved/Rejected Date</td>
+                    <td class="fontMain" valign="middle">:&nbsp;<apex:outputText value="{!statusDateStr}"/></td>
+                </tr>
+                <tr><td></td></tr>
+            </table>
+    
+            <table width="100%" cellspacing="0" cellpadding="0" border="0" id="tbl1">        
+                <tr>
+                    <td class="fontMainHeading" colspan="3" align="center">Details</td>
+                </tr>
+                <tr>
+                    <td width="390px" valign="top">
+                        <table width="100%" cellspacing="1" cellpadding="0" style="border:1px #dcdcdc solid;">
+                            <tr>
+                                <td width="200px" class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;height:18px;">Last FY Revenue</td>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputField value="{!accPlan.Last_4Q_Revenue__c}"/></td>
+                            </tr> 
+                            <tr>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">4Q Revenue Plan</td>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputField value="{!accPlan.X4Q_Revenue_Plan__c}"/></td>
+                            </tr>
+                            <tr>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">Last FY Margin %</td>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputField value="{!accPlan.Last_4Q_Margin__c}"/></td>
+                            </tr>
+                            <tr>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">GTM Approach</td>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputField value="{!accPlan.Go_To_Market_Approach__c}"/></td>
+                            </tr>
+                            <tr>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">Previous NPS Results</td>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputField value="{!accPlan.Previous_NPS_Results__c}"/></td>
+                            </tr>
+                            <tr>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">Current NPS Results</td>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputField value="{!accPlan.Current_NPS_Results__c}"/></td>
+                            </tr>
+                            <tr>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">Account Annual IT Spend</td>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputField value="{!accPlan.Account_Annual_IT_Spend__c}"/></td>
+                            </tr>
+                            <tr>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">Anticipated IT Spend with Dell</td>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputField value="{!accPlan.Anticipated_IT_Spend_with_Dell__c}"/></td>
+                            </tr>
+                            <tr>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">Share of Wallet with Dell (%)</td>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputField value="{!accPlan.Share_of_Wallet_with_Dell__c}"/></td>
+                            </tr>
+                            <tr>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">No of Account Planning Contacts</td>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputLabel value="{!APLCount}"/></td>
+                            </tr>
+                        </table>
+                        
+                    </td>
+                    <td width="1%" valign="top">
+                        <table>
+                            <tr>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td valign="top">
+                        <table width="100%" cellspacing="1" cellpadding="0" style="border:1px #dcdcdc solid;">
+                            <tr>
+                                <td width="200px" class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;height:18px;">No of Strategies</td>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputField value="{!accPlan.No_of_Strategies__c}"/></td>
+                            </tr> 
+                            <tr>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">Annual Strategy Values</td>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputField value="{!accPlan.Annual_Value_of_Strategies__c}"/></td>
+                            </tr>
+                            <tr>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">Opportunity Roll Up Total</td>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputText value="USD {!OpptyRollUpTotalInInt}"/></td>
+                            </tr>
+                            <tr>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">Opportunity Fulfilment % (This FY)</td>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputText value="{!opptyFulfilment}"/>%</td>
+                            </tr>
+                            <tr>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">No of Opportunities Linked</td>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputText value="{!NoOfLinkedOpp}"/></td>
+                            </tr>
+                            <tr>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">No of Unlinked Opportunities</td>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputText value="{!NoOfUnLinkedOpp}"/></td>
+                            </tr>
+                            <tr>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">Total No of Activities</td>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputText value="{!NoOfActivity}"/></td>
+                            </tr>
+                            <tr>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">BU Offered</td>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputText escape="false" value="{!buOfferedStr}"/></td>
+                            </tr>
+                            <tr>
+                                <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;font-size:8pt;" colspan="2"><apex:commandButton action="{!theRefresh}" value="REFRESH" id="theRefresh" style="font-family:verdana;font-size:7.5pt;font-weight:bold;"  /></td>
+                            </tr> 
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+             
+            
+        </apex:pageBlock>
+    </apex:form>
+    
+</apex:page>

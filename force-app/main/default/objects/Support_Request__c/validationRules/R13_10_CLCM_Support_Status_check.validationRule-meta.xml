@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>R13_10_CLCM_Support_Status_check</fullName>
+    <active>true</active>
+    <description>If Resume is selected in Override field then Support status can only be “In Process”, “Resource Assigned”, Resource Requested”</description>
+    <errorConditionFormula>AND( ISPICKVAL(Support_Request_Override_Status__c , &apos;Resume&apos;), NOT( OR(ISPICKVAL(Support_Status__c , &apos;In Process&apos;),ISPICKVAL(Support_Status__c , &apos;Resource Assigned&apos;),ISPICKVAL(Support_Status__c , &apos;Resource Requested&apos;),ISPICKVAL(Support_Status__c , &apos;Placed On Hold&apos;),ISPICKVAL(Support_Status__c , &apos;Deprioritized&apos;)) ) ,RecordTypeId = &apos;012A0000000Vhcv&apos;)</errorConditionFormula>
+    <errorMessage>In order to select &quot;Resume&quot;, Support Status must be “In Process”, “Resource Assigned”, &quot;Resource Requested”, “Placed on Hold” or “Deprioritized”.</errorMessage>
+</ValidationRule>

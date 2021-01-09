@@ -1,0 +1,37 @@
+<apex:page id="thePage" controller="PostRefreshAutomationCtrl">
+   
+    <apex:form id="form">
+        
+    <!-- Status image-->   
+    <div style="text-align: center;">
+        <apex:actionStatus id="searchStatus">
+            <apex:facet name="start"><apex:image url="{!$Resource.loading}"/></apex:facet>
+        </apex:actionStatus>            
+    </div> 
+    
+    
+    <!--To display Error messages>-->    
+    <apex:pageMessages escape="false"/>
+    
+    <apex:pageBlock rendered="{!isValidEnvironment}">
+        
+        This is a <b>Post Automation Program for Full Refreshed Sandbox</b>. Click on <b>Automate For Document </b>and <b>Automate for Email Template </b>button to initiate the automation for Document and Email Template respectively. 
+        It will take some time to finish the process. Stay tuned.
+
+        <apex:pageBlockButtons location="bottom" id="buttons">
+            <apex:commandButton value="Automate For Document" action="{!automate4Document}" status="searchStatus"/> 
+            <apex:commandButton value="Automate for Email Template" action="{!automate4EmailTemplate}" status="searchStatus"/> 
+        </apex:pageBlockButtons> 
+        
+    </apex:pageBlock>
+    
+    <apex:pageBlock rendered="{!!isValidEnvironment}">
+        
+        This is a <b>Post Automation Program for Full Refreshed Sandbox</b>. <br/><br/>
+        However, it is <b>STRICTLY DISALLOWED</b> in current <b>Production</b> environment.
+
+    </apex:pageBlock>
+    
+    </apex:form>
+    
+</apex:page>

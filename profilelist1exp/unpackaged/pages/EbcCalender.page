@@ -1,0 +1,759 @@
+<apex:page standardController="Customer_Engagement__c" showHeader="true"   sidebar="false" extensions="EbcCalendercntrler" 
+id="pageId"  action="{!redirect}" standardStylesheets="true">  
+    <script>
+        function HideContent(d) {
+            document.getElementById(d).style.display = "none";
+        }
+        function ShowContent(d) {
+            document.getElementById(d).style.display = "block";
+        }
+        function ShowDescription(m){
+            event_Selection2();
+        }
+        function ShowDate(m){
+            displayDateRange();
+        }
+        
+        function ShowMessage(m){
+            var pDate = document.getElementById(m).value;
+            displayMessage(pDate);
+        }
+        
+    </script>
+    <style>
+        .fontstyle1 {
+            font-weight:bold;
+            font-family: Arial Unicode MS;size: 18pt;
+            height:10px;
+            width:250px;
+        }
+        .availableStyle {
+            background-color: #FFFFFF ;
+            font-style:bold;
+            height:40px;
+            width:20px;
+        }
+        .bookedStyle {
+            background-color : #999999;
+            font-style:bold;
+            height:40px;
+            width:20px;
+            color: #999999;
+        }
+        .fontstyle {
+            font-weight:bold;
+            font-family: Arial Unicode MS;size: 12pt;
+            height:10px;
+            width:250px;
+        }
+        .calendarfontstyle {
+            font-family: Arial Unicode MS;size: 14pt;
+            color:white;
+        }
+        .calendarheading {
+            font-family: Arial Unicode MS;
+            background-color: #003366; 
+            color: white;
+            font-weight: bold;
+            font-size:24px;
+            align:center;
+        }
+        .calendardateheading {
+            font-family: Arial Unicode MS;
+            background-color: #CCCCFF; 
+            font-weight: bold;
+            font-size:12px;
+            height:40px;
+            width:100px
+        }
+    </style>
+    <apex:form id="formId">
+    <apex:pagemessages showDetail="true"/>
+        <apex:pageBlock id="pageBlkId11"  rendered="{!AND(!OR(status == WAITLIST_UNAVAILABLE,status == ROOMS_UNAVAILABLE_FOR_CONSECUTIVE_DAYS,status == CONFIRM_DETAILS_FOR_WAITLIST,status == CONFIRM_DETAILS_FOR_BOOKING,status == TOURS_UNAVAILABLE),!Error)}">
+            <p><apex:outputLabel value="NOTE : As a courtesy to your colleagues, please ensure your customer has confirmed and accepted the selected briefing dates. Otherwise, you are blocking rooms from use and creating last-minute cancellations for Briefing Center Staff." styleClass="fontstyle1"/></p>
+         </apex:pageBlock>
+        <br/><br/>
+        <div id="Briefing" style="{!IF((customerEngagement.Event_Type__c=='Briefing')&&(customerEngagement.Webcast__c==false),'display:block','display:none')}">
+                <p><apex:outputLabel value="All events must be booked at least 3 weeks in advance."/></p>
+        </div>
+        
+        <apex:pageBlock id="pageBlkId1"  rendered="{!AND(!OR(status == WAITLIST_UNAVAILABLE,status == ROOMS_UNAVAILABLE_FOR_CONSECUTIVE_DAYS,status == CONFIRM_DETAILS_FOR_WAITLIST,status == CONFIRM_DETAILS_FOR_BOOKING,status == TOURS_UNAVAILABLE),!Error)}">
+            <apex:outputLabel value="Step 1: Event Type : " for="eventSelection" styleClass="fontstyle" style="height:10px;width:250px"/>
+            <apex:inputField value="{!customerEngagement.Event_Type__c}" id="eventSelection" style="width:250px" onchange="Javascript:ShowDescription('{!$Component.formId.pageBlkId1.eventSelection}')"></apex:inputField>
+            <apex:actionFunction name="event_Selection2" action="{!eventSelection}">
+                <apex:param name="event" value="{!customerEngagement.Event_Type__c}"/>
+            </apex:actionFunction>
+            
+           <!-- <apex:outputLabel value="OR" rendered="{!adminUser==true}"/> -->
+            <!-- For CR 6358, CCR 0099 -->
+            <!-- <apex:outputLabel value="Webcast : " for="webcast" styleClass="fontstyle" style="height:10px;width:250px" rendered="{!adminUser==true}" />
+            <apex:inputCheckbox value="{!webcast}" id="webcast" rendered="{!adminUser==true}" onchange="Javascript:ShowDescription('{!$Component.formId.pageBlkId1.eventSelection}')"/> -->
+                        
+            <!--<div id="vEBC" style="{!IF(customerEngagement.Event_Type__c=='vEBC','display:block','display:none')}">
+                <p><apex:outputLabel value="Do you find it difficult for your customers to commit to a 1 or 2 day engagement? a virtual briefing or vEBC.The vEBC delivers executive and subject matter expert conversations from many Dell Briefing Centres to your customer at their own chosen site using remote teleconferencing technology.Don't let customer budgets, tight schedules and other travel planning issues prevent your customer from getting current, interactive and timely Dell messaging to your customers. Begin by scheduling a vEBC event with your customers today.Remember Customers Location and Presenter/EBC Location should be within the same Region (US, EMEA, APJ)"/></p>
+                <b><p><apex:outputLabel value="To Schedule a vEBC Event"/></p></b>
+                <p><apex:outputLabel value="Select Event Type from  Briefing, IT Conference Call, V-EBC or a Tour Only.  "/></p>
+                <p><apex:outputLabel value="Select your preferred Location from the drop down menu. "/></p>
+                <p><apex:outputLabel value="Select your preferred Date. All events must be scheduled at least 3 weeks in advance."/></p>
+                <p><apex:outputLabel value="Select the duration of your event. "/></p>
+                <p><apex:outputLabel value="Click Go button to display the live Calendar. Once the calendar is displayed click on any of the squares available (the number written in the squares denote the number of rooms still available that particular date) "/></p>  
+                <p><apex:outputLabel value="If there is no availability on your preferred date please submit a request through the Wait List row."/></p>
+                <p><apex:outputLabel value="Once your event is confirmed you will receive a Confirmation email will provide a link for you to supply shipping information/location for the vEBC kit and information guides on how to set up the equipment ."/></p>  
+            </div>-->
+            
+            <div id="Field Briefing" style="{!IF(customerEngagement.Event_Type__c=='Field Briefing','display:block','display:none')}">
+                  <p><b><apex:outputLabel value="Definition:"/></b>1:1 customer briefing taking place in the local market (Dell EMC offices, local customer engagement centers, hotels, customer sites, etc), leveraging local, divisional and corporate discussion leaders to provide individual, customized briefing sessions. </p> 
+                  <p><b><apex:outputLabel value="Use Cases:"/></b> Account team requested briefing in the local market, i.e. Dell EMC Solution Center, Field Office, Customer Engagement Center, Hotel, Restaurant, etc. </p> 
+            </div>
+            
+            <!-- <div id="ITConferenceCall" style="{!IF(customerEngagement.Event_Type__c=='IT Conference Call','display:block','display:none')}">
+                <p><apex:outputLabel value="IT Conference Calls are offered by Dell's IT organization as a briefing option for customers who are interested in hearing our best practices for specific IT disciplines. Typically one hour in duration, the IT specialist will provide an overview of Dell's execution of the subject at-hand and then open the meeting up for questions from the customer as well as round-table discussion.Logistics of IT Conference Calls: IT Conference Calls require a lead time of 3 weeks. You will receive an email invitation from the Global IT Customer Engagements mailbox and you will also receive a final confirmation notice. It is the account team's responsibility to invite and confirm the customer's attendance as well as provide the conference call details. Please note it is IT's policy not to distribute any presentation material to customers via hard or soft copy."/></p>  
+                <b><p><apex:outputLabel value="To Schedule an IT Con Call"/></p></b>
+                <p><apex:outputLabel value="Select an Event Type: Briefing, IT Conference Call, V-EBC or a Tour Only."/></p>  
+                <p><apex:outputLabel value="Select your preferred Location from the drop down menu. "/></p>  
+                <p><apex:outputLabel value="Select your preferred Date. "/></p>  
+                <p><apex:outputLabel value="Select the duration of your event."/></p>  
+                <p><apex:outputLabel value="Click Go button to display the live Calendar. Once the calendar is displayed click on any of the squares available (the number written in the squares denote the number of rooms still available that particular date) "/></p>  
+            </div> -->
+            
+            <div id="Meeting" style="{!IF(customerEngagement.Event_Type__c=='Meeting','display:block','display:none')}">
+                  <p><b><apex:outputLabel value="Definition:"/></b> Dell EMC internal employee meeting </p> 
+            </div>
+            
+            <div id="Tour" style="{!IF(customerEngagement.Event_Type__c=='Tour','display:block','display:none')}">
+                <p><b><apex:outputLabel value="Definition:"/></b>Tour of Dell Technologies facility</p>  
+                <!--<p><apex:outputLabel value="Select an Event Type: Briefing, IT Conference Call, V-EBC or a Tour Only. "/></p> 
+                <p><apex:outputLabel value="Select your preferred Location from the drop down menu. "/></p>  
+                <p><apex:outputLabel value="Select your preferred Date. "/></p>  
+                <p><apex:outputLabel value="Select the duration of your event."/></p>  
+                <p><apex:outputLabel value="Click Go button to display the live Calendar. Once the calendar is displayed click on any of the squares available (the number written in the squares denote the number of rooms still available that particular date) "/></p> -->   
+            </div>
+            <p>
+                <apex:outputLabel value="Step 2: Location : " for="site" styleClass="fontstyle" style="height:10px;width:250px"/>
+                <apex:selectList value="{!siteName}" style="width:250px" multiselect="false" size="1" id="site" onchange="Javascript:ShowDate('{!$Component.formId.pageBlkId1.site}')">
+                    <apex:selectOptions value="{!sites}" />
+                </apex:selectList>
+                <apex:actionFunction name="displayDateRange" action="{!displaypreferedDateRange}">
+                    <apex:param name="event" value="{!siteName}"/>
+                </apex:actionFunction>
+
+                
+            </p>
+            <p>
+             
+            
+                <apex:outputLabel value="Step 3: Select Preferred Date : " styleClass="fontstyle" for="startingDate"/>
+                <apex:inputField value="{!Customer_Engagement__c.GSL_Start_Date__c}" onchange="Javascript:ShowMessage('{!$Component.formId.pageBlkId1.startingDate}')" id="startingDate"/>
+                <apex:actionFunction name="displayMessage" action="{!displayMsgForHalfDay}"   reRender="formId" immediate="false">
+                     <apex:param name="event1" value="" assignTo="{!sDate}" /> 
+                </apex:actionFunction>
+                
+                <script>function setFocusOnLoad() {}</script>
+            </p>
+            
+            
+                
+            
+            <p>
+                <apex:outputPanel id="errorforStartDateLessThanTodayPanel" rendered="{!AND(status == START_DATE_NOT_NULL,!Error)}">
+                    <apex:pageMessage id="errorforStartDateLessThanToday" severity="Error"  strength="3"   title="Please check your Start date!" summary="Customer engagement need a minimum booking period of {!leadTime} days from today.">
+                    </apex:pageMessage>
+                </apex:outputPanel>
+            </p>
+            <p>
+                <apex:outputPanel id="errorforStartDateGrThnEndDatePanel" rendered="{!AND(status == START_DATE_GREATER_THAN_TODAY,!Error)}">
+                    <apex:pageMessage id="errorforStartDateGrThnEndDate" severity="Error"  strength="3"    title="Please check your Start date!" summary="Customer engagement need a minimum booking period of {!leadTime} days from today.">
+                    </apex:pageMessage>
+                </apex:outputPanel>
+            </p>
+            <p>
+                <apex:outputLabel value="Step 4: Duration of Event (Days) : " styleClass="fontstyle" style="height:15px;width:250px" for="noOfDay"/> 
+                <apex:selectList value="{!noOfDays}" style="width:75px" multiselect="false" size="1" id="noOfDay">
+                    <apex:selectOptions value="{!days}"/>
+                </apex:selectList>
+            </p>
+            
+            <p>
+                <apex:outputLabel rendered="{!IF(!displayFlag && !displayFlag_dbl && !bothMsgFlag,"TRUE","FALSE")}" value="Step 5: Click GO Button       : " styleClass="fontstyle"/> 
+                <apex:commandButton rendered="{!IF(!displayFlag && !displayFlag_dbl && !bothMsgFlag,"TRUE","FALSE")}"  value="Go"  action="{!populateSites}" style="width:50px;bgcolor:#999999" />
+           
+           
+            </p> 
+            
+           
+                <apex:pageBlock id="legend" rendered="{!AND(OR(statusFirstMonth == DISPLAY_FIRST_MONTH,statusSecondMonth == DISPLAY_SECOND_MONTH,statusThirdMonth == DISPLAY_THIRD_MONTH),!Error)}" >
+                <apex:pageBlockSection columns="1" id="sitenotes">
+                    <table  align="Left"> 
+                        <tr><td><b>Color Legend:</b></td></tr>                  
+                        <tr>
+                            <td border="1" bgcolor="#999999">&nbsp;&nbsp;&nbsp;&nbsp;</td><td>Booked</td>
+                        </tr>
+                        <tr>
+                            <td border="1" bgcolor="#FFFFFF">&nbsp;&nbsp;&nbsp;&nbsp;</td><td>Available</td>
+                        </tr>
+                        <tr>
+                            <td border="1" bgcolor="#98FF98">&nbsp;&nbsp;&nbsp;&nbsp;</td><td>Waitlisted</td>
+                        </tr>
+                 </table> 
+                    <table  > 
+                    
+                       <tr>
+                         <td  align="left"><b>Site Notes:</b> {!sitenotes} </td>
+                    <!--     <td ><apex:outputlabel value="{!sitenotes}"/></td>  -->
+                                                     
+                            
+                            </tr>
+                    </table> 
+                </apex:pageBlockSection>                            
+            </apex:pageBlock>      
+                                         
+        </apex:pageBlock> 
+        
+        <!--/**********************************/-->
+        
+    <apex:pageBlock id="calendarpanelforfirstmonthBriefing" rendered="{!AND(OR((customerEngagement.Event_Type__c=='Briefing')&&(customerEngagement.Webcast__c==false),customerEngagement.Event_Type__c=='Field Briefing'),statusFirstMonth == DISPLAY_FIRST_MONTH,!Error)}" >
+            <table width="100%">
+            <p>
+            <div id="Briefing" style="{!IF((customerEngagement.Event_Type__c=='Briefing')&&(customerEngagement.Webcast__c==false),'display:block','display:none')}">
+                <p><apex:outputLabel value="Once the calendar is displayed click on any of the squares available (the number written in the squares denote the number of rooms still available that particular date)"/></p>
+                <p><apex:outputLabel value="If there is no availability on your preferred date please submit a request through the Wait List row."/></p>
+        </div></p>
+        
+                <tr>            
+                    <td style="font-family: Arial Unicode MS;background-color: #003366;color: white;font-weight: bold;
+                    font-size:24px;" align="center" colspan="{!ebcCalenderActioncntrlerObj.colspanalist1}">{!ebcCalenderActioncntrlerObj.firstmonth}  {!ebcCalenderActioncntrlerObj.firstYear}</td>       
+                </tr>
+                </table>
+            <table width="100%">
+                <tr>
+                    <td height="25px" width="125px"><apex:outputText value=""/>
+                    </td>
+                    <apex:repeat value="{!AvailabilityDetails}" var="a" >
+                        <td align="center" class="calendardateheading">
+                            <apex:outputText value="{!a.dayOfTheweek}" id="theValue2"/>
+                        </td>
+                    </apex:repeat>
+                </tr>             
+                <tr>
+                    <td height="25px" width="125px"><apex:outputText value=""/></td>
+                    <apex:repeat value="{!AvailabilityDetails}" var="a" >
+                        <td align="center" class="calendardateheading">
+                            <apex:outputText value="{!a.calendarDate}" id="theValue3"/>
+                        </td>
+                    </apex:repeat>
+                </tr>
+                <tr>    
+                    <td height="25px" width="125px" ><apex:outputText value="# Single Rooms"/></td>
+                    <apex:repeat value="{!AvailabilityDetails}" var="a">
+                        <td cellpadding="4" align="center" height="25px" width="125px" bgcolor="{!a.singleRoomAvailabilityAM}">
+                            <apex:commandLink action="{!paramSetForNavigation}" value="{!a.singleroomsAM}" id="theValue1">   
+                                <apex:param name="cdate" value="{!a.calendarDateFormat}"/>
+                                <apex:param name="roomreq" value="single"/>
+                            </apex:commandLink>
+                        </td> 
+                    </apex:repeat>
+                </tr>
+                 
+                <tr>
+                    <td height="25px"  width="125px"><apex:outputText value="# Double Rooms "/></td>
+                    <apex:repeat value="{!AvailabilityDetails}" var="a">
+                        <td cellpadding="4" align="center"  bgcolor="{!a.doubleRoomAvailabilityPM}" >
+                            <apex:commandLink action="{!paramSetForNavigation}"  value="{!a.doubleroomsPM}" id="theValue1">   
+                                <apex:param name="cdate" value="{!a.calendarDateFormat}"/>
+                                <apex:param name="roomreq" value="double"/>
+                            </apex:commandLink>
+                        </td>
+                    </apex:repeat>
+                </tr> 
+               
+                <tr>                        
+                    <td bgcolor="{!ebcCalenderActioncntrlerObj.waitinglistrowcolor}" colspan="{!ebcCalenderActioncntrlerObj.colspanalist1}" color="#FFFFFF" align="center"><b>{!ebcCalenderActioncntrlerObj.waitinglistrowtext}</b></td>
+                </tr>       
+                <tr>                            
+                    <td height="25px" width="225px"><apex:outputText value="{!ebcCalenderActioncntrlerObj.waitngLstTxt}"/></td>             
+                    <apex:repeat value="{!AvailabilityDetails}" var="a">
+                        <td bgcolor="{!ebcCalenderActioncntrlerObj.waitinglistcellcolor}" cellpadding="4" font-size="30px" align="center" >
+                            <apex:commandLink action="{!paramSetBookWaitingList}" value="{!a.waitingList}" id="theValue3">   
+                                <apex:param name="cdate" value="{!a.calendarDateFormat}"/>
+                                <apex:param name="roomreq" value="Waiting"/>
+                            </apex:commandLink>
+                        </td>
+                    </apex:repeat>    
+                </tr>
+            </table>
+        </apex:pageBlock>
+        
+     <apex:pageBlock id="calendarpanelforsecondmonthBriefing" 
+                  rendered="{!AND(OR((customerEngagement.Event_Type__c=='Briefing')&&(customerEngagement.Webcast__c==false),customerEngagement.Event_Type__c=='Field Briefing'),statusSecondMonth == DISPLAY_SECOND_MONTH,!Error)}" >
+            <table width="100%">
+             <tr>            
+                <td style="font-family: Arial Unicode MS;background-color: #003366;color: white;font-weight: bold;
+                font-size:24px;" align="center" colspan="{!ebcCalenderActioncntrlerObj.colspanalist2}">
+                    {!ebcCalenderActioncntrlerObj.secondmonth}  {!ebcCalenderActioncntrlerObj.secondYear}</td>       
+            </tr>  
+            </table>
+            <table width="100%">
+                <tr>
+                    <td height="25px" width="125px"><apex:outputText value=""/>
+                    </td>
+                    <apex:repeat value="{!ebcCalenderActioncntrlerObj.AvailabilityDetailsNextMonth}" var="a" >
+                        <td align="center" class="calendardateheading">
+                            <apex:outputText value="{!a.dayOfTheweek}" id="theValue2"/>
+                        </td>
+                    </apex:repeat>
+                </tr>             
+                <tr>
+                    <td height="25px" width="125px"><apex:outputText value=""/></td>
+                    <apex:repeat value="{!ebcCalenderActioncntrlerObj.AvailabilityDetailsNextMonth}" var="a" >
+                        <td align="center" class="calendardateheading">
+                            <apex:outputText value="{!a.calendarDate}" id="theValue3"/>
+                        </td>
+                    </apex:repeat>
+                </tr>
+                <tr>    
+                    <td height="25px" width="125px" ><apex:outputText value="# Single Rooms"/></td>
+                    <apex:repeat value="{!ebcCalenderActioncntrlerObj.AvailabilityDetailsNextMonth}" var="a">
+                        <td cellpadding="4" align="center" height="25px" width="125px" bgcolor="{!a.singleRoomAvailabilityAM}">
+                            <apex:commandLink action="{!paramSetForNavigation}" value="{!a.singleroomsAM}" id="theValue1">   
+                                <apex:param name="cdate" value="{!a.calendarDateFormat}"/>
+                                <apex:param name="roomreq" value="single"/>
+                            </apex:commandLink>
+                        </td> 
+                    </apex:repeat>
+                </tr>
+                 
+                <tr>
+                    <td height="25px"  width="125px"><apex:outputText value="# Double Rooms"/></td>
+                    <apex:repeat value="{!ebcCalenderActioncntrlerObj.AvailabilityDetailsNextMonth}" var="a">
+                        <td cellpadding="4" align="center"  bgcolor="{!a.doubleRoomAvailabilityPM}" >
+                            <apex:commandLink action="{!paramSetForNavigation}"  value="{!a.doubleroomsPM}" id="theValue1">   
+                                <apex:param name="cdate" value="{!a.calendarDateFormat}"/>
+                                <apex:param name="roomreq" value="double"/>
+                            </apex:commandLink>
+                        </td>
+                    </apex:repeat>
+                </tr> 
+               
+                <tr>                        
+                    <td bgcolor="{!ebcCalenderActioncntrlerObj.waitinglistrowcolor}" colspan="{!ebcCalenderActioncntrlerObj.colspanalist2}" color="RED" align="center"><b>{!ebcCalenderActioncntrlerObj.waitinglistrowtext}</b></td>
+                </tr>       
+                <tr>                            
+                    <td height="25px" width="225px"><apex:outputText value="{!ebcCalenderActioncntrlerObj.waitngLstTxt}"/></td>             
+                    <apex:repeat value="{!ebcCalenderActioncntrlerObj.AvailabilityDetailsNextMonth}" var="a">
+                        <td bgcolor="{!ebcCalenderActioncntrlerObj.waitinglistcellcolor}" cellpadding="4" font-size="30px" align="center" >
+                            <apex:commandLink action="{!paramSetBookWaitingList}" value="{!a.waitingList}" id="theValue3">   
+                                <apex:param name="cdate" value="{!a.calendarDateFormat}"/>
+                                <apex:param name="roomreq" value="Waiting"/>
+                            </apex:commandLink>
+                        </td>
+                    </apex:repeat>    
+                </tr>
+            </table>
+        </apex:pageBlock>
+       
+        <apex:pageBlock id="calendarpanelforthirdmonthBriefing" rendered="{!AND(OR((customerEngagement.Event_Type__c=='Briefing')&&(customerEngagement.Webcast__c==false),customerEngagement.Event_Type__c=='Field Briefing'),statusThirdMonth == DISPLAY_THIRD_MONTH,!Error)}">
+            <table width="100%">
+                <tr>            
+                    <td style="font-family: Arial Unicode MS;background-color: #003366;color: white;font-weight: bold;
+                    font-size:24px;" align="center" colspan="{!ebcCalenderActioncntrlerObj.colspanalist3}">{!ebcCalenderActioncntrlerObj.thirdmonth}  {!ebcCalenderActioncntrlerObj.thirdYear}</td>       
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td height="25px" width="125px"><apex:outputText value=""/>
+                    </td>
+                    <apex:repeat value="{!ebcCalenderActioncntrlerObj.AvailabilityDetailsThirdMonth}" var="a" >
+                        <td align="center" class="calendardateheading">
+                            <apex:outputText value="{!a.dayOfTheweek}" id="theValue2"/>
+                        </td>
+                    </apex:repeat>
+                </tr>             
+                <tr>
+                    <td height="25px" width="125px"><apex:outputText value=""/></td>
+                    <apex:repeat value="{!ebcCalenderActioncntrlerObj.AvailabilityDetailsThirdMonth}" var="a" >
+                        <td align="center" class="calendardateheading">
+                            <apex:outputText value="{!a.calendarDate}" id="theValue3"/>
+                        </td>
+                    </apex:repeat>
+                </tr>
+                <tr>    
+                    <td height="25px" width="125px" ><apex:outputText value="# Single Rooms"/></td>
+                    <apex:repeat value="{!ebcCalenderActioncntrlerObj.AvailabilityDetailsThirdMonth}" var="a">
+                        <td cellpadding="4" align="center" height="25px" width="125px" bgcolor="{!a.singleRoomAvailabilityAM}">
+                            <apex:commandLink action="{!paramSetForNavigation}" value="{!a.singleroomsAM}" id="theValue1">   
+                                <apex:param name="cdate" value="{!a.calendarDateFormat}"/>
+                                <apex:param name="roomreq" value="single"/>
+                            </apex:commandLink>
+                        </td> 
+                    </apex:repeat>
+                </tr>
+                                
+                <tr>
+                    <td height="25px"  width="125px"><apex:outputText value="# Double Rooms "/></td>
+                    <apex:repeat value="{!ebcCalenderActioncntrlerObj.AvailabilityDetailsThirdMonth}" var="a">
+                        <td cellpadding="4" align="center"  bgcolor="{!a.doubleRoomAvailabilityPM}" >
+                            <apex:commandLink action="{!paramSetForNavigation}"  value="{!a.doubleroomsPM}" id="theValue1">   
+                                <apex:param name="cdate" value="{!a.calendarDateFormat}"/>
+                                <apex:param name="roomreq" value="double"/>
+                            </apex:commandLink>
+                        </td>
+                    </apex:repeat>
+                </tr> 
+               
+                <tr>                        
+                    <td bgcolor="{!ebcCalenderActioncntrlerObj.waitinglistrowcolor}" colspan="{!ebcCalenderActioncntrlerObj.colspanalist3}" color="#FFFFFF" align="center"><b>{!ebcCalenderActioncntrlerObj.waitinglistrowtext}</b></td>
+                </tr>       
+                <tr>                            
+                    <td height="25px" width="225px"><apex:outputText value="{!ebcCalenderActioncntrlerObj.waitngLstTxt}"/></td>             
+                    <apex:repeat value="{!ebcCalenderActioncntrlerObj.AvailabilityDetailsThirdMonth}" var="a">
+                        <td bgcolor="{!ebcCalenderActioncntrlerObj.waitinglistcellcolor}" cellpadding="4" font-size="30px" align="center" >
+                            <apex:commandLink action="{!paramSetBookWaitingList}" value="{!a.waitingList}" id="theValue3">   
+                                <apex:param name="cdate" value="{!a.calendarDateFormat}"/>
+                                <apex:param name="roomreq" value="Waiting"/>
+                            </apex:commandLink>
+                        </td>
+                    </apex:repeat>    
+                </tr>
+            </table>
+        </apex:pageBlock>
+
+            
+       
+        <!--/**********************************/-->
+        <apex:pageBlock id="calendarpanelforfirstmonthItcWebcast" rendered="{!AND(OR(customerEngagement.Event_Type__c=='Meeting',(customerEngagement.Event_Type__c=='Briefing')&&(customerEngagement.Webcast__c==true)),statusFirstMonth == DISPLAY_FIRST_MONTH,!Error)}">
+            <table width="100%">
+                <tr>            
+                    <td style="font-family: Arial Unicode MS;background-color: #003366;color: white;font-weight: bold;
+                    font-size:24px;" align="center" colspan="{!ebcCalenderActioncntrlerObj.colspanalist1}">{!ebcCalenderActioncntrlerObj.firstmonth}  {!ebcCalenderActioncntrlerObj.firstYear}</td>       
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <apex:repeat value="{!AvailabilityDetails}" var="a" >
+                        <td align="center" class="calendardateheading">
+                            <apex:outputText value="{!a.dayOfTheweek}" id="theValue2"/>
+                        </td>
+                    </apex:repeat>
+                </tr>             
+                <tr>
+                    <apex:repeat value="{!AvailabilityDetails}" var="a" >
+                        <td align="center" class="calendardateheading">
+                            <apex:outputText value="{!a.calendarDate}" id="theValue3"/>
+                        </td>
+                    </apex:repeat>
+                </tr>
+                <tr>    
+                    <apex:repeat value="{!AvailabilityDetails}" var="a">
+                        <td cellpadding="4" align="center" height="25px" width="125px"   bgcolor="{!a.singleRoomAvailabilityAM}">
+                            <apex:commandLink action="{!paramSetForNavigation}" value="{!a.singleroomsAM}" id="theValue1">   
+                                <apex:param name="cdate" value="{!a.calendarDateFormat}"/>
+                            </apex:commandLink>
+                        </td> 
+                    </apex:repeat>
+                </tr>
+                
+            </table>
+        </apex:pageBlock>
+        <apex:pageBlock id="calendarpanelforsecondmonthItcWebcast" rendered="{!AND(OR(customerEngagement.Event_Type__c=='Meeting',(customerEngagement.Event_Type__c=='Briefing')&&(customerEngagement.Webcast__c==true)),statusSecondMonth == DISPLAY_SECOND_MONTH,!Error)}">
+
+            <table width="100%">
+                <tr>
+                    <td width="100%" style="font-family: Arial Unicode MS;background-color: #003366;color: white;font-weight: bold;
+                    font-size:24px;" align="center" colspan="{!ebcCalenderActioncntrlerObj.colspanalist1}">{!ebcCalenderActioncntrlerObj.secondmonth}  {!ebcCalenderActioncntrlerObj.secondYear}</td>       
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <apex:repeat value="{!ebcCalenderActioncntrlerObj.AvailabilityDetailsNextMonth}" var="a" >
+                        <td align="center" class="calendardateheading">
+                            <apex:outputText value="{!a.dayOfTheweek}" id="theValue2"/>
+                        </td>
+                    </apex:repeat>
+                </tr>             
+                <tr>
+                    <apex:repeat value="{!ebcCalenderActioncntrlerObj.AvailabilityDetailsNextMonth}" var="a" >
+                        <td align="center" class="calendardateheading">
+                            <apex:outputText value="{!a.calendarDate}" id="theValue3"/>
+                        </td>
+                    </apex:repeat>
+                </tr>
+                <tr>    
+                    <apex:repeat value="{!ebcCalenderActioncntrlerObj.AvailabilityDetailsNextMonth}" var="a">
+                        <td cellpadding="4" align="center" height="25px" width="125px"  bgcolor="{!a.singleRoomAvailabilityAM}" >
+                            <apex:commandLink action="{!paramSetForNavigation}" value="{!a.singleroomsAM}" id="theValue1">   
+                                <apex:param name="cdate" value="{!a.calendarDateFormat}"/>
+                            </apex:commandLink>
+                        </td> 
+                    </apex:repeat>
+                </tr>
+               
+            </table>
+        </apex:pageBlock>
+        <apex:pageBlock id="calendarpanelforthirdmonthItcWebcast" rendered="{!AND(OR(customerEngagement.Event_Type__c=='Meeting',(customerEngagement.Event_Type__c=='Briefing')&&(customerEngagement.Webcast__c==true)),statusThirdMonth == DISPLAY_THIRD_MONTH,!Error)}">
+            <table width="100%">
+                <tr>
+                    <td width="100%" style="font-family: Arial Unicode MS;background-color: #003366;color: white;font-weight: bold;
+                    font-size:24px;" align="center" colspan="{!ebcCalenderActioncntrlerObj.colspanalist3}">{!ebcCalenderActioncntrlerObj.thirdmonth}  {!ebcCalenderActioncntrlerObj.thirdYear}</td>       
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <apex:repeat value="{!ebcCalenderActioncntrlerObj.AvailabilityDetailsThirdMonth}" var="a" >
+                        <td align="center" class="calendardateheading">
+                            <apex:outputText value="{!a.dayOfTheweek}" id="theValue2"/>
+                        </td>
+                    </apex:repeat>
+                </tr>             
+                <tr>
+                    <apex:repeat value="{!ebcCalenderActioncntrlerObj.AvailabilityDetailsThirdMonth}" var="a" >
+                        <td align="center" class="calendardateheading">
+                            <apex:outputText value="{!a.calendarDate}" id="theValue3"/>
+                        </td>
+                    </apex:repeat>
+                </tr>
+                <tr>    
+                    
+                    <apex:repeat value="{!ebcCalenderActioncntrlerObj.AvailabilityDetailsThirdMonth}" var="a">
+                        <td cellpadding="4" align="center" height="25px" width="125px"  bgcolor="{!a.singleRoomAvailabilityAM}">
+                            <apex:commandLink action="{!paramSetForNavigation}" value="{!a.singleroomsAM}" id="theValue1">   
+                                <apex:param name="cdate" value="{!a.calendarDateFormat}"/>
+                            </apex:commandLink>
+                        </td> 
+                    </apex:repeat>
+                </tr>
+               
+            </table>
+        </apex:pageBlock>
+        <apex:pageBlock id="calendarpanelforfirstmonthTour" rendered="{!AND(customerEngagement.Event_Type__c=='Tour',statusFirstMonth == DISPLAY_FIRST_MONTH,!Error)}">
+        <table width="100%">
+            <tr>            
+                <td  style="font-family: Arial Unicode MS;background-color: #003366;color: white;font-weight: bold;
+                font-size:24px;" align="left" colspan="{!ebcCalenderActioncntrlerObj.colspanalist1}">{!ebcCalenderActioncntrlerObj.firstmonth}  {!ebcCalenderActioncntrlerObj.firstYear}</td>       
+            </tr>
+         
+            
+                <tr>
+                    <apex:repeat value="{!AvailabilityDetails}" var="a" >
+                        <td align="center" class="calendardateheading">
+                            <apex:outputText value="{!a.dayOfTheweek}" id="theValue2"/>
+                        </td>
+                    </apex:repeat>
+                </tr>             
+                <tr>
+                    <apex:repeat value="{!AvailabilityDetails}" var="a" >
+                        <td align="center" class="calendardateheading">
+                            <apex:outputText value="{!a.calendarDate}" id="theValue3"/>
+                        </td>
+                    </apex:repeat>
+                </tr>
+            <tr>    
+                <apex:repeat value="{!AvailabilityDetails}" var="a" >
+                    <td>
+                          <table border="0">
+                            <apex:repeat value="{!a.TourList}" var="tour">
+                                  <tr> 
+                                    <td align="center" nowrap="nowrap" colspan="5" style="height:25px;width:125px" bgcolor="{!tour.tourColour}">
+                                        <apex:outputText value="{!tour.tourValue}" style="align:left;" rendered="{!(tour.tourValue != '.')}"/> 
+                                        <apex:commandLink action="{!paramSetForNavigation}" value="{!tour.tourValue}" rendered="{!(tour.tourValue == '.')}" id="thedValue1">   
+                                            <apex:param name="cdate" value="{!a.calendarDateFormat}"/>
+                                            <apex:param name="tname" value="{!tour.tourName}"/>
+                                        </apex:commandLink>
+                                        
+                                    </td> 
+                                </tr>                 
+                            </apex:repeat>  
+                        </table>
+                    </td>   
+                </apex:repeat>
+            </tr>   
+         </table>               
+       
+        </apex:pageBlock>
+        
+  
+        
+        <apex:pageBlock id="calendarpanelforsecondmonthTour" rendered="{!AND(customerEngagement.Event_Type__c=='Tour',statusSecondMonth == DISPLAY_SECOND_MONTH,!Error)}">
+        <table>
+        
+            <tr>            
+                <td  style="font-family: Arial Unicode MS;background-color: #003366;color: white;font-weight: bold;
+                font-size:24px;" align="left" colspan="{!ebcCalenderActioncntrlerObj.colspanalist2}">{!ebcCalenderActioncntrlerObj.secondmonth} {!ebcCalenderActioncntrlerObj.secondYear}</td>       
+            </tr>
+            <tr>
+
+                <apex:repeat value="{!ebcCalenderActioncntrlerObj.AvailabilityDetailsNextMonth}" var="a" >
+                    <td align="center" class="calendardateheading">
+                        <apex:outputText value="{!a.dayOfTheweek}" id="theValue2"/>
+                    </td>
+                </apex:repeat>
+            </tr>             
+            <tr>
+                <apex:repeat value="{!ebcCalenderActioncntrlerObj.AvailabilityDetailsNextMonth}" var="a" >
+                    <td align="center" class="calendardateheading">
+                        <apex:outputText value="{!a.calendarDate}" id="theValue3"/>
+                    </td>
+                </apex:repeat>
+            </tr>
+         
+            <tr>
+                <apex:repeat value="{!ebcCalenderActioncntrlerObj.AvailabilityDetailsNextMonth}" var="a" >
+                    <td>
+                        <table>
+                            <apex:repeat value="{!a.TourList}" var="tour">
+                                <tr>
+                                    <td align="center" nowrap="nowrap" colspan="5" style="height:25px;width:125px" bgcolor="{!tour.tourColour}">
+                                        <apex:outputText value="{!tour.tourValue}" rendered="{!(tour.tourValue != '.')}"/> 
+                                        <apex:commandLink action="{!paramSetForNavigation}" value="{!tour.tourValue}" rendered="{!(tour.tourValue == '.')}" id="thedValue1">   
+                                            <apex:param name="cdate" value="{!a.calendarDateFormat}"/>
+                                            <apex:param name="tname" value="{!tour.tourName}"/>
+                                        </apex:commandLink>
+                                    </td> 
+                                </tr>                   
+                            </apex:repeat>  
+                        </table>
+                    </td>   
+                </apex:repeat>
+            </tr>   
+         </table>               
+       
+        </apex:pageBlock>
+        
+        
+        <apex:pageBlock id="calendarpanelforthirdmonthTour" rendered="{!AND(customerEngagement.Event_Type__c=='Tour',statusThirdMonth == DISPLAY_THIRD_MONTH,!Error)}">
+        <table>
+            <tr>            
+                <td  style="font-family: Arial Unicode MS;background-color: #003366;color: white;font-weight: bold;
+                font-size:24px;" align="left" colspan="{!ebcCalenderActioncntrlerObj.colspanalist3}">{!ebcCalenderActioncntrlerObj.thirdmonth}  {!ebcCalenderActioncntrlerObj.thirdYear}</td>       
+            </tr>
+            
+            <tr>
+                <apex:repeat value="{!ebcCalenderActioncntrlerObj.AvailabilityDetailsThirdMonth}" var="a" >
+                    <td align="center" class="calendardateheading">
+                        <apex:outputText value="{!a.dayOfTheweek}" id="theValue2"/>
+                    </td>
+                </apex:repeat>
+            </tr>             
+            <tr>
+                <apex:repeat value="{!ebcCalenderActioncntrlerObj.AvailabilityDetailsThirdMonth}" var="a" >
+                    <td align="center" class="calendardateheading">
+                        <apex:outputText value="{!a.calendarDate}" id="theValue3"/>
+                    </td>
+                </apex:repeat>
+            </tr>
+         
+            <tr>
+                <apex:repeat value="{!ebcCalenderActioncntrlerObj.AvailabilityDetailsThirdMonth}" var="a" >
+                    <td>
+                        <table  >
+                            <apex:repeat value="{!a.TourList}" var="tour">
+                                <tr>
+                                    <td align="center" nowrap="nowrap" colspan="5" style="height:25px;width:125px" bgcolor="{!tour.tourColour}">
+                                        <apex:outputText value="{!tour.tourValue}" rendered="{!(tour.tourValue != '.')}"/> 
+                                        <apex:commandLink action="{!paramSetForNavigation}" value="{!tour.tourValue}" rendered="{!(tour.tourValue == '.')}" id="thedValue1">   
+                                            <apex:param name="cdate" value="{!a.calendarDateFormat}"/>
+                                            <apex:param name="tname" value="{!tour.tourName}"/>
+                                        </apex:commandLink>
+                                    </td> 
+                                </tr>                   
+                            </apex:repeat>  
+                        </table>
+                    </td>   
+                </apex:repeat>
+            </tr>   
+         </table>               
+       
+        </apex:pageBlock>
+        
+        
+        
+        <!-- <apex:pageBlock id="legend" rendered="{!AND(OR(statusFirstMonth == DISPLAY_FIRST_MONTH,statusSecondMonth == DISPLAY_SECOND_MONTH,statusThirdMonth == DISPLAY_THIRD_MONTH),!Error)}" >
+                <apex:pageBlockSection columns="2" id="sitenotes">
+                    <table align="left"> 
+                        <tr><td><b>Color Legend:</b></td></tr>                  
+                        <tr>
+                            <td border="1" bgcolor="#999999">&nbsp;&nbsp;&nbsp;&nbsp;</td><td>Booked</td>
+                        </tr>
+                        <tr>
+                            <td border="1" bgcolor="#008000">&nbsp;&nbsp;&nbsp;&nbsp;</td><td>Available</td>
+                        </tr>
+                        <tr>
+                            <td border="1" bgcolor="#FFC200">&nbsp;&nbsp;&nbsp;&nbsp;</td><td>Waitlisted</td>
+                        </tr>
+                    </table>
+                    <table align="right">   
+                        <tr>
+                            <td><b>Site Notes:</b></td>
+                            <td><b><apex:outputLabel value="{!sitenotes}"/></b></td>
+                            </tr>
+                    </table>
+                </apex:pageBlockSection>                            
+            </apex:pageBlock>   -->
+            
+            <apex:pageBlock rendered="{!displayFlag}" title="Book the other half of the Day?">
+            <apex:pageMessage id="pmBookingDetails" severity="INFO"  strength="3"   title="Book the other half of the Day for SINGLE room?" 
+            summary="Only half day PM for 'Single' room is available for the selected Date. Please click 'Continue with Half day Booking for Single Room' to proceed and click 'GO', else click 'Cancel' to select a different date"/>
+            <apex:pageBlockButtons location="Bottom">
+                 <apex:commandButton value="Continue with Half day Booking for Single Room" action="{!pmBooking}"/>
+                 <apex:commandButton value="Cancel" action="{!redirect}"/>  
+            </apex:pageBlockButtons>
+            </apex:pageBlock>
+            
+            <apex:pageBlock rendered="{!displayFlag_dbl}" title="Book the other half of the Day?">
+            <apex:pageMessage id="pmBookingDetails_dbl" severity="INFO"  strength="3"   title="Book the other half of the Day for DOUBLE room?" 
+            summary="Only half day PM for 'Double' room is available for the selected Date. Please click 'Continue with Half day Booking for Double Room' to proceed and click 'GO', else click 'Cancel' to select a different date"/>
+            <apex:pageBlockButtons location="Bottom">
+                 <apex:commandButton value="Continue with Half day Booking for Double Room" action="{!pmBooking}"/>
+                 <apex:commandButton value="Cancel" action="{!redirect}"/>  
+            </apex:pageBlockButtons>
+            </apex:pageBlock>
+            
+            <apex:pageBlock rendered="{!bothMsgFlag}" title="Book the other half of the Day?">
+            <apex:pageMessage id="pmBookingDetails_dbl_both" severity="INFO"  strength="3"   title="Book the other half of the Day for both SINGLE and DOUBLE room?" 
+            summary="Only half day PM for both 'Single' room and 'Double' room are available for the selected Date. Please click 'Continue with Half day Booking' to proceed and click 'GO', else click 'Cancel' to select a different date"/>
+            <apex:pageBlockButtons location="Bottom">
+                 <apex:commandButton value="Continue with Half day Booking" action="{!pmBooking}"/>
+                 <apex:commandButton value="Cancel" action="{!redirect}"/>  
+            </apex:pageBlockButtons>
+            </apex:pageBlock>
+            
+    </apex:form>
+    <apex:form id="errorformId">
+            <apex:pageBlock id="errorpageblockId">
+                <apex:outputPanel id="confirmDetailsPanel" rendered="{!AND(status == CONFIRM_DETAILS_FOR_BOOKING,!Error)}" styleclass="fontstyle">
+                    <apex:pageMessage id="confirmDetails" severity="INFO"  strength="3"   title="Confirm Details:" summary="Please confirm the details : Event Type = {!customerEngagement.Event_Type__c} , Site = {!siteName} ,  No: of Days ={!noOfDays} "/>
+                    <apex:commandButton action="{!navigationActionFunction}" value="Continue"/>
+                    <apex:commandButton action="{!cancel}" value="Cancel"/>
+                </apex:outputPanel>
+                <apex:outputPanel id="waitingListAvailablePanel" rendered="{!AND(status == CONFIRM_DETAILS_FOR_WAITLIST,!Error)}" styleclass="fontstyle">
+                    <apex:pageMessage id="waitingListAvailable" severity="INFO"  strength="3"   title="Confirm Details:" summary="Please confirm the details : Event Type = {!customerEngagement.Event_Type__c} , Site = {!siteName} ,  No: of Days ={!noOfDays} "/>
+                    <apex:commandButton action="{!bookWaitingList}" value="Continue"/>
+                    <apex:commandButton action="{!cancel}" value="Cancel"/>
+                </apex:outputPanel>
+                <apex:outputPanel id="waitingListUnavailablePanel" rendered="{!AND(status == WAITLIST_UNAVAILABLE,!Error)}" styleclass="fontstyle">
+                    <apex:pageMessage id="waitingListUnavailable" severity="WARNING"  strength="3"   title="Selection Error!" summary="Rooms are available for the date. Please select a room."/>
+                    <apex:commandButton action="{!cancel}"  value="OK"/>
+                </apex:outputPanel>
+                <apex:outputPanel id="roomsUnavailablePanel" rendered="{!AND(status == ROOMS_UNAVAILABLE_FOR_CONSECUTIVE_DAYS,!Error)}"  styleclass="fontstyle">
+                    <apex:pageMessage id="roomsUnavailable" severity="WARNING"  strength="3"   title="Selection Error!" summary="Rooms are unavailable for the Selected consecutive days. Please change your selection."/>
+                    <apex:commandButton action="{!cancel}"  value="OK"/>
+                </apex:outputPanel>
+                <apex:outputPanel id="toursUnavailablePanel" rendered="{!AND(status == TOURS_UNAVAILABLE,!Error)}"  styleclass="fontstyle">
+                    <apex:pageMessage id="toursUnavailable" severity="WARNING"  strength="3"   title="Selection Error!" summary="No Tours are available for the selected site."/>
+                    <apex:commandButton action="{!cancel}"  value="OK"/>
+                </apex:outputPanel>
+                
+               <!--   <apex:outputPanel id="pmAvailablePanel" rendered="{!AND(status == PM_AVAILABLE,!Error)}"  styleclass="fontstyle">
+                    <apex:pageMessage id="pmAvail" severity="INFO"  strength="3"   title="Book the other half of the Day?" summary="Only half day is available for the Date you selected. Do you want to book for 0.5 PM?"/>
+                    <apex:commandButton action="{!pmBooking}"  value="Continue with Booking"/>
+                    <apex:commandButton action="{!cancel}"  value="OK"/>
+                </apex:outputPanel>-->
+              <!--   <apex:outputPanel id="wholeDayBookingPanel" rendered="{!AND(status == BOOK_WHOLE_DAY,!Error)}"  styleclass="fontstyle">
+                    <apex:pageMessage id="wholeDayBooking" severity="INFO"  strength="3"   title="Book whole Day?" summary="Do you want to book the whole day?"/>
+                    <apex:commandButton action="{!bookWholeDayMethod}"  value="Book Whole Day"/>
+                    <apex:commandButton action="{!navigationActionFunction}"  value="Continue with the selected slot"/>
+                </apex:outputPanel>-->
+            </apex:pageBlock>
+            
+            
+    </apex:form>
+</apex:page>

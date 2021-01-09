@@ -1,0 +1,183 @@
+<apex:page standardController="Customer_Engagement__c" extensions="printAgendaController"  contentType="application/msword#PresenterAgenda.doc" cache="true"> 
+    
+    <style>
+        body {
+             font-family:"Museo Sans For Dell";
+             font-size:10pt;
+        }
+        .Bold {
+            font-family: Museo Sans For Dell;size: 10pt;
+            font-weight: bold;
+        } 
+        .top {
+            border-top:thin solid;
+            border-color:#82909F;
+        }
+        
+        .bottom {
+            border-bottom:thin solid;
+            border-color:#82909F;
+        }
+        div.divbreak {
+            page:divbreak;
+        }
+    </style>
+    
+    <apex:pageBlock id="Block1">
+
+        <apex:repeat value="{!agendaList}" var="datename" id="theRepeat">
+        
+            <!--  <table>
+                <tbody>
+                    <apex:repeat value="{!attendees}" var="A">
+                     <tr></tr>
+                     <tr><td>
+                            <apex:outputText value="{!A.Customer_Engagement__r.Name}" styleClass="Bold" style="font-family:Museo For Dell;font-size:16pt;color=#444444;"/>
+                        </td>
+                     </tr>
+                    </apex:repeat>
+                 </tbody>
+            </table> -->
+            <apex:outputText value="{!CEdetails1.Name}" styleClass="Bold" style="font-family:Museo For Dell;font-size:16pt;color=#444444;"/>
+            <br/>
+            <apex:outputText value="{!analyst}" style="font-family:Museo Sans For Dell;font-size:10pt;"/>                      
+            <br/>
+                    <!-- <apex:outputText value="Event Attendees:" rendered="{!isattendee}" styleClass="Bold"/> -->
+            <br/>
+                    
+            <table>
+                <tbody>
+                    <apex:outputText value="Customer Attendees:" rendered="{!isattendee}" styleClass="Bold" style="font-size:10pt;"/>
+                    <apex:repeat value="{!Customers}" rendered="{!isattendee}" var="C">
+                        <tr></tr>
+                        <tr><td>
+                            <!-- <apex:outputText value="{!C.Attendee_Name__c}, {!IF(C.Display_Attendee_Title_As__c!=null,C.Display_Attendee_Title_As__c,C.Role__c)}"/> -->
+                            <apex:outputText value="{!C.Attendee_Name__c}" rendered="{!C.Attendee_Name__c!=null}"/>
+                            <apex:outputText value="{!IF(C.Display_Attendee_Title_As__c!=null||C.Role__c!=null,', ','')}" rendered="{!C.Attendee_Name__c!=null}"/>
+                            <apex:outputText value="{!IF(C.Display_Attendee_Title_As__c!=null,C.Display_Attendee_Title_As__c,C.Role__c)}"/>
+                        </td>
+                        </tr>
+                    </apex:repeat>
+                </tbody>
+            </table>
+                   
+                         
+            <!-- <apex:outputText value="Vendors:" rendered="{!isvendor}" styleClass="Bold"/> -->
+        
+            <table>
+                <tbody>
+                    <apex:outputText value="Vendor Attendees:" rendered="{!isvendor}" styleClass="Bold" style="font-size:10pt;"/>
+                    <apex:repeat value="{!Vendors}" rendered="{!isvendor}" var="v">
+                        <tr></tr>
+                        <tr><td>
+                            <!-- <apex:outputText value="{!v.Attendee_Name__c}, {!IF(v.Display_Attendee_Title_As__c!=null,v.Display_Attendee_Title_As__c,v.Role__c)}"/> -->
+                            <apex:outputText value="{!v.Attendee_Name__c}" rendered="{!v.Attendee_Name__c!=null}"/>
+                            <apex:outputText value="{!IF(v.Display_Attendee_Title_As__c!=null||v.Role__c!=null,', ','')}" rendered="{!v.Attendee_Name__c!=null}"/>
+                            <apex:outputText value="{!IF(v.Display_Attendee_Title_As__c!=null,v.Display_Attendee_Title_As__c,v.Role__c)}"/>
+                        </td>
+                        </tr>
+                    </apex:repeat>
+                </tbody>
+            </table>
+                    <!-- </apex:repeat> -->
+                    
+                    <!-- <apex:outputText value="Account Team Attendees:" rendered="{!isaccountteam}" styleClass="Bold"/> -->
+        
+            <table>
+                <tbody>
+                    <apex:outputText value="Dell Attendees:" rendered="{!IF(isaccountteam=true||isdellteam=true,true,false)}" styleClass="Bold" style="font-size:10pt;"/>
+                    <apex:repeat value="{!Teams}" rendered="{!isaccountteam}" var="T">
+                        <tr></tr>
+                        <tr><td>
+                            <!-- <apex:outputText value="{!T.Attendee_Name__c}, {!IF(T.Display_Attendee_Title_As__c!=null,T.Display_Attendee_Title_As__c,T.Role__c)}"/> -->
+                            <apex:outputText value="{!T.Attendee_Name__c}" rendered="{!T.Attendee_Name__c!=null}"/>
+                            <apex:outputText value="{!IF(T.Display_Attendee_Title_As__c!=null||T.Role__c!=null,', ','')}" rendered="{!T.Attendee_Name__c!=null}"/>
+                            <apex:outputText value="{!IF(T.Display_Attendee_Title_As__c!=null,T.Display_Attendee_Title_As__c,T.Role__c)}"/>                           
+                        </td>
+                        </tr>
+                    </apex:repeat>
+                     
+             <!-- 6196: To include Dell Internal RT attendees -->   
+                    <apex:repeat value="{!Dell_Teams}" rendered="{!isdellteam}" var="D">
+                        <tr></tr>
+                        <tr><td>
+                            <apex:outputText value="{!D.Attendee_Name__c}" rendered="{!D.Attendee_Name__c!=null}"/>
+                            <apex:outputText value="{!IF(D.Display_Attendee_Title_As__c!=null||D.Role__c!=null,', ','')}" rendered="{!D.Attendee_Name__c!=null}"/>
+                            <apex:outputText value="{!IF(D.Display_Attendee_Title_As__c!=null,D.Display_Attendee_Title_As__c,D.Role__c)}"/>                           
+                        </td>
+                        </tr>
+                    </apex:repeat>
+             <!-- 6196 --> 
+                </tbody>
+            </table>
+            
+            <br/>
+                     
+            <!-- <table width="1000"> -->
+                <!-- <th align="center"><center><FONT COLOR="#007DFF" SIZE="5" font-family="Arial Black">AGENDA</FONT></center></th> -->
+            <!--  </table> -->
+            
+            <table>
+                <tr>
+                    <td width="30"/>
+                </tr>
+            </table> 
+        
+            <table>
+               <tr><td width="20"/>
+                    <td width="75"><b>S.Time</b></td>
+                    <td width="250"><b>Item</b></td>
+                    <td width="275"><b>Presenter</b></td>
+                    <td width="300"><b>Requester Notes</b></td>
+                    <td width="300"><b>Analyst Notes</b></td> 
+                </tr>
+            </table> 
+                  
+            <table>
+                <tbody>
+                    <tr>
+                       <td width="1225" class="top "><b><apex:outputLabel value="{!datename.theDate}"/></b></td>
+                   </tr>
+                   <tr>
+                       <td class="bottom "></td>
+                   </tr>
+               </tbody>
+            </table>
+           
+           <!--<apex:repeat value="{!datename.agendaItemsList}" var="assigned" id="theRepeat">-->
+            <table> 
+                <tbody>
+                    <tr></tr>
+                    <apex:repeat value="{!datename.agendaItemsList}" var="assigned" id="theRepeat">
+                        <tr><td width="20"/>
+                            <td width="75" valign="top">
+                                <apex:outputText value="{!assigned.Start_Time__c}"/>
+                            </td>
+                           <td width="250" valign="top">
+                                <!-- <apex:outputField value="{!assigned.item__c}"/> -->   
+                                <apex:outputText value="{!assigned.item__c}" rendered="{!assigned.Catering_or_Not__c = False && assigned.Travel_Id__c = null}" styleClass="Bold"/>
+                                <apex:outputText value="{!assigned.item__c}" rendered="{!assigned.Catering_or_Not__c = True && assigned.Travel_Id__c =null }"/>
+                                <apex:outputText value="{!assigned.item__c}" rendered="{!assigned.Catering_or_Not__c = false && assigned.Travel_Id__c !=null }"/>
+                           </td>
+                           <td width="275" valign="top">
+                                <apex:outputText value="{!assigned.Presenter__c}" rendered="{!assigned.Role__c=null}" styleClass="Bold"/>
+                                <apex:outputText value="{!assigned.Presenter__c}, " rendered="{!assigned.Role__c!=null}" styleClass="Bold"/>
+                                <apex:outputText value="{!assigned.Role__c}" rendered="{!assigned.Role__c!=null}"/>
+                            </td>
+                            <td width="300" valign="top">
+                                <apex:outputField value="{!assigned.AE_Notes_L__c}"/>                     
+                            </td>
+                            <td width="300" valign="top">
+                                <apex:outputField value="{!assigned.Analyst_Notes_L__c}"/>                     
+                            </td>
+                            <br></br>
+                        </tr>
+                    </apex:repeat>
+                 </tbody>
+             </table>
+      
+            <br clear="all" style="page-break-before:always"/>
+            
+        </apex:repeat>     
+    </apex:pageBlock>      
+</apex:page>

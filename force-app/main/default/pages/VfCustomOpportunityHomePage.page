@@ -1,0 +1,218 @@
+<apex:page controller="VFCntrlr_CustomOppHomePage" readOnly="true" tabStyle="Opportunities__tab" cache="true" lightningStylesheets="true">
+  <apex:sectionHeader title="Opportunities" subtitle="Home"/>
+  <apex:messages />
+  
+ 
+  <apex:form >
+      <center><apex:commandButton id="cmdGoToMassUpdate" action="{!goToMassUpdate}" value="Mass Update" /></center>
+      
+      <!-- (start) in case business wants the sections for summ values displayed above the listview, uncomment this block -->
+      <!--
+      <center>
+      <br /><br />
+      <apex:outputLabel id="labelCurrency" rendered="{!displayCurrencyControls}">Choose Currency: &nbsp;&nbsp;</apex:outputLabel>
+      <apex:selectList id="picklistCurrency" rendered="{!displayCurrencyControls}" value="{!CurrencyPicklistValue}" size="1">
+          <apex:selectOptions value="{!CurrencyPicklist}" />
+      </apex:selectList>
+      &nbsp;&nbsp;
+      <apex:commandButton id="cmdConvertCurrency" action="{!convertCurrencyDisplayForSummary}" rendered="{!displayCurrencyControls}" value="Go" />
+      </center>
+      <table width="100%">
+          <tr>
+              <td width="50%">
+                  <apex:pageBlock title="Closing Week">
+                      <apex:pageBlockSection >
+                          <apex:outputLabel value="Commit + Run Rate" for="weekCRR" ></apex:outputLabel>
+                          <apex:outputText id="weekCRR" value="{!strWeekCommitRunRate}"></apex:outputText>
+                          <apex:outputLabel value="Upside" for="weekUpside" ></apex:outputLabel>
+                          <apex:outputText id="weekUpside" value="{!strWeekUpside}"></apex:outputText>
+                          <apex:outputLabel value="Total" for="weekTotal" ></apex:outputLabel>
+                          <apex:outputText id="weekTotal" value="{!strWeekTotal}"></apex:outputText>
+                      </apex:pageBlockSection>
+                  </apex:pageBlock>
+              </td>
+              <td width="50%">
+                  <apex:pageBlock title="Rest of Quarter">
+                      <apex:pageBlockSection >
+                          <apex:outputLabel value="Commit + Run Rate" for="qtrCRR" ></apex:outputLabel>
+                          <apex:outputText id="qtrCRR" value="{!strQtrCommitRunRate}"></apex:outputText>
+                          <apex:outputLabel value="Upside" for="qtrUpside" ></apex:outputLabel>
+                          <apex:outputText id="qtrUpside" value="{!strQtrUpside}"></apex:outputText>
+                          <apex:outputLabel value="Total" for="qtrTotal" ></apex:outputLabel>
+                          <apex:outputText id="qtrTotal" value="{!strQtrTotal}"></apex:outputText>
+                      </apex:pageBlockSection>
+                  </apex:pageBlock>
+              </td>
+          </tr>
+      </table>
+      -->
+      <!-- (end) in case business wants the sections for summ values displayed above the listview, uncomment this block -->
+      
+</apex:form> 
+  <br />
+  
+<!-- <apex:listViews type="Opportunity"/>  -->
+<div style="display:none;"><chatter:feed entityId="{!$User.Id}" /></div>   
+<apex:enhancedList customizable="true" id="list"  type="Opportunity"  height="490" rowsPerPage="25" />
+   
+ <!--  <apex:enhancedList listId="00BQ00000011DJR" height="600" customizable="false" rowsPerPage="25"/> -->
+    
+   
+   <!-- <apex:enhancedList listId="00BQ00000011DJR" height="600" rowsPerPage="25"/>  -->
+  
+  <apex:form >
+      <br />
+      
+      <!-- (start1) in case business wants the sections for summ values displayed above the listview, comment this block -->
+      <center>
+      <apex:outputLabel id="labelCurrency" rendered="{!displayCurrencyControls}"><strong>Choose Currency: &nbsp;&nbsp;</strong></apex:outputLabel>
+      <apex:selectList id="picklistCurrency" rendered="{!displayCurrencyControls}" value="{!CurrencyPicklistValue}" size="1">
+          <apex:selectOptions value="{!CurrencyPicklist}" />
+      </apex:selectList>
+      &nbsp;&nbsp;
+      <apex:commandButton id="cmdConvertCurrency" action="{!convertCurrencyDisplayForSummary}" rendered="{!displayCurrencyControls}" value="Go" />
+      </center>
+      <br />
+      <!-- (end1) in case business wants the sections for summ values displayed above the listview, comment this block -->
+      
+      <table width="100%">
+      
+          <!-- (start2) in case business wants the sections for summ values displayed above the listview, comment this block -->
+          <tr>
+              <td width="50%">
+                  <apex:pageBlock >
+                      <apex:pageBlockSection >
+                          <apex:outputText ><div><font size="3"><strong>Closing This Week</strong></font></div></apex:outputText>
+                          <apex:outputText >&nbsp;</apex:outputText>
+                          <apex:outputText value="Commit + Run Rate"></apex:outputText>
+                          <apex:outputText value=""><div align="right">{!strWeekCommitRunRate}</div></apex:outputText>
+                          <apex:outputText value="Upside"></apex:outputText>
+                          <apex:outputText ><div align="right">{!strWeekUpside}</div></apex:outputText>
+                          <apex:outputText value="Total Weekly Call"></apex:outputText>
+                          <apex:outputText ><div align="right">{!strWeekTotal}</div></apex:outputText>
+                      </apex:pageBlockSection>
+                  </apex:pageBlock>
+              </td>
+              <td width="50%">
+                  <apex:pageBlock >
+                      <apex:pageBlockSection >
+                          <apex:outputText ><div><font size="3"><strong>Rest Of Quarter</strong></font></div></apex:outputText>
+                          <apex:outputText >&nbsp;</apex:outputText>
+                          <apex:outputText value="Commit + Run Rate"></apex:outputText>
+                          <apex:outputText rendered="{!renderQtrCRR}"><div align="right">{!strQtrCommitRunRate}</div></apex:outputText>
+                          <apex:outputLink value="" target="_blank" rendered="{!!renderQtrCRR}">Please click here for report details</apex:outputLink>
+                          <apex:outputText value="Upside"></apex:outputText>
+                          <apex:outputText rendered="{!renderQtrUpside}"><div align="right">{!strQtrUpside}</div></apex:outputText>
+                          <apex:outputLink value="" target="_blank" rendered="{!!renderQtrUpside}">Please click here for report details</apex:outputLink>
+                          <apex:outputText value="Total Quarterly Call"></apex:outputText>
+                          <apex:outputText rendered="{!renderQtrTotal}"><div align="right">{!strQtrTotal}</div></apex:outputText>
+                          <apex:outputLink value="" target="_blank" rendered="{!!renderQtrTotal}">Please click here for report details</apex:outputLink>
+                      </apex:pageBlockSection>
+                  </apex:pageBlock>
+              </td>
+          </tr>
+          <!-- (end2) in case business wants the sections for summ values displayed above the listview, comment this block -->
+          
+          <tr>
+              <td width="50%">
+                  <apex:pageBlock >
+                    <apex:outputText ><div><font size="3"><strong>&nbsp;&nbsp;Reports</strong></font></div></apex:outputText>
+                    <apex:outputText >&nbsp;</apex:outputText>
+                          
+                    <table cellpadding="3">
+                        <tr><td>
+                            <apex:outputLink value="/00O?rt=22&retURL=%2F006%2Fo&open=open&break0=STAGE_NAME&t=title5&c=RD&c=FN&c=AN&c=ON&c=SN&c=FQ&c=PB&c=AG&c=CD&c=CR&c=NS&c=LS&c=TY&s=AM&s=EA&a=AG&details=yes&format=t">
+                            Opportunity Pipeline</apex:outputLink>
+                        </td></tr>
+                        <tr><td>
+                            <apex:outputLink value="/00O?rt=22&retURL=%2F006%2Fo&open=open&break0=STAGE_NAME&sort=STAGE_DURATION&sortdir=down&t=title7&c=FN&c=AN&c=ON&c=SN&c=FQ&c=PB&c=CD&c=TY&s=AM&a=AG&a=SD&details=yes&format=t">
+                            Stuck Opportunities</apex:outputLink>
+                        </td></tr>
+                        <tr><td>
+                            <apex:outputLink value="/00O?rt=22&retURL=%2F006%2Fo&open=closedwon&t=title9&c=FN&c=AN&c=ON&c=SN&c=FQ&c=CD&c=TY&s=AM&a=AG&details=yes">
+                            Closed Opportunities</apex:outputLink>
+                        </td></tr>
+                        <tr><td>
+                            <apex:outputLink value="/00O?rt=114&retURL=%2F006%2Fo&sortdir=down&sort=CD&sdate=8%2F14%2F2012&edate=8%2F14%2F2012&include=all&break0=ON&c=ON&c=OW&c=CR&c=FD&c=OV&c=NV&c=CD&details=yes&format=t">
+                            Opportunity Field History Report</apex:outputLink><br /><br />
+                        </td></tr>
+                        <tr><td>
+                            <apex:outputLink value="/00O/o"><strong>Go to Reports >></strong></apex:outputLink>
+                        </td></tr>
+                    </table>
+                  </apex:pageBlock>
+              </td>
+              <td width="50%">
+                  <apex:pageBlock >
+                      <apex:outputText ><div><font size="3"><strong>&nbsp;&nbsp;Quarterly Summary</strong></font></div></apex:outputText>
+                      <apex:outputText >&nbsp;</apex:outputText>
+                      <table cellpadding="3">
+                          <tr>
+                              <td>
+                                  <apex:outputLabel value="Interval:" for="quarter_q"></apex:outputLabel>
+                              </td>
+                              <td>
+                                  <apex:selectList id="quarter_q" size="1" value="{!RunReportPicklistValue1}">
+                                      <apex:selectOption itemValue="current" itemLabel="Current FQ"></apex:selectOption>
+                                      <apex:selectOption itemValue="curnext1" itemLabel="Current and Next FQ"></apex:selectOption>
+                                      <apex:selectOption itemValue="next1" itemLabel="Next FQ"></apex:selectOption>
+                                      <apex:selectOption itemValue="prev1" itemLabel="Previous FQ"></apex:selectOption>
+                                      <apex:selectOption itemValue="curnext3" itemLabel="Current and Next 3 FQ"></apex:selectOption>
+                                      <apex:selectOption itemValue="curfy" itemLabel="Current FY"></apex:selectOption>
+                                      <apex:selectOption itemValue="curnextfy" itemLabel="Current and Next FY"></apex:selectOption>
+                                      <apex:selectOption itemValue="prevcurfy" itemLabel="Current and Previous FY"></apex:selectOption>
+                                      <apex:selectOption itemValue="prevfy" itemLabel="Previous FY"></apex:selectOption>
+                                      <apex:selectOption itemValue="nextfy" itemLabel="Next FY"></apex:selectOption>
+                                  </apex:selectList>
+                                  <br />
+                              </td>
+                          </tr>
+                          <tr>
+                              <td>
+                                  <apex:outputLabel value="Include:" for="open"></apex:outputLabel>
+                              </td>
+                              <td>
+                                  <apex:selectList id="open" size="1" value="{!RunReportPicklistValue2}">
+                                      <apex:selectOption itemValue="all" itemLabel="All Opportunities"></apex:selectOption>
+                                      <apex:selectOption itemValue="open" itemLabel="Open Opportunities"></apex:selectOption>
+                                      <apex:selectOption itemValue="closed" itemLabel="Closed Opportunities"></apex:selectOption>
+                                      <apex:selectOption itemValue="closedwon" itemLabel="Closed/Won Opportunities"></apex:selectOption>
+                                  </apex:selectList>
+                                  <br />
+                              </td>
+                          </tr>
+                          <tr>
+                              <td></td>
+                              <td>
+                                  <apex:commandButton id="cmdGoToRunReportQtrSummary" action="{!goToRunReportQtrSummary}" value="Run Report" />
+                              </td>
+                          </tr>
+                      </table>
+                  </apex:pageBlock>
+              </td>
+          </tr>
+          <tr>
+              <td width="50%">
+                  <apex:pageBlock >
+                      <apex:outputText ><div><font size="3"><strong>&nbsp;&nbsp;Tools</strong></font></div></apex:outputText>
+                      <apex:outputText >&nbsp;</apex:outputText>
+                      <table cellpadding="3">
+                      <!--
+                          <tr><td>
+                              <apex:outputLink value="/acc/salesteamreassignwizard.jsp?retURL=%2F006%2Fo&reassignid=Opportunity">
+                              Mass Reassign Opportunity Teams</apex:outputLink>
+                          </td></tr>
+                      -->
+                          <tr><td>
+                              <apex:outputLink value="http://intranet.dell.com/dept/setraining/Pages/SFDCmain.aspx" target="_blank">
+                              Sales Methodologies</apex:outputlink>
+                          </td></tr>
+                      </table>
+                  </apex:pageBlock>
+              </td>
+              <td width="50%">
+              </td>
+          </tr>
+      </table>
+  </apex:form>
+</apex:page>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Related_CE__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <inlineHelpText>If your customer has already attended a Customer Engagement, please link that CE record to this request</inlineHelpText>
+    <label>Related Customer Engagement</label>
+    <referenceTo>Customer_Engagement__c</referenceTo>
+    <relationshipLabel>Customer Engagements – RETIRED</relationshipLabel>
+    <relationshipName>Customer_Engagements</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

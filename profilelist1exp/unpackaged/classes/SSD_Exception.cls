@@ -1,0 +1,1 @@
+public class SSD_Exception extends Exception{}

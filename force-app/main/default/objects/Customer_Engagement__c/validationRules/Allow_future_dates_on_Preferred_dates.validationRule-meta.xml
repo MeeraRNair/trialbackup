@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Allow_future_dates_on_Preferred_dates</fullName>
+    <active>true</active>
+    <description>Validate the “Preferred Start Date” and “Preferred End Date” fields to allow future dates only.</description>
+    <errorConditionFormula>AND( 
+NOT($Setup.System_Behavior_Bypasser__c.Bypass_Opportunity_VRs__c),
+NOT(CONTAINS($Profile.Name , &quot;Customer Engagement&quot;)), RecordType.Name = &apos;Dell Solution Centers&apos;, 
+OR(GSL_Start_Date__c &lt; TODAY(), GSL_End_Date__c &lt; TODAY()) 
+)</errorConditionFormula>
+    <errorMessage>The Preferred Dates chosen occur in the past. Please review your request and updated Preferred Start/End Dates to future dates.</errorMessage>
+</ValidationRule>

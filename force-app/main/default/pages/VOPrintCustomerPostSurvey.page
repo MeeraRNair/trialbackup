@@ -1,0 +1,377 @@
+<apex:page standardController="VisitOps__Survey__c" extensions="VOPrintCustomerPostSurveyExtension"
+           showHeader="false" title="Customer PostSurvey" language="{!strSelectedLang}">
+    <apex:form id="formid">
+     <style>
+* {
+    font-family: Arial;
+}
+
+.sessionHeadingOTOP {
+    border-color: #007DB8 !important;
+    border-style: solid !important;
+    background-color: transparent !important;
+    color: #808080 !important;
+    border-width: 2px;
+    padding: 15px !important;
+    word-wrap: break-word;
+    }
+    
+ .tableRadioCount {
+	    text-align: center;
+	    color: #808080 !important;
+	    font-family: Arial;
+	    font-size: 0.8em !important;
+	    height: 10px;
+	    width: 50%;
+	    padding-right: 4%;
+	}
+</style>
+        <style>
+        @page
+           {
+            size: 8.3in 11.7in;
+            size: portrait;
+            }
+       @media print {
+        .agSession, .list_sf, .tableRadioClass, .tableRadioClasstr, .inputField, .questions{ page-break-inside : avoid; }
+        .tableRadioClass, .tableRadioClasstr,.inputField{ page-break-before: avoid;  padding:10px;}
+        
+               @page
+           {
+            size: 8.3in 11.7in;
+            size: portrait;
+            }
+            
+            .list_sf{width:95% !important; padding:0px !important;}
+          }
+
+          .tableRadioClass{
+               width:800px !important;
+          }
+          
+          .listStyle {
+              color:#808080 !important;
+          }
+          .questions{
+               margin-bottom:5px !important; 
+          }
+          .surveyQuestions li {
+               margin-bottom: 10px;
+               page-break-inside: avoid;
+           }
+           .surveyDetails{
+               width:65%;
+           }
+           .labelText{
+               width:17%;
+           }
+           .fieldText {
+                width: 75% !important;
+                word-wrap: break-word;
+            }
+            .agendaSessionDiv tr{
+                page-break-inside: avoid;
+            }
+                    
+        </style>
+        <script>
+        var DOMId = 'j_id0:formid:';
+        function setHiddenVal(eleVal, eleName)
+        {
+
+            document.getElementById(DOMId+eleName).value = eleVal;
+            alert(surveyRecord.Confidence_Before_Engagement__c);
+        }
+        
+        function setRadioButtonValues()
+        {
+            var arr = document.getElementsByTagName('input');
+            for(var i=0;i<arr.length;i++)
+            {
+                var arrEle = arr[i];
+                if(arrEle.type == 'radio')
+                {
+                    if(document.getElementById(DOMId+arrEle.name).value)
+                    {
+                        if(document.getElementById(DOMId+arrEle.name).value == arrEle.value)
+                        {
+                            arrEle.checked = true;
+                        }
+                    }
+                }
+            }
+        }
+        
+        function disableRadioInputs()
+        {
+            var arr = document.getElementsByTagName('input');
+            for(var i=0;i<arr.length;i++)
+            {
+                var arrEle = arr[i];
+                if(arrEle.type == 'radio')
+                {
+                    arrEle.disabled = true;
+                }
+            }
+        }
+        </script>
+        <apex:styleSheet value="{!$Resource.VisitOps__survey_css}" />
+        <apex:styleSheet value="{!$Resource.DellPrintSurvey}" />
+        <apex:includeScript value="{!$Resource.VisitOps__jquery1_11_1_min}" />
+        <apex:includeScript value="{!$Resource.VisitOps__function_js}" />
+        <div class="page">
+        <div class="rightContent">
+            <apex:image url="{!DocumentLogoUrl}" style="padding-left:12px;"/> <!--  style="padding-left:12px;width: 207px;height: 28px;" -->
+            <div class="screenHeading" style="padding-left:12px;"><br/>{!$Label.VO_Engagement_Survey}</div>
+            <apex:pageMessages /> 
+            <apex:outputPanel rendered="{!visitRecord!=null && surveyRecord!=null}">
+                
+                <div class="surveyDetails">
+                    <div class="spacing">
+                        <apex:outputPanel id="VisitDetails" rendered="{!visitRecord!=null}">
+                            <div class="row">
+                                
+                                <div class="labelText">{!$Label.visitops__name}</div>
+                                <div class="fieldText">
+                                    <apex:outputField value="{!visitRecord.VisitOps__VisitName__c}" />
+                                </div>
+                              <!--
+                                <label style="color: #4d4d4d;margin-right: 100px;" >Name</label><apex:outputField style="color: #898989;" value="{!visitRecord.VisitOps__VisitName__c}" />
+                                -->
+                            </div>
+                            <div class="row">
+                                
+                                <div class="labelText" style="width:105px !important;">{!$Label.VisitOps__Attendee_Name}</div>
+                                <!--
+                                <label style="color: #4d4d4d;margin-right: 32px;" >Attendee Name</label>
+                                <apex:outputField style="color: #898989;" value="{!attendeeRecord.VisitOps__FirstName__c}" />&nbsp;
+                                <apex:outputField style="color: #898989;" value="{!attendeeRecord.VisitOps__LastName__c}"/> -->
+                            </div>
+                        </apex:outputPanel>
+                    </div>
+                </div>
+				<div class="row" style="margin-bottom: 30px; color: #808080; padding-left: 12px;">
+                    <apex:outputText escape="false" value="{!$Label.VO_Dell_Privacy_Statement2}"/>
+				</div>
+              <!--  <div class="row"> -->
+                    <ol class="surveyQuestions">
+                        <li class="list_sf" >
+                            
+                            <div class="questions">
+                                <apex:outputText value="{!$ObjectType.VisitOps__Survey__c.fields.VisitOps__Likely_To_Recommend_Post__c.inlineHelpText}" />
+                            </div>                     
+                            
+                            <div class="ratings">
+                                
+                                <div class="likelyDiv" > <span class="ratingTxt">{!$Label.VisitOps__Not_Likely_at_all}</span> </div>
+                                <div  class="ntlikelyDiv" > <span class="ratingTxt">{!$Label.VisitOps__Extremely_Likely}</span> </div>
+                                <!--
+                                <div class="cBoth"></div> -->
+                                
+                                <div class="ratingCount">
+                                    <div class="row">
+                                        <div>
+                                            <apex:selectRadio value="{!surveyRecord.VisitOps__Likely_To_Recommend_Post__c}" layout="table"
+                                                              styleClass="radioClass" dir="LTR" disabled="{!flag}">
+                                                <apex:selectOptions value="{!RadioOptions}" />
+                                            </apex:selectRadio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </li>
+                        <ol type="a" class="surveyQuestions" >
+                            <li class="list_sf" >
+                            
+                                <div class="questions">
+                                    <apex:outputText value="{!$ObjectType.VisitOps__Survey__c.fields.WhatInfluencedYourDecision__c.inlineHelpText}" />
+                                </div>
+                                
+                                <div>
+                                    <apex:inputTextArea value="{!surveyRecord.WhatInfluencedYourDecision__c}" style="width:400px;height:60px;padding-left:1.11px;padding-right:1.11px; border:none" />
+                                </div>
+                                
+                            </li>
+                        </ol> 
+                        
+                        
+                        <li class="list_sf" ><!-- style="color:#808080 !important;" -->
+                                                        
+                            <div class="questions">
+                                <apex:outputText value="{!$ObjectType.VisitOps__Survey__c.fields.Confidence_Before_Engagement__c.inlineHelpText}"/>
+                            </div>    
+                            
+                            <table style="width:100%;" class="tableRadioClass">
+                                
+                                <tr class="tableRadioClasstr">
+                                    <td class="tableRadioClasstd">&nbsp;</td>
+                                    <td class="tableRadioClasstd">{!$Label.VisitOps__Not_Confident_at_all}</td>
+                                    <td class="tableRadioClasstd">{!$Label.VO_Somewhat_Confident}</td>
+                                    <td class="tableRadioClasstd">{!$Label.VO_Neutral}</td>
+                                    <td class="tableRadioClasstd">{!$Label.VO_Confident}</td>
+                                    <td class="tableRadioClasstd">{!$Label.VO_Very_Confident}</td>
+                                    
+                                </tr>
+                                
+                                <tr class="tableRadioClasstr">
+                                    <td class="tableRadioClassth" style="color:#808080 !important;">{!$Label.VO_Before_your_Engagement}</td>
+                                    <apex:repeat value="{!EngProgOptsNolabel}" var="EngImpOpt">
+                                        <td class="tableRadioClasstd"><input type="radio" value="{!EngImpOpt.Value}" dir="LTR" name="Confidence_Before_Engagement" onClick="setHiddenVal(this.value, this.name);"/></td>
+                                    </apex:repeat>
+                                </tr>
+                                <tr class="tableRadioClasstr">
+                                    <td  class="tableRadioClassth" style="color:#808080 !important;">{!$Label.VO_After_your_Engagement}</td>
+                                    <apex:repeat value="{!EngProgOptsNolabel}" var="EngImpOpt">
+                                        <td class="tableRadioClasstd"><input type="radio" value="{!EngImpOpt.Value}" dir="LTR" name="Confidence_After_Engagement" onClick="setHiddenVal(this.value, this.name);"/></td>
+                                    </apex:repeat>
+                                </tr>
+                            </table>
+                            <apex:inputHidden value="{!surveyRecord.Confidence_Before_Engagement__c}" id="Confidence_Before_Engagement"/>
+                            <apex:inputHidden value="{!surveyRecord.Confidence_After_Engagement__c}" id="Confidence_After_Engagement"/>
+                        </li> 
+                        
+                        <li class="list_sf" >
+                            <!-- style="color:#808080 !important;" -->
+                            <div class="questions">
+                                <apex:outputText value="{!$ObjectType.VisitOps__Survey__c.fields.VisitOps__Satisfaction_Rating__c.inlineHelpText}"/>
+                            </div>
+                            
+                            <div class="ratings">
+                                <table style="width:100%;" class="tableRadioClass">
+                                    <tr class="tableRadioClasstr">                                        
+                                        <td class="tableRadioClasstd">{!$Label.VO_Very_Dissatisfied}</td>
+                                        <td class="tableRadioClasstd">{!$Label.VisitOps__Dissatisfied}</td>
+                                        <td class="tableRadioClasstd">{!$Label.VO_Neutral}</td>
+                                        <td class="tableRadioClasstd">{!$Label.VO_Satisfied}</td>
+                                        <td class="tableRadioClasstd">{!$Label.VisitOps__Very_Satisfied}</td>                                        
+                                    </tr>
+                                    <tr class="tableRadioClasstr">
+                                        <apex:repeat value="{!RadioOpts1}" var="RadioOptsVar">
+                                            <td class="tableRadioCount"><input type="radio" value="{!RadioOptsVar.Value}" dir="LTR" name="overall_rate" onClick="setHiddenVal(this.value, this.name);"/>
+                                            </td>
+                                        </apex:repeat>
+                                    </tr>
+                                     <tr class="tableRadioClasstr"> 
+                                    	<td class="tableRadioCount">1</td>
+                                        <td class="tableRadioCount">2</td>
+                                        <td class="tableRadioCount">3</td>
+                                        <td class="tableRadioCount">4</td>
+                                        <td class="tableRadioCount">5</td>
+                                    </tr>
+                                    
+                                </table>
+                                
+                                <apex:inputHidden value="{!surveyRecord.VisitOps__Satisfaction_Rating__c}" id="overall_rate"/>
+                                
+                            </div>
+                        </li>
+                        
+                        <li class="list_sf" >
+                            <div class="questions">
+                                <apex:outputText value="{!$ObjectType.VisitOps__Survey__c.fields.Anything_Not_Addressed_During_Engagement__c.inlineHelpText}"/>
+                            </div>
+                           
+                            <div>
+                                <apex:inputTextArea value="{!surveyRecord.Anything_Not_Addressed_During_Engagement__c}"
+                                                    style="width:400px;height:60px;border:none" 
+                                                    styleClass="inputField" />
+                            </div>
+                        </li>
+                        
+                    </ol>
+               <!-- </div> -->
+                
+                <apex:outputPanel rendered="{!agendaPresenterWrapperList!=null && agendaPresenterWrapperList.size>0}">
+                    <div class="agSession">
+                        <div class="questions" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!$Label.VO_Session_rating}</div>
+                        
+                        <div class="agendaSessionDiv">
+                            <div class="questions">
+                                <div class="inputField">
+                                    <apex:outputText value="{!$ObjectType.VisitOps__Agenda_Survey__c.fields.VisitOps__Session_Rating__c.inlineHelpText}" styleClass="color:#808080"/>
+                                </div>
+                            </div>
+                            <table>
+                                <tr>
+                                    <th>
+                                    </th>
+                                    <th style="padding-left:74px;padding-right:10px;padding-bottom:18px;width:425px">
+                                        <div class="likelyDiv1">
+                                            <span class="ratingTxt" style="margin-left: 20px;">{!$Label.VO_Poor}</span>
+                                        </div>
+                                        <div class="ntlikelyDiv2">
+                                            <span class="ratingTxt" style="margin-right: -95px;">{!$Label.VO_Excellent}</span>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <apex:repeat value="{!agendaPresenterWrapperList}" var="AG">
+                                    <tr>
+                                        <td class="sessionHeadingOTOP">
+                                            <!-- <b><ins>Session Name</ins>:</b>-->
+                                            <apex:outputField value="{!AG.agendaSurvey.VisitOps__Agenda__r.VisitOps__Agenda_Title__c}"
+                                                              /><br/></td>
+                                        <td>
+                                            <div class="">
+                                                <apex:selectRadio value="{!AG.agendaSurvey.VisitOps__Session_Rating__c}" layout="table"
+                                                                  styleClass="radioClass" disabled="{!flag}">
+                                                    <apex:selectOptions value="{!RadioOpts}" />
+                                                </apex:selectRadio>
+                                            </div>
+                                        </td>
+                                    </tr> 
+                                    
+                                    <apex:repeat value="{!AG.presenterSurveyList}" var="lp" rendered="{!showPresentersGrid}">
+                                        <tr>
+                                            <td style="padding-left:20px;color:#666666"><b>{!$Label.visitops__presenter} : </b>
+                                                <apex:outputLabel value="{!lp.VisitOps__Presenter_Agenda_Link__r.VisitOps__Presenter_Name__c}"
+                                                                  />
+                                            </td>
+                                            <td>
+                                                <div class="">
+                                                    <apex:selectRadio value="{!lp.VisitOps__Presenter_Rating__c}" layout="table" styleClass="radioClass"
+                                                                      disabled="{!flag}">
+                                                        <apex:selectOptions value="{!RadioOpts}" />
+                                                    </apex:selectRadio>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </apex:repeat>
+                                </apex:repeat>
+                            </table>
+                            <br/><br/>
+                            <div style="page-break-inside: avoid;">
+                                <div class="questions">
+                                    <apex:outputText value="{!$Label.VO_Discussion_Comments}" />
+                                </div>
+                                <div>
+                                    <apex:inputTextArea value="{!surveyRecord.Discussion_Comments__c}" style="width:400px;height:60px;padding-left:1.11px;padding-right:1.11px"
+                                                        disabled="{!flag}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </apex:outputPanel>
+                <script type="text/javascript">
+                setRadioButtonValues();
+                </script>
+                <center>
+                </center><br/><br/>
+            </apex:outputPanel>
+        </div>
+        </div>
+    </apex:form>
+    <script>
+    $(document).ready(function(){
+       window.print();
+    });
+    
+    function alertUser(errorOccured){
+        if(errorOccured=='false' || errorOccured==false) {
+            alert('Survey have been submitted successfully. You may now close the window.');
+        } 
+    }
+    </script>
+    
+    
+</apex:page>

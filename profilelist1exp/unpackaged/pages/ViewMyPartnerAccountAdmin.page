@@ -1,0 +1,170 @@
+<!-- 
+Story       CR Number   Release No      Date            Created By     Modified By     Description
+--------    ---------   ----------      -----------     ------------   -----------     -----------
+#5780924                FY20-0402       08-Nov-2018     Varsha                         Display all master group account admins
+on selection of partner track filter
+-->
+
+<apex:page controller="ViewMyPartnerAccountAdminCtrl" tabStyle="Account" showHeader="false" sidebar="false" standardStylesheets="true" readOnly="true">
+    <apex:form > 
+        <!--CSS-->
+        <apex:stylesheet value="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'css/jquery.dataTables.css')}"/>
+             <style type="text/css">
+                        .sorting {
+                        background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_both.png') }') no-repeat center right !important;
+                        padding-right: 20px !important;
+                        }
+                        .sorting_asc {
+                        background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_asc.png') }') no-repeat center right !important;
+                        padding-right: 20px !important;
+                        }
+                        .sorting_desc {
+                        background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_desc.png') }') no-repeat center right !important;
+                        padding-right: 20px !important;
+                        }
+                        .sorting_asc_disabled {
+                        background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_asc_disabled.png') }') no-repeat center right !important;
+                        padding-right: 20px !important;
+                        }
+                        .sorting_desc_disabled {
+                        background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_desc_disabled.png') }') no-repeat center right !important;
+                        padding-right: 20px !important;
+                        }
+                        table.dataTablee tr.odd { background-color: white;border-bottom-width:1px }
+                        table.dataTablee tr.even { background-color: white;border-bottom-width:1px }
+                        .bPageBlock .list .last>td { border-bottom-width:1px }
+                        .apexp .bPageBlock .detailList .list .last td { border-bottom-width:1px }
+                        table.dataTablee tr.odd td.sorting_1 { background-color: white; }
+                        table.dataTablee tr.odd td.sorting_2 { background-color: white; }
+                        table.dataTablee tr.odd td.sorting_3 { background-color: white; }
+                        table.dataTablee tr.even td.sorting_1 { background-color: white; }
+                        table.dataTablee tr.even td.sorting_2 { background-color: white; }
+                        table.dataTablee tr.even td.sorting_3 { background-color: white; }
+                        .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate {
+                        padding: 3px;
+                        }
+             </style>
+             <style>
+                    body .bPageBlock .pbBody .red .pbSubheader{
+                    background-color:#c00000;
+                    }
+                    body .bPageBlock .pbBody .grey .pbSubheader{
+                    background-color:#c0c0c0;
+                    }
+                    body .bPageBlock .pbBody .grey .pbSubheader h3{
+                    color:#000;
+                    }
+                 
+                             
+            .pbHeader .pbTitle h2, .pbHeader .pbTitle h2 a, .pbHeader .pbTitle h3, .pbHeader .pbTitle h3 a, .pbSubheader h3, .pbSubheader h3 a {
+            font-size: 14px;
+            }
+            
+            .tooltip {
+            position: relative;
+            display: grid;
+            text-decoration: underline;
+            }
+            
+            .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: white;
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            top: -5px;
+            left: 110%;
+            overflow:auto; 
+            border-style: 1px solid black;
+            }
+            
+            .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            margin-top: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent black transparent transparent;
+            
+            }
+            .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+            }
+            
+            div:hover {text-decoration:none;} /*BG color is a must for IE6*/
+            div.tooltip p {display:none; padding:2px 3px;margin-top: 4px; margin-left:8px; height: 100px; overflow:auto;}
+            div.tooltip:hover p{display:block; position:static; background:#ffffff; border:1px solid #cccccc; color:#6c6c6c; border-color: darkgray; z-index: 9999;}
+            
+       
+            </style>
+                    
+        
+        
+        
+        
+        <!--CSS Ends here-->
+        <apex:pageBlock id="header" >
+          <apex:facet name="header">
+          <span style=" font-size: 20px;color: white;"> {!$Label.View_My_Partner_Account_Administrators}</span>
+        </apex:facet> 
+  
+
+            <br/><br/>
+            <div align="center" draggable="false">
+                <apex:outputLabel value="{!$Label.Search_by_Partner_Track}"></apex:outputLabel>
+                &nbsp;&nbsp;&nbsp;
+                <apex:selectList multiselect="false" size="1" value="{!strPartnerTrackId}" >
+                    <apex:selectOptions value="{!PartnerTracks}" ></apex:selectOptions>
+                </apex:selectList>
+                &nbsp;&nbsp;&nbsp;
+                <apex:commandButton value="{!$Label.Filter}" style="" action="{!getContacts}"/> 
+            </div>
+            <br/><br/><br/>
+            <!-- Results Layout Starts -->
+            <apex:pageBlockSection title="{!$Label.Results}" collapsible="false" columns="1">
+                <apex:outputPanel rendered="{!bNoResults}">
+                    <!--  Display a specific message if no results found    style="overflow:auto; height:150px" -->
+                    <apex:pageMessage severity="ERROR"
+                                      strength="3"
+                                      title="{!$Label.no_records_found}"/>
+                </apex:outputPanel>
+                                    
+                <apex:outputPanel layout="block"  rendered="{!bNoResults == false}"> 
+                    <apex:pageBlockTable value="{!listConWrap}" var="mapCon" id="contacts_list" styleClass="dataTablee"   >
+                        <apex:column headerValue="{!$Label.first_name}" value="{!mapCon.con.FirstName}"></apex:column>
+                        <apex:column headerValue="{!$Label.last_name}" value="{!mapCon.con.LastName}"></apex:column>
+                        <apex:column headerValue="{!$Label.Email_Address}" value="{!mapCon.con.Partner_User__r.Email}"></apex:column>
+                        <apex:column headerValue="{!$Label.Phone_No}" value="{!mapCon.con.Phone}"></apex:column>
+                        <apex:column headerValue="{!$Label.Partner_Group_Admin}" value="{!mapCon.con.Enable_as_Partner_Group_Administrator__c}"></apex:column>
+                        <apex:column headerValue="{!$Label.Partner_Track_Admin}" value="{!mapCon.con.Partner_User_Partner_Admin__c}"></apex:column>
+                        <apex:column headerValue="{!$Label.Partner_Tracks}">
+                            <apex:repeat value="{!mapCon}" var="egTracks">
+                                {!egTracks.strConPartnerTrackNames}<br/>
+                                <apex:outputPanel rendered="{!egTracks.strConPartnerTrackToolTip != ''}">
+                                    <div class="tooltip" href="#" >{!$Label.MoreForPT}<p><apex:outputText value="{!egTracks.strConPartnerTrackToolTip}" escape="false"></apex:outputText></p></div>
+                                </apex:outputPanel>
+                            </apex:repeat>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                    <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'js/jquery.js')}"></script>
+                    <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'js/jquery.dataTables.js')}"></script>
+                    <script type="text/javascript" language="javascript">
+                    var j$ = jQuery.noConflict();
+                    j$('table.dataTablee').dataTable({
+                        sPaginationType: "full_numbers"
+                    }); 
+                    </script>
+               </apex:outputPanel> 
+                
+            </apex:pageBlockSection>
+            <!-- Results Layout Ends-->
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

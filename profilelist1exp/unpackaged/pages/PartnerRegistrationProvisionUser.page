@@ -1,0 +1,589 @@
+<!-- * 
+* Revision CR Number   Release No      Date            Modified By     Description
+* -------- ---------   ----------      -----------     ------------    -----------
+* 6.0 -    CR 15997    FY19-DCS-0802    5-June-2018:   manip4          Removed  'Provision user in Net Exam?'field and its logic, story# 4988525
+* 7.0                  FY19-0402        26-Nov-18      Michael         Net New Partner Onboarding Story 5748109
+*/-->
+<apex:page id="thePage" controller="PartnerRegistrationProvisionUserCtrlExt" showHeader="false" sidebar="false" standardStylesheets="true" tabStyle="Partner_Request__c" action="{!doOnLoad}">
+    <!-- INCLUDE STYLESHEET  -->
+    <apex:stylesheet value="{!$Resource.PartnerRegistrationProvUser_css}"/>
+    <script>
+    /*
+    alert(parseFloat(navigator.appVersion.substring(navigator.appVersion.indexOf("MSIE")+5)));
+    if(Sarissa._SARISSA_IS_IE && parseFloat(navigator.appVersion.substring(navigator.appVersion.indexOf("MSIE")+5))<=8) {
+        window.XMLSerializer = function(){};
+        window.XMLSerializer.prototype.serializeToString=function(oNode){return oNode.xml;}
+    }
+    */
+    </script>
+    <!-- CONSTANTS -->
+    <form id="constants">
+        <input type="hidden" id="email" value="{!userData.email}"/>
+        <input type="hidden" id="firstName" value="{!userData.firstName}"/>
+        <input type="hidden" id="lastName" value="{!userData.lastName}"/>
+        <input type="hidden" id="countryCode" value="{!userData.countryCode}"/>
+        <input type="hidden" id="region" value="{!userData.region}"/>
+        <input type="hidden" id="language" value="{!userData.language}"/>
+        <input type="hidden" id="newsletterOptIn" value="{!userData.newsletterOptIn}"/>
+        <input type="hidden" id="ssoLinkMyAcctUrl" value="{!ssoLinkMyAcctUrl}"/>
+        <input type="hidden" id="IsPartnerRequest" value="{!isPartnerRequest}"/>
+        <input type="hidden" id="ImageURLCheckboxUnchecked" value="{!$Resource.checkbox_unchecked}"/>
+        <input type="hidden" id="ImageURLCheckboxChecked" value="{!$Resource.checkbox_checked}"/>
+        <input type="hidden" id="percentImage_back1" value="{!$Resource.percentImage_back1}"/>
+        <input type="hidden" id="percentImage_back2" value="{!$Resource.percentImage_back2}"/>
+        <input type="hidden" id="percentImage_back3" value="{!$Resource.percentImage_back3}"/>
+        <input type="hidden" id="percentImage_back4" value="{!$Resource.percentImage_back4}"/>
+        <!-- CR2087 -->
+        <input type="hidden" id="IsPortalEnabled" value="{!isPortalEnabled}"/>
+        <!-- Meera: 15.3 CMAP Addition -->
+        <!--<input type="hidden" id="isalowedLeadMAnagement" value="{!state.isalowedLeadMAnagement}"/>-->
+        <!-- CR 10733 -->
+    </form>
+    
+    <!-- MARKUP -->
+    <div id="all">
+        <div id="statusPanel">
+            <div id="header" class="statusContainer">Provisioning User: {!userData.firstName} {!userData.lastName}</div>
+            <!-- DISPLAY PAGE LOAD ERROR IF ONE EXISTS -->
+            <apex:outputPanel rendered="{!errorOccurred}">
+                <div id="pageLoadError">
+                    <apex:variable var="typeName" 
+                        value="{!IF(isPartnerRequest,'Partner Request','Contact')}" />
+                    <!--
+                    <apex:variable rendered="{!errorCode == strMISSINGPARAM }" var="errorMessage" 
+                        value="Navigation error.  'ID' HTTP Parameter is missing." />
+                    <apex:variable rendered="{!errorCode == strRECORDNOTFOUND}" var="errorMessage" 
+                        value="Navigation error.  Record with id '{!$CurrentPage.parameters.id}' cannot be found." />
+                    --><apex:variable rendered="{!errorCode == INVALID_REC_TYPE}" var="errorMessage"
+                        value="Invalid Partner Request record type." />
+                    <apex:variable rendered="{!errorCode == COUNTRY_NOT_FOUND}" var="errorMessage"
+                        value="This {!typeName} is not associated to a Country.  In order to provision this user, the Account linked to this {!typeName} must contain a valid country code in the Account Country Code field." />
+                    <apex:variable rendered="{!errorCode == COUNTRY_NOT_ENABLED}" var="errorMessage"
+                        value="This {!typeName} is associated to a Country ({!userData.countryName}) which has not been enabled for the PartnerDirect portal." />
+                    <apex:variable rendered="{!errorCode == ACCT_NOT_LINKED}" var="errorMessage" 
+                        value="This {!typeName} is not linked to an Account." />
+                    <apex:variable rendered="{!errorCode == ACCT_NOT_PARTNER}" var="errorMessage" 
+                        value="This {!typeName} is linked to an Account which has not been enabled as a Partner." />
+                    <apex:variable rendered="{!errorCode == CONTACT_NO_EMAIL}" var="errorMessage" 
+                        value="This {!typeName} contains a blank email address." />
+                    <apex:variable rendered="{!errorCode == ACCOUNT_NOT_UPDATED}" var="errorMessage" 
+                        value="Unable to copy Partner Request's information to Account." />
+                    <apex:variable rendered="{!errorCode == strNotValidMasterGroup}" var="errorMessage" 
+                        value="Contact associated to different Master Group" />
+                    <apex:variable rendered="{!errorCode == strRelationshipNotExist}" var="errorMessage" 
+                        value="Relationship yet to be build" />
+                    <apex:pageMessage severity="ERROR"
+                        strength="3"
+                        title="Error: User{!IF(ISNULL(userData),' ',' ' & userData.firstName & ' ' & userData.lastName & ' ')}cannot be provisioned."
+                        detail="{!errorMessage}"/>
+                </div>
+            </apex:outputPanel>             
+            <!-- OTHERWISE, DISPLAY PROVISION USER SCREEN -->
+            <apex:outputPanel rendered="{!NOT(errorOccurred)}">
+                <!-- INCLUDE SCRIPTS -->
+                <apex:includeScript value="{!$Resource.jsr_class}"/>
+                <apex:includeScript value="{!$Resource.prototype}"/>
+                <apex:includeScript value="{!$Resource.scriptaculous_builder}"/>
+                <apex:includeScript value="{!$Page.jsProgressBarHandler}"/>
+                <apex:includeScript value="{!$Resource.PartnerRegistrationProvUser_js}"/>
+                <div id="questions" class="statusContainer">
+                 
+                    <apex:pageMessage severity="CONFIRM" strength="3" title="Please answer the following question(s):" />
+                    <table border="0" cellpadding="0" cellspacing="0">
+                       
+                        <tr>
+                            <td>Enable as Partner Track Administrator?</td>
+                            <td>
+                                <apex:outputText rendered="{!state.enablePartnerAdmin == 'true'}">
+                                    &nbsp;
+                                    <label><input type="radio" id="enabledPartnerAdmin" name="enabledPartnerAdmin" value="Yes" checked="checked"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" name="enabledPartnerAdmin" value="No"/>No</label>
+                                </apex:outputText>
+                                <apex:outputText rendered="{!state.enablePartnerAdmin != 'true'}">
+                                    &nbsp;
+                                    <label><input type="radio" id="enabledPartnerAdmin" name="enabledPartnerAdmin" value="Yes"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" name="enabledPartnerAdmin" value="No" checked="checked"/>No</label>
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                        <!-- Added By Michael-->
+                        <tr>
+                            <td>Enable as Partner Group Administrator?</td>
+                            <td>
+                                <apex:outputText rendered="{!state.enableAsPartnerGroupAdmin == 'true'}">
+                                    &nbsp;
+                                    <label><input type="radio" id="enablePartnerGroupAdmin" name="enablePartnerGroupAdmin" value="Yes" checked="checked"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" name="enablePartnerGroupAdmin" value="No"/>No</label>
+                                </apex:outputText>
+                                <apex:outputText rendered="{!state.enableAsPartnerGroupAdmin != 'true'}">
+                                    &nbsp;
+                                    <label><input type="radio" id="enablePartnerGroupAdmin" name="enablePartnerGroupAdmin" value="Yes" />Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" name="enablePartnerGroupAdmin" value="No" checked="checked"/>No</label>
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                         <tr>
+                           <td>Allow Partner Central User?</td>
+                           <td>
+                                <apex:outputText rendered="{!state.AllowPartnerCentralUser == true}">
+                                    &nbsp;
+                                    <label><input type="radio" id="PartnerCentralUser" name="PartnerCentralUser" value="Yes" checked="checked"/>Yes</label>
+                                     &nbsp;
+                                    <label><input type="radio" name="PartnerCentralUser" value="No"/>No</label>                       
+                                </apex:outputText>
+                                <apex:outputText rendered="{!state.AllowPartnerCentralUser != true}">
+                                    &nbsp;
+                                    <label><input type="radio" id="PartnerCentralUser" name="PartnerCentralUser" value="Yes"/>Yes</label>
+                                     &nbsp;
+                                    <label><input type="radio" name="PartnerCentralUser" value="No" checked="checked"/>No</label>                       
+                                </apex:outputText>
+                           </td>                        
+                        </tr>
+                        <tr>
+                           <td>Allow Program Tracker?</td>
+                           <td>
+                                <apex:outputText rendered="{!state.AllowProgramTracker == true}">
+                                    &nbsp;
+                                    <label><input type="radio" id="ProgramTracker" name="ProgramTracker" value="Yes" checked="checked"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" name="ProgramTracker" value="No"/>No</label>                       
+                                </apex:outputText>
+                                <apex:outputText rendered="{!state.AllowProgramTracker != true}">
+                                    &nbsp;
+                                    <label><input type="radio" id="ProgramTracker" name="ProgramTracker" value="Yes" />Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" name="ProgramTracker" value="No" checked="checked"/>No</label>                       
+                                </apex:outputText>
+                           </td>                        
+                        </tr>
+                        <apex:outputPanel rendered="{!userData.country.Deal_Registration_Enabled__c == 'Yes'}">
+                        <tr><!-- CR 7823 - Rename labels -->
+                            <td>Allow Deal Registration?</td>
+                            <td>
+                                <apex:outputText rendered="{!state.enablePartnerDealRegistration == 'true'}">
+                                    &nbsp;
+                                    <label><input type="radio" id="enablePartnerDealRegistration" name="enablePartnerDealRegistration" value="Yes" checked="checked"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" id="disablePartnerDealRegistration" name="enablePartnerDealRegistration" value="No"/>No</label>
+                                </apex:outputText>
+                                <apex:outputText rendered="{!state.enablePartnerDealRegistration != 'true'}">
+                                    &nbsp;
+                                    <label><input type="radio" id="enablePartnerDealRegistration" name="enablePartnerDealRegistration" value="Yes"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" id="disablePartnerDealRegistration" name="enablePartnerDealRegistration" value="No" checked="checked"/>No</label>
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                        </apex:outputPanel>
+                                                <tr id="leadManagementRow"><!-- CR 7823 - Rename labels -->
+                            <td>Allow Lead Management?</td>
+                            <td>
+                                <apex:outputText rendered="{!state.enablePartnerLeadManagement == 'true'}">
+                                    &nbsp;
+                                    <label><input type="radio" id="enablePartnerLeadManagement" name="enablePartnerLeadManagement" value="Yes" checked="checked"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" id="disablePartnerLeadManagement" name="enablePartnerLeadManagement" value="No"/>No</label>
+                                </apex:outputText>
+                                <apex:outputText rendered="{!state.enablePartnerLeadManagement != 'true'}">
+                                    &nbsp;
+                                    <label><input type="radio" id="enablePartnerLeadManagement" name="enablePartnerLeadManagement" value="Yes" />Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" id="disablePartnerLeadManagement" name="enablePartnerLeadManagement" value="No" checked="checked"/>No</label>
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                        <!-- CR 7824 - Enable Lead Super User -->
+                        <tr id="superUserRow">
+                            <td>Enable as Lead Super User?</td>
+                            <td>
+                                <apex:outputText rendered="{!state.enableLeadSuperUser == 'true'}">
+                                    &nbsp;
+                                    <label><input type="radio" id="enabledLeadSuperUser" name="enabledLeadSuperUser" value="Yes" checked="checked"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" id="disabledLeadSuperUser" name="enabledLeadSuperUser" value="No" />No</label>
+                                </apex:outputText>
+                                <apex:outputText rendered="{!state.enableLeadSuperUser != 'true'}">
+                                    &nbsp;
+                                    <label><input type="radio" id="enabledLeadSuperUser" name="enabledLeadSuperUser" value="Yes"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" id="disabledLeadSuperUser" name="enabledLeadSuperUser" value="No" checked="checked"/>No</label>
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                       <tr>
+                           <td>Allow Premier?</td>
+                           <td>
+                                <apex:outputText rendered="{!state.contactIsPremier == true}">
+                                    &nbsp;
+                                    <label><input type="radio" id="isPremier" name="isPremier" value="Yes" checked="checked"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" name="isPremier" value="No"/>No</label>  
+                               </apex:outputText>
+                                <apex:outputText rendered="{!state.contactIsPremier != true}">
+                                    &nbsp;
+                                    <label><input type="radio" id="isPremier" name="isPremier" value="Yes"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" name="isPremier" value="No" checked="checked"/>No</label>  
+                               </apex:outputText>
+                           </td>                        
+                        </tr>
+                        <tr>
+                            <td>Solutions Configurator Quote</td>
+                            <td>
+                                <apex:outputText rendered="{!state.strEnableCreateOSCQuote == 'true'}">
+                                    &nbsp;
+                                    <label><input type="radio" id="enableoscCreateQuote" name="enableoscCreateQuote" value="Yes" checked="checked"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" id="disableoscCreateQuote" name="enableoscCreateQuote" value="No" />No</label>
+                                </apex:outputText>
+                                <apex:outputText rendered="{!state.strEnableCreateOSCQuote != 'true'}">
+                                    &nbsp;
+                                    <label><input type="radio" id="enableoscCreateQuote" name="enableoscCreateQuote" value="Yes"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" id="disableoscCreateQuote" name="enableoscCreateQuote" value="No" checked="checked"/>No</label>
+                                </apex:outputText>
+                            </td>
+                        </tr>  
+                        <tr id="oscOrderRow">
+                            <td>Solutions Configurator Order</td>
+                            <td>
+                                <apex:outputText rendered="{!state.strEnableCreateOSCOrder == 'true'}">
+                                    &nbsp;
+                                    <label><input type="radio" id="enableoscCreateOrder" name="enableoscCreateOrder" value="Yes" checked="checked"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" id="disableoscCreateOrder" name="enableoscCreateOrder" value="No"/>No</label>
+                                </apex:outputText>                                
+                              
+                                <apex:outputText rendered="{!state.strEnableCreateOSCOrder != 'true'}">
+                                    &nbsp;
+                                    <label><input type="radio" id="enableoscCreateOrder" name="enableoscCreateOrder" value="Yes"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" id="disableoscCreateOrder" name="enableoscCreateOrder" value="No" checked="checked"/>No</label>
+                                </apex:outputText>                              
+                            </td>
+                        </tr>                          
+                        <tr>
+                            <td>Solutions Configurator Quote Specialty</td>
+                            <td>
+                                <apex:outputText rendered="{!state.strEnableCreateOSCSpQuote == 'true'}">
+                                    &nbsp;
+                                    <label><input type="radio" id="enableoscCreateSpQuote" name="enableoscCreateSpQuote" value="Yes" checked="checked"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" id="disableoscCreateSpQuote" name="enableoscCreateSpQuote" value="No" />No</label>
+                                </apex:outputText>
+                                <apex:outputText rendered="{!state.strEnableCreateOSCSpQuote != 'true'}">
+                                    &nbsp;
+                                    <label><input type="radio" id="enableoscCreateSpQuote" name="enableoscCreateSpQuote" value="Yes"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" id="disableoscCreateSpQuote" name="enableoscCreateSpQuote" value="No" checked="checked"/>No</label>
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                        <tr id="oscSpOrderRow">
+                            <td>Solutions Configurator Order Specialty</td>
+                            <td>
+                                <apex:outputText rendered="{!state.strEnableCreateOSCSpOrder == 'true'}">
+                                    &nbsp;
+                                    <label><input type="radio" id="enableoscCreateSpOrder" name="enableoscCreateSpOrder" value="Yes" checked="checked"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" id="disableoscCreateSpOrder" name="enableoscCreateSpOrder" value="No" />No</label>
+                                </apex:outputText>
+                                <apex:outputText rendered="{!state.strEnableCreateOSCSpOrder != 'true'}">
+                                    &nbsp;
+                                    <label><input type="radio" id="enableoscCreateSpOrder" name="enableoscCreateSpOrder" value="Yes" />Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" id="disableoscCreateSpOrder" name="enableoscCreateSpOrder" value="No" checked="checked"/>No</label>
+                                </apex:outputText>
+                                
+                            </td>
+                        </tr>                                                                                                           
+                        <!--tr> Commented by michael as part of 5748109
+                           <td>Enable MyRewards User?</td>
+                           <td>
+                               &nbsp;
+                               <label><input type="radio" id="MyRewardsUser" name="MyRewardsUser" value="Yes" {!IF(state.EnableUserForMyRewards,'checked','')}>Yes</label>
+                               &nbsp;
+                               <label><input type="radio" name="MyRewardsUser" value="No" {!IF(!state.EnableUserForMyRewards,'checked','')}>No</label>                       
+                           </td>                        
+                        </tr-->
+                        <tr>
+                           <td>Enable SPL view with Disti pricing?</td>
+                           <td>
+                                <apex:outputText rendered="{!state.EnableSPLViewWithDistipricing == true}">
+                                    &nbsp;
+                                    <label><input type="radio" id="SPLviewWithDistiPricing" name="SPLviewWithDistiPricing" value="Yes" checked="checked"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" name="SPLviewWithDistiPricing" value="No"/>No</label>                       
+                                </apex:outputText>
+                                <apex:outputText rendered="{!state.EnableSPLViewWithDistipricing != true}">
+                                    &nbsp;
+                                    <label><input type="radio" id="SPLviewWithDistiPricing" name="SPLviewWithDistiPricing" value="Yes" />Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" name="SPLviewWithDistiPricing" value="No" checked="checked"/>No</label>                       
+                                </apex:outputText>
+                           </td>                        
+                        </tr>
+                        <tr>
+                           <td>SPL view with  Partner recommend Pricing?</td>
+                           <td>
+                                <apex:outputText rendered="{!state.SPLViewWithPartnerRecmndPrcng == true}">
+                                    &nbsp;
+                                    <label><input type="radio" id="SPLViewWithPartner" name="SPLViewWithPartner" value="Yes" checked="checked"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" name="SPLViewWithPartner" value="No"/>No</label>                       
+                                </apex:outputText>
+                                <apex:outputText rendered="{!state.SPLViewWithPartnerRecmndPrcng != true}">
+                                    &nbsp;
+                                    <label><input type="radio" id="SPLViewWithPartner" name="SPLViewWithPartner" value="Yes" />Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" name="SPLViewWithPartner" value="No" checked="checked"/>No</label>                       
+                                </apex:outputText>
+                           </td>                        
+                        </tr>
+                        <tr>
+                           <td>Enable SPL View with All country Price?</td>
+                           <td>
+                                <apex:outputText rendered="{!state.EnableSPLViewWithAllCntryPrice == true}">
+                                    &nbsp;
+                                    <label><input type="radio" id="SPLViewWithAllCntry" name="SPLViewWithAllCntry" value="Yes" checked="checked"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" name="SPLViewWithAllCntry" value="No"/>No</label>                       
+                                </apex:outputText>
+                                <apex:outputText rendered="{!state.EnableSPLViewWithAllCntryPrice != true}">
+                                    &nbsp;
+                                    <label><input type="radio" id="SPLViewWithAllCntry" name="SPLViewWithAllCntry" value="Yes"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" name="SPLViewWithAllCntry" value="No" checked="checked"/>No</label>                       
+                                </apex:outputText>
+                           </td>                        
+                        </tr>
+                        <tr>
+                           <td>Allow RFP and Proposal Express Tool?</td>
+                           <td>
+                                <apex:outputText rendered="{!state.AllowRFPandProposalExpressTool == true}">
+                               &nbsp;
+                               <label><input type="radio" id="RFPandProposalExpress" name="RFPandProposalExpress" value="Yes" checked="checked"/>Yes</label>
+                               &nbsp;
+                               <label><input type="radio" name="RFPandProposalExpress" value="No" />No</label>                       
+                           </apex:outputText>
+                                <apex:outputText rendered="{!state.AllowRFPandProposalExpressTool != true}">
+                               &nbsp;
+                               <label><input type="radio" id="RFPandProposalExpress" name="RFPandProposalExpress" value="Yes" />Yes</label>
+                               &nbsp;
+                               <label><input type="radio" name="RFPandProposalExpress" value="No" checked="checked"/>No</label>                       
+                           </apex:outputText>
+                           </td>                        
+                        </tr>
+                        
+                        <!-- Added By Michael END-->
+                        <!-- Commented by : Sneha
+                            Commenting below lines of code as Part of PAM 
+                        <tr>
+                            <td>
+                                Note: User will be marked as Partner Admin if his title belongs to Special Job Title
+                            </td>
+                        </tr>
+                        -->
+
+                        <tr>
+                            <td>Allow Campaign Builder?</td>
+                            <td>
+                                <apex:outputText rendered="{!state.contactIsCampaignBuilder == true}">
+                                    &nbsp;
+                                    <label><input type="radio" id="isCampaignBuilder" name="isCampaignBuilder" value="Yes" checked="checked"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" name="isCampaignBuilder" value="No"/>No</label>                      
+                                </apex:outputText>
+                                <apex:outputText rendered="{!state.contactIsCampaignBuilder != true}">
+                                    &nbsp;
+                                    <label><input type="radio" id="isCampaignBuilder" name="isCampaignBuilder" value="Yes" />Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" name="isCampaignBuilder" value="No" checked="checked"/>No</label>                      
+                                </apex:outputText>
+                            </td>                        
+                        </tr>                        
+                        
+                        <tr>
+                           <td>Allow Transactional Store?</td>
+                           <td>
+                                <apex:outputText rendered="{!state.contactIsTransactionalStore == true}">
+                                    &nbsp;
+                                    <label><input type="radio" id="isTransactionalStore" name="isTransactionalStore" value="Yes" checked="checked"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" name="isTransactionalStore" value="No" />No</label>                       
+                                </apex:outputText>
+                                <apex:outputText rendered="{!state.contactIsTransactionalStore != true}">
+                                    &nbsp;
+                                    <label><input type="radio" id="isTransactionalStore" name="isTransactionalStore" value="Yes" />Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" name="isTransactionalStore" value="No" checked="checked"/>No</label>                       
+                                </apex:outputText>
+                           </td>                        
+                        </tr>
+                        <tr>
+                           <td>Allow Warranty Parts Info?</td>
+                             <td>
+                                <apex:outputText rendered="{!state.contactIsWarrantyPartsInfo == true}">
+                                    &nbsp;
+                                    <label><input type="radio" id="isWarrantyPartsInfo" name="isWarrantyPartsInfo" value="Yes" checked="checked"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" name="isWarrantyPartsInfo" value="No"/>No</label>                       
+                                </apex:outputText>
+                                <apex:outputText rendered="{!state.contactIsWarrantyPartsInfo != true}">
+                                    &nbsp;
+                                    <label><input type="radio" id="isWarrantyPartsInfo" name="isWarrantyPartsInfo" value="Yes" />Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" name="isWarrantyPartsInfo" value="No" checked="checked"/>No</label>                       
+                                </apex:outputText>
+                           </td>                        
+                        </tr>            
+                        <tr>
+                           <td>Enable MDF Access?</td>
+                           <td>
+                                <apex:outputText rendered="{!state.enableMDFUser == true}">
+                                    &nbsp;
+                                    <label><input type="radio" id="MDFUser" name="MDFUser" value="Yes" checked="checked"/>Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" name="MDFUser" value="No"/>No</label>                       
+                                </apex:outputText>
+                                <apex:outputText rendered="{!state.enableMDFUser != true}">
+                                    &nbsp;
+                                    <label><input type="radio" id="MDFUser" name="MDFUser" value="Yes" />Yes</label>
+                                    &nbsp;
+                                    <label><input type="radio" name="MDFUser" value="No" checked="checked"/>No</label>                       
+                                </apex:outputText>
+                           </td>                        
+                        </tr>
+                        <!-- 20090917 Raymond - Added for CR1790 -->
+                        <!--  Original Condition: userData.country.Rebate_Enabled__c == 'Yes' && state.accountIsRebatePartner 
+                        <apex:outputPanel rendered="{!userData.country.Rebate_Enabled__c == 'Yes' && state.accountIsRebatePartner && isPartnerRequest}"> -->
+                            <tr>
+                                <td>Enable Access to Rebates?</td>
+                                <td>
+                                    <apex:outputText rendered="{!state.enableModelNRebates == true}">
+                                        &nbsp;
+                                        <label><input type="radio" id="enabledModelNRebates" name="enabledModelNRebates" value="Yes" checked="checked"/>Yes</label>
+                                        &nbsp;
+                                        <label><input type="radio" name="enabledModelNRebates" value="No"/>No</label>
+                                    </apex:outputText>
+                                    <apex:outputText rendered="{!state.enableModelNRebates != true}">
+                                        &nbsp;
+                                        <label><input type="radio" id="enabledModelNRebates" name="enabledModelNRebates" value="Yes"/>Yes</label>
+                                        &nbsp;
+                                        <label><input type="radio" name="enabledModelNRebates" value="No" checked="checked"/>No</label>
+                                    </apex:outputText>
+                                </td>
+                            </tr>
+                       <!-- </apex:outputPanel> -->
+                       <!-- <apex:outputPanel rendered="{!state.accountIsEnabledForIncentives && state.countryIsEnabledForIncentives}">
+                        <tr>
+                            <td> Enable for Incentives?</td>
+                            <td>
+                                &nbsp;
+                                <label><input type="radio" id="enableforIncentives" name="enableforIncentives" value="Yes" {!IF(state.contactIsEnabledForIncentives,'checked','')}>Yes</label>
+                                &nbsp;
+                                <label><input type="radio" name="enableforIncentives" value="No" {!IF(!state.contactIsEnabledForIncentives,'checked','')}>No</label>
+                            </td>
+                        </tr>
+                        </apex:outputPanel> -->                      
+                    </table>
+                </div>
+                
+                <div id="statusMonitor">
+                    <div id="warning" class="statusContainer">
+                        <apex:pageMessage id="warningPgMsg" rendered="{!!isPortalEnabled}"
+                            severity="ERROR" strength="3" title="Please do not close or navigate away from this screen."
+                            detail="NOTE: This operation may take 30 seconds to 1 minute to complete."
+                            />
+                        <!-- CR2087 -->
+                        <apex:pageMessage id="warningPgMsgForPP" rendered="{!isPortalEnabled}" severity="ERROR" strength="3" title="{!$Label.Request_being_processed}" />
+                    </div>
+                    <div id="done" class="statusContainer">
+                        <apex:pageMessage id="donePgMsg" rendered="{!!isPortalEnabled}" severity="CONFIRM" strength="3" title="Done!"/>
+                        <!-- CR2087 -->
+                        <apex:pageMessage id="donePgMsgForPP" rendered="{!isPortalEnabled}" severity="CONFIRM" strength="3" title="{!$Label.New_User_success_message}" />
+                    </div>
+                    <div id="steps" class="statusContainer">
+                        <div id="loadingSteps">
+                            <apex:image value="{!$Resource.loading}"/><span id="loadStepsLabel">Loading steps...</span>
+                        </div>
+                    </div>
+                    <div id="loading" class="statusContainer" style="align:center">                         
+                        <apex:image value="{!$Resource.loading}"/><span id="loadStepsLabel">Loading...</span>                         
+                    </div>  
+                    <div id="status" class="statusContainer">
+                        <span class="label">Status:</span><span id="statusOutput"></span><apex:image id="loadingImage" value="{!$Resource.loading}"/>
+                    </div>
+                    <div id="progress" class="statusContainer">
+                        <span class="label">Progress:</span><span id="progBar">[ Loading Progress Bar ]</span>
+                    </div>
+                </div>
+            </apex:outputPanel>
+
+            <div id="footer" class="statusContainer">
+                <apex:form id="theForm">
+                    <apex:inputHidden value="{!state.enablePartnerAdmin}" id="enablePartnerAdmin"/>
+                    <apex:inputHidden value="{!state.enableLeadSuperUser}" id="enableLeadSuperUser"/>
+                    <apex:inputHidden value="{!state.enablePartnerDealRegistration}" id="enablePartnerDealRegistration"/>
+                    <apex:inputHidden value="{!state.enablePartnerLeadManagement}" id="enablePartnerLeadManagement"/>
+                    <apex:inputHidden value="{!state.guid}" id="myAccountGuid"/>
+                    <apex:inputHidden value="{!ajaxResponse}" id="ajaxResponse"/>
+                    <apex:inputHidden value="{!state.contactIsCampaignBuilder}" id="contactIsCampaignBuilder"/>
+                    <apex:inputHidden value="{!state.contactIsPremier}" id="contactIsPremier"/>
+                    <apex:inputHidden value="{!state.contactIsTransactionalStore}" id="contactIsTransactionalStore"/>
+                    <apex:inputHidden value="{!state.contactIsWarrantyPartsInfo}" id="contactIsWarrantyPartsInfo"/>
+                    <!--Added By Michael-->
+                    <apex:inputHidden value="{!state.enableAsPartnerGroupAdmin}" id="enableAsPartnerGroupAdmin"/>
+                    <apex:inputHidden value="{!state.AllowPartnerCentralUser}" id="AllowPartnerCentralUser"/>
+                    <apex:inputHidden value="{!state.AllowProgramTracker}" id="AllowProgramTracker"/>
+                    <apex:inputHidden value="{!state.strEnableCreateOSCQuote}" id="strEnableCreateOSCQuote"/>
+                    <apex:inputHidden value="{!state.strEnableCreateOSCOrder}" id="strEnableCreateOSCOrder"/>
+                    <apex:inputHidden value="{!state.strEnableCreateOSCSpQuote}" id="strEnableCreateOSCSpQuote"/>
+                    <apex:inputHidden value="{!state.strEnableCreateOSCSpOrder}" id="strEnableCreateOSCSpOrder"/>
+                    <apex:inputHidden value="{!state.enableMDFUser}" id="enableMDFUser"/>
+                    <!--apex:inputHidden value="{!state.EnableUserForMyRewards}" id="EnableUserForMyRewards"/-->
+                    <apex:inputHidden value="{!state.EnableSPLViewWithDistipricing}" id="EnableSPLViewWithDistipricing"/>
+                    <apex:inputHidden value="{!state.SPLViewWithPartnerRecmndPrcng}" id="SPLViewWithPartnerRecmndPrcng"/>
+                    <apex:inputHidden value="{!state.EnableSPLViewWithAllCntryPrice}" id="EnableSPLViewWithAllCntryPrice"/>
+                    <apex:inputHidden value="{!state.AllowRFPandProposalExpressTool}" id="AllowRFPandProposalExpressTool"/>
+                    <!--End-->
+                    
+                    <!-- 20090917 Raymond - Added for CR1790 -->
+                    <apex:inputHidden value="{!state.enableModelNRebates}" id="enableModelNRebates"/>
+                    <apex:inputHidden value="{!state.contactIsEnabledForIncentives}" id="contactIsEnabledForIncentives"/>  
+                    <apex:actionFunction action="{!doReuseOrCreateContact}" name="doReuseOrCreateContact" 
+                        oncomplete="handleCalloutComplete()" rerender="theForm"/>
+                    <apex:actionFunction action="{!doReuseOrCreateUser}" name="doReuseOrCreateUser" 
+                        oncomplete="handleCalloutComplete()" rerender="theForm"/>
+                    <!-- [Fenny 10 Jan 2013]: CR7944 -->
+                    <apex:actionFunction action="{!doPermissionSetAssignment}" name="doPermissionSetAssignment" 
+                        oncomplete="handleCalloutComplete()" rerender="theForm"/>
+                        <!-- 14.2SSO -->
+                    <apex:actionFunction action="{!checkforVendorUpdate}" name="checkforVendorUpdate" 
+                        oncomplete="handleCalloutComplete()" rerender="theForm"/> 
+                    <!-- 14.2SSO -->
+                    <apex:actionFunction action="{!doUpdateRequest}" name="doUpdateRequest" 
+                        oncomplete="handleCalloutComplete()" rerender="theForm"/>
+                    <apex:actionFunction action="{!doDiasWebServiceCall}" name="doDiasWebServiceCall" 
+                      oncomplete="handleCalloutComplete()" rerender="theForm"/>
+                    <apex:actionFunction action="{!doUpdateContactProvisionedFlags}" name="doUpdateContactProvisionedFlags" 
+                        oncomplete="handleCalloutComplete()" rerender="theForm"/>
+                    <apex:actionFunction action="{!setIncompleteForRequestWithReasonJS}" name="setIncompleteForRequestWithReasonJS" 
+                        rerender="theForm"/>                        
+                </apex:form>
+                <apex:form id="theForm2">
+                    <apex:commandButton value="OK" 
+                        id="doBackToRegistrationButton" 
+                        action="{!doBackToRegistrationButton}"/>
+                    <apex:outputPanel rendered="{!NOT(errorOccurred)}">
+                        <input type="button" class="btn" value="GO!" id="doProvisionGo"/>
+                    </apex:outputPanel>
+                </apex:form> 
+            </div>
+        </div>
+    </div>
+</apex:page>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_Change_to_Dell_Leading_Prof_Serv</fullName>
+    <active>true</active>
+    <description>Prevent Changes happen when status is &apos;Approved&apos;</description>
+    <errorConditionFormula>AND( 
+    RecordType.DeveloperName = &apos;VMware&apos;, 
+    Automated__c = true,     
+    ISCHANGED(Dell_Leading_Professional_Services__c), 
+    ISPICKVAL(S_P_Deal_Status__c, &apos;Approved&apos;) 
+)</errorConditionFormula>
+    <errorDisplayField>Dell_Leading_Professional_Services__c</errorDisplayField>
+    <errorMessage>Changes to Dell Leading Professional Services  is not allowed when the S&amp;P Vendor status is &apos;Approved&apos;</errorMessage>
+</ValidationRule>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>New_Task_for_Action_Items</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>New Task for Action Items</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>/00T/e?who_id={!$User.Id}&amp;what_id={!CustomerInteraction__c.Id}&amp;retURL=%2F{!CustomerInteraction__c.Id}&amp;RecordType=012300000004ze9&amp;cancelURL=%2F{!CustomerInteraction__c.Id}&amp;ent=Task&amp;tsk6={!CustomerInteraction__c.Action_Items__c}&amp;tsk5={!CustomerInteraction__c.Name}</url>
+</WebLink>

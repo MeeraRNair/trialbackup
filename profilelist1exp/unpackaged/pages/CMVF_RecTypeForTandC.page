@@ -1,0 +1,41 @@
+<!-- * 
+* Revision CR Number           Release No      Date            Modified By     Description
+* -------- ---------           ----------      -----------     ------------    -----------
+* 1.0 -    CR16423 & 16424     FY19-DCS-1002   31-Aug-2018:    manip4          added 'lightningStylesheets' attribute for apex component to make the page lightening friendly for the story 5537288 and 5537296
+*/-->
+
+<apex:page standardController="Contract" extensions="CMRecordTypeForTandCController" lightningStylesheets="true">
+      New Contract Terms and Conditions      
+      <apex:sectionHeader title="Select Contract Terms and Conditions Record Type "/>
+      <br/><br/><br/>
+      Select a record type for the new contract terms and conditions.
+      <br/><br/>
+      <apex:form >      
+          <apex:pageBlock title="Select Contract Terms and Conditions Record Type"> 
+              <apex:pageblockSection >         
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Record Type of new Records" for="rt" />         
+                    <apex:panelGrid columns="2">
+                        <apex:selectList value="{!RecordType}" multiselect="false"  size="1"  required="true">
+                            <apex:selectOptions value="{!rectypes}"/>
+                        </apex:selectList>              
+                    </apex:panelGrid>       
+                </apex:pageBlockSectionItem>
+              </apex:pageblockSection>
+              <apex:pageblockButtons location="bottom">
+                  <apex:commandButton value="Continue" action="{!redirect}"/>
+                  <apex:commandButton value="Cancel" action="{!cancel}"/>                  
+              </apex:pageblockButtons>
+          </apex:pageBlock>
+          <br/><br/><br/>
+          <b>Available Contract Terms and Conditions Record Type</b>
+          <br/><br/><br/>
+          <apex:pageBlock >
+              <apex:pageBlockTable value="{!recTypeList}" var="rec">
+                  <apex:column headerValue="Record Type Name" value="{!rec.name}"/>
+                  <apex:column headerValue="Description" value="{!rec.description}"/>
+              </apex:pageBlockTable>
+           </apex:pageBlock>
+          
+      </apex:form>
+</apex:page>

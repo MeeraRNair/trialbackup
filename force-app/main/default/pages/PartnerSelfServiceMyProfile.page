@@ -1,0 +1,347 @@
+<!--
+* Revision CR Number   Release No      Date            Modified By     Description
+* -------- ---------   ----------      -----------     ------------    -----------
+* 1.0 -    CR 16018    FY19-DCS-0802   8-June-2018:   Jatin Puri       Commented 'Feature_Request_Training__c?' field from the VF page 
+*/-->
+
+<apex:page id="mypage" sidebar="false" showHeader="false" standardStylesheets="true" standardController="Partner_Request__c" extensions="PartnerSelfServiceMyProfileCtrlExt">
+    <style>
+        .bPageBlock .detailList .labelCol {
+            white-space: normal; 
+        }
+        .bPageBlock .detailList .data2Col {
+            vertical-align: middle;
+        }
+    </style>
+    
+    <script>
+        function initiaload(drval, lmlab, sulab, lmval, suval) {
+            if({!isCurrentUserPartnerAdmin} && {!isalowedLeadMAnagement} && document.getElementById(drval).checked) {
+                document.getElementById(lmlab).style.display = "";
+                document.getElementById(lmval).style.display = "";
+            }
+            else {
+                document.getElementById(lmlab).style.display = "none";
+                document.getElementById(sulab).style.display = "none"; 
+                document.getElementById(lmval).style.display = "none";
+                document.getElementById(suval).style.display = "none"; 
+            }
+            if({!isCurrentUserPartnerAdmin} && document.getElementById(lmval).checked) {
+                document.getElementById(sulab).style.display = ""; 
+                document.getElementById(suval).style.display = "";
+            }
+            else {
+                document.getElementById(sulab).style.display = "none";
+                document.getElementById(suval).style.display = "none";
+            }
+            document.getElementById('isExecute').value = 'true';
+        }
+        
+        function enableDisableLMSP(drval, lmval, suval, lmlabel, sulabel) {
+            if(drval.checked && {!isalowedLeadMAnagement} && {!isCurrentUserPartnerAdmin}) {
+                document.getElementById(lmlabel).style.display = "";
+                document.getElementById(lmval).style.display = "";
+            }
+            else {
+                document.getElementById(lmlabel).style.display = "none";
+                document.getElementById(lmval).style.display = "none";
+                document.getElementById(lmval).checked = false;                   
+                document.getElementById(sulabel).style.display = "none"; 
+                document.getElementById(suval).style.display = "none"; 
+                document.getElementById(suval).checked = false;
+            }
+        }
+         
+        function enableDisableSP(lmval, suval, sulabel) {
+            //var drvalue  =  (document.getElementById(drval)).value;
+            if(lmval.checked && {!isCurrentUserPartnerAdmin}) {
+                //document.getElementById('lmrow').style.display = "";
+                document.getElementById(sulabel).style.display = "";
+                document.getElementById(suval).style.display = "";   
+            }
+            else {
+                document.getElementById(sulabel).style.display = "none";
+                document.getElementById(suval).style.display = "none"; 
+                document.getElementById(suval).checked = false;
+            }
+        }
+    
+       
+        
+    </script>
+    
+    <!-- ============================================================== -->
+    <!-- DISPLAY ERROR: ACCCESS DENIED STANDARD LICENSE USER -->
+    <!-- ============================================================== -->
+    <apex:outputPanel rendered="{!errorCode == ACCESS_DENIED_STANDARD_LICENSE_USER}">
+        <apex:pageMessage severity="ERROR" strength="3" title="Navigation error.  Screen is for Partners only."/>
+    </apex:outputPanel>
+    
+    <!-- ============================================================== -->
+    <!-- DISPLAY ERROR: ACCCESS DENIED PARTNER USER NOT ADMIN -->
+    <!-- ============================================================== -->
+    <apex:outputPanel rendered="{!errorCode == ACCESS_DENIED_PARTNER_USER_NOT_ADMIN}">
+        <apex:pageMessage severity="ERROR" strength="3" title="{!$Label.access_denied}" detail="{!$Label.partner_admin_denied_detailed_message}"/>
+        <apex:pageBlock title="{!$Label.administrators_for_your_account}" mode="view"> 
+            <apex:pageBlockSection title="" showHeader="false" columns="1">
+                <apex:pageBlockTable width="100%" value="{!partnerAdminsForAccount}" var="admin">
+                    <apex:column headerValue="{!$Label.first_name}" value="{!admin.Contact.FirstName}"></apex:column>
+                    <apex:column headerValue="{!$Label.last_name}" value="{!admin.Contact.LastName}"></apex:column>
+                    <apex:column headerValue="{!$Label.email}" value="{!admin.Contact.Email}"></apex:column>
+                    <apex:column headerValue="{!$Label.job_title}" value="{!admin.Contact.Title}"></apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>        
+        </apex:pageBlock> 
+    </apex:outputPanel>
+    
+    <!-- ============================================================== -->
+    <!-- DISPLAY MY PROFILE SCREEN -->
+    <!-- ============================================================== -->
+    <apex:outputPanel rendered="true" id="mypanel">
+        <!-- Original Condition for Rendered - "{!AND(errorCode != ACCESS_DENIED_STANDARD_LICENSE_USER,errorCode != ACCESS_DENIED_PARTNER_USER_NOT_ADMIN)}" -->
+        <apex:form id="myform">
+            <apex:sectionHeader title="{!$Label.my_profile}" subtitle="{!Partner_Request__c.First_Name__c} {!Partner_Request__c.Last_Name__c}" rendered="{!NOT(editMode)}"/>
+            <apex:sectionHeader title="{!$Label.new_user}" rendered="{!AND(editMode,isNewUser)}"/>
+            <apex:sectionHeader title="{!$Label.edit_user}" subtitle="{!Partner_Request__c.First_Name__c} {!Partner_Request__c.Last_Name__c}" rendered="{!AND(editMode,NOT(isNewUser))}"/>
+            <apex:pageMessages />
+            <apex:outputPanel rendered="{!NOT(isSaved)}">
+                <!-- ============================================================== -->
+                <!-- VIEW -->
+                <!-- ============================================================== -->
+                <apex:pageBlock title="" mode="view" rendered="{!NOT(editMode)}">
+                    <apex:pageBlockButtons >
+                        <apex:commandButton action="{!doEdit}" value="{!$Label.edit}"/>
+                    </apex:pageBlockButtons> 
+                    <apex:pageBlockSection title="" columns="1" showHeader="false" collapsible="false">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.salutation}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.Salutation__c}" id="salutation"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.first_name}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.First_Name__c}" id="first_name"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.last_name}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.Last_Name__c}" id="last_name"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.job_title}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.Job_Title__c}" id="job_title"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.address_1}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.Address_Line_1__c}" id="address_line_1"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.address_2}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.Address_Line_2__c}" id="address_line_2"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.address_3}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.Address_Line_3__c}" id="address_line_3"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.city}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.City__c}" id="city"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.state_province}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.State__c}" id="state"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.postal_code}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.Postal_Code__c}" id="postal_code"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.phone_number}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.Phone__c}" id="phone"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.mobile_phone}" for="salutation" styleClass="label" style="display: block;width: 270px;"/>
+                            <apex:outputField value="{!Partner_Request__c.Mobile__c}" id="mobile"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.fax_number}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.Fax__c}" id="fax"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.email}" for="salutation" styleClass="label"/>
+                            <apex:outputField value="{!Partner_Request__c.Email__c}" id="email"/>
+                        </apex:pageBlockSectionItem>
+                            <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.Bulk_Nomination_Enable_User_for_MyRewards}" for="salutation" styleClass="label"/>
+                            <apex:inputCheckbox value="{!enableUserForMyRewards}" id="enableUserForMyRewards" disabled="true"/> 
+                        </apex:pageBlockSectionItem>
+                            <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.Bulk_Nomination_Assign_MyRewards_Role}" for="salutation" styleClass="label"/>
+                            <apex:outputlabel value="{!assignMyRewardsRole}" id="assignMyRewardsRole"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputPanel layout="block" style="display:block; width:262px; text-align:right;font-weight:bold;font-family:Arial, Helvetica, sans-serif;">
+                            <apex:outputPanel style="outline: 2px solid black;width: 14px;height: 13px;display: inline-table;" rendered="{!IF(OR(Country.Code__c == 'DE',Country.Code__c == 'AT',Country.Code__c == 'CH'), true, false)}">                                                        
+                            <apex:outputField value="{!Partner_Request__c.Newsletter_Opt_In__c}"  /></apex:outputPanel>
+                            <apex:outputLabel value="{!$Label.Partner_Registration_APJ} " rendered="{!IF(optInApj = true, true, false)}"/>
+                            <apex:outputLabel value="{!$Label.receive_newsletter} " rendered="{!IF(optInROE = true, true, false)}"/> 
+                            <apex:outputPanel style="outline: 2px solid black;width: 14px;height: 13px;display: inline-table;" rendered="{!IF(OR(optInROE == true,optInApj = true), true, false)}">                                                        
+                            <apex:outputField value="{!Partner_Request__c.Newsletter_Opt_In__c}" id="newsletter_opt_in"/></apex:outputPanel>
+                            <apex:outputText value=" {!strLabel}" escape="false"/>
+                            <apex:outputPanel style="outline: 2px solid black;width: 14px;height: 13px;display: inline-table;" rendered="{!IF(OR(Country.Code__c == 'US',Country.Code__c == 'CA'), true, false)}">                                                        
+                            <apex:outputField value="{!Partner_Request__c.Newsletter_Opt_In__c}"  /></apex:outputPanel>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+                
+                <!-- ============================================================== -->
+                <!-- EDIT -->
+                <!-- ============================================================== -->
+                <apex:pageBlock title="" mode="edit" rendered="{!editMode}" id="mypgblock">
+                    <apex:pageBlockButtons >                        
+                        <!-- CR 2087 -->
+                        <apex:commandButton action="{!doSave}" value="{!$Label.save}" rendered="{!isNewUser}"/>                                             
+                        <apex:commandButton action="{!doCancelNewUser}" immediate="true" value="{!$Label.cancel}" rendered="{!isNewUser}"/>
+                        <apex:commandButton action="{!doSave}" value="{!$Label.save}" onComplete="doPermissionSetAssignment();" rendered="{!NOT(isNewUser)}"/>                        
+                        <apex:commandButton action="{!doCancel}" immediate="true" value="{!$Label.cancel}" rendered="{!NOT(isNewUser)}"/>
+                        <!-- [Fenny 10 Jan 2013]: CR 7944 -->
+                       
+                        <apex:actionFunction id="doPermissionSetAssignment" name="doPermissionSetAssignment" action="{!doPermissionSetAssignment}"  rendered="{!NOT(isNewUser)}" />
+                    </apex:pageBlockButtons>
+                    <apex:pageBlockSection title="" columns="1" showHeader="false" collapsible="false" id="myblock">
+                        <!-- CR 2087: set required = true for mandatory fields -->
+                        <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.salutation}" for="salutation" styleClass="label"/><apex:inputField required="false" value="{!Partner_Request__c.Salutation__c}" id="salutation"/></apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.first_name}" for="first_name" styleClass="label"/><apex:inputField required="true" value="{!Partner_Request__c.First_Name__c}" id="first_name"/></apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.last_name}" for="last_name" styleClass="label"/><apex:inputField required="true" value="{!Partner_Request__c.Last_Name__c}" id="last_name"/></apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.job_title}" for="job_title" styleClass="label"/><apex:inputField required="true" value="{!Partner_Request__c.Job_Title__c}" id="job_title"/></apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.address_1}" for="address_line_1" styleClass="label"/><apex:inputField required="true" value="{!Partner_Request__c.Address_Line_1__c}" id="address_line_1"/></apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.address_2}" for="address_line_2" styleClass="label"/><apex:inputField required="false" value="{!Partner_Request__c.Address_Line_2__c}" id="address_line_2"/></apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.address_3}" for="address_line_3" styleClass="label"/><apex:inputField required="false" value="{!Partner_Request__c.Address_Line_3__c}" id="address_line_3"/></apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.city}" for="city" styleClass="label"/><apex:inputField required="true" value="{!Partner_Request__c.City__c}" id="city"/></apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.state_province}" for="state" styleClass="label"/><apex:inputField required="true" value="{!Partner_Request__c.State__c}" id="state"/></apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.postal_code}" for="postal_code" styleClass="label"/><apex:inputField required="true" value="{!Partner_Request__c.Postal_Code__c}" id="postal_code"/></apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.phone_number}" for="phone" styleClass="label"/><apex:inputField required="true" value="{!Partner_Request__c.Phone__c}" id="phone"/></apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.mobile_phone}" for="mobile" styleClass="label"/><apex:inputField required="false" value="{!Partner_Request__c.Mobile__c}" id="mobile"/></apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.fax_number}" for="fax" styleClass="label"/><apex:inputField required="false" value="{!Partner_Request__c.Fax__c}" id="fax"/></apex:pageBlockSectionItem>
+                        
+                        <!-- CR 9365 Starts -->
+                        <apex:pageBlockSectionItem rendered="{!isNewUser}" >
+                            <apex:outputLabel value="{!$Label.email}" for="email" styleClass="label"/>
+                            <apex:inputField required="true" value="{!Partner_Request__c.Email__c}" id="email"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem rendered="{!NOT(isNewUser)}" >
+                            <apex:outputLabel value="{!$Label.email}" for="email" styleClass="label" style="display: block;width: 270px;"/>
+                            <apex:outputpanel >
+                                <apex:outputText value="{!Partner_Request__c.Email__c}"/> <br/>
+                                <apex:outputText value="{!$Label.EmailReadOnly}" rendered="{!IF(contactEmail == null || contactEmail == '', false, true)}"/> 
+                                <t/><t/><apex:outputLink value="https://{!contactEmail}" style="color:#0645AD " rendered="{!IF(contactEmail == null || contactEmail == '', false, true)}">{!contactEmail}</apex:outputLink>
+                            </apex:outputpanel>
+                        </apex:pageBlockSectionItem>
+                        <!-- CR 9365 Ends -->
+                        
+                        <apex:pageBlockSectionItem rendered="{!isEmailChanged && !isConfirmEmailChange}">
+                            <apex:outputLabel value="{!$Label.Confirm_Email_Change}" for="emailchangeflag" style="color: red;" styleClass="label"/>
+                            <apex:inputCheckbox style="color: red" value="{!isConfirmEmailChange}"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >
+                            <apex:outputPanel > 
+                                <apex:outputPanel rendered="{!IF(OR(Country.Code__c == 'US',Country.Code__c == 'CA'), true, false)}" style="display:block; width:262px; text-align:right;font-weight:bold;font-family:Arial, Helvetica, sans-serif;">                           
+                                <apex:outputLabel value="{!strLabel}" escape="false" for="newsletter_opt_in3" >          
+                                <apex:inputField required="false" value="{!Partner_Request__c.Newsletter_Opt_In__c}" id="newsletter_opt_in3" style="outline: 2px solid black;"/></apex:outputLabel>
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel style="display:block; width:262px; text-align:right;font-weight:bold;font-family:Arial, Helvetica, sans-serif;" rendered="{!IF(OR(Country.Code__c == 'DE',Country.Code__c == 'AT',Country.Code__c == 'CH'), true, false)}">
+                                <apex:inputField required="false" value="{!Partner_Request__c.Newsletter_Opt_In__c}" id="newsletter_opt_in4" style="outline: 2px solid black;">
+                                <apex:outputLabel value="{!strLabel}" escape="false" for="newsletter_opt_in3"/></apex:inputField>
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel style="display:block; width:262px; text-align:right;font-weight:bold;font-family:Arial, Helvetica, sans-serif;" rendered="{!IF(optInROE == true, true, false)}">
+                                <apex:outputLabel value="{!$Label.receive_newsletter}" escape="false" for="newsletter_opt_in3">          
+                                <apex:inputField required="false" value="{!Partner_Request__c.Newsletter_Opt_In__c}" id="newsletter_opt_in5" style="outline: 2px solid black;">
+                                <apex:outputLabel value=" {!strLabel}" escape="false"/></apex:inputField></apex:outputLabel>
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel rendered="{!IF(optInApj == true, true, false)}" style="display:block; width:262px; text-align:right;font-weight:bold;font-family:Arial, Helvetica, sans-serif;">
+                                <apex:outputLabel value="{!$Label.Partner_Registration_APJ}" escape="false" for="newsletter_opt_in3">          
+                                <apex:inputField required="false" value="{!Partner_Request__c.Newsletter_Opt_In__c}" id="newsletter_opt_in6" style="outline: 2px solid black;">
+                                <apex:outputLabel value=" {!strLabel}" escape="false"/></apex:inputField></apex:outputLabel>
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+ 
+                        <!-- Addded by Bahar, Ariff 24th Nov 2012 (Start) -->
+                       <!-- <apex:pageBlockSectionItem rendered="{!visible_Incentive}">
+                            <apex:outputLabel value="{!$Label.Enabled_for_Incentives}" for="enabledForIncentives" styleClass="label"></apex:outputLabel>
+                            <apex:inputField required="false" value="{!Partner_Request__c.Is_Enabled_for_Incentives__c}" id="enabledForIncentives_id"/>
+                        </apex:pageBlockSectionItem> -->
+                        <!-- Addded by Bahar, Ariff 24th Nov 2012 (End) -->
+                       
+                        <apex:pageBlockSectionItem rendered="{!isCurrentUserPartnerAdmin}">
+                            <apex:outputLabel value="{!$Label.Enable_as_Partner_Admin}" for="salutation" styleClass="label" rendered="{!isCurrentUserPartnerAdmin}"/>
+                            <apex:InputField value="{!Partner_Request__c.Enable_as_Partner_Admin__c}" id="admin" rendered="{!isCurrentUserPartnerAdmin}"/>
+                        </apex:pageBlockSectionItem>
+                         
+                        <apex:pageBlockSectionItem rendered="{!AND(isCurrentUserPartnerAdmin,country.Deal_Registration_Enabled__c == 'Yes')}" labelStyleclass="labelCol vfLabelColTextWrap" id="drrow">
+                            <!-- CR 7823 - Changed custom label from Allow_Deal_Registration to Allow_Deal_Reg_Lead_Mgmt -->
+                            <apex:outputLabel value="{!$Label.Allow_Deal_Registration}" />
+                            <apex:inputField required="false" id="drvalue"  onclick="enableDisableLMSP(this, '{!$Component.mypage.myform.mypgblock.myblock.lmrow.lmvalue}', '{!$Component.mypage.myform.mypgblock.myblock.surow.superUser}', '{!$Component.mypage.myform.mypgblock.myblock.lmrow.lmlabel}', '{!$Component.mypage.myform.mypgblock.myblock.surow.sulabel}')" value="{!Partner_Request__c.Feature_Request_Deal_Registration__c}" />
+                        </apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem id="lmrow">
+                            <!-- CR 7823 - Changed custom label from Allow_Deal_Registration to Allow_Deal_Reg_Lead_Mgmt -->
+                            <apex:outputLabel value="{!$Label.Allow_Lead_Management}" id="lmlabel"/>
+                            <apex:inputField required="false" id="lmvalue" onclick="enableDisableSP(this, '{!$Component.mypage.myform.mypgblock.myblock.surow.superUser}', '{!$Component.mypage.myform.mypgblock.myblock.surow.sulabel}');" value="{!Partner_Request__c.Feature_Request_Lead_Management__c}" />
+                        </apex:pageBlockSectionItem>
+
+                        <!-- CR 7824  Enable Lead Super User -->
+                        <apex:pageBlockSectionItem id="surow">
+                            <apex:outputLabel value="{!$Label.CMAP_Enable_as_Lead_Super_User}" for="salutation" styleClass="label" id="sulabel"/>
+                            <apex:InputField value="{!Partner_Request__c.Enable_as_Lead_Super_User__c}" id="superUser" />
+                        </apex:pageBlockSectionItem>
+                       
+                        <!-- End CR 7824 --> 
+                       
+                        <!--CR 10742 -->
+                        <apex:pageBlockSectionItem > 
+                            <apex:outputLabel value="{!$Label.CMAP_Enable_notifications_about_Channel_Leads}"/>
+                            <apex:inputField value="{!Partner_Request__c.Enable_notifications_about_Channel_Leads__c}" />                                               
+                        </apex:pageBlockSectionItem>
+                        <!--END CR 10742 -->
+                        <apex:pageBlockSectionItem rendered="{!AND(isbidbuilderpart,NOT(isNewUser))}"> 
+                            <apex:outputLabel value="{!$Label.Enable_for_Bid_Builder}"/>
+                            <apex:inputField value="{!Partner_Request__c.Enable_for_Bid_Builder__c}" id="builderid"/>                                               
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem rendered="{!AND(isCurrentUserPartnerAdmin, country.Training_Enabled__c == 'Yes')}">
+                            <!-- CR 2764 -->
+                            <!-- <apex:outputLabel style="color: red" value="({!$Label.NetExam_approval_message})"/> -->                            
+                        </apex:pageBlockSectionItem>
+                                                                            
+                        <!-- 20090917 Raymond - Added for CR 1790 -->
+                        <apex:pageBlockSectionItem rendered="{!AND(isCurrentUserPartnerAdmin,country.Rebate_Enabled__c == 'Yes', isAccountRebateEnabled, NOT(isHiddenFromAdminSelf))}">
+                            <apex:outputLabel value="{!$Label.Enable_Rebates}"/>
+                            <apex:inputField required="false" value="{!Partner_Request__c.Feature_Request_Rebates__c}" />
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </apex:outputPanel>
+            
+           
+            <apex:outputPanel rendered="{!isSaved}">
+                <!--  raymond CR 2421 original message
+                <apex:pageMessage severity="info" strength="3" title="{!$Label.your_request_has_been_submitted_and_is_pending_review}"
+                    detail="{!$Label.the_new_user_will_not_display_on_the_my_company_page}" /> 
+                -->
+               <apex:pageMessage severity="info" strength="3" title="Update Completed" detail="Your update has been completed." />
+                <table cellpadding="5" cellspacing="5" border="0">
+                    <tr><td>
+                        <apex:commandButton action="{!doOK}" value="{!$Label.ok}"/>
+                    </td></tr>
+                </table>
+            </apex:outputPanel>
+        </apex:form>
+        <!-- END MY PROFILE SCREEN -->
+    </apex:outputPanel>
+    <body onload="initiaload('{!$Component.mypage.myform.mypgblock.myblock.drrow.drvalue}', '{!$Component.mypage.myform.mypgblock.myblock.lmrow.lmlabel}', '{!$Component.mypage.myform.mypgblock.myblock.surow.sulabel}', '{!$Component.mypage.myform.mypgblock.myblock.lmrow.lmvalue}', '{!$Component.mypage.myform.mypgblock.myblock.surow.superUser}')"/>
+</apex:page>

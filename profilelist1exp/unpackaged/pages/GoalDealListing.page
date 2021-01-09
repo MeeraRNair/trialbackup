@@ -1,0 +1,119 @@
+<apex:page standardController="Opportunity" extensions="VFCntrlr_GoalDealListing" lightningStylesheets="true">
+    <style>
+        .col {
+            text-align: right;
+        }
+        
+        #statusPanel{
+            text-align: left;
+            margin: 0 auto;
+            width: 1000px;          
+            z-index: 0;
+        }  
+    </style>
+
+    <script type="text/javascript">
+  
+        function checkIE(){
+            var agent = window.navigator.userAgent;
+            var isIE = agent.indexOf("MSIE");
+            if (isIE > 0) 
+                    return parseInt(agent.substring(isIE+ 5, agent.indexOf(".", isIE)));
+            else if (!!navigator.userAgent.match(/Trident\/7\./)) 
+                    return 11;
+            else
+                    return 0; //It is not IE
+        }  
+    
+        function openDealPage(goalUrl, dealId, OppId) {
+            //var browserName = navigator.appName;           
+            
+           
+           // if (browserName == "Microsoft Internet Explorer") 
+           if(checkIE()>0){                 
+                window.open(goalUrl+dealId, 'GOALDealPage', 'height=600,width=1000,status=yes,scrollbars=yes,resizable=yes');
+            }
+            else {
+                window.open('/apex/GoalDealCreation?Id='+OppId, 'GOALDealPage', 'height=600,width=1000,status=yes,scrollbars=yes,resizable=yes');        
+            }
+        }
+    </script> 
+    <apex:sectionHeader title="GOAL Pricing Approval"/>
+
+    <apex:form id="GoalPricingApprovalForm" rendered="{!errorMessage==null}">
+    
+        <apex:outputLabel > Opportunity > GOAL Pricing Approval > &nbsp;</apex:outputLabel>
+        <apex:outputLink value="{!backToOpportunity}">Back to Opportunity {!opportunity.Name}</apex:outputLink>
+
+        <br/><br/>                        
+        
+        <hr style="color:#e5c130x"/>
+        <br/><br/>
+           
+        <apex:pageblock id="GoalDealListPageBlock" title="GOAL Deal Listing">
+        
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="Create New GOAL Deal" onclick="window.open('/apex/GoalDealCreation?Id={!Opportunity.Id}', 'GOALDealPage', 'height=600,width=1000,status=yes,scrollbars=yes,resizable=yes');" rerender="GoalDealListPageBlock"/>                
+                <apex:commandButton value="Refresh GOAL Win/Loss" rendered="{!showWinLossButton}" action="{!updateAllWinLoss}"/>
+            </apex:pageBlockButtons>
+
+            <apex:pageBlockTable id="goalDealTable" value="{!goalDealList}" var="deal">                     
+                <apex:column >
+                    <apex:facet name="header">
+                        <apex:outputLabel value="GOAL Deal ID" for="goalDealLink"/>
+                    </apex:facet>
+                    <apex:commandLink id="goalDealLink" target="_blank" onclick="openDealPage('{!$Label.GOAL_Page_URL}','{!deal.vid}','{!Opportunity.Id}')" reRender="GoalPricingApprovalForm">{!deal.vid}</apex:commandLink>
+                </apex:column> 
+    
+                <apex:column headerValue="GOAL Deal Status" value="{!deal.Status}"/>
+                <apex:column headerValue="GOAL Submit Date" value="{!deal.submitDate}"/>
+                <apex:column headerValue="Last Modified Date" value="{!deal.lastModified}"/>
+                <apex:column styleClass="col" headerClass="col" headerValue="Total Approved Deal Revenue" value="{!deal.totalrevenue}"/> 
+                <apex:column styleClass="col" headerClass="col" headerValue="Total Approved Deal Margin %" value="{!deal.marginPercent}" rendered="{!showTADMPerc}"/>    
+                <apex:column headerValue="Win / Loss" value="{!deal.dealWinLoss}"/>                           
+            </apex:pageBlockTable>
+        </apex:pageblock>
+
+        <!-- previous and next links --> 
+        <apex:outputPanel style="margin-top: 5px"  id="pageNavTop" rendered="true">              
+            <!--
+            <div style="float: left;font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: right; width: 52%;">
+            Page {!currentPage} of {!lastPage}
+            </div>
+            -->
+            <div style="float: right; font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: right; width: 48%;">                
+                <apex:commandLink action="{!previous}" rendered="{!hasPrevious}">
+                    &lt; Previous Page
+                </apex:commandLink>                 
+                <apex:outputText rendered="{!hasPreviousAndNext}">&nbsp;|&nbsp;</apex:outputText>
+                <apex:commandLink action="{!next}" rendered="{!hasNext}">
+                    Next Page &gt;
+                </apex:commandLink> 
+            </div>              
+        </apex:outputPanel> 
+    </apex:form>
+
+    <apex:form id="ErrorForm" rendered="{!errorMessage!=null}">
+    
+        <apex:outputLabel >Opportunity > GOAL Pricing Approval > &nbsp;</apex:outputLabel>
+        <apex:outputLink value="{!backToOpportunity}">Back to Opportunity {!opportunity.Name}</apex:outputLink>
+
+        <br/><br/>                        
+        
+        <hr style="color:#e5c130x"/>
+        <br/><br/>
+        
+         <apex:pageblock id="emptyPageBlock" title="GOAL Deal Listing">
+        
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="Create New GOAL Deal" onclick="window.open('/apex/GoalDealCreation?Id={!Opportunity.Id}', 'GOALDealPage', 'height=600,width=1000,status=yes,scrollbars=yes,resizable=yes');" rerender="emptyPageBlock"/>
+                <!--  Rev 2.1 -->
+                <apex:commandButton value="Refresh GOAL Win/Loss" rendered="{!showWinLossButton}" action="{!updateAllWinLoss}"/>                                           
+            </apex:pageBlockButtons>
+            
+            <div id="statusPanel"> 
+                <apex:pageMessage severity="ERROR" strength="3" title="GOAL Pricing Approval" escape="false" detail="{!errorMessage}" />
+            </div>
+         </apex:pageblock>
+    </apex:form>
+</apex:page>

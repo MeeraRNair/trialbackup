@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RequestorEqualstoCurrentEditUser</fullName>
+    <active>true</active>
+    <description>Requestor Shouldn&apos;t Edit RootCause or Disposition Notes</description>
+    <errorConditionFormula>AND(
+ $User.FirstName&amp;&quot; &quot;&amp;$User.LastName = Requestor__c,
+OR(
+ ISCHANGED(Disposition_Notes__c),
+ ISCHANGED(Root_Cause__c) 
+)
+)</errorConditionFormula>
+    <errorMessage>Root Cause and Disposition Notes cannot be entered by the requestor. These should only be updated by the executive assisting with this request.</errorMessage>
+</ValidationRule>

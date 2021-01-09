@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Viper_APV_record_lock</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(OR( ISPICKVAL(Status__c, &apos;Submitted for Review&apos; ), ISPICKVAL(Status__c, &apos;Accepted&apos;), ISPICKVAL(Status__c, &apos;Declined&apos;),ISPICKVAL(Status__c, &apos;Signed&apos; )),CONTAINS($Profile.Name ,&apos;MDF Product Managers&apos;), ISCHANGED(Product_Manager_Approval__c) )</errorConditionFormula>
+    <errorMessage>Program status may not be revised by Product Management as the marketing plan has already been sent to the partner for review.</errorMessage>
+</ValidationRule>

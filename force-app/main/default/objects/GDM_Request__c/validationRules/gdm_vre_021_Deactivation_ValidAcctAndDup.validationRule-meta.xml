@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>gdm_vre_021_Deactivation_ValidAcctAndDup</fullName>
+    <active>true</active>
+    <description>If Deactivate request type and Account ID and Deactivated ID/Sub-Acct ID are the same then raise error</description>
+    <errorConditionFormula>AND (
+    RecordType.Name == &quot;Deactivate Account&quot;,
+Account_ID__c  ==  Duplicated_Account_ID__c,
+not ISBLANK(Duplicated_Account_ID__c)
+)</errorConditionFormula>
+    <errorMessage>(021) Account or Duplicated ID/Sub-Acct ID cannot be equal. Please change the values.</errorMessage>
+</ValidationRule>

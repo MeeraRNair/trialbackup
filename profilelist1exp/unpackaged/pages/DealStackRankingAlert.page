@@ -1,0 +1,6 @@
+<apex:page standardController="Deal_Program__c" extensions="clsApproveEligiblePrograms">
+       <div style="width:900px; margin:10px center;">
+            <!--<apex:image style="align:center" url="/servlet/servlet.FileDownload?file=0150m0000004xnj" rendered="{!If(Deal_Program__c.Alert_Message__c!= '', true, false)}"/> -->
+             <apex:pageMessages id="errorMsg" escape="false" rendered="{!errorbool}"/>
+       </div>
+</apex:page>

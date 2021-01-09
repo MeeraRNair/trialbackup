@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_Calendar_RT</fullName>
+    <active>true</active>
+    <description>Primary RT is used for all Calendar bookings - to block single day event and to block the first day for multiple day events</description>
+    <label>Primary Calendar RT</label>
+    <picklistValues>
+        <picklist>Half_Day__c</picklist>
+        <values>
+            <fullName>AM%3A 12 AM %E2%80%93 11%3A59 AM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PM%3A 12 PM %E2%80%93 11%3A59 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Whole Day</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Canceled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Expired</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Holiday</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Internal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Scheduled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Waitlisted</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -1,0 +1,152 @@
+<!-- * 
+* Revision CR Number   Release No      Date            Modified By     Description
+* -------- ---------   ----------      -----------     ------------    -----------
+* 1.0 -    CR16418     FY19-DCS-1002   30-Aug-2018:    manip4          added 'lightningStylesheets' attribute for apex component to make the page lightening friendly for the story 5537222
+*/-->
+
+<apex:page extensions="VFCntrlr_EmailDeleteMarketingPlan" standardController="Marketing_Plan__c" lightningStylesheets="true">
+
+<apex:sectionHeader title="Send for vendor review" subtitle="{!marketingPlanRec.name}"/>
+
+<apex:form >
+<apex:pageBlock rendered="{!VBRHError}">
+<table width="600px" cellpadding="0" cellspacing="0" align="center" border="0">
+        <tr>
+            <td>
+                                   
+                    <div>
+                        <apex:pageMessage severity="info" strength="3"
+                        detail="This Marketing Plan cannot be sent to Vendor for Review without being associated to a Rule if Marketing 
+                        Plan.Contract Type is Volume Based OR Rebates AND  Rebate_Rule_Header__c (if rebates) / Volume_Based_Rule_Header__c (if Volume Based) = NULL"/>
+                        
+                        <table align="center">
+                            <tr><td>
+                                <apex:commandButton value="Back" action="{!Cancel}"/>
+                                
+                            </td></tr>
+                        </table>
+                    </div>                  
+                
+            </td>
+        </tr>
+    </table>
+    </apex:pageBlock>
+    
+    <apex:pageBlock rendered="{!RRHError}">
+    <table width="600px" cellpadding="0" cellspacing="0" align="center" border="0">
+        <tr>
+            <td>                                   
+                    <div>
+                        <apex:pageMessage severity="info" strength="3"
+                        detail="This Marketing Plan cannot be sent to Vendor for Review without being associated to a Rule"/>                        
+                        <table align="center">
+                            <tr><td>
+                                <apex:commandButton value="Back" action="{!Cancel}"/>                                
+                            </td></tr>
+                        </table>
+                    </div>                  
+                
+            </td>
+        </tr>
+    </table>
+    </apex:pageBlock>
+    
+    <apex:pageBlock rendered="{!ProfileErr}">
+    <table width="600px" cellpadding="0" cellspacing="0" align="center" border="0">
+        <tr>
+            <td>                                   
+                    <div>
+                        <apex:pageMessage severity="info" strength="3"  detail="This profile is not authorized to submit Marketing Plans for review."/>
+                         <table>   
+                            <tr><td>
+                                <apex:commandButton value="Back" action="{!Cancel}"/>                                
+                            </td></tr>
+                        </table>
+                    </div>                  
+                
+            </td>
+        </tr>
+    </table>
+    </apex:pageBlock>
+    
+    <apex:pageBlock rendered="{!NoAPVErr}">
+    <table width="600px" cellpadding="0" cellspacing="0" align="center" border="0">
+        <tr>
+            <td>                                   
+                    <div>
+                        <apex:pageMessage severity="info" strength="3"  detail="There are no Program(s) associated to this Marketing Plan in Pending status to be reviewed by Vendor."/>
+                         <table>   
+                            <tr><td>
+                                <apex:commandButton value="Back" action="{!Cancel}"/>                                
+                            </td></tr>
+                        </table>
+                    </div>                  
+                
+            </td>
+        </tr>
+    </table>
+    </apex:pageBlock>
+    
+<apex:pageBlock title="MDF Contacts" rendered="{!DisplayForm}" mode="mainDetail">  
+    <apex:pageBlockSection title="Message" collapsible="false" columns="1">
+        Click on <b>select</b> link to select the email id of any one of the existing MDF Contacts.
+    </apex:pageBlockSection>    
+      <apex:pageBlockSection collapsible="false" title="Select partner contacts" columns="1">
+      <apex:pageBlockTable value="{!partnerContact}" var="mdfC">
+          <apex:column headerValue="Select">
+                <apex:inputCheckbox value="{!mdfC.selected}"/>
+          </apex:column>  
+            <apex:column headerValue="MDF Contact name">
+              {!mdfC.prCon.MDF_Contact__r.name}
+            </apex:column>
+            <apex:column headerValue="Partner Contact Type">
+              {!mdfC.prCon.MDF_Contact__r.Partner_Contact_Type__c}
+            </apex:column>
+            <apex:column headerValue="Email">
+              {!mdfC.prCon.MDF_Contact__r.Email__c } 
+            </apex:column>              
+            <apex:column headerValue="Record Type">  
+              {!mdfC.prCon.MDF_Contact__r.recordtype.name} 
+            </apex:column>  
+      </apex:pageBlockTable>      
+      </apex:pageBlockSection>
+      <apex:pageMessage severity="info" strength="3" rendered="{!NoContactErr}"  detail="There are no MDF Contacts associated with the Vendor of the marketing plan."/>
+           
+      
+      <apex:pageBlockSection collapsible="false" title="Select product manager contacts" columns="1">
+      <apex:pageBlockTable value="{!ProductManagers}" var="mdfC">
+          <apex:column headerValue="Select">
+                <apex:inputCheckbox value="{!mdfC.selected}"/>
+          </apex:column>   
+            <apex:column headerValue="MDF Contact name">
+             {!mdfC.pdtMgrAC.MDF_Contact__r.name}            
+            </apex:column>            
+            <apex:column headerValue="Email">
+            {!mdfC.pdtMgrAC.MDF_Contact__r.Email__c } 
+            </apex:column>              
+            <apex:column headerValue="Record Type">  
+              {!mdfC.pdtMgrAC.MDF_Contact__r.recordtype.name} 
+            </apex:column>  
+      </apex:pageBlockTable> 
+       </apex:pageblockSection>
+       <apex:pageblockSection collapsible="false" title="Enter other emailId in the below given text field" >
+           Other Email : <apex:inputText value="{!EmailId}" />
+      </apex:pageblockSection>
+      
+      <apex:pageblockSection collapsible="false" title="Schedule reminder?" columns="2">
+          <apex:inputField value="{!marketingPlanRec.Send_Review_Reminder__c}" />
+      </apex:pageblockSection>
+      
+      Click on <b>"Send for Review"</b> button to send email to the <H2 style="color:#9000A1;font-size:17px;">Selected partner contact</H2> , product manager and/or <b>other
+      email id</b>. 
+      
+     <apex:pageBlockButtons location="bottom">
+         <apex:commandButton value="Send for Review" action="{!sendForApproval}"/>
+         <apex:commandButton value="Cancel" action="{!Cancel}"/>
+     </apex:pageBlockButtons>
+     <apex:Messages style="color:red; font-weight:bold"/>
+
+  </apex:pageBlock>
+</apex:form>
+  
+</apex:page>

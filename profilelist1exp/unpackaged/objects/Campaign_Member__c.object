@@ -1,0 +1,2311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>InDevelopment</deploymentStatus>
+    <description>This is the Object linking Campaigns to Contacts and Accounts.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>AVP_email__c</fullName>
+        <externalId>false</externalId>
+        <label>AVP email</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account_Executive_email__c</fullName>
+        <externalId>false</externalId>
+        <label>Account Executive email</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>INTEG-N /NON INTEG -Y/ APEX/CC - N ||
+WF / APP/ FU / OM -  N||
+Desc -  This is a lookup to the Account record||
+SFA -Y/PRM - N||
+VAL -N|| 
+CR# - ||</description>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipName>R00N70000001lozJEAQ</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Campaign_Type__c</fullName>
+        <description>INTEG-N /NON INTEG -Y/ APEX/CC - N ||
+WF / APP/ FU / OM -  N||
+Desc -  This field determines the availeble values for the Status field. The campaign Type must match the Type on the actual campaign object||
+SFA -Y/PRM -N||
+VAL -  Y - Campaign_type_matched || 
+CR# - ||</description>
+        <externalId>false</externalId>
+        <label>Campaign Vehicle</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>Advisory Councils</fullName>
+                    <default>false</default>
+                    <label>Advisory Councils</label>
+                </value>
+                <value>
+                    <fullName>Assessment (HW/Services)</fullName>
+                    <default>false</default>
+                    <label>Assessment (HW/Services)</label>
+                </value>
+                <value>
+                    <fullName>CXO Events</fullName>
+                    <default>false</default>
+                    <label>CXO Events</label>
+                </value>
+                <value>
+                    <fullName>Dell Day</fullName>
+                    <default>false</default>
+                    <label>Dell Day</label>
+                </value>
+                <value>
+                    <fullName>DM</fullName>
+                    <default>false</default>
+                    <label>DM</label>
+                </value>
+                <value>
+                    <fullName>Door Opener (High Value)</fullName>
+                    <default>false</default>
+                    <label>Door Opener (High Value)</label>
+                </value>
+                <value>
+                    <fullName>Door Opener (Value)</fullName>
+                    <default>false</default>
+                    <label>Door Opener (Value)</label>
+                </value>
+                <value>
+                    <fullName>eDM/Email</fullName>
+                    <default>false</default>
+                    <label>eDM/Email</label>
+                </value>
+                <value>
+                    <fullName>eSeminar/Webcast/Webinar</fullName>
+                    <default>false</default>
+                    <label>eSeminar/Webcast/Webinar</label>
+                </value>
+                <value>
+                    <fullName>Multiple Vehicles</fullName>
+                    <default>false</default>
+                    <label>Multiple Vehicles</label>
+                </value>
+                <value>
+                    <fullName>Online Advertising</fullName>
+                    <default>false</default>
+                    <label>Online Advertising</label>
+                </value>
+                <value>
+                    <fullName>Online Inbound</fullName>
+                    <default>false</default>
+                    <label>Online Inbound</label>
+                </value>
+                <value>
+                    <fullName>Roadshow</fullName>
+                    <default>false</default>
+                    <label>Roadshow</label>
+                </value>
+                <value>
+                    <fullName>Sales Touch</fullName>
+                    <default>false</default>
+                    <label>Sales Touch</label>
+                </value>
+                <value>
+                    <fullName>Seed Unit</fullName>
+                    <default>false</default>
+                    <label>Seed Unit</label>
+                </value>
+                <value>
+                    <fullName>Seminar/Conference</fullName>
+                    <default>false</default>
+                    <label>Seminar/Conference</label>
+                </value>
+                <value>
+                    <fullName>Special Events</fullName>
+                    <default>false</default>
+                    <label>Special Events</label>
+                </value>
+                <value>
+                    <fullName>Standalone Telemarketing</fullName>
+                    <default>false</default>
+                    <label>Standalone Telemarketing</label>
+                </value>
+                <value>
+                    <fullName>Trade Show</fullName>
+                    <default>false</default>
+                    <label>Trade Show</label>
+                </value>
+                <value>
+                    <fullName>Workshop</fullName>
+                    <default>false</default>
+                    <label>Workshop</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Campaign__c</fullName>
+        <description>INTEG-N /NON INTEG -Y/ APEX/CC - N ||
+WF / APP/ FU / OM -  N||
+Desc -  Allows users with at least Read/Write to the Master record to create, edit, or delete related Detail records||
+SFA -Y/PRM -N ||
+VAL -N|| 
+CR# - ||</description>
+        <externalId>false</externalId>
+        <label>Campaign</label>
+        <referenceTo>Campaign</referenceTo>
+        <relationshipName>R00N70000001lozTEAQ</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>INTEG-N /NON INTEG -Y/ APEX/CC - N ||
+WF / APP/ FU / OM -  N||
+Desc -  This is a lookup to the Contact Object||
+SFA -Y/PRM -N||
+VAL -N|| 
+CR# - ||</description>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipName>R00N70000001lozOEAQ</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Create_New_Opportunity__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( OR(ISPICKVAL(S__c,&quot;Requires Follow-Up&quot;),ISPICKVAL(S__c,&quot;Completed Follow-Up&quot;)), HYPERLINK(&quot;/006/e?retURL=%2F006%2Fo&amp;RecordType=012300000004zf2&amp;cancelURL=%2F&quot; &amp; Id &amp; &quot;&amp;ent=Opportunity&amp;opp4=&quot;&amp;Hidden_Account__c&amp;&quot;&amp;opp17=&quot;&amp;Campaign__r.Name,&quot; New Opportunity&quot;), &quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Create New Opportunity</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Data_Center_Optimization__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10 Custom Field for Talk to Dell Web Form - mapped from Lead page||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.1 # 1005  ||</description>
+        <externalId>false</externalId>
+        <label>Data Center Optimization</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Decision_Making_Role__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10 Custom Field for Talk to Dell Web Form - mapped from Lead page||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.1 # 1005  ||</description>
+        <externalId>false</externalId>
+        <label>Decision Making Role</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Power Sponsor / Decision Maker</fullName>
+                    <default>false</default>
+                    <label>Power Sponsor / Decision Maker</label>
+                </value>
+                <value>
+                    <fullName>Sponsor/ Champion</fullName>
+                    <default>false</default>
+                    <label>Sponsor/ Champion</label>
+                </value>
+                <value>
+                    <fullName>Influencer</fullName>
+                    <default>false</default>
+                    <label>Influencer</label>
+                </value>
+                <value>
+                    <fullName>Business User</fullName>
+                    <default>false</default>
+                    <label>Business User</label>
+                </value>
+                <value>
+                    <fullName>Evaluator</fullName>
+                    <default>false</default>
+                    <label>Evaluator</label>
+                </value>
+                <value>
+                    <fullName>Purchasing / Procurement</fullName>
+                    <default>false</default>
+                    <label>Purchasing / Procurement</label>
+                </value>
+                <value>
+                    <fullName>Financial Buyer</fullName>
+                    <default>false</default>
+                    <label>Financial Buyer</label>
+                </value>
+                <value>
+                    <fullName>Technical Buyer</fullName>
+                    <default>false</default>
+                    <label>Technical Buyer</label>
+                </value>
+                <value>
+                    <fullName>Operational Buyer</fullName>
+                    <default>false</default>
+                    <label>Operational Buyer</label>
+                </value>
+                <value>
+                    <fullName>Legal Approver</fullName>
+                    <default>false</default>
+                    <label>Legal Approver</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Dell_Existing_Customer__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10 Custom Field for Talk to Dell Web Form - mapped from Lead page||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.1 # 1005  ||</description>
+        <externalId>false</externalId>
+        <label>Dell Existing Customer</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Dell_can_contact_me_in_the_future__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10 Custom Field for Talk to Dell Web Form - mapped from Lead page||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.1 # 1005  ||</description>
+        <externalId>false</externalId>
+        <label>Dell can contact me in the future</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Detail_Status__c</fullName>
+        <description>INTEG-N /NON INTEG -Y/ APEX/CC - N ||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/PRM - N||
+VAL -N|| 
+CR# - ||</description>
+        <externalId>false</externalId>
+        <label>Score</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>S__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>High Priority (Extremely hot leads; SLA = 48 hours)</fullName>
+                    <default>false</default>
+                    <label>High Priority (Extremely hot leads; SLA = 48 hours)</label>
+                </value>
+                <value>
+                    <fullName>Priority (Contact requested follow up; SLA = 1 Week)</fullName>
+                    <default>false</default>
+                    <label>Priority (Contact requested follow up; SLA = 1 Week)</label>
+                </value>
+                <value>
+                    <fullName>Interested (Contact attended or registered for event and self selected online properties)</fullName>
+                    <default>false</default>
+                    <label>Interested (Contact attended or registered for event and self selected online properties)</label>
+                </value>
+                <value>
+                    <fullName>Target (Contact attended event but did not self select online properties)</fullName>
+                    <default>false</default>
+                    <label>Target (Contact attended event but did not self select online properties)</label>
+                </value>
+                <value>
+                    <fullName>Visitor (Contact registered for event / other online form but did not attend)</fullName>
+                    <default>false</default>
+                    <label>Visitor (Contact registered for event / other online form but did not attend)</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Future Interest within 3 months</controllingFieldValue>
+                <controllingFieldValue>Profiled Customer</controllingFieldValue>
+                <controllingFieldValue>Future Interest 3 months or longer</controllingFieldValue>
+                <controllingFieldValue>Purchasing Plans Identified</controllingFieldValue>
+                <controllingFieldValue>Completed</controllingFieldValue>
+                <controllingFieldValue>Returned</controllingFieldValue>
+                <controllingFieldValue>In Progress</controllingFieldValue>
+                <controllingFieldValue>Bounced</controllingFieldValue>
+                <controllingFieldValue>Qualified</controllingFieldValue>
+                <controllingFieldValue>Opened</controllingFieldValue>
+                <controllingFieldValue>Opportunity created</controllingFieldValue>
+                <controllingFieldValue>Clicked</controllingFieldValue>
+                <controllingFieldValue>Dead End</controllingFieldValue>
+                <controllingFieldValue>Added to CTT</controllingFieldValue>
+                <controllingFieldValue>Fully Certified</controllingFieldValue>
+                <controllingFieldValue>Registered</controllingFieldValue>
+                <controllingFieldValue>General Comment</controllingFieldValue>
+                <controllingFieldValue>Agreed to Purchase</controllingFieldValue>
+                <controllingFieldValue>Not Interested</controllingFieldValue>
+                <controllingFieldValue>Not Decision Maker</controllingFieldValue>
+                <controllingFieldValue>Future Follow-up</controllingFieldValue>
+                <controllingFieldValue>Identified</controllingFieldValue>
+                <controllingFieldValue>Tags Sent</controllingFieldValue>
+                <controllingFieldValue>Quoted Hardware</controllingFieldValue>
+                <controllingFieldValue>Quoted Extended Warranty</controllingFieldValue>
+                <controllingFieldValue>Replaced Hardware</controllingFieldValue>
+                <controllingFieldValue>Extended Warranty</controllingFieldValue>
+                <controllingFieldValue>Sent</controllingFieldValue>
+                <controllingFieldValue>Responded</controllingFieldValue>
+                <controllingFieldValue>Returned/Bounced</controllingFieldValue>
+                <controllingFieldValue>Viewed</controllingFieldValue>
+                <controllingFieldValue>Accepted</controllingFieldValue>
+                <controllingFieldValue>Declined</controllingFieldValue>
+                <controllingFieldValue>Attended</controllingFieldValue>
+                <controllingFieldValue>Contacted</controllingFieldValue>
+                <controllingFieldValue>Quoted</controllingFieldValue>
+                <controllingFieldValue>Invited</controllingFieldValue>
+                <controllingFieldValue>Contacted/Invited</controllingFieldValue>
+                <controllingFieldValue>Offered</controllingFieldValue>
+                <controllingFieldValue>Alternative Contact</controllingFieldValue>
+                <controllingFieldValue>Qualified Current Data</controllingFieldValue>
+                <valueName>Interested (Contact attended or registered for event and self selected online properties)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Future Interest within 3 months</controllingFieldValue>
+                <controllingFieldValue>Profiled Customer</controllingFieldValue>
+                <controllingFieldValue>Future Interest 3 months or longer</controllingFieldValue>
+                <controllingFieldValue>Purchasing Plans Identified</controllingFieldValue>
+                <controllingFieldValue>Completed</controllingFieldValue>
+                <controllingFieldValue>Returned</controllingFieldValue>
+                <controllingFieldValue>In Progress</controllingFieldValue>
+                <controllingFieldValue>Bounced</controllingFieldValue>
+                <controllingFieldValue>Qualified</controllingFieldValue>
+                <controllingFieldValue>Opened</controllingFieldValue>
+                <controllingFieldValue>Opportunity created</controllingFieldValue>
+                <controllingFieldValue>Clicked</controllingFieldValue>
+                <controllingFieldValue>Dead End</controllingFieldValue>
+                <controllingFieldValue>Added to CTT</controllingFieldValue>
+                <controllingFieldValue>Fully Certified</controllingFieldValue>
+                <controllingFieldValue>Registered</controllingFieldValue>
+                <controllingFieldValue>General Comment</controllingFieldValue>
+                <controllingFieldValue>Agreed to Purchase</controllingFieldValue>
+                <controllingFieldValue>Not Interested</controllingFieldValue>
+                <controllingFieldValue>Not Decision Maker</controllingFieldValue>
+                <controllingFieldValue>Future Follow-up</controllingFieldValue>
+                <controllingFieldValue>Identified</controllingFieldValue>
+                <controllingFieldValue>Tags Sent</controllingFieldValue>
+                <controllingFieldValue>Quoted Hardware</controllingFieldValue>
+                <controllingFieldValue>Quoted Extended Warranty</controllingFieldValue>
+                <controllingFieldValue>Replaced Hardware</controllingFieldValue>
+                <controllingFieldValue>Extended Warranty</controllingFieldValue>
+                <controllingFieldValue>Sent</controllingFieldValue>
+                <controllingFieldValue>Responded</controllingFieldValue>
+                <controllingFieldValue>Returned/Bounced</controllingFieldValue>
+                <controllingFieldValue>Viewed</controllingFieldValue>
+                <controllingFieldValue>Accepted</controllingFieldValue>
+                <controllingFieldValue>Declined</controllingFieldValue>
+                <controllingFieldValue>Attended</controllingFieldValue>
+                <controllingFieldValue>Contacted</controllingFieldValue>
+                <controllingFieldValue>Quoted</controllingFieldValue>
+                <controllingFieldValue>Invited</controllingFieldValue>
+                <controllingFieldValue>Contacted/Invited</controllingFieldValue>
+                <controllingFieldValue>Offered</controllingFieldValue>
+                <controllingFieldValue>Alternative Contact</controllingFieldValue>
+                <controllingFieldValue>Qualified Current Data</controllingFieldValue>
+                <valueName>Target (Contact attended event but did not self select online properties)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Future Interest within 3 months</controllingFieldValue>
+                <controllingFieldValue>Profiled Customer</controllingFieldValue>
+                <controllingFieldValue>Future Interest 3 months or longer</controllingFieldValue>
+                <controllingFieldValue>Purchasing Plans Identified</controllingFieldValue>
+                <controllingFieldValue>Completed</controllingFieldValue>
+                <controllingFieldValue>Returned</controllingFieldValue>
+                <controllingFieldValue>In Progress</controllingFieldValue>
+                <controllingFieldValue>Bounced</controllingFieldValue>
+                <controllingFieldValue>Qualified</controllingFieldValue>
+                <controllingFieldValue>Opened</controllingFieldValue>
+                <controllingFieldValue>Opportunity created</controllingFieldValue>
+                <controllingFieldValue>Clicked</controllingFieldValue>
+                <controllingFieldValue>Dead End</controllingFieldValue>
+                <controllingFieldValue>Added to CTT</controllingFieldValue>
+                <controllingFieldValue>Fully Certified</controllingFieldValue>
+                <controllingFieldValue>Registered</controllingFieldValue>
+                <controllingFieldValue>General Comment</controllingFieldValue>
+                <controllingFieldValue>Agreed to Purchase</controllingFieldValue>
+                <controllingFieldValue>Not Interested</controllingFieldValue>
+                <controllingFieldValue>Not Decision Maker</controllingFieldValue>
+                <controllingFieldValue>Future Follow-up</controllingFieldValue>
+                <controllingFieldValue>Identified</controllingFieldValue>
+                <controllingFieldValue>Tags Sent</controllingFieldValue>
+                <controllingFieldValue>Quoted Hardware</controllingFieldValue>
+                <controllingFieldValue>Quoted Extended Warranty</controllingFieldValue>
+                <controllingFieldValue>Replaced Hardware</controllingFieldValue>
+                <controllingFieldValue>Extended Warranty</controllingFieldValue>
+                <controllingFieldValue>Sent</controllingFieldValue>
+                <controllingFieldValue>Responded</controllingFieldValue>
+                <controllingFieldValue>Returned/Bounced</controllingFieldValue>
+                <controllingFieldValue>Viewed</controllingFieldValue>
+                <controllingFieldValue>Accepted</controllingFieldValue>
+                <controllingFieldValue>Declined</controllingFieldValue>
+                <controllingFieldValue>Attended</controllingFieldValue>
+                <controllingFieldValue>Contacted</controllingFieldValue>
+                <controllingFieldValue>Quoted</controllingFieldValue>
+                <controllingFieldValue>Invited</controllingFieldValue>
+                <controllingFieldValue>Contacted/Invited</controllingFieldValue>
+                <controllingFieldValue>Offered</controllingFieldValue>
+                <controllingFieldValue>Alternative Contact</controllingFieldValue>
+                <controllingFieldValue>Qualified Current Data</controllingFieldValue>
+                <valueName>Visitor (Contact registered for event / other online form but did not attend)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Requires Follow-Up</controllingFieldValue>
+                <controllingFieldValue>Completed Follow-Up</controllingFieldValue>
+                <valueName>High Priority (Extremely hot leads; SLA = 48 hours)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Requires Follow-Up</controllingFieldValue>
+                <controllingFieldValue>Completed Follow-Up</controllingFieldValue>
+                <valueName>Priority (Contact requested follow up; SLA = 1 Week)</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Due_Date__c</fullName>
+        <description>INTEG-N /NON INTEG -Y/ APEX/CC - N ||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/PRM -N||
+VAL -  Y - VR703_Due_Rate_Required|| 
+CR# - ||</description>
+        <externalId>false</externalId>
+        <label>Due Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Employee__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10 Custom Field for Talk to Dell Web Form - mapped from Lead page||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.1 # 1005  ||</description>
+        <externalId>false</externalId>
+        <label>Employee</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>1 - 99</fullName>
+                    <default>false</default>
+                    <label>1 - 99</label>
+                </value>
+                <value>
+                    <fullName>100 - 499</fullName>
+                    <default>false</default>
+                    <label>100 - 499</label>
+                </value>
+                <value>
+                    <fullName>500 - 999</fullName>
+                    <default>false</default>
+                    <label>500 - 999</label>
+                </value>
+                <value>
+                    <fullName>1000 - 4999</fullName>
+                    <default>false</default>
+                    <label>1000 - 4999</label>
+                </value>
+                <value>
+                    <fullName>5000 - 9999</fullName>
+                    <default>false</default>
+                    <label>5000 - 9999</label>
+                </value>
+                <value>
+                    <fullName>10000+</fullName>
+                    <default>false</default>
+                    <label>10000+</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>End_user_Productivity__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10 Custom Field for Talk to Dell Web Form - mapped from Lead page||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.1 # 1005  ||</description>
+        <externalId>false</externalId>
+        <label>End-user Productivity</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Hidden_Account__c</fullName>
+        <description>This field is populates the Account Name of the Campaign Member and is hidden from the Users. It is used in the formula field “Create New Opportunity” to pre-populate the Account Name (CR 1259) and also in the email notification reminders for Follow –Up (CR 1122)</description>
+        <externalId>false</externalId>
+        <formula>IF( Account__c = &quot;&quot;,Contact__r.Account.Name, Account__r.Name )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Hidden Account</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Hidden_Campaign_Name__c</fullName>
+        <description>This field is populates the Campaign Name of the Campaign Member and is hidden from the Users. It is used in the email notification reminders for Follow –Up (CR 1122)</description>
+        <externalId>false</externalId>
+        <formula>Campaign__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Hidden Campaign Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Hidden_Contact_ID__c</fullName>
+        <description>This field is populates the Contact ID of the Campaign Member and is hidden from the Users. It is used in the email notification reminders for Follow –Up (CR 1122)</description>
+        <externalId>false</externalId>
+        <formula>Contact__r.Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Hidden Contact ID</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>IT_Process_Simplification__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10 Custom Field for Talk to Dell Web Form - mapped from Lead page||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.1 # 1005  ||</description>
+        <externalId>false</externalId>
+        <label>IT Process Simplification</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Inside_Sales_Rep_Email__c</fullName>
+        <externalId>false</externalId>
+        <label>Inside Sales Rep Email</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>IsFollowUpCampaignType__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - Y||
+WF / APP/ FU / OM - N ||
+Desc - This field is used by Custom Code - do not modify this field without first asking the Apex Development team||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -  R9.9 # 0342||</description>
+        <externalId>false</externalId>
+        <formula>&apos;TRUE&apos;</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>IsFollowUpCampaignType</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Marketing_Comments__c</fullName>
+        <description>INTEG-N /NON INTEG -Y/ APEX/CC - N ||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/PRM - N||
+VAL -N || 
+CR# - ||</description>
+        <externalId>false</externalId>
+        <label>Marketing Comments</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Primary_Follow_Up_email__c</fullName>
+        <externalId>false</externalId>
+        <label>Primary Follow-Up email</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Purchase_Influence_Over__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10 Custom Field for Talk to Dell Web Form - mapped from Lead page||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.1 # 1005  ||</description>
+        <externalId>false</externalId>
+        <label>Purchase/Influence Over</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Purchase_Timeframe__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10 Custom Field for Talk to Dell Web Form - mapped from Lead page||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.1 # 1005  ||</description>
+        <externalId>false</externalId>
+        <label>Purchase Timeframe</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Immediately</fullName>
+                    <default>false</default>
+                    <label>Immediately</label>
+                </value>
+                <value>
+                    <fullName>1-6 months</fullName>
+                    <default>false</default>
+                    <label>1-6 months</label>
+                </value>
+                <value>
+                    <fullName>7-12 months</fullName>
+                    <default>false</default>
+                    <label>7-12 months</label>
+                </value>
+                <value>
+                    <fullName>Undecided</fullName>
+                    <default>false</default>
+                    <label>Undecided</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Questions_Comments__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10 Custom Field for Talk to Dell Web Form - mapped from Lead page||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.1 # 1005  ||</description>
+        <externalId>false</externalId>
+        <label>Questions/Comments</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>RSM_email__c</fullName>
+        <externalId>false</externalId>
+        <label>RSM email</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>S__c</fullName>
+        <description>INTEG-N /NON INTEG -Y/ APEX/CC - N ||
+WF / APP/ FU / OM -  N||
+Desc -  This is the Campaign Member Status with different values depending on the Campaign Type. The API Name has been shortened to allow for a long formula that references it multiple times.||
+SFA -Y/PRM -N||
+VAL -N || 
+CR# - ||</description>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Campaign_Type__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Contacted</fullName>
+                    <default>false</default>
+                    <label>Contacted</label>
+                </value>
+                <value>
+                    <fullName>Invited</fullName>
+                    <default>false</default>
+                    <label>Invited</label>
+                </value>
+                <value>
+                    <fullName>Offered</fullName>
+                    <default>false</default>
+                    <label>Offered</label>
+                </value>
+                <value>
+                    <fullName>Not Interested</fullName>
+                    <default>false</default>
+                    <label>Not Interested</label>
+                </value>
+                <value>
+                    <fullName>Registered</fullName>
+                    <default>false</default>
+                    <label>Registered</label>
+                </value>
+                <value>
+                    <fullName>Attended</fullName>
+                    <default>false</default>
+                    <label>Attended</label>
+                </value>
+                <value>
+                    <fullName>Qualified Current Data</fullName>
+                    <default>false</default>
+                    <label>Qualified Current Data</label>
+                </value>
+                <value>
+                    <fullName>Profiled Customer</fullName>
+                    <default>false</default>
+                    <label>Profiled Customer</label>
+                </value>
+                <value>
+                    <fullName>Purchasing Plans Identified</fullName>
+                    <default>false</default>
+                    <label>Purchasing Plans Identified</label>
+                </value>
+                <value>
+                    <fullName>Accepted</fullName>
+                    <default>false</default>
+                    <label>Accepted</label>
+                </value>
+                <value>
+                    <fullName>Sent</fullName>
+                    <default>false</default>
+                    <label>Sent</label>
+                </value>
+                <value>
+                    <fullName>Returned</fullName>
+                    <default>false</default>
+                    <label>Returned</label>
+                </value>
+                <value>
+                    <fullName>Bounced</fullName>
+                    <default>false</default>
+                    <label>Bounced</label>
+                </value>
+                <value>
+                    <fullName>Opened</fullName>
+                    <default>false</default>
+                    <label>Opened</label>
+                </value>
+                <value>
+                    <fullName>Clicked</fullName>
+                    <default>false</default>
+                    <label>Clicked</label>
+                </value>
+                <value>
+                    <fullName>Added to CTT</fullName>
+                    <default>false</default>
+                    <label>Added to CTT</label>
+                </value>
+                <value>
+                    <fullName>Fully Certified</fullName>
+                    <default>false</default>
+                    <label>Fully Certified</label>
+                </value>
+                <value>
+                    <fullName>General Comment</fullName>
+                    <default>false</default>
+                    <label>General Comment</label>
+                </value>
+                <value>
+                    <fullName>Future Follow-up</fullName>
+                    <default>false</default>
+                    <label>Future Follow-up</label>
+                </value>
+                <value>
+                    <fullName>Requires Follow-Up</fullName>
+                    <default>false</default>
+                    <label>Requires Follow-Up</label>
+                </value>
+                <value>
+                    <fullName>Completed Follow-Up</fullName>
+                    <default>false</default>
+                    <label>Completed Follow-Up</label>
+                </value>
+                <value>
+                    <fullName>Identified</fullName>
+                    <default>false</default>
+                    <label>Identified</label>
+                </value>
+                <value>
+                    <fullName>Responded</fullName>
+                    <default>false</default>
+                    <label>Responded</label>
+                </value>
+                <value>
+                    <fullName>Returned/Bounced</fullName>
+                    <default>false</default>
+                    <label>Returned/Bounced</label>
+                </value>
+                <value>
+                    <fullName>Viewed</fullName>
+                    <default>false</default>
+                    <label>Viewed</label>
+                </value>
+                <value>
+                    <fullName>Declined</fullName>
+                    <default>false</default>
+                    <label>Declined</label>
+                </value>
+                <value>
+                    <fullName>Quoted</fullName>
+                    <default>false</default>
+                    <label>Quoted</label>
+                </value>
+                <value>
+                    <fullName>Agreed to Purchase</fullName>
+                    <default>false</default>
+                    <label>Agreed to Purchase</label>
+                </value>
+                <value>
+                    <fullName>Not Decision Maker</fullName>
+                    <default>false</default>
+                    <label>Not Decision Maker</label>
+                </value>
+                <value>
+                    <fullName>Tags Sent</fullName>
+                    <default>false</default>
+                    <label>Tags Sent</label>
+                </value>
+                <value>
+                    <fullName>Quoted Hardware</fullName>
+                    <default>false</default>
+                    <label>Quoted Hardware</label>
+                </value>
+                <value>
+                    <fullName>Quoted Extended Warranty</fullName>
+                    <default>false</default>
+                    <label>Quoted Extended Warranty</label>
+                </value>
+                <value>
+                    <fullName>Replaced Hardware</fullName>
+                    <default>false</default>
+                    <label>Replaced Hardware</label>
+                </value>
+                <value>
+                    <fullName>Extended Warranty</fullName>
+                    <default>false</default>
+                    <label>Extended Warranty</label>
+                </value>
+                <value>
+                    <fullName>Contacted/Invited</fullName>
+                    <default>false</default>
+                    <label>Contacted/Invited</label>
+                </value>
+                <value>
+                    <fullName>Alternative Contact</fullName>
+                    <default>false</default>
+                    <label>Alternative Contact</label>
+                </value>
+                <value>
+                    <fullName>Future Interest within 3 months</fullName>
+                    <default>false</default>
+                    <label>Future Interest within 3 months</label>
+                </value>
+                <value>
+                    <fullName>Future Interest 3 months or longer</fullName>
+                    <default>false</default>
+                    <label>Future Interest 3 months or longer</label>
+                </value>
+                <value>
+                    <fullName>Completed</fullName>
+                    <default>false</default>
+                    <label>Completed</label>
+                </value>
+                <value>
+                    <fullName>In Progress</fullName>
+                    <default>false</default>
+                    <label>In Progress</label>
+                </value>
+                <value>
+                    <fullName>Qualified</fullName>
+                    <default>false</default>
+                    <label>Qualified</label>
+                </value>
+                <value>
+                    <fullName>Opportunity created</fullName>
+                    <default>false</default>
+                    <label>Opportunity created</label>
+                </value>
+                <value>
+                    <fullName>Dead End</fullName>
+                    <default>false</default>
+                    <label>Dead End</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Assessment (HW/Services)</controllingFieldValue>
+                <controllingFieldValue>Seed Unit</controllingFieldValue>
+                <valueName>Offered</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Assessment (HW/Services)</controllingFieldValue>
+                <controllingFieldValue>CXO Events</controllingFieldValue>
+                <controllingFieldValue>Dell Day</controllingFieldValue>
+                <controllingFieldValue>Door Opener (High Value)</controllingFieldValue>
+                <controllingFieldValue>Door Opener (Value)</controllingFieldValue>
+                <controllingFieldValue>Multiple Vehicles</controllingFieldValue>
+                <controllingFieldValue>Roadshow</controllingFieldValue>
+                <controllingFieldValue>Trade Show</controllingFieldValue>
+                <controllingFieldValue>Seed Unit</controllingFieldValue>
+                <controllingFieldValue>Seminar/Conference</controllingFieldValue>
+                <controllingFieldValue>Standalone Telemarketing</controllingFieldValue>
+                <controllingFieldValue>Workshop</controllingFieldValue>
+                <controllingFieldValue>eSeminar/Webcast/Webinar</controllingFieldValue>
+                <controllingFieldValue>Advisory Councils</controllingFieldValue>
+                <controllingFieldValue>Special Events</controllingFieldValue>
+                <valueName>Not Interested</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Assessment (HW/Services)</controllingFieldValue>
+                <controllingFieldValue>Door Opener (High Value)</controllingFieldValue>
+                <controllingFieldValue>Door Opener (Value)</controllingFieldValue>
+                <controllingFieldValue>Seed Unit</controllingFieldValue>
+                <valueName>Accepted</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Assessment (HW/Services)</controllingFieldValue>
+                <controllingFieldValue>CXO Events</controllingFieldValue>
+                <controllingFieldValue>Dell Day</controllingFieldValue>
+                <controllingFieldValue>DM</controllingFieldValue>
+                <controllingFieldValue>Door Opener (High Value)</controllingFieldValue>
+                <controllingFieldValue>Door Opener (Value)</controllingFieldValue>
+                <controllingFieldValue>eDM/Email</controllingFieldValue>
+                <controllingFieldValue>Multiple Vehicles</controllingFieldValue>
+                <controllingFieldValue>Online Advertising</controllingFieldValue>
+                <controllingFieldValue>Roadshow</controllingFieldValue>
+                <controllingFieldValue>Online Inbound</controllingFieldValue>
+                <controllingFieldValue>Sales Touch</controllingFieldValue>
+                <controllingFieldValue>Trade Show</controllingFieldValue>
+                <controllingFieldValue>Seed Unit</controllingFieldValue>
+                <controllingFieldValue>Seminar/Conference</controllingFieldValue>
+                <controllingFieldValue>Standalone Telemarketing</controllingFieldValue>
+                <controllingFieldValue>Workshop</controllingFieldValue>
+                <controllingFieldValue>eSeminar/Webcast/Webinar</controllingFieldValue>
+                <controllingFieldValue>Advisory Councils</controllingFieldValue>
+                <controllingFieldValue>Special Events</controllingFieldValue>
+                <valueName>Future Follow-up</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Assessment (HW/Services)</controllingFieldValue>
+                <controllingFieldValue>CXO Events</controllingFieldValue>
+                <controllingFieldValue>Dell Day</controllingFieldValue>
+                <controllingFieldValue>DM</controllingFieldValue>
+                <controllingFieldValue>Door Opener (High Value)</controllingFieldValue>
+                <controllingFieldValue>Door Opener (Value)</controllingFieldValue>
+                <controllingFieldValue>eDM/Email</controllingFieldValue>
+                <controllingFieldValue>Multiple Vehicles</controllingFieldValue>
+                <controllingFieldValue>Online Advertising</controllingFieldValue>
+                <controllingFieldValue>Roadshow</controllingFieldValue>
+                <controllingFieldValue>Online Inbound</controllingFieldValue>
+                <controllingFieldValue>Sales Touch</controllingFieldValue>
+                <controllingFieldValue>Trade Show</controllingFieldValue>
+                <controllingFieldValue>Seed Unit</controllingFieldValue>
+                <controllingFieldValue>Seminar/Conference</controllingFieldValue>
+                <controllingFieldValue>Standalone Telemarketing</controllingFieldValue>
+                <controllingFieldValue>Workshop</controllingFieldValue>
+                <controllingFieldValue>eSeminar/Webcast/Webinar</controllingFieldValue>
+                <controllingFieldValue>Advisory Councils</controllingFieldValue>
+                <controllingFieldValue>Special Events</controllingFieldValue>
+                <valueName>Requires Follow-Up</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Assessment (HW/Services)</controllingFieldValue>
+                <controllingFieldValue>CXO Events</controllingFieldValue>
+                <controllingFieldValue>Dell Day</controllingFieldValue>
+                <controllingFieldValue>DM</controllingFieldValue>
+                <controllingFieldValue>Door Opener (High Value)</controllingFieldValue>
+                <controllingFieldValue>Door Opener (Value)</controllingFieldValue>
+                <controllingFieldValue>eDM/Email</controllingFieldValue>
+                <controllingFieldValue>Multiple Vehicles</controllingFieldValue>
+                <controllingFieldValue>Online Advertising</controllingFieldValue>
+                <controllingFieldValue>Roadshow</controllingFieldValue>
+                <controllingFieldValue>Online Inbound</controllingFieldValue>
+                <controllingFieldValue>Sales Touch</controllingFieldValue>
+                <controllingFieldValue>Trade Show</controllingFieldValue>
+                <controllingFieldValue>Seed Unit</controllingFieldValue>
+                <controllingFieldValue>Seminar/Conference</controllingFieldValue>
+                <controllingFieldValue>Standalone Telemarketing</controllingFieldValue>
+                <controllingFieldValue>Workshop</controllingFieldValue>
+                <controllingFieldValue>eSeminar/Webcast/Webinar</controllingFieldValue>
+                <controllingFieldValue>Advisory Councils</controllingFieldValue>
+                <controllingFieldValue>Special Events</controllingFieldValue>
+                <valueName>Completed Follow-Up</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CXO Events</controllingFieldValue>
+                <controllingFieldValue>Dell Day</controllingFieldValue>
+                <controllingFieldValue>Multiple Vehicles</controllingFieldValue>
+                <controllingFieldValue>Roadshow</controllingFieldValue>
+                <controllingFieldValue>Trade Show</controllingFieldValue>
+                <controllingFieldValue>Seminar/Conference</controllingFieldValue>
+                <controllingFieldValue>Workshop</controllingFieldValue>
+                <controllingFieldValue>eSeminar/Webcast/Webinar</controllingFieldValue>
+                <controllingFieldValue>Advisory Councils</controllingFieldValue>
+                <controllingFieldValue>Special Events</controllingFieldValue>
+                <valueName>Invited</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CXO Events</controllingFieldValue>
+                <controllingFieldValue>Dell Day</controllingFieldValue>
+                <controllingFieldValue>Multiple Vehicles</controllingFieldValue>
+                <controllingFieldValue>Roadshow</controllingFieldValue>
+                <controllingFieldValue>Trade Show</controllingFieldValue>
+                <controllingFieldValue>Seminar/Conference</controllingFieldValue>
+                <controllingFieldValue>Workshop</controllingFieldValue>
+                <controllingFieldValue>eSeminar/Webcast/Webinar</controllingFieldValue>
+                <controllingFieldValue>Advisory Councils</controllingFieldValue>
+                <controllingFieldValue>Special Events</controllingFieldValue>
+                <valueName>Registered</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CXO Events</controllingFieldValue>
+                <controllingFieldValue>Dell Day</controllingFieldValue>
+                <controllingFieldValue>Multiple Vehicles</controllingFieldValue>
+                <controllingFieldValue>Roadshow</controllingFieldValue>
+                <controllingFieldValue>Trade Show</controllingFieldValue>
+                <controllingFieldValue>Seminar/Conference</controllingFieldValue>
+                <controllingFieldValue>Workshop</controllingFieldValue>
+                <controllingFieldValue>eSeminar/Webcast/Webinar</controllingFieldValue>
+                <controllingFieldValue>Advisory Councils</controllingFieldValue>
+                <controllingFieldValue>Special Events</controllingFieldValue>
+                <valueName>Attended</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CXO Events</controllingFieldValue>
+                <controllingFieldValue>Dell Day</controllingFieldValue>
+                <controllingFieldValue>Multiple Vehicles</controllingFieldValue>
+                <controllingFieldValue>Roadshow</controllingFieldValue>
+                <controllingFieldValue>Trade Show</controllingFieldValue>
+                <controllingFieldValue>Seminar/Conference</controllingFieldValue>
+                <controllingFieldValue>Standalone Telemarketing</controllingFieldValue>
+                <controllingFieldValue>Workshop</controllingFieldValue>
+                <controllingFieldValue>eSeminar/Webcast/Webinar</controllingFieldValue>
+                <controllingFieldValue>Advisory Councils</controllingFieldValue>
+                <controllingFieldValue>Special Events</controllingFieldValue>
+                <valueName>Purchasing Plans Identified</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>DM</controllingFieldValue>
+                <controllingFieldValue>Door Opener (High Value)</controllingFieldValue>
+                <controllingFieldValue>Door Opener (Value)</controllingFieldValue>
+                <controllingFieldValue>eDM/Email</controllingFieldValue>
+                <controllingFieldValue>Seed Unit</controllingFieldValue>
+                <valueName>Sent</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>DM</controllingFieldValue>
+                <valueName>Returned</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>eDM/Email</controllingFieldValue>
+                <valueName>Bounced</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>eDM/Email</controllingFieldValue>
+                <valueName>Opened</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>eDM/Email</controllingFieldValue>
+                <valueName>Clicked</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>eDM/Email</controllingFieldValue>
+                <controllingFieldValue>Standalone Telemarketing</controllingFieldValue>
+                <valueName>Added to CTT</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>eDM/Email</controllingFieldValue>
+                <controllingFieldValue>Standalone Telemarketing</controllingFieldValue>
+                <valueName>Fully Certified</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Online Advertising</controllingFieldValue>
+                <controllingFieldValue>Online Inbound</controllingFieldValue>
+                <valueName>General Comment</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Standalone Telemarketing</controllingFieldValue>
+                <valueName>Contacted</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Standalone Telemarketing</controllingFieldValue>
+                <valueName>Qualified Current Data</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Standalone Telemarketing</controllingFieldValue>
+                <valueName>Profiled Customer</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Sales_Comments__c</fullName>
+        <description>INTEG-N /NON INTEG -Y/ APEX/CC - N ||
+WF / APP/ FU / OM -  N||
+Desc -  ||
+SFA -Y/PRM -N||
+VAL -N || 
+CR# - ||</description>
+        <externalId>false</externalId>
+        <label>Sales Comments</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Summary_Status__c</fullName>
+        <description>INTEG-N /NON INTEG -Y/ APEX/CC - N ||
+WF / APP/ FU / OM -  N||
+Desc -  This serves the purpose of evaluating the status field anbd sorting it into buckets summary status||
+SFA -Y/PRM -N||
+VAL -N || 
+CR# - ||</description>
+        <externalId>false</externalId>
+        <formula>IF(ISPICKVAL(S__c,&quot;Sent&quot;),&quot;Unqualified&quot;, 
+IF(ISPICKVAL(S__c,&quot;Contacted&quot;),&quot;Unqualified&quot;, 
+IF(ISPICKVAL(S__c,&quot;Identified&quot;),&quot;Unqualified&quot;, 
+IF(ISPICKVAL(S__c,&quot;Contacted/Invited&quot;),&quot;Unqualified&quot;, 
+IF(ISPICKVAL(S__c,&quot;Quoted&quot;),&quot;Qualified&quot;, 
+IF(ISPICKVAL(S__c,&quot;Accepted&quot;),&quot;Qualified&quot;, 
+IF(ISPICKVAL(S__c,&quot;Attended&quot;),&quot;Qualified&quot;, 
+IF(ISPICKVAL(S__c,&quot;Completed&quot;),&quot;Qualified&quot;, 
+IF(ISPICKVAL(S__c,&quot;Qualified&quot;),&quot;Qualified&quot;, 
+IF(ISPICKVAL(S__c,&quot;Fully Certified&quot;),&quot;Qualified&quot;, 
+IF(ISPICKVAL(S__c,&quot;Dead End&quot;),&quot;Dead&quot;, 
+IF(ISPICKVAL(S__c,&quot;FutureInterest 3 months or longer&quot;),&quot;Dead&quot;, 
+IF(ISPICKVAL(S__c,&quot;Not Decision Maker&quot;),&quot;Dead&quot;, 
+IF(ISPICKVAL(S__c,&quot;Not Interested&quot;),&quot;Dead&quot;, 
+IF(ISPICKVAL(S__c,&quot;Declined&quot;),&quot;Dead&quot;, 
+IF(ISPICKVAL(S__c,&quot;Returned/Bounced&quot;),&quot;Dead&quot;, 
+IF(ISPICKVAL(S__c,&quot;Bounced&quot;),&quot;Dead&quot;, 
+IF(ISPICKVAL(S__c,&quot;Returned&quot;),&quot;Dead&quot;, 
+IF(ISPICKVAL(S__c,&quot;Extended Warranty&quot;),&quot;Converted&quot;, 
+IF(ISPICKVAL(S__c,&quot;Opportunity created&quot;),&quot;Converted&quot;, 
+IF(ISPICKVAL(S__c,&quot;Agreedto Purchase&quot;),&quot;Converted&quot;, 
+IF(ISPICKVAL(S__c,&quot;Replaced Hardware&quot;),&quot;Converted&quot;,&quot;In Progress&quot; 
+))))))))))))))))))))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Summary Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Campaign Member old</label>
+    <nameField>
+        <displayFormat>CM-{000000}</displayFormat>
+        <label>Member</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Campaign Members old</pluralLabel>
+    <recordTypes>
+        <fullName>GBLAccountCampaignMemberRT</fullName>
+        <active>true</active>
+        <description>Used when the campaign member is an Account.</description>
+        <label>GBL Account Campaign Member RT</label>
+        <picklistValues>
+            <picklist>Campaign_Type__c</picklist>
+            <values>
+                <fullName>Advisory Councils</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Assessment %28HW%2FServices%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CXO Events</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DM</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dell Day</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Door Opener %28High Value%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Door Opener %28Value%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Multiple Vehicles</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Online Advertising</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Online Inbound</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Roadshow</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sales Touch</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Seed Unit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Seminar%2FConference</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Special Events</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Standalone Telemarketing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trade Show</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Workshop</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>eDM%2FEmail</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>eSeminar%2FWebcast%2FWebinar</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Decision_Making_Role__c</picklist>
+            <values>
+                <fullName>Business User</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Evaluator</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Financial Buyer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influencer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Legal Approver</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Operational Buyer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Power Sponsor %2F Decision Maker</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchasing %2F Procurement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sponsor%2F Champion</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Technical Buyer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Dell_Existing_Customer__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Dell_can_contact_me_in_the_future__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Detail_Status__c</picklist>
+            <values>
+                <fullName>High Priority %28Extremely hot leads%3B SLA %3D 48 hours%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Interested %28Contact attended or registered for event and self selected online properties%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Priority %28Contact requested follow up%3B SLA %3D 1 Week%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Target %28Contact attended event but did not self select online properties%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Visitor %28Contact registered for event %2F other online form but did not attend%29</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Employee__c</picklist>
+            <values>
+                <fullName>1 - 99</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>100 - 499</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>1000 - 4999</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>10000%2B</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>500 - 999</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>5000 - 9999</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Purchase_Timeframe__c</picklist>
+            <values>
+                <fullName>1-6 months</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>7-12 months</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Immediately</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Undecided</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>S__c</picklist>
+            <values>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Added to CTT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Agreed to Purchase</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Alternative Contact</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Attended</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bounced</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Clicked</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed Follow-Up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contacted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contacted%2FInvited</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dead End</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Declined</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Extended Warranty</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fully Certified</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Future Follow-up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Future Interest 3 months or longer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Future Interest within 3 months</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>General Comment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Identified</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invited</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Decision Maker</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Interested</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Offered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Opened</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Opportunity created</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Profiled Customer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchasing Plans Identified</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Qualified</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Qualified Current Data</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quoted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quoted Extended Warranty</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quoted Hardware</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Registered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Replaced Hardware</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Requires Follow-Up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Responded</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Returned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Returned%2FBounced</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tags Sent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Viewed</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>GBLContactCampaignMemberRT</fullName>
+        <active>true</active>
+        <description>Used when the campaign member is a Contact</description>
+        <label>GBL Contact Campaign Member RT</label>
+        <picklistValues>
+            <picklist>Campaign_Type__c</picklist>
+            <values>
+                <fullName>Advisory Councils</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Assessment %28HW%2FServices%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CXO Events</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DM</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dell Day</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Door Opener %28High Value%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Door Opener %28Value%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Multiple Vehicles</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Online Advertising</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Online Inbound</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Roadshow</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sales Touch</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Seed Unit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Seminar%2FConference</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Special Events</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Standalone Telemarketing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trade Show</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Workshop</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>eDM%2FEmail</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>eSeminar%2FWebcast%2FWebinar</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Decision_Making_Role__c</picklist>
+            <values>
+                <fullName>Business User</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Evaluator</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Financial Buyer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influencer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Legal Approver</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Operational Buyer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Power Sponsor %2F Decision Maker</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchasing %2F Procurement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sponsor%2F Champion</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Technical Buyer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Dell_Existing_Customer__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Dell_can_contact_me_in_the_future__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Detail_Status__c</picklist>
+            <values>
+                <fullName>High Priority %28Extremely hot leads%3B SLA %3D 48 hours%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Interested %28Contact attended or registered for event and self selected online properties%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Priority %28Contact requested follow up%3B SLA %3D 1 Week%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Target %28Contact attended event but did not self select online properties%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Visitor %28Contact registered for event %2F other online form but did not attend%29</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Employee__c</picklist>
+            <values>
+                <fullName>1 - 99</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>100 - 499</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>1000 - 4999</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>10000%2B</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>500 - 999</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>5000 - 9999</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Purchase_Timeframe__c</picklist>
+            <values>
+                <fullName>1-6 months</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>7-12 months</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Immediately</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Undecided</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>S__c</picklist>
+            <values>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Added to CTT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Agreed to Purchase</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Alternative Contact</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Attended</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bounced</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Clicked</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed Follow-Up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contacted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contacted%2FInvited</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dead End</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Declined</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Extended Warranty</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fully Certified</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Future Follow-up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Future Interest 3 months or longer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Future Interest within 3 months</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>General Comment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Identified</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invited</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Decision Maker</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Interested</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Offered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Opened</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Opportunity created</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Profiled Customer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchasing Plans Identified</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Qualified</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Qualified Current Data</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quoted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quoted Extended Warranty</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quoted Hardware</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Registered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Replaced Hardware</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Requires Follow-Up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Responded</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Returned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Returned%2FBounced</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tags Sent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Viewed</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Campaign_type_matched</fullName>
+        <active>true</active>
+        <description>Matches Campaign Type on the member with the value of the type field on the campaign record</description>
+        <errorConditionFormula>NOT ( Text(Campaign_Type__c) == Text(Campaign__r.Type) )</errorConditionFormula>
+        <errorDisplayField>Campaign_Type__c</errorDisplayField>
+        <errorMessage>The Campaign Vehicle must be the same as the Campaign Vehicle on the Campaign record!</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>VR701_Either_contact_or_account</fullName>
+        <active>true</active>
+        <description>For each campaign member, either a contact or an account is required</description>
+        <errorConditionFormula>AND ( Account__c =&quot;&quot;, Contact__c =&quot;&quot;)</errorConditionFormula>
+        <errorMessage>Please select either an account or a contact as a campaign member.  One is required for each campaign member.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>VR702_Both_Campign_Type_and_Status</fullName>
+        <active>true</active>
+        <description>Both the Campaign Type field as well as the Status field has to hold a value.</description>
+        <errorConditionFormula>OR( ISPICKVAL(Campaign_Type__c ,&apos;&apos;),ISPICKVAL( S__c ,&apos;&apos;))</errorConditionFormula>
+        <errorMessage>Plese select the correct campaign type and the current campaign member status</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>VR703_Due_Rate_Required</fullName>
+        <active>true</active>
+        <description>Due Rate Required when the Status = &apos;Future Follow Up&quot; OR &quot;Future Interest&quot;</description>
+        <errorConditionFormula>AND(
+OR(ISPICKVAL(S__c , &quot;Future Follow-up&quot;),ISPICKVAL(S__c , &quot;Future Interest within 3 months&quot;)),
+ ISNULL(Due_Date__c)
+)</errorConditionFormula>
+        <errorDisplayField>Due_Date__c</errorDisplayField>
+        <errorMessage>Please select a due date when the follow-up should take place.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>New_Account_Campaign_Member</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>New Account Campaign Member</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>/a02/e?CF00N70000001lozT={!Campaign.Name}&amp;CF00N70000001lozT_lkid={!Campaign.Id}&amp;retURL=%2F{!Campaign.Id}&amp;RecordType=0127000000055pU
+&amp;ent=01I700000001c9p&amp;00N70000001loyM={!Campaign.Type}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>New_Contact_Campaign_Member</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>New Contact Campaign Member</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>/a02/e?CF00N70000001lozT={!Campaign.Name}&amp;CF00N70000001lozT_lkid={!Campaign.Id}&amp;retURL=%2F{!Campaign.Id}&amp;RecordType=0127000000055pZ
+&amp;ent=01I700000001c9p&amp;00N70000001loyM={!Campaign.Type}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>New_Opportunity</fullName>
+        <availability>online</availability>
+        <description>Button that creates an opportunity based on the Campaign Member information.</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>sControl</linkType>
+        <masterLabel>New Opportunity</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <scontrol>Create_Opportunity_from_Campaign_Member</scontrol>
+    </webLinks>
+</CustomObject>

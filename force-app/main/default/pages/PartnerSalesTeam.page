@@ -1,0 +1,62 @@
+<apex:page controller="PartnerSalesTeamVF" >
+    <apex:form >
+        
+        <apex:stylesheet value="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'css/jquery.dataTables.css')}"/>
+        <style type="text/css">
+            .sorting {
+            background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_both.png') }') no-repeat center right !important;
+            padding-right: 20px !important;
+            }
+            .sorting_asc {
+            background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_asc.png') }') no-repeat center right !important;
+            padding-right: 20px !important;
+            }
+            .sorting_desc {
+            background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_desc.png') }') no-repeat center right !important;
+            padding-right: 20px !important;
+            }
+            .sorting_asc_disabled {
+            background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_asc_disabled.png') }') no-repeat center right !important;
+            padding-right: 20px !important;
+            }
+            .sorting_desc_disabled {
+            background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_desc_disabled.png') }') no-repeat center right !important;
+            padding-right: 20px !important;
+            }
+            table.dataTable tr.odd { background-color: white;border-bottom-width:1px }
+            table.dataTable tr.even { background-color: white;border-bottom-width:1px }
+            .bPageBlock .list .last>td { border-bottom-width:1px }
+            .apexp .bPageBlock .detailList .list .last td { border-bottom-width:1px }
+            table.dataTable tr.odd td.sorting_1 { background-color: white; }
+            table.dataTable tr.odd td.sorting_2 { background-color: white; }
+            table.dataTable tr.odd td.sorting_3 { background-color: white; }
+            table.dataTable tr.even td.sorting_1 { background-color: white; }
+            table.dataTable tr.even td.sorting_2 { background-color: white; }
+            table.dataTable tr.even td.sorting_3 { background-color: white; }
+            .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate {
+            padding: 3px;
+            }
+        </style>
+        
+
+        
+        <apex:pageBlock id="pb"  >
+            <apex:sectionHeader title="{!$Label.MySalesTeam}"/> 
+            <apex:pageBlockTable id="thepbt" value="{!lstWrappercls}" var="accTeamMemb"  styleClass="dataTable"  >
+                <apex:column headerValue="{!$Label.CMAP_Name}"  value="{!accTeamMemb.accTeamName}" />
+                <apex:column headerValue="{!$Label.Contact_CDG_Page_Email}"  style="font-size: 90%;" >{!accTeamMemb.accTeamEmail}&nbsp;</apex:column>
+                <apex:column headerValue="{!$Label.CMAP_Role}" style="font-size: 90%;">{!accTeamMemb.accTeamRole}&nbsp;</apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+        
+        <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'js/jquery.js')}"></script>
+        <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'js/jquery.dataTables.js')}"></script>
+        <script type="text/javascript" language="javascript">
+        var j$ = jQuery.noConflict();
+        j$('table.dataTable').dataTable({
+            sPaginationType: "full_numbers"
+        }); 
+        </script>
+    </apex:form>
+</apex:page>

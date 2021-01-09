@@ -1,0 +1,12 @@
+<apex:page sidebar="false">
+<div>
+    
+    <apex:iframe src="https://mybms.dell.com:82" height="100%" width="100%" scrolling="true" id="theFrame"/>
+
+<script>
+   document.getElementById('theFrame').height=window.innerHeight-50;
+   document.getElementById('theFrame').iFrameResizer.resize();
+</script>
+
+</div>
+</apex:page>

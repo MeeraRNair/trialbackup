@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>gdm_vre_003_If_DLR_ObjToLoadCantBempty</fullName>
+    <active>true</active>
+    <description>Object to edit cannot be empty if DLR is selected</description>
+    <errorConditionFormula>ISBLANK( TEXT(Object_To_Load__c )) &amp;&amp;
+TEXT( Type_of_Request__c) = &apos;DLR&apos; &amp;&amp;
+ RecordType.Name = &apos;SFDC Update&apos;</errorConditionFormula>
+    <errorDisplayField>Object_To_Load__c</errorDisplayField>
+    <errorMessage>(003) Object to load cannot be empty if DLR is selected.</errorMessage>
+</ValidationRule>

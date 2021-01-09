@@ -1,0 +1,106 @@
+<apex:page standardController="Custom_Products__c" extensions="ProductSearchCriteria" docType="html-5.0" action="{!onPageLoad}" > 
+    
+    <apex:form id="frm"  >
+        <apex:stylesheet value="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'css/jquery.dataTables.css')}"/>
+        <style type="text/css">   
+            .imgclass:hover{   
+            background-image: url(/img/help/helpOrbs.gif);   
+            background-repeat: no-repeat;   
+            width: 16px;   
+            height: 15px;      
+            background-position: right;  
+            
+            
+            }   
+            .imgclass{   
+            background-image: url(/img/help/helpOrbs.gif);   
+            background-repeat: no-repeat;   
+            width: 16px;   
+            height: 15px;   
+            
+            }   
+        </style>
+        <apex:outputpanel id="pb0">
+            
+            <apex:pageBlock title="Product Search Criteria - {!type}"  >
+                <apex:pageBlockSection >
+                    <apex:pageblockSectionItem >
+                        <apex:outputLabel value="Define Product Eligibility Criteria:"/>
+                        
+                        <apex:selectList value="{!optionsSelected}" size="1" multiselect="false" id="id1" disabled="{!editopt}">
+                            <apex:actionSupport event="onchange" action="{!keywordNull}" rerender="frm"/>
+                            <apex:selectOptions value="{!optionsPicklist}"/>
+                            
+                        </apex:selectList> 
+                        
+                    </apex:pageblockSectionItem> 
+                   <!-- <apex:pageblocksectionitem rendered="{!NOT(OR(OR(optionsSelected =='createddate',optionsSelected == 'EOL_Date__c'),OR(optionsSelected == 'EOL_Date_APJ__c',optionsSelected == ''))}">    -->                                      
+                        <apex:pageblocksectionitem rendered="{!NOT(datetest)}">
+                    <apex:outputLabel value="{!$Label.Keyword}" >
+                            <img src="/s.gif" Class="imgclass" title= "To refine search when search result is more than 1000"/>
+                        </apex:outputLabel>                                 
+                        <apex:inputText value="{!searchstring}" disabled="{!editkeyopt}"/>  
+                    </apex:pageblocksectionitem> 
+                    
+                    <apex:pageBlockSectionItem rendered="{!datetest}">
+                        Date: <apex:input type="date" value="{!datesearch}"/>
+                    </apex:pageBlockSectionItem>     
+                </apex:pageBlockSection>
+                
+                <apex:outputPanel id="sel"  layout="block"  rendered="{!if(prodList1.size!=0,true,false)}">
+                <apex:pageBlockSection title="Existing Criteria"> 
+                            <apex:outputPanel style="overflow:auto;width:80%;height:10%;">
+        <apex:selectCheckboxes value="{!prodList1}" layout="pageDirection">
+                        <apex:selectOptions value="{!optionschecked}"/>
+                    </apex:selectCheckboxes><br/> 
+                    </apex:outputPanel>                 
+                 </apex:pageBlocksection>
+                  </apex:outputPanel>
+                <apex:pageBlockButtons location="Bottom" >
+                
+                <apex:commandButton value="Add More" action="{!addmoreoption}" rendered="{!addmorebutton}" reRender="frm,pb,errorMsg"/>
+                     <apex:commandButton value="Save" action="{!saveFunction}" reRender="frm" status="actStatusId1" rendered="{!if(((options.size !=0 || prodList1.size != 0) ),true,false)}" disabled="{!if(optionsSelectedSearch != optionsSelected,true,false)}"/>
+                    
+                    <apex:actionStatus id="actStatusId1" >
+                        <apex:facet name="start" >
+                            <img src="/img/loading.gif" />
+                        </apex:facet>
+                    </apex:actionStatus>
+                    <apex:commandButton Value="Search" action="{!fetchResults}"  reRender="frm,pb,errorMsg" status="actStatusId"  rendered="{!!editkeyopt}"/>
+                    
+                    <apex:commandButton action="{!close}"  Value="Close" />
+                    <apex:actionStatus id="actStatusId" >
+                        <apex:facet name="start" >
+                            <img src="/img/loading.gif" />
+                        </apex:facet>
+                    </apex:actionStatus>
+                    
+                </apex:pageBlockButtons>
+            </apex:pageBlock>
+             
+        </apex:outputpanel>
+        
+        <apex:pageMessages id="errorMsg" escape="false" rendered="{!errorbool}"/>
+        <apex:outputPanel id="pb" rendered="{!showSearchResults}"  layout="block" >
+        
+            <apex:pageBlock title="{!$Label.search_results}">
+                
+                <apex:pageBlockButtons location="top">
+                    
+                    
+                    
+                </apex:pageBlockButtons>
+                <apex:outputPanel layout="block" style="overflow:auto;width:100%;height:500px;" rendered="{!addmore}">   
+                    
+                    <apex:selectCheckboxes value="{!prodList}" layout="pageDirection">
+                        <apex:selectOptions value="{!options}"/>
+                    </apex:selectCheckboxes><br/>
+                </apex:outputPanel>                                                 
+            </apex:pageBlock>                                        
+        </apex:outputPanel>
+        
+         </apex:form>
+        
+        
+   
+</apex:page>

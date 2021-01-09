@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_Disti_Update_Once_Deal_Approved</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+					RecordType.Name = &apos;VMware&apos;,
+	    ISPICKVAL(S_P_Deal_Status__c, &apos;Approved&apos;),
+	    ISCHANGED(Distributor_Name__c),
+				 AND(
+									$Profile.Name != &apos;GBL Manage S&amp;P – Non SSO&apos;,
+									$Profile.Name != &apos;System Administrator&apos;,
+									$Profile.Name != &apos;IT GBL Data Load&apos;
+					)
+)</errorConditionFormula>
+    <errorMessage>Please contact S&amp;P Sales Ops team for distributor name change</errorMessage>
+</ValidationRule>

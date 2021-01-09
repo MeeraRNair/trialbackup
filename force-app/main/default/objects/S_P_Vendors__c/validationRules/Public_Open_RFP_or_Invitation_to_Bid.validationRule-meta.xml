@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Public_Open_RFP_or_Invitation_to_Bid</fullName>
+    <active>true</active>
+    <description>If &quot;Public Open RFP or Invitation to Bid?&quot; is Yes, then &quot;Provide URL Open RFP/Invitation to Bid&quot; field must be specified.</description>
+    <errorConditionFormula>IF( AND( Provide_URL_Open_RFP_Invitation_to_Bid__c =&quot;&quot;, ISPICKVAL( Public_Open_RFP_or_Invitation_to_Bid__c , &quot;Yes&quot;) ) , TRUE, FALSE)</errorConditionFormula>
+    <errorDisplayField>Provide_URL_Open_RFP_Invitation_to_Bid__c</errorDisplayField>
+    <errorMessage>If Public Open RFP or Invitation to Bid = Yes, please specify.</errorMessage>
+</ValidationRule>

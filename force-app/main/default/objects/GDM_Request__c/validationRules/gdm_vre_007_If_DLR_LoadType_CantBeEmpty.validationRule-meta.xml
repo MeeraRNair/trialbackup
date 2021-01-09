@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>gdm_vre_007_If_DLR_LoadType_CantBeEmpty</fullName>
+    <active>true</active>
+    <description>If DLR is selected DLR Load Type cannot be empty</description>
+    <errorConditionFormula>ISBLANK( TEXT( DLR_Load_Type__c ) ) &amp;&amp;
+TEXT( Type_of_Request__c) == &apos;DLR&apos; &amp;&amp;
+ RecordType.Name == &apos;SFDC Update&apos;</errorConditionFormula>
+    <errorDisplayField>DLR_Load_Type__c</errorDisplayField>
+    <errorMessage>(007) DLR Load Type cannot be empty if DLR is selected.</errorMessage>
+</ValidationRule>

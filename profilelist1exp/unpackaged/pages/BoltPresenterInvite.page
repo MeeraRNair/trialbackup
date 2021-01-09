@@ -1,0 +1,167 @@
+<apex:page extensions="VFCntrlr_BoltPresenterInvite" standardStylesheets="true" standardController="Agenda_Topic__c">
+    <html>
+        <body>
+            <apex:form >
+                <apex:pageblock rendered="{!showmessage}">
+                <apex:pagemessages showdetail="false"></apex:pagemessages>   
+                    <apex:commandButton action="{!cancel}" value="Cancel"/>      
+                </apex:pageblock>
+                <apex:pageMessage summary="'To' E-Mail ID is missing.Please Enter an E-Mail ID" severity="error" rendered="{!nullEmail}"></apex:pageMessage>
+                    <apex:pageMessage summary="Please Enter Valid 'To' E-Mail ID's" severity="error" rendered="{!invalidEmail}"></apex:pageMessage>
+                    <apex:pageMessage summary="Please Enter Valid 'CC' E-Mail ID's" severity="error" rendered="{!invalidCCEmail}"></apex:pageMessage>
+
+                <apex:pageBlock rendered="{!showInvite}">
+                    <apex:pageMessages showDetail="true"></apex:pageMessages>
+                    <apex:pageBlockSection collapsible="false" title="Send an invite"></apex:pageBlockSection>                
+                    <br/>
+                    Separate multiple emails with semicolon<br></br>
+                    <table align="center" width="100%"> 
+                        <tr>
+                            <td width="10%" align="right"><b> From </b>&nbsp;&nbsp;</td>
+                            <td width="90%">
+                                <apex:OutputText style="width:100px;bgColor:#FFFFFF;">{!AnalystEmail}</apex:OutputText>
+                            </td>
+                        </tr> 
+                        <tr>
+                            <td width="10%" align="right"><b> To </b>&nbsp;&nbsp;</td>
+                            <td width="90%">                
+                                <apex:inputTextarea rows="1" cols="100" value="{!email}"/>
+                            </td>
+                        </tr>                                                              
+                        <tr>
+                            <td width="10%" align="right"><b> CC </b>&nbsp;&nbsp;</td>
+                            <td width="90%">
+                                <apex:inputTextarea rows="1" cols="100" value="{!ccemail}"/>                               
+                            </td>
+                        </tr>                     
+                        <tr>
+                            <td width="10%" align="right"><b>Subject </b>&nbsp;&nbsp;</td>
+                            <td width="90%">
+                                <apex:inputTextarea rows="2" cols="100" value="{!SubjectEdit}"/>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td width="15%" align="right" style="color:red"><b>Analyst Comments</b>&nbsp;&nbsp;</td>
+                            <td width="85%">
+                                <apex:inputTextarea rows="8" cols="100" value="{!Comments}"/>
+                            </td>
+                        </tr>  
+                        
+                         <!-- US1423262 : Added editable body  -->
+                        <tr>
+                            <td width="10%" align="right"><b>Body</b>&nbsp;&nbsp;</td>
+                            <td width="90%">
+                                <apex:inputTextarea richtext="true" rows="20" cols="100" value="{!Message}"/>
+                            </td>
+                        </tr> 
+                       
+                       <!-- US1423262 : Commented this to use the editable body                                                            
+                        <tr>
+                            <td width="10%" align="right"><b>Body</b>&nbsp;&nbsp;</td>
+                            <td width="90%" bgcolor="#CCCCCC">
+                                <div style="position:static;width:99%;height:300px;overflow:auto;overflow-x:hidden;border-style:solid;border-width: 1px 1px 1px 1px;border-color:#4682B4;">  
+
+                                        <font size="2.95" face="verdana">You or your Manager has been requested to participate in the upcoming {!customerEngagement.name} Briefing on {!startDateOfEvent} in the {!Site}.<br/>
+                                        
+                                        If you are a calendar manager, please note that you will need to follow these steps:<br/>
+                                        
+                                        - Open the attached invite and accept to your calendar.<br/>
+                                        
+                                        - Please then go into your calendar and forward to your manager’s calendar and accept.<br/><br/>
+                                        
+                                        
+                                        <b>CUSTOMER ENGAGEMENT: </b>{!customerEngagement.name}<br/><br/>
+                                        
+                                        <b>TOPIC: </b>{!IF(AgendaTopic.Display_Topic_As__c!=null,AgendaTopic.Display_Topic_As__c,agendaTopic.name)}<br/><br/>
+                                        
+                                        <b>SPEAKER(S): </b>{!SpeakerStr}<br/><br/>
+                                        
+                                        <b>TIME: </b>{!startDateOfEvent} {!AgendaTopic.Starting_Time__c} to {!AgendaTopic.Ending_Time__c}  {!UserTimeZone}<br/><br/>
+                                        
+                                        <b>AE Notes: </b>{!AgendaTopic.AE_Notes__c}<br/><br/>
+                                        
+                                        <b>Analyst Notes: </b>{!AgendaTopic.Analyst_Notes__c}<br/><br/>
+                                        
+                                        <b>Objective: </b>{!customerEngagement.Objective_of_Visit__c}<br/><br/>
+                                        
+                                        <b>Pain Points: </b>{!customerEngagement.Top_3_Pain_Points__c}<br/><br/>
+                                        
+                                        <b>Customer Background: </b>{!customerEngagement.Customer_Background__c}<br/><br/>
+                                        
+                                        <b>Customer Account Link: </b><br/>
+                                            <apex:repeat value="{!attendingAccntLst}" var="acc">
+                                        {!acc.Account__r.Name}, https://{!BaseURL}/{!acc.Id}<br/>
+                                            </apex:repeat>
+                                            <br/>
+                                        <b>Competitive Information/Install Base Link: </b><br/>
+                                            <apex:repeat value="{!installBaseIdList}" var="install">
+                                        {!install.LOB__c}, https://{!BaseURL}/{!install.Id}<br/>
+                                            </apex:repeat>
+                                            <br/>
+                                        <b>Visit Notes and Attachments Link: </b><br/>
+                                            <apex:repeat value="{!NoteList}" var="note">
+                                        {!note.Title}, https://{!BaseURL}/{!note.Id}<br/>
+                                            </apex:repeat>
+                                             <apex:repeat value="{!AttachmentList}" var="attach">
+                                        {!attach.Name}, https://{!BaseURL}/{!attach.Id}<br/>
+                                            </apex:repeat>
+                                            <br/><br/>
+                                        ----------------------------------------------------------<br/>
+                                        <b>CUSTOMER DETAILS</b><br/>
+                                        ----------------------------------------------------------<br/>
+                                        {!customerEngagement.name}<br/>
+                                        https://{!BaseURL}/{!Agenda_Topic__c.Customer_Engagement__c}<br/><br/>
+                                        
+                                        ----------------------------------------------------------<br/>
+                                        <b>ATTENDEES</b><br/>
+                                        ----------------------------------------------------------<br/><br/>
+                                        {!IF(CustomerAttFlag==true,'Customer Attendees','')}<br/>
+                                        {!IF(CustomerAttFlag==true,'-------------------','')}<br/>
+                                        <apex:repeat value="{!custAttendeeMap}" var="cust">
+                                        CUSTOMER COMPANY: {!cust}<br/>
+                                            <apex:repeat value="{!custAttendeeMap[cust]}" var="count">
+                                        {!count.Attendee_Name__c}{!IF(count.Role__c!=null,', ','')}{!count.Role__c}<br/>
+                                            </apex:repeat>
+                                        </apex:repeat>
+                                        <apex:repeat value="{!AttendeeCustomerList}" var="cus">
+                                        {!cus.Attendee_Name__c}{!IF(cus.Role__c!=null,', ','')}{!cus.Role__c}<br/>
+                                        </apex:repeat><br/>
+                                        {!IF(AccTeamAttFlag==true,'Account team Attendees','')}<br/>
+                                        {!IF(AccTeamAttFlag==true,'------------------------','')}<br/>
+                                        <apex:repeat value="{!accTeamAttendeeMap}" var="acnt">
+                                        CUSTOMER COMPANY: {!acnt}<br/>
+                                            <apex:repeat value="{!accTeamAttendeeMap[acnt]}" var="acc">
+                                        {!acc.Attendee_Name__c}{!IF(acc.Role__c!=null,', ','')}{!acc.Role__c} <br/>
+                                            </apex:repeat>
+                                        </apex:repeat>
+                                        <apex:repeat value="{!AttendeeAccTeamList}" var="accTeam">
+                                        {!accTeam.Attendee_Name__c}{!IF(accTeam.Role__c!=null,', ','')}{!accTeam.Role__c}<br/>
+                                        </apex:repeat>
+                                        <br/>
+                                        {!IF(DellIntAttFlag==true,'Dell Internal Attendees','')}<br/>
+                                        {!IF(DellIntAttFlag==true,'------------------------','')}<br/>
+                                        <apex:repeat value="{!AttendeeDellIntList}" var="DellInt">
+                                        {!DellInt.Attendee_Name__c}{!IF(DellInt.Role__c!=null,', ','')}{!DellInt.Role__c}<br/>
+                                        </apex:repeat>
+                                        <br/>
+                                        {!IF(VendorAttFlag==true,'Vendor/Partner Attendees','')}<br/>
+                                        {!IF(VendorAttFlag==true,'-----------------------------','')}<br/>
+                                        <apex:repeat value="{!AttendeeVendorList }" var="vend">
+                                        {!vend.Attendee_Name__c}{!IF(vend.Role__c!=null,', ','')}{!vend.Role__c}<br></br>
+                                        </apex:repeat><br/>
+                                        </font>
+                                </div> 
+                            </td>
+                        </tr>  US1423262 commented end: -->                                                                                                  
+                    </table> 
+                    <apex:pageBlockButtons >
+                        <apex:commandButton action="{!sendinvite}" value="Send Email"/>
+                        <apex:commandButton action="{!cancel}" value="Cancel"/>
+                    </apex:pageBlockButtons>                
+                </apex:pageBlock>
+
+            </apex:form>
+        </body>
+    </html>  
+</apex:page>

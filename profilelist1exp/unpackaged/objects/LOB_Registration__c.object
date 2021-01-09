@@ -1,0 +1,1216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <customHelpPage>LOB_Registration_Help</customHelpPage>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Actions_Available__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISPICKVAL(LOB_registration_status__c,&apos;Partner(submit for approval)&apos;), 
+HYPERLINK(&apos;/apex/LOB_Registration_AvailableActions?Id=&apos;+Id+&apos;&amp;action=Approve&apos;,IMAGE(&apos;/resource/1396668947000/LOBRegistration_btn_approve&apos;,&apos;Approve&apos;),&apos;_parent&apos;),
+&quot;&quot;) 
+&amp;&apos; &apos;&amp;
+IF(ISPICKVAL(LOB_registration_status__c,&apos;Partner(submit for approval)&apos;), 
+HYPERLINK(&apos;/apex/LOB_Registration_AvailableActions?Id=&apos;+Id+&apos;&amp;action=Reject&apos;,IMAGE(&apos;/resource/1396668948000/LOBRegistration_btn_reject&apos;,&apos;Reject&apos;),&apos;_parent&apos;),
+&quot;&quot;)</formula>
+        <label>Actions Available</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Auto_Created_LOB_Registration__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Auto Created LOB Registration</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>City__c</fullName>
+        <externalId>false</externalId>
+        <label>City</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Days_Until_LOB_Expires__c</fullName>
+        <externalId>false</externalId>
+        <formula>GTM_Linkage_Expiry_Date__c -   TODAY()</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Days Until LOB Expires</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Deal_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Deal ID</label>
+        <length>9</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Email__c</fullName>
+        <description>Dynamically populating the &quot;Support email&quot; from the LOB MailBox Administration.</description>
+        <externalId>false</externalId>
+        <label>Email</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GCC_Ops_email_who_submtd_for_ptnr_aprvl__c</fullName>
+        <externalId>false</externalId>
+        <label>GCC Ops email(who submtd for ptnr aprvl)</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GTM_De_linkage_Reason__c</fullName>
+        <description>Biz should be prompted to enter the reason for de-linkage of a valid GTM partner assignment. 
+The reason should be entered only if there is &quot;DELETION&quot;&quot;of a valid &quot;GTM partner assignmënt&quot; in the direct account page.The validation rule&quot;&quot;GTMPartnerAssignRemoval_ReasonMandatory_&quot; will make sure that a reason is entered only if there is the removal of a valid GTM assignment.The field should be history tracked.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the partner de-linkage reason</inlineHelpText>
+        <label>De-linkage Reason</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GTM_Linkage_Expiry_Date__c</fullName>
+        <description>This field determines the end date of GTM partner assignment. 
+If the biz needs to make expiry date mandatory,there is a &quot;GTM partner assignment_ExpiryDateMandatory&quot;,validation rule that will make sure user selects the date before SAVING the record. 
+The date field should be history tracked</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the expiry date of partner assignment by using calendar pick-up</inlineHelpText>
+        <label>Linkage_Expiry Date</label>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>GTM_partner_group__c</fullName>
+        <externalId>false</externalId>
+        <label>GTM partner group</label>
+        <length>20</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Justification__c</fullName>
+        <externalId>false</externalId>
+        <label>Justification</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>LOB_registration_status__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Mandatory use Contract</fullName>
+                    <default>false</default>
+                    <label>Mandatory use Contract</label>
+                </value>
+                <value>
+                    <fullName>Bluebook/Share of Wallet</fullName>
+                    <default>false</default>
+                    <label>Bluebook/Share of Wallet</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Dell(approved)</controllingFieldValue>
+                <valueName>Mandatory use Contract</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Dell(approved)</controllingFieldValue>
+                <valueName>Bluebook/Share of Wallet</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>LOB_Award_Cancellation_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>LOB Award Cancellation Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>LOB_Award_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>LOB Award Type</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>All Account</fullName>
+                    <default>false</default>
+                    <label>All Account</label>
+                </value>
+                <value>
+                    <fullName>Specific Account Location</fullName>
+                    <default>true</default>
+                    <label>Specific Account Location</label>
+                </value>
+                <value>
+                    <fullName>All Subsidiaries</fullName>
+                    <default>false</default>
+                    <label>All Subsidiaries</label>
+                </value>
+                <value>
+                    <fullName>Specific Subsidiary Location</fullName>
+                    <default>false</default>
+                    <label>Specific Subsidiary Location</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>LOB_Detail__c</fullName>
+        <externalId>false</externalId>
+        <formula>HYPERLINK( Id , &apos;LOB Detail&apos;,&apos;_parent&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>LOB Detail</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LOB_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>LOB Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LOB_Partner_Approved_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>LOB Partner Approved Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>LOB_Record_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>LOB Record ID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LOB_Registration_Renewed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Flag designating that the LOB Registration has been renewed. If checked, the LOB Registration renewal has been completed.</inlineHelpText>
+        <label>LOB Registration Renewed?</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>LOB_registration_status__c</fullName>
+        <externalId>false</externalId>
+        <label>LOB Registration Status</label>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Dell(approved)</fullName>
+                    <default>false</default>
+                    <label>Dell(approved)</label>
+                </value>
+                <value>
+                    <fullName>Partner(approved)</fullName>
+                    <default>false</default>
+                    <label>Partner(approved)</label>
+                </value>
+                <value>
+                    <fullName>Partner(submit for approval)</fullName>
+                    <default>false</default>
+                    <label>Partner(submit for approval)</label>
+                </value>
+                <value>
+                    <fullName>Expired</fullName>
+                    <default>false</default>
+                    <label>Expired</label>
+                </value>
+                <value>
+                    <fullName>Rejected</fullName>
+                    <default>false</default>
+                    <label>Rejected</label>
+                </value>
+                <value>
+                    <fullName>Revoked</fullName>
+                    <default>false</default>
+                    <label>Revoked</label>
+                </value>
+                <value>
+                    <fullName>Inactive</fullName>
+                    <default>false</default>
+                    <label>Inactive</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Lob_Deal_Expiration_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>LOB_Partner_Approved_Date__c +365</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Lob Deal Expiration Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Lob_End_User_Affinity_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>Registered_End_User__r.Account_ID__c</formula>
+        <label>Lob End User Affinity ID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lob_End_User_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Registered_End_User__r.Name</formula>
+        <label>Lob End User Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lob_Partner_Account_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Preferred_GTM_Partner_Account__r.Name</formula>
+        <label>Lob Partner Account Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lobregistration_Noofdays__c</fullName>
+        <externalId>false</externalId>
+        <formula>TODAY() - LOB_Partner_Approved_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Lobregistration Noofdays</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location1__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK( Location__c ) , &quot;Default&quot;, Location__r.Name)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Location</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Location</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>$Source.Registered_End_User__c</field>
+                <operation>equals</operation>
+                <valueField>Account_Branch__c.Account__r.Id</valueField>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Account_Branch__c</referenceTo>
+        <relationshipLabel>LOB Registrations</relationshipLabel>
+        <relationshipName>LOB_Registrations</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Notes</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Other_Actions__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(NOT( ISPICKVAL(LOB_registration_status__c , &apos;Partner(submit for approval)&apos;)), 
+HYPERLINK(&apos;/006/e?retURL=/apex/PartnerDealRegistration&amp;cancelURL=/apex/PartnerDealRegistration&apos; &amp; 
+&apos;&amp;RecordType=012A0000000VhKk&apos; &amp;
+&apos;&amp;00N70000001mdPS=&apos;&amp; Registered_End_User__r.Name &amp;
+&apos;&amp;CF00NA00000043Pva=&apos;&amp; Registered_End_User__r.Name &amp;
+&apos;&amp;00N70000001mdQ0=&apos;&amp; Registered_End_User__r.Primary_Contact__r.FirstName &amp;
+&apos;&amp;00N70000001mdRP=&apos;&amp; Registered_End_User__r.Primary_Contact__r.LastName &amp;
+&apos;&amp;00N70000001mdPX=&apos;&amp; Registered_End_User__r.Primary_Contact__r.Email &amp;
+&apos;&amp;00N70000001mdXn=&apos;&amp; Registered_End_User__r.Primary_Contact__r.Phone &amp;
+&apos;&amp;00N70000001mdPS=&apos;&amp; Registered_End_User__r.Name &amp;
+&apos;&amp;00N70000001maXm=&apos;&amp; Location__r.Name &amp;
+&apos;&amp;00N70000001mdTn=&apos;&amp; Registered_End_User__r.Account_Country__c&amp;
+&apos;&amp;00N70000001mdSs=&apos;&amp; Registered_End_User__r.ShippingStreet &amp;
+&apos;&amp;00N70000001mdSm=&apos;&amp; Registered_End_User__r.ShippingCity&amp;
+&apos;&amp;00N70000001mdU2=&apos;&amp; Registered_End_User__r.ShippingState&amp;
+&apos;&amp;00N70000001mdU8=&apos;&amp; Registered_End_User__r.ShippingPostalCode&amp;
+&apos;&amp;00N7000000284s8=&apos;&amp; Registered_End_User__r.Tax_Registration_Number__c&amp;
+&apos;&amp;00NA00000063VVb=&apos;&amp; LOB_Record_ID__c&amp;
+&apos;&amp;00NA0000000b8l9=1&amp;nooverride=1&apos; , IMAGE(&quot;/resource/1298343381000/Create_New_Deal&quot;, &apos;NEWDEAL&apos;),&apos;_parent&apos;), &apos;[No Actions Available]&apos;)</formula>
+        <label>Other Actions</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Partner_AE_Email__c</fullName>
+        <description>This field will contain Email of Partner&apos;s Account which having role as Account Executive.   Value will auto populated from trigger.</description>
+        <externalId>false</externalId>
+        <label>Partner AE Email</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Partner_ICAM_Email__c</fullName>
+        <externalId>false</externalId>
+        <label>Partner ICAM Email</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Partner_ISM_Email__c</fullName>
+        <description>This field will contain Email of Partner&apos;s Account which having role as Inside Sales Manager. Value will auto populated from trigger.</description>
+        <externalId>false</externalId>
+        <label>Channel ISM Email</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Partner_ISR_Email__c</fullName>
+        <description>This field will contain Email of Partner&apos;s Account which having role as Inside Sales Rep. Value will auto populated from trigger.</description>
+        <externalId>false</externalId>
+        <label>Partner ISR Email</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Partner_PDM_Email__c</fullName>
+        <externalId>false</externalId>
+        <label>Partner PDM Email</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Partner_RSM_Email__c</fullName>
+        <description>This field will contain Email of Partner&apos;s Account which having role as Regional Sales Manager. Value will auto populated from trigger.</description>
+        <externalId>false</externalId>
+        <label>Partner RSM Email</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Partner_Sales_Rep_Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Partner Sales Rep</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Contact.AccountId</field>
+                <operation>equals</operation>
+                <valueField>$Source.Preferred_GTM_Partner_Account__c</valueField>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>LOB Registrations</relationshipLabel>
+        <relationshipName>LOB_Registrations</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Partner_Sales_Rep_Language__c</fullName>
+        <externalId>false</externalId>
+        <label>Partner Sales Rep Language</label>
+        <length>10</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Preferred_GTM_Partner_Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Dell gives exclusive responsibility for the partner contacts of this partner account to manage all the deals created for ANY End-User accounts ,to which this partner account is linked.The partner account should be Dell&apos;s direct partner.The field should be on the detail page of an End User account.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter a partner account here which indicates that the End User Account is assigned to a LOB registration Partner.</inlineHelpText>
+        <label>Preferred LOB Registration Partner</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Account.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Partner Account</value>
+            </filterItems>
+            <filterItems>
+                <field>Account.Is_GTM_Partner__c</field>
+                <operation>equals</operation>
+                <value>True</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Available Customers (LOB registration)</relationshipLabel>
+        <relationshipName>LOB_Registrations1</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Qualifying_Deal_ID__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Deal ID number corresponding to the LOB Registration Renewal</inlineHelpText>
+        <label>Qualifying Deal ID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Registered_End_User__c</fullName>
+        <externalId>false</externalId>
+        <label>Registered End User</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>LOB Registration</relationshipLabel>
+        <relationshipName>LOB_Registrations</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Renewed_Date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Date corresponding to when the LOB Registration renewal was completed</inlineHelpText>
+        <label>Renewed Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Shared_to_GTM_Partner__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This field will be updated only VIA API .The field will be checked only if there is a valid partner assignment in &quot;Preferred GTM partner account&quot;field AND also if there is a corresponding sharing record created in sharing section.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, assignment is valid. If unchecked, no/invalid assignment</inlineHelpText>
+        <label>Shared to Partner?</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>State_Province_Region__c</fullName>
+        <externalId>false</externalId>
+        <label>State/Province/Region</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Subsidiary_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Subsidiary Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>font_color_F3F3EC_Message__c</fullName>
+        <defaultValue>&quot;If the LOB registration status is changed to ‘Open’ or ’Closed’, the partner assignment(Preferred LOB Registration Partner) in the current LOB registration record will be auto-removed.&quot;</defaultValue>
+        <externalId>false</externalId>
+        <label>&lt;font color=&quot;#fff&quot;&gt;Message</label>
+        <length>32000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <label>LOB Registration</label>
+    <nameField>
+        <displayFormat>LOB#{000}</displayFormat>
+        <label>LOB Registration Number</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>LOB Registrations</pluralLabel>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>LOB_Registration_Inactive</fullName>
+        <active>true</active>
+        <label>LOB Registration(Inactive)</label>
+        <picklistValues>
+            <picklist>Justification__c</picklist>
+            <values>
+                <fullName>Bluebook%2FShare of Wallet</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mandatory use Contract</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>LOB_Award_Type__c</picklist>
+            <values>
+                <fullName>All Account</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>All Subsidiaries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Specific Account Location</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Specific Subsidiary Location</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>LOB_registration_status__c</picklist>
+            <values>
+                <fullName>Inactive</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>LOB_registration_Dell_Approved</fullName>
+        <active>true</active>
+        <label>LOB registration(Dell Approved)</label>
+        <picklistValues>
+            <picklist>Justification__c</picklist>
+            <values>
+                <fullName>Bluebook%2FShare of Wallet</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mandatory use Contract</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>LOB_Award_Type__c</picklist>
+            <values>
+                <fullName>All Account</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>All Subsidiaries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Specific Account Location</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Specific Subsidiary Location</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>LOB_registration_status__c</picklist>
+            <values>
+                <fullName>Dell%28approved%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Expired</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Revoked</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>LOB_registration_Partner_Approved</fullName>
+        <active>true</active>
+        <label>LOB registration(Partner Approved)</label>
+        <picklistValues>
+            <picklist>Justification__c</picklist>
+            <values>
+                <fullName>Bluebook%2FShare of Wallet</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mandatory use Contract</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>LOB_Award_Type__c</picklist>
+            <values>
+                <fullName>All Account</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>All Subsidiaries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Specific Account Location</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Specific Subsidiary Location</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>LOB_registration_status__c</picklist>
+            <values>
+                <fullName>Expired</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Partner%28approved%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Revoked</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>LOB_registration_before_Approval</fullName>
+        <active>true</active>
+        <label>LOB_registration_before_Approval</label>
+        <picklistValues>
+            <picklist>Justification__c</picklist>
+            <values>
+                <fullName>Bluebook%2FShare of Wallet</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mandatory use Contract</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>LOB_Award_Type__c</picklist>
+            <values>
+                <fullName>All Account</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>All Subsidiaries</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Specific Account Location</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Specific Subsidiary Location</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>LOB_registration_status__c</picklist>
+            <values>
+                <fullName>Expired</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Partner%28approved%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Partner%28submit for approval%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Revoked</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Enter_City_State_Province_Region_Subsidi</fullName>
+        <active>true</active>
+        <description>Enter City, State/Province/Region and Subsidiary Name fields when Award type is Specific Subsidiary Location.</description>
+        <errorConditionFormula>IF(ISPICKVAL(LOB_Award_Type__c , &apos;Specific Subsidiary Location&apos;) &amp;&amp; (TRIM(City__c) == NULL || TRIM(City__c) == &apos;&apos;|| TRIM(State_Province_Region__c) == NULL || TRIM(State_Province_Region__c) == &apos;&apos; ||  TRIM( Subsidiary_Name__c) = NULL || TRIM( Subsidiary_Name__c) = &apos;&apos;), true, false)</errorConditionFormula>
+        <errorMessage>Please enter City, State/Province/Region and Subsidiary Name.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Enter_City_and_State_Province_Region</fullName>
+        <active>true</active>
+        <description>Enter City and State/Province/Region fields when Award type is Specific Account Location.</description>
+        <errorConditionFormula>IF( ISPICKVAL(LOB_Award_Type__c,&apos;Specific Account Location&apos;) &amp;&amp; (TRIM(City__c) == NULL || TRIM(City__c) == &apos;&apos;||   TRIM(State_Province_Region__c) == NULL || TRIM(State_Province_Region__c) == &apos;&apos;), true, false)</errorConditionFormula>
+        <errorMessage>Please enter City and State/Province/Region.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Enter_Subsidiary_Name</fullName>
+        <active>true</active>
+        <description>Enter Subsidiary Name when the award type is Specific Subsidiary Location or All Subsidiaries</description>
+        <errorConditionFormula>IF((ISPICKVAL(LOB_Award_Type__c,&apos;All Subsidiaries&apos;)) &amp;&amp; (TRIM(Subsidiary_Name__c) == NULL || TRIM(Subsidiary_Name__c) == &apos;&apos;) , true, false)</errorConditionFormula>
+        <errorMessage>Please enter Subsidiary Name.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>GTMPartnerAssignRemoval_ReasonMandatory</fullName>
+        <active>true</active>
+        <description>This validation rule will make sure that the biz/channel rep will be prompted to enter de-linkage reason if there is a removal of valid &quot;Preferred LOB registration Partner&quot; assignment.</description>
+        <errorConditionFormula>AND( ISBLANK(Preferred_GTM_Partner_Account__c) ,PRIORVALUE(Preferred_GTM_Partner_Account__c) &lt;&gt;&apos;&apos;, 
+ISBLANK( GTM_De_linkage_Reason__c ), RecordTypeId= &apos;012S00000000QS3&apos;,(CONTAINS( $User.Profile_Name__c , &apos;Operations&apos;)|| $User.Title = &apos;GCC Program Manager&apos;|| $User.Division = &apos;Deal Registration&apos;) )</errorConditionFormula>
+        <errorDisplayField>GTM_De_linkage_Reason__c</errorDisplayField>
+        <errorMessage>Enter the reason for Partner removal from this LOB</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>GTMPartnerAssign_Expiry_date_validation</fullName>
+        <active>true</active>
+        <description>This validation rule will make sure that the biz/channel rep will be prompted to select a future date but not a previous date or today as the expiry date of the assignment.</description>
+        <errorConditionFormula>AND( 
+(GTM_Linkage_Expiry_Date__c &lt;=Today()), NOT(ISNULL(GTM_Linkage_Expiry_Date__c)), ISCHANGED(GTM_Linkage_Expiry_Date__c) 
+)</errorConditionFormula>
+        <errorDisplayField>GTM_Linkage_Expiry_Date__c</errorDisplayField>
+        <errorMessage>Expiry date should be a future date.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Load_LOB_for_EU_Prtcpting_in_LOB_Pgm</fullName>
+        <active>true</active>
+        <description>This validation rule will restrict the load of LOB record to an account 
+if the Account is not an end user or Participating in LOB Program is FALSE for the account.</description>
+        <errorConditionFormula>OR( Registered_End_User__r.RecordTypeId =&apos;012A0000000TR6Y&apos;, Registered_End_User__r.Participating_in_LOB_Program__c =FALSE)</errorConditionFormula>
+        <errorMessage>The record cannot be created or updated becuase either the Account is not set as &apos;End User&apos; OR Account is not participating in LOB Program</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Prefferedlobregistration_should_be_blank</fullName>
+        <active>true</active>
+        <description>Refer CR 3459 -&gt;attachment  &apos;VR_preferred LOB should be blank&apos; for the detailed description.</description>
+        <errorConditionFormula>NOT( ISBLANK( Preferred_GTM_Partner_Account__c ) ) &amp;&amp; (ISPICKVAL( LOB_registration_status__c ,&apos;Dell(approved)&apos;) &amp;&amp; (CONTAINS( $User.Profile_Name__c , &apos;Operations&apos;)|| $User.Title = &apos;GCC Program Manager&apos; || $User.Division = &apos;Deal Registration&apos; ))
+&amp;&amp; ( $RecordType.Name &lt;&gt; &apos;LOB registration(Partner Approved)&apos;)</errorConditionFormula>
+        <errorDisplayField>Preferred_GTM_Partner_Account__c</errorDisplayField>
+        <errorMessage>The current LOB status does not allow you to select a Partner in this field. Please remove it to save the record.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Prefferedlobregistration_should_be_fille</fullName>
+        <active>true</active>
+        <description>Refer CR 3459 -&gt;attachment &apos;VR_preferred LOB should be filled&apos; for the detailed description.</description>
+        <errorConditionFormula>ISBLANK( Preferred_GTM_Partner_Account__c) 
+&amp;&amp; 
+( (ISPICKVAL( LOB_registration_status__c ,&quot;Partner(submit for approval)&quot;) &amp;&amp; (CONTAINS( $User.Profile_Name__c , &apos;Operations&apos;) || $User.Title = &apos;GCC Program Manager&apos;|| $User.Division= &apos;Deal Registration&apos;)) 
+|| 
+(ISPICKVAL( LOB_registration_status__c ,&quot;Partner(approved)&quot;) &amp;&amp;( $User.Id = Registered_End_User__r.OwnerId || $User.Title = &apos;GCC Program Manager&apos;||$User.Division= &apos;Deal Registration&apos; )))</errorConditionFormula>
+        <errorDisplayField>Preferred_GTM_Partner_Account__c</errorDisplayField>
+        <errorMessage>Please enter a Partner before submitting the LOB for sales approval OR approving LOB for a partner.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Sales_should_not_change_LOB_Partner</fullName>
+        <active>true</active>
+        <description>Refer CR 3459 -&gt;attachment &apos;VR_Sales_should_not_change_LOB_Partner&apos; for the detailed description.</description>
+        <errorConditionFormula>(($User.Id = Registered_End_User__r.OwnerId &amp;&amp; $User.Title &lt;&gt;&apos;GCC Program Manager&apos; ))&amp;&amp; ISCHANGED( Preferred_GTM_Partner_Account__c ) 
+&amp;&amp; ISPICKVAL( LOB_registration_status__c , &apos;Partner(approved)&apos;)</errorConditionFormula>
+        <errorDisplayField>Preferred_GTM_Partner_Account__c</errorDisplayField>
+        <errorMessage>Account executive is not allowed to change/add Preferred LOB Registration Partner.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>VR_for_GCC_Users</fullName>
+        <active>false</active>
+        <description>Refer CR 3459 -&gt;attachment &apos;VR_for_GCC_Users&apos; for the detailed description.</description>
+        <errorConditionFormula>(NOT(CONTAINS( $User.Profile_Name__c ,&apos;IT GBL Data Load&apos;)) &amp;&amp;($User.Id &lt;&gt;&quot;005A00000016v0q&quot;) &amp;&amp; ($User.Id &lt;&gt; Registered_End_User__r.OwnerId ) &amp;&amp; $User.Title &lt;&gt; &apos;GCC Program Manager&apos; ) &amp;&amp;
+(((ISPICKVAL( LOB_registration_status__c , &apos;Partner(approved)&apos;)|| ISPICKVAL( LOB_registration_status__c , &apos;Open&apos;)||ISPICKVAL( LOB_registration_status__c , &apos;Closed&apos;))&amp;&amp; NOT(ISPICKVAL(PRIORVALUE(LOB_registration_status__c), &apos;Partner(approved)&apos;)))
+)</errorConditionFormula>
+        <errorDisplayField>LOB_registration_status__c</errorDisplayField>
+        <errorMessage>Only Account Owner is allowed to select this value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>VR_for_NON_PRM_OPS_profile</fullName>
+        <active>false</active>
+        <description>This VR will restrcit NON PRM OPS/ADMIN profiles from Editing fields on the LOB Registration award</description>
+        <errorConditionFormula>AND(NOT(ISCHANGED(LOB_registration_status__c)),NOT(CONTAINS($Profile.Name,&apos;PRM Operations&apos;)))</errorConditionFormula>
+        <errorMessage>You Cannot Perform This Action</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>VR_for_Sales_Users</fullName>
+        <active>true</active>
+        <description>Refer CR 3459 -&gt;attachment &apos;VR_for_Sales_Users&apos; for the detailed description.</description>
+        <errorConditionFormula>(NOT(CONTAINS( $User.Profile_Name__c ,&apos;IT GBL Data Load&apos;)) &amp;&amp; CONTAINS( $User.Profile_Name__c ,&apos;Sales&apos;) &amp;&amp; $User.Title &lt;&gt; &apos;GCC Program Manager&apos; &amp;&amp; $User.Division &lt;&gt;&apos;Deal Registration&apos; )&amp;&amp;(ISPICKVAL( LOB_registration_status__c , &apos;Dell(approved)&apos;) || ISPICKVAL( LOB_registration_status__c , &apos;Partner(submit for approval)&apos;) 
+||((ISPICKVAL( LOB_registration_status__c ,&apos;Rejected&apos;) || ISPICKVAL( LOB_registration_status__c ,&apos;Expired&apos;)||ISPICKVAL( LOB_registration_status__c ,&apos;Revoked&apos;))&amp;&amp; ISPICKVAL( PRIORVALUE( LOB_registration_status__c ) , &apos;Partner(approved)&apos;)) )</errorConditionFormula>
+        <errorDisplayField>LOB_registration_status__c</errorDisplayField>
+        <errorMessage>Only Operations/Deal Reg Analysts are allowed to select this value</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>Add_New_LOB</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Add New LOB</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>var userProfile = &apos;{!$Profile.Name}&apos;;
+var participatingLob = &apos;{!Account.Participating_in_LOB_Program__c}&apos;;
+
+if(userProfile.toLowerCase().indexOf(&quot;gbl prm operations&quot;) &gt; -1){
+
+	var returnVal = {!IF( Account.Participating_in_LOB_Program__c , 1, 0)};
+	if(returnVal  == 0){
+	   var popupLabel = &quot;{!$Label.CR_2573_Create_Account_Branch}&quot;;
+	   if(confirm(popupLabel )){
+		   window.parent.location.href =&quot;/{!Account.Id}&quot;;
+	   }
+	}else{
+	   window.parent.location.href =&quot;/apex/CreateNewLob?accid={!Account.Id}&quot;;
+	}
+}else{
+    var popupLabel = &quot;{!$Label.Restrict_LOB_Creation}&quot;;
+    if(confirm(popupLabel )){
+         window.parent.location.href =&quot;/{!Account.Id}&quot;;
+    }
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Generate_LOB_Registration</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <height>600</height>
+        <linkType>url</linkType>
+        <masterLabel>Generate LOB Registration</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>/apex/LOBRegistration?id={!Account.Id}</url>
+    </webLinks>
+</CustomObject>

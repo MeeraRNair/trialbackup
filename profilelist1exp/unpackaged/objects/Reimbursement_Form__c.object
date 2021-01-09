@@ -1,0 +1,896 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Viper Project</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Read</externalSharingModel>
+    <fields>
+        <fullName>Actual_Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Actual Amount</label>
+        <precision>14</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Business_Segment__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT ( MDF_Program__r.Business_Segment__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Business Segment</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Card_Owner_Name__c</fullName>
+        <description>When user selects “Purchasing Card”, “Corporate Card” from “Method of Purchase” picklist then “Card Owner Name” field need to be mandatory</description>
+        <externalId>false</externalId>
+        <label>Card Owner Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cost_Center_Charge_Detail__c</fullName>
+        <description>When user selects “Direct Cost Centre Charge” from “Method of Purchase” picklist then     “Cost Center Charge Detail” field need to be mandatory</description>
+        <externalId>false</externalId>
+        <label>Cost Center Charge Detail</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cost_Centre_and_Account_Number_GL_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Cost Centre and Account Number (GL Code)</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Country_Location__c</fullName>
+        <externalId>false</externalId>
+        <label>Country / Location</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>ANZ</fullName>
+                    <default>false</default>
+                    <label>ANZ</label>
+                </value>
+                <value>
+                    <fullName>Brazil</fullName>
+                    <default>false</default>
+                    <label>Brazil</label>
+                </value>
+                <value>
+                    <fullName>Canada</fullName>
+                    <default>false</default>
+                    <label>Canada</label>
+                </value>
+                <value>
+                    <fullName>China</fullName>
+                    <default>false</default>
+                    <label>China</label>
+                </value>
+                <value>
+                    <fullName>Czech</fullName>
+                    <default>false</default>
+                    <label>Czech</label>
+                </value>
+                <value>
+                    <fullName>Denmark</fullName>
+                    <default>false</default>
+                    <label>Denmark</label>
+                </value>
+                <value>
+                    <fullName>Finland</fullName>
+                    <default>false</default>
+                    <label>Finland</label>
+                </value>
+                <value>
+                    <fullName>France</fullName>
+                    <default>false</default>
+                    <label>France</label>
+                </value>
+                <value>
+                    <fullName>Germany</fullName>
+                    <default>false</default>
+                    <label>Germany</label>
+                </value>
+                <value>
+                    <fullName>India</fullName>
+                    <default>false</default>
+                    <label>India</label>
+                </value>
+                <value>
+                    <fullName>Ireland</fullName>
+                    <default>false</default>
+                    <label>Ireland</label>
+                </value>
+                <value>
+                    <fullName>Italy</fullName>
+                    <default>false</default>
+                    <label>Italy</label>
+                </value>
+                <value>
+                    <fullName>Japan</fullName>
+                    <default>false</default>
+                    <label>Japan</label>
+                </value>
+                <value>
+                    <fullName>Korea</fullName>
+                    <default>false</default>
+                    <label>Korea</label>
+                </value>
+                <value>
+                    <fullName>Malaysia</fullName>
+                    <default>false</default>
+                    <label>Malaysia</label>
+                </value>
+                <value>
+                    <fullName>Mexico</fullName>
+                    <default>false</default>
+                    <label>Mexico</label>
+                </value>
+                <value>
+                    <fullName>Netherlands</fullName>
+                    <default>false</default>
+                    <label>Netherlands</label>
+                </value>
+                <value>
+                    <fullName>Norway</fullName>
+                    <default>false</default>
+                    <label>Norway</label>
+                </value>
+                <value>
+                    <fullName>Southeast Asia</fullName>
+                    <default>false</default>
+                    <label>Southeast Asia</label>
+                </value>
+                <value>
+                    <fullName>Sweden</fullName>
+                    <default>false</default>
+                    <label>Sweden</label>
+                </value>
+                <value>
+                    <fullName>UK</fullName>
+                    <default>false</default>
+                    <label>UK</label>
+                </value>
+                <value>
+                    <fullName>UK, FR, GR ONLY</fullName>
+                    <default>false</default>
+                    <label>UK, FR, GR ONLY</label>
+                </value>
+                <value>
+                    <fullName>US</fullName>
+                    <default>true</default>
+                    <label>US</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Country__c</fullName>
+        <externalId>false</externalId>
+        <formula>Text( MDF_Program__r.Country__c )</formula>
+        <label>Country</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DO__c</fullName>
+        <description>When user selects “DO (Purchase Order)” from “Method of Purchase” picklist then “DO #”     field need to be mandatory</description>
+        <externalId>false</externalId>
+        <label>PO #</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Expense_Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Expense Amount</label>
+        <precision>14</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Finance_Analyst_for_above_CC__c</fullName>
+        <externalId>false</externalId>
+        <label>Finance Analyst for above CC</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Finance_Delegate__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>OPEX analyst managing cost center’s budget.</inlineHelpText>
+        <label>Finance Delegate</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Fiscal_Quarter__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT (MDF_Program__r.Fiscal_Quarter__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Fiscal Quarter</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MDF_Program__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>MDF Program</label>
+        <referenceTo>MDF_Program__c</referenceTo>
+        <relationshipLabel>Reimbursement Forms</relationshipLabel>
+        <relationshipName>Reimbursement_Forms</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Method_of_Purchase__c</fullName>
+        <externalId>false</externalId>
+        <label>Method of Purchase</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Purchasing Card</fullName>
+                    <default>false</default>
+                    <label>Purchasing Card</label>
+                </value>
+                <value>
+                    <fullName>Purchase Order</fullName>
+                    <default>false</default>
+                    <label>Purchase Order</label>
+                </value>
+                <value>
+                    <fullName>Direct Cost Centre Charge</fullName>
+                    <default>false</default>
+                    <label>Direct Cost Centre Charge</label>
+                </value>
+                <value>
+                    <fullName>Corporate Card</fullName>
+                    <default>false</default>
+                    <label>Corporate Card</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>NOTE__c</fullName>
+        <defaultValue>&quot;• Purchasing Card &amp; Corporate Card expenses: User must enter Card Owner’s Name&quot;
+                                 &amp; BR() &amp;
+                                 &quot;• Purchase Order expenses: User must enter PO #&quot;
+                                 &amp; BR() &amp;
+                                 &quot;• Direct Cost Center Charge: User must enter Cost Center Charge Details (Expense description i.e. contest payout, Dell Order #)&quot;</defaultValue>
+        <description>Instruction for users to use Method of Purchase</description>
+        <externalId>false</externalId>
+        <label>&lt;font color=&quot;#FF0000&quot;&gt;NOTE:</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Original_Allocation_Amount__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>For Dell Branded Only</inlineHelpText>
+        <label>Original Allocation Amount</label>
+        <precision>14</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Program_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>MDF_Program__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Program Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Region__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT ( MDF_Program__r.Region__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Region</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sub_Region__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT ( MDF_Program__r.Sub_Region__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Sub Region</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sub_Vendor__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Sub Vendor</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Vendor__c.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Sub Vendor</value>
+            </filterItems>
+            <filterItems>
+                <field>Vendor__c.Partner_Status__c</field>
+                <operation>equals</operation>
+                <value>Active</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Vendor__c</referenceTo>
+        <relationshipLabel>Reimbursement Forms</relationshipLabel>
+        <relationshipName>Reimbursement_Forms</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Total_Expense_Amount__c</fullName>
+        <description>Sum of All Distributed Price.</description>
+        <externalId>false</externalId>
+        <label>Total Expense Amount</label>
+        <summarizedField>Vendor_Reimbursement__c.Distributed_Price__c</summarizedField>
+        <summaryForeignKey>Vendor_Reimbursement__c.Reimbursement_Form__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <label>Reimbursement Form</label>
+    <nameField>
+        <label>Reimbursement Form Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Reimbursement Forms</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Dell_Global_Branding_Program_Reimbursement_Form</fullName>
+        <active>true</active>
+        <description>For use with global Dell Branded programs</description>
+        <label>Global Dell Branded Reimbursement Form</label>
+        <picklistValues>
+            <picklist>Country_Location__c</picklist>
+            <values>
+                <fullName>ANZ</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Brazil</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Canada</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>China</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Czech</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Denmark</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Finland</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>France</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Germany</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>India</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ireland</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Italy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Japan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Korea</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Malaysia</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mexico</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Netherlands</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Norway</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Southeast Asia</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sweden</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>UK</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>UK%2C FR%2C GR ONLY</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>US</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Method_of_Purchase__c</picklist>
+            <values>
+                <fullName>Corporate Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Direct Cost Centre Charge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchase Order</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchasing Card</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Program_Reimbursement_Form</fullName>
+        <active>false</active>
+        <description>For use with US programs (3rd party and Dell Branded)</description>
+        <label>Program Reimbursement Form</label>
+        <picklistValues>
+            <picklist>Country_Location__c</picklist>
+            <values>
+                <fullName>ANZ</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Brazil</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Canada</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>China</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Czech</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Denmark</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Finland</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>France</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Germany</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>India</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ireland</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Italy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Japan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Korea</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Malaysia</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mexico</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Netherlands</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Norway</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Southeast Asia</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sweden</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>UK</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>UK%2C FR%2C GR ONLY</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>US</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Method_of_Purchase__c</picklist>
+            <values>
+                <fullName>Corporate Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Direct Cost Centre Charge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchasing Card</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Read</sharingModel>
+    <validationRules>
+        <fullName>Cost_Centre_GL_Code_Format_Validation</fullName>
+        <active>true</active>
+        <errorConditionFormula>NOT(
+ OR(
+  LEN (Cost_Centre_and_Account_Number_GL_Code__c) = 0,
+  REGEX(Cost_Centre_and_Account_Number_GL_Code__c, &quot;[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{6}-[a-zA-Z0-9]{5}&quot;)
+ )
+)</errorConditionFormula>
+        <errorDisplayField>Cost_Centre_and_Account_Number_GL_Code__c</errorDisplayField>
+        <errorMessage>MUST be in this format: XXXX-XXXX-XXXXXX-XXXXX</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Viper_Card_Owner_Name_Mandatory</fullName>
+        <active>true</active>
+        <description>Purchasing Card &amp; Corporate Card expenses: User must enter Card Owner’s Name</description>
+        <errorConditionFormula>(ISPICKVAL( Method_of_Purchase__c , &quot;Purchasing Card&quot;) ||
+                                                     ISPICKVAL(Method_of_Purchase__c , &quot;Corporate Card&quot;))
+                                                     &amp;&amp;ISBLANK(Card_Owner_Name__c)</errorConditionFormula>
+        <errorMessage>Card Owner Name must be completed. Record not saved.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Viper_Cost_Centre_Charge_Mandatory</fullName>
+        <active>true</active>
+        <description>Direct Cost Center Charge: User must enter Cost Center Charge Details (Expense description i.e.    contest payout, WoW#).</description>
+        <errorConditionFormula>ISPICKVAL( Method_of_Purchase__c , &quot;Direct Cost Centre Charge&quot;)&amp;&amp; ISBLANK( Cost_Center_Charge_Detail__c)</errorConditionFormula>
+        <errorMessage>Cost Centre Charge Details must be completed. Record not saved.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Viper_Direct_Cost_Card_Owner_Name_VR</fullName>
+        <active>true</active>
+        <description>Direct Cost Center Charge: User must enter Cost Center Charge Details (Expense description i.e.   contest payout, WoW#).</description>
+        <errorConditionFormula>ISPICKVAL( Method_of_Purchase__c , &quot;Direct Cost Centre Charge&quot;) &amp;&amp;
+                                                  NOT(ISBLANK(Card_Owner_Name__c))</errorConditionFormula>
+        <errorMessage>The Card Owner Name field must be blank for expense types: Purchase Order and Direct  Cost Centre Charge. Record not saved.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Viper_Direct_Cost_PO_VR</fullName>
+        <active>true</active>
+        <description>Direct Cost Center Charge: User must enter Cost Center Charge Details (Expense description i.e.   contest payout, WoW#).</description>
+        <errorConditionFormula>ISPICKVAL( Method_of_Purchase__c , &quot;Direct Cost Centre Charge&quot;) &amp;&amp;
+                                                 NOT(ISBLANK( DO__c ))</errorConditionFormula>
+        <errorMessage>The PO # field must be blank for expense types: Purchasing Card, Direct Cost Centre Charge and    Corporate Card. Record not saved.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Viper_PO_Card_Owner_VR</fullName>
+        <active>true</active>
+        <description>Purchase Order expenses: User must enter PO#.</description>
+        <errorConditionFormula>ISPICKVAL( Method_of_Purchase__c , &quot;Purchase Order&quot;) &amp;&amp;
+                                                 NOT(ISBLANK(Card_Owner_Name__c))</errorConditionFormula>
+        <errorMessage>The Card Owner Name field must be blank for expense types: Purchase Order and Direct Cost   Center Charge. Record not saved.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Viper_PO_Cost_Centre_Charge_VR</fullName>
+        <active>true</active>
+        <description>Purchase Order expenses: User must enter PO#.</description>
+        <errorConditionFormula>ISPICKVAL( Method_of_Purchase__c , &quot;Purchase Order&quot;) &amp;&amp;
+                                                 NOT(ISBLANK( Cost_Center_Charge_Detail__c ))</errorConditionFormula>
+        <errorMessage>The Cost Centre Charge Detail field must be blank for expense types: Purchasing Card, Purchase Order, or Corporate Card. Record not saved.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Viper_PO_Mandatory</fullName>
+        <active>true</active>
+        <description>Purchase Order expenses: User must enter PO#.</description>
+        <errorConditionFormula>ISPICKVAL( Method_of_Purchase__c , &quot;Purchase Order&quot;)&amp;&amp; ISBLANK( DO__c )</errorConditionFormula>
+        <errorMessage>PO # must be completed. Record not saved.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Viper_Purchase_Corporate_Cost_Centre_VR</fullName>
+        <active>true</active>
+        <description>Purchasing Card &amp; Corporate Card expenses: User must enter Card Owner’s Name.</description>
+        <errorConditionFormula>(ISPICKVAL( Method_of_Purchase__c , &quot;Purchasing Card&quot;) ||
+                                                        ISPICKVAL(Method_of_Purchase__c , &quot;Corporate Card&quot;))
+                                                        &amp;&amp;
+                                                         NOT(ISBLANK( Cost_Center_Charge_Detail__c ))</errorConditionFormula>
+        <errorMessage>The Cost Centre Charge Detail field must be blank for expense types: Purchasing Card, Purchase  Order, or Corporate Card. Record not saved.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Viper_Purchase_Corporate_PO_VR</fullName>
+        <active>true</active>
+        <description>Purchasing Card &amp; Corporate Card expenses: User must enter Card Owner’s Name.</description>
+        <errorConditionFormula>(ISPICKVAL( Method_of_Purchase__c , &quot;Purchasing Card&quot;) ||
+                                                    ISPICKVAL(Method_of_Purchase__c , &quot;Corporate Card&quot;))
+                                                       &amp;&amp;
+                                                        NOT(ISBLANK( DO__c ))</errorConditionFormula>
+        <errorMessage>The PO # field must be blank for expense types: Purchasing Card, Direct Cost Centre Charge and Corporate Card. Record not saved.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>

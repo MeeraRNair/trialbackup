@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>gdm_vre_018_StateProvincePostal_reqrd</fullName>
+    <active>true</active>
+    <description>For AMER and APJ, postal code and state/province is required</description>
+    <errorConditionFormula>AND ( 
+ RecordType.Name == &quot;Create Account / Reactivate&quot;,
+ISBLANK(State_Province__c ) || ISBLANK(Postal_Code__c),
+      ISPICKVAL(Region__c,&quot;AMER&quot;) || ISPICKVAL(Region__c, &quot;APJ&quot;)
+     )</errorConditionFormula>
+    <errorMessage>(018) State/Province and Postal Code is required for AMER and APJ regions.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validate_Start_Date_not_less_than_TODAY</fullName>
+    <active>false</active>
+    <errorConditionFormula>OR( AND( NOT(ISBLANK(Start_Date__c)), Start_Date__c &lt; TODAY(), ISNEW() ), AND(ISCHANGED(Start_Date__c), NOT(ISBLANK(Start_Date__c)), Start_Date__c &lt; TODAY() ) )</errorConditionFormula>
+    <errorMessage>Effective date should not be less than today</errorMessage>
+</ValidationRule>

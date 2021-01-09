@@ -1,0 +1,41 @@
+<!-- * 
+* Revision CR Number   Release No      Date            Modified By     Description
+* -------- ---------   ----------      -----------     ------------    -----------
+* 1.0 -    CR 16392        FY19-DCS-1002   24-Aug-2018   Raveena Bhagat    added 'lightningStylesheets' attribute for apex component to make the page lightening friendly as part of story 5495496
+*/-->
+
+<apex:page standardcontroller="Opportunity" extensions="VFCntrlr_SnPRecalculate" lightningStylesheets="true" action="{!recalculateAll}">
+ <apex:form id="SnPRecalculateForm">
+          
+        <apex:outputPanel rendered="{!statusMessage==null}" id="loadingPanel">
+
+            <table width="600px" cellpadding="0" cellspacing="0" align="center" border="0">
+                <tr><td><br/><br/>
+                <apex:pageMessage severity="INFO" strength="3" title="S & P Deal Registration Recalculation"
+                            detail="Status: Recalculating ..." />
+                
+                    <div style="text-align: center;">
+                        <apex:image url="{!$Resource.loading}"/>
+                    </div>
+                
+                </td></tr>
+            </table>
+        </apex:outputPanel> 
+       
+  
+        <apex:outputPanel rendered="{!statusMessage!=null}" id="errorPanel">
+            <table width="600px" cellpadding="0" cellspacing="0" align="center" border="0">
+                <tr><td><br/><br/>
+                <apex:pageMessage severity="{!IF(isError, 'ERROR', 'INFO')}" strength="3" title="S & P Deal Registration Recalculation"
+                            detail="Status: {!statusMessage}" />
+
+                            
+                    <table align="center"><tr><td>
+                        <apex:commandButton value="OK" action="{!backToOpportunity}" />
+                    </td></tr></table>
+                
+                </td></tr>
+            </table>
+        </apex:outputPanel> 
+    </apex:form>   
+</apex:page>

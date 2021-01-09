@@ -1,0 +1,55 @@
+<apex:page controller="VFCntrlr_SyncToPartnerPortal" showheader="false" action="{!integratePartnerData}" standardStylesheets="true">
+<br/><br/><br/><br/>
+    <table width="600px" cellpadding="0" cellspacing="0" align="center" border="0">
+        <tr>
+            <td>
+                <apex:form >
+                    <apex:outputPanel rendered="{!objType = 'acc'}"> 
+                        <apex:pageMessage severity="confirm"
+                            strength="2"  
+                            rendered="{!isSuccessAccount}"
+                            title="Successfully synced"
+                            detail="The Account is successfully synced to Partner Portal database." />                                
+                        
+                        <apex:pageMessage severity="error"
+                            strength="2"
+                            rendered="{!!isSuccessAccount}"
+                            title="Account Sync Failed"
+                            detail="The synchronization to CMI failed. Please try to sync again. If problem persists, please capture the Exception id and raise a trouble ticket to include the Exception id as part of the trouble ticket. 
+                            The Exception Id is:  {!excepId} ." />
+                    </apex:outputPanel>
+                        
+                    <apex:outputPanel rendered="{!objType = 'con'}"> 
+                        <apex:pageMessage severity="confirm"
+                            strength="2"  
+                            rendered="{!isSuccessContact}"
+                            title="Successfully synced"
+                            detail="The Contact is successfully synced to Partner Portal database." />                                
+                        
+                        <apex:pageMessage severity="error"
+                            strength="2"
+                            rendered="{!!isSuccessContact}"
+                            title="Contact Sync Failed"
+                            detail="The synchronization to CMI failed. Please try to sync again. If problem persists, please capture the Exception id and raise a trouble ticket to include the Exception id as part of the trouble ticket. 
+                            The Exception Id is:  {!excepId} ." />
+                            
+                       <apex:pageMessage severity="error"
+                            strength="2"
+                            rendered="{!isExistContact}"
+                            title="Contact Sync Failed"
+                            detail="The synchronization to CMI failed. The Contact is already associated with a different Account. Please capture the Exception id and raise a trouble ticket to include the Exception id as part of the trouble ticket. 
+                            The Exception Id is:  {!excepId} ." />     
+                    </apex:outputPanel>    
+                    
+                        <table align="center" >
+                            <tr>
+                                <td>
+                                    <apex:commandButton value="OK" action="{!ok}" />  
+                                </td>
+                            </tr>
+                        </table>
+                 </apex:form>
+            </td>
+        </tr>
+    </table>
+</apex:page>

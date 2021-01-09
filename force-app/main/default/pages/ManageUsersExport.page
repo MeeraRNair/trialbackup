@@ -1,0 +1,54 @@
+<!-- 
+Story       CR Number   Release No      Date            Created By     Modified By     Description
+--------    ---------   ----------      -----------     ------------   -----------     -----------
+#5680717                FY20-0402       21-Jan-2019     Mounika                         Export selected users/ExportAll file from the ManageUsers page 
+
+-->
+
+<!--<apex:page controller="ManageUsersCtrlExport" standardStylesheets="false" sidebar="false" showHeader="false" contenttype="application/vnd.ms-excel#{!$Label.Users}_{!strDateLabel}.xls" >-->
+<apex:page controller="ManageUsersCtrlExport" standardStylesheets="false" sidebar="false" showHeader="false" contenttype="application/vnd.ms-excel#{!strfilename}.xls" readOnly="true">
+	<head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    </head>
+    <apex:pageBlock >
+        <!--contenttype="application/vnd.ms-excel#{!$Label.Users}_{!strDateLabel}.xls"-->
+        <table style="border:1px solid darkgray;border-collapse:collapse;">
+            <tr>
+                <th style="border:1px solid darkgray;font-size: medium;background-color: #0085C3;">{!$Label.first_name}</th>
+                <th style="border:1px solid darkgray;font-size: medium;background-color: #0085C3;">{!$Label.last_name}</th>
+                <th style="border:1px solid darkgray;font-size: medium;background-color: #0085C3;">{!$Label.Phone_No}</th>
+                <th style="border:1px solid darkgray;font-size: medium;background-color: #0085C3;">{!$Label.Mobile}</th>
+                <th style="border:1px solid darkgray;font-size: medium;background-color: #0085C3;">{!$Label.Email_Address}</th>
+                <th style="border:1px solid darkgray;font-size: medium;background-color: #0085C3;">{!$Label.Location_Export_Manage_Users}</th>
+                <th style="border:1px solid darkgray;font-size: medium;background-color: #0085C3;">{!$Label.Partner_Tracks}</th>
+                <th style="border:1px solid darkgray;font-size: medium;background-color: #0085C3;">{!$Label.Application_Access}</th>
+                <th style="border:1px solid darkgray;font-size: medium;background-color: #0085C3;">{!$Label.Partner_Group_Administrator}</th>
+                <th style="border:1px solid darkgray;font-size: medium;background-color: #0085C3;">{!$Label.Partner_Track_Administrator}</th>
+                <th style="border:1px solid darkgray;font-size: medium;background-color: #0085C3;">{!$Label.status}</th>
+            </tr>
+            <apex:repeat value="{!listOfConExportWrap}" var="conList">
+                <apex:repeat value="{!conList}" var="cont">
+                    <tr>
+                        <td style="border:1px solid darkgray;" >{!cont.con.FirstName}</td>
+                        <td style="border:1px solid darkgray;">{!cont.con.LastName}</td>
+                        <td style="border:1px solid darkgray;">{!cont.con.Phone}</td>
+						<td style="border:1px solid darkgray;">{!cont.con.MobilePhone}</td>
+                        <td style="border:1px solid darkgray;" >{!cont.con.Partner_User__r.Email}</td>
+                        <td style="border:1px solid darkgray;">{!cont.con.MailingStreet} {!cont.con.MailingPostalCode} {!cont.con.MailingCity} {!cont.con.MailingState} {!cont.con.MailingCountry}</td>
+                        <apex:repeat value="{!cont}" var="egTk">
+                            <td style="border:1px solid darkgray;">{!egTk.mapOfFieldsExprtWarp['EligibleTracksNames']}</td>
+                        </apex:repeat> 
+                        <apex:repeat value="{!cont}" var="toolAcc">
+                            <td style="border:1px solid darkgray;">{!toolAcc.mapOfFieldsExprtWarp['toolAccess']}</td>
+                        </apex:repeat>
+                        <td style="border:1px solid darkgray;">{!IF(cont.con.Enable_as_Partner_Group_Administrator__c, 'Yes', 'No')}</td>
+                        <td style="border:1px solid darkgray;">{!IF(cont.con.Partner_User_Partner_Admin__c, 'Yes', 'No')}</td>
+                        <apex:repeat value="{!cont}" var="stat">
+                            <td style="border:1px solid darkgray;">{!stat.mapOfFieldsExprtWarp['StatusOfContact']}</td>  
+                        </apex:repeat>
+                    </tr>
+                </apex:repeat>
+            </apex:repeat>
+        </table>
+    </apex:pageBlock>
+</apex:page>

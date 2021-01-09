@@ -1,0 +1,103 @@
+<apex:page standardController="Marketing_Plan__c" extensions="ViperContractManagement" action="{!updateMarketingPlanRuleHeader}" id="thePage" lightningStylesheets="true">
+<apex:form id="theForm">
+   <apex:sectionHeader title="Add rule to marketing plan:" subtitle="{!Marketing_Plan__c.name}"/>
+
+    <apex:pageBlock rendered="{!MPlanOptionList}" id="theBlock">
+        <apex:pageBlockSection collapsible="false" title="Marketing Plan Info">
+            <apex:outputText > Name : {!Marketing_Plan__c.Name}</apex:outputText>
+            <apex:outputText > Fiscal Quarter : {!Marketing_Plan__c.Fiscal_Quarter__c}</apex:outputText>
+            <apex:outputText > Vendor : {!Marketing_Plan__c.Vendor__r.name}</apex:outputText>
+            <apex:outputText > Region : {!Marketing_Plan__c.Region__c}</apex:outputText>
+            <apex:outputText > Sub Region : {!Marketing_Plan__c.Sub_Region__c}</apex:outputText>
+            <apex:outputText > Contract Type : {!Marketing_Plan__c.Contract_Type__c}</apex:outputText>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection collapsible="false" title="Select one of the following  {!Marketing_Plan__c.Contract_Type__c} rules">
+            <apex:selectRadio value="{!RuleIds}" layout="PageDirection">
+                <apex:selectOptions value="{!DisplayItems}"/>
+            </apex:selectRadio>            
+        </apex:pageBlockSection>
+        <apex:pageblockButtons location="bottom">
+            <apex:commandButton value="Add Rule" action="{!updateMarketingPlanRuleHeader2}" />
+        </apex:pageblockButtons>
+        
+    </apex:pageBlock>
+    
+    <apex:pageBlock title="Volume Based Rule Header Edit" rendered="{!CreateVBRH}" mode="Edit" id="volBlock">
+        <apex:pageblockSection columns="1" collapsible="false" title="Message">
+             <apex:outputText ><b>'No rule(s) are found.'</b> You can create new
+             rule by entering data in the fields below ,then click save button.
+             Click on Cancel to go to Marketing Plan page</apex:outputText> 
+        </apex:pageblockSection>
+        <apex:pageBlockSection columns="2" title="Information" id="volSec">
+            <apex:inputField value="{!VolumeBasedRH.name}" required="true"/>
+            <apex:outputField value="{!VolumeBasedRH.Status__c}"/>
+            <apex:outputText />
+            <apex:inputField value="{!VolumeBasedRH.COGS__c}"/>
+            <apex:outputField value="{!VolumeBasedRH.Vendor__c}"/>
+            <apex:inputField value="{!VolumeBasedRH.Flat_Rate_Deduction__c}"/>
+            <apex:outputField value="{!VolumeBasedRH.Fiscal_Quarter__c}"/>            
+            <apex:inputField value="{!VolumeBasedRH.Deduction_Reason__c}"/>
+            <apex:inputField value="{!VolumeBasedRH.Region__c}" id="Region"/>
+            <apex:outputText />
+            <apex:inputField value="{!VolumeBasedRH.Sub_Region__c}" id="subRegion"/>
+            <apex:outputText />
+            <apex:inputField value="{!VolumeBasedRH.Country__c}" id="country"/>
+            
+        </apex:pageBlockSection>
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Save" action="{!SaveVBRH}"/>
+            <apex:commandButton value="Cancel" action="{!Cancel}"/>
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+     <script>
+            function setResult(){
+               if('{!VolumeBasedRH.Region__c}'=='Global'){
+               document.getElementById('thePage:theForm:volBlock:volSec:subRegion').disabled=true;
+               }
+               document.getElementById('thePage:theForm:volBlock:volSec:Region').disabled=true;
+            }
+            window.onload = setResult;
+     </script>
+    
+    <apex:pageBlock title="Rebate Rule Name Edit" rendered="{!CreateRRH}" id="rebBlock">
+        <apex:pageblockSection columns="1" collapsible="false" title="Message">
+             <apex:outputText ><b>'No rule(s) are found.'</b> You can create new
+             rule by entering data in the fields below ,then click save button.
+             Click on Cancel to go to Marketing Plan page</apex:outputText>  
+        </apex:pageblockSection>
+        <apex:pageBlockSection columns="2"  collapsible="false" title="Information" id="rebSec">
+            <apex:inputField value="{!RebateRH.name}" required="true"/>
+            <apex:outputField value="{!RebateRH.Status__c}"/>
+            <apex:outputText />
+            <apex:outputField value="{!RebateRH.Fiscal_Quarter__c}"/>  
+            <apex:outputField value="{!RebateRH.Vendor__c}"/>
+            <apex:inputField value="{!RebateRH.Region__c}" id="rebRegion"/> 
+            <apex:outputText />
+            <apex:inputField value="{!RebateRH.Sub_Region__c}" id="rebSubRegion"/> 
+            <apex:outputText /> 
+            <apex:inputField value="{!RebateRH.Country__c}"/>            
+                      
+                     
+            
+            
+            
+            
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Save" action="{!SaveRRH}"/>
+            <apex:commandButton value="Cancel" action="{!Cancel}"/>
+        </apex:pageBlockButtons>
+             <script>
+            function setRebateResult(){
+               if('{!RebateRH.Region__c}'=='Global'){
+               document.getElementById('thePage:theForm:rebBlock:rebSec:rebSubRegion').disabled=true;
+               }
+               document.getElementById('thePage:theForm:rebBlock:rebSec:rebRegion').disabled=true;
+            }
+            window.onload = setRebateResult;
+     </script>
+    </apex:pageBlock>
+    
+</apex:form>
+</apex:page>

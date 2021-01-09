@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Secondary_Distributor_check</fullName>
+    <active>true</active>
+    <errorConditionFormula>(Disti_Account__c != null) &amp;&amp; (Disti_Account__c  =  Secondary_Storage_Preferred_Distributor__c)</errorConditionFormula>
+    <errorDisplayField>Secondary_Storage_Preferred_Distributor__c</errorDisplayField>
+    <errorMessage>Please select a different secondary distributor</errorMessage>
+</ValidationRule>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CR_6689_Sales_Manager</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND ($RecordType.Name = &quot;Direct Relationship Account Plan&quot;, OR(  
+Sales_Manager__c = Account_Executive__c, 
+Sales_Manager__c = Inside_Sales_Representative__c, 
+Sales_Manager__c = Account_Plan_Owner__c))</errorConditionFormula>
+    <errorDisplayField>Sales_Manager__c</errorDisplayField>
+    <errorMessage>Sales Manager field cannot not be blank, or the same as Account Executive, Inside Sales Representative, or Account Plan Owner.</errorMessage>
+</ValidationRule>

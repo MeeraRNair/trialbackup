@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OEM_status_control</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISPICKVAL(PRIORVALUE(OEM_Status__c),&quot;Closed&quot;) &amp;&amp; ISPICKVAL(OEM_Status__c, &quot;In Progress&quot;)</errorConditionFormula>
+    <errorMessage>Once Closed, OEM status cannot be &quot;In Progress&quot;</errorMessage>
+</ValidationRule>

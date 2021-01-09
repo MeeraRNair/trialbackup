@@ -1,0 +1,87 @@
+<!-- 
+/*-------------------------------------------------------------------------
+Name        : AccountBranch
+Description : Page  for creating Account Branch and its LOB records
+* Revision  Name            Date        Description
+----------------------------------------------------------------------------
+* 1.0       Manju                       CR #2573
+* 2.0       Azwanti         31.10.2011  REL13.1 CR5786
+--------------------------------------------------------------------------*/
+ -->
+<apex:page standardController="Account" extensions="AccountBranchController" action="{!getActiveLOBRegStatusValues}" id="accBrnchPg" >
+<div style="width:75%;">
+<apex:outputText value="{!Account.Participating_in_LOB_Program__c}, {!Account.ownerId}" rendered="false"/>
+<apex:form id="frm">
+<apex:messages style="color:red;" id="err"/>
+<script>
+function changeValue(val1,val2)
+{
+  if(val1!=null && val2!=null)
+  {
+    updateStatus(val1,val2);
+  }
+}
+/*function validatePage()
+{
+  var val=document.getElementById('{!$Component.accBrnchPg:frm:editSection:accBrnchSec:strName}').value;
+  alert(val);
+  if(val=='')
+  {
+    alert('Please enter Branch Name');
+  }
+  else
+  {
+    createLOB();
+  }
+}*/
+</script>
+    <apex:pageBlock id="editSection" rendered="{!showPage}" >
+    
+     <apex:pageBlockSection title="Account Branch Information" collapsible="false" id="accBrnchSec">
+               <apex:pageblockSectionItem >
+               <apex:outputLabel value="Account Branch Name"/><apex:inputText value="{!strAccBrnchNm}"  id="strName"/>           
+               </apex:pageblockSectionItem>
+    </apex:pageBlockSection>
+    </apex:pageBlock>
+    <apex:pageBlock >
+    
+        <apex:actionFunction name="updateStatus" action="{!test}"  reRender=""><apex:param name="one" value="" /><apex:param name="two" value="" /></apex:actionFunction>
+
+             <apex:pageBlockSection title="LOB Registration Information" collapsible="false" columns="1">
+             
+              
+                <apex:outputPanel id="btnPanel">
+                
+               <apex:pageBlockTable value="{!lobListWrap }" var="lob"  align="right" rendered="{!showLOBReg}"> 
+                      <apex:column headerValue="LOB Name" width="45%">
+                        <apex:outputfield value="{!lob.lobadmin.Name}"/>
+                    </apex:column>
+                    
+                     <apex:column headerValue="LOB Status" width="15%">
+                        <apex:selectList value="{!lob.selectedLobVal}" size="1"  id="test" onchange="changeValue('{!lob.lobadmin.Name}',this.value)" >
+                            <apex:selectOptions value="{!Items}">
+                            </apex:selectOptions>
+                        </apex:selectList>
+                   </apex:column>
+                    
+                    <apex:column headerValue="Action" width="10%">
+                        <apex:inputCheckbox value="{!lob.selected }"/>
+                    </apex:column>
+                   
+                 </apex:pageBlockTable>
+                     </apex:outputPanel> 
+                  
+            </apex:pageBlockSection>
+            <div style="height:10px;">
+            </div>
+           <div align="center"  > 
+             <apex:commandButton value="Create Account Branch" action="{!createAccountBranch}" reRender="editSection,lobSection,err"/>
+             &nbsp;<apex:commandButton value="Cancel" action="{!cancel}" immediate="true"/>
+           </div>
+            
+             
+        </apex:pageBlock>
+       
+    </apex:form>
+    </div>
+</apex:page>

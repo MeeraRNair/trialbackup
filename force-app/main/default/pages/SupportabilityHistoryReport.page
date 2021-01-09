@@ -1,0 +1,16 @@
+<!-- * 
+* Revision CR Number   Release No      Date            Created By     Description
+* -------- ---------   ----------      -----------     ------------    -----------
+* 1.0 -    CR 16589   FY19-DCS-1101   02-Oct-2018   Raveena Bhagat    Created VF page to make the report open in lightening as part of story 5599142
+*/-->
+
+<apex:page Standardcontroller="Opportunity">
+   <script>
+    if(UITheme.getUITheme() == 'Theme3'){
+        window.location.href = '/00OA00000066sT1?pv0={!LEFT(Opportunity.Id, 15)}';
+    } else {
+        window.location.href = '/lightning/r/Report/00OA00000066sT1/view?fv0={!Opportunity.Id}';
+    }
+        
+    </script>    
+</apex:page>

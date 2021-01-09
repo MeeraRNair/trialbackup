@@ -1,0 +1,359 @@
+<apex:page standardController="Marketing_Plan__c"  extensions="VFCntlr_HeadCountSOW"
+showHeader="False" contentType="application/msword#SOWHeadCount.doc" cache="true">
+<head>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+</head>
+
+ <html Content-Type="application/vnd.msword#SOWHeadCount.doc">
+
+<head>
+<style>
+    @page divbreak
+    {
+        margin:.25in .25in .25in .25in;
+    }
+    div.divbreak {page:divbreak;}
+    td.data{border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;border-collapse:collapse;}
+    table.Bdr{border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;border-collapse:collapse;}
+
+table.t{
+border-spacing: 1px;
+}
+
+</style>
+</head>
+
+<body>
+
+<br clear="all" style="page-break-before:always"/>
+<div class="divbreak">
+<apex:repeat value="{!APVList}" var="apv">
+<table width="100%" align="center" >
+<tr>
+<td align="left"><b>{!Marketing_Plan__c.Financial_Quarter__c}</b></td>
+<td align="right"><b><i>{!Marketing_Plan__c.Reply_Method__c}</i></b></td></tr>
+<tr><td align="left"><b><i>Dell S&amp;P Marketing-Funded Representative SOW ("SOW")</i></b></td>
+<td align="right"></td></tr>
+</table>
+
+    <table style= "font-family: Times New Roman; font-size:11pt" width="100%" align="center"><tr><td>
+  <b>Participant Primary Marketing Contact Information: </b>
+  </td></tr></table>
+<table  width="100%" align="center" style="border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;font-size:11pt">
+         <tr>
+            <td colspan="3" class="data">Company Name: {!Marketing_Plan__c.vendor__r.name}</td>
+
+         </tr>
+         <tr>
+            <td  colspan="2" class="data">Primary Marketing Contact Name: {!MarketingPlan.Primary_Marketing_Contact_Name__c}</td>
+            <td class="data">Phone: {!MarketingPlan.Primary_Marketing_Contact_Phone__c}</td>
+         </tr>
+         <tr>
+            <td  colspan="2" class="data">Primary Marketing Contact Title: {!MarketingPlan.Primary_Marketing_Contact_Title__c}</td>
+            <td>Fax: {!Marketing_Plan__c.Primary_Marketing_Contact_Fax__c}</td>
+         </tr>
+         <tr>
+            <td  colspan="2" class="data">Primary Marketing Contact E-mail: {!MarketingPlan.Primary_Marketing_Contact_E_mail__c}</td>
+            <td class="data">Cell: {!MarketingPlan.Primary_Marketing_Contact_Cell__c}</td>
+         </tr>
+         <tr>
+            <td  colspan="3" class="data">Address: {!MarketingPlan.Primary_Marketing_Contact_Address__c}</td>
+         </tr>
+        <!--  <tr>
+              <td class="data">City:{!MarketingPlan.Primary_Marketing_Contact_City__c}</td>
+            <td class="data">State:{!MarketingPlan.Primary_Marketing_Contact_State__c}</td>
+            <td class="data">Zip:{!Marketing_Plan__c.Primary_Marketing_Contact_Zip__c}</td>
+         </tr> -->
+         <tr>
+            <td colspan="3" class="data">City/State/Postal Code/Country: {!addMarketingStr}</td>            
+        </tr>
+     </table>
+
+
+<table  width="100%" align="center"><tr><td>
+<b>Participant Bill to Contact Information: </b>
+</td></tr></table>
+<table  width="100%" align="center" style="border-style:solid;border-width: 1px 1px 1px 1px;border-color: #000000;font-size:11pt">
+         <tr>
+            <td colspan="3" class="data">Company Name: {!Marketing_Plan__c.vendor__r.name}</td>
+         </tr>
+         <tr>
+            <td  colspan="2" class="data">AP / Billing Contact Name: {!MarketingPlan.Billing_Contact_Name__c}</td>
+            <td class="data">Phone: {!MarketingPlan.Billing_Contact_Phone__c}</td>
+         </tr>
+         <tr>
+            <td  colspan="2" class="data">AP / Billing Contact Title: {!MarketingPlan.Billing_Contact_Title__c}</td>
+            <td class="data">Fax: {!Marketing_Plan__c.Billing_Fax__c}</td>
+         </tr>
+         <tr>
+            <td  colspan="2" class="data">AP / Billing Contact E-mail: {!MarketingPlan.Billing_Contact_Email__c}</td>
+            <td class="data">Cell: {!MarketingPlan.Billing_Cell__c}</td>
+         </tr>
+         <tr>
+            <td  colspan="3" class="data">Bill-to Address: {!MarketingPlan.Bill_To_Address__c}</td>
+         </tr>
+        <!--  <tr>
+              <td class="data">City:{!MarketingPlan.Billing_City__c}</td>
+            <td class="data">State:{!MarketingPlan.Billing_State__c}</td>
+            <td class="data">Zip:{!Marketing_Plan__c.Billing_Zip__c}</td>
+         </tr> -->
+         <tr>
+            <td colspan="3" class="data">City/State/Postal Code/Country: {!addBillingStr}</td>            
+        </tr>
+
+         <tr>
+            <td  colspan="3" class="data">Is PO or PA # required for invoicing?
+             Yes (    &nbsp;  ) No (    &nbsp;  ) If "Yes," provide PO or PA #: {!Marketing_Plan__c.Purchase_Order__c}</td>
+         </tr>
+     </table>
+    
+
+    <table border="0" cellpadding="0" cellspacing="0" height="0px"></table>
+     <table width="100%" align="center" style="margin-bottom:0pt;font-family: Times New Roman; border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;font-size:11pt;">
+         <tr>
+            <td><b>Performance Dates:</b> {!Marketing_Plan__c.Fiscal_Quarter_term__c}</td>
+
+         </tr>
+         <tr>
+            <td><b>Participant Name:</b> {!Marketing_Plan__c.vendor__r.name} </td>
+
+         </tr>
+         <tr>
+            <td><b>Segment:</b> {!apv.MDF_Program__r.Business_Segment__c} </td>
+
+         </tr>
+         <tr>
+            <td><b>Program Name:</b> {!apv.MDF_Program__r.name}</td>
+
+         </tr>
+         <tr>
+
+
+
+            <td><b>Program Cost: </b> {!Marketing_Plan__c.Currency_Code__c} <apex:outputText value="{0, number, ###,###,###,##0.00}">
+                    <apex:param value="{!apv.Budgeted_Price__c*Marketing_Plan__c.Conversion_Rate__c*marketingPlanTerm}"/>
+                </apex:outputText> total (to be billed {!Marketing_Plan__c.Currency_Code__c} <apex:outputText value="{0, number, ###,###,###,##0.00}">
+                    <apex:param value="{!apv.Budgeted_Price__c*Marketing_Plan__c.Conversion_Rate__c}"/>
+                </apex:outputText>/quarterly)</td>
+         </tr>
+
+         <tr>
+              <td  style="font-size:9pt"><i>** Invoiced amount will be prorated in the event the role is not staffed for the entire quarter</i></td>
+         </tr>
+         <div >
+         <tr>
+              <td style="font-family: Times New Roman;font-size: 11pt;">This SOW is made between the parties signing below and is effective for the duration of the Performance Dates above.</td>
+         </tr>
+         </div>
+          <div style="margin-top: 2pt;">
+         <tr>
+            <td style="font-family: Times New Roman;font-size:11pt;text-align: justify" ><b>Program Detail: </b>{!Marketing_Plan__c.Vendor__r.Program_Detail_Only_for_Headcount__c}</td>
+          </tr>
+          </div>
+         <div style="margin-top: 2pt;">
+      <tr>
+             <td style="font-size:10.5pt;font-family: Times New Roman;text-align: justify">{!Marketing_Plan__c.Vendor__r.Terms_Conditions_reference_language__c} </td>
+      </tr>
+      </div>
+      <div style="margin-top: 3pt;margin-bottom:0pt;">
+          <tr>
+          <td Style="font-family: Times New Roman;font-size:10.5pt;text-align: justify"><p class="small">BY EXECUTING BELOW, THE PARTIES ALSO AGREE TO THE ATTACHED SUPPLEMENTAL TERMS AND CONDITIONS FOR FUNDED REPRESENTATIVE SOW, WHICH ARE INCORPORATED INTO AND MADE PART OF THIS SOW.</p></td>
+          </tr>
+          </div>
+        
+            
+        <!-- *Release 14.10 Maint TT - Ajay - CR-8352* -->
+        <!--
+         <tr>
+           <td style="font-size:12px">Subject to the Agreement, Dell will designate resources to support the sale, marketing and promotion of Products. 
+              Subcontracting and other resource allocation decisions will be defined by the joint agreement of the role description between 
+              the funding Participant and Dell.  Day-to-day activities of the resource will remain the sole responsibility of Dell. Dell will provide tools, 
+              equipment and facilities, it deems necessary.  Upon mutual agreement by the parties, a designated Dell representative(s) may attend 
+              training (up to a maximum of five business days per calendar year, including travel days, if any) provided by Participant.  If a resource 
+              is designated by Dell as a "Product Specialist", the resource may travel to participant's location up to one time per quarter for business 
+              meetings (up to a maximum of 15 business days per calendar year, including travel days).  Participant will provide all necessary 
+              training for the Representative. If Dell is responsible for travel costs associated with such training, all such costs will be subject to Dell 
+              prior written approval.  All travel will be subject to Dell then-current travel policy.  If Dell does not approve such expenses, Participant 
+              will make alternative arrangements to provide training.  Any decision to discipline or terminate a Representative's employment or to 
+              discontinue a relationship with a subcontractor or other third party will be at Dell's sole discretion.
+             </td>
+         </tr> -->
+         <!--<tr>
+             <td style="font-size:12px">{!Marketing_Plan__c.Vendor__r.Terms_Conditions_reference_language__c}  </td>
+         </tr>-->
+     </table>
+     
+
+
+    
+  <table border="0" cellpadding="0" cellspacing="0" height="0px"></table>
+      
+
+     <!--<table  width="100%" align="center"><tr><td style="font-size:12px">
+
+     </td></tr></table>-->
+   
+     
+
+<table  class="t" width="100%" align="center" style="border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;">
+         <tr>
+            <td style="font-size:11pt;">AUTHORIZED SIGNATURE (Participant):</td> 
+             <td style="font-size:11pt;">Company:_______________________________________________</td>
+         </tr>
+         <tr>
+            <td> </td>
+            <td style="font-size:11pt;">By:______________________________Date:_______________</td>
+                                          
+         </tr>          
+
+         <table border="0" cellpadding="0" cellspacing="0" height="0px"></table>
+         
+         <tr>
+            <td></td>
+            <td style="font-size:11pt;">______________________________________________________</td>
+         </tr>
+         <tr>
+            <td></td>
+            <td style="font-size:11pt;"><i><center>(Print name &amp; title)</center></i></td>
+         </tr>
+         
+        
+         <tr>
+            <td style="font-family: Times New Roman; font-size:11pt;">AUTHORIZED SIGNATURE (Dell):</td>
+            
+            <td style="font-size:11pt;">{!Marketing_Plan__c.Vendor__r.Dell_Entity__c}</td>
+            
+         </tr>
+         <tr>
+            <td> </td>
+            <td style="font-size:11pt;">By:______________________________Date:_______________</td>
+         </tr>
+        <table border="0" cellpadding="0" cellspacing="0" height="0px"></table>
+          
+         <tr>
+            <td> </td>
+            <td style="font-size:11pt;">_____________________________________________________</td>
+         </tr>
+         <tr>
+            <td></td>
+            <td style="font-size:11pt;"><i><center>(Print name &amp; title)</center></i></td>
+         </tr>
+     </table>
+     
+    
+             <br clear="all" style="page-break-before:always"/>
+            <table  width="100%" align="center"  class="Bdr" bgcolor="#DCDCDC" >
+                <tr><td align="left"><b>{!Marketing_Plan__c.Vendor__r.name}</b></td><td align="right"><b>Program Detail Form</b></td></tr>       
+            </table>
+            <br></br>     
+            <table  width="100%" align="center"   class="Bdr">
+                <tr>
+                    <td colspan="2" bgcolor="#DCDCDC"><b>{!apv.MDF_Program__r.Business_Segment__c} -*{!apv.MDF_Program__r.Country__c} -*{!apv.MDF_Program__r.Region__c}</b></td>
+                </tr>
+                <tr>
+                    <td class="data" width="60%"><b>{!apv.MDF_Program__r.name}</b></td>
+                    <td class="data" width="40%"><b>{!Marketing_Plan__c.Vendor__r.name}</b></td>
+                </tr>
+                <tr>
+                    <td class="data" width="60%"><b>{!Marketing_Plan__c.Financial_Quarter__c}</b></td>
+                    <td class="data" width="40%"></td>
+                </tr>
+            </table>
+            <br></br>
+                        
+            <table  width="100%" align="center"   class="Bdr">
+            <tr>
+                <td colspan="1" bgcolor="#DCDCDC"><b>Job Description</b></td>
+           </tr>
+           <tr>
+           <td class="data" width="100%" style="padding : 10px">{!apv.MDF_Program__r.Detailed_Job_Description__c}</td>
+           </tr>
+           </table>
+           <br></br>
+            <table  width="100%" align="center"   class="Bdr">
+                <tr><td colspan="2" bgcolor="#DCDCDC"><b>Key Information</b></td></tr>
+                <tr>
+                    <td class="data" width="30%">Program Type:</td>
+                    <td class="data" width="70%">{!apv.MDF_Program__r.recordType.name}</td>
+                </tr>
+                <tr>
+                    <td class="data" width="30%">Proof of Performance:</td>
+                    <td class="data" width="70%">{!apv.MDF_Program__r.POP_Details__c}</td>
+                </tr>
+                </table> 
+                
+                <br clear="all" style="page-break-before:always"/>     
+       
+    <tr><center>
+         <td style="font-family: Times New Roman; font-size: 12tx;"><b>Supplemental Terms and Conditions to Funded Representative SOW</b></td>
+    </center></tr>
+    <br></br>
+    
+          <!--<td style="font-family: Times New Roman; font-size: 12pt;text-align: justify;padding:0;text-align:left;">THESE SUPPLEMENTAL TERMS AND CONDITIONS ARE AN INTEGRAL PART OF EACH SOW PROVIDING FOR FUNDED REPRESENTATIVE AND EXECUTION OF THE SOW CONSTITUTES AGREEMENT HERETO.</td>-->
+          <p style="font-family: Times New Roman; font-size: 12pt;text-align: justify;">THESE SUPPLEMENTAL TERMS AND CONDITIONS ARE AN INTEGRAL PART OF EACH SOW PROVIDING FOR FUNDED REPRESENTATIVE AND EXECUTION OF THE SOW CONSTITUTES AGREEMENT HERETO. </p>
+    
+    
+    <br></br>
+           <table style="width:100%">
+           <tr>
+               <td width="55" style="text-align:left;vertical-align:top;padding:0">1.</td>
+               <td  style="font-family: Times New Roman; font-size: 12pt;">SCOPE OF SOW </td>
+           </tr>
+           <tr>
+               <td></td>
+               <td>
+                   <table style="width:100%">
+                       <tr>
+                           <td width="55" style="text-align:left;vertical-align:top;padding:0">1.1</td>
+                           <td style="font-family: Times New Roman; font-size: 12pt;text-align: justify;">The SOW is non-exclusive and Dell shall be entitled to enter into similar or identical arrangements with other suppliers.</td>
+                       </tr>
+                       <tr>
+                           <td width="55" style="text-align:left;vertical-align:top;padding:0">1.2</td>
+                           <td style="font-family: Times New Roman; font-size: 12pt;text-align: justify;">No modification of the SOW will be binding on either party unless set forth in writing and specifically referencing the SOW and signed by an authorized representative of Dell and Participant.</td>
+                       </tr>
+                   </table>
+               </td>
+          </tr>
+          <tr></tr>
+          <tr>
+               <td width="55">2.</td>
+               <td  style="font-family: Times New Roman; font-size: 12pt;">ENGAGEMENT OF REPRESENTATIVE</td>
+           </tr>
+           <tr>
+               <td></td>
+               <td>
+                   <table style="width:100%">
+                       <tr>
+                           <td width="55" style="text-align:left;vertical-align:top;padding:0">2.1</td>
+                           <td style="font-family: Times New Roman; font-size: 12pt;text-align: justify;">Dell shall use commercially reasonable efforts to designate a Representative that is reasonably acceptable to Participant.  The terms of engagement will be defined by a joint agreement between Dell and Participant as detailed in the Program Detail Form attached to this SOW. Dell will, where appropriate, use commercially reasonable efforts to consult with the Participant with regard to any material concerns expressed by Participant concerning Representative’s conduct.  The Representative may be a current employee/consultant to the Participant, Dell or a third party.</td>
+                       </tr>
+                       <tr>
+                           <td width="55" style="text-align:left;vertical-align:top;padding:0">2.2</td>
+                           <td style="font-family: Times New Roman; font-size: 12pt;text-align: justify;">The Representative shall be employed by Dell and the Representative shall solely have a contractual relationship (and corresponding obligations, duties, reporting lines etc.) with Dell.</td>
+                       </tr>
+                       <tr>
+                           <td width="55" style="text-align:left;vertical-align:top;padding:0">2.3</td>
+                           <td style="font-family: Times New Roman; font-size: 12pt;text-align: justify;">The Representative shall be engaged by Dell and shall act solely on the agreed activities specified in the Program Detail Form.  While the Representative may also interact with designated Participant personnel, the Participant shall not seek to obtain any information in relation to Dell (whether deemed to be confidential or not) from the Representative without first obtaining the Representative’s Dell Line Manager’s prior written approval.  Any such information obtained shall be subject to the confidentiality provisions of the Agreement.</td>
+                       </tr>
+                       <tr>
+                           <td width="55" style="text-align:left;vertical-align:top;padding:0">2.4</td>
+                           <td style="font-family: Times New Roman; font-size: 12pt;text-align: justify;">Dell may terminate (subject to local laws where the Representatives are hired) the engagement of the Representative with reasonable written notice to the Participant.</td>
+                       </tr>
+                       <tr>
+                           <td width="55" style="text-align:left;vertical-align:top;padding:0">2.5</td>
+                           <td style="font-family: Times New Roman; font-size: 12pt;text-align: justify;">In the event that Dell elects to terminate the engagement of Representative; or move the Representative internally in Dell; or the Representative terminates the relationship, Dell shall use its commercially reasonable efforts to designate a new Representative as soon as reasonably possible. The agreed charges for such Representative shall be suspended until such time as a replacement Representative reasonably acceptable to Participant has been engaged.</td>
+                       </tr>
+                   </table>
+                   
+               </td>
+               </tr>
+          
+          </table>
+                    <br clear="all" style="page-break-before:always"/>
+                   </apex:repeat>  
+          
+</div>
+</body>
+</html>
+
+</apex:page>

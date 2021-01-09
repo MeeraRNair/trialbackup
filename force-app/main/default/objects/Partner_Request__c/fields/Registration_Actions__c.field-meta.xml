@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Registration_Actions__c</fullName>
+    <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc -||
+SFA -Y/PRM-Y||
+VAL -  N||
+CR# -R10.2 # 816  ||</description>
+    <externalId>false</externalId>
+    <formula>IF(OR(ISPICKVAL(Status__c, &apos;Rejected&apos;),ISPICKVAL(Status__c, &apos;Complete&apos;),ISPICKVAL(Status__c, &apos;Duplicate&apos;))
+	,
+	&apos;No Actions Available&apos;
+	,
+	IF(ISPICKVAL(Status__c, &apos;Approved&apos;)
+		,
+		IF(Account__c = &quot;&quot;
+			,
+			HYPERLINK(&apos;/apex/PartnerRegistrationLinkToAcct?id=&apos; &amp; Id , &apos;Link to Account&apos;,&apos;_self&apos;)
+			,
+			IF(Provisioned_User__c = &quot;&quot;
+				,
+				HYPERLINK(&apos;/apex/PartnerRegistrationProvisionUser?id=&apos; &amp; Id , &apos;Provision First User&apos;,&apos;_self&apos;)
+				,
+				&apos;No Actions Available&apos;
+			)
+		)
+		,
+		HYPERLINK(&apos;/&apos; &amp; Id &amp; &apos;/e?retURL=/&apos; &amp; Id &amp; &apos;&amp;cancelURL=/&apos; &amp; Id, &apos;Edit&apos;,&apos;_self&apos;) 
+		&amp; 
+		IF(ISPICKVAL(Status__c, &apos;In Review&apos;)
+			,
+			&apos; | &apos; &amp; HYPERLINK(&apos;/apex/PartnerRegistrationDupSearch?id=&apos; &amp; Id, &apos;Search For Duplicates&apos;,&apos;_self&apos;)
+			&amp;
+			IF(AND(Perform_Credit_Check_Is_Complete_Flag__c = true,Check_Denied_Party_List_Is_Complete_Flag__c = true,Check_For_Duplicates_Is_Complete_Flag__c = true,Export_Compliance_Check_Is_Complete_Flag__c = true)
+				,
+				&apos; | &apos; &amp; HYPERLINK(&apos;/apex/PartnerRegistrationActionHandler?id=&apos; &amp; Id &amp; &apos;&amp;action=Approve&apos;, &apos;Approve&apos;,&apos;_self&apos;)
+				,
+				IF(Perform_Credit_Check_Is_Complete_Flag__c = false,
+					&apos; | &apos; &amp; HYPERLINK(&apos;/apex/PartnerRegistrationActionHandler?id=&apos; &amp; Id &amp; &apos;&amp;action=MarkCreditCheckComplete&apos;, &apos;Mark Credit Check Complete&apos;,&apos;_self&apos;),
+					&apos;&apos;
+				)
+				&amp; IF(Export_Compliance_Check_Is_Complete_Flag__c = false,
+					&apos; | &apos; &amp; HYPERLINK(&apos;/apex/PartnerRegistrationActionHandler?id=&apos; &amp; Id &amp; &apos;&amp;action=MarkExportComplianceCheckComplete&apos;, &apos;Mark Export Compliance Check Complete&apos;,&apos;_self&apos;),
+					&apos;&apos;
+				)
+				&amp; IF(Check_Denied_Party_List_Is_Complete_Flag__c = false,
+					&apos; | &apos; &amp; HYPERLINK(&apos;/apex/PartnerRegistrationActionHandler?id=&apos; &amp; Id &amp; &apos;&amp;action=MarkDeniedPartyCheckComplete&apos;, &apos;Mark Denied Party Check Complete&apos;,&apos;_self&apos;),
+					&apos;&apos;
+				)
+			)
+			&amp; &apos; | &apos; 
+			&amp; HYPERLINK(&apos;/apex/PartnerRegistrationMarkRejected?id=&apos; &amp; Id , &apos;Reject&apos;,&apos;_self&apos;)	 
+			,
+			&apos; | &apos; 
+			&amp; HYPERLINK(&apos;/apex/PartnerRegistrationActionHandler?id=&apos; &amp; Id &amp; &apos;&amp;action=MarkAsComplete&apos;, &apos;Mark as Complete&apos;,&apos;_self&apos;) 
+			&amp; &apos; | &apos; 
+			&amp; HYPERLINK(&apos;/apex/PartnerRegistrationMarkIncomplt?id=&apos; &amp; Id , &apos;Mark as Incomplete&apos;,&apos;_self&apos;)
+		)
+	)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Registration Action(s)</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

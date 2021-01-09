@@ -1,0 +1,12 @@
+<apex:page standardController="Case_Management_Queue__c" extensions="DeleteCaseManagementQueueCntrl" action="{!deleteQueue}">
+    <script language="javascript">
+    var previousOnload = window.onload;        
+    window.onload = function() { 
+        if(!{!allow}){
+            alert('You cant delete This Case Management Queue, because we have case with this Queue name');
+            window.history.back(-1);
+            //window.location.replace('/a3iK00000008oKn');
+        }
+    }
+    </script>
+</apex:page>

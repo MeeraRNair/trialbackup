@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>R10_4Support_Owner_Team_Role_is_required</fullName>
+    <active>true</active>
+    <description>Support Owner team role is required when Support Owner field is selected</description>
+    <errorConditionFormula>AND ( NOT ( Support_Owner__c =&quot;&quot;), ISPICKVAL(Support_Owner_Team_Role__c, &quot;&quot;), NOT( RecordTypeId =&quot;012A0000000Vct6&quot;),NOT( RecordTypeId =&quot;012A0000000Vhcv&quot;))</errorConditionFormula>
+    <errorDisplayField>Support_Owner_Team_Role__c</errorDisplayField>
+    <errorMessage>Please specify the Support Owner Team Role</errorMessage>
+</ValidationRule>

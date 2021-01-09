@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Inc_Vendor_Name__c</fullName>
+    <description>Identifies the vendor who runs the incentives program for the logged in-users.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Not Applicable / On Hold  - Not enabled for Incentives
+PartnerDirect Rewards Center    - Enabled for Incentives - BINA
+Partner Advantage    - Enabled for Incentives - BIEU
+Dell Achievers - Enabled for Incentives - GRG</inlineHelpText>
+    <label>Incentives Vendor</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Not Applicable/On Hold</fullName>
+                <default>true</default>
+                <label>Not Applicable/On Hold</label>
+            </value>
+            <value>
+                <fullName>Partner Direct Rewards Center</fullName>
+                <default>false</default>
+                <label>Partner Direct Rewards Center</label>
+            </value>
+            <value>
+                <fullName>Partner Advantage</fullName>
+                <default>false</default>
+                <label>Partner Advantage</label>
+            </value>
+            <value>
+                <fullName>Dell Achievers</fullName>
+                <default>false</default>
+                <label>Dell Achievers</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

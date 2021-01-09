@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SnP_Deal_Reg_Program_Type_ELA</fullName>
+    <active>true</active>
+    <description>Validation if Program Type = ELA</description>
+    <errorConditionFormula>AND( ISPICKVAL( Program_Type__c , &apos;ELA&apos;) ,  OR( ISBLANK( Customer_Decision_Maker__c ) , ISBLANK( Customer_Decision_Maker_Title__c ) , ISBLANK( Final_Approver_in_Customer_Organization__c ) , ISBLANK( Final_Approver_Title__c ) ) )</errorConditionFormula>
+    <errorMessage>If Program Type is ELA, then the Customer Decision Maker, Customer Decision Maker Title, Final Approver In Customer Organization and Final Approver Title fields must be specified.</errorMessage>
+</ValidationRule>

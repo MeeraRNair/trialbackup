@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>IdList__c</fullName>
+        <externalId>false</externalId>
+        <label>IdList</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>MatchPattern__c</fullName>
+        <description>Parameter Accepted as below:
+{0} = Production Server URL
+{1} = Production Org Id
+{2} = Individual Id from IdList field</description>
+        <externalId>false</externalId>
+        <label>MatchPattern</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>ReplacementPattern__c</fullName>
+        <description>Paramater Accepted as below: 
+{0} = Current Sandbox Server URL 
+{1} = Current Sandbox Org Id 
+{2} = Individual Id from IdList field
+{3} = Current Server Content URL, eg : https://c.cs11.content.force.com</description>
+        <externalId>false</externalId>
+        <label>ReplacementPattern</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Sequence__c</fullName>
+        <externalId>false</externalId>
+        <label>Sequence</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <description>1=Document, 2=Email Template</description>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <precision>1</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>PostRefreshReplacementPattern</label>
+    <visibility>Protected</visibility>
+</CustomObject>

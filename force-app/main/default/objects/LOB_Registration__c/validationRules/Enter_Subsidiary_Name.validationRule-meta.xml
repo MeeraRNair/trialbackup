@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Enter_Subsidiary_Name</fullName>
+    <active>true</active>
+    <description>Enter Subsidiary Name when the award type is Specific Subsidiary Location or All Subsidiaries</description>
+    <errorConditionFormula>IF((ISPICKVAL(LOB_Award_Type__c,&apos;All Subsidiaries&apos;)) &amp;&amp; (TRIM(Subsidiary_Name__c) == NULL || TRIM(Subsidiary_Name__c) == &apos;&apos;) , true, false)</errorConditionFormula>
+    <errorMessage>Please enter Subsidiary Name.</errorMessage>
+</ValidationRule>

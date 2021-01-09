@@ -1,0 +1,784 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Workload__c</fullName>
+    <externalId>false</externalId>
+    <label>Workload</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Workload_Category__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>App Delivery</fullName>
+                <default>false</default>
+                <label>App Delivery</label>
+            </value>
+            <value>
+                <fullName>App Integ</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>App Integ</label>
+            </value>
+            <value>
+                <fullName>Archive</fullName>
+                <default>false</default>
+                <label>Archive</label>
+            </value>
+            <value>
+                <fullName>Backup &amp; Restore</fullName>
+                <default>false</default>
+                <label>Backup &amp; Restore</label>
+            </value>
+            <value>
+                <fullName>Bank Teller</fullName>
+                <default>false</default>
+                <label>Bank Teller</label>
+            </value>
+            <value>
+                <fullName>BCDR</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>BCDR</label>
+            </value>
+            <value>
+                <fullName>Big Data</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Big Data</label>
+            </value>
+            <value>
+                <fullName>Big Data Analytics</fullName>
+                <default>false</default>
+                <label>Big Data Analytics</label>
+            </value>
+            <value>
+                <fullName>BMS</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>BMS</label>
+            </value>
+            <value>
+                <fullName>BU/Restore</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>BU/Restore</label>
+            </value>
+            <value>
+                <fullName>Business Continuity &amp; Disaster Recovery</fullName>
+                <default>false</default>
+                <label>Business Continuity &amp; Disaster Recovery</label>
+            </value>
+            <value>
+                <fullName>Business Management System</fullName>
+                <default>false</default>
+                <label>Business Management System</label>
+            </value>
+            <value>
+                <fullName>Call center</fullName>
+                <default>false</default>
+                <label>Call center</label>
+            </value>
+            <value>
+                <fullName>Classic business use</fullName>
+                <default>false</default>
+                <label>Classic business use</label>
+            </value>
+            <value>
+                <fullName>Client Virtualization</fullName>
+                <default>false</default>
+                <label>Client Virtualization</label>
+            </value>
+            <value>
+                <fullName>Content Management</fullName>
+                <default>false</default>
+                <label>Content Management</label>
+            </value>
+            <value>
+                <fullName>Cont Mgt</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Cont Mgt</label>
+            </value>
+            <value>
+                <fullName>Crash Cart</fullName>
+                <default>false</default>
+                <label>Crash Cart</label>
+            </value>
+            <value>
+                <fullName>CRM</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>CRM</label>
+            </value>
+            <value>
+                <fullName>Cust 360</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Cust 360</label>
+            </value>
+            <value>
+                <fullName>Cust Engmt</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Cust Engmt</label>
+            </value>
+            <value>
+                <fullName>Custom</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Custom</label>
+            </value>
+            <value>
+                <fullName>Custom Business Application</fullName>
+                <default>false</default>
+                <label>Custom Business Application</label>
+            </value>
+            <value>
+                <fullName>Customer Engagement</fullName>
+                <default>false</default>
+                <label>Customer Engagement</label>
+            </value>
+            <value>
+                <fullName>Customer Intimacy Analytics</fullName>
+                <default>false</default>
+                <label>Customer Intimacy Analytics</label>
+            </value>
+            <value>
+                <fullName>Customer Relationship Management</fullName>
+                <default>false</default>
+                <label>Customer Relationship Management</label>
+            </value>
+            <value>
+                <fullName>Data Lake</fullName>
+                <default>false</default>
+                <label>Data Lake</label>
+            </value>
+            <value>
+                <fullName>Data Mart</fullName>
+                <default>false</default>
+                <label>Data Mart</label>
+            </value>
+            <value>
+                <fullName>Data Warehouse</fullName>
+                <default>false</default>
+                <label>Data Warehouse</label>
+            </value>
+            <value>
+                <fullName>Data WH</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Data WH</label>
+            </value>
+            <value>
+                <fullName>Decision Support-Other</fullName>
+                <default>false</default>
+                <label>Decision Support-Other</label>
+            </value>
+            <value>
+                <fullName>E-Comm</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>E-Comm</label>
+            </value>
+            <value>
+                <fullName>E-Commerce, Online Store</fullName>
+                <default>false</default>
+                <label>E-Commerce, Online Store</label>
+            </value>
+            <value>
+                <fullName>Education Testing</fullName>
+                <default>false</default>
+                <label>Education Testing</label>
+            </value>
+            <value>
+                <fullName>Electronic Medical/Health Records</fullName>
+                <default>false</default>
+                <label>Electronic Medical/Health Records</label>
+            </value>
+            <value>
+                <fullName>Email</fullName>
+                <default>false</default>
+                <label>Email</label>
+            </value>
+            <value>
+                <fullName>Engineering/advanced analysis</fullName>
+                <default>false</default>
+                <label>Engineering/advanced analysis</label>
+            </value>
+            <value>
+                <fullName>Engineering prototyping</fullName>
+                <default>false</default>
+                <label>Engineering prototyping</label>
+            </value>
+            <value>
+                <fullName>Enterprise Application Integration</fullName>
+                <default>false</default>
+                <label>Enterprise Application Integration</label>
+            </value>
+            <value>
+                <fullName>Enterprise Resource Planning</fullName>
+                <default>false</default>
+                <label>Enterprise Resource Planning</label>
+            </value>
+            <value>
+                <fullName>ERP</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>ERP</label>
+            </value>
+            <value>
+                <fullName>ETL</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>ETL</label>
+            </value>
+            <value>
+                <fullName>Extract Transform Load</fullName>
+                <default>false</default>
+                <label>Extract Transform Load</label>
+            </value>
+            <value>
+                <fullName>FileShare</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>FileShare</label>
+            </value>
+            <value>
+                <fullName>File Sharing</fullName>
+                <default>false</default>
+                <label>File Sharing</label>
+            </value>
+            <value>
+                <fullName>Fluid dynamics</fullName>
+                <default>false</default>
+                <label>Fluid dynamics</label>
+            </value>
+            <value>
+                <fullName>General Simulation &amp; Modelling</fullName>
+                <default>false</default>
+                <label>General Simulation &amp; Modelling</label>
+            </value>
+            <value>
+                <fullName>Genomic / Life Sciences Research</fullName>
+                <default>false</default>
+                <label>Genomic / Life Sciences Research</label>
+            </value>
+            <value>
+                <fullName>Graphics design/animation</fullName>
+                <default>false</default>
+                <label>Graphics design/animation</label>
+            </value>
+            <value>
+                <fullName>Graphics rendering</fullName>
+                <default>false</default>
+                <label>Graphics rendering</label>
+            </value>
+            <value>
+                <fullName>Hazardous Environments</fullName>
+                <default>false</default>
+                <label>Hazardous Environments</label>
+            </value>
+            <value>
+                <fullName>HRM</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>HRM</label>
+            </value>
+            <value>
+                <fullName>Human Resources Management</fullName>
+                <default>false</default>
+                <label>Human Resources Management</label>
+            </value>
+            <value>
+                <fullName>Identity / User Management</fullName>
+                <default>false</default>
+                <label>Identity / User Management</label>
+            </value>
+            <value>
+                <fullName>Internet of Things</fullName>
+                <default>false</default>
+                <label>Internet of Things</label>
+            </value>
+            <value>
+                <fullName>IOT</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>IOT</label>
+            </value>
+            <value>
+                <fullName>Machine Learning / Artificial Intelligence</fullName>
+                <default>false</default>
+                <label>Machine Learning / Artificial Intelligence</label>
+            </value>
+            <value>
+                <fullName>Manufacturing Automation</fullName>
+                <default>false</default>
+                <label>Manufacturing Automation</label>
+            </value>
+            <value>
+                <fullName>Master Data Management</fullName>
+                <default>false</default>
+                <label>Master Data Management</label>
+            </value>
+            <value>
+                <fullName>MDM</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>MDM</label>
+            </value>
+            <value>
+                <fullName>Mfg</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Mfg</label>
+            </value>
+            <value>
+                <fullName>ML / AI</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>ML / AI</label>
+            </value>
+            <value>
+                <fullName>Mobile device management (cellular)</fullName>
+                <default>false</default>
+                <label>Mobile device management (cellular)</label>
+            </value>
+            <value>
+                <fullName>Mobility (Cellular)</fullName>
+                <default>false</default>
+                <label>Mobility (Cellular)</label>
+            </value>
+            <value>
+                <fullName>Other BI</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Other BI</label>
+            </value>
+            <value>
+                <fullName>Other OLTP</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Other OLTP</label>
+            </value>
+            <value>
+                <fullName>Other Online Transaction Processing Application</fullName>
+                <default>false</default>
+                <label>Other Online Transaction Processing Application</label>
+            </value>
+            <value>
+                <fullName>Picture Archiving &amp; Comm Systems / Enterprise HC Imaging</fullName>
+                <default>false</default>
+                <label>Picture Archiving &amp; Comm Systems / Enterprise HC Imaging</label>
+            </value>
+            <value>
+                <fullName>PLM</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>PLM</label>
+            </value>
+            <value>
+                <fullName>Precision Medicine / Genomic</fullName>
+                <default>false</default>
+                <label>Precision Medicine / Genomic</label>
+            </value>
+            <value>
+                <fullName>Predict</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Predict</label>
+            </value>
+            <value>
+                <fullName>Predictive Analytics</fullName>
+                <default>false</default>
+                <label>Predictive Analytics</label>
+            </value>
+            <value>
+                <fullName>Predictive Maintenance</fullName>
+                <default>false</default>
+                <label>Predictive Maintenance</label>
+            </value>
+            <value>
+                <fullName>Prescript</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Prescript</label>
+            </value>
+            <value>
+                <fullName>Prescriptive Analytics</fullName>
+                <default>false</default>
+                <label>Prescriptive Analytics</label>
+            </value>
+            <value>
+                <fullName>Preventative Maintenance</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Preventative Maintenance</label>
+            </value>
+            <value>
+                <fullName>Prev Maint</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Prev Maint</label>
+            </value>
+            <value>
+                <fullName>Product Lifecycle Management</fullName>
+                <default>false</default>
+                <label>Product Lifecycle Management</label>
+            </value>
+            <value>
+                <fullName>Remote Employee / Branch Office</fullName>
+                <default>false</default>
+                <label>Remote Employee / Branch Office</label>
+            </value>
+            <value>
+                <fullName>Retail / POS</fullName>
+                <default>false</default>
+                <label>Retail / POS</label>
+            </value>
+            <value>
+                <fullName>SCM</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>SCM</label>
+            </value>
+            <value>
+                <fullName>Seismic Research</fullName>
+                <default>false</default>
+                <label>Seismic Research</label>
+            </value>
+            <value>
+                <fullName>SRM</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>SRM</label>
+            </value>
+            <value>
+                <fullName>Structural Analysis</fullName>
+                <default>false</default>
+                <label>Structural Analysis</label>
+            </value>
+            <value>
+                <fullName>Student Information System</fullName>
+                <default>false</default>
+                <label>Student Information System</label>
+            </value>
+            <value>
+                <fullName>Supplier Relationship Management</fullName>
+                <default>false</default>
+                <label>Supplier Relationship Management</label>
+            </value>
+            <value>
+                <fullName>Supply Chain Management</fullName>
+                <default>false</default>
+                <label>Supply Chain Management</label>
+            </value>
+            <value>
+                <fullName>Threat detection &amp; analytics</fullName>
+                <default>false</default>
+                <label>Threat detection &amp; analytics</label>
+            </value>
+            <value>
+                <fullName>Trad. BI</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Trad. BI</label>
+            </value>
+            <value>
+                <fullName>Traditional Analytics &amp; Reporting</fullName>
+                <default>false</default>
+                <label>Traditional Analytics &amp; Reporting</label>
+            </value>
+            <value>
+                <fullName>Traditional Desktop / Laptop Endpoint Management</fullName>
+                <default>false</default>
+                <label>Traditional Desktop / Laptop Endpoint Management</label>
+            </value>
+            <value>
+                <fullName>Unstr Data</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Unstr Data</label>
+            </value>
+            <value>
+                <fullName>Unstructured Data Analysis</fullName>
+                <default>false</default>
+                <label>Unstructured Data Analysis</label>
+            </value>
+            <value>
+                <fullName>Voice/Video over IP</fullName>
+                <default>false</default>
+                <label>Voice/Video over IP</label>
+            </value>
+            <value>
+                <fullName>VOIP</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>VOIP</label>
+            </value>
+            <value>
+                <fullName>Weather Modeling &amp; simulations</fullName>
+                <default>false</default>
+                <label>Weather Modeling &amp; simulations</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Business Applications</controllingFieldValue>
+            <valueName>Custom Business Application</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Applications</controllingFieldValue>
+            <valueName>Customer Engagement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Applications</controllingFieldValue>
+            <valueName>Customer Relationship Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Applications</controllingFieldValue>
+            <valueName>E-Commerce, Online Store</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Applications</controllingFieldValue>
+            <valueName>Electronic Medical/Health Records</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Applications</controllingFieldValue>
+            <valueName>Enterprise Application Integration</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Applications</controllingFieldValue>
+            <valueName>Enterprise Resource Planning</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Applications</controllingFieldValue>
+            <valueName>Human Resources Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Applications</controllingFieldValue>
+            <valueName>Manufacturing Automation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Applications</controllingFieldValue>
+            <valueName>Other Online Transaction Processing Application</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Applications</controllingFieldValue>
+            <valueName>Picture Archiving &amp; Comm Systems / Enterprise HC Imaging</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Applications</controllingFieldValue>
+            <valueName>Precision Medicine / Genomic</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Applications</controllingFieldValue>
+            <valueName>Product Lifecycle Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Applications</controllingFieldValue>
+            <valueName>Student Information System</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Applications</controllingFieldValue>
+            <valueName>Supplier Relationship Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Applications</controllingFieldValue>
+            <valueName>Supply Chain Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Collaboration</controllingFieldValue>
+            <valueName>Content Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Collaboration</controllingFieldValue>
+            <valueName>Email</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Collaboration</controllingFieldValue>
+            <valueName>File Sharing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Collaboration</controllingFieldValue>
+            <valueName>Voice/Video over IP</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data Analytics</controllingFieldValue>
+            <valueName>Big Data Analytics</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data Analytics</controllingFieldValue>
+            <valueName>Business Management System</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data Analytics</controllingFieldValue>
+            <valueName>Customer Intimacy Analytics</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data Analytics</controllingFieldValue>
+            <valueName>Decision Support-Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data Analytics</controllingFieldValue>
+            <valueName>Machine Learning / Artificial Intelligence</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data Analytics</controllingFieldValue>
+            <valueName>Predictive Analytics</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data Analytics</controllingFieldValue>
+            <valueName>Predictive Maintenance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data Analytics</controllingFieldValue>
+            <valueName>Prescriptive Analytics</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data Analytics</controllingFieldValue>
+            <valueName>Traditional Analytics &amp; Reporting</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data Analytics</controllingFieldValue>
+            <valueName>Unstructured Data Analysis</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data Management</controllingFieldValue>
+            <valueName>Archive</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data Management</controllingFieldValue>
+            <valueName>Backup &amp; Restore</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data Management</controllingFieldValue>
+            <valueName>Business Continuity &amp; Disaster Recovery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data Management</controllingFieldValue>
+            <valueName>Data Lake</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data Management</controllingFieldValue>
+            <valueName>Data Mart</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data Management</controllingFieldValue>
+            <valueName>Data Warehouse</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data Management</controllingFieldValue>
+            <valueName>Extract Transform Load</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data Management</controllingFieldValue>
+            <valueName>Internet of Things</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Data Management</controllingFieldValue>
+            <valueName>Master Data Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>HPCC</controllingFieldValue>
+            <valueName>Engineering prototyping</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>HPCC</controllingFieldValue>
+            <valueName>Fluid dynamics</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>HPCC</controllingFieldValue>
+            <valueName>General Simulation &amp; Modelling</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>HPCC</controllingFieldValue>
+            <valueName>Genomic / Life Sciences Research</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>HPCC</controllingFieldValue>
+            <valueName>Graphics rendering</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>HPCC</controllingFieldValue>
+            <valueName>Seismic Research</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>HPCC</controllingFieldValue>
+            <valueName>Structural Analysis</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>HPCC</controllingFieldValue>
+            <valueName>Weather Modeling &amp; simulations</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>PC Lifecycle</controllingFieldValue>
+            <valueName>App Delivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>PC Lifecycle</controllingFieldValue>
+            <valueName>Client Virtualization</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>PC Lifecycle</controllingFieldValue>
+            <valueName>Identity / User Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>PC Lifecycle</controllingFieldValue>
+            <valueName>Mobile device management (cellular)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>PC Lifecycle</controllingFieldValue>
+            <valueName>Threat detection &amp; analytics</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>PC Lifecycle</controllingFieldValue>
+            <valueName>Traditional Desktop / Laptop Endpoint Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>End User Computing</controllingFieldValue>
+            <valueName>Bank Teller</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>End User Computing</controllingFieldValue>
+            <valueName>Call center</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>End User Computing</controllingFieldValue>
+            <valueName>Classic business use</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>End User Computing</controllingFieldValue>
+            <valueName>Crash Cart</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>End User Computing</controllingFieldValue>
+            <valueName>Education Testing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>End User Computing</controllingFieldValue>
+            <valueName>Engineering/advanced analysis</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>End User Computing</controllingFieldValue>
+            <valueName>Graphics design/animation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>End User Computing</controllingFieldValue>
+            <valueName>Hazardous Environments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>End User Computing</controllingFieldValue>
+            <valueName>Mobility (Cellular)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>End User Computing</controllingFieldValue>
+            <valueName>Remote Employee / Branch Office</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>End User Computing</controllingFieldValue>
+            <valueName>Retail / POS</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

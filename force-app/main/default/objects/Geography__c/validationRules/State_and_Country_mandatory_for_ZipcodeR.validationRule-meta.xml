@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>State_and_Country_mandatory_for_ZipcodeR</fullName>
+    <active>true</active>
+    <description>This rule is to make State and Country mandatory and check if they are appropriate in the Zipcode Record Type</description>
+    <errorConditionFormula>RecordType.Name == &apos;Zipcode&apos;  &amp;&amp; ( ISBLANK(State__c )  ||   ISBLANK( Country__c )  ||  Country__c  &lt;&gt;  State__r.Country__c )</errorConditionFormula>
+    <errorMessage>State and Country are required and Country should be appropriate to the State.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,610 @@
+<!-- 
+REVISION HISTORY
+================
+Version     Author          Date            Release#       CR#      Description
+-------     ------          ----            --------       ----     -----------
+1.0         Devika          20 Jan 2014     15.03          8974     OMGO WF 15.03
+2.0         Mohammad        30 Jun 2014     Sprint1        9512     Maintenance Sprint1
+3.0         Sree Prakash    10 Sep 2014     15.10          9555     Maintenance 15.10
+4.0         Jessie          30 Mar 2016     0403           12724    Modified to remove Custom Contact Duplication Check VF (directly call Contact Create page)
+5.0         Jessie          27 June 2016    FY17\Sprint11  13287    Hide rarely used field from Trip Report Page 
+6.0         Krishna         21 Oct 2016     FY17\Sprint17  13514    Update Trip Report Functionality 
+ -->
+ 
+<apex:page standardController="CustomerInteraction__c" extensions="VF_NewTripReportPage" id="pg">
+  <apex:sectionHeader title="Trip Report Edit" subtitle="{!IF(editFlag== true,tripRecord.Name,"New Trip Report")}"/>
+    <!-- Account Name: {!AcName} -->
+  <apex:form id="frm" >
+
+    <script> 
+        var TripStrategy = '{!tripRecord.Related_Strategy__r.Name}';
+        var TripAccount = '{!AcName}';
+        var TripWhatId = '';
+        var TripWhatIdOppty = '';
+
+        if(TripAccount == ''){
+            TripAccount = '{!tripRecord.Account__r.Name}';
+        }
+        var TripAccountId = '{!tripRecord.Account__c}';
+        //var TripPrimaryDellAttendee = '{!tripRecord.Primary_Dell_Attendee__r.Name}';
+        var TripPrimaryDellAttendee = '';
+        var TripRelatedToOpportunity = '{!tripRecord.Related_Opportunity__r.Name}';
+        var TripRelatedToAccountPlans = '{!tripRecord.Related_Account_Plans__r.Name}';
+        var TripRelatedToStrategy = '{!tripRecord.Related_Strategy__r.Name}';
+        var TripRelatedToPicklist = '';
+        var TripRelatedToValue = '';
+        var TripAccountParamName = '';
+        
+        var TripRelatedToIns = 'Y';
+        var TripAccIdContact = '';
+        var TripAccIdContact_Name = '';
+        var TripPDAttendeePicklist = '';
+        var TripPDAttendeePicklistValue = '';
+        
+        if(TripAccIdContact != ''){
+            TripAccIdContact = TripAccIdContact;            
+        }
+        else{
+            TripAccIdContact = TripAccountId
+        }        
+        
+        function onChangeStrategy(textbox) {
+            var oldValue;
+            var newValue;
+            
+            oldValue = textbox.oldvalue;
+            newValue = textbox.value;
+            TripStrategy = textbox.value;
+            TripRelatedToStrategy = textbox.value;
+            TripRelatedToOpportunity = '';
+            TripRelatedToAccountPlans = '';           
+            TripRelatedToValue = textbox.value;
+            TripRelatedToIns = textbox.value;
+            if(TripRelatedToValue != '') TripRelatedToPicklist = 'a0G';            
+        }
+        
+        function onChangeAccount(textbox) {
+            var oldValue;
+            var newValue;
+            
+            oldValue = textbox.oldvalue;
+            newValue = textbox.value;
+            TripAccount = textbox.value;
+            TripAccountParamName = '&opp4';
+            TripRelatedToIns = textbox.value;
+            TripAccIdContact = document.getElementById('pg:frm:pgblk:pgsec:accId_lkid').value;
+            TripAccIdContact_Name = document.getElementById('pg:frm:pgblk:pgsec:accId_lkold').value;
+            //TripRelatedToValue = textbox.value;
+        }
+
+        function onChangePrimaryDellAttendee(textbox) {
+            var oldValue;
+            var newValue;
+            
+            oldValue = textbox.oldvalue;
+            newValue = textbox.value;
+            //TripPrimaryDellAttendee = textbox.value;            
+            TripPrimaryDellAttendee = document.getElementById('pg:frm:pgblk:pblk1:pdatt').value;
+            TripPDAttendeePicklist = document.getElementById('pg:frm:pgblk:pblk1:pdatt_mlktp').value;
+        }
+
+        function onChangeRelatedToOpportunity(textbox) {
+            var oldValue;
+            var newValue;
+            
+            oldValue = textbox.oldvalue;
+            newValue = textbox.value;
+            TripRelatedToOpportunity = textbox.value;
+            TripRelatedToAccountPlans = '';
+            TripStrategy = '';            
+            TripRelatedToValue = textbox.value;
+            TripRelatedToIns = textbox.value;
+            if(TripRelatedToValue != '') TripRelatedToPicklist = '006';
+            //TripRelatedToOpportunityInsert = textbox.value;
+        }
+
+        function onChangeRelatedToAccountPlans(textbox) {
+            var oldValue;
+            var newValue;
+            
+            oldValue = textbox.oldvalue;
+            newValue = textbox.value;
+            TripRelatedToAccountPlans = textbox.value;
+            TripStrategy = '';
+            TripRelatedToOpportunity = '';          
+            TripRelatedToValue = textbox.value;
+            TripRelatedToIns = textbox.value;
+            if(TripRelatedToValue != '') TripRelatedToPicklist = 'a0D';
+        }
+        
+        function PopulateExist(){
+        
+            //if(TripPrimaryDellAttendee == ''){
+                TripPrimaryDellAttendee = '{!$User.FirstName}  {!$User.LastName}';
+            //}
+            //else{
+            //    TripPrimaryDellAttendee = TripPrimaryDellAttendee;
+            //}
+            
+            var TripRelatedToPklistValue = document.getElementById('pg:frm:pgblk:pgsec:sectionItem:relTo').value;
+            if(TripRelatedToPklistValue == 'Opportunity'){
+                TripRelatedToStrategy = '';                
+                TripStrategy = '';
+                TripRelatedToAccountPlans = '';
+                //TripWhatId  = document.getElementById('pg:frm:pgblk:pgsec:sectionItem:relToOppty').value;
+            }
+            else if(TripRelatedToPklistValue == 'Account Plan'){
+                TripRelatedToStrategy = '';                
+                TripStrategy = '';
+                TripRelatedToOpportunity = '';
+            }
+            else if(TripRelatedToPklistValue == 'Strategy'){                          
+                TripRelatedToAccountPlans = '';
+                TripRelatedToOpportunity = '';
+                TripWhatIdOppty  = document.getElementById('pg:frm:pgblk:pgsec:sectionItem:relToStrat_lkid').value;
+            }
+            
+            if(TripRelatedToOpportunity != ''){
+                //alert('1');
+                if(TripRelatedToIns == 'Y'){
+                    //alert('1A');
+                    TripRelatedToPicklist = '006';
+                    TripRelatedToValue = TripRelatedToOpportunity;
+                }
+                else if(TripRelatedToIns != 'Y' && TripRelatedToIns == ''){
+                    //alert('1B');
+                    TripRelatedToPicklist = '001';
+                    TripRelatedToValue = TripAccount;
+                }
+            }
+            else if(TripRelatedToStrategy != ''){
+                //alert('2');
+                if(TripRelatedToIns == 'Y'){
+                    //alert('2A');
+                    TripRelatedToPicklist = 'a0G';
+                    TripRelatedToValue = TripRelatedToStrategy;
+                }
+                else if(TripRelatedToIns != 'Y' && TripRelatedToIns == ''){
+                    //alert('2B');
+                    TripRelatedToPicklist = '001';
+                    TripRelatedToValue = TripAccount;
+                }
+                
+            }
+            else if(TripRelatedToAccountPlans != ''){
+                //alert('3');            
+                if(TripRelatedToIns == 'Y'){
+                    //alert('3A');
+                    TripRelatedToValue = TripRelatedToAccountPlans;
+                    TripRelatedToPicklist = 'a0D';
+                }
+                else if(TripRelatedToIns != 'Y' && TripRelatedToIns == ''){
+                    //alert('3B');
+                    TripRelatedToPicklist = '001';
+                    TripRelatedToValue = TripAccount;
+                }
+            }
+            else if(TripAccount != ''){
+                //alert('4');
+                TripRelatedToPicklist = '001';
+                TripRelatedToValue = TripAccount;
+            }
+            
+            if(TripRelatedToValue == ''){
+                //alert('5');
+                TripRelatedToPicklist = '001';
+            }
+            
+            if(TripStrategy == ''){
+                TripWhatIdOppty = '';
+            }
+        }
+              
+        
+        /* TO PRE-POPULATE VALUES WHILE CREATING THE TRIP REPORT - BEFORE RECORED SAVE */
+        function getUrlParameters(parameter, staticURL, decode){
+            var currLocation = (staticURL.length)? staticURL : window.location.search,
+            parArr = currLocation.split("?")[1].split("&"),
+            returnBool = true;
+   
+            for(var i = 0; i < parArr.length; i++){
+                parr = parArr[i].split("=");
+                if(parr[0] == parameter){
+                    return (decode) ? decodeURIComponent(parr[1]) : parr[1];
+                    returnBool = true;
+                }else{
+                    returnBool = false;            
+                }
+            }   
+            if(!returnBool) return false;  
+        }
+
+        var TripRelatedToStrategyInsert = getUrlParameters("CF00NA00000064S6T", "", true);
+        var TripRelatedToOpportunityInsert = getUrlParameters("CF00N30000001Oaqt", "", true);
+        var TripRelatedToAccountPlansInsert = getUrlParameters("CF00NA00000064S6S", "", true);
+        var TripRelatedToAccountInsert = getUrlParameters("CF00N30000001OAlE", "", true);
+        
+        
+        if(TripAccount != ''){
+            TripAccountParamName = '&opp4';
+            TripAccount = TripAccount;
+        }
+        else{
+            TripAccountParamName = '&accid';
+            TripAccount = TripAccountId;
+        }
+        
+        //For Opportunity
+        if(TripStrategy == ''){            
+            TripStrategy = TripRelatedToStrategyInsert;
+            if(TripStrategy == false){
+               TripStrategy = ''; 
+            }
+            
+        }
+        
+        
+        // For Task
+        function PopulateAccount(){
+            
+            //var TripAccId = document.getElementById("{!$Component.pg:frm:pgblk:accId}_lkid").value;
+            //alert(document.getElementById("{!$Component.pg:frm:pgblk:accId}_lkid").value);
+            var TripRelatedToPklistValue = document.getElementById('pg:frm:pgblk:pgsec:sectionItem:relTo').value;        
+            
+            if(TripRelatedToPklistValue == 'Opportunity'){
+                var TripRelatedToValueOppty = document.getElementById('pg:frm:pgblk:pgsec:sectionItem:relToOppty').value;
+                //TripWhatId  = document.getElementById("{!$Component.pg:frm:pgblk:pgsec:sectionItem:relToOppty}_lkid").value;
+                TripWhatId  = document.getElementById('pg:frm:pgblk:pgsec:sectionItem:relToOppty_lkid').value;
+                TripRelatedToStrategy = '';                
+                TripStrategy = '';
+                TripRelatedToAccountPlans = '';
+                if(TripRelatedToValueOppty != ''){
+                    TripRelatedToOpportunity = TripRelatedToValueOppty;
+                } 
+            }
+            else if(TripRelatedToPklistValue == 'Account Plan'){
+                var TripRelatedToValueAccPlan = document.getElementById('pg:frm:pgblk:pgsec:sectionItem:relToAccPlan').value;
+                //TripWhatId  = document.getElementById("{!$Component.pg:frm:pgblk:pgsec:sectionItem:relToAccPlan}_lkid").value;
+                TripWhatId  = document.getElementById('pg:frm:pgblk:pgsec:sectionItem:relToAccPlan_lkid').value;
+                TripRelatedToStrategy = '';                
+                TripStrategy = '';
+                TripRelatedToOpportunity = '';
+                if(TripRelatedToValueAccPlan != ''){
+                    TripRelatedToAccountPlans = TripRelatedToValueAccPlan;
+                } 
+            }
+            else if(TripRelatedToPklistValue == 'Strategy'){ 
+                var TripRelatedToValueStrat = document.getElementById('pg:frm:pgblk:pgsec:sectionItem:relToStrat').value;                         
+                //TripWhatId  = document.getElementById("{!$Component.pg:frm:pgblk:pgsec:sectionItem:relToStrat}_lkid").value;
+                TripWhatId  = document.getElementById('pg:frm:pgblk:pgsec:sectionItem:relToStrat_lkid').value;
+                TripRelatedToAccountPlans = '';
+                TripRelatedToOpportunity = '';   
+                if(TripRelatedToValueStrat != ''){
+                    TripStrategy = TripRelatedToValueStrat;
+                } 
+
+           }
+
+           
+            if(TripWhatId  == '000000000000000'){
+              //TripWhatId  = TripAccountId;
+            }
+            
+            if(TripRelatedToPklistValue == 'Opportunity' && TripRelatedToValueOppty == ''){
+                TripWhatId = TripAccIdContact;
+            }
+            else if(TripRelatedToPklistValue == 'Account Plan' && TripRelatedToValueAccPlan == ''){
+                TripWhatId = TripAccIdContact;
+            }
+            else if(TripRelatedToPklistValue == 'Strategy' && TripRelatedToValueStrat == ''){
+                TripWhatId = TripAccIdContact;
+            }
+            
+            if(TripRelatedToStrategyInsert != '' && TripRelatedToStrategyInsert != false){
+                //alert('I am in Strategy');
+                
+                if(TripRelatedToOpportunity == '' && TripStrategy == '' && TripRelatedToAccountPlans == ''){
+                    if(TripRelatedToIns == 'Y'){
+                        //alert('1');
+                        TripRelatedToPicklist = 'a0G';
+                        TripRelatedToValue = TripRelatedToStrategyInsert;
+                    }
+                    else if(TripRelatedToIns != 'Y' && TripAccount != ''){
+                        //alert('2');
+                        TripRelatedToPicklist = '001';
+                        TripRelatedToValue = TripAccount;
+                    }
+                    else{
+                        //alert('3');
+                        TripRelatedToPicklist = '001';
+                        TripRelatedToValue = '';
+                    }
+                }
+                else if(TripRelatedToOpportunity != ''){
+                    //alert('5');
+                    TripRelatedToPicklist = '006';
+                    TripRelatedToValue = TripRelatedToOpportunity;
+                }
+                else if(TripStrategy != ''){
+                    //alert('6');
+                    TripRelatedToPicklist = 'a0G';
+                    TripRelatedToValue = TripStrategy;
+                }
+                else if(TripRelatedToAccountPlans != ''){
+                    //alert('7');
+                    TripRelatedToPicklist = 'a0D';
+                    TripRelatedToValue = TripRelatedToAccountPlans;
+                }
+            } 
+                  
+            else if(TripRelatedToAccountPlansInsert != '' && TripRelatedToAccountPlansInsert != false){
+                //alert('I am in Account Plans');
+                
+                if(TripRelatedToOpportunity == '' && TripStrategy == '' && TripRelatedToAccountPlans == ''){
+                    if(TripRelatedToIns == 'Y'){
+                        //alert('1');
+                        TripRelatedToPicklist = 'a0D';
+                        TripRelatedToValue = TripRelatedToAccountPlansInsert;
+                    }
+                    else if(TripRelatedToIns != 'Y' && TripAccount != ''){
+                        //alert('2');
+                        TripRelatedToPicklist = '001';
+                        TripRelatedToValue = TripAccount;
+                    }
+                    else{
+                        //alert('3');
+                        TripRelatedToPicklist = '001';
+                        TripRelatedToValue = '';
+                    }
+                }
+                else if(TripRelatedToOpportunity != ''){
+                    //alert('5');
+                    TripRelatedToPicklist = '006';
+                    TripRelatedToValue = TripRelatedToOpportunity;
+                }
+                else if(TripStrategy != ''){
+                    //alert('6');
+                    TripRelatedToPicklist = 'a0G';
+                    TripRelatedToValue = TripStrategy;
+                }
+                else if(TripRelatedToAccountPlans != ''){
+                    //alert('7');
+                    TripRelatedToPicklist = 'a0D';
+                    TripRelatedToValue = TripRelatedToAccountPlans;
+                }
+            }
+            
+            else if(TripRelatedToOpportunityInsert != '' && TripRelatedToOpportunityInsert != false){
+                //alert('I am in Opportunity');
+
+                if(TripRelatedToOpportunity == '' && TripStrategy == '' && TripRelatedToAccountPlans == ''){
+                    if(TripRelatedToIns == 'Y'){
+                        //alert('1');
+                        TripRelatedToPicklist = '006';
+                        TripRelatedToValue = TripRelatedToOpportunityInsert;
+                    }
+                    else if(TripRelatedToIns != 'Y' && TripAccount != ''){
+                        //alert('2');
+                        TripRelatedToPicklist = '001';
+                        TripRelatedToValue = TripAccount;
+                    }
+                    else{
+                        //alert('3');
+                        TripRelatedToPicklist = '001';
+                        TripRelatedToValue = '';
+                    }
+                }
+                else if(TripRelatedToOpportunity != ''){
+                    //alert('5');
+                    TripRelatedToPicklist = '006';
+                    TripRelatedToValue = TripRelatedToOpportunity;
+                }
+                else if(TripStrategy != ''){
+                    //alert('6');
+                    TripRelatedToPicklist = 'a0G';
+                    TripRelatedToValue = TripStrategy;
+                }
+                else if(TripRelatedToAccountPlans != ''){
+                    //alert('7');
+                    TripRelatedToPicklist = 'a0D';
+                    TripRelatedToValue = TripRelatedToAccountPlans;
+                }                
+            }
+            else if(TripRelatedToAccountInsert != '' && TripRelatedToAccountInsert != false){
+                //alert('I am in Account');  
+                
+                if(TripRelatedToOpportunity == '' && TripStrategy == '' && TripRelatedToAccountPlans == ''){
+                    if(TripRelatedToIns == 'Y'){
+                        //alert('Acc-1');
+                        TripRelatedToPicklist = '001';
+                        TripRelatedToValue = TripRelatedToAccountInsert;
+                    }
+                    else if(TripRelatedToIns != 'Y' && TripAccount != ''){
+                        //alert('Acc-5');
+                        TripRelatedToPicklist = '001';
+                        TripRelatedToValue = TripAccount;
+                    }
+                    else{
+                        //alert('Acc-3');
+                        TripRelatedToPicklist = '001';
+                        TripRelatedToValue = '';
+                    }
+                }
+                else if(TripRelatedToOpportunity != ''){
+                    //alert('Acc-4');
+                    TripRelatedToPicklist = '006';
+                    TripRelatedToValue = TripRelatedToOpportunity;
+                }
+                else if(TripStrategy != ''){
+                    //alert('Acc-6');
+                    TripRelatedToPicklist = 'a0G';
+                    TripRelatedToValue = TripStrategy;
+                }
+                else if(TripRelatedToAccountPlans != ''){
+                    //alert('Acc-7');
+                    TripRelatedToPicklist = 'a0D';
+                    TripRelatedToValue = TripRelatedToAccountPlans;
+                }
+            }
+
+            if(TripPDAttendeePicklist == 'PartnerUserLookup'){
+                TripPDAttendeePicklistValue = 'PartnerUserLookup';
+            }
+            else{
+                TripPDAttendeePicklistValue = '005';
+            }
+        }
+    </script>  
+
+  
+   <style>
+        
+        body .bPageBlock .pbBody .pageblocksection .pbSubheader{
+            background-color:#E4C6A7;
+        }
+        
+        body .bPageBlock .pbBody .pageblocksection h3{
+            color:#000;
+            font-family: Helvetica;
+            font-size:   15px;
+            font-weight: bold;
+            font-style:  normal;
+        }
+        
+        a:hover {
+            background:#ffffff; /*BG color is a must for IE6*/
+            text-decoration:none;
+           -moz-border-radius-topleft: 10px;
+        } 
+        a.tooltip span {
+            display:none; 
+            padding:10px 10px; 
+            margin-left:10px; 
+            
+            width:250px;
+            color:black;
+        }
+        a.tooltip:hover span{
+            display:inline; 
+            position:absolute; 
+            border:1px solid; 
+            
+            border-color:#000000;           
+            background:#FFC;            
+            -moz-border-radius: 5px;
+            -webkit-border: 5px;
+            border-radius: 5px;
+        }
+        </style>
+        
+    <apex:pageBlock title="Trip Report Edit" rendered="{!errorFlag}">
+        <apex:pageMessage summary="Insufficient Privileges." severity="Error" strength="1" />
+        <apex:pageBlockButtons location="bottom">          
+            <apex:commandButton value="Cancel" action="{!cancel}"/>
+        </apex:pageBlockButtons>    
+    </apex:pageBlock>
+    
+    <apex:pageBlock title="Trip Report Edit" rendered="{!NOT(errorFlag)}" id="pgblk">
+      <apex:pagemessages ></apex:pagemessages>
+      <apex:outputPanel styleClass="pageblocksection" layout="block" id="pnl">
+        <apex:pageBlockSection title="Information" collapsible="false" id="pgsec">
+          <apex:inputField value="{!tripRecord.Name}" required="true" />
+          <apex:inputField value="{!tripRecord.Account__c}" required="true" id="accId" onchange="onChangeAccount(this);this.oldvalue = this.value;"  />      
+          <apex:inputField value="{!tripRecord.Goal_Objective__c}" required="true"/>
+          <apex:pageBlockSectionItem id="sectionItem" >   
+            <apex:outputLabel >Related To</apex:outputLabel>
+            <apex:outputPanel >
+              <apex:actionRegion >
+                <apex:selectList value="{!selectedObject}" size="1" id="relTo">
+                  <apex:actionSupport event="onchange" rerender="form" />
+                  <apex:selectOptions value="{!objectsList}"></apex:selectOptions>
+                </apex:selectList>
+              </apex:actionRegion>
+              <apex:outputPanel id="form">
+                <apex:inputField value="{!tripRecord.Related_Opportunity__c}" id="relToOppty" rendered="{!IF(selectedObject != 'Strategy' && selectedObject != 'Account Plan',true,false)}" onchange="onChangeRelatedToOpportunity(this);this.oldvalue = this.value;" />
+                <apex:inputField value="{!tripRecord.Related_Strategy__c}" id="relToStrat" rendered="{!IF(selectedObject == 'Strategy',true,false)}" onchange="onChangeStrategy(this);this.oldvalue = this.value;" />
+                <apex:inputField value="{!tripRecord.Related_Account_Plans__c}" id="relToAccPlan" rendered="{!IF(selectedObject == 'Account Plan',true,false)}" onchange="onChangeRelatedToAccountPlans(this);this.oldvalue = this.value;" />
+              </apex:outputPanel>              
+            </apex:outputPanel>
+          </apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem >
+            <apex:outputLabel >Product Demo</apex:outputLabel>  
+            <apex:outputPanel >
+              <apex:inputField value="{!tripRecord.Product_Demo__c}" /> &nbsp;             
+              <a class="tooltip" target="_blank">
+                <apex:image value="{!$Resource.Information_Icon}" />            
+                <span>Depends on "Goal / Objective"</span>
+              </a>
+            </apex:outputPanel>
+          </apex:pageBlockSectionItem>
+          <apex:inputField value="{!tripRecord.Type__c}" required="true"/>
+          <apex:inputField value="{!tripRecord.Date__c}" required="true"/> 
+          <apex:inputField value="{!tripRecord.Location__c}"/>
+          <apex:inputField value="{!tripRecord.LOB_s_Discussed__c}"/>
+          <apex:inputField value="{!tripRecord.Competition_Discussed__c}"/>
+          <apex:inputField value="{!tripRecord.Next_Steps__c}"/>
+        </apex:pageBlockSection>  
+      </apex:outputPanel>
+      
+      <!-- v5.0 - start-->
+      <apex:outputPanel styleClass="pageblocksection" layout="block">
+        <apex:pageBlockSection title="Send Notification To [Please Note:- Details of trip report are included in the notification, be careful while adding non dell.com email addresses]" collapsible="false">
+          <apex:inputField value="{!tripRecord.User_1__c}"/>
+          <apex:inputField value="{!tripRecord.Email_6__c}"/>
+          <apex:inputField value="{!tripRecord.User_2__c}"/>
+          <apex:inputField value="{!tripRecord.Email_7__c}"/>
+          <apex:inputField value="{!tripRecord.User_3__c}"/>          
+        </apex:pageBlockSection>
+      </apex:outputPanel>
+      
+      <apex:outputPanel styleClass="pageblocksection" layout="block">
+        <apex:pageBlockSection title="Dell/Partner Attendees" collapsible="false" id="pblk1"> 
+          <apex:inputField value="{!tripRecord.Primary_Dell_Attendee__c}" id="pdatt" /> 
+          <apex:inputField value="{!tripRecord.Other_Dell_Attendee1__c}"/>
+          <apex:inputField value="{!tripRecord.Secondary_Dell_Attendee__c}"/>
+          <apex:inputField value="{!tripRecord.Other_Dell_Attendee2__c}"/>
+          <apex:inputField value="{!tripRecord.Dell_Executive_Attendee_1__c}"/>
+          <apex:inputField value="{!tripRecord.Other_Dell_Attendee3__c}"/>
+          <apex:inputField value="{!tripRecord.Partner_Attendees__c}" style="width:225px;height:40px" />
+             
+        </apex:pageBlockSection>
+      </apex:outputPanel>
+      
+      <apex:outputPanel styleClass="pageblocksection" layout="block">
+        <apex:pageBlockSection title="Customer Attendees" collapsible="false">
+          <apex:inputField value="{!tripRecord.Customer_Attendee1__c}" required="true"/>
+          <apex:inputField value="{!tripRecord.Customer_Attendee3__c}"/>
+          <apex:inputField value="{!tripRecord.Customer_Attendee2__c}"/>
+          <apex:inputField value="{!tripRecord.Customer_Attendee4__c}"/>
+        </apex:pageBlockSection>
+      </apex:outputPanel>
+     
+      <!-- v5.0 - end --> 
+      
+      <apex:outputPanel styleClass="pageblocksection" layout="block">      
+        <apex:pageBlockSection title="Summary" columns="1" collapsible="false">
+          <apex:inputField value="{!tripRecord.Summary__c}" style="width:400px;height:90px"/>
+          <apex:inputField value="{!tripRecord.Action_Items__c}" style="width:400px;height:90px" />
+          <apex:inputField value="{!tripRecord.Send_Notification_Email__c}"/>
+        </apex:pageBlockSection>
+      </apex:outputPanel>
+      
+      <apex:pageBlockButtons >
+          <apex:commandButton value="Save" action="{!Save}"/>
+          <apex:commandButton value="Save & New" action="{!SaveNew}"/>
+          <apex:commandButton value="Cancel" action="{!Cancel}" immediate="true"/>
+          
+          <!-- v4.0 - start -->
+          <apex:commandButton value="New Contact" onClick="window.open('/003/e?CF00NA00000064sQh={!URLENCODE($User.FirstName + ' ' + $User.LastName)}&saveURL=%2Fapex%2FAVSContactSuggestion&retURL=%2F003%2Fo&sfdc.override=1&con4_lkid=' + TripAccIdContact + '');return false;"/>
+          <!-- v4.0 - end -->
+          
+          <!-- //E2E defect fix
+          <apex:commandButton value="New Opportunity" onClick="PopulateExist();window.open('/setup/ui/recordtypeselect.jsp?ent=Opportunity&retURL=%2F006%2Fo&save_new_url=%2F006%2Fe%3FretURL%3D%252F006%252Fo' + TripAccountParamName + '=' + TripAccount + '&CF00NA0000008ql2y=' + TripStrategy + '&CF00NA0000008ql2y_lkid=' + TripWhatIdOppty + '&opp4_lkid=' + TripAccIdContact + '');return false;"/>
+          -->
+            <apex:commandButton value="New Opportunity" onClick="PopulateExist();window.open('/setup/ui/recordtypeselect.jsp?ent=Opportunity&retURL=%2F006%2Fo&save_new_url=%2Fapex%2FchannelOpportunityOveride%3FretURL%3D%252F006%252Fo' + TripAccountParamName + '=' + TripAccount + '&CF00NA0000008ql2y=' + TripStrategy + '&CF00NA0000008ql2y_lkid=' + TripWhatIdOppty + '&opp4_lkid=' + TripAccIdContact + '');return false;"/>
+           <!-- v6.0 - end -->  
+          <apex:commandButton value="New Task" onClick="PopulateExist();PopulateAccount();window.open('/setup/ui/recordtypeselect.jsp?ent=Task&retURL=%2Fhome%2Fhome.jsp&save_new_url=%2F00T%2Fe%3FretURL%3D%252Fhome%252Fhome.jsp&tsk1=' + TripPrimaryDellAttendee + '&tsk3_mlktp=' + TripRelatedToPicklist + '&tsk3=' + TripRelatedToValue + '&tsk1_mlktp=005&what_id='+ TripWhatId + '');return false;"/>
+      </apex:pageBlockButtons>
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

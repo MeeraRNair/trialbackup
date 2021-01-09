@@ -1,0 +1,83 @@
+<apex:page controller="MDM_MultipleDunsCntrlr" showHeader="false">
+ 
+ <apex:form >
+  <apex:pageMessages id="msg" />
+    <script type="text/javascript">
+        
+    function AccountDetailspopup(dunsid){
+        if(document.getElementById(dunsid).value != null && document.getElementById(dunsid).value != ''){
+            var accountwindow = window.open('/apex/MDM_DBAccountDetailsPage?dunsnumber='+document.getElementById(dunsid).value+ '&close='+ false , '', "height=460,width=880,scrollbars=yes");
+            accountwindow.focus();
+        }else {
+            alert('{!$Label.MDM_ValidationErrorMessage}');
+        }
+    }    
+
+    function Hierarchypopup(dunsid){
+        if(document.getElementById(dunsid).value != null && document.getElementById(dunsid).value != ''){
+            var Hierarchwindow = window.open('/apex/MDM_DunsTreePage?dunsnumber='+document.getElementById(dunsid).value +'&close='+ false, '', "height=460,width=880,scrollbars=yes");
+            Hierarchwindow.focus();
+        } else {
+            alert('{!$Label.MDM_ValidationErrorMessage}');
+        }
+    }
+    
+    function changeValue(input, textid) {
+                  document.getElementById(textid).value = input.value;
+    }
+  
+    </script>
+    <html> 
+    <style type="text/css">
+        .scrollbar {
+            overflow-y:scroll;
+        }
+     </style>
+   </html>
+  <apex:pageblock id="multipleduns" title="{!$Label.MDM_PgHdr_AccountwithMulDUNS}" rendered="{!showResultTable}" >
+   <p><b> {!$Label.MDM_Field_SelectonlyoneDUNS} </b></p>
+   <br></br>
+    <apex:pageblockTable value="{!allDunsData}" id="mdn" var="o" >
+    
+   <!--  <apex:column >
+     <apex:actionsupport action="{!selectduns}" event="onclick" rerender="mdn">
+     <input type="radio"/>
+     <apex:param name="dunsnumber" value="{!o.dunsId}">
+     </apex:param>
+     </apex:actionsupport>
+    </apex:column> -->
+    
+    <apex:column >
+        <input type="radio" name="radBut" value="{!o.dunsId}" onclick="changeValue(this,'{!$Component.RadioButtonValue}');" />
+    </apex:column>
+    
+    <apex:column value="{!o.dunsId}" headerValue="{!$Label.MDM_Field_DunsNumber}"/>
+    <apex:column value="{!o.dunsname}" headerValue="{!$Label.MDM_Field_DunsName}"/>
+    <apex:column value="{!o.country}" headerValue="{!$Label.MDM_Field_Country}"/>
+    <apex:column value="{!o.city}" headerValue="{!$Label.MDM_Field_City}"/>
+    <apex:column value="{!o.state}" headerValue="{!$Label.MDM_Field_State}"/>
+    <apex:column value="{!o.postalcode}" headerValue="{!$Label.MDM_Field_PostalCd}"/>
+    <apex:column value="{!o.address1} {!o.address2}" headerValue="{!$Label.MDM_Field_Address}"/>
+  <!--  <apex:column value="{!o.address2}" headerValue="Address"/>  -->
+  
+    <apex:column value="{!o.oob}" headerValue="{!$Label.MDM_Field_OOBIndicator}"/>
+    <apex:column value="{!o.employeesize}" headerValue="{!$Label.MDM_Field_EmployeeSize}"/>
+   </apex:pageblockTable>
+   
+   
+     <!-- <apex:commandButton action="{!ok2}" value="Ok"  />
+      <apex:commandButton onclick="window.parent.box.hide();" value="Cancel"/>-->
+      <apex:pageblockButtons location="top">
+          <apex:commandButton value=" {!$Label.MDM_Button_Search} " style="float:right" action="{!goToSearchPage}"/>
+      </apex:pageblockButtons>
+      <apex:pageblockbuttons location="bottom">
+      <apex:commandbutton value="{!$Label.MDM_Button_ViewDnBDetails}" onclick="AccountDetailspopup('{!$Component.RadioButtonValue}');return false;" />
+      <apex:commandbutton value="{!$Label.MDM_Button_ViewHierarchy}" onclick="Hierarchypopup('{!$Component.RadioButtonValue}');return false;"/> 
+      <apex:commandButton onclick="window.parent.box.hide();" value="{!$Label.MDM_CloseButton}"/>
+      </apex:pageblockbuttons>
+  </apex:pageblock>
+  <apex:commandButton onclick="window.parent.box.hide();" value="{!$Label.MDM_CloseButton}" rendered="{!(!showResultTable)}"/>
+ <apex:inputtext value="{!selectedDunsValue}" id="RadioButtonValue" style="display: none;"/>
+ </apex:form>
+
+</apex:page>

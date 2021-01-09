@@ -1,0 +1,191 @@
+<apex:page standardController="Territory_Plan__c" extensions="TP_PageNavCtrlExt" sidebar="false" lightningStylesheets="true">
+    <style type="text/css">
+        
+        .underLine-logo {
+            position: relative; 
+            padding: 5px 0 0 0;
+            top:12px; 
+            left:24px; 
+            border-bottom :1px solid #888888; 
+            border-left: 1px solid #888888; 
+            width: 85%; 
+            max-height: 50px;
+        }
+        .hintText{
+            font-style:italic; 
+            font-size: 12px;
+            position: relative;
+            padding:0px 0px 0px 0px;
+            top:-40px;
+            left: 25px;
+            margin:5px;
+        }
+        .Keep-clmn{
+            height: 16px!important;
+        }  
+        .acquire-clmn{
+            height: 16px!important;
+        }  
+        
+        .expand-clmn{
+            height: 16px!important;
+        }  
+         
+    </style>
+    
+    <apex:pageBlock mode="maindetail" id="pbId">
+        <apex:stylesheet value="{!URLFOR($Resource.TP_Style,'TP_style_step8_9_10.css')}"/>
+        <apex:pageMessages id="showmsg"></apex:pageMessages>
+        <table class="tb" id="tblId">
+            <tr id="hd-trId">
+                <th class="tg-hdr" id = "hdrId" colspan="4">Build Your Data Center Business</th>
+            </tr>
+            <apex:form id="formId">
+                <tr>
+                    <td class="td-common td-colm1">
+                        <div class="colm1div">
+                            <div class="colm1div-row1">
+                                <p class="colm1parg-row1">
+                                    &nbsp;<br/>
+                                    &nbsp;
+                                </p>
+                            </div> 
+                            <div class="colm1div-common colm1div-row2and3">
+                                <p class="colm1parg-common colm1parg-row2and3">
+                                    <strong>Goal / Action</strong> </p>
+                            </div>
+                            <div class="colm1div-common colm1div-row2and3">
+                                <p class="colm1parg-common colm1parg-row2and3">    
+                                    <strong>Target Accounts</strong>  </p>
+                            </div>
+                            <div class="colm1div-common colm1div-row4and5">
+                                <p class="colm1parg-common colm1parg-row4and5">
+                                    <strong>Owner</strong>  </p>
+                            </div>
+                            <div class="colm1div-common colm1div-row4and5">
+                                <p class="colm1parg-common colm1parg-row4and5">
+                                    <strong>Timeframe</strong> </p>
+                            </div>
+                            
+                        </div>
+                    </td>
+                    <!-- Second Column---------- -->
+                    <td class ="td-common td-colm2">
+                        <div class="colm234-row1-pargdiv" style="padding: 0%;">
+                            <p class="colm234-row1-parg"> <strong>Retention Strategy <br/>Market Share %</strong> </p>
+                        </div>
+                        <div class="colm234-row2345-inputdiv">
+                            <apex:inputfield value="{!Territory_Plan__c.Hyperconverged_Goal_Action__c}" styleclass="colm234-row2345-inputfieldCommon colm234-row23-inputfield colm2-row2345-inputfield" id="pr1-ID"  html-placeholder="  Goals"/> 
+                        </div>
+                        
+                        <div class="colm234-row2345-inputdiv">
+                            <apex:inputfield value="{!Territory_Plan__c.Hyperconverged_Target_Accounts__c}" styleclass="colm234-row2345-inputfieldCommon colm234-row23-inputfield colm2-row2345-inputfield" id="pr2-ID" html-placeholder="  Account1 &#10;  Account2"/> 
+                        </div>
+                        
+                        <div class="colm234-row2345-inputdiv">
+                            <apex:inputfield value="{!Territory_Plan__c.Hyperconverged_Owner__c}" styleclass="colm234-row2345-inputfieldCommon colm234-row45-inputfield colm2-row2345-inputfield" id="pr3-ID" html-placeholder="  Name"/> 
+                        </div>
+                        
+                        <div class="colm234-row2345-inputdiv">
+                            <apex:inputfield value="{!Territory_Plan__c.Hyperconverged_Timeframe__c}" styleclass="colm234-row2345-inputfieldCommon colm234-row45-inputfield colm2-row2345-inputfield" id="pr4-ID" html-placeholder="  Timeframe"/>  
+                        </div>
+                    </td>
+                    <!-- Third Column ------------------ -->
+                    <td class="td-common td-colm3">
+                        <div class="colm234-row1-pargdiv">
+                            <p class="colm234-row1-parg"> <strong>Net New Buyer ($)</strong> </p>
+                        </div>
+                        <div class="colm234-row2345-inputdiv">
+                            <apex:inputfield value="{!Territory_Plan__c.Flash_BPS_Goal_Action__c}" styleclass="colm234-row2345-inputfieldCommon colm234-row23-inputfield colm3-row2345-inputfield" id="pr5-ID"   html-placeholder="  Goals"/> 
+                        </div>
+                        
+                        <div class="colm234-row2345-inputdiv">
+                            <apex:inputfield value="{!Territory_Plan__c.Flash_BPS_Target_Accounts__c}" styleclass="colm234-row2345-inputfieldCommon colm234-row23-inputfield colm3-row2345-inputfield" id="pr6-ID"  html-placeholder="  Account1 &#10;  Account2"/> 
+                        </div>
+                        
+                        <div class="colm234-row2345-inputdiv">
+                            <apex:inputfield value="{!Territory_Plan__c.Flash_BPS_Owner__c}" styleclass="colm234-row2345-inputfieldCommon colm234-row45-inputfield colm3-row2345-inputfield" id="pr7-ID"  html-placeholder="  Name"/> 
+                        </div>
+                        
+                        <div class="colm234-row2345-inputdiv">
+                            <apex:inputfield value="{!Territory_Plan__c.Flash_BPS_Timeframe__c}" styleclass="colm234-row2345-inputfieldCommon colm234-row45-inputfield colm3-row2345-inputfield" id="pr8-ID"  html-placeholder="  Timeframe"/> 
+                        </div> 
+                    </td>
+                    <!-- Fourth column --------->
+                    <td class="td-common td-colm4">
+                        <div class="colm234-row1-pargdiv">
+                            <p class="colm234-row1-parg"> <strong>Net New LOB Expansion</strong> </p>
+                            
+                        </div>
+                        <div class="colm234-row2345-inputdiv">
+                            <apex:inputfield value="{!Territory_Plan__c.DPS_Backup_Goal_Action__c}" styleclass="colm234-row2345-inputfieldCommon colm234-row23-inputfield colm4-row2345-inputfield" id="pr9-ID"  html-placeholder="  Goals"/> 
+                        </div>
+                        
+                        <div class="colm234-row2345-inputdiv">
+                            <apex:inputfield value="{!Territory_Plan__c.DPS_Backup_Target_Accounts__c}" styleclass="colm234-row2345-inputfieldCommon colm234-row23-inputfield colm4-row2345-inputfield" id="pr10-ID"  html-placeholder="  Account1 &#10;  Account2"/> 
+                        </div>
+                        
+                        <div class="colm234-row2345-inputdiv">
+                            <apex:inputfield value="{!Territory_Plan__c.DPS_Backup_Owner__c}" styleclass="colm234-row2345-inputfieldCommon colm234-row45-inputfield colm4-row2345-inputfield" id="pr11-ID"  html-placeholder="  Name"/> 
+                        </div>
+                        
+                        <div class="colm234-row2345-inputdiv">
+                            <apex:inputfield value="{!Territory_Plan__c.DPS_Backup_Timeframe__c}" styleclass="colm234-row2345-inputfieldCommon colm234-row45-inputfield colm4-row2345-inputfield" id="pr12-ID"  html-placeholder="  Timeframe"/> 
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td >
+                        <div class="mtcolmn">
+                            <p class="subtable-colm-parg">
+                                
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="Keep-clmn"> 
+                            <p class="subtable-colm-parg">KEEP</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="acquire-clmn"> 
+                            <p class="subtable-colm-parg">ACQUIRE</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="expand-clmn"> 
+                            <p class="subtable-colm-parg">EXPAND</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr id="hint-trId">
+                    <td class="tg-tdHint" id="hint-tdId" colspan="4">
+                        <div class="Bulb-logo" id="bulb-divId">
+                            <apex:image url="{!URLFOR($Resource.TP_PPT_Images, 'TP_PPT_Images/Bulbicon_hint.png')}" width="50" height="50" alt="Description of image here" id="bulb-logoId"/>
+                        </div>
+                        <div class="underLine-logo" id="underlineDivId">
+                            <apex:outputtext styleClass="hintText" id="hintTextId" value="Leverage these Goal ideas for planning : VxRail 5 Opportunities; set _# meetings for flash assessment , Engage in a strategy discussion with your Dell EMC Datacenter rep on your top 5 backup opportunities in your pipeline. Engage DC AE in any Hadoop opportunity, Engage DC AE in any Netapp Competitive Accounts with Server Spend, Schedule a Datacenter Rep for customer overview presentation, Introduce Dell EMC Datacenter Rep to Top 5, Engage and introduce DC AE in all 18 month expirations storage accounts. Hyper converged, Flash, DPS, Isilon"/>
+                        </div>
+                        <apex:image styleClass="DellEMC-logo" url="{!URLFOR($Resource.TP_PPT_Images, 'TP_PPT_Images/DellEMC.png')}" width="90" height="15" alt="Description of image here" id="dellEMClogoId"/>
+                    </td> 
+                </tr>
+                <tr id ="tr-btnId">
+                    <td class="tg-tdBtns" colspan="4" id="td-btnId">
+                        <apex:commandButton action="{!saveRecord}" value="Save" id="saveId" styleClass="btn"/> 
+                        <apex:commandButton action="{!goToPrevPage}" value="Previous" id="backId" styleClass="btn"/>
+                        <apex:commandButton action="{!goToNextPage}" value="Next" id="nextId" styleClass="btn"/>
+                        <apex:commandButton action="{!cancel}" value="Cancel" id="cancelId" styleClass="btn"/>
+                    </td>
+                </tr>
+                <tfoot>
+                    <tr>
+                        <td class="footer" colspan ="4">
+                            [ {!currentPageNum} of {!totalPages} ]
+                        </td>
+                    </tr>
+                </tfoot>
+            </apex:form>
+        </table>
+    </apex:pageBlock>
+
+</apex:page>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR_Invoice_Amount_and_POP_Status</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISPICKVAL( POP_Status__c , &apos;Not Executed&apos;)  &amp;&amp;  ISPICKVAL( POP_Status_Reason__c ,&apos;Vendor Absent – Charge&apos;)  &amp;&amp;  ISPICKVAL(Marketing_Plan__r.Contract_Type__c,&apos;Ala Carte&apos;)  &amp;&amp;  ISNULL( Invoice_Amount__c )</errorConditionFormula>
+    <errorDisplayField>Accounting_Treatment__c</errorDisplayField>
+    <errorMessage>Invoice amount should be filled for programs on ala carte plans with POP Status of “Not Executed” and POP Status Reason of “Vendor Absent – Charge</errorMessage>
+</ValidationRule>

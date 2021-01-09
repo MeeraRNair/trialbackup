@@ -1,0 +1,16 @@
+<apex:page sidebar="false" showHeader="false" > 
+    <apex:includeLightning />
+
+    <div id="lightning" />
+
+    <script>
+        $Lightning.use("c:AuthenticatedPRFormApp", function() {
+          $Lightning.createComponent("c:AuthenticatedPRForm",
+          { },
+          "lightning",
+          function(cmp) {
+            // do some stuff
+          });
+        });
+    </script>
+</apex:page>

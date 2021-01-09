@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Configure_Servces_PM_Name_Field_Required</fullName>
+    <active>true</active>
+    <description>Configuration Services (CS) PM Name field is required if Configuration Services (CS) PM =  Assigned</description>
+    <errorConditionFormula>AND( 
+RecordType.DeveloperName=&apos;Request_OEM_Customized_Solution_Support&apos;, 
+ISBLANK( Configuration_Services_CS_PM_Name__c ), 
+ISPICKVAL( Configuration_Services_CS_PM__c, &apos;Assigned&apos;))</errorConditionFormula>
+    <errorDisplayField>Configuration_Services_CS_PM_Name__c</errorDisplayField>
+    <errorMessage>You must enter a value</errorMessage>
+</ValidationRule>

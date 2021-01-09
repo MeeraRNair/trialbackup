@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Geography_Type_Should_Be_Same</fullName>
+    <active>true</active>
+    <description>This rule is to ensure that the &apos;Record Type&apos; of Geography should be same as the &apos;Geography Type&apos; of the Territory</description>
+    <errorConditionFormula>TEXT(Territory__r.Geography_Type__c)  &lt;&gt;  Geography__r.RecordType.Name</errorConditionFormula>
+    <errorDisplayField>Geography__c</errorDisplayField>
+    <errorMessage>The &apos;Record Type&apos; of Geography should be same as the &apos;Geography Type&apos; of the Territory.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VerifyAgendaTopicStartDate</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF(ISNULL( Customer_Engagement__r.Confirmed_Date__c ), 
+OR( Start_Date__c &lt; Customer_Engagement__r.GSL_Start_Date__c , Start_Date__c&gt; Customer_Engagement__r.GSL_End_Date__c), 
+OR( Start_Date__c &lt; Customer_Engagement__r.Confirmed_Date__c , Start_Date__c&gt; Customer_Engagement__r.Confirmed_End_Date__c))</errorConditionFormula>
+    <errorDisplayField>Start_Date__c</errorDisplayField>
+    <errorMessage>If Confirmed Dates have been added, the topic&apos;s Date has to be within the Confirmed Start Date and End Date range OR if Confirmed Dates have not been added, the topic&apos;s Date must be within the Preferred Start Date and End Date range</errorMessage>
+</ValidationRule>

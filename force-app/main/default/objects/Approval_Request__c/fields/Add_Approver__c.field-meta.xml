@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Add_Approver__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( 
+AND( 
+NOT(ISPICKVAL(Approval_Status__c , &apos;Cancelled&apos;)), 
+NOT(ISPICKVAL(Approval_Status__c , &apos;Approved&apos;)), 
+NOT(ISPICKVAL(Approval_Status__c , &apos;Closed as Rejected&apos;)) 
+), 
+HYPERLINK(&apos;/apex/ApprovalRequestAddApprover?appReqId=&apos; &amp; Id, &apos;Add Approver&apos; ,&apos;_parent&apos;) &amp; &apos; &apos;, 
+&apos;&apos; 
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>&lt;font color=&quot;#fff&quot;&gt;</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

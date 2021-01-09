@@ -1,0 +1,121 @@
+<apex:page standardController="Master_Program_Setup__c" id="thePage" showChat="false" showHeader="true" sidebar="false" title="Competency Name" lightningStylesheets="true">
+ <apex:form id="frmccSetup">
+  <apex:includeScript value="{!URLFOR($Resource.CompetencyModal, 'ModalPopupWindow.js')}" />
+    
+  <script language="javascript">
+            var modalWin = new CreateModalPopUpObject();
+            var CompetencyModalPopup = "{!$Label.CompetencyModalPopup}"; 
+            //var a = "/resource/" + CompetencyModalPopup + "/CompetencyModal/loading.gif";
+            modalWin.SetLoadingImagePath("/resource/" + CompetencyModalPopup + "/CompetencyModal/loading.gif");
+            modalWin.SetCloseButtonImagePath("/resource/" + CompetencyModalPopup + "/CompetencyModal/remove.gif");
+            
+            function ShowNewPage(){
+                //var callbackFunctionArray = new Array(EnrollNow, EnrollLater);
+                //alert(a);
+                var callbackFunctionArray = new Array(Action1, EnrollLater);
+                modalWin.ShowURL('/apex/SelectComptncyName?id={!Master_Program_Setup__c.Id}&tab=modify',450,500,'<b>Master Program Setup</b>',null,callbackFunctionArray);
+            }
+
+            function ShowNewPageAdd(){
+                //var callbackFunctionArray = new Array(EnrollNow, EnrollLater);
+                var callbackFunctionArray = new Array(Action1, EnrollLater);
+                modalWin.ShowURL('/apex/SelectComptncyName?id={!Master_Program_Setup__c.Id}&tab=add',450,500,'<b>Master Program Setup</b>',null,callbackFunctionArray);
+            }
+              
+             
+            function Action1(){
+            alert('Action1 is excuted');
+            modalWin.HideModalPopUp();
+            }
+             
+            function EnrollNow(msg){
+            modalWin.HideModalPopUp();
+            modalWin.ShowMessage(msg,200,400,'User Information',null,null);
+            }
+             
+            function EnrollLater(){
+            modalWin.HideModalPopUp();
+            modalWin.ShowMessage(msg,200,400,'User Information',null,null);
+            }
+             
+            function HideModalWindow() {
+                modalWin.HideModalPopUp();
+            }
+             
+            //$(".actionLink").css("display","none");
+  </script> 
+  <style>
+        .vfHelpText a            {position:relative;}
+        .vfHelpText a span       {display: none;}
+        .vfHelpText a:hover span {display: block;
+                                  position:absolute;
+                                  top:1.25em;
+                                  padding:2px 5px;
+                                  left:-15em; width:15em;
+                                  z-index:100;
+                                  border:1px solid orange;
+                                  background-color:#FEFDB9;
+                                  color:black;
+                                  text-decoration:none;
+                                 }
+                                 
+            #ep_thePage_setupDetail
+            {
+                display:none;
+            }
+            
+    </style>
+    
+        
+  <apex:pageBlock id="mps" title="Master Program Setup Detail" mode="mainDetail">        
+        
+   <apex:pageBlockButtons location="top">
+    <apex:commandButton value="Edit" action="{!edit}" id="editButton" rerender="mps" />
+    <apex:commandButton value="Delete" action="{!delete}" id="deleteButton" rerender="mps" />
+    <apex:commandButton value="Clone" action="/{!Master_Program_Setup__c.Id}/e?clone=1" id="cloneButton" rerender="mps"  />
+   </apex:pageBlockButtons>  
+   
+   <apex:pageBlockSection columns="2">
+    <apex:outputField value="{!Master_Program_Setup__c.Name}" />    
+    <apex:outputField value="{!Master_Program_Setup__c.Apply_Requirement_To__c}" />    
+    <apex:outputField value="{!Master_Program_Setup__c.Name_ToolTip__c}" />    
+    <apex:outputField value="{!Master_Program_Setup__c.Country__c}" />    
+    <apex:outputField value="{!Master_Program_Setup__c.Master_Program_Name__c}" />    
+    <apex:outputField value="{!Master_Program_Setup__c.Region__c}" />    
+    
+  <apex:outputField value="{!Master_Program_Setup__c.Competency_FName__c}" rendered="{!Master_Program_Setup__c.Competency_FName__c== NULL}" >
+     <apex:outputPanel rendered="{!Master_Program_Setup__c.Competency_FName__c== NULL}">
+      <input type='button' value='Select Competency Name' onClick="ShowNewPageAdd()" style="font-family:verdana,arial,helvetica;font-size:7.5pt;font-weight:bold;border:1px #000000 solid;;color:#000000" />
+     </apex:outputPanel>    
+    </apex:outputField>
+
+    <apex:outputField value="{!Master_Program_Setup__c.Competency_FName__c}" rendered="{!Master_Program_Setup__c.Competency_FName__c!= NULL}" >
+     <apex:outputPanel rendered="{!Master_Program_Setup__c.Competency_FName__c!= NULL}">
+      <a href="#" onclick="ShowNewPage()" >[Edit] </a>
+      </apex:outputPanel>
+    </apex:outputField>
+   
+    <apex:outputField value="{!Master_Program_Setup__c.Active__c}" />
+    <apex:outputField value="{!Master_Program_Setup__c.CreatedById}" >,&nbsp;<apex:outputText value="{0,date,MM'/'dd'/'yyyy hh:mm a}"><apex:param value="{!Master_Program_Setup__c.CreatedDate}" /></apex:outputText></apex:outputField>
+    <apex:outputField value="{!Master_Program_Setup__c.LastModifiedById}" >,&nbsp;<apex:outputText value="{0,date,MM'/'dd'/'yyyy hh:mm a}"><apex:param value="{!Master_Program_Setup__c.LastModifiedDate}" /></apex:outputText></apex:outputField>
+
+    
+   </apex:pageBlockSection>  
+  </apex:pageBlock>
+  
+  <apex:pageBlock mode="maindetail">
+   <apex:pageBlockSection columns="1" title="Related Requirement List" collapsible="true">
+    <apex:include pageName="MasterProgram_ReqList" />
+   </apex:pageBlockSection>
+  </apex:pageBlock>  
+
+  <apex:pageBlock mode="maindetail" id="mps1">
+   <apex:pageBlockButtons location="bottom">
+    <apex:commandButton value="Edit" action="{!edit}"  rerender="mps1" />
+    <apex:commandButton value="Delete" action="{!delete}" rerender="mps1" />
+    <apex:commandButton value="Clone" action="/{!Master_Program_Setup__c.Id}/e?clone=1" rerender="mps1" />
+   </apex:pageBlockButtons> 
+   </apex:pageBlock> 
+ </apex:form> 
+<apex:detail id="setupDetail" relatedListHover="true"/>
+</apex:page>

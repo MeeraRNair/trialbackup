@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Document_Type_Details__c</fullName>
+    <description>Sub contract type</description>
+    <externalId>false</externalId>
+    <label>Document Type Details</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Contract_Document_Type__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Co-Delivery Agreement</fullName>
+                <default>false</default>
+                <label>Co-Delivery Agreement</label>
+            </value>
+            <value>
+                <fullName>Consulting Partner Program Agreement</fullName>
+                <default>false</default>
+                <label>Consulting Partner Program Agreement</label>
+            </value>
+            <value>
+                <fullName>Deployment Partner Program Agreement</fullName>
+                <default>false</default>
+                <label>Deployment Partner Program Agreement</label>
+            </value>
+            <value>
+                <fullName>EBPP for Services (Implement) Agreement</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>EBPP for Services (Implement) Agreement</label>
+            </value>
+            <value>
+                <fullName>Subcontracting agreement</fullName>
+                <default>false</default>
+                <label>Subcontracting agreement</label>
+            </value>
+            <value>
+                <fullName>Support Partner Program Agreement</fullName>
+                <default>false</default>
+                <label>Support Partner Program Agreement</label>
+            </value>
+            <value>
+                <fullName>VSI Agreement</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>VSI Agreement</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Agreement</controllingFieldValue>
+            <valueName>Co-Delivery Agreement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Agreement</controllingFieldValue>
+            <valueName>Consulting Partner Program Agreement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Agreement</controllingFieldValue>
+            <valueName>Deployment Partner Program Agreement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Agreement</controllingFieldValue>
+            <valueName>Subcontracting agreement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Agreement</controllingFieldValue>
+            <valueName>Support Partner Program Agreement</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

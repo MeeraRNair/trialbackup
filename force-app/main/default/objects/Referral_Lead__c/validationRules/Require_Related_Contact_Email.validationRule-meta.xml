@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Require_Related_Contact_Email</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(  OR($RecordType.Id = &apos;012A0000000Vhyv&apos;, $RecordType.Id = &apos;012A0000000Vi16&apos;) ,  ISBLANK(Contact__r.Email) )</errorConditionFormula>
+    <errorMessage>The selected contact does not have an email address. Leave this page open, and return to the contact in another tab or window to populate the email.  Then return to this page, and save.</errorMessage>
+</ValidationRule>

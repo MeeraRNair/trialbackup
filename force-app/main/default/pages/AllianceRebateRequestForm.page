@@ -1,0 +1,323 @@
+<apex:page standardController="Alliance_Rebate_Request__c" extensions="AllianceReabteRequestController" lightningStyleSheets="true" sidebar="false" >  
+    <apex:form >
+    
+        <style type="text/css">
+        
+    
+            .popup
+            {
+            background-color: white;
+            border-width: 2px;
+            border-style: solid;
+            z-index: 9999;
+            left: 50%;
+            padding:10px;
+            position: absolute;
+            width: 500px;
+            margin-left: -250px;
+            top:80px;
+            }
+            
+            .popupBg
+            {
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 70);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+            }
+            
+            
+        </style>
+        
+        <apex:pageMessages id="theMessage" />
+        <apex:sectionHeader title="Alliance Rebate Request" subtitle="New Alliance Rebate Request"/>
+        <apex:pageBlock title="Alliance Rebate Request" id="pgBlkId" mode="edit">
+           
+        <apex:pageBlockSection collapsible="false">
+            <apex:facet name="header">
+            <apex:outputpanel >
+            <apex:outputText style="font-weight:bold;font-size:13px;float:left;" value="Information"/>
+            <apex:outputText style="Float:right;" value="Need Help? - Email : Alliancesrebates@dell.com"/>
+            </apex:outputpanel>
+            </apex:facet>
+ 
+                
+                <apex:outputField value="{!allianceRebateReqObj.Name}" rendered="{!AND(rebateReqId != null, isCloned == null)}" />
+                
+                <apex:pageBlockSectionItem rendered="{!OR(rebateReqId == null, isCloned != null)}" > 
+                    <apex:outputLabel value="Deal / Form ID" />
+                    <apex:outputText value="New" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:outputField value="{!allianceRebateReqObj.Status__c}" rendered="{!OR(rebateReqId == null, isCloned != null ) 
+                                                                                      || (userProfileName == 'salesReps' && allianceRebateReqObj.Status__c != 'Draft') ||
+                                                                                      (userProfileName != 'salesReps' && ((allianceRebateReqObj.Status__c != 'Submitted' && allianceRebateReqObj.Status__c != 'Work in Progress'
+                                                                                      && allianceRebateReqObj.Status__c != 'Awaiting Vendors Response' && allianceRebateReqObj.Status__c != 'Approved' 
+                                                                                      && allianceRebateReqObj.Status__c != 'Rejected' ) && ( allianceRebateReqObj.Status__c == 'Cancelled' || allianceRebateReqObj.Status__c == 'Expired')))      
+                                                                                      }" />   
+                
+                <apex:pageBlockSectionItem rendered="{!AND(rebateReqId != null, isCloned == null) && 
+                                                     ((userProfileName != 'salesReps' && (allianceRebateReqObj.Status__c == 'Submitted' || allianceRebateReqObj.Status__c == 'Work in Progress'
+                                                     || allianceRebateReqObj.Status__c == 'Awaiting Vendors Response' || allianceRebateReqObj.Status__c == 'Approved' || 
+                                                     allianceRebateReqObj.Status__c == 'Rejected' ) && (allianceRebateReqObj.Status__c != 'Cancelled' || allianceRebateReqObj.Status__c != 'Expired' ) ) || 
+                                                     (userProfileName == 'salesReps' && allianceRebateReqObj.Status__c == 'Draft'))}" >
+                    <apex:outputLabel value="Status" />
+                    <apex:selectList value="{!allianceRebateReqObj.Status__c}" size="1">
+                        <apex:selectOptions value="{!status}"/>
+                    </apex:selectList> 
+                </apex:pageblockSectionItem>
+                
+                <apex:pageblockSectionItem helpText="{!$ObjectType.Alliance_Rebate_Request__c.fields.Client_Enterprise__c.InlineHelpText}" rendered="{!AND(userProfileName == 'salesReps', allianceRebateReqObj.Status__c == 'Draft')}">
+                    <apex:outputLabel value="Client / Enterprise" />
+                    <apex:actionRegion >
+                        <apex:inputField value="{!allianceRebateReqObj.Client_Enterprise__c}" >
+                            <apex:actionSupport action="{!partRequestChange}" event="onchange" rerender="theMessage,test,test1, listPriceId, partnerPartId, partnerPartId1,stfDealSectionId1, stfDealSectionId, ProductInfoSectionId, partRequestId, dealSectionId" status="actStatusId"/>
+                        </apex:inputField>
+                    </apex:actionRegion>
+                </apex:pageblockSectionItem>
+                
+                <apex:outputField value="{!allianceRebateReqObj.Client_Enterprise__c}" rendered="{!NOT(AND(userProfileName == 'salesReps', allianceRebateReqObj.Status__c == 'Draft'))}"/>
+                
+                <apex:outputField value="{!allianceRebateReqObj.Region__c}" rendered="{!If(userProfileName == 'salesReps', true, false)}"/>
+                <apex:pageBlockSectionItem rendered="{!If(userProfileName != 'salesReps', true, false)}">  
+                    <apex:outputLabel value="Region" />
+                    <apex:selectList id="regions" value="{!allianceRebateReqObj.Region__c}" size="1"  >
+                        <apex:selectOptions value="{!regions}"/>
+                    </apex:selectList>  
+                </apex:pageBlockSectionItem>
+              
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection id="partRequestId" >   
+                
+                <apex:pageblockSectionItem rendered="{!AND(userProfileName == 'salesReps', allianceRebateReqObj.Status__c == 'Draft')}" id="test" >
+                    <apex:outputLabel value="Partner Name" />
+                    <apex:actionRegion >
+                        <apex:inputField value="{!allianceRebateReqObj.System_Partner_Name__c}" >
+                            <apex:actionSupport action="{!partRequestChange}" event="onchange" rerender="theMessage, approverSectionId, listPriceId, partnerPartId,partnerPartId1,stfDealSectionId1,stfDealSectionId ,ProductInfoSectionId, partRequestId, dealSectionId" status="actStatusId"/>
+                        </apex:inputField>
+                    </apex:actionRegion>
+                    
+                </apex:pageblockSectionItem>
+                <apex:outputField value="{!allianceRebateReqObj.System_Partner_Name__c}"  rendered="{!NOT(AND(userProfileName == 'salesReps',allianceRebateReqObj.Client_Enterprise__c=='Enterprise',allianceRebateReqObj.Status__c == 'Draft'))}"/>
+                <apex:inputField value="{!allianceRebateReqObj.Partner_BDM_Name__c}"/>
+                 <apex:pageBlockSectionItem rendered="{!AND(allianceRebateReqObj.System_Partner_Name__c == 'Intel', allianceRebateReqObj.Client_Enterprise__c == 'Enterprise',userProfileName == 'salesReps', allianceRebateReqObj.Status__c == 'Draft')}" >
+                    <apex:outputLabel value="Part Requested"  />
+                    <apex:actionRegion >
+                        <apex:inputField value="{!allianceRebateReqObj.Part_Requested__c}"  >
+                            <apex:actionSupport action="{!partRequestChange}" event="onchange" rerender="theMessage, listPriceId, partnerPartId,partnerPartId1,stfDealSectionId1,stfDealSectionId,ProductInfoSectionId, dealSectionId" status="actStatusId"/>
+                        </apex:inputField>
+                    </apex:actionRegion> 
+                </apex:pageBlockSectionItem>    
+                
+                <apex:pageBlockSectionItem rendered="{!AND(allianceRebateReqObj.System_Partner_Name__c == 'Intel', allianceRebateReqObj.Client_Enterprise__c == 'Enterprise', allianceRebateReqObj.Status__c != 'Draft', allianceRebateReqObj.Part_Requested__c != null)}"> 
+                    <apex:outputLabel value="Part Requested"  />
+                    <apex:outputField value="{!allianceRebateReqObj.Part_Requested__c}" />          
+                </apex:pageBlockSectionItem>    
+                
+                <apex:inputField value="{!allianceRebateReqObj.Finance_Contact__c}" />
+ 
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection id="dealSectionId" >
+                <apex:inputField value="{!allianceRebateReqObj.Total_Deal_Size__c}" rendered="{!NOT(AND(allianceRebateReqObj.System_Partner_Name__c == 'Intel', allianceRebateReqObj.Client_Enterprise__c == 'Enterprise',OR(allianceRebateReqObj.Part_Requested__c == 'CPU', allianceRebateReqObj.Part_Requested__c == 'OPA')))}"/>
+                <apex:inputHidden value="{!allianceRebateReqObj.Empty__c}"/>
+                <apex:inputField value="{!allianceRebateReqObj.Rollout_From__c}" rendered="{!NOT(AND(allianceRebateReqObj.System_Partner_Name__c == 'Intel', allianceRebateReqObj.Client_Enterprise__c == 'Enterprise',OR(allianceRebateReqObj.Part_Requested__c == 'CPU', allianceRebateReqObj.Part_Requested__c == 'OPA')))}"/>
+                <apex:inputField value="{!allianceRebateReqObj.Rollout_To__c}" rendered="{!NOT(AND(allianceRebateReqObj.System_Partner_Name__c == 'Intel', allianceRebateReqObj.Client_Enterprise__c == 'Enterprise',OR(allianceRebateReqObj.Part_Requested__c == 'CPU', allianceRebateReqObj.Part_Requested__c == 'OPA')))}"/> 
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Customer Information" >
+                <apex:inputField value="{!allianceRebateReqObj.Sales_Force_Deal_ID__c}"/>
+                <apex:inputField value="{!allianceRebateReqObj.Team_Member1__c}"/>
+                <apex:inputHidden value="{!allianceRebateReqObj.Empty__c}"/>
+                <apex:inputField value="{!allianceRebateReqObj.Team_Member2__c}"/>
+                <apex:inputHidden value="{!allianceRebateReqObj.Empty__c}"/>
+                <apex:inputField value="{!allianceRebateReqObj.Team_Member3__c}"/>
+                <apex:inputHidden value="{!allianceRebateReqObj.Empty__c}"/>
+            </apex:pageBlockSection>
+            <apex:outputPanel id="stfDealSectionId1">
+            <apex:pageBlockSection title="STF Deal Required Information" rendered="{!AND(allianceRebateReqObj.System_Partner_Name__c == 'Intel', allianceRebateReqObj.Client_Enterprise__c == 'Enterprise', OR(allianceRebateReqObj.Part_Requested__c == 'CPU', allianceRebateReqObj.Part_Requested__c == 'OPA') )}">
+            
+            </apex:pageBlockSection>
+            </apex:outputPanel>
+           
+            <apex:outputPanel id="stfDealSectionId">
+                 
+                <apex:pageBlockSection rendered="{!AND(allianceRebateReqObj.System_Partner_Name__c == 'Intel', allianceRebateReqObj.Client_Enterprise__c == 'Enterprise', OR(allianceRebateReqObj.Part_Requested__c == 'CPU', allianceRebateReqObj.Part_Requested__c == 'OPA'))}" >                
+                    <apex:inputField value="{!allianceRebateReqObj.Dell_Standard_CPU__c}" />
+                </apex:pageBlockSection>
+            </apex:outputPanel> 
+            
+            <apex:outputPanel id="listPriceId" >
+                <apex:pageBlockSection title="Product Information Section" rendered="{!OR( NOT(AND(userProfileName == 'salesReps', allianceRebateReqObj.Client_Enterprise__c == 'Enterprise', allianceRebateReqObj.System_Partner_Name__c == 'Intel', OR(allianceRebateReqObj.Part_Requested__c == 'CPU', allianceRebateReqObj.Part_Requested__c == 'OPA'), allianceRebateReqObj.Status__c != 'Approved', allianceRebateReqObj.Status__c != 'Rejected', allianceRebateReqObj.Status__c != 'Expired', allianceRebateReqObj.Status__c != 'Cancelled')), OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead') ) }">
+                    
+                </apex:pageBlockSection>
+          
+                <apex:pageBlockTable value="{!rebRequestProdList}" var="rebReq" rendered="{!OR( NOT(AND(userProfileName == 'salesReps', allianceRebateReqObj.Client_Enterprise__c == 'Enterprise', allianceRebateReqObj.System_Partner_Name__c == 'Intel', OR(allianceRebateReqObj.Part_Requested__c == 'CPU', allianceRebateReqObj.Part_Requested__c == 'OPA'), allianceRebateReqObj.Status__c != 'Approved', allianceRebateReqObj.Status__c != 'Rejected', allianceRebateReqObj.Status__c != 'Expired', allianceRebateReqObj.Status__c != 'Cancelled')), OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead') ) }"> 
+                    <apex:column headerValue="Sl. No." > 
+                       <apex:outputField value="{!rebReq.Sl_No__c}" /> 
+                   </apex:column>
+                   <apex:column headerValue="Part Requested" rendered="{!IF(AND(allianceRebateReqObj.Client_Enterprise__c == 'Enterprise', allianceRebateReqObj.System_Partner_Name__c == 'Intel', allianceRebateReqObj.Part_Requested__c == 'Other ( SSD / NIC)'), true, false)}"> 
+                       <apex:inputField value="{!rebReq.Part_Requested__c}" rendered="{!OR(AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Draft', allianceRebateReqObj.Status__c == 'Rejected'), rebReq.Status__c != 'Expired'),OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead'))}" /> 
+                       <apex:outputField value="{!rebReq.Part_Requested__c}" rendered="{!OR(AND(userProfileName == 'salesReps', allianceRebateReqObj.Status__c != 'Draft', allianceRebateReqObj.Status__c != 'Rejected'),rebReq.Status__c == 'Expired')}" /> 
+                   </apex:column>
+                   <apex:column headerValue="Part Requested" rendered="{!AND(allianceRebateReqObj.Client_Enterprise__c == 'Enterprise', allianceRebateReqObj.System_Partner_Name__c == 'Intel', allianceRebateReqObj.Part_Requested__c == 'CPU')}"> 
+                       <apex:outputText value="CPU" /> 
+                   </apex:column>
+                   <apex:column headerValue="Part Requested" rendered="{!AND(allianceRebateReqObj.Client_Enterprise__c == 'Enterprise', allianceRebateReqObj.System_Partner_Name__c == 'Intel', allianceRebateReqObj.Part_Requested__c == 'OPA')}"> 
+                       <apex:outputText value="OPA" /> 
+                   </apex:column>
+                   <apex:column headerValue="Part Name & Part Number" > 
+                       <apex:inputField value="{!rebReq.Part_Name_Part_Number__c}" rendered="{!OR( AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Draft', allianceRebateReqObj.Status__c == 'Rejected') , rebReq.Status__c != 'Expired'), AND( OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead'), OR(allianceRebateReqObj.Client_Enterprise__c == 'Enterprise', allianceRebateReqObj.System_Partner_Name__c == 'Intel', OR(allianceRebateReqObj.Part_Requested__c == 'CPU', allianceRebateReqObj.Part_Requested__c == 'OPA'), allianceRebateReqObj.System_Partner_Name__c != 'Intel')))}" /> 
+                       <apex:outputField value="{!rebReq.Part_Name_Part_Number__c}" rendered="{!AND(userProfileName == 'salesReps', allianceRebateReqObj.Status__c != 'Draft',allianceRebateReqObj.Status__c != 'Rejected')}" />
+                   </apex:column>
+                   <apex:column headerValue="Quantity"> 
+                       <apex:inputField value="{!rebReq.Quantity__c}" rendered="{!OR( AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Draft', allianceRebateReqObj.Status__c == 'Rejected'), rebReq.Status__c != 'Expired' ), AND( OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead'), OR(allianceRebateReqObj.Client_Enterprise__c == 'Enterprise', allianceRebateReqObj.System_Partner_Name__c == 'Intel', OR(allianceRebateReqObj.Part_Requested__c == 'CPU', allianceRebateReqObj.Part_Requested__c == 'OPA'), allianceRebateReqObj.System_Partner_Name__c != 'Intel')))}" /> 
+                       <apex:outputField value="{!rebReq.Quantity__c}" rendered="{!AND(userProfileName == 'salesReps', allianceRebateReqObj.Status__c != 'Draft',allianceRebateReqObj.Status__c != 'Rejected')}"/>
+                   </apex:column>
+                   <apex:column headerValue="Price Requested"> 
+                       <apex:inputField value="{!rebReq.Price_Requested__c}" rendered="{!OR( AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Draft', allianceRebateReqObj.Status__c == 'Rejected'), rebReq.Status__c != 'Expired'), AND( OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead'), OR(allianceRebateReqObj.Client_Enterprise__c == 'Enterprise', allianceRebateReqObj.System_Partner_Name__c == 'Intel', OR(allianceRebateReqObj.Part_Requested__c == 'CPU', allianceRebateReqObj.Part_Requested__c == 'OPA'), allianceRebateReqObj.System_Partner_Name__c != 'Intel')))}" /> 
+                       <apex:outputField value="{!rebReq.Price_Requested__c}" rendered="{!AND(userProfileName == 'salesReps', allianceRebateReqObj.Status__c != 'Draft',allianceRebateReqObj.Status__c != 'Rejected')}"/>
+                   </apex:column>
+                   <apex:column headerValue="Competitor Name & Competitor Part"> 
+                       <apex:inputField value="{!rebReq.Competitor_Name_Competitor_Part__c}" rendered="{!OR( AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Draft', allianceRebateReqObj.Status__c == 'Rejected'), rebReq.Status__c != 'Expired'), AND( OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead'), OR(allianceRebateReqObj.Client_Enterprise__c == 'Enterprise', allianceRebateReqObj.System_Partner_Name__c == 'Intel', OR(allianceRebateReqObj.Part_Requested__c == 'CPU', allianceRebateReqObj.Part_Requested__c == 'OPA'), allianceRebateReqObj.System_Partner_Name__c != 'Intel')))}" /> 
+                       <apex:outputField value="{!rebReq.Competitor_Name_Competitor_Part__c}" rendered="{!AND(userProfileName == 'salesReps', allianceRebateReqObj.Status__c != 'Draft',allianceRebateReqObj.Status__c != 'Rejected')}"/>
+                   </apex:column>
+                   <apex:column headerValue="Dell System (Model, type)"> 
+                       <apex:inputField value="{!rebReq.Dell_System_Model_type__c}" rendered="{!OR( AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Draft', allianceRebateReqObj.Status__c == 'Rejected'), rebReq.Status__c != 'Expired'), AND( OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead'), OR(allianceRebateReqObj.Client_Enterprise__c == 'Enterprise', allianceRebateReqObj.System_Partner_Name__c == 'Intel', OR(allianceRebateReqObj.Part_Requested__c == 'CPU', allianceRebateReqObj.Part_Requested__c == 'OPA'), allianceRebateReqObj.System_Partner_Name__c != 'Intel')))}" /> 
+                       <apex:outputField value="{!rebReq.Dell_System_Model_type__c}" rendered="{!AND(userProfileName == 'salesReps', allianceRebateReqObj.Status__c != 'Draft',allianceRebateReqObj.Status__c != 'Rejected')}"/>
+                   </apex:column>
+
+                   <apex:column headerValue="Quantity Approved" rendered="{!OR( AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ) , OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead') )}"> 
+                       <apex:inputField value="{!rebReq.Quantity_Approved__c}" rendered="{!OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead')}"  /> 
+                      <apex:outputField value="{!rebReq.Quantity_Approved__c}" rendered="{!AND(userProfileName == 'salesReps', allianceRebateReqObj.Status__c != 'Draft', allianceRebateReqObj.Status__c != 'Rejected')}"  /> 
+                   </apex:column>
+                    
+                     <apex:column headerValue="Cost Per Unit" rendered="{!OR( AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ) , OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead') )}" > 
+                       <apex:inputField value="{!rebReq.Cost_Per_Unit__c}" rendered="{!OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead')}" /> 
+                       <apex:outputField value="{!rebReq.Cost_Per_Unit__c}" rendered="{!AND(userProfileName == 'salesReps', allianceRebateReqObj.Status__c != 'Draft', allianceRebateReqObj.Status__c != 'Rejected')}" />
+                   </apex:column> 
+                   <apex:column headerValue="Approved Price per unit" rendered="{!OR( AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ) , OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead') )}" > 
+                       <apex:inputField value="{!rebReq.Approved_Price_per_unit__c}" rendered="{!OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead')}" /> 
+                      <apex:outputField value="{!rebReq.Approved_Price_per_unit__c}" rendered="{!AND(userProfileName == 'salesReps', allianceRebateReqObj.Status__c != 'Draft', allianceRebateReqObj.Status__c != 'Rejected')}" /> 
+                   </apex:column>
+                   <apex:column headerValue="Rebate per unit" rendered="{!OR( AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ) , OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead') )}"> 
+                       <apex:inputField value="{!rebReq.Rebate_Per_Units__c}" rendered="{!AND(OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead'), OR(allianceRebateReqObj.Status__c == 'Submitted', allianceRebateReqObj.Status__c == 'Work in Progress', allianceRebateReqObj.Status__c == 'Awaiting Vendors Response', allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected'), rebReq.Status__c != 'Expired', !AND(OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired'), rebReq.Quantity_Approved__c == null) )}"/> 
+                       <apex:outputField value="{!rebReq.Rebate_Per_Units__c}" rendered="{!OR(AND(OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead'), OR(allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired')), AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ), rebReq.Status__c == 'Expired', AND(OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired'), rebReq.Quantity_Approved__c == null))}"/> 
+                   </apex:column>
+                   <apex:column headerValue="Effective Date" rendered="{!OR( AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ) , OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead') )}"> 
+                       <apex:inputField value="{!rebReq.Start_Date__c}" rendered="{!AND(OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead'), OR(allianceRebateReqObj.Status__c == 'Submitted', allianceRebateReqObj.Status__c == 'Work in Progress', allianceRebateReqObj.Status__c == 'Awaiting Vendors Response', allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected'), rebReq.Status__c != 'Expired', rebReq.Quantity_Approved__c != 0, !AND(OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired'), rebReq.Quantity_Approved__c == null))}" /> 
+                       <apex:outputField value="{!rebReq.Start_Date__c}" rendered="{!OR(AND(OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead'), OR(allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired')), AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ), rebReq.Status__c == 'Expired', rebReq.Quantity_Approved__c == 0, AND(OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired'), rebReq.Quantity_Approved__c == null))}" /> 
+                   </apex:column>
+                   <apex:column headerValue="Expiration Date" rendered="{!OR( AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ) , OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead') )}"> 
+                       <apex:inputField value="{!rebReq.End_Date__c}" rendered="{!AND(OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead'), OR(allianceRebateReqObj.Status__c == 'Submitted', allianceRebateReqObj.Status__c == 'Work in Progress', allianceRebateReqObj.Status__c == 'Awaiting Vendors Response', allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected',allianceRebateReqObj.Status__c == 'Expired'),  rebReq.Quantity_Approved__c != 0, !AND(OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired'), rebReq.Quantity_Approved__c == null))}" /> 
+                       <apex:outputField value="{!rebReq.End_Date__c}" rendered="{!OR(AND(OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead'), OR(allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired')), AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ), rebReq.Quantity_Approved__c == 0, AND(OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired'), rebReq.Quantity_Approved__c == null))}" /> 
+                   </apex:column>
+                   <apex:column headerValue="Quantity Claimed" rendered="{!OR( AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ) , OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead') )}"> 
+                       <apex:inputField value="{!rebReq.Quantity_Claimed__c}" rendered="{!AND(OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead'), OR(allianceRebateReqObj.Status__c == 'Submitted', allianceRebateReqObj.Status__c == 'Work in Progress', allianceRebateReqObj.Status__c == 'Awaiting Vendors Response', allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected'), rebReq.Status__c != 'Expired', rebReq.Quantity_Approved__c != 0, !AND(OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired'), rebReq.Quantity_Approved__c == null) )}" /> 
+                       <apex:outputField value="{!rebReq.Quantity_Claimed__c}" rendered="{!OR(AND(OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead'), OR(allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired')), AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ), rebReq.Status__c == 'Expired', rebReq.Quantity_Approved__c == 0, AND(OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired'), rebReq.Quantity_Approved__c == null) )}" /> 
+                   </apex:column>
+                   <apex:column headerValue="Quantity Remaining" rendered="{!OR( AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ) , OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead') )}" >
+                        <apex:outputField value="{!rebReq.Quantity_Remaining__c}" rendered="{!OR( AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Approved', allianceRebateReqObj.Status__c == 'Rejected', allianceRebateReqObj.Status__c == 'Cancelled', allianceRebateReqObj.Status__c == 'Expired') ) , OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead'), rebReq.Status__c == 'Expired' )}"/>
+                   </apex:column>
+               </apex:pageBlockTable>                
+            </apex:outputPanel>         
+            
+            <apex:pageBlockSection title="Business Justification" >
+                <apex:inputField value="{!allianceRebateReqObj.Business_Case_Information__c}" required="true" style="width:700px"/>
+                </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Approver Section" rendered="{!NOT(AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Draft',allianceRebateReqObj.Status__c == 'Work in Progress',allianceRebateReqObj.Status__c == 'Awaiting Vendors Response',allianceRebateReqObj.Status__c == 'Cancelled')))}">
+                
+                <apex:inputField value="{!allianceRebateReqObj.Discount_percentage__c}" rendered="{!OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead')}"/>
+                <apex:outputField value="{!allianceRebateReqObj.Discount_percentage__c}" rendered="{!AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Expired',allianceRebateReqObj.Status__c == 'Approved',allianceRebateReqObj.Status__c == 'Rejected',allianceRebateReqObj.Status__c == 'Cancelled'))}"/>
+                
+                <apex:inputField value="{!allianceRebateReqObj.Rejection_Reasons__c}" rendered="{!OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead')}"/>
+                <apex:outputField value="{!allianceRebateReqObj.Rejection_Reasons__c}" rendered="{!AND(userProfileName == 'salesReps', allianceRebateReqObj.Status__c == 'Rejected')}"/>
+                
+                <apex:inputField value="{!allianceRebateReqObj.Total_Rebate_Amount__c}" rendered="{!OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead')}"/>
+                <apex:outputField value="{!allianceRebateReqObj.Total_Rebate_Amount__c}" rendered="{!AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Expired',allianceRebateReqObj.Status__c == 'Approved',allianceRebateReqObj.Status__c == 'Rejected',allianceRebateReqObj.Status__c == 'Cancelled'))}"/>
+                
+                <apex:inputField value="{!allianceRebateReqObj.Rejection_Comments__c}" rendered="{!OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead')}"/>
+                <apex:outputField value="{!allianceRebateReqObj.Rejection_Comments__c}" rendered="{!AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Expired',allianceRebateReqObj.Status__c == 'Approved',allianceRebateReqObj.Status__c == 'Rejected',allianceRebateReqObj.Status__c == 'Cancelled'))}"/>
+               
+                <apex:inputField value="{!allianceRebateReqObj.Notes__c}" rendered="{!OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead')}"/>
+                <apex:outputField value="{!allianceRebateReqObj.Notes__c}" rendered="{!AND(userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Expired',allianceRebateReqObj.Status__c == 'Approved',allianceRebateReqObj.Status__c == 'Rejected',allianceRebateReqObj.Status__c == 'Cancelled'))}"/>
+
+            </apex:pageBlockSection>
+            
+            <apex:outputPanel id="approverSectionId">
+                <apex:pageBlockSection >                
+                    <apex:inputField value="{!allianceRebateReqObj.Approval_ID__c}" rendered="{!OR(userProfileName == 'allianceGlobalPrgmLead', userProfileName == 'allianceRegionalPrgmLead')}" />
+                    <apex:outputField value="{!allianceRebateReqObj.Approval_ID__c}" rendered="{!AND( userProfileName == 'salesReps', OR(allianceRebateReqObj.Status__c == 'Expired',allianceRebateReqObj.Status__c == 'Approved',allianceRebateReqObj.Status__c == 'Rejected',allianceRebateReqObj.Status__c == 'Cancelled') )}" />
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!saveRequest}" onclick="this.style.visibility='hidden'" status="actStatusId" rerender="showmsg, showmsgIECPU, popup, popupAll, popupIECPU, showmsgAll,theMessage, cancelMsg, cancelAlert" />  
+                <apex:commandButton value="Cancel" action="{!cancel}" />        
+                <apex:actionStatus id="actStatusId" >
+                    <apex:facet name="start" >
+                      <img src="/img/loading.gif" />                    
+                    </apex:facet>
+                </apex:actionStatus>                        
+            </apex:pageBlockButtons>
+            
+            <apex:outputPanel id="popup">
+                <apex:outputPanel styleClass="popupBg" layout="block" rendered="{!displayPopUp}"/>
+                <apex:outputPanel styleClass="popup" layout="block" rendered="{!displayPopUp}">
+                    <apex:pageMessages id="showmsg"></apex:pageMessages>
+                    <apex:commandButton value="Ok" status="actStatus1Id" onclick="this.style.visibility='hidden'" action="{!closePopup}" rerender="popup"/>
+                    <apex:actionStatus id="actStatus1Id" >
+                    <apex:facet name="start" >
+                      <img src="/img/loading.gif" />                    
+                    </apex:facet>
+                </apex:actionStatus>
+                </apex:outputPanel>
+            </apex:outputPanel>
+            
+            <apex:outputPanel id="popupAll">
+                <apex:outputPanel styleClass="popupBg" layout="block" rendered="{!bdisplayPopupAll}"/>
+                <apex:outputPanel styleClass="popup" layout="block" rendered="{!bdisplayPopupAll}">
+                    <apex:pageMessages id="showmsgAll"></apex:pageMessages>
+                    <apex:commandButton value="Ok" status="actStatus3Id" onclick="this.style.visibility='hidden'" action="{!closePopupIECPU}" rerender="popup"/>
+                    <apex:actionStatus id="actStatus3Id" >
+                    <apex:facet name="start" >
+                      <img src="/img/loading.gif" />                    
+                    </apex:facet>
+                </apex:actionStatus>
+                </apex:outputPanel>
+            </apex:outputPanel>
+
+            <apex:outputPanel id="popupIECPU">
+                <apex:outputPanel styleClass="popupBg" layout="block" rendered="{!displayPopupIECPU}"/>
+                <apex:outputPanel styleClass="popup" layout="block" rendered="{!displayPopupIECPU}">
+                    <apex:pageMessages id="showmsgIECPU"></apex:pageMessages>
+                    <apex:commandButton value="Ok" status="actStatus2Id" onclick="this.style.visibility='hidden'" action="{!closePopupIECPU}" rerender="popupIECPU"/>
+                    <apex:actionStatus id="actStatus2Id" >
+                    <apex:facet name="start" >
+                      <img src="/img/loading.gif" />                    
+                    </apex:facet>
+                </apex:actionStatus>
+                </apex:outputPanel>
+            </apex:outputPanel>
+            
+            <apex:outputPanel id="cancelAlert">
+                <apex:outputPanel styleClass="popupBg" layout="block" rendered="{!displayCancelAlertPopup}"/>
+                <apex:outputPanel styleClass="popup" layout="block" rendered="{!displayCancelAlertPopup}">
+                    <apex:pageMessages id="cancelMsg"></apex:pageMessages>
+                    <apex:commandButton value="Ok" action="{!okCancel}" rerender="cancelAlert, theMessage"/>
+                    <apex:commandButton value="Cancel" action="{!closeCancelAlert}" rerender="cancelAlert, theMessage"/>
+                </apex:outputPanel>
+            </apex:outputPanel>
+            
+            
+        </apex:pageBlock>
+    </apex:form>
+    
+</apex:page>

@@ -1,0 +1,549 @@
+<apex:page tabStyle="Account"  controller="VfCntrl_EndCustomerSelectionPage" standardStylesheets="false">
+
+<style>
+
+    .fsWrapper{
+    
+    width: 960px;
+    
+    margin: 0 auto;
+    
+    }
+    
+    .headerTitle{
+    
+    font-family: arial, sans-serif;
+    
+    font-size: 12px;
+    
+    font-weight: 600;
+    
+    color: #fff!important;
+    
+    text-align: left;
+    
+    text-transform: uppercase;
+    
+    background: #4e75a3;
+    
+    display: block;
+    
+    padding: 8px;
+    
+    margin:0;
+    
+    }
+    
+    .dataTable table{
+    
+    width: 100%;
+    column-width: 100%;
+    
+    font-family: arial, sans-serif;
+    
+    border-collapse: collapse;
+    
+    }
+    
+    .dataTable  th{
+    
+    background: #ffffff;
+    
+    color: #0f0f0f;
+    
+    font-size: 0.8em;
+    text-align: center;
+    font-weight: bold;
+    headerTemplate : '{content} {icon}';
+    
+    padding: 11px 5px 10px 5px;
+    
+    }
+    
+    .dataTable td {
+    
+    color: #0f0f0f;
+    
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    line-height: normal;
+    
+    
+    }
+    
+    .actionBtnWrapper {
+    
+    float: right;
+    
+    margin-top: 5px;
+    
+    margin-left: 5px;
+    
+    }
+    
+    .actionBtnWrapper .btn{
+    
+    padding: 2px 3px;
+    
+    background: #d3d3d3;
+    
+    color: #fff;
+    
+    font-size: 12px;
+    
+    font-weight: 600;
+    
+    font-family: arial, sans-serif;
+    
+    text-align: center;
+    
+    text-decoration: none;
+    
+    border: none;
+    
+    border-radius: 0;
+    
+    transition: 0.5s ease-in-out;
+    
+    cursor: pointer;
+    
+    }
+    
+    .actionBtnWrapper .btn:hover{
+    
+    color: #fff;
+    
+    text-decoration: none;
+    
+    background: #d3d3d3;
+    
+    }
+    .odd { 
+        background-color: #ffffff !important;
+        line-height: 12px !important;
+    }
+    .even {
+        background-color: #ffffff !important;
+        line-height: 12px !important;
+    }
+
+</style>
+<apex:form id="frm">  
+       
+   <apex:outputPanel id="popup" layout="block" >   
+        <apex:outputPanel rendered="{!bdisplayPop}" styleClass="box-wrapper">     
+            <apex:outputPanel styleClass="box" >                                    
+                Warning:End user contact domain is same as partner domain.<br/>
+                Is this opporunity intended for your company internal use?<br/><br/>                        
+                <apex:selectRadio value="{!strSelectedvalue}">
+                    <apex:actionSupport event="onchange" reRender="popup" action="{!close}"/>
+                    <apex:selectOptions value="{!radiobuttonsItems}"></apex:selectOptions>
+                </apex:selectRadio>                                             
+            </apex:outputPanel> 
+        </apex:outputPanel>
+    </apex:outputPanel> 
+     <style>
+            .box {
+            width: 450px;
+            height: 100%;
+            text-align: center;
+            padding: 22px;
+            border: 1px solid white;
+            background-color:#e4e4e4;
+            border-radius: 10px;
+            color: #383535;            
+            position: absolute;
+            /*top: 50%;
+            left: 50%;
+            margin-right: -50%;
+            margin-top: -15%;*/
+            transform: translate(35vw, 35vh);
+            margin: auto;
+            text-align: -webkit-center;
+            font-size: initial;
+            z-index: 22222;
+            }
+            .box-wrapper
+            {
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #c7c7c7a8;
+            z-index: 22222;
+            }
+            .box:target {
+            display: block;
+            }     
+        </style>            
+    
+    <apex:actionFunction name="close" action="{!close}" reRender="popup"/>
+    <script>
+    function closepop(){
+        
+        close();
+    }
+    </script>
+    <style>
+            table.dataTable tr.odd { background-color: white;border-bottom-width:1px }
+            table.dataTable tr.even { background-color: white;border-bottom-width:1px }
+            .bPageBlock .list .last>td { border-bottom-width:2px }
+            .apexp .bPageBlock .detailList .list .last td { border-bottom-width:2px }
+        </style>
+    
+    <apex:outputPanel id="endCustomersData" styleClass="dataTable">
+        <head>
+            <style>
+                div.pbSubheader{
+                font-size:11px;
+                }
+            </style>
+        </head>
+        <style type="text/css">
+                .custPopup{
+                background-color: white;
+                border-width: 2px;
+                border-style: solid;
+                z-index: 9999;
+                left: 50%;
+                padding:10px;
+                position: absolute;
+                width: 500px;
+                height: 50px;
+                margin-left: -250px;
+                top:100px;
+                }
+                .popupBackground{
+                background-color:black;
+                opacity: 0.20;
+                filter: alpha(opacity = 20);
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                z-index: 9998;
+                }
+                .closeButton {
+                float: right;
+                }      
+            </style>
+            </apex:outputPanel>
+            
+        <apex:pageBlock >
+        <apex:pageBlockSection id="search-section">
+        <apex:pageMessages />
+        </apex:pageblockSection>
+        <apex:pageBlockSection id="contact-table" title="Search End Customer" collapsible="false" columns="1">
+        
+            <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Account Name" />
+                    <apex:inputText value="{!name}" />
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Mailing State/Province/Region" />
+                    <apex:inputText value="{!mailingState}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                &nbsp;&nbsp;&nbsp;&nbsp;
+               <apex:commandButton value="Search" action="{!searchContacts}" reRender="search-section, pbsBtns,recMatch, recNotMatch,SerachRcdId,recMatchMrgd"/>
+               <!--<apex:commandButton value="Clear" action="{!init}" reRender="contact-table, recMatch, recNotMatch,SerachRcdId,recMatchMrgd"/>-->
+               </apex:pageBlockSectionItem>
+               </apex:pageBlockSection>
+                </apex:pageBlock>
+                <br/>
+            <h1> <label>{!$Label.EndCustomerHeader}</label> 
+                <apex:commandLink action="{!navigateToDnBPage}" value="{!$Label.EndCustLink}" style="color: #3366cc"/> </h1>
+            <apex:commandButton value="{!$Label.cancel}" action="{!Cancel}"/><br/><br/>
+            <apex:pageBlock id="pbId">
+              <apex:pageBlockSection title="{!$Label.Customer_List}" collapsible="false" columns="1">
+               <apex:outputPanel id="recMatch">
+           
+        
+        <!--<apex:pageBlock rendered="{!if(wrapAccList.size>=0,true,false)}" id="pbId">------------->
+        <!--<c:Advanced_PBTableEnhancerCmp targetPbTableIds="tbId" pageSizeOptions="5,10,15,20,25,30" defaultPageSize="15" />-->
+               <apex:stylesheet value="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'css/jquery.dataTables.css')}"/>
+                <style type="text/css">
+                    .sorting {
+                    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_both.png') }') no-repeat center right !important;
+                    padding-right: 20px !important;
+                    }
+                    .sorting_asc {
+                    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_asc.png') }') no-repeat center right !important;
+                    padding-right: 20px !important;
+                    }
+                    .sorting_desc {
+                    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_desc.png') }') no-repeat center right !important;
+                    padding-right: 20px !important;
+                    }
+                    .sorting_asc_disabled {
+                    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_asc_disabled.png') }') no-repeat center right !important;
+                    padding-right: 20px !important;
+                    }
+                    .sorting_desc_disabled {
+                    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_desc_disabled.png') }') no-repeat center right !important;
+                    padding-right: 20px !important;
+                    }
+                    table.dataTable tr.odd { background-color: white;border-bottom-width:1px }
+                    table.dataTable tr.even { background-color: white;border-bottom-width:1px }
+                    .bPageBlock .list .last>td { border-bottom-width:1px }
+                    .apexp .bPageBlock .detailList .list .last td { border-bottom-width:1px }
+                    table.dataTable tr.odd td.sorting_1 { background-color: white; }
+                    table.dataTable tr.odd td.sorting_2 { background-color: white; }
+                    table.dataTable tr.odd td.sorting_3 { background-color: white; }
+                    table.dataTable tr.even td.sorting_1 { background-color: white; }
+                    table.dataTable tr.even td.sorting_2 { background-color: white; }
+                    table.dataTable tr.even td.sorting_3 { background-color: white; }
+                    .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate {
+                    padding: 3px;
+                    }
+                </style>
+                <!--<apex:outputText value="Page Size : "/> 
+        <apex:selectList multiselect="false" size="1"  value="{!pageSize}"> 
+        
+        <apex:selectOption itemValue="10" itemLabel="10"></apex:selectOption>
+        <apex:selectOption itemValue="25" itemLabel="25"></apex:selectOption>
+        <apex:selectOption itemValue="50" itemLabel="50"></apex:selectOption>
+        <apex:selectOption itemValue="100" itemLabel="100"></apex:selectOption>
+    </apex:selectList>-->
+        <!--<apex:panelGrid columns="2"> 
+                 
+                <apex:selectList value="{!pageSize}" multiselect="false" size="1" onchange="refreshPageSize();">
+                   Page Size &nbsp; <apex:selectOptions value="{!paginationSizeOptions}"/>
+                </apex:selectList>
+                </apex:panelGrid>-->
+            <apex:pageBlockSectionItem >
+            <apex:pageBlockTable value="{!endCustomerList}" var="c" rendered="{!SerchMatch}">
+                <apex:column headerValue="{!$Label.AVS_Field_Select}" dir="center">
+                    <input type = "radio" name ="selectedAccId" value ="{!c.Id}"/>
+                </apex:column>
+                <apex:column headerValue="Account Name" value="{!c.name}"/>
+                <apex:column headerValue="Account Department" value="{!c.Account_Department__c}"/>
+                <apex:column headerValue="Mailing Street" value="{!c.Mailing_street__c}"/>
+                <apex:column headerValue="Mailing City" value="{!c.Mailing_city__c}"/>
+                <apex:column headerValue="Mailing State/Province/Region" value="{!c.Mailing_State__c}"/>
+                <apex:column headerValue="Mailing Zip/Postal Code" value="{!c.Zip_Code__c}"/>
+                <apex:column headerValue="Mailing Country" value="{!c.Mailing_country__c}"/>
+                <apex:column headerValue="Tax ID/Code" value="{!c.Tax_Id__c}"/>
+                <apex:column headerValue="Created By" value="{!c.CreatedBy.Name}"/>
+                </apex:pageBlockTable><br/><br/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!if(wrapAccList.size!=0,true,false)}">
+                
+            <apex:pageBlockTable value="{!wrapAccList}" var="a" rendered="{!Match}">
+            
+            <apex:column headerValue="{!$Label.AVS_Field_Select}">
+                    <input type = "radio" name ="selectedAccId" value ="{!a.ecRecord.Id}"/>
+                </apex:column> 
+                <apex:column headerValue="Account Name" value="{!a.ecRecord.name}"/>
+                <apex:column headerValue="Account Department" value="{!a.ecRecord.Account_Department__c}"/>
+                <apex:column headerValue="Mailing Street" value="{!a.ecRecord.Mailing_street__c}"/>
+                <apex:column headerValue="Mailing City" value="{!a.ecRecord.Mailing_city__c}"/>
+                <apex:column headerValue="Mailing State/Province/Region" value="{!a.ecRecord.Mailing_State__c}"/>
+                <apex:column headerValue="Mailing Zip/Postal Code" value="{!a.ecRecord.Zip_Code__c}"/>
+                <apex:column headerValue="Mailing Country" value="{!a.ecRecord.Mailing_country__c}"/>
+                <apex:column headerValue="Tax ID/Code" value="{!a.ecRecord.Tax_Id__c}"/>
+                <apex:column headerValue="Created By" value="{!a.ecRecord.CreatedBy.Name}"/>
+            </apex:pageBlockTable>
+            
+               <!--<script>
+                    var sze='{!sizee}';
+                    sz=parseInt(sze);
+                    
+                    if(sz>0)
+                    {
+                        document.getElementById('showdata').style.display="block";
+                        document.getElementById('nodata').style.display="none";
+                    }
+                    else
+                    {
+                        document.getElementById('showdata').style.display="none";
+                        document.getElementById('nodata').style.display="block";
+                    }
+              </script>-->
+              
+            </apex:pageBlockSectionItem>
+            </apex:outputPanel>
+       </apex:pageBlockSection>
+           <apex:pageBlockSection >
+            <apex:outputPanel id="popupPanel">
+                <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!displayPopUp}"/>
+                <apex:outputPanel styleClass="custPopup" layout="block" rendered="{!displayPopUp}">
+                    <apex:outputPanel id="ErrorMsgPanel" rendered="{!displayErrorPopup}" >
+                        <!-- <apex:commandButton value="X" action="{!closePopup}" styleClass="closeButton" title="{!$Label.MDM_CloseButton}" reRender="popupPanel,frm" status="delStatus1"/> -->
+                        <apex:commandButton value="X" action="{!closePopup}" styleClass="closeButton" title="{!$Label.MDM_CloseButton}" reRender="popupPanel" status="delStatus1"/> 
+                        <apex:outputLabel value="{!$Label.DealReg_inactive_error_msg}" />
+                        <apex:actionStatus id="delStatus1">
+                            <apex:facet name="start" >
+                                <img src="/img/loading.gif" />
+                            </apex:facet>
+                        </apex:actionStatus>
+                    </apex:outputPanel>
+                    </apex:outputPanel>
+                    </apex:outputPanel>
+                    </apex:pageblockSection>
+                    <apex:pageblockSection id="pbsBtns" >
+                    <center>
+                <apex:panelGrid columns="5" id="pgBtns" cellspacing="2" rendered="{!Showbutton}">
+                <apex:commandButton value="First" reRender="recMatch,pgBtns" action="{!first}" disabled="{!NOT(hasPrevious)}" status="paginationStatus"/>
+                <apex:commandButton value="Previous" rerender="recMatch,pgBtns" action="{!previous}" disabled="{!NOT(hasPrevious)}" status="paginationStatus"/>&nbsp;<B>Showing {!pageNumber} of {!totalPages}&nbsp; Pages</B>
+                <apex:commandButton value="Next" rerender="recMatch,pgBtns" action="{!next}" disabled="{!NOT(hasNext)}" status="paginationStatus"/>
+                <apex:commandButton value="Last" rerender="recMatch,pgBtns" action="{!last}" disabled="{!NOT(hasNext)}" status="paginationStatus"/>
+                </apex:panelGrid>
+                
+                <apex:actionStatus id="paginationStatus">
+                 <apex:facet name="start">
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Processing...<img src="/img/loading32.gif" style="width: 18px;"/>
+                 </apex:facet>
+                 </apex:actionStatus> 
+                 </center>
+                 </apex:pageblockSection>
+                    </apex:pageBlock>
+                    <center>
+                    <apex:commandButton value="{!$Label.Add_Existing_Customer_to_Deal}" action="{!fetchContacts}" rerender="endCustomerContactsData, endCustomerMsgId" status="addCustomerBtnStatusId"/>
+                <!-- button for deacctivating record  -->
+                <apex:commandButton Value="{!$Label.DealReg_deactivate}" action="{!inactivateMethod}" reRender="popupPanel,endCustomerMsgId" status="addCustomerBtnStatusId"/>
+                <apex:actionStatus id="addCustomerBtnStatusId" >
+                    <apex:facet name="start" >
+                        <img src="/img/loading.gif" />
+                    </apex:facet>
+                </apex:actionStatus>
+                
+                 
+                 </center>
+                    <apex:pageBlock >
+                    <apex:outputPanel id="confirmMsgPanel" rendered="{!displayConfirmMsg}">
+                        <apex:outputLabel value="{!$Label.DealReg_inactive_confirm_msg}"/> <b>{!selectedEndCustomerName}</b>?&nbsp;&nbsp;&nbsp;
+                        <apex:commandButton value="Yes" action="{!delEndCust}" reRender="frm" status="delStatus"/>
+                        
+                        <apex:commandButton value="No" action="{!closePopup}" reRender="popupPanel"  status="delStatus"/>
+                        <apex:actionStatus id="delStatus">
+                            <apex:facet name="start" >
+                                <img src="/img/loading.gif" />
+                            </apex:facet>
+                        </apex:actionStatus>
+                    </apex:outputPanel>
+                    </apex:pageBlock>
+                
+           
+            
+        <apex:pageMessages id="endCustomerMsgId"/>
+        
+       
+    <apex:outputPanel id="endCustomerContactsData">  
+        <apex:pageBlock title="{!$Label.Contact_List}" id="endCustContBlckId" rendered="{!OR(showTable,displaynewContactOption)}">
+            <apex:outputPanel id="endCustContListId" rendered="{!showTable}">  
+                <!-- <c:Advanced_PBTableEnhancerCmp targetPbTableIds="tbId1" pageSizeOptions="5,10,15,20,25,30" defaultPageSize="15" /> -->
+                <br/>   <h1> <label>{!$Label.EndCustomerContactHeader} </label>  </h1> 
+                <apex:pageBlockTable value="{!EndConList}" var="b" id="tbId1">
+                    <apex:column headerValue="{!$Label.AVS_Field_Select}">
+                        
+                        <apex:actionSupport action="{!hideNewContForm}" event="onclick" reRender="createNewContOptId, newEndCustContFormId, msgId" >
+                            <input type = "radio" name ="selectedAccId1" value ="{!b.Id}" /> 
+                        </apex:actionSupport> 
+                        
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.CMAP_FirstName}" value="{!b.Name}"/>
+                    <apex:column headerValue="{!$Label.CMAP_LastName}" value="{!b.Last_Name__c}"/>
+                    <apex:column headerValue="{!$Label.T2D_Title_field}" value="{!b.Title__c}"/>
+                    <apex:column headerValue="{!$Label.Contact_CDG_Page_Email}" value="{!b.Email__c}"/>
+                    <apex:column headerValue="{!$Label.status}" value="{!b.Status__c}"/>
+                </apex:pageBlockTable>
+                
+            </apex:outputPanel>  
+            
+            <apex:outputPanel id="createNewContOptId" rendered="{!displaynewContactOption}">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <apex:actionSupport action="{!createNewContForm}" event="onclick" status="createNewContOptionStatusId" reRender="endCustContListId, newEndCustContFormId, msgId" >
+                    <input type = "radio" name ="selectedAccId2" value ="{!createNewContact}" id="createNewContId" /><label for="createNewContId">                        
+                    <strong>{!$Label.Boomi_button_new}</strong></label>
+                </apex:actionSupport>
+                
+                <apex:actionStatus id="createNewContOptionStatusId" >
+                    <apex:facet name="start" >
+                        <img src="/img/loading.gif" />
+                    </apex:facet>
+                </apex:actionStatus>
+            </apex:outputPanel> 
+            <apex:outputPanel id="newEndCustContFormId"  > 
+                <apex:outputPanel rendered="{!displayContactForm}">
+                    <apex:pageBlockSection > 
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.DealReg_End_User_First_Name}" />
+                            <apex:outputPanel >
+                                <div class="requiredInput">
+                                    <div class="requiredBlock"/> 
+                                    <apex:inputField value="{!objEndCustumerContact.Name}" required="false"/>
+                                </div>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        <!--apex:outputText value="{!ErrorMessage}" rendered="{!LEN(ErrorMessage)>0}"/ -->
+                        <apex:pageBlockSectionItem >                       
+                            <apex:outputLabel value="{!$Label.DealReg_End_User_Email}" styleClass="label"/>
+                            <apex:outputPanel >
+                                <div class="requiredInput">
+                                    <div class="requiredBlock"/>
+                                    <apex:inputField value="{!objEndCustumerContact.Email__c}" required="false"/>
+                                </div>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >                       
+                            <apex:outputLabel value="{!$Label.DealReg_End_User_Last_Name}" styleClass="label"/>
+                            <apex:outputPanel >
+                                <div class="requiredInput">
+                                    <div class="requiredBlock"/>  
+                                    <apex:inputField value="{!objEndCustumerContact.Last_Name__c}" required="false"/>
+                                </div> 
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >                       
+                            <apex:outputLabel value="{!$Label.DealReg_End_User_Phone}" styleClass="label"/>
+                            <apex:outputPanel >
+                                <div class="requiredInput">
+                                    <div class="requiredBlock"/>
+                                    <apex:inputField value="{!objEndCustumerContact.Phone__c}"/>
+                                </div>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >                       
+                            <apex:outputLabel value="{!$Label.DealReg_End_User_Mobile}" styleClass="label"/>
+                            <apex:inputField value="{!objEndCustumerContact.Mobile__c}"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >                       
+                            <apex:outputLabel value="{!$Label.DealReg_End_User_Fax}" styleClass="label"/>
+                            <apex:inputField value="{!objEndCustumerContact.Fax__c}"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >                       
+                            <apex:outputLabel value="{!$Label.DealReg_End_User_Title}" styleClass="label"/>
+                            <apex:inputField value="{!objEndCustumerContact.Title__c}"/>
+                        </apex:pageBlockSectionItem>
+                        
+                    </apex:pageBlockSection>
+                </apex:outputPanel>
+            </apex:outputPanel> 
+            <apex:outputPanel id="msgId"> 
+                <apex:pageMessage detail="{!errorMsg}" severity="Error" rendered="{!showErroMsg}" strength="2"></apex:pageMessage>
+                <center><apex:commandButton value="{!$Label.Add_Contact_to_Deal}" action="{!saveEndCustomerDetails}" reRender="popup,msgId,endCustomerMsgId" status="addContDealStatusId"  rendered="{!OR(showTable,displaynewContactOption)}"/>
+                    <apex:actionStatus id="addContDealStatusId" >
+                        <apex:facet name="start" >
+                            <img src="/img/loading.gif" />
+                        </apex:facet>
+                    </apex:actionStatus>
+                </center>
+                
+            </apex:outputPanel>       
+            <apex:outputpanel id="noneSection">   
+            </apex:outputpanel>         
+        </apex:pageBlock>
+        
+    </apex:outputPanel>  
+    
+</apex:form>    
+</apex:page>

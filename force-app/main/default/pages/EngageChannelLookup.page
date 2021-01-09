@@ -1,0 +1,232 @@
+<apex:page standardController="opportunity" extensions="Vfcntrl_EngageChannelLookup" sidebar="true" showHeader="true" >
+    
+    
+ <script>
+    
+    function doChecksales(){
+    
+   
+        
+
+       if(("{!$Profile.Name}".includes('Sales Rep') || "{!$Profile.Name}".includes('Business')) && "{!opportunity.Probability}">1){
+       
+        var r = confirm("Your current opportunity is >1%, do you still want to proceed to Engage Channel?");
+        if (r == true) {
+          
+          
+        } else {
+        window.history.back();
+          
+        }
+        }else{
+          
+        
+        }
+    }
+    
+    window.document.onload = doChecksales()  
+</script>
+
+
+    
+         <apex:stylesheet value="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'css/jquery.dataTables.css')}"/>
+        <style type="text/css">
+.sorting {
+    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_both.png') }') no-repeat center right !important;
+    padding-right: 20px !important;
+}
+.sorting_asc {
+    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_asc.png') }') no-repeat center right !important;
+    padding-right: 20px !important;
+}
+.sorting_desc {
+    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_desc.png') }') no-repeat center right !important;
+    padding-right: 20px !important;
+}
+.sorting_asc_disabled {
+    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_asc_disabled.png') }') no-repeat center right !important;
+    padding-right: 20px !important;
+}
+.sorting_desc_disabled {
+    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_desc_disabled.png') }') no-repeat center right !important;
+    padding-right: 20px !important;
+}
+table.dataTable tr.odd { background-color: white;border-bottom-width:1px }
+table.dataTable tr.even { background-color: white;border-bottom-width:1px }
+.bPageBlock .list .last>td { border-bottom-width:1px }
+.apexp .bPageBlock .detailList .list .last td { border-bottom-width:1px }
+table.dataTable tr.odd td.sorting_1 { background-color: white; }
+table.dataTable tr.odd td.sorting_2 { background-color: white; }
+table.dataTable tr.odd td.sorting_3 { background-color: white; }
+table.dataTable tr.even td.sorting_1 { background-color: white; }
+table.dataTable tr.even td.sorting_2 { background-color: white; }
+table.dataTable tr.even td.sorting_3 { background-color: white; }
+.dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate {
+    padding: 3px;
+}
+
+
+</style>
+        <style>
+    h1{
+    font-size: 100%;
+      }   
+</style>
+        <style type="text/css">   
+        .imgclass:hover{   
+            background-image: url(/img/help/helpOrbs.gif);   
+            background-repeat: no-repeat;   
+            width: 16px;   
+            height: 15px;      
+            background-position: right;  
+            
+          
+        }   
+        .imgclass{   
+            background-image: url(/img/help/helpOrbs.gif);   
+            background-repeat: no-repeat;   
+            width: 16px;   
+            height: 15px;   
+             
+        }   
+    </style>
+    <apex:form id="frm" >
+    <apex:outputPanel rendered="{!showError}" >
+        <apex:pageMessages id="msgg" />       
+ 
+ 
+        <apex:commandButton value="{!$Label.AVS_Button_Back}" action="{!cancelOppAction}" id="backBtn" />
+    </apex:outputPanel>
+    
+    <!-- The below tag is used only to display error message for NON GC users at selection of GC county in the "Account country" picklist -->
+    <!--  Commented By Rajashekar Kura to remove Account Error Msg showAccErrorMsg --------GC 2.0
+    <apex:pageMessages id="msg2" escape="false" rendered="{!NOT(showAccErrorMsg)}" /> -->
+
+    <apex:outputPanel rendered="{! !showError}">
+        <apex:pageBlock title="Search for Partner Account" id="inputBlkId" >
+            <apex:pageBlockSection collapsible="false" columns="1"  >
+                <apex:pageblockSectionItem >
+                    <apex:outputLabel value="{!$Label.Search_By}"/>
+                    <apex:selectList value="{!accName}" size="1"  required="false" >
+                        <apex:selectOption itemLabel="Reseller Email Address" itemValue="Email"  />
+                        <apex:selectOption itemLabel="Reseller Account Name"  itemValue="Name" />
+                        <apex:selectOption itemLabel="Dell Reseller Affinity ID" itemValue="Affinity" />
+                    </apex:selectList>
+                </apex:pageblockSectionItem>
+                <apex:pageblocksectionitem >
+                    <apex:outputLabel value="{!$Label.Keyword}">
+                          <img src="/s.gif" Class="imgclass" title= "{!$Label.SearchByHelpText}"/> 
+                    </apex:outputLabel>
+                    <apex:inputText value="{!searchstring}"/>
+                </apex:pageblocksectionitem>
+                <apex:pageblockSectionitem >
+                    <apex:outputLabel />
+                    <apex:outputlabel >{!$Label.Email_adress_keyword_examples}</apex:outputlabel>
+                </apex:pageblockSectionItem>
+                <apex:pageblockSectionItem >
+                    <apex:outputLabel value="Account Country"/>
+                    <apex:selectList value="{!accountCountry}" size="1" >
+                        <apex:selectOptions value="{!accountCountries}"/>
+                    </apex:selectList>
+                </apex:pageblockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="Bottom" >
+                <apex:commandButton Value="{!$Label.CMAP_Search}" action="{!fetchResults}" reRender="frm" status="actStatusId"  />
+                <apex:commandButton action="{!cancel}"  Value="Back" />
+                <apex:actionStatus id="actStatusId" >
+                    <apex:facet name="start" >
+                        <img src="/img/loading.gif" />
+                    </apex:facet>
+                </apex:actionStatus>
+                <script>
+                            function refreshPage(){
+                            window.opener.parent.location.href = "/{!$CurrentPage.parameters.id}";
+                            window.close();
+                                    } 
+                                        </script>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+   <!--  Commented By Rajashekar Kura to remove Account Error Msg showAccErrorMsg --------GC 2.0
+        <apex:pageMessages id="msg" escape="false" rendered="{!showAccErrorMsg}" />  -->
+        <apex:pageMessages id="msg" escape="false" />
+        <apex:outputPanel id="pb" rendered="{!showTable}">
+            <apex:pageBlock title="{!$Label.search_results}" >
+                <apex:pageblockTable value="{!accList}" var="a" styleClass="dataTable">
+                    <apex:column headervalue="{!$Label.AVS_Field_Select}" >
+                        <input type="radio" name="selectedAccId" value= "{!a.Id}">
+                            <apex:actionSupport event="onclick"  rerender="recordSelected" ></apex:actionSupport>
+                        </input>
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.CMAP_AccountName}">{!a.name}</apex:column>
+                    <apex:column headerValue="{!$Label.AccountName_Local}">{!a.NameLocal}</apex:column>
+                    <apex:column headerValue="{!$Label.Dell_Affinity_ID}">{!a.Account_ID__c}</apex:column>
+                    <apex:column headerValue="{!$Label.Account_Country}">{!a.Account_Country__c}</apex:column>
+                    <apex:column headerValue="{!$Label.Billing_city}">{!a.Billingcity}</apex:column>
+                    <apex:column headerValue="{!$Label.Billing_state_province}">{!a.Billingstate }</apex:column>
+                    <apex:column headerValue="{!$Label.Billing_Country}">{!a.BillingCountry}</apex:column>
+                </apex:pageblockTable>
+                <apex:pageBlockButtons location="Bottom">
+                    <apex:outputPanel id="savebutton">
+                        <apex:commandButton value="Show Partner Contacts" action="{!fetchPartnerContacts}" reRender="frm" status="actStatusId1"/> 
+                        <apex:actionStatus id="actStatusId1" >
+                            <apex:facet name="start" >
+                                <img src="/img/loading.gif" />
+                            </apex:facet>
+                        </apex:actionStatus>
+                    </apex:outputPanel>
+                </apex:pageBlockButtons>
+            </apex:pageBlock>
+        </apex:outputPanel>
+
+        <apex:outputPanel id="contTableId" rendered="{!showPartnerContacts}"> 
+            <apex:pageBlock title="Partner Contacts">
+
+                 <apex:pageblockTable value="{!userContactList}" var="usr" styleClass="dataTable">
+                 <apex:column headervalue="{!$Label.AVS_Field_Select}" >
+                        <input type="radio" name="selectedContUserId" value= "{!usr.userWrapObj.Id}">
+                            <apex:actionSupport event="onclick"  rerender="recordSelected" ></apex:actionSupport>
+                        </input>
+                    </apex:column>
+                    <apex:column headerValue="Name">{!usr.contactName}</apex:column>
+                    <apex:column headerValue="Account Name">{!usr.contactAccName}</apex:column>
+                    <apex:column headerValue="Phone">{!usr.contactPhone}</apex:column>
+                    <apex:column headerValue="Mobile">{!usr.contactMobilePhone}</apex:column>
+                    <apex:column headerValue="Email">{!usr.contactEmail}</apex:column>
+                    <apex:column headerValue="Title">{!usr.contactTitle}</apex:column> 
+                    <apex:column headerValue="Partner Admin">{!usr.userWrapObj.Enable_Partner_Admin__c}</apex:column>
+                </apex:pageblockTable> 
+
+                <apex:pageblockButtons location="Bottom">
+                    <apex:commandButton value="Save" action="{!redirectToDealEditPage}"/>
+                    <apex:commandButton value="Cancel" action="{!cancelFunction}" />
+                </apex:pageblockButtons>
+            </apex:pageBlock>
+
+        </apex:outputPanel>
+    </apex:outputPanel>
+    
+    <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'js/jquery.js')}"></script>
+        <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'js/jquery.dataTables.js')}"></script>
+        <script type="text/javascript" language="javascript">
+      var j$ = jQuery.noConflict();
+      j$('table.dataTable').dataTable({
+          sPaginationType: "full_numbers"
+      }); 
+      </script>
+
+ <!--<script type='text/javascript'>
+    function noenter(ev)  {
+        if (window.event && window.event.keyCode == 13 || ev.which == 13) {
+            doSearchAF();
+            return false;
+         } else {
+              return true;
+         }
+     }
+</script>
+ 
+ <apex:actionFunction name="doSearchAF" action="{!fetchResults}" />  -->
+<!-- <apex:inputtext value='{!settings.searchStr}' id='searchStr'  onkeypress='return noenter(event);' /> -->
+
+    </apex:form>
+</apex:page>

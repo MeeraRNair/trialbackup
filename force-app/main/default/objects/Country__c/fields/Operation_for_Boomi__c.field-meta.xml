@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Operation_for_Boomi__c</fullName>
+    <description>The operation that BOOMI need to perform when sync data over to incentive vendor system, such as add new record, update existing record</description>
+    <externalId>false</externalId>
+    <inlineHelpText>ENABLE_COUNTRY: Message to enable access at a country level - Grassroots/BIEU only
+DISABLE_COUNTRY: Message to disable access at a country level - Grassroots/BIEU only</inlineHelpText>
+    <label>Operation for Boomi</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>ENABLE_COUNTRY</fullName>
+                <default>false</default>
+                <label>ENABLE_COUNTRY</label>
+            </value>
+            <value>
+                <fullName>DISABLE_COUNTRY</fullName>
+                <default>false</default>
+                <label>DISABLE_COUNTRY</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

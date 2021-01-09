@@ -1,0 +1,4094 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>StrategyNewOverride</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Strategy_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>Strategy_CL</compactLayoutAssignment>
+    <compactLayouts>
+        <fullName>Strategy_CL</fullName>
+        <fields>Name</fields>
+        <fields>Strategy_Owner__c</fields>
+        <fields>Account__c</fields>
+        <fields>SFDC_Acct_Plan__c</fields>
+        <fields>When_do_you_plan_to_realize_Strategy__c</fields>
+        <fields>Strategy_Status__c</fields>
+        <fields>LastModifiedById</fields>
+        <label>Strategy CL</label>
+    </compactLayouts>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Specific set of strategies tied to each account that the sales manager needs to executive. Each strategy lists specific revenue goals and products/services to be sold to a particular division or department. Tasks and milestones are also attached to each strategy.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>AP_Date_Created__c</fullName>
+        <externalId>false</externalId>
+        <formula>SFDC_Acct_Plan__r.CreatedDate</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>AP Date Created</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Account_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>SFDC_Acct_Plan__r.Account__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Account Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account_Plan_Planning_Year__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(SFDC_Acct_Plan__r.Plan_Starting_Fiscal_Year__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Account Plan Planning Year</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account_Plan_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>AP Status When Strategy Created</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10.2 Custom Field for Account Planning||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.2 # 35778  ||</description>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipName>R00N70000002MeyzEAC</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Actions_Items_and_Additional_Plans__c</fullName>
+        <externalId>false</externalId>
+        <label>Actions Items and Additional Plans</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Benefit_of_Implemented_Strategy__c</fullName>
+        <externalId>false</externalId>
+        <label>Benefit of Implemented Strategy</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Business_Priority_Other__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If you chose &quot;Other&quot; from the Business Priority drop-down.  Please provide a priority description.</inlineHelpText>
+        <label>Business Priority (Other)</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Business_Priority__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Gartner&apos;s top 10 list.  Choose the one that fits the best.</inlineHelpText>
+        <label>Business Priority</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Business Process Improvement</fullName>
+                    <default>false</default>
+                    <label>Business Process Improvement</label>
+                </value>
+                <value>
+                    <fullName>Reducing Enterprise Costs</fullName>
+                    <default>false</default>
+                    <label>Reducing Enterprise Costs</label>
+                </value>
+                <value>
+                    <fullName>Increasing the use of information/analytics</fullName>
+                    <default>false</default>
+                    <label>Increasing the use of information/analytics</label>
+                </value>
+                <value>
+                    <fullName>Improving enterprise workforce effectiveness</fullName>
+                    <default>false</default>
+                    <label>Improving enterprise workforce effectiveness</label>
+                </value>
+                <value>
+                    <fullName>Attracting and retaining new customers</fullName>
+                    <default>false</default>
+                    <label>Attracting and retaining new customers</label>
+                </value>
+                <value>
+                    <fullName>Managing change initiatives</fullName>
+                    <default>false</default>
+                    <label>Managing change initiatives</label>
+                </value>
+                <value>
+                    <fullName>Creating new products or services (innovation)</fullName>
+                    <default>false</default>
+                    <label>Creating new products or services (innovation)</label>
+                </value>
+                <value>
+                    <fullName>Targeting customers and markets more effectively</fullName>
+                    <default>false</default>
+                    <label>Targeting customers and markets more effectively</label>
+                </value>
+                <value>
+                    <fullName>Consolidating business operations</fullName>
+                    <default>false</default>
+                    <label>Consolidating business operations</label>
+                </value>
+                <value>
+                    <fullName>Expanding current customer relationships</fullName>
+                    <default>false</default>
+                    <label>Expanding current customer relationships</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Clients_Business_Issue__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10.2 Custom Field for Account Planning||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.2 # 35778  ||</description>
+        <externalId>false</externalId>
+        <label>Clients - Business Issue</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Clients_Solution_Goal__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10.2 Custom Field for Account Planning||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.2 # 35778  ||</description>
+        <externalId>false</externalId>
+        <label>Clients - Solution / Goal</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Closed_Opportunity_Value_1st_Half__c</fullName>
+        <externalId>false</externalId>
+        <label>Closed Opportunity Value (1st Half) Num</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Closed_Opportunity_Value_1st__c</fullName>
+        <externalId>false</externalId>
+        <formula>&apos;USD &apos; + TEXT( ROUND(Closed_Opportunity_Value_1st_Half__c ,2) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Closed Opportunity Value (1st Half)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Closed_Opportunity_Value_2nd_Half__c</fullName>
+        <externalId>false</externalId>
+        <label>Closed Opportunity Value (2nd Half) Num</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Closed_Opportunity_Value_2nd__c</fullName>
+        <externalId>false</externalId>
+        <formula>&apos;USD &apos; + TEXT( ROUND( Closed_Opportunity_Value_2nd_Half__c ,2) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Closed Opportunity Value (2nd Half)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Closed_Opportunity_Value_Next_Year__c</fullName>
+        <externalId>false</externalId>
+        <label>Closed Opportunity Value (Next Year)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Closed_Strategy_Details__c</fullName>
+        <externalId>false</externalId>
+        <label>Closed Strategy Details</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Customer_Business_Challenges_Objectives__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Business imperatives, pains, needs</inlineHelpText>
+        <label>Customer Objectives</label>
+        <length>32000</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Dell_s_Strategy_Response__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What is Dell strategy to meet the customer&apos;s objectives.</inlineHelpText>
+        <label>Dell Proposed Solution</label>
+        <length>32000</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Description_Comments__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10.2 Custom Field for Account Planning||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.2 # 35778  ||</description>
+        <externalId>false</externalId>
+        <label>Description/Comments</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Detail_the_Reason_for_Won_Lost__c</fullName>
+        <externalId>false</externalId>
+        <label>Detail the Reason for Won/Lost</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Did_you_realize_your_Strategy__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Realized Strategies are measured through related Closed-Won Opportunities.
+The update of this field is done in the future when you are ready to close out this strategy.</inlineHelpText>
+        <label>Did you realize your Strategy?</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes, I achieved this Strategy in the committed timeframe</fullName>
+                    <default>false</default>
+                    <label>Yes, I achieved this Strategy in the committed timeframe</label>
+                </value>
+                <value>
+                    <fullName>No, I did not achieve this Strategy</fullName>
+                    <default>false</default>
+                    <label>No, I did not achieve this Strategy</label>
+                </value>
+                <value>
+                    <fullName>Still in Progress, I will achieve it in 2nd Half</fullName>
+                    <default>false</default>
+                    <label>Still in Progress, I will achieve it in 2nd Half</label>
+                </value>
+                <value>
+                    <fullName>Still in Progress, Strategy to be recreated in next year&apos;s Account Plan</fullName>
+                    <default>false</default>
+                    <label>Still in Progress, Strategy to be recreated in next year&apos;s Account Plan</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Enterprise_Business_Issue__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10.2 Custom Field for Account Planning||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.2 # 35778  ||</description>
+        <externalId>false</externalId>
+        <label>Customer Objective</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Enterprise_Solution_Goal__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10.2 Custom Field for Account Planning||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.2 # 35778  ||</description>
+        <externalId>false</externalId>
+        <label>Dell&apos;s Strategy</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>IT_Implications__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Predicted impact from an IT perspective</inlineHelpText>
+        <label>IT Implications</label>
+        <length>32000</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Incumbent_Vendor__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If Dell is not the incumbent vendor, who is the incumbent?</inlineHelpText>
+        <label>Incumbent Vendor</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_Dell_the_Incumbent_Vendor__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>From this strategy perspective, are we the incumbent vendor?</inlineHelpText>
+        <label>Is Dell the Incumbent Vendor?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Key_Dependencies__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Are there any dependencies that needs to be fulfilled to achieve the initiative</inlineHelpText>
+        <label>Key Dependencies</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Objective_Initiative__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Add the details re. the initiative or objective to drive specific business cases</inlineHelpText>
+        <label>Objective / Initiative</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Open_Opportunity_Value_1st_Half__c</fullName>
+        <externalId>false</externalId>
+        <label>Open Opportunity Value (1st Half) Num</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Open_Opportunity_Value_1st__c</fullName>
+        <externalId>false</externalId>
+        <formula>&apos;USD &apos; + TEXT( ROUND( Open_Opportunity_Value_1st_Half__c ,2) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Open Opportunity Value (1st Half)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Open_Opportunity_Value_2nd_Half__c</fullName>
+        <externalId>false</externalId>
+        <label>Open Opportunity Value (2nd Half) Num</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Open_Opportunity_Value_2nd__c</fullName>
+        <externalId>false</externalId>
+        <formula>&apos;USD &apos; + TEXT( ROUND( Open_Opportunity_Value_2nd_Half__c ,2) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Open Opportunity Value (2nd Half)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Open_Opportunity_Value_Next_FY__c</fullName>
+        <externalId>false</externalId>
+        <label>Open Opportunity Value (Next FY) Num</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Open_Opportunity_Value_Nxt_FY__c</fullName>
+        <externalId>false</externalId>
+        <formula>&apos;USD &apos; + TEXT( ROUND( Open_Opportunity_Value_Next_FY__c ,2) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Open Opportunity Value (Next FY)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Opportunities__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Positive/external factors</inlineHelpText>
+        <label>Opportunities</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Peripherals_Business_Issue__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10.2 Custom Field for Account Planning||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.2 # 35778  ||</description>
+        <externalId>false</externalId>
+        <label>Peripherals - Business Issue</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Peripherals_Solution_Goal__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10.2 Custom Field for Account Planning||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.2 # 35778  ||</description>
+        <externalId>false</externalId>
+        <label>Peripherals - Solution / Goal</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Potential_Strategy_Value__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Add the Estimated total value</inlineHelpText>
+        <label>Potential Strategy Value</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Power_Sponsor_Decision_Maker__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10.2 Custom Field for Account Planning||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.2 # 35778  ||</description>
+        <externalId>false</externalId>
+        <label>Power Sponsor / Decision Maker</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipName>R00N70000002Mf3vEAC</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Proposed_Strategy_Details__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Add the details on the agreed joint strategy with the partner</inlineHelpText>
+        <label>Proposed Strategy Details</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Quarter__c</fullName>
+        <externalId>false</externalId>
+        <label>Quarter</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Q1</fullName>
+                    <default>false</default>
+                    <label>Q1</label>
+                </value>
+                <value>
+                    <fullName>Q2</fullName>
+                    <default>false</default>
+                    <label>Q2</label>
+                </value>
+                <value>
+                    <fullName>Q3</fullName>
+                    <default>false</default>
+                    <label>Q3</label>
+                </value>
+                <value>
+                    <fullName>Q4</fullName>
+                    <default>false</default>
+                    <label>Q4</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Region__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What region(s) does this strategy impact?</inlineHelpText>
+        <label>Region</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>APJ</fullName>
+                    <default>false</default>
+                    <label>APJ</label>
+                </value>
+                <value>
+                    <fullName>EMEA</fullName>
+                    <default>false</default>
+                    <label>EMEA</label>
+                </value>
+                <value>
+                    <fullName>US/CAN</fullName>
+                    <default>false</default>
+                    <label>US/CAN</label>
+                </value>
+                <value>
+                    <fullName>LATAM</fullName>
+                    <default>false</default>
+                    <label>LATAM</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Risk_Mitigation__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>How would you handle the risks</inlineHelpText>
+        <label>Risk Mitigation</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>SFDC_Acct_Plan__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10.2 Custom Field for Account Planning||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.2 # 35778  ||</description>
+        <externalId>false</externalId>
+        <label>Account Plan</label>
+        <referenceTo>SFDC_Acct_Plan__c</referenceTo>
+        <relationshipLabel>Strategy</relationshipLabel>
+        <relationshipName>Product_Strategy</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>SWOT_Threats__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Positive/internal factors</inlineHelpText>
+        <label>Threats</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Services_Business_Issue__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10.2 Custom Field for Account Planning||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.2 # 35778  ||</description>
+        <externalId>false</externalId>
+        <label>Services - Business Issue</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Services_Solution_Goal__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10.2 Custom Field for Account Planning||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.2 # 35778  ||</description>
+        <externalId>false</externalId>
+        <label>Services - Solution / Goal</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Sponsor_Champion__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10.2 Custom Field for Account Planning||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.2 # 35778  ||</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Contact that support this strategy</inlineHelpText>
+        <label>Strategy Sponsor</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Strategy (Sponsor / Champion)</relationshipLabel>
+        <relationshipName>R00N70000002Mf40EAC</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Strategy_Aim__c</fullName>
+        <externalId>false</externalId>
+        <label>Strategy Aim</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Strategy_No__c</fullName>
+        <displayFormat>STR-{0000000}</displayFormat>
+        <externalId>false</externalId>
+        <label>Strategy No.</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>AutoNumber</type>
+    </fields>
+    <fields>
+        <fullName>Strategy_Owner__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Strategy Owner</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Strategy</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Strategy_Potential_Product_Revenue__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What is the total value of estimated Domain products associated with this strategy</inlineHelpText>
+        <label>Strategy Potential Product Revenue</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Strategy_Potential_Service_Revenue__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What is the total value of estimated Services associated with this strategy</inlineHelpText>
+        <label>Strategy Potential Service Revenue</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Strategy_Stage__c</fullName>
+        <externalId>false</externalId>
+        <label>Strategy Stage</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Customer Objectives</fullName>
+                    <default>false</default>
+                    <label>Customer Objectives</label>
+                </value>
+                <value>
+                    <fullName>IT Implications</fullName>
+                    <default>false</default>
+                    <label>IT Implications</label>
+                </value>
+                <value>
+                    <fullName>Solution Strengths</fullName>
+                    <default>false</default>
+                    <label>Solution Strengths</label>
+                </value>
+                <value>
+                    <fullName>Solution Risks</fullName>
+                    <default>false</default>
+                    <label>Solution Risks</label>
+                </value>
+                <value>
+                    <fullName>Dell Proposed Solution</fullName>
+                    <default>false</default>
+                    <label>Dell Proposed Solution</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Strategy_Status__c</fullName>
+        <description>Strategy Status</description>
+        <externalId>false</externalId>
+        <label>Strategy Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Created</fullName>
+                    <default>true</default>
+                    <label>Created</label>
+                </value>
+                <value>
+                    <fullName>Pending Specialist</fullName>
+                    <default>false</default>
+                    <label>Pending Specialist</label>
+                </value>
+                <value>
+                    <fullName>Submitted for Review</fullName>
+                    <default>false</default>
+                    <label>Submitted for Review</label>
+                </value>
+                <value>
+                    <fullName>Reviewed</fullName>
+                    <default>false</default>
+                    <label>Reviewed</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Strategy_Summary__c</fullName>
+        <externalId>false</externalId>
+        <label>Strategy Summary</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>8</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Strategy_Total_Revenue_Potential__c</fullName>
+        <externalId>false</externalId>
+        <formula>Strategy_Potential_Product_Revenue__c + Strategy_Potential_Service_Revenue__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Autopopulated from the potential product and service revenues</inlineHelpText>
+        <label>Strategy Total Revenue Potential</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Strengths__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Positive/internal factors</inlineHelpText>
+        <label>Solution Strengths</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Submit_for_Review_Comments__c</fullName>
+        <description>Submit for Review Comments</description>
+        <externalId>false</externalId>
+        <label>Submit for Review Comments</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Technology_Priority_Other__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If you chose &quot;Other&quot; from the Technology Priority drop-down.  Please provide a priority description.</inlineHelpText>
+        <label>Technology Priority (Other)</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Technology_Priority__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Gartner&apos;s top 10 list.  Choose the one that fits the best.</inlineHelpText>
+        <label>Technology Priority</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Virtualization</fullName>
+                    <default>false</default>
+                    <label>Virtualization</label>
+                </value>
+                <value>
+                    <fullName>Cloud computing</fullName>
+                    <default>false</default>
+                    <label>Cloud computing</label>
+                </value>
+                <value>
+                    <fullName>Web 2.0</fullName>
+                    <default>false</default>
+                    <label>Web 2.0</label>
+                </value>
+                <value>
+                    <fullName>Networking</fullName>
+                    <default>false</default>
+                    <label>Networking</label>
+                </value>
+                <value>
+                    <fullName>Voice Communications</fullName>
+                    <default>false</default>
+                    <label>Voice Communications</label>
+                </value>
+                <value>
+                    <fullName>Business Intelligence</fullName>
+                    <default>false</default>
+                    <label>Business Intelligence</label>
+                </value>
+                <value>
+                    <fullName>Mobile technologies</fullName>
+                    <default>false</default>
+                    <label>Mobile technologies</label>
+                </value>
+                <value>
+                    <fullName>Documentation Management</fullName>
+                    <default>false</default>
+                    <label>Documentation Management</label>
+                </value>
+                <value>
+                    <fullName>Data Storage</fullName>
+                    <default>false</default>
+                    <label>Data Storage</label>
+                </value>
+                <value>
+                    <fullName>Data Consolidation</fullName>
+                    <default>false</default>
+                    <label>Data Consolidation</label>
+                </value>
+                <value>
+                    <fullName>SOA</fullName>
+                    <default>false</default>
+                    <label>SOA</label>
+                </value>
+                <value>
+                    <fullName>Security</fullName>
+                    <default>false</default>
+                    <label>Security</label>
+                </value>
+                <value>
+                    <fullName>IT Management</fullName>
+                    <default>false</default>
+                    <label>IT Management</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Threats__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Negative/external factors</inlineHelpText>
+        <label>Solution Risks</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Top_Competitor_Strategy_1__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What do you feel the top competitor strategy will be?</inlineHelpText>
+        <label>Top Competitor Strategy 1</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Top_Competitor_Strategy_2__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What do you feel the 2nd top competitor strategy will be?</inlineHelpText>
+        <label>Top Competitor Strategy 2</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Top_Competitor_name_1__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>In your opinion who is our top competitor for this strategy?</inlineHelpText>
+        <label>Top Competitor name 1</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Top_Competitor_name_2__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>In your opinion who is our 2nd top competitor for this strategy?</inlineHelpText>
+        <label>Top Competitor name 2</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Transformation__c</fullName>
+        <externalId>false</externalId>
+        <label>Transformation</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>Application Transformation</fullName>
+                    <default>false</default>
+                    <label>Application Transformation</label>
+                </value>
+                <value>
+                    <fullName>IT Transformation</fullName>
+                    <default>false</default>
+                    <label>IT Transformation</label>
+                </value>
+                <value>
+                    <fullName>Security Information</fullName>
+                    <default>false</default>
+                    <label>Security Information</label>
+                </value>
+                <value>
+                    <fullName>Workforce Transformation</fullName>
+                    <default>false</default>
+                    <label>Workforce Transformation</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Weaknesses__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Negative/internal factors</inlineHelpText>
+        <label>Weaknesses</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>What_BU_s_are_involved__c</fullName>
+        <externalId>false</externalId>
+        <label>What BU´s are involved</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>Boomi</fullName>
+                    <default>false</default>
+                    <label>Boomi</label>
+                </value>
+                <value>
+                    <fullName>Client</fullName>
+                    <default>false</default>
+                    <label>Client</label>
+                </value>
+                <value>
+                    <fullName>Client S&amp;P</fullName>
+                    <default>false</default>
+                    <label>Client S&amp;P</label>
+                </value>
+                <value>
+                    <fullName>Compute (Servers)</fullName>
+                    <default>false</default>
+                    <label>Compute (Servers)</label>
+                </value>
+                <value>
+                    <fullName>CS</fullName>
+                    <default>false</default>
+                    <label>CS</label>
+                </value>
+                <value>
+                    <fullName>Enterprise Infrastructure</fullName>
+                    <default>false</default>
+                    <label>Enterprise Infrastructure</label>
+                </value>
+                <value>
+                    <fullName>ESG</fullName>
+                    <default>false</default>
+                    <label>ESG</label>
+                </value>
+                <value>
+                    <fullName>Networking</fullName>
+                    <default>false</default>
+                    <label>Networking</label>
+                </value>
+                <value>
+                    <fullName>Pivotal</fullName>
+                    <default>false</default>
+                    <label>Pivotal</label>
+                </value>
+                <value>
+                    <fullName>RSA</fullName>
+                    <default>false</default>
+                    <label>RSA</label>
+                </value>
+                <value>
+                    <fullName>SecureWorks</fullName>
+                    <default>false</default>
+                    <label>SecureWorks</label>
+                </value>
+                <value>
+                    <fullName>Services</fullName>
+                    <default>false</default>
+                    <label>Services</label>
+                </value>
+                <value>
+                    <fullName>Storage</fullName>
+                    <default>false</default>
+                    <label>Storage</label>
+                </value>
+                <value>
+                    <fullName>Virtustream</fullName>
+                    <default>false</default>
+                    <label>Virtustream</label>
+                </value>
+                <value>
+                    <fullName>VMware</fullName>
+                    <default>false</default>
+                    <label>VMware</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>What_Dell_Services_will_you_offer__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If you selected Services as an Domain, what services do you plan to offer?</inlineHelpText>
+        <label>What Dell Services will you offer?</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Applications</fullName>
+                    <default>false</default>
+                    <label>Applications</label>
+                </value>
+                <value>
+                    <fullName>BPO</fullName>
+                    <default>false</default>
+                    <label>BPO</label>
+                </value>
+                <value>
+                    <fullName>Infrastructure</fullName>
+                    <default>false</default>
+                    <label>Infrastructure</label>
+                </value>
+                <value>
+                    <fullName>Security</fullName>
+                    <default>false</default>
+                    <label>Security</label>
+                </value>
+                <value>
+                    <fullName>Support &amp; Deployment</fullName>
+                    <default>false</default>
+                    <label>Support &amp; Deployment</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>What_LOB_s_are_involved__c</fullName>
+        <externalId>false</externalId>
+        <label>What LOB´s are involved</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>Client 3rd party software</fullName>
+                    <default>false</default>
+                    <label>Client 3rd party software</label>
+                </value>
+                <value>
+                    <fullName>CLIENT PERIPHERALS</fullName>
+                    <default>false</default>
+                    <label>CLIENT PERIPHERALS</label>
+                </value>
+                <value>
+                    <fullName>Cloud Client</fullName>
+                    <default>false</default>
+                    <label>Cloud Client</label>
+                </value>
+                <value>
+                    <fullName>CSG other services</fullName>
+                    <default>false</default>
+                    <label>CSG other services</label>
+                </value>
+                <value>
+                    <fullName>Data Domain</fullName>
+                    <default>false</default>
+                    <label>Data Domain</label>
+                </value>
+                <value>
+                    <fullName>Data Protection Suite</fullName>
+                    <default>false</default>
+                    <label>Data Protection Suite</label>
+                </value>
+                <value>
+                    <fullName>DDPE</fullName>
+                    <default>false</default>
+                    <label>DDPE</label>
+                </value>
+                <value>
+                    <fullName>Dell Storage  </fullName>
+                    <default>false</default>
+                    <label>Dell Storage  </label>
+                </value>
+                <value>
+                    <fullName>DEPLOYMENT SERVICES</fullName>
+                    <default>false</default>
+                    <label>DEPLOYMENT SERVICES</label>
+                </value>
+                <value>
+                    <fullName>Displays</fullName>
+                    <default>false</default>
+                    <label>Displays</label>
+                </value>
+                <value>
+                    <fullName>Elastic Cloud Storage</fullName>
+                    <default>false</default>
+                    <label>Elastic Cloud Storage</label>
+                </value>
+                <value>
+                    <fullName>Enterprise infrastructure</fullName>
+                    <default>false</default>
+                    <label>Enterprise infrastructure</label>
+                </value>
+                <value>
+                    <fullName>ESG 3RD PARTY SOFTWARE</fullName>
+                    <default>false</default>
+                    <label>ESG 3RD PARTY SOFTWARE</label>
+                </value>
+                <value>
+                    <fullName>ESG OTHER SERVICES</fullName>
+                    <default>false</default>
+                    <label>ESG OTHER SERVICES</label>
+                </value>
+                <value>
+                    <fullName>Fixed Workstations</fullName>
+                    <default>false</default>
+                    <label>Fixed Workstations</label>
+                </value>
+                <value>
+                    <fullName>Imaging</fullName>
+                    <default>false</default>
+                    <label>Imaging</label>
+                </value>
+                <value>
+                    <fullName>Isilon</fullName>
+                    <default>false</default>
+                    <label>Isilon</label>
+                </value>
+                <value>
+                    <fullName>Latitude</fullName>
+                    <default>false</default>
+                    <label>Latitude</label>
+                </value>
+                <value>
+                    <fullName>Mobile Workstations</fullName>
+                    <default>false</default>
+                    <label>Mobile Workstations</label>
+                </value>
+                <value>
+                    <fullName>Networking</fullName>
+                    <default>false</default>
+                    <label>Networking</label>
+                </value>
+                <value>
+                    <fullName>OptiPlex</fullName>
+                    <default>false</default>
+                    <label>OptiPlex</label>
+                </value>
+                <value>
+                    <fullName>PowerEdge</fullName>
+                    <default>false</default>
+                    <label>PowerEdge</label>
+                </value>
+                <value>
+                    <fullName>Security management</fullName>
+                    <default>false</default>
+                    <label>Security management</label>
+                </value>
+                <value>
+                    <fullName>Software - Server</fullName>
+                    <default>false</default>
+                    <label>Software - Server</label>
+                </value>
+                <value>
+                    <fullName>SOFTWARE - STORAGE</fullName>
+                    <default>false</default>
+                    <label>SOFTWARE - STORAGE</label>
+                </value>
+                <value>
+                    <fullName>SUPPORT SERVICES</fullName>
+                    <default>false</default>
+                    <label>SUPPORT SERVICES</label>
+                </value>
+                <value>
+                    <fullName>Unity AFA</fullName>
+                    <default>false</default>
+                    <label>Unity AFA</label>
+                </value>
+                <value>
+                    <fullName>Unity Hybrid</fullName>
+                    <default>false</default>
+                    <label>Unity Hybrid</label>
+                </value>
+                <value>
+                    <fullName>Virtustream Storage Cloud</fullName>
+                    <default>false</default>
+                    <label>Virtustream Storage Cloud</label>
+                </value>
+                <value>
+                    <fullName>VMAX AFA</fullName>
+                    <default>false</default>
+                    <label>VMAX AFA</label>
+                </value>
+                <value>
+                    <fullName>VxRail / VxRack</fullName>
+                    <default>false</default>
+                    <label>VxRail / VxRack</label>
+                </value>
+                <value>
+                    <fullName>XtremIO</fullName>
+                    <default>false</default>
+                    <label>XtremIO</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>What_LOB_s_are_involved_directstrategy__c</fullName>
+        <externalId>false</externalId>
+        <label>What LOB´s are involved</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Client 3rd party software</fullName>
+                    <default>false</default>
+                    <label>Client 3rd party software</label>
+                </value>
+                <value>
+                    <fullName>Client Peripherals</fullName>
+                    <default>false</default>
+                    <label>Client Peripherals</label>
+                </value>
+                <value>
+                    <fullName>Cloud Client</fullName>
+                    <default>false</default>
+                    <label>Cloud Client</label>
+                </value>
+                <value>
+                    <fullName>CSG other services</fullName>
+                    <default>false</default>
+                    <label>CSG other services</label>
+                </value>
+                <value>
+                    <fullName>Data Domain</fullName>
+                    <default>false</default>
+                    <label>Data Domain</label>
+                </value>
+                <value>
+                    <fullName>Data Protection Suite</fullName>
+                    <default>false</default>
+                    <label>Data Protection Suite</label>
+                </value>
+                <value>
+                    <fullName>DDPE</fullName>
+                    <default>false</default>
+                    <label>DDPE</label>
+                </value>
+                <value>
+                    <fullName>Dell storage</fullName>
+                    <default>false</default>
+                    <label>Dell storage</label>
+                </value>
+                <value>
+                    <fullName>Deployment services</fullName>
+                    <default>false</default>
+                    <label>Deployment services</label>
+                </value>
+                <value>
+                    <fullName>Displays</fullName>
+                    <default>false</default>
+                    <label>Displays</label>
+                </value>
+                <value>
+                    <fullName>Elastic Cloud Storage</fullName>
+                    <default>false</default>
+                    <label>Elastic Cloud Storage</label>
+                </value>
+                <value>
+                    <fullName>Enterprise infrastructure</fullName>
+                    <default>false</default>
+                    <label>Enterprise infrastructure</label>
+                </value>
+                <value>
+                    <fullName>ESG 3rd party software</fullName>
+                    <default>false</default>
+                    <label>ESG 3rd party software</label>
+                </value>
+                <value>
+                    <fullName>ESG other services</fullName>
+                    <default>false</default>
+                    <label>ESG other services</label>
+                </value>
+                <value>
+                    <fullName>Fixed workstations</fullName>
+                    <default>false</default>
+                    <label>Fixed workstations</label>
+                </value>
+                <value>
+                    <fullName>Imaging</fullName>
+                    <default>false</default>
+                    <label>Imaging</label>
+                </value>
+                <value>
+                    <fullName>Isilon</fullName>
+                    <default>false</default>
+                    <label>Isilon</label>
+                </value>
+                <value>
+                    <fullName>Latitude</fullName>
+                    <default>false</default>
+                    <label>Latitude</label>
+                </value>
+                <value>
+                    <fullName>Mobile workstations</fullName>
+                    <default>false</default>
+                    <label>Mobile workstations</label>
+                </value>
+                <value>
+                    <fullName>Networking</fullName>
+                    <default>false</default>
+                    <label>Networking</label>
+                </value>
+                <value>
+                    <fullName>OptiPlex</fullName>
+                    <default>false</default>
+                    <label>OptiPlex</label>
+                </value>
+                <value>
+                    <fullName>PowerEdge</fullName>
+                    <default>false</default>
+                    <label>PowerEdge</label>
+                </value>
+                <value>
+                    <fullName>Security management</fullName>
+                    <default>false</default>
+                    <label>Security management</label>
+                </value>
+                <value>
+                    <fullName>Software - Server</fullName>
+                    <default>false</default>
+                    <label>Software - Server</label>
+                </value>
+                <value>
+                    <fullName>Software - storage</fullName>
+                    <default>false</default>
+                    <label>Software - storage</label>
+                </value>
+                <value>
+                    <fullName>Support services</fullName>
+                    <default>false</default>
+                    <label>Support services</label>
+                </value>
+                <value>
+                    <fullName>Unity AFA</fullName>
+                    <default>false</default>
+                    <label>Unity AFA</label>
+                </value>
+                <value>
+                    <fullName>Unity Hybrid</fullName>
+                    <default>false</default>
+                    <label>Unity Hybrid</label>
+                </value>
+                <value>
+                    <fullName>Virtustream Storage Cloud</fullName>
+                    <default>false</default>
+                    <label>Virtustream Storage Cloud</label>
+                </value>
+                <value>
+                    <fullName>VMAX AFA</fullName>
+                    <default>false</default>
+                    <label>VMAX AFA</label>
+                </value>
+                <value>
+                    <fullName>VxRail / VxRack</fullName>
+                    <default>false</default>
+                    <label>VxRail / VxRack</label>
+                </value>
+                <value>
+                    <fullName>XtremIO</fullName>
+                    <default>false</default>
+                    <label>XtremIO</label>
+                </value>
+                <value>
+                    <fullName>Close</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Close</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>When_do_you_plan_to_realize_Strategy__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the appropriate Fiscal year</inlineHelpText>
+        <label>When do you plan to realize Strategy?</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>FY17</fullName>
+                    <default>false</default>
+                    <label>FY17</label>
+                </value>
+                <value>
+                    <fullName>FY18</fullName>
+                    <default>false</default>
+                    <label>FY18</label>
+                </value>
+                <value>
+                    <fullName>FY19</fullName>
+                    <default>false</default>
+                    <label>FY19</label>
+                </value>
+                <value>
+                    <fullName>FY20 Q1</fullName>
+                    <default>false</default>
+                    <label>FY20 Q1</label>
+                </value>
+                <value>
+                    <fullName>FY20 Q2</fullName>
+                    <default>false</default>
+                    <label>FY20 Q2</label>
+                </value>
+                <value>
+                    <fullName>FY20 Q3</fullName>
+                    <default>false</default>
+                    <label>FY20 Q3</label>
+                </value>
+                <value>
+                    <fullName>FY20 Q4</fullName>
+                    <default>false</default>
+                    <label>FY20 Q4</label>
+                </value>
+                <value>
+                    <fullName>FY21 Q1</fullName>
+                    <default>false</default>
+                    <label>FY21 Q1</label>
+                </value>
+                <value>
+                    <fullName>FY21 Q2</fullName>
+                    <default>false</default>
+                    <label>FY21 Q2</label>
+                </value>
+                <value>
+                    <fullName>FY21 Q3</fullName>
+                    <default>false</default>
+                    <label>FY21 Q3</label>
+                </value>
+                <value>
+                    <fullName>FY21 Q4</fullName>
+                    <default>false</default>
+                    <label>FY21 Q4</label>
+                </value>
+                <value>
+                    <fullName>FY22 Q1</fullName>
+                    <default>false</default>
+                    <label>FY22 Q1</label>
+                </value>
+                <value>
+                    <fullName>FY22 Q2</fullName>
+                    <default>false</default>
+                    <label>FY22 Q2</label>
+                </value>
+                <value>
+                    <fullName>FY22 Q3</fullName>
+                    <default>false</default>
+                    <label>FY22 Q3</label>
+                </value>
+                <value>
+                    <fullName>FY22 Q4</fullName>
+                    <default>false</default>
+                    <label>FY22 Q4</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Which_LOB_will_you_offer__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What Domain(s) or product families do you plan to offer</inlineHelpText>
+        <label>Product/Solutions Offered</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>Boomi</fullName>
+                    <default>false</default>
+                    <label>Boomi</label>
+                </value>
+                <value>
+                    <fullName>Client</fullName>
+                    <default>false</default>
+                    <label>Client</label>
+                </value>
+                <value>
+                    <fullName>Client S&amp;P</fullName>
+                    <default>false</default>
+                    <label>Client S&amp;P</label>
+                </value>
+                <value>
+                    <fullName>Compute (Servers)</fullName>
+                    <default>false</default>
+                    <label>Compute (Servers)</label>
+                </value>
+                <value>
+                    <fullName>DPS</fullName>
+                    <default>false</default>
+                    <label>DPS</label>
+                </value>
+                <value>
+                    <fullName>Enterprise Infrastructure</fullName>
+                    <default>false</default>
+                    <label>Enterprise Infrastructure</label>
+                </value>
+                <value>
+                    <fullName>Networking</fullName>
+                    <default>false</default>
+                    <label>Networking</label>
+                </value>
+                <value>
+                    <fullName>Pivotal</fullName>
+                    <default>false</default>
+                    <label>Pivotal</label>
+                </value>
+                <value>
+                    <fullName>RSA</fullName>
+                    <default>false</default>
+                    <label>RSA</label>
+                </value>
+                <value>
+                    <fullName>SecureWorks</fullName>
+                    <default>false</default>
+                    <label>SecureWorks</label>
+                </value>
+                <value>
+                    <fullName>Services</fullName>
+                    <default>false</default>
+                    <label>Services</label>
+                </value>
+                <value>
+                    <fullName>Storage</fullName>
+                    <default>false</default>
+                    <label>Storage</label>
+                </value>
+                <value>
+                    <fullName>UDS</fullName>
+                    <default>false</default>
+                    <label>UDS</label>
+                </value>
+                <value>
+                    <fullName>Unified Workspace</fullName>
+                    <default>false</default>
+                    <label>Unified Workspace</label>
+                </value>
+                <value>
+                    <fullName>Virtustream</fullName>
+                    <default>false</default>
+                    <label>Virtustream</label>
+                </value>
+                <value>
+                    <fullName>VMware</fullName>
+                    <default>false</default>
+                    <label>VMware</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>X12_Month_Desktops_Revenue_Plan__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10.2 Custom Field for Account Planning||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.2 # 35778  ||</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter values in standard currency</inlineHelpText>
+        <label>12 Month Desktops Revenue Plan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>X12_Month_GICS_Revenue_Plan__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10.2 Custom Field for Account Planning||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.2 # 35778  ||</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter values in standard currency</inlineHelpText>
+        <label>12 Month GICS Revenue Plan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>X12_Month_MDS_Revenue_Plan__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10.2 Custom Field for Account Planning||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.2 # 35778  ||</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter values in standard currency</inlineHelpText>
+        <label>12 Month MDS Revenue Plan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>X12_Month_Notebooks_Revenue_Plan__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10.2 Custom Field for Account Planning||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.2 # 35778  ||</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter values in standard currency</inlineHelpText>
+        <label>12 Month Notebooks Revenue Plan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>X12_Month_Peripherals_Revenue_Plan__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10.2 Custom Field for Account Planning||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.2 # 35778  ||</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter values in standard currency</inlineHelpText>
+        <label>12 Month Peripherals Revenue Plan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>X12_Month_ProConsult_Revenue_Plan__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter values in standard currency</inlineHelpText>
+        <label>12 Month ProConsult Revenue Plan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>X12_Month_ProManage_Revenue_Plan__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter values in standard currency</inlineHelpText>
+        <label>12 Month ProManage Revenue Plan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>X12_Month_ProSupport_Revenue_Plan__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter values in standard currency</inlineHelpText>
+        <label>12 Month ProSupport Revenue Plan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>X12_Month_Server_Revenue_Plan__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10.2 Custom Field for Account Planning||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.2 # 35778  ||</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter values in standard currency</inlineHelpText>
+        <label>12 Month Server Revenue Plan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>X12_Month_Software_Revenue_Plan__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter values in standard currency</inlineHelpText>
+        <label>12 Month Software Revenue Plan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>X12_Month_Storage_Revenue_Plan__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10.2 Custom Field for Account Planning||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.2 # 35778  ||</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter values in standard currency</inlineHelpText>
+        <label>12 Month Storage Revenue Plan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>X12_Month_Workstation_Revenue_Plan__c</fullName>
+        <description>INTEG-N / NON INTEG - Y / APEX/CC - N||
+WF / APP/ FU / OM - N ||
+Desc - R.10.2 Custom Field for Account Planning||
+SFA -Y/PRM-N||
+VAL -  N||
+CR# -R10.2 # 35778  ||</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter values in standard currency</inlineHelpText>
+        <label>12 Month Workstation Revenue Plan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <label>Strategy</label>
+    <nameField>
+        <label>Strategy Name</label>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Strategy</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Closed</fullName>
+        <active>true</active>
+        <description>This record type is used to lock the strategy page layout from being edited.</description>
+        <label>Closed</label>
+        <picklistValues>
+            <picklist>Business_Priority__c</picklist>
+            <values>
+                <fullName>Attracting and retaining new customers</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Business Process Improvement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Consolidating business operations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Creating new products or services %28innovation%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Expanding current customer relationships</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Improving enterprise workforce effectiveness</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Increasing the use of information%2Fanalytics</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Managing change initiatives</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reducing Enterprise Costs</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Targeting customers and markets more effectively</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Did_you_realize_your_Strategy__c</picklist>
+            <values>
+                <fullName>No%2C I did not achieve this Strategy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Still in Progress%2C I will achieve it in 2nd Half</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Still in Progress%2C Strategy to be recreated in next year%27s Account Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes%2C I achieved this Strategy in the committed timeframe</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Is_Dell_the_Incumbent_Vendor__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Quarter__c</picklist>
+            <values>
+                <fullName>Q1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Q2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Q3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Q4</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Region__c</picklist>
+            <values>
+                <fullName>APJ</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EMEA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LATAM</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>US%2FCAN</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Strategy_Stage__c</picklist>
+            <values>
+                <fullName>Customer Objectives</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dell Proposed Solution</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>IT Implications</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Solution Risks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Solution Strengths</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Strategy_Status__c</picklist>
+            <values>
+                <fullName>Created</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Pending Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reviewed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Submitted for Review</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Technology_Priority__c</picklist>
+            <values>
+                <fullName>Business Intelligence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cloud computing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Data Consolidation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Data Storage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Documentation Management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>IT Management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mobile technologies</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Networking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SOA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Security</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Virtualization</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Voice Communications</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web 2%2E0</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Transformation__c</picklist>
+            <values>
+                <fullName>Application Transformation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>IT Transformation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Security Information</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Workforce Transformation</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>What_BU_s_are_involved__c</picklist>
+            <values>
+                <fullName>CS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ESG</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Services</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>What_Dell_Services_will_you_offer__c</picklist>
+            <values>
+                <fullName>Applications</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BPO</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Infrastructure</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Security</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Support %26 Deployment</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>What_LOB_s_are_involved__c</picklist>
+            <values>
+                <fullName>CLIENT PERIPHERALS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cloud Client</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DEPLOYMENT SERVICES</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dell Storage%C2%A0%C2%A0</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Displays</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ESG 3RD PARTY SOFTWARE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ESG OTHER SERVICES</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fixed Workstations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Imaging</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Latitude</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mobile Workstations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Networking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PowerEdge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SOFTWARE - STORAGE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SUPPORT SERVICES</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>What_LOB_s_are_involved_directstrategy__c</picklist>
+            <values>
+                <fullName>CSG other services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Client 3rd party software</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Client Peripherals</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cloud Client</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DDPE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Data Domain</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Data Protection Suite</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dell storage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Deployment services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Displays</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ESG 3rd party software</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ESG other services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Elastic Cloud Storage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Enterprise infrastructure</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fixed workstations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Imaging</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Isilon</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Latitude</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mobile workstations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Networking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>OptiPlex</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PowerEdge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Security management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Software - Server</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Software - storage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Support services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unity AFA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unity Hybrid</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VMAX AFA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Virtustream Storage Cloud</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VxRail %2F VxRack</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>XtremIO</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>When_do_you_plan_to_realize_Strategy__c</picklist>
+            <values>
+                <fullName>FY17</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY18</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY19</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY20 Q1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY20 Q2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY20 Q3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY20 Q4</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY21 Q1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY21 Q2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY21 Q3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY21 Q4</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY22 Q1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY22 Q2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY22 Q3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY22 Q4</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Which_LOB_will_you_offer__c</picklist>
+            <values>
+                <fullName>Services</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Open</fullName>
+        <active>true</active>
+        <description>This record type is used when a Direct Account Plan strategy is being created.</description>
+        <label>Open</label>
+        <picklistValues>
+            <picklist>Business_Priority__c</picklist>
+            <values>
+                <fullName>Attracting and retaining new customers</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Business Process Improvement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Consolidating business operations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Creating new products or services %28innovation%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Expanding current customer relationships</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Improving enterprise workforce effectiveness</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Increasing the use of information%2Fanalytics</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Managing change initiatives</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reducing Enterprise Costs</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Targeting customers and markets more effectively</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Did_you_realize_your_Strategy__c</picklist>
+            <values>
+                <fullName>No%2C I did not achieve this Strategy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Still in Progress%2C I will achieve it in 2nd Half</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Still in Progress%2C Strategy to be recreated in next year%27s Account Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes%2C I achieved this Strategy in the committed timeframe</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Is_Dell_the_Incumbent_Vendor__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Quarter__c</picklist>
+            <values>
+                <fullName>Q1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Q2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Q3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Q4</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Region__c</picklist>
+            <values>
+                <fullName>APJ</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EMEA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LATAM</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>US%2FCAN</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Strategy_Stage__c</picklist>
+            <values>
+                <fullName>Customer Objectives</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dell Proposed Solution</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>IT Implications</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Solution Risks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Solution Strengths</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Strategy_Status__c</picklist>
+            <values>
+                <fullName>Created</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reviewed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Submitted for Review</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Technology_Priority__c</picklist>
+            <values>
+                <fullName>Business Intelligence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cloud computing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Data Consolidation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Data Storage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Documentation Management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>IT Management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mobile technologies</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Networking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SOA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Security</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Virtualization</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Voice Communications</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web 2%2E0</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Transformation__c</picklist>
+            <values>
+                <fullName>Application Transformation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>IT Transformation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Security Information</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Workforce Transformation</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>What_BU_s_are_involved__c</picklist>
+            <values>
+                <fullName>CS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ESG</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Services</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>What_Dell_Services_will_you_offer__c</picklist>
+            <values>
+                <fullName>Applications</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BPO</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Infrastructure</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Security</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Support %26 Deployment</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>What_LOB_s_are_involved__c</picklist>
+            <values>
+                <fullName>CLIENT PERIPHERALS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cloud Client</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DEPLOYMENT SERVICES</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dell Storage%C2%A0%C2%A0</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Displays</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ESG 3RD PARTY SOFTWARE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ESG OTHER SERVICES</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fixed Workstations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Imaging</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Latitude</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mobile Workstations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Networking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PowerEdge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SOFTWARE - STORAGE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SUPPORT SERVICES</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>What_LOB_s_are_involved_directstrategy__c</picklist>
+            <values>
+                <fullName>CSG other services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Client 3rd party software</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Client Peripherals</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cloud Client</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DDPE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Data Domain</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Data Protection Suite</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dell storage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Deployment services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Displays</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ESG 3rd party software</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ESG other services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Elastic Cloud Storage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Enterprise infrastructure</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fixed workstations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Imaging</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Isilon</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Latitude</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mobile workstations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Networking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>OptiPlex</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PowerEdge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Security management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Software - Server</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Software - storage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Support services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unity AFA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unity Hybrid</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VMAX AFA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Virtustream Storage Cloud</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VxRail %2F VxRack</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>XtremIO</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>When_do_you_plan_to_realize_Strategy__c</picklist>
+            <values>
+                <fullName>FY17</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY18</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY19</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY20 Q1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY20 Q2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY20 Q3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY20 Q4</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY21 Q1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY21 Q2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY21 Q3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY21 Q4</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY22 Q1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY22 Q2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY22 Q3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY22 Q4</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Which_LOB_will_you_offer__c</picklist>
+            <values>
+                <fullName>Boomi</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Client</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Client S%26P</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Compute %28Servers%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DPS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Enterprise Infrastructure</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Networking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pivotal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RSA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SecureWorks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Storage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>UDS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unified Workspace</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VMware</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Virtustream</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Partner_Strategy</fullName>
+        <active>true</active>
+        <description>This record type is used when a Partner Business Plan strategy is being created.</description>
+        <label>Partner Strategy</label>
+        <picklistValues>
+            <picklist>Business_Priority__c</picklist>
+            <values>
+                <fullName>Attracting and retaining new customers</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Business Process Improvement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Consolidating business operations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Creating new products or services %28innovation%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Expanding current customer relationships</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Improving enterprise workforce effectiveness</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Increasing the use of information%2Fanalytics</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Managing change initiatives</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reducing Enterprise Costs</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Targeting customers and markets more effectively</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Did_you_realize_your_Strategy__c</picklist>
+            <values>
+                <fullName>No%2C I did not achieve this Strategy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Still in Progress%2C I will achieve it in 2nd Half</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Still in Progress%2C Strategy to be recreated in next year%27s Account Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes%2C I achieved this Strategy in the committed timeframe</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Is_Dell_the_Incumbent_Vendor__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Quarter__c</picklist>
+            <values>
+                <fullName>Q1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Q2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Q3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Q4</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Region__c</picklist>
+            <values>
+                <fullName>APJ</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EMEA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LATAM</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>US%2FCAN</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Strategy_Stage__c</picklist>
+            <values>
+                <fullName>Customer Objectives</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dell Proposed Solution</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>IT Implications</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Solution Risks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Solution Strengths</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Strategy_Status__c</picklist>
+            <values>
+                <fullName>Created</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Pending Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reviewed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Submitted for Review</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Technology_Priority__c</picklist>
+            <values>
+                <fullName>Business Intelligence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cloud computing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Data Consolidation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Data Storage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Documentation Management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>IT Management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mobile technologies</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Networking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SOA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Security</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Virtualization</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Voice Communications</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web 2%2E0</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Transformation__c</picklist>
+            <values>
+                <fullName>Application Transformation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>IT Transformation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Security Information</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Workforce Transformation</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>What_BU_s_are_involved__c</picklist>
+            <values>
+                <fullName>Boomi</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Client</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Client S%26P</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Compute %28Servers%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Enterprise Infrastructure</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Networking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pivotal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RSA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SecureWorks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Storage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VMware</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Virtustream</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>What_Dell_Services_will_you_offer__c</picklist>
+            <values>
+                <fullName>Applications</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BPO</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Infrastructure</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Security</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Support %26 Deployment</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>What_LOB_s_are_involved__c</picklist>
+            <values>
+                <fullName>CLIENT PERIPHERALS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CSG other services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Client 3rd party software</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cloud Client</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DDPE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DEPLOYMENT SERVICES</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Data Domain</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Data Protection Suite</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dell Storage%C2%A0%C2%A0</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Displays</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ESG 3RD PARTY SOFTWARE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ESG OTHER SERVICES</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Elastic Cloud Storage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Enterprise infrastructure</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fixed Workstations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Imaging</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Isilon</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Latitude</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mobile Workstations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Networking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>OptiPlex</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PowerEdge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SOFTWARE - STORAGE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SUPPORT SERVICES</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Security management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Software - Server</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unity AFA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unity Hybrid</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VMAX AFA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Virtustream Storage Cloud</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VxRail %2F VxRack</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>XtremIO</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>What_LOB_s_are_involved_directstrategy__c</picklist>
+            <values>
+                <fullName>CSG other services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Client 3rd party software</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Client Peripherals</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cloud Client</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DDPE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Data Domain</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Data Protection Suite</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dell storage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Deployment services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Displays</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ESG 3rd party software</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ESG other services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Elastic Cloud Storage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Enterprise infrastructure</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fixed workstations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Imaging</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Isilon</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Latitude</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mobile workstations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Networking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>OptiPlex</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PowerEdge</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Security management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Software - Server</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Software - storage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Support services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unity AFA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unity Hybrid</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VMAX AFA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Virtustream Storage Cloud</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VxRail %2F VxRack</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>XtremIO</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>When_do_you_plan_to_realize_Strategy__c</picklist>
+            <values>
+                <fullName>FY17</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY18</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY19</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY20 Q1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY20 Q2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY20 Q3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY20 Q4</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY21 Q1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY21 Q2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY21 Q3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY21 Q4</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY22 Q1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY22 Q2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY22 Q3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FY22 Q4</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Which_LOB_will_you_offer__c</picklist>
+            <values>
+                <fullName>Services</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>SFDC_Acct_Plan__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Account_Plan_Planning_Year__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Account_Name__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>SFDC_Acct_Plan__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Account_Plan_Planning_Year__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Account_Name__c</lookupDialogsAdditionalFields>
+        <searchResultsAdditionalFields>SFDC_Acct_Plan__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Account_Plan_Planning_Year__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Account_Name__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>CR_6738_Which_Domain_will_you_offer</fullName>
+        <active>false</active>
+        <errorConditionFormula>IF(AND( ISBLANK(Strategy_Potential_Product_Revenue__c), 
+OR( 
+INCLUDES(Which_LOB_will_you_offer__c, &quot;Networking&quot;) 
+, 
+INCLUDES(Which_LOB_will_you_offer__c, &quot;Other&quot;) 
+, 
+INCLUDES(Which_LOB_will_you_offer__c, &quot;IDM (Intelligent Data Mgmt)&quot;) 
+, 
+INCLUDES(Which_LOB_will_you_offer__c, &quot;NGDC (Next Gen Data Center)&quot;) 
+, 
+INCLUDES(Which_LOB_will_you_offer__c, &quot;NGEU (Next Gen End User)&quot;) 
+)),TRUE, FALSE)</errorConditionFormula>
+        <errorDisplayField>Strategy_Potential_Product_Revenue__c</errorDisplayField>
+        <errorMessage>If the Domain is IDM, NGDC, NGEU, Networking or Other, Strategy Potential Product Revenue is mandatory.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Closed_Strategy_Details_Required</fullName>
+        <active>false</active>
+        <errorConditionFormula>AND
+(
+OR
+(
+ ISPICKVAL(Did_you_realize_your_Strategy__c, &apos;Yes, I achieved this Strategy in the committed timeframe&apos;) ,
+ ISPICKVAL(Did_you_realize_your_Strategy__c, &apos;No, I did not achieve this Strategy&apos;) 
+),
+ Closed_Strategy_Details__c   = NULL
+)</errorConditionFormula>
+        <errorDisplayField>Closed_Strategy_Details__c</errorDisplayField>
+        <errorMessage>Please fill in details on how this strategy is closed.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Strategy_Potential_Prod_Rev_Required</fullName>
+        <active>false</active>
+        <description>Ensure “Strategy Potential Product Revenue” field is populated when “What Domain are you offering?” field are having any of these values–Networking, NGEU (Next Gen End User), NGDC (Next Gen Data Center), IDM (Intelligent Data Mgmt) or Other.</description>
+        <errorConditionFormula>IF( AND(OR(INCLUDES( Which_LOB_will_you_offer__c , &quot;Client&quot;), INCLUDES( Which_LOB_will_you_offer__c , &quot;Printers&quot;), INCLUDES( Which_LOB_will_you_offer__c , &quot;Software &amp; Peripherals&quot;), INCLUDES( Which_LOB_will_you_offer__c , &quot;Servers&quot;), INCLUDES( Which_LOB_will_you_offer__c , &quot;Storage&quot;)), ISBLANK(Strategy_Potential_Product_Revenue__c )), TRUE, FALSE)</errorConditionFormula>
+        <errorDisplayField>Strategy_Potential_Product_Revenue__c</errorDisplayField>
+        <errorMessage>If Domain is either any of these values - Networking, NGEU (Next Gen End User),  NGDC (Next Gen Data Center), IDM (Intelligent Data Mgmt) or Other, Strategy Potential Product Revenue is mandatory.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Strategy_Potential_Serv_Rev_Required_1</fullName>
+        <active>false</active>
+        <description>Ensure “Strategy Potential Service Revenue” field are populated when “What Domain are you Offering?” field are having the following value – Services</description>
+        <errorConditionFormula>AND(
+INCLUDES( Which_LOB_will_you_offer__c ,&quot;Services&quot;),
+ISBLANK(Strategy_Potential_Service_Revenue__c))</errorConditionFormula>
+        <errorDisplayField>Strategy_Potential_Service_Revenue__c</errorDisplayField>
+        <errorMessage>If Domain is Services, Strategy Potential Service Revenue is mandatory</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Strategy_Potential_Serv_Rev_Required_2</fullName>
+        <active>false</active>
+        <description>Ensure What Dell Services will you offer? field are populated when “What Domain are you Offering?” field are having the following value – Services</description>
+        <errorConditionFormula>AND(
+INCLUDES( Which_LOB_will_you_offer__c ,&quot;Services&quot;),
+ISNULL(What_Dell_Services_will_you_offer__c))</errorConditionFormula>
+        <errorDisplayField>What_Dell_Services_will_you_offer__c</errorDisplayField>
+        <errorMessage>If Domain is Services, What Dell Services will you offer? is mandatory</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>Competitive_Information</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>page</linkType>
+        <masterLabel>Competitive Information</masterLabel>
+        <openType>newWindow</openType>
+        <page>StrategyAccountReport</page>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+    </webLinks>
+    <webLinks>
+        <fullName>New_Strategy</fullName>
+        <availability>online</availability>
+        <description>Created for CR 12465/User Story 204908 to enable the Users more easily and intuatively use the Planning tools</description>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <height>600</height>
+        <linkType>url</linkType>
+        <masterLabel>New Strategy</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>/apex/StrategyNewRelatedListOverride?apid={!SFDC_Acct_Plan__c.Id}&amp;apn={!SFDC_Acct_Plan__c.Name}&amp;rt={!SFDC_Acct_Plan__c.RecordType}&amp;accId=
+{!SFDC_Acct_Plan__c.AccountId__c }&amp;accName=
+{! SFDC_Acct_Plan__c.Account__c}</url>
+    </webLinks>
+</CustomObject>

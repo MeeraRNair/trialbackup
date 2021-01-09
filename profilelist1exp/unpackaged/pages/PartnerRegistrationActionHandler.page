@@ -1,0 +1,23 @@
+<apex:page standardController="Partner_Request__c" 
+	extensions="PartnerRegistrationActionHandlerCtrlExt" 
+	showHeader="false" 
+	sidebar="false" 
+	standardStylesheets="true"
+	action="{!doOnLoad}">
+
+
+	<table width="600" align="center" cellpadding="0" cellspacing="0" border="0">
+		<tr>
+			<td align="center" valign="top">
+				<apex:outputPanel rendered="{!isError}">
+					<apex:pageMessages />
+				</apex:outputPanel>
+				<apex:outputPanel rendered="{!NOT(isError)}">
+					<img src="/img/waiting_dots.gif" alt="Please wait..." title="Please wait..." height="20" width="196"/>
+					<h2>Please wait...</h2>
+				</apex:outputPanel>
+			</td>
+		</tr>
+	</table>
+
+</apex:page>

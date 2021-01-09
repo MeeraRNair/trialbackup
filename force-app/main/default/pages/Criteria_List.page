@@ -1,0 +1,14 @@
+<!--
+SinLin   28-Feb-2019   FY20-0402  Add SLDS
+-->
+<apex:page standardController="Certification_Criteria_Setup__c" showHeader="false"  extensions="VFCntrlr_CertCriteria_AddEdit" lightningStylesheets="true">
+<apex:pageBlock >
+    <apex:pageBlockSection columns="1" collapsible="false">
+        <!--<apex:pageMessage rendered="{!NoOfRecords<=0}" summary="No records found." severity="warning" strength="3" />-->
+        <!--<apex:pageBlockTable rendered="{!NoOfRecords>0}"  value="{!CertTraining}" var="tr" >-->
+        <apex:pageBlockTable value="{!CertTraining}" var="opt" >
+            <apex:column value="{!opt.crOption}"/>                 
+        </apex:pageBlockTable>
+    </apex:pageBlockSection>
+</apex:pageBlock> 
+</apex:page>

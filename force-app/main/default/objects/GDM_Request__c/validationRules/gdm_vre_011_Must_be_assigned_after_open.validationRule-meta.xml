@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>gdm_vre_011_Must_be_assigned_after_open</fullName>
+    <active>true</active>
+    <description>if Assigned To is empty and Request Status &lt;&gt; Open, Cancelled, Assigned</description>
+    <errorConditionFormula>AND (
+ ISBLANK(Assigned_To__c ) ,
+ NOT ISBLANK( PRIORVALUE(Assigned_To__c) ),
+ PRIORVALUE( Request_Status__c) = &apos;Open&apos; ,
+ TEXT(Request_Status__c) &lt;&gt; &apos;Open&apos; ,
+ TEXT(Request_Status__c) &lt;&gt; &apos;Cancelled&apos;
+)</errorConditionFormula>
+    <errorMessage>(011) Request must be Assigned.</errorMessage>
+</ValidationRule>

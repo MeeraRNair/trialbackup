@@ -1,0 +1,285 @@
+<apex:page id="page1" controller="FAP_VFC_fapTranslationController" sidebar="false">
+<apex:messages />
+    <apex:form id="formName">
+        <apex:pageblock title="FAP TRANSLATION" id="pageblockId">
+            <!-- R14.2 CR7676 - Add following message to header using facet -->
+            <!-- <apex:facet name="header"><div style="padding:10px 10px 10px 10px;color:black;font-weight:bold;font-size:1.3em;font-family:Arial,Helvetica,sans-serif;">FAP TRANSLATION &nbsp;&nbsp;&nbsp;<small>NOTE: Any changes made on this screen are global and <i>not</i> regional.</small></div></apex:facet> -->
+            <table border="0" cellpadding="0" cellspacing="0" >
+            <tr>
+                <tr>
+                <td colspan="3">
+                <!-- R14.2 CR7676 - Add following message to header using facet -->
+                <!-- <START> R16.07 User story 167650 - Regional Flexibility Screen Message by Kenny on 26-May-2015 -->
+                <!-- <div style="color:black;font-weight:bold;font-size:1.3em;font-family:Arial,Helvetica,sans-serif;"><small>NOTE: Any changes made on this screen are global and <i>not</i> regional.</small></div><br /> -->
+                    <div style="color:black;font-weight:bold;font-size:1.3em;font-family:Arial,Helvetica,sans-serif;"><small>NOTE: Any changes made on this screen are REGIONAL.</small></div><br />
+                <!-- <END> R16.07 User story 167650 - Regional Flexibility Screen Message by Kenny on 26-May-2015 -->
+                <apex:outputPanel >
+                    <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td align="right" style="width:190px;"><apex:outputLabel value="Region:" / ></td>
+                        <td style="width:20px;">&nbsp;</td>
+                        <td colspan="2">
+                        <!--Naga-- to add region field -->
+                            <apex:selectList value="{!regionNameSelected}" multiselect="false" size="1" style="width:250px" required="true">
+                                <apex:selectOptions value="{!regionNameOptions}"/>
+                                <apex:actionSupport event="onchange" action="{!refreshRegion}" status="regionNameStatus" rerender="addButtonId,blocktorerender1,blocktorerender2,blocktorerender3,blocktorerender4,blocktorerender5,blocktorerender6"/>
+                            </apex:selectList>
+                        </td>
+                        <td style="width:10px;">&nbsp;</td>
+                        <td>
+                            <apex:actionStatus id="regionNameStatus" startText="Loading..." layout="inline">
+                                <apex:facet name="start" >
+                                    <apex:image value="/img/loading32.gif" width="20" height="20" alt="Loading..."/>      
+                                </apex:facet>
+                            </apex:actionStatus>
+                            </td>
+                        </tr>
+                    </table>
+                </apex:outputPanel>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                
+                <apex:outputPanel id="blocktorerender1">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td align="right" style="width:190px;"><apex:outputLabel value="Field Name:" / ></td>
+                        <td style="width:20px;">&nbsp;</td>
+                        <td colspan="2">
+                            <apex:selectList value="{!fieldNameSelected}" multiselect="false" size="1" style="width:250px" required="true">
+                                <apex:selectOptions value="{!fieldNameOptions}"/>
+                                <apex:actionSupport event="onchange" action="{!refreshSection}" status="fieldNameStatus" rerender="addButtonId,blocktorerender2,blocktorerender3,blocktorerender4,blocktorerender5,blocktorerender6"/>
+                            </apex:selectList>
+                        </td>
+                        <td style="width:10px;">&nbsp;</td>
+                        <td>
+                            <apex:actionStatus id="fieldNameStatus" startText="Loading..." layout="inline">
+                                <apex:facet name="start" >
+                                    <apex:image value="/img/loading32.gif" width="20" height="20" alt="Loading..."/>      
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </td>
+                    </tr>
+                    </table>
+                </apex:outputPanel>
+                </td>
+            </tr>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <apex:outputPanel id="blocktorerender2">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td align="right" style="width:190px;"><apex:outputLabel value="Data Type:"/></td>
+                        <td style="width:20px;">&nbsp;</td>
+                        <td>
+                            <apex:outputText value="{!dataType}" />
+                        </td>
+                    </tr>
+                    </table>
+                    </apex:outputPanel>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                <apex:outputPanel id="blocktorerender3">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td align="right" style="width:190px;"><apex:outputLabel value="Field Attributes:"/></td>
+                        <td style="width:20px;">&nbsp;</td>
+                        <td>
+                             <apex:selectList value="{!translationForSelected}" multiselect="false" size="1" style="width:250px" required="true">
+                                 <apex:selectOptions value="{!translationForOptions}"/>
+                                 <apex:actionSupport event="onchange" action="{!retrieveTranslationFor}" status="fieldAttrStatus" 
+                                 rerender="addButtonId,blocktorerender4,blocktorerender5,blocktorerender6"/>
+                             </apex:selectList>
+                        </td>
+                        <td style="width:10px;">&nbsp;</td>
+                        <td>
+                            <apex:actionStatus id="fieldAttrStatus" startText="Loading..." layout="inline">
+                                <apex:facet name="start" >
+                                    <apex:image value="/img/loading32.gif" width="20" height="20" alt="Loading..."/>      
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </td>
+                    </tr>
+                    </table>
+                </apex:outputPanel>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                <apex:outputPanel id="blocktorerender4" >
+                    <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td align="right" style="width:190px;"><apex:outputLabel value="Search Page Dropdown Value:" rendered="{!translationForSelected =='Pick List Value'}"/></td>
+                        <td style="width:20px;">&nbsp;</td>
+                        <td>
+                             <apex:selectList value="{!pickListValueSelected}" multiselect="false" required="true" size="1" style="width:250px" rendered="{!translationForSelected =='Pick List Value'}">
+                                 <apex:selectOptions value="{!pickListOptions}"/>                        
+                                  <apex:actionSupport event="onchange" action="{!retrievePickListValue}" status="dropdownValueStatus" rerender="blocktorerender5,blocktorerender6,fieldLabelId"/>
+                             </apex:selectList>    
+                        </td>
+                        <td style="width:10px;">&nbsp;</td>
+                        <td>
+                            <apex:actionStatus id="dropdownValueStatus" startText="Loading..." layout="inline">
+                                <apex:facet name="start" >
+                                    <apex:image value="/img/loading32.gif" width="20" height="20" alt="Loading..."/>      
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </td>
+                        <td>
+                            &nbsp;&nbsp;
+                            <apex:commandLink value="Remove PickListValue" action="{!removePicklistValues}" 
+                                                rendered="{!translationForSelected =='Pick List Value'}" 
+                                                rerender="blocktorerender5,blocktorerender4,blocktorerender6" />
+                            &nbsp;&nbsp;&nbsp;
+                            <apex:commandLink value="Add PickListValue"  action="{!addPicklistValues}" 
+                                                rendered="{!translationForSelected =='Pick List Value'}" 
+                                                rerender="blocktorerender5,addButtonId,blocktorerender4,blocktorerender6" />
+                        </td>
+                    </tr>
+                    </table>
+                </apex:outputPanel>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                <apex:outputPanel id="blocktorerender5">
+                <apex:outputPanel rendered="{!translationForSelected =='Pick List Value' }" >
+                    <table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td align="right" style="width:190px;"><apex:outputLabel value="SFDC Value:"  /></td>
+                            <td style="width:20px;">&nbsp;</td>
+                            <td><apex:inputText value="{!sfdcValue}" style="width:250px" /></td>
+                            <td style="width:20px;">&nbsp;</td>
+                            <td><apex:commandButton value="Save SFDC Values" action="{!saveSFDCValue}" status="saveValues"/></td>
+                            <td style="width:10px;">&nbsp;</td>
+                            <td>
+                                <apex:actionStatus id="saveValues" startText="Loading..." layout="inline">
+                                    <apex:facet name="start" >
+                                        <apex:image value="/img/loading32.gif" width="20" height="20" alt="Loading..."/>      
+                                    </apex:facet>
+                                </apex:actionStatus>
+                            </td>
+                        </tr>
+                    </table>
+                </apex:outputPanel>
+                </apex:outputPanel>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                <apex:outputPanel id="addButtonId">
+                <apex:outputPanel rendered="{!addButtonClicked}">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td align="right" style="width:190px;"><apex:outputLabel value="Enter Business Value:"/></td>
+                            <td style="width:20px;">&nbsp;</td>
+                            <td><apex:inputText value="{!newBusinessPickListValue}" style="width:250px;"/></td>
+                        </tr>
+                        <tr>
+                            <td align="right"><apex:outputLabel value="Enter SFDC Value:"/></td>
+                            <td style="width:20px;">&nbsp;</td>
+                            <td><apex:inputText value="{!newSFDCPickListValue}" style="width:250px;" /></td>
+                        </tr>
+                        <tr>
+                            <td align="right">&nbsp;</td>
+                            <td style="width:20px;">&nbsp;</td>
+                            <td>
+                                <apex:commandButton title="Start" value="Save" action="{!savePicklistValue}" 
+                                    status="counterStatus" rerender="counterStatus,blocktorerender3,addButtonId" /> 
+                                     <apex:actionStatus id="counterStatus" startText="Loading..." layout="inline">
+                                    <apex:facet name="start" >
+                                        <apex:image value="/img/loading32.gif" width="20" height="20" alt="Loading..."/>      
+                                    </apex:facet>
+                                </apex:actionStatus>
+                            </td>
+                        </tr>
+                    </table>
+                </apex:outputPanel>
+                </apex:outputPanel>
+                </td>
+            </tr>
+            </table>
+
+         </apex:pageblock>
+         <apex:pageBlock >
+         <apex:outputPanel id="blocktorerender6" >
+         <apex:pageblockSection >
+             <apex:inputText value="{!fapObj.English__c}"/>
+         </apex:pageblockSection>
+         <apex:pageblockSection >
+             <apex:inputField value="{!fapObj.French__c}"/>
+         </apex:pageblockSection>
+         <apex:pageblockSection >
+             <apex:inputField value="{!fapObj.German__c}"/>
+         </apex:pageblockSection>
+         <apex:pageblockSection >
+             <apex:inputField value="{!fapObj.Dutch__c}"/>
+         </apex:pageblockSection>
+         <apex:pageblockSection >
+             <apex:inputField value="{!fapObj.Italian__c}"/>
+         </apex:pageblockSection>
+         <apex:pageblockSection >
+             <apex:inputField value="{!fapObj.Japanese__c}"/>
+         </apex:pageblockSection>
+         <apex:pageblockSection >
+             <apex:inputField value="{!fapObj.Brazilian_Portuguese__c}"/>
+         </apex:pageblockSection>
+         <apex:pageblockSection >
+             <apex:inputField value="{!fapObj.Finnish__c}"/>
+         </apex:pageblockSection>
+         <apex:pageblockSection >
+             <apex:inputField value="{!fapObj.Russian__c}"/>
+         </apex:pageblockSection> 
+         <apex:pageblockSection >
+             <apex:inputField value="{!fapObj.Spanish__c}"/>
+         </apex:pageblockSection>   
+         <apex:pageblockSection >
+             <apex:inputField value="{!fapObj.Swedish__c}"/>
+         </apex:pageblockSection>  
+         <apex:pageblockSection >
+             <apex:inputField value="{!fapObj.Thai__c}"/>
+         </apex:pageblockSection> 
+         <apex:pageblockSection >
+             <apex:inputField value="{!fapObj.Korean__c}"/>
+         </apex:pageblockSection>  
+         <apex:pageblockSection >
+             <apex:inputField value="{!fapObj.Czech__c}"/>
+         </apex:pageblockSection>  
+         <apex:pageblockSection >
+             <apex:inputField value="{!fapObj.Danish__c}"/>
+         </apex:pageblockSection> 
+         <apex:pageblockSection >
+             <apex:inputField value="{!fapObj.Hungarian__c}"/>
+         </apex:pageblockSection>  
+         <apex:pageblockSection >
+             <apex:inputField value="{!fapObj.Polish__c}"/>
+         </apex:pageblockSection> 
+         <apex:pageblockSection >
+             <apex:inputField value="{!fapObj.Turkish__c}"/>
+         </apex:pageblockSection>  
+         <apex:pageblockSection >
+             <apex:inputField value="{!fapObj.Chinese_Simplified__c}"/>
+         </apex:pageblockSection> 
+         <apex:pageblockSection >
+             <apex:inputField value="{!fapObj.Chinese_Traditional__c}"/>
+         </apex:pageblockSection>
+         <table border="0" cellpadding="0" cellspacing="0" width="500px">
+        <tr><td align="center">
+         <apex:commandButton value="Save" action="{!saveRecords}" disabled="{!(NOT(canAddTranslation))}"/>
+         </td></tr></table>
+         </apex:outputPanel>
+     </apex:pageBlock>
+     <!-- <apex:pageblock >
+         <apex:pageBlockButtons location="bottom">
+             <apex:commandButton value="Save" action="{!saveRecords}" disabled="{!(NOT(canAddTranslation))}"/>
+         </apex:pageBlockButtons>
+     </apex:pageblock> -->
+     </apex:form>
+</apex:page>

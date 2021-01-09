@@ -1,0 +1,103 @@
+<!--*************************************************************************************************************-->
+<!--***********Description   : Associate Existing Opportunities related to Account to Customer Engagement.************-->
+<!--*************************************************************************************************************-->
+
+  <apex:page controller="AssociateOpportunitiesToCECtrlExt" action="{!search}">
+
+    <apex:form >
+        <apex:pageMessage summary="Invalid Customer Engagement Id. Press Ok to Go Back" severity="error" rendered="{!nullId}">
+        <table align="center"><tr><td>
+            <apex:commandButton action="{!ok}" value="Ok" rendered="{!nullId}"/>
+        </td></tr></table>  
+        </apex:pageMessage>
+        
+        <apex:outputPanel rendered="{!!nullId}">
+            <apex:pageBlock title="Associating Opportunities to Customer Engagement"> 
+            
+                <!-- R14.2 CR 7716 - Add Search/filter by Deal ID and Stage section -->
+                <apex:pageblockSection title="Search Opportunities" collapsible="false" columns="3" rendered="{!OR(!nullRecords,hasExistingOpps)}">
+                    <apex:inputText id="txtDealID" label="Deal ID" value="{!strSearchDealID}"/>
+                    <apex:outputText >&nbsp;</apex:outputText>
+                    <apex:selectList id="pickListStage" label="Stage" value="{!strSearchStage}" size="1">
+                        <apex:selectOptions value="{!ListStageNames}"></apex:selectOptions>
+                    </apex:selectList>
+                    <apex:outputText >&nbsp;</apex:outputText>
+                    <apex:commandButton id="cmdSearch" action="{!cmdSearch}" value="Search"/>
+                    <apex:outputText >&nbsp;</apex:outputText>
+                    <apex:outputText rendered="{!nullRecords}">&nbsp;</apex:outputText>
+                    <!-- <apex:outputText value="No matching Opportunities found" rendered="{!nullRecords}"></apex:outputText> -->
+                    <apex:pageMessage severity="error" strength="3" summary="No matching Opportunities found" rendered="{!nullRecords}"></apex:pageMessage>
+                    <!--
+                    <table>
+                        <tr>
+                            <td>
+                                <apex:inputText id="txtDealID" label="Deal ID" value="{!strSearchDealID}"/>
+                            </td>
+                            <td>
+                                <apex:selectList id="pickListStage" label="Stage" value="{!strSearchStage}" size="1">
+                                    <apex:selectOptions value="{!ListStageNames}"></apex:selectOptions>
+                                </apex:selectList>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><apex:commandButton id="cmdSearch" action="{!cmdSearch}" value="Search"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><apex:outputText value="No matching Opportunities found" rendered="{!nullRecords}"></apex:outputText></td>
+                        </tr>
+                    </table>
+                    -->
+                </apex:pageblockSection>
+                
+                <!-- R14.2 CR 7716 - Add condition to check for hasExistingOpps in section rendered attribute --> 
+                <apex:pageBlockSection title="Message" collapsible="false" columns="1" rendered="{!NOT(nullRecords)}"> <!-- "{!OR(!nullRecords,hasExistingOpps)}"> -->
+                    Please <b>select</b> the Opportunities that you would like to Associate to <b>"{!customerEngagement.Name}"</b>.
+                </apex:pageBlockSection> 
+    
+                <!-- R14.2 CR 7716 - Add condition to check for hasExistingOpps in section rendered attribute -->
+                <apex:pageBlockSection title="Opportunities" columns="1" rendered="{!NOT(nullRecords)}"> <!-- "{!OR(!nullRecords,hasExistingOpps)}"> -->
+                    <apex:pageBlockTable value="{!opportunityWrappers}" var="tw" id="thePageBlockTable" >
+    
+                        <apex:column width="25px" headerValue="Select">
+                            <apex:inputcheckbox value="{!tw.selected}"/>  
+                        </apex:column>   
+                        
+                        <apex:column headerValue="Opportunity Name" value="{!tw.oppty.Name}"/>
+                        <apex:column headerValue="Stage" value="{!tw.oppty.StageName}"/>  <!-- imp -->
+                        <apex:column headerValue="Account Name" value="{!tw.oppty.AccountId}"/>
+    
+                        <apex:facet name="footer">
+                            <apex:outputPanel id="outputpan">
+                                <apex:outputText value="Page {!paginator.pageNumberDisplayFriendly} of {!paginator.pageCount} in {!paginator.recordCount} Results"/>
+                                <apex:outputPanel >    </apex:outputPanel>
+                                <apex:commandLink value="Previous" action="{!Previous}" rendered="{!IF(AND(paginator.hasPrevious, NOT(nullRecords)),'true','false')}"/>
+                                &nbsp;
+                                <apex:outputText value="Previous" rendered="{!IF(NOT(AND(paginator.hasPrevious, NOT(nullRecords))),'true','false')}" />
+                                <apex:outputPanel > | &nbsp;</apex:outputPanel>
+                                <apex:commandLink value="Next" action="{!Next}"
+                                    rendered="{!IF(AND(paginator.hasNext, NOT(nullRecords)),true,false)}" />
+                                <apex:outputText value="Next" rendered="{!IF(NOT(AND(paginator.hasNext, NOT(nullRecords))),'true','false')}"/>
+                                <!-- &nbsp;&nbsp;&nbsp;&nbsp;<apex:outputText value="{!nullRecords}" rendered="true"/> -->
+                            </apex:outputPanel>
+                        </apex:facet>
+                    </apex:pageBlockTable><br/>
+                </apex:pageBlockSection>
+    
+                <apex:pageBlockButtons location="bottom">
+                    <apex:commandButton action="{!associateOpportunity}" value="Associate Opportunities" rendered="{!NOT(nullRecords)}"/>
+                    <apex:commandButton value="Cancel" action="{!cancel}"/>
+                </apex:pageBlockButtons>
+                
+                <!-- R14.2 CR 7716 - Add condition to check for hasExistingOpps in section rendered attribute -->
+                <apex:pageBlockSection title="Message" collapsible="false" columns="1" rendered="{!nullRecords}"> <!-- "{!AND(nullRecords,!hasExistingOpps)}" -->
+                    There are <b>no Opportunities</b> to display. 
+                    Please click <b>"Cancel"</b> to go back to Customer Engagements. 
+                </apex:pageBlockSection>  
+                
+                <apex:pageMessage summary="Please Select At Least One Opportunity to Associate" severity="error" rendered="{!nullOppList}"></apex:pageMessage>
+    
+            </apex:pageBlock>
+       </apex:outputPanel>
+    </apex:form>
+
+</apex:page>

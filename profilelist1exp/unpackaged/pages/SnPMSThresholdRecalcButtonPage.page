@@ -1,0 +1,23 @@
+<apex:page StandardController="S_P_Vendor_Product_Threshold__c" extensions="SnP_MSThresholdRecalcButtonController" >
+    
+    <style type = "text/css">
+        .boxed{width:1000px;padding:10px;border:1px solid gray;margin:0px;background: #E6F6F6;}
+        .font{font: 120% "Lucida Grande", "Lucida Sans Unicode", "Trebuchet MS"}
+    </style>
+    
+    <apex:form >
+        <center><div class = "boxed">
+            <apex:outputText styleClass="font" value=" No records to recalculate. " rendered="{!showNoRecMsg}"/>
+            <apex:outputText styleClass="font" value=" Clicking 'OK' will recalculate related records and redirect you to the previous page. " rendered="{!(!showNoRecMsg)}"/>
+            <br/><br/><apex:commandButton action="{!goBack}" value=" OK " />
+        </div></center>
+    </apex:form>
+    
+    <!-- hidden values, query to the controller record -->
+    <apex:outputText value="{!S_P_Vendor_Product_Threshold__c.Level__c}" rendered="false" />
+    <apex:outputText value="{!S_P_Vendor_Product_Threshold__c.Agreement_Level__c}" rendered="false" />
+    <apex:outputText value="{!S_P_Vendor_Product_Threshold__c.Product_Description__c}" rendered="false" />
+    <apex:outputText value="{!S_P_Vendor_Product_Threshold__c.Product_Family__c}" rendered="false" />
+    <apex:outputText value="{!S_P_Vendor_Product_Threshold__c.Percentage__c}" rendered="false" />
+    <apex:outputText value="{!S_P_Vendor_Product_Threshold__c.Minimum_Revenue__c}" rendered="false" />
+</apex:page>

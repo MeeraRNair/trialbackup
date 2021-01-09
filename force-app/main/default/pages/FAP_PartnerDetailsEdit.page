@@ -1,0 +1,450 @@
+<apex:page controller="FAP_PartnerDetailsController"
+    sidebar="false"
+    showHeader="false"
+    standardStylesheets="false" 
+     id="Page"
+     language="{!preferredLanguageCode}">
+     
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style type="text/css">
+
+body{
+    margin-left:0px;
+    margin-top:0px;
+    margin-right:0px;
+    margin-bottom:0px;
+    background:url({!$Resource.bg_gif}) top left repeat-x;
+    font: normal 13px Trebuchet MS, Arial, sans-serif;
+
+}
+
+h2 {
+    width: 715px;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    font: Trebuchet MS Bold, Arial Bold, sans-serif Bold; 
+    color:#333333;
+    padding: 15px 0 15px 0;
+    
+}
+
+h3 {
+    width: 715px;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    font: Trebuchet MS Bold, Arial Bold, sans-serif Bold;
+    color:#333333;
+    padding: 2px 0 2px 0;
+    Background-color: #dadada;
+    padding-left: 5px;
+}
+
+h4 {
+    margin-top: 10px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    /*margin-left: 28px;*/
+    font: Bold 13px Trebuchet MS, Arial, sans-serif;
+}
+
+h5 {
+    margin-top: 10px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: 28px;
+    font: Bold 13px Trebuchet MS, Arial, sans-serif;
+}
+
+.container{
+    width:715px;
+    margin-top:0px;
+    margin-right:auto;
+    margin-bottom:0px;
+    margin-left:auto;
+    padding:10px 10px 10px 10px;
+    background:url({!$Resource.bg_container_gif}) top center;
+    background-repeat:no-repeat
+}
+
+.container:after{ 
+    content:"."; 
+    display:block; 
+    height:0; 
+    clear:both; 
+    visibility:hidden
+}
+
+.bottom_bar {
+    width:735px;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    clear:both;
+}
+
+.btn{
+    width: auto;
+    background: transparent url('/resource/1430293042000/FAP_left_button_png') no-repeat top left;
+    display:block;
+    float:right;
+    line-height:14px;
+    height:24px;
+    padding-left:11px;
+}
+
+.commandButtonHover{
+    width: auto;
+    /*height: 23px;
+    background-color: #2488B9;
+    background-repeat: no-repeat;
+    background-position: top right;
+    background-image: url('{!$Resource.right_button_png_hover}');*/
+    background: url('{!$Resource.command_button_hover_gif}') no-repeat;
+    alignment-baseline: middle;
+    color: #FFFFFF;
+    /*font: bold 12px Arial,Helvetica,sans-serif;*/
+    font: bold 12px Trebuchet MS, sans-serif;
+    border-width: 0px;
+    margin: 2px 3px;
+    padding: 2px 3px 5px 3px;
+    cursor: pointer;
+    /*border-radius :15px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    behavior: url(ie-css3.htc); */
+}
+   
+.cke_dialog { top: 200px !important; position:static;margin-left:20px;
+
+margin-top:5px; }
+    
+a.ovalbutton{
+    background:transparent url('{!$Resource.left_button_png}') no-repeat top left;
+    display:block;
+    float:right;
+    line-height:14px;
+    height:24px;
+    padding-left:11px;
+    text-decoration:none
+}
+
+a.ovalbutton,a:visited.ovalbutton,a:active.ovalbutton,a:hover.avalbutton{text-decoration:none}
+
+a.ovalbutton span{
+    background:transparent url('{!$Resource.right_button_png}') no-repeat top right;
+     <!--font:12px Trebuchet MS Bold, Arial Bold, sans-serif Bold;-->
+    font:bold 12px Trebuchet MS, sans-serif;color:#FFF;
+    display:block;
+    padding:4px 11px 4px 0
+}
+
+a.ovalbutton:hover{
+    background:transparent url('{!$Resource.left_button_png_hover}') no-repeat top left;
+    display:block;
+    float:right;
+    line-height:14px;
+    height:24px;
+    padding-left:11px;
+    text-decoration:none
+}
+
+a.ovalbutton:hover span{
+    background:transparent url('{!$Resource.right_button_png_hover}') no-repeat top right;
+    <!--font:12px Trebuchet MS Bold, Arial Bold, sans-serif Bold;-->
+    font:bold 12px Trebuchet MS, sans-serif;
+    color:#FFF;
+    display:block;
+    padding:4px 11px 4px 0
+}
+
+.detail_listing {
+    width: 715px;
+    padding: 15px 15px 0 15px;
+    margin:0;
+}
+
+.detail_listing p {
+    margin:0 0 10px 0;
+    padding:0;
+}
+
+hr {
+  display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0; 
+}
+.detail_listing table {
+    border-collapse: collapse; margin-bottom:20px;  
+}
+
+.detail_listing table td {
+    padding: 2px 0 2px 12px;
+    vertical-align: top;
+}
+
+.detail_listing table td.border {
+    border-bottom: #D5D5D5 1px solid;
+}
+
+.detail_listing table td.field_label {
+    font: Bold 13px Trebuchet MS;
+    border-bottom: #D5D5D5 1px solid;
+}
+
+.errorMsg{
+    color: #C00;
+}
+
+.requiredExample{
+    background-color: #C00;
+}
+.pbSubExtra{
+    float: right;
+    margin-right: 2em;
+    font-weight: bold
+}
+
+.bPageBlock .requiredInput {
+    position: relative;
+    height: 100%;
+}
+
+.bPageBlock .requiredInput .requiredBlock {
+    background-color: #C00;
+    position: absolute;
+    left: -4px;
+    width: 3px;
+    top: 1px;
+    bottom: 1px;
+}
+
+.bEditBlock input, .bEditBlock select, .bEditBlock img, .quickCreateModule input, .quickCreateModule select, .quickCreateModule img {
+    vertical-align: middle;
+    margin-right: .25em;
+}
+
+
+input,select,textarea{
+    font: normal 13px Trebuchet MS, Arial, sans-serif;
+    width:250px;
+    border: 1px solid #dadada; 
+    background: transparent;
+    margin: 0px 0px 0px 0px;
+}
+
+.styled-select {
+   width: 250px;
+   height: 20px;
+   overflow: hidden;
+   background:url('{!$Resource.arrow_down_png}') no-repeat right;
+   border: 1px solid #dadada;
+   margin: 0px 0px 0px 0px;
+}
+
+.message{    
+    /*width:945px;*/
+    background-color:#ffc;    
+    border-style:solid;    
+    border-width:1px;  
+    padding:6px 8px 6px 6px;    
+    margin:4px 20px;
+}
+.tbailgn{
+
+}
+
+.message .messageTable .messageCell{vertical-align:middle}
+.errorM2,.errorS1{    border-color:#c00}
+.errorM2 .messageText,.confirmM2 .messageText,.infoM2 .messageText,.warningM2 .messageText{ margin-left:40px}
+
+.errorM2 .msgIcon,.errorLarge{
+    background-image:url(/img/msg_icons/error32.png);
+    background-position:0px 0px;
+    width:32px;
+    height:32px
+}
+
+<apex:outputText value=".styled-select select{background: transparent;height: 22px;margin: 0px 0px;border-width: 0px;}" rendered="{!isIE}"/>
+<apex:outputText value=".styled-select select{background: transparent;-moz-appearance: none;-webkit-appearance: none;height: 22px;margin: 0px 0px;border-width: 0px;}" rendered="{!OR(isFirefox,isChrome)}"/>
+
+ 
+   </style>
+   
+ <!-- <script>
+    function setRequired(){
+    if(document.getElementById('{!$Component.theForm.thePageBlock.thePageBlockSection.theComponent}').value == '') 
+    alert('Website & Company Overview fields cannot be empty');
+    //document.getElementById('{!$Component.theForm.thePageBlock.thePageBlockSection.accPhone}').value = '0';
+
+    //reRenderBlock();
+    }
+   </script>    -->
+</head>         
+    <script>
+    function setRequired(){
+    if(document.getElementById('{!$Component.theForm.thePageBlock.thePageBlockSection.theComponent}').value == '') 
+    alert('Website & Company Overview fields cannot be empty');
+    //document.getElementById('{!$Component.theForm.thePageBlock.thePageBlockSection.accPhone}').value = '0';
+
+    //reRenderBlock();
+    }
+   </script>
+    <apex:pageMessages id="Messages"/> 
+    <!-- DISPLAY PAGE LOAD ERROR IF ONE EXISTS -->
+    
+    <apex:outputPanel id="PageMessages" rendered="{!errorOccurred}" layout="block">
+        <apex:variable var="errorMsg" value="{!JSENCODE(HTMLENCODE($Label.msgnogeoapikey))}" rendered="{!errorCode == eRRORNOMAPAPIKEY}"/>
+        <apex:variable var="errorMsg" value="{!JSENCODE(HTMLENCODE($Label.msginvalidpagestate))}" rendered="{!errorCode == eRRORNOACCOUNTID}"/>            
+        <table align="center"><tr><td>
+            <div class="message errorM2">
+                <table border="0" cellpadding="0" cellspacing="0" class="messageTable" style="padding:0px;margin:0px;">
+                    <tr valign="top">
+                        <td><img alt="error" src="/s.gif" class="msgIcon" title="error" /></td>
+                        <td class="messageCell">
+                            <div class="messageText">
+                                <ul>
+                                    <li>{!errorMsg}</li>
+                                    <apex:repeat value="{!JSENCODE(HTMLENCODE($Label.Required_Information))}" var="msg">
+                                        <li>{!msg}</li>
+                                    </apex:repeat>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div></td></tr></table>
+    </apex:outputPanel>
+    <!--
+    <apex:outputPanel id="PageMessages2" layout="block">
+        <apex:repeat value="{!additionalMessages}" var="msg">
+            <li>{!msg}</li>
+        </apex:repeat>
+    </apex:outputPanel>
+    -->
+        <apex:form id="theForm">
+        
+        <apex:outputpanel id="refresh"> 
+        <apex:pageblock mode="edit" id="thePageBlock">
+            <!-- rendered="{!isCurrentUserAdmin}" -->
+            
+            <div class="container" layout="block">
+                <h2>{!JSENCODE(HTMLENCODE($Label.titleeditpartnerdetail))}</h2><br/>
+                
+                <table border="0" cellspacing="0" cellpadding="0" width="auto" style="padding-left: 15px;">
+                    <tr>
+                        <td style="padding-left: 110px;">
+                           <apex:commandLink action="{!saveDetail}" styleClass="ovalbutton">
+                                <span>{!JSENCODE(HTMLENCODE($Label.btnsave))}</span>
+                            </apex:commandLink></td><td>&nbsp;</td>
+                           <td>                          
+                            <apex:commandLink action="{!cancelDetail}" styleClass="ovalbutton" immediate="true" html-formnovalidate="formnovalidate">
+                                <span>{!JSENCODE(HTMLENCODE($Label.btncancel))}</span>
+                            </apex:commandLink>                            
+                           </td>
+                    </tr>
+                </table><br/>
+                                
+                <apex:pageblockSection title="{!JSENCODE(HTMLENCODE($Label.headerpartnerdetails))}" id="thePageBlockSection">            
+                <table border="0" cellspacing="0" cellpadding="0">
+                <tr><td>                                                               
+                       <c:FAP_EditFields editFields="{!editFields}"  boolIsFed="{!boolIsFed}" rendered="true" id="theComponent"/>                                                                                                                       
+                </td></tr>                      
+                </table>
+                <table style="margin-top: -25px;"><tr><td><h4 style="margin-left: 23px;">{!JSENCODE(HTMLENCODE($Label.Showcase_Long_Description_Message))}</h4></td></tr></table>
+                <table border="0" cellspacing="0" cellpadding="0" style="margin-top: -10px;">
+                <tr><td>                                                               
+                       <c:FAP_EditFields editFields="{!cmpDesc}"  rendered="true" id="theComponent2"/>                                                                                                                       
+                </td></tr>                      
+                </table>
+                <!--<table border="0" cellspacing="0" cellpadding="0">
+                <tr><td>                                                               
+                       <c:FAP_EditFields editFields="{!editFedFields}"  rendered="true" id="theComponent3"/>                                                                                                                       
+                </td></tr>                      
+                </table> -->
+                 </apex:pageblockSection>
+               
+                <!--v2.0 Start-->
+                                 
+                 <apex:pageBlockSection title="{!JSENCODE(HTMLENCODE($Label.Social_Media_Handles))}">
+                 <h5>{!JSENCODE(HTMLENCODE($Label.EditSocialmediaHandlesMessage))}</h5> 
+                 <table border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td>
+                                
+                                <c:FAP_EditFields editFields="{!smFieldsOverview}" rendered="true" />
+                            </td>
+                        </tr>
+                 </table> 
+                 </apex:pageBlockSection>
+                <!--v2.0 End -->   
+                
+          
+                 <apex:pageBlockSection title="{!JSENCODE(HTMLENCODE($Label.Services))}">
+                     <table><tr><td><h4 style="margin-left: 23px;">{!JSENCODE(HTMLENCODE($Label.Showcase_Long_Description_Message))}</h4></td></tr></table>
+                     <table border="0" cellspacing="10" width="auto" cellpadding="0" style="{!IF(isIE, 'font-weight: bold;margin-top: -6px;margin-left: -2px','margin-left: 7px;font-weight: bold;')}">
+                  
+                  <tr><td width="auto" align="right">
+                    <apex:outputLabel value="{!$ObjectType.Social_Media__c.fields.Services__c.Label}" styleClass="field_label"/>
+                    </td></tr>                       
+                 </table>
+                 <table border="0" cellspacing="10" width="auto" cellpadding="0" style="{!IF(isIE,'margin-top: -49px;margin-left: 300px;','margin-top: -45px;margin-left: 300px;')}">
+                  <tr><td>
+                    <apex:inputTextarea rows="10" richtext="true" value="{!Services.Services__c}" label=""/> 
+                </td></tr>                       
+                 </table>
+                 <table style="{!IF(isIE,'margin-top: -42px;margin-left: 13px;width: auto;','margin-top: -34px;margin-left: 13px;width: auto;')}"><tr>
+                <td><hr width="303"></hr></td></tr></table>
+                            
+                 </apex:pageBlockSection>
+                
+                <table border="0" cellspacing="0" cellpadding="0" width="auto" style="padding-left: 15px;">
+                    <tr>
+                        <td style="padding-left: 110px;">
+                           <apex:commandLink action="{!saveDetail}" styleClass="ovalbutton">
+                                <span>{!JSENCODE(HTMLENCODE($Label.btnsave))}</span>
+                            </apex:commandLink>                     
+                            </td><td>&nbsp;</td>
+                           <td>
+                            <apex:commandLink action="{!cancelDetail}" styleClass="ovalbutton" immediate="true" html-formnovalidate="formnovalidate">
+                                <span>{!JSENCODE(HTMLENCODE($Label.btncancel))}</span>
+                            </apex:commandLink>                         
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="bottom_bar"><img src="{!$Resource.bottom_bar_gif}" /></div>
+            
+        </apex:pageblock>
+        
+<!-- 
+            <apex:outputPanel id="editDetailPanel">
+                <apex:pageBlock title="{!JSENCODE(HTMLENCODE($Label.titleeditpartnerdetail))}"  mode="edit" >
+                     <apex:pageBlockButtons >
+                        <apex:commandButton action="{!saveDetail}"  value="{!JSENCODE(HTMLENCODE($Label.btnsave))}"/>
+                        <apex:commandButton action="{!cancelDetail}" value="{!JSENCODE(HTMLENCODE($Label.btncancel))}"/>
+                    </apex:pageBlockButtons>
+                    <table cellspacing="10" cellpadding="5"> 
+                    <tr>
+                        <td>
+                    <c:FAP_EditFields editFields="{!editFields}" rendered="true" />
+                        </td>
+                        </tr>
+                        </table>
+                </apex:pageBlock>
+            </apex:outputPanel>
+ -->       
+  </apex:outputpanel>
+  
+        </apex:form>
+
+
+</apex:page>

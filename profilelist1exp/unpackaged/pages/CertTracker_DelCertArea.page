@@ -1,0 +1,170 @@
+<!-- * 
+* Revision CR Number   Release No      Date            Modified By     Description
+* -------- ---------   ----------      -----------     ------------    -----------
+* 1.0 -    CR16418     FY19-DCS-1002   3-Sep-2018:     manip4          added 'lightningStylesheets' attribute for apex component to make the page lightening friendly for the story 5537222
+*/-->
+
+<apex:page id="pgcertarea" title="Select criteria to delete Dell Competencies" showheader="true" controller="VFCntrlr_CertTracker_DelCertArea" lightningStylesheets="true">
+    <Script language="javascript">     
+        function CheckAll(chkSelectAll){        
+            var inputElem = document.getElementsByTagName("input");
+            for(var i=0; i<inputElem.length; i++){
+                if(inputElem[i].id.indexOf("chk")!=-1)
+                    inputElem[i].checked = chkSelectAll.checked;  
+            }        
+        }
+        function unCheckSelectAll(chk){
+            var inputElem = document.getElementsByTagName("input");            
+                if (chk.checked == false){
+                    for(var i=0; i<inputElem.length; i++){                   
+                        if(inputElem[i].id.indexOf("SelectAll")!=-1)
+                            inputElem[i].checked = false;    
+                    }
+                }
+        }
+        function openMasterProgramPopup(){          
+            var popupstyle = "center:yes;resizable:yes;dialogHeight:450px;dialogWidth:750px";
+            
+            var mpName;
+            mpName = window.showModalDialog('/apex/MasterProgram_lookup',popupstyle);
+            if(mpName != null){           
+                var mpText = document.getElementById("pgcertarea:frmRegion:pgBlk:pgBlkSec:pgBlkSecItem:txtMP");
+                mpText.value = mpName ;               
+            }
+        }
+    </Script>
+    <apex:form id="frmRegion">
+    <apex:actionFunction name="rightArrow" action="{!availableToSelected}" reRender="selectionBlock"/>
+    <apex:actionFunction name="leftArrow" action="{!unSelectToAvailable}" reRender="selectionBlock"/>
+    
+    <apex:pageBlock title="Select criteria to delete Dell Competencies" rendered="{! NOT(OR(Begins($Profile.Name,'System Administrator'),Begins($Profile.Name,'GBL PRM Certification Admin')))}">
+        <apex:pageMessage summary="{!$Label.NetExam_AccessError}" severity="Error" strength="1" />
+        
+         <apex:pageBlockButtons location="bottom">          
+            <apex:commandButton value="Cancel" action="{!cancel}"/>
+        </apex:pageBlockButtons>    
+    </apex:pageBlock>
+    
+    <apex:pageBlock title="Select criteria to delete Dell Competencies" rendered="{! AND(showBlkCond,OR(Begins($Profile.Name,'System Administrator'),Begins($Profile.Name,'GBL PRM Certification Admin')))}" mode="edit" id="pgBlk">     
+        <apex:pageMessages id="pgmsg" />
+        <apex:pageBlockSection id="pgBlkSec" >
+            <apex:outputtext ><b>Region</b></apex:outputtext>
+                <apex:selectList value="{!Region}" multiselect="false">
+                <apex:selectOptions value="{!items}"/>
+            </apex:selectList>
+   
+            <apex:outputtext ><b>Competency Name</b></apex:outputtext>
+            <apex:pageBlockSection id="selectionBlock">
+                <apex:panelGrid columns="7">
+                    <apex:panelgroup >
+                        <apex:outputPanel id="availableBlock"> 
+                             <apex:outputLabel value="Available List" style="font-weight:bold" /> &nbsp;
+                                 <apex:selectList value="{!selAvailableList}" size="5" multiselect="true" >
+                                     <apex:selectOptions value="{!AvailableList}"/>
+                                 </apex:selectList>
+                        </apex:outputPanel>
+                    </apex:panelgroup>
+                        
+                    <apex:panelGroup layout="block" style="text-align: center; padding:10px;">
+                            <br/>
+                            <a href="javascript:rightArrow();" style="text-decoration:none">
+                                <img src="/s.gif" alt="Select" class="rightArrowIcon" title="Add"/>
+                            </a><br/><br/>
+                            <a href="javascript:leftArrow();" style="text-decoration:none">
+                                <img src="/s.gif" alt="Unselect" class="leftArrowIcon" title="Remove"/>
+                            </a><br/>
+                            <br/>
+                    </apex:panelGroup>
+                    
+                    <apex:panelgroup >
+                        <apex:outputPanel id="selectBlock">              
+                            <apex:outputLabel value="Selected List" style="font-weight:bold"/> &nbsp;
+                                <apex:selectList value="{!selSelectList}" multiselect="true"  size="5" style="width:200px" >
+                                    <apex:selectOptions value="{!SelectedList}"/> 
+                                </apex:selectList>
+                        </apex:outputPanel>  
+                    </apex:panelgroup>
+                </apex:panelGrid>
+          </apex:pageBlockSection>
+            
+            <apex:outputLabel ><b>Master Program Name</b></apex:outputLabel>
+            <apex:pageBlockSection id="pgBlkSecItem">
+                <apex:inputText id="txtMP" value="{!mpText}" size="50"/>
+                <apex:commandButton id="lookup" onclick="{openMasterProgramPopup();return false;}" image="{!$Resource.Lookup_icon}"/>
+           </apex:pageBlockSection> 
+
+        </apex:pageBlockSection>
+        <apex:pageBlockButtons location="bottom">
+            <apex:commandButton value="Go" action="{!go}" status="status" />
+            <apex:commandButton value="Cancel" action="{!cancel}"/>
+        </apex:pageBlockButtons>  
+          <apex:actionStatus id="status" startText="Please Wait..." />                    
+               
+    </apex:pageBlock>  
+    
+    <apex:pageBlock title="Delete Dell Competencies / Competency Completed" rendered="{! AND(NOT(showBlkCond),OR(Begins($Profile.Name,'System Administrator'),Begins($Profile.Name,'GBL PRM Certification Admin')))}" mode="edit" id="pgBlkRegion">
+        <apex:pageMessages id="pgmsg" />
+        <apex:pageBlockButtons location="bottom" >    
+            <apex:commandButton value="Delete" onclick="return confirm('{!$Label.NetExam_DelCertArea_Msg1}')" action="{!delValues}" />
+            <apex:commandButton value="Back" action="{!back}" />
+        </apex:pageBlockButtons>    
+             
+        <apex:outputPanel style="margin-top: 5px;"  id="pageNavTop" rendered="{!lastPage > 0}">              
+            <div style="font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: left; ">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Page {!currentPage} of {!lastPage}
+            </div>
+            <div style="font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: right; ">                
+                <apex:commandLink action="{!previous}" rendered="{!hasPrevious}" rerender="pgBlkRegion" status="searchStatus">
+                    &lt; Previous
+                </apex:commandLink>                 
+                <apex:outputText rendered="{!hasPreviousAndNext}">&nbsp;|&nbsp;</apex:outputText>
+                <apex:commandLink action="{!next}" rendered="{!hasNext}" rerender="pgBlkRegion" status="searchStatus">
+                    Next &gt; 
+                </apex:commandLink>
+            </div>      
+        </apex:outputPanel> 
+    
+        <apex:pageMessage rendered="{!NoOfRecords<=0}" summary="{!$Label.NetExam_NoRecs}" severity="warning" strength="3" />
+                 
+        <apex:pageBlockSection rendered="{!NoOfRecords>0}" id="pgblkCT" columns="1" collapsible="false">
+            <apex:pageBlockTable id="pgBlkTable" value="{!Accounts}" var="tr" >
+                <apex:column >
+                        <apex:facet name="header">   
+                        <apex:outputPanel >
+                            <apex:inputCheckbox id="SelectAll" onclick="{CheckAll(this);}" value="{!chkSelectAll}"/>                                                      
+                            <apex:outputLabel >Select All</apex:outputLabel>        
+                        </apex:outputPanel>
+                        </apex:facet>
+                        <apex:inputCheckbox id="chk" value="{!tr.isSelected}" onclick="{unCheckSelectAll(this);}"/>
+                    </apex:column>     
+                <apex:column headervalue="Account Name">
+                    <apex:outputlink target="_parent" value="/{!tr.Acct.Account_Name__c}">
+                        <apex:outputtext value="{!tr.Acct.Account_Name__r.name}" />
+                    </apex:outputlink>
+                </apex:column>
+                <apex:column value="{!tr.Acct.Account_Name__r.Account_ID__c}" />   
+                <apex:column value="{!tr.Acct.Account_Country__c}" />               
+                <apex:column value="{!tr.Acct.Dell_Certification_Areas__c}" />
+                <apex:column value="{!tr.Acct.Certification_Completed__c}" />             
+            </apex:pageBlockTable>   
+        </apex:pageBlockSection>
+        
+        <!-- previous and next links --> 
+        <apex:outputPanel style="margin-top: 5px"  id="pageNavBottom" rendered="{!lastPage>0}">               
+            <div style="font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: left;">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Page {!currentPage} of {!lastPage} 
+            </div>
+
+            <div style="font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: right; ">                
+                <apex:commandLink action="{!previous}" rendered="{!hasPrevious}" rerender="pgBlkTable,pageNavTop,pageNavBottom" status="searchStatus">
+                    &lt; Previous
+                </apex:commandLink>                 
+                <apex:outputText rendered="{!hasPreviousAndNext}">&nbsp;|&nbsp;</apex:outputText>
+                <apex:commandLink action="{!next}" rendered="{!hasNext}" rerender="pgBlkTable,pageNavTop,pageNavBottom" status="searchStatus">
+                    Next &gt; 
+                </apex:commandLink>
+            </div>              
+        </apex:outputPanel> 
+    </apex:pageBlock>  
+  </apex:form>
+</apex:page>

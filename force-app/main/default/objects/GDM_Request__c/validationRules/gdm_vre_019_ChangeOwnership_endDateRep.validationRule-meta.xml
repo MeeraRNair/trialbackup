@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>gdm_vre_019_ChangeOwnership_endDateRep</fullName>
+    <active>true</active>
+    <description>If user action is &apos;Add&apos; then make sure user make a decision in wether to end-date the current user</description>
+    <errorConditionFormula>AND ( 
+       RecordType.Name == &quot;Change Ownership&quot;,
+       ISPICKVAL(Action__c, &quot;Add&quot;),
+      ISBLANK(TEXT(Do_you_wish_to_end_date_current_rep__c))
+     )</errorConditionFormula>
+    <errorDisplayField>Do_you_wish_to_end_date_current_rep__c</errorDisplayField>
+    <errorMessage>(019) Please select &apos;Yes&apos; to end-date current Rep; otherwise select &apos;No&apos;.</errorMessage>
+</ValidationRule>

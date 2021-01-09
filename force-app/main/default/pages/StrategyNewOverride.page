@@ -1,0 +1,12 @@
+<apex:page standardController="SFDC_Strategy__c"   title="Creating new strategy" tabStyle="SFDC_Strategy__c" extensions="StrategyNewOverrideController" action="{!createNewStrategy}">
+     <apex:form id="theForm">  
+        <apex:pageBlock id="displaySection" >
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton action="{!cancel}" value="Back"/>
+            </apex:pageBlockButtons>
+            
+            <apex:pagemessages rendered="{!hasMessage}" />
+            <apex:pagemessage rendered="{!!hasMessage}" summary="Creating new strategy. Please click the 'Back' button if the page does not redirect automatically." severity="info" strength="3" ></apex:pagemessage>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

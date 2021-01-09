@@ -1,0 +1,31 @@
+<apex:page Standardcontroller="Opportunity" extensions="EngageChannelParnterRejection">
+    <apex:form id="form">
+    
+    <apex:pageBlock rendered="{!bshow}">
+    <apex:outputPanel >
+          <apex:pageMessages />
+          <br/>
+          <apex:commandButton value="{!$Label.Deal_Auto_Approval_Back_Button}" action="{!cancel}"/>
+      </apex:outputPanel> 
+      </apex:pageBlock> 
+      <apex:pageBlock rendered="{! !bshow}"> 
+                <apex:pageMessages />
+         <apex:pageBlockSection columns="4">
+               
+        <apex:outputLabel value="{!$Label.Engage_Channel_Rejection_Reason}" />
+       
+          <apex:inputText value="{!strdata}" />
+                                  </apex:pageBlockSection>
+       <apex:pageBlockButtons >
+                      <apex:commandButton action="{!saveOpp}" value="{!$Label.save}" rerender="form" status="saveStatus1"/>
+                      <apex:actionStatus id="saveStatus1">
+                    <apex:facet name="start">
+                        <apex:outputPanel >
+                            <img src="/img/loading32.gif" width="15" height="15" />
+                        </apex:outputPanel>            
+                    </apex:facet>
+                </apex:actionStatus>
+</apex:pageBlockButtons>
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

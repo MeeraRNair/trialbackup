@@ -1,0 +1,194 @@
+<apex:page standardController="Rebate_Rule_Header__c"  extensions="RebateLineItemMassInsert_VFCntrlr" standardStylesheets="True" lightningStylesheets="true">
+
+    <style>
+        div.divbreak {page:divbreak;}
+        td.data{border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;border-collapse:collapse;}
+        table.Bdr{border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;border-collapse:collapse;}
+        .headerRow .style50{width:50px;}
+        .headerRow .style100{width:100px;}            
+        .columnRow .showStyle{display:none;}
+        div.hideCurrDate span.dateInput span.dateFormat{display:none;}
+    </style>
+    
+    <apex:form >
+        <apex:sectionHeader subtitle="New Rebate Rule Line Item" title="Select Rebate Rule Line Item Record Type" rendered="{!BolRecType}"/>
+        
+        <apex:pageBlock title="Create Rebate Rule line item" rendered="{!BolRecType}">
+            Select a record type for the new rebate rule line item.
+            <table><tr><td>
+                <b>Record Type of new record</b> &nbsp;&nbsp; 
+            </td> <td>            
+                <apex:inputField value="{!RRLNRecType.RecordTypeID}" required="true"/>                
+            </td></tr> 
+            </table>    
+            <apex:pageblockButtons location="bottom">
+                <apex:commandButton action="{!selectRecordType}" value="Continue"/>
+                <apex:commandButton action="{!cancel}" value="Cancel"/>
+            </apex:pageblockButtons>
+        </apex:pageBlock>
+
+
+        <apex:pageblock rendered="{!BolRecType}" mode="mainDetail">
+            Available Rebate Rule Line Item Record Types
+            <br/>
+            <apex:pageblocktable value="{!Recdtypelist}" var="rec">
+                <apex:column headerValue="Record Type Name" value="{!rec.name}"/>
+                <apex:column headerValue="Description" value="{!rec.description}"/>
+            </apex:pageblocktable>
+        </apex:pageblock>
+
+        <apex:pageblock rendered="{!MessgaeBlock}" title="Message Block">
+            <apex:pageblockSection columns="1">
+                <b>Rebate Rule Header :</b> {!Rebate_Rule_Header__c.Name}<br/>
+                <b>Rebate Rule Header fiscal quarter:</b> {!Rebate_Rule_Header__c.fiscal_quarter__c}<br/>
+                <b>Record Type :</b>{!RecordTypeName} <br/>
+                <b>'Effective start date' &amp; 'Effective End date' should fall within the fiscal quarter of the Rebate rule header</b> <br/>
+                Effective To date should be at least one day after Effective From date<br/>
+            </apex:pageblockSection>
+        </apex:pageblock>
+
+        <apex:pageBlock Title="Create new rebate rule line items for : {!Rebate_Rule_Header__c.Name}" rendered="{!BolClsSubCls}" mode="mainDetail">
+            <apex:pageMessages />
+            <apex:pageBlockTable value="{!RebateRuleLineItemList}"  var="csc" style="width:1200px">
+
+                 <apex:column headerValue="Class" style="style100">
+                    <apex:inputField value="{!csc.rrlnElt.Class__c}" style="width:100px"/> 
+                </apex:column>
+                <apex:column headerValue="Sub Class" style="style100">
+                    <apex:inputField value="{!csc.rrlnElt.Sub_Class__c}" style="width:100px"/>
+                </apex:column>
+                <apex:column headerValue="Amount" style="style100">
+                    <apex:inputField value="{!csc.rrlnElt.Amount__c}" style="width:100px"/>
+                </apex:column>
+                <apex:column headerValue="Rebate %" style="style100">
+                    <apex:inputField value="{!csc.rrlnElt.Rebate__c}" style="width:100px"/> 
+                </apex:column>
+                <apex:column headerValue="Business Segment" style="style100">
+                    <apex:inputField value="{!csc.rrlnElt.Business_Segment__c}" style="width:100px"/>
+                </apex:column>  
+                <apex:column headerValue="Effective Date (From)" style="style100" >
+                    <div class="hideCurrDate">
+                    <apex:inputField value="{!csc.rrlnElt.Effective_Date_From__c}" style="width:100px"/>
+                    </div> 
+                </apex:column>
+                <apex:column headerValue="Effective Date (To)" style="style100">
+                    <div class="hideCurrDate">
+                    <apex:inputField value="{!csc.rrlnElt.Effective_Date_To__c}" style="width:100px"/> 
+                    </div>
+                </apex:column>              
+                <apex:column headerValue="Max Rebate Amount" style="style100">
+                    <apex:inputField value="{!csc.rrlnElt.Max_Amount__c}" style="width:100px"/> 
+                </apex:column>
+                <apex:column headerValue="Min Units" style="style100">
+                    <apex:inputField value="{!csc.rrlnElt.Min_Units__c}" style="width:100px"/> 
+                </apex:column>
+                <apex:column headerValue="Max Units" style="style100">
+                    <apex:inputField value="{!csc.rrlnElt.Max_Units__c}" style="width:100px"/>
+                </apex:column>
+                <apex:column headerValue="Units Forecasted" style="style100">
+                    <apex:inputField value="{!csc.rrlnElt.Units_Forecasted__c}" style="width:100px"/> 
+                </apex:column>
+
+                <apex:column headerValue="Comments" style="style100">
+                    <apex:inputField value="{!csc.rrlnElt.Comments__c}" style="width:100px"/>
+                </apex:column>
+            </apex:pageBlockTable>
+            <apex:pageblockButtons location="bottom">
+                <apex:commandButton action="{!AddRow}" value="Add Row"/>
+                <apex:commandButton action="{!deleteRow}" value="Delete Row"/>
+                <apex:commandButton action="{!insertRebateRuleLnItems}" value="Save"/>
+                <apex:commandButton action="{!cancel}" value="Cancel"/>                
+            </apex:pageblockButtons>
+        </apex:pageBlock>
+
+        <apex:pageBlock Title="Create new rebate rule line items for : {!Rebate_Rule_Header__c.Name}" rendered="{!BolFlatRate}" mode="mainDetail"> 
+            <apex:pageMessages />
+            <apex:pageBlockTable value="{!RebateRuleLineItemList}"  var="fr" style="width:600px">
+
+                <apex:column headerValue="Mfg SKU #" style="style100">
+                    <apex:inputField value="{!fr.rrlnElt.Mfg_SKU__c}" style="width:100px"/>
+                </apex:column>
+                <apex:column headerValue="Flat Rate Amount" style="style100">
+                    <apex:inputField value="{!fr.rrlnElt.Flat_Rate__c}" style="width:100px"/>
+                </apex:column>
+                <apex:column headerValue="Business Segment" style="style100">
+                    <apex:inputField value="{!fr.rrlnElt.Business_Segment__c}" style="width:100px"/>
+                </apex:column> 
+                <apex:column headerValue="Effective Date (From)" style="style100">
+                    <div class="hideCurrDate">
+                        <apex:inputField value="{!fr.rrlnElt.Effective_Date_From__c}" style="width:100px"/>
+                    </div> 
+                </apex:column>
+                <apex:column headerValue="Effective Date (To)" style="style100">
+                    <div class="hideCurrDate">
+                        <apex:inputField value="{!fr.rrlnElt.Effective_Date_To__c}" style="width:100px"/> 
+                    </div>
+                </apex:column>              
+                <apex:column headerValue="Comments" style="style100">
+                    <apex:inputField value="{!fr.rrlnElt.Comments__c}" style="width:100px"/> 
+                </apex:column>
+            </apex:pageBlockTable>
+            <apex:pageblockButtons location="bottom">
+                <apex:commandButton action="{!AddRow}" value="Add Row"/>
+                <apex:commandButton action="{!deleteRow}" value="Delete Row"/>
+                <apex:commandButton action="{!insertRebateRuleLnItems}" value="Save"/>
+                <apex:commandButton action="{!cancel}" value="Cancel"/>                
+            </apex:pageblockButtons>
+        </apex:pageBlock>
+
+
+        <apex:pageBlock Title="Create new rebate rule line items for : {!Rebate_Rule_Header__c.Name}" rendered="{!BolSKUBased}" mode="mainDetail"> 
+        <apex:pageMessages />
+        <apex:pageBlockTable value="{!RebateRuleLineItemList}"  var="sku" style="width:1200px">
+          
+            <apex:column headerValue="Dell SKU#" style="style100">
+                <apex:inputField value="{!sku.rrlnElt.Dell_SKU__c}" style="width:100px"/> 
+            </apex:column>
+            <apex:column headerValue="Mfg SKu#" style="style100">
+                <apex:inputField value="{!sku.rrlnElt.Mfg_SKU__c}" style="width:100px"/>
+            </apex:column>
+            <apex:column headerValue="Amount" style="style100">                
+                <apex:inputField value="{!sku.rrlnElt.Amount__c}" style="width:100px"/> 
+            </apex:column>
+            <apex:column headerValue="Rebate %" style="style100">
+                <apex:inputField value="{!sku.rrlnElt.Rebate__c}" style="width:100px"/> 
+            </apex:column>
+             <apex:column headerValue="Business Segment" style="style100">
+                <apex:inputField value="{!sku.rrlnElt.Business_Segment__c}" style="width:100px"/>
+            </apex:column> 
+            <apex:column headerValue="Effective Date (From)" style="style100">
+                <div class="hideCurrDate">
+                    <apex:inputField value="{!sku.rrlnElt.Effective_Date_From__c}" style="width:100px"/>
+                </div> 
+            </apex:column>
+            <apex:column headerValue="Effective Date (To)" style="style100">
+                <div class="hideCurrDate">
+                    <apex:inputField value="{!sku.rrlnElt.Effective_Date_To__c}" style="width:100px"/> 
+                </div>
+            </apex:column> 
+            <apex:column headerValue="Max Rebate Amount" style="style100">                
+                <apex:inputField value="{!sku.rrlnElt.Max_Amount__c}" style="width:100px"/>
+            </apex:column>
+            <apex:column headerValue="Min Units" style="style100">
+                <apex:inputField value="{!sku.rrlnElt.Min_Units__c}" style="width:100px"/> 
+            </apex:column>
+            <apex:column headerValue="Max Units" style="style100">
+                <apex:inputField value="{!sku.rrlnElt.Max_Units__c}" style="width:100px"/>
+            </apex:column>
+            <apex:column headerValue="Units Forecasted" style="style100">
+                <apex:inputField value="{!sku.rrlnElt.Units_Forecasted__c}" style="width:100px"/> 
+            </apex:column>
+            
+            <apex:column headerValue="Comments" style="style100">
+                <apex:inputField value="{!sku.rrlnElt.Comments__c}" style="width:100px"/>
+            </apex:column>
+        </apex:pageBlockTable>
+        <apex:pageblockButtons location="bottom">
+            <apex:commandButton action="{!AddRow}" value="Add Row"/>
+            <apex:commandButton action="{!deleteRow}" value="Delete Row"/>
+            <apex:commandButton action="{!insertRebateRuleLnItems}" value="Save"/> 
+            <apex:commandButton action="{!cancel}" value="Cancel"/>               
+        </apex:pageblockButtons>
+        </apex:pageBlock>
+    </apex:form> 
+</apex:page>

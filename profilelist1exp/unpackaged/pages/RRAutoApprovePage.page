@@ -1,0 +1,13 @@
+<apex:page standardController="Rebate_Rule_Header__c" extensions="RR_CloneWithItemsVFController" action="{!AutoApproveRR}">
+<script>
+  
+         if((typeof sforce != 'undefined') && sforce && (!!sforce.one)){
+                                  sforce.one.back(true);
+
+                     }
+                     else {
+                       window.parent.location = '/'+'{!strRRID}';
+                     }
+
+</script>
+</apex:page>

@@ -1,0 +1,209 @@
+<!-- 
+
+REVISION HISTORY
+================
+Version     Author      Date            Release#    CR#     Description
+-------     ------      ----            --------    ---     -----------
+1.0         Devika      20 Jan 2014     15.03      8974     OMGO WF 15.03
+
+ -->
+ 
+ 
+<apex:page controller="VF_NewLogACallPage" tabStyle="Event"  lightningStylesheets="true">
+  <apex:sectionHeader title="Log a Call"/>
+  <apex:form >
+    <style>
+       
+        body .bPageBlock .pbBody .pageblocksection .pbSubheader{
+            background-color:#CFEEF8;
+        }
+        
+        body .bPageBlock .pbBody .pageblocksection h3{
+            color:#000;
+            font-family: Arial,Helvetica,sans-serif;
+            font-size:   13.1px;
+            font-weight: 700;
+            font-style:  normal;
+        } 
+        
+        a:hover {
+            background:#ffffff; /*BG color is a must for IE6*/
+            text-decoration:none;
+           -moz-border-radius-topleft: 10px;
+        } 
+        a.tooltip span {
+            display:none; 
+            padding:10px 10px;             
+            width:200px;
+            color:black;
+        }
+        a.tooltip:hover span{
+            display:inline; 
+            position:absolute; 
+            border:1px solid; 
+            
+            border-color:#000000;           
+            background:#FFC;            
+            -moz-border-radius: 5px;
+            -webkit-border: 5px;
+            border-radius: 5px;
+        }  
+    </style>
+    <script type='text/javascript' src= '//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'>
+        </script>
+        <script language="javascript">
+            $(function() {        
+                $('select.RemoveNone option[value=]').remove();       
+            });
+             function changeWhoId(s){           
+               if(s.nodeName == 'SELECT'){                
+                RefreshWhoType(s.options[s.selectedIndex].text);    
+               }   
+             }   
+    </script>  
+    
+    <apex:actionFunction status="myStatus" action="{!RefreshWhoType}" name="RefreshWhoType" rerender="pgBlkSec" immediate="true">
+        <apex:param id="whoType" name="whoType" assignTo="{!whoType}" value="" />
+    </apex:actionFunction>
+    
+    <apex:pageBlock title="Task Edit" id="pageblock" >
+      <apex:outputPanel styleClass="pageblocksection" layout="block">
+        <apex:pageBlockSection title="Task Information" collapsible="false" id="pgBlkSec">
+          <apex:inputField value="{!callRecord1.OwnerId}"/>
+          <apex:outputField value="{!callRecord1.Status}"/>
+          <apex:inputField value="{!callRecord1.Subject}" required="true"/>
+          <apex:inputField value="{!callRecord1.WhoId}"  id="whoId" onchange="{changeWhoId(this)}"/>
+          <apex:inputField value="{!callRecord1.ActivityDate}" required="true"/>
+          <apex:inputField value="{!callRecord1.WhatId}" rendered="{!NOT(leadFlag)}"/>
+          <apex:pageBlockSectionItem rendered="{!leadFlag}" id="blkItemWhatId2" >
+            <apex:outputLabel value="Related To"/>
+              <apex:outputpanel >
+              <apex:selectList id="slwhatId" style="width:160px">
+                <apex:selectOption itemValue="Opportunity" itemLabel="Opportunity"/>
+              </apex:selectList>
+              <apex:inputText id="inpWhatId1"/>
+              <script>
+                document.getElementById('{!$Component.slwhatId}').disabled = {!leadFlag}; 
+                document.getElementById('{!$Component.inpWhatId1}').disabled = {!leadFlag}; 
+              </script>
+            </apex:outputpanel>                        
+          </apex:pageBlockSectionItem>
+          <apex:inputField value="{!callRecord1.Lead_Quality__c}"/>
+          <apex:inputField value="{!callRecord1.Type}" required="true"/>
+          <apex:inputField value="{!callRecord1.Email_Team_on_Status_Change__c}"/>
+          <apex:pageBlockSectionItem >
+            <apex:outputLabel >Invalid Lead Reason</apex:outputLabel>  
+            <apex:outputPanel >
+              <apex:inputField value="{!callRecord1.Invalid_Lead_Reason__c}" /> &nbsp;             
+              <a class="tooltip" target="_blank">
+                <apex:image value="{!$Resource.Information_Icon}" />            
+                <span>Depends on "Lead Quality"</span>
+              </a>
+            </apex:outputPanel>
+          </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+      </apex:outputPanel>
+      <apex:outputPanel styleClass="pageblocksection" layout="block">
+        <apex:pageBlockSection title="Contact Information" collapsible="false">
+          <apex:pageBlockSectionItem >
+            <apex:outputLabel >Phone</apex:outputLabel>
+            <apex:outputText value="{!Phone}"/>
+          </apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem >
+            <apex:outputLabel >Email</apex:outputLabel>
+            <apex:outputText value="{!Email}"/>
+          </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+      </apex:outputPanel>
+      <apex:outputPanel styleClass="pageblocksection" layout="block">
+        <apex:pageBlockSection title="Description Information" collapsible="false" columns="1">
+          <apex:inputField value="{!callRecord1.Description}" style="width:400px;height:90px" />
+           <apex:outputPanel style="Float:left">
+             <apex:pageBlockSectionItem >
+               <apex:inputCheckbox value="{!sendNotificationEmail1}"/>
+               <apex:outputLabel >Send Notification Email</apex:outputLabel>
+             </apex:pageBlockSectionItem>
+           </apex:outputPanel>
+        </apex:pageBlockSection>
+      </apex:outputPanel>
+      <apex:outputPanel styleClass="pageblocksection" layout="block">
+        <apex:pageBlockSection title="Schedule follow up task" collapsible="false" columns="1">       
+        </apex:pageBlockSection>
+      </apex:outputPanel>
+      <apex:outputPanel styleClass="pageblocksection" layout="block">
+        <apex:pageBlockSection title="Task Information" collapsible="false">
+          <apex:inputField value="{!callRecord2.OwnerId}"/>
+          <apex:inputField value="{!callRecord2.Status}" styleClass="RemoveNone"/>          
+          <apex:pageBlockSectionItem helpText="{!$ObjectType.Task.fields.Subject.InlineHelpText}" >
+            <apex:outputlabel >Subject</apex:outputlabel>
+              <apex:outputpanel layout="block" styleClass="requiredInput">
+                <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                  <apex:inputfield value="{!callRecord2.Subject}"></apex:inputfield>
+              </apex:outputpanel>
+          </apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem >
+            <apex:outputlabel >Type</apex:outputlabel>
+              <apex:outputpanel layout="block" styleClass="requiredInput">
+                <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                  <apex:inputfield value="{!callRecord2.Type}"></apex:inputfield>                  
+              </apex:outputpanel>
+          </apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem >
+            <apex:outputlabel >Due Date</apex:outputlabel>
+              <apex:outputpanel layout="block" styleClass="requiredInput">
+                <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                  <apex:inputfield value="{!callRecord2.ActivityDate}"></apex:inputfield>                 
+              </apex:outputpanel>
+          </apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem >
+            <apex:outputLabel >Invalid Lead Reason</apex:outputLabel>  
+            <apex:outputPanel >
+              <apex:inputField value="{!callRecord2.Invalid_Lead_Reason__c}" /> &nbsp;             
+              <a class="tooltip" target="_blank">
+                <apex:image value="{!$Resource.Information_Icon}" />            
+                <span>Depends on "Lead Quality"</span>
+              </a>
+            </apex:outputPanel>
+          </apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem >
+            <apex:outputlabel >Priority</apex:outputlabel>
+              <apex:outputpanel layout="block" styleClass="requiredInput">
+                <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>
+                  <apex:inputField value="{!callRecord2.Priority}" required="false" styleClass="RemoveNone"/>
+              </apex:outputpanel>
+          </apex:pageBlockSectionItem>
+          <apex:outputLabel ></apex:outputLabel>
+          <apex:inputField value="{!callRecord2.Lead_Quality__c}"/>
+          <apex:outputLabel ></apex:outputLabel>
+          <apex:inputField value="{!callRecord2.Email_Team_on_Status_Change__c}"/>          
+        </apex:pageBlockSection>
+      </apex:outputPanel>
+      <apex:outputPanel styleClass="pageblocksection" layout="block">
+        <apex:pageBlockSection title="Description Information" collapsible="false" columns="1">
+           <apex:inputField value="{!callRecord2.Description}" style="width:400px;height:90px" />
+           <apex:outputPanel style="float:left">
+             <apex:pageBlockSectionItem >
+               <apex:inputCheckbox value="{!sendNotificationEmail2}"/>
+               <apex:outputLabel >Send Notification Email</apex:outputLabel>
+             </apex:pageBlockSectionItem>
+           </apex:outputPanel>
+        </apex:pageBlockSection>
+      </apex:outputPanel>
+      <apex:outputPanel styleClass="pageblocksection" layout="block">  
+        <apex:pageBlockSection title="Reminder" >
+          <apex:pageblockSectionItem >
+            <apex:outputLabel >Reminder</apex:outputLabel>
+            <apex:outputPanel >
+              <apex:inputCheckbox value="{!callRecord2.isReminderSet}"/>
+              <apex:inputField value="{!callRecord2.reminderDateTime}"/>          
+            </apex:outputPanel>
+          </apex:pageblockSectionItem>
+        </apex:pageBlockSection>
+      </apex:outputPanel>
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!Save}" />
+        <apex:commandButton value="Cancel" action="{!Cancel}" immediate="true"/>
+      </apex:pageBlockButtons>
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>Created for CR #10080. Mapping between Relationship Lead Status and Campaign Member Status.</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>CM_Status__c</fullName>
+        <description>Campaign Member Status picklist value.</description>
+        <externalId>false</externalId>
+        <label>CM Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RL_Status__c</fullName>
+        <description>Relationship Lead Status picklist value.</description>
+        <externalId>false</externalId>
+        <label>RL Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>RL_CM Status Mapping</label>
+    <visibility>Protected</visibility>
+</CustomObject>

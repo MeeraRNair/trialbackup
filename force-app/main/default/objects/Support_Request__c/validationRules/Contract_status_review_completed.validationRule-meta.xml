@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contract_status_review_completed</fullName>
+    <active>true</active>
+    <description>If status is review completed ,cannot edit the record.</description>
+    <errorConditionFormula>ISPICKVAL(PRIORVALUE(Review_Status__c), &apos;Review Completed&apos;) &amp;&amp;
+( ISCHANGED(Review_Status__c) || ISCHANGED(CM_Comment__c ) || ISCHANGED(CSMB_Contract_Request_Type__c ) || ISCHANGED(Contact_Name__c ) || ISCHANGED( Dell_Company__c ) || ISCHANGED(Business_Unit1__c) || ISCHANGED( Region__c) || ISCHANGED( Sub_Region__c ) || ISCHANGED(Country__c) || ISCHANGED( Anticipated_Anual_Revenue__c ) || ISCHANGED( Business_Case_Summary__c) || ISCHANGED( Products__c)
+)&amp;&amp;
+(($Profile.Name &lt;&gt; &quot;System Administrator&quot;) &amp;&amp; ( $Profile.Name &lt;&gt; &quot;R12.1 CSMB Contract Admin&quot;) &amp;&amp; ( $Profile.Name &lt;&gt; &quot;R12.1 CSMB Contract Manager&quot;) &amp;&amp; ( $Profile.Name &lt;&gt; &quot;R12.1 CSMB Senior Manager&quot;))</errorConditionFormula>
+    <errorMessage>Support Request review completed, record cannot be edited further.Please contact your system administrator.</errorMessage>
+</ValidationRule>

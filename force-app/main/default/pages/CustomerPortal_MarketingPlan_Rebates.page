@@ -1,0 +1,80 @@
+<apex:page standardController="Marketing_Plan__c" extensions="VFCntrlr_CustomerPortal_MPlan_Rebates" sidebar="false">
+    <apex:form >
+        <apex:messages style="color:red;font-weight:bold;"/>
+        <apex:sectionHeader title="Marketing Plan {!Marketing_Plan__c.Name}"/>
+            <apex:pageBlock mode="mainDetail">
+                <apex:pageBlockButtons location="Top">
+                    <apex:commandButton value="Add/Update Marketing Contact" action="{!addPrimaryContact}" rendered="{!((contact_buttons_rendered) && (purchaseorder_render))}"/>
+                    <apex:commandButton value="Add/Update Billing Contact" action="{!addBillingContact}" rendered="{!((contact_buttons_rendered) && (purchaseorder_render))}"/>
+                    <apex:commandButton value="Accept/Decline" action="{!accept_decline_MP}" rendered="{!((contact_buttons_rendered) && (purchaseorder_render)&& Marketing_Plan__c.Contract_Status__c=='Submitted for Review')}"/>
+                    <apex:commandButton value="Save" action="{!saveStatusrebates}" rendered="{!NOT(contact_buttons_rendered)}"/>
+                    <apex:commandButton value="Add Purchase Order #" action="{!addpurchaseorder}" rendered="{!(purchaseorder_render && contact_buttons_rendered)}"/>
+                    <apex:commandButton value="Save" action="{!savepruchaseorder}" rendered="{!NOT(purchaseorder_render)}"/>
+                    <apex:commandButton value="Cancel" action="{!cancelfn}" rendered="{!NOT(purchaseorder_render)||NOT(contact_buttons_rendered)}" immediate="true"/>
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection title="Marketing Plan Details" collapsible="false" columns="2">
+                    <apex:outputField value="{!Marketing_Plan__c.Vendor__r.Name}"/>
+                    <apex:outputField value="{!myMPPlan.Contract_Status__c}" rendered="{!contact_buttons_rendered}"/>                    
+                    <apex:inputField value="{!Marketing_Plan__c.MP_Status__c}" rendered="{!NOT(contact_buttons_rendered)}" required="true"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Contract_Type__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Fiscal_Quarter__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Region__c}"/> 
+                    <apex:outputField value="{!Marketing_Plan__c.Purchase_Order__c}" rendered="{!purchaseorder_render}"/>
+                    <apex:inputField value="{!Marketing_Plan__c.Purchase_Order__c}" rendered="{!NOT(purchaseorder_render)}" required="true"/>
+                </apex:pageBlockSection> 
+                <apex:pageBlockSection title="Rebate Rule Header">
+                    <apex:outputField value="{!Marketing_Plan__c.Rebate_Rule_Header__r.Name}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Rebate_Rule_Header__r.Fiscal_Quarter__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Rebate_Rule_Header__r.Region__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Rebate_Rule_Header__r.Sub_Region__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Rebate_Rule_Header__r.Country__c}"/>
+                </apex:pageBlockSection> 
+                <apex:pageBlock title="Line Item Details" rendered="{!RebateLineItemList.size>0}" mode="mainDetail">
+                    <apex:repeat value="{!RebateLineItemList}" var="obj">
+                        <apex:pageblockSection columns="2" title="{!obj.Name}">
+                            <apex:outputField value="{!obj.Business_Segment__c}"/>
+                            <apex:outputField value="{!obj.Dell_SKU__c}"/>
+                            <apex:outputField value="{!obj.Mfg_SKU__c}"/>
+                            <apex:outputField value="{!obj.Class__c}"/>
+                            <apex:outputField value="{!obj.Sub_Class__c}"/>
+                            <apex:outputField value="{!obj.Amount__c}"/>
+                            <apex:outputField value="{!obj.Rebate__c}"/>
+                            <apex:outputField value="{!obj.Flat_Rate__c}"/>
+                            <apex:outputField value="{!obj.Effective_Date_From__c}"/>
+                            <apex:outputField value="{!obj.Effective_Date_To__c}"/>
+                            <apex:outputField value="{!obj.Max_Units__c}"/>
+                            <apex:outputField value="{!obj.Min_Units__c}"/>
+                            <apex:outputField value="{!obj.Max_Amount__c}"/>
+                            <apex:outputField value="{!obj.Comments__c}"/>                            
+                        </apex:pageblockSection>
+                    </apex:repeat>
+                </apex:pageBlock>              
+                <apex:pageBlockSection title="Marketing Contact Information" collapsible="true" columns="2"> 
+                    <apex:outputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_Name__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_Country__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_E_mail__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_Phone__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_Address__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_Cell__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_City__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_State__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_Title__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_Zip__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Primary_Marketing_Contact_Fax__c}"/>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Billing Contact Information" collapsible="true" columns="2">
+                    <apex:outputField value="{!Marketing_Plan__c.Billing_Contact_Name__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Billing_Contact_Country__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Billing_Contact_Email__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Billing_Contact_Phone__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Bill_To_Address__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Billing_Cell__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Billing_City__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Billing_State__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Billing_Contact_Title__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Billing_Zip__c}"/>
+                    <apex:outputField value="{!Marketing_Plan__c.Billing_Fax__c}"/>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+    </apex:form> 
+</apex:page>

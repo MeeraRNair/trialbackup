@@ -1,0 +1,1008 @@
+<!-- 
+Story       CR Number   Release No      Date            Created By     Modified By     Description
+--------    ---------   ----------      -----------     ------------   -----------     -----------
+#5688326                FY20-0402       29-Nov-2018     Mounika                        
+#5783739                FY20-0402       05-Dec-2018     Mounika 
+#5663769                FY20-0402       29-Nov-2018     Mounika
+#5680700                FY20-0402       19-Dec-2018     Mounika
+#5680707                FY20-0402       31-Dec-2018     Mounika
+#5680714                FY20-0402       24-Dec-2018     Mounika
+#5680717                FY20-0402       21-Dec-2018     Mounika
+-->
+
+
+<apex:page sidebar="false" showHeader="false" controller="ManageUsersCtrl" tabStyle="Partner_Request__c" standardStylesheets="true">
+   <!-- ====================================================================================== -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+   <!--Javascript to select all records-->
+   <script type="text/javascript">
+       var selectedConIdIs ='';
+     var  conForExport = '';
+     
+       <!--Select all checkboxs fuction in result pb -->
+       function selectAllRecords(obj,selInputID,checkboxType){
+          
+          var inputCheckBox = document.getElementsByClassName("ConID");// if conid uncheck make conidsingle unc 
+           
+           var globalidchecked = true;
+               //console.log('ConID ',$('.ConID'));
+           for(var i=0;i<$('.ConID').length;i++){
+                   //console.log($($('.ConID')[i])[0].checked);
+                   if(!$($('.ConID')[i])[0].checked){
+                    globalidchecked = false;
+               }
+           }
+        
+           var globalId = $(".ConIDSingle");   
+           //console.log('globalId  ',globalId[0]);
+           // console.log('obj ',$(obj));
+            if(!$(obj)[0].checked){
+             globalId[0].checked = false
+           }
+         
+           if(checkboxType!='global'){
+               if(globalidchecked){
+                   globalId[0].checked = true;
+               }
+           }
+           
+           //selectedConIdIs ='';
+           for(var i=0; i<inputCheckBox.length; i++){  
+               if(inputCheckBox[i].id.indexOf(selInputID)!=-1){                                     
+                   if(inputCheckBox[i].checked = obj.checked){
+                       selectedConIdIs += inputCheckBox[i].id+',';
+                   }
+                   else{
+                        selectedConIdIs ='';
+                   }
+               }
+           } 
+           //console.log('selectedConIdIs',selectedConIdIs);
+           // saveContactCallForAction(selectedConIdIs);
+           //alert(selectedConIdIs);
+           //  conForExport += selectedConIdIs;
+       }
+      
+    <!--Export selected contact ids-->
+        function selectExport(){
+        var selectedConIdIs ='';
+        var inputCheckBox = document.getElementsByClassName("ConID");
+        for(var i=0; i<inputCheckBox.length; i++){  
+            if(inputCheckBox[i].checked){
+                    if(selectedConIdIs  == '')
+                       selectedConIdIs = inputCheckBox[i].id;
+                     else
+                       selectedConIdIs += ','+inputCheckBox[i].id+',';
+                   }
+        }
+            //alert(selectedConIdIs);
+           saveContactCallForExportAction(selectedConIdIs);
+           selectedConIdIs ='';
+           
+       }  
+  
+    
+    <!--Export All -->
+        function selectExportAll(exportValue){ 
+           if(exportValue == '{!($Label.Export_All_users)}'){
+               //alert('selectExportAll');
+               document.getElementById("conCheckboxAll").disabled = true;
+               var test = document.getElementsByClassName("ConID");   
+               for(var i=0; i<test.length; i++){  
+                      test[i].disabled = true;
+                    
+                }
+           }  
+        } 
+        
+       <!--Tool Access checkboxs to show-->
+       var expandedAppAcc = false;
+       function showAppAccCheckboxes() {
+       var checkboxes = document.getElementById("appAccCheckboxes");
+       if (!expandedAppAcc) {
+       checkboxes.style.display = "block";
+       expandedAppAcc = true;
+       } else {
+       checkboxes.style.display = "none";
+       expandedAppAcc = false;
+       }
+       }
+       
+       <!--Partner Track checkboxs to show-->
+       var expandedPtnrTrck = false;
+       function showPtnrTrckCheckboxes() {
+       var checkboxes = document.getElementById("ptnrTrckCheckboxes");
+       if (!expandedPtnrTrck) {
+       checkboxes.style.display = "block";
+       expandedPtnrTrck = true;
+       }else {
+       checkboxes.style.display = "none";
+       expandedPtnrTrck = false;
+       }
+       }
+       
+       <!--Tool Access checkboxs to show for Action-->
+       var expandedAppAccAction = false;
+       function showAppAccCheckboxesForAction() {
+       var checkboxes = document.getElementById("appAccCheckboxesForAction");
+       if (!expandedAppAccAction) {
+       checkboxes.style.display = "block";
+       expandedAppAccAction = true;
+       } else {
+       checkboxes.style.display = "none";
+       expandedAppAccAction = false;
+       }
+       }
+       
+       <!--Partner Track checkboxs to show for Action-->
+       var expandedPtnrTrckAction = false;
+       function showPtnrTrckCheckboxesForAction() {
+       var checkboxes = document.getElementById("ptnrTrckCheckboxesForAction");
+       if (!expandedPtnrTrckAction) {
+       checkboxes.style.display = "block";
+       expandedPtnrTrckAction = true;
+       }else {
+       checkboxes.style.display = "none";
+       expandedPtnrTrckAction = false;
+       }
+       }
+       
+       <!--ToolAccessForAction and PartnerTrackForActin checkboxs to function statrs -->  
+           //New logic
+           function selectedCheckboxForAction(){
+         var chkAppAccAction = document.getElementsByClassName("checkAppAccessForAction");
+        var selectedAppAccActionValueIs = '';
+      
+       for(var i=0; i<chkAppAccAction.length; i++){          
+              if(chkAppAccAction[i].id !=''){  
+                if(chkAppAccAction[i].checked == true){
+                   selectedAppAccActionValueIs += chkAppAccAction[i].id+',';
+                }                                   
+              }
+          }
+            
+          
+       var chkPtnrTrckAction = document.getElementsByClassName("checkPtnrTrackForAction");
+      var selectedPtnrTrckActionValueIs = '';
+       for(var i=0; i<chkPtnrTrckAction.length; i++){          
+              if(chkPtnrTrckAction[i].id !=''){  
+                if(chkPtnrTrckAction[i].checked == true){
+                   selectedPtnrTrckActionValueIs += chkPtnrTrckAction[i].id+',';
+                  
+                }                                   
+              }
+          }
+           
+          // alert(selectedConIdIs);
+           saveContactCallForAction(selectedPtnrTrckActionValueIs,selectedConIdIs,selectedAppAccActionValueIs);
+         // selectedConIdIs ='';
+          // alert(selectedConIdIs); 
+           //var isSucceded = '{!bContactSelSuccess}';
+           //console.log('>>>>>>isSucceded::',isSucceded);
+       }
+       //New logic
+       <!-- Ends Action check-->
+           
+        <!--Tool Access and PartnerTrack checkboxs to function statrs -->
+       function selectedCheckbox() {
+           selectedConIdIs ='';
+            conIDExport ='';
+       var chkAppAcc = document.getElementsByClassName("checkAppAccess");
+            //  console.log('chkAppAcc.length ',chkAppAcc.length);
+       var selectedAppAccValueIs = '';
+       for(var i=0; i<chkAppAcc.length; i++){          
+              if(chkAppAcc[i].id !=''){  
+                if(chkAppAcc[i].checked == true){
+                   selectedAppAccValueIs += chkAppAcc[i].id+',';
+                  
+                }                                   
+              }
+          }
+          
+        
+       var chkPtnrTrck= document.getElementsByClassName("checkPtnrTrack");
+       var selectedPtnrTrckValueIs = '';
+       for(var i=0; i<chkPtnrTrck.length; i++){          
+              if(chkPtnrTrck[i].id !=''){  
+                if(chkPtnrTrck[i].checked == true){
+                   selectedPtnrTrckValueIs += chkPtnrTrck[i].id+',';
+                  
+                }                                   
+              }
+          }
+           contactSetupcall(selectedAppAccValueIs, selectedPtnrTrckValueIs);
+       //alert('selectedAppAccValueIs'+selectedAppAccValueIs)
+      // alert(selectedPtnrTrckValueIs)
+       }
+       <!-- Ends Search check-->
+       
+     
+      
+       <!--Select All Tool lAccess -->
+       function selectAllToolAccess(source, selectAllOrNot) {
+        checkboxes = document.getElementsByName('allToolAccess');
+           // console.log('checkboxes@@@'+checkboxes);
+        checkboxesAppAccess = document.getElementsByClassName('checkAppAccessAll');
+           // console.log('checkboxesAppAccess@@@'+checkboxesAppAccess);
+           if(selectAllOrNot == 'selectall'){   
+              for(var i=0;i<checkboxes.length;i++){
+                  //console.log(i,source.checked);
+                  //  console.log(checkboxes[i].checked);
+                   checkboxes[i].checked = source.checked;
+               }
+           }
+           if(selectAllOrNot == 'single'){
+               for(var i=0;i<checkboxesAppAccess.length;i++){
+                   checkboxesAppAccess[i].checked = source.unChecked;
+               }
+           }
+           if(selectAllOrNot == 'single'){   
+               var allChecked = true;
+               for(var i=0;i<checkboxes.length;i++){
+                   if(!checkboxes[i].checked){
+                       allChecked = false;
+                   }
+               }
+               checkboxesAppAccess[0].checked =allChecked;
+           }
+       }
+         
+      
+       <!--Select All Partner Tracks -->
+      function selectAllPartnerTracks(source, selectAllOrNot) {
+          //console.log('source ',source);
+          checkboxes = $('.checkPtnrTrack');//document.getElementsByName('allPartnerTracks');
+        checkboxesPtnrTrack = document.getElementsByClassName('checkPtnrTrackAll');
+          if(selectAllOrNot == 'selectall'){  
+              for(var i=0;i<checkboxes.length;i++){
+                  checkboxes[i].checked = source.checked;
+              }
+          }
+          if(selectAllOrNot == 'single'){
+              for(var i=0;i<checkboxesPtnrTrack.length;i++){
+                  checkboxesPtnrTrack[i].checked = source.unChecked;
+              }
+          }
+          if(selectAllOrNot == 'single'){  
+              var allChecked = true;
+              for(var i=0;i<checkboxes.length;i++){
+                  // console.log(i ,'--> ',checkboxes[i]);
+                  if(!checkboxes[i].checked){
+                      allChecked = false;
+                  }
+              }
+              checkboxesPtnrTrack[0].checked =allChecked;
+          }
+        }
+      
+      <!--Select All Partner Tracks for Actions-->
+       function selectAllPartnerTracksForActions(source, selectAllOrNot) {
+        checkboxes = document.getElementsByName('allPartnerTracksForAction');
+        checkboxesPartnerTracksForAction = document.getElementsByClassName('checkPtnrTrackForActionAll');
+           if(selectAllOrNot == 'selectall'){  
+               for(var i=0;i<checkboxes.length;i++){
+                   checkboxes[i].checked = source.checked;
+               }
+           }
+           if(selectAllOrNot == 'single'){
+               for(var i=0;i<checkboxesPartnerTracksForAction.length;i++){
+                   checkboxesPartnerTracksForAction[i].checked = source.unChecked;
+               }
+           }
+           if(selectAllOrNot == 'single'){   
+               var allChecked = true;
+               for(var i=0;i<checkboxes.length;i++){
+                   if(!checkboxes[i].checked){
+                       allChecked = false;
+                   }
+               }
+               checkboxesPartnerTracksForAction[0].checked =allChecked;
+           }
+       }
+      
+      <!--Select All tool Access for Actions-->
+       function selectAllToolAccesForActions(source, selectAllOrNot) {
+           checkboxes = document.getElementsByName('allToolAccessForAction');
+           checkboxesToolAccessForAction = document.getElementsByClassName('checkAppAccessForActionAll');
+           if(selectAllOrNot == 'selectall'){  
+               for(var i=0;i<checkboxes.length;i++){
+                   checkboxes[i].checked = source.checked;
+               }
+           }
+           if(selectAllOrNot == 'single'){
+               for(var i=0;i<checkboxesToolAccessForAction.length;i++){
+                   checkboxesToolAccessForAction[i].checked = source.unChecked;
+               }
+               //Added as part of 6335018 [SFDC] ISG Enablement: Channel 2 Tier: Retrofit Manage User Partner Admin Search filters for create
+               var actionValue = $("select[id$='AccessAction']").val();
+               //Validation for provide tool access to selected user
+               if(actionValue =='{!$label.Provide_Tools_Access_to_selected_users}'){
+                   if(source.id =='OSC_Create_Order__c' && source.checked){
+                     $('#appAccCheckboxesForAction #OSC_Create_Quote__c').prop('checked', true);
+                   }
+                   if(source.id =='OSC_Create_Quote__c' && !source.checked){
+                     $('#appAccCheckboxesForAction #OSC_Create_Order__c').prop('checked', false);
+                   }
+                   if(source.id =='OSC_Specialty_Product_Create_Order__c' && source.checked){
+                     $('#appAccCheckboxesForAction #OSC_Specialty_Product_Create_Quote__c').prop('checked', true);
+                   }
+                   if(source.id =='OSC_Specialty_Product_Create_Quote__c' && !source.checked){
+                     $('#appAccCheckboxesForAction #OSC_Specialty_Product_Create_Order__c').prop('checked', false);
+                   }
+               }
+               
+               //Validation for remove tool access to selected user
+               if(actionValue == '{!$label.Remove_Tools_Access_to_selected_users}'){
+                 if(source.id == 'OSC_Create_Quote__c' && source.checked){
+                    $('#appAccCheckboxesForAction #OSC_Create_Order__c').prop('checked', true);
+                 }
+                 if(source.id == 'OSC_Create_Quote__c' && !source.checked){
+                     $('#appAccCheckboxesForAction #OSC_Create_Order__c').prop('checked', false);
+                 }
+                 if(source.id == 'OSC_Specialty_Product_Create_Quote__c' && source.checked){
+                    $('#appAccCheckboxesForAction #OSC_Specialty_Product_Create_Order__c').prop('checked', true);
+                 }
+                 if(source.id == 'OSC_Specialty_Product_Create_Quote__c' && !source.checked){
+                     $('#appAccCheckboxesForAction #OSC_Specialty_Product_Create_Order__c').prop('checked', false);
+                 }
+               }
+               
+           }
+          if(selectAllOrNot == 'single'){   
+               var allChecked = true;
+               for(var i=0;i<checkboxes.length;i++){
+                   if(!checkboxes[i].checked){
+                       allChecked = false;
+                   }
+                  
+               }
+               checkboxesToolAccessForAction[0].checked =allChecked;
+           }
+       }
+    
+   
+    //To close the custome dropdowns
+    window.onclick = function(e){
+      if( !e ) e = window.event;
+      
+       var source = e.target || e.srcElement;
+        //console.log('source ',$(source));
+     //var successMsg = document.getElementsByClassName("message confirmM3"); 
+      var hideMeAppAcc= document.getElementById("appAccCheckboxes"); 
+      var hideMePT= document.getElementById("ptnrTrckCheckboxes");
+      var hideMeAppAccForAction= document.getElementById("appAccCheckboxesForAction");
+      var hideMePTForAction= document.getElementById("ptnrTrckCheckboxesForAction");
+        //console.log('hideMePTForAction ',hideMePTForAction);
+      
+    
+
+      if(hideMeAppAcc.style.display=='block' || hideMeAppAcc.style.display != ''){  
+          if($(source)[0].id !='appAccselect' && $(source)[0].className!='checkAppAccess' && $(source)[0].className!='checkAppAccessAll'){
+              hideMeAppAcc.style.display = 'none';
+         }
+      }
+      
+      if(hideMePT.style.display=='block' || hideMePT.style.display != ''){  
+          if($(source)[0].id !='pTselect' && $(source)[0].className!='checkPtnrTrack' && $(source)[0].className!='checkPtnrTrackAll'){
+              hideMePT.style.display = 'none';
+          }
+      }
+           
+      if(hideMePTForAction && (hideMePTForAction.style.display=='block' || hideMePTForAction.style.display != '')){
+         if($(source)[0].id !='pTSelectForAction' && $(source)[0].className!='checkPtnrTrackForAction' && $(source)[0].className!='checkPtnrTrackForActionAll'){
+             hideMePTForAction.style.display = 'none';
+         }
+     }
+           
+     if(hideMeAppAccForAction && (hideMeAppAccForAction.style.display=='block' || hideMeAppAccForAction.style.display != '')){ 
+         if($(source)[0].id !='appAccSelectForAction' && $(source)[0].className!='checkAppAccessForAction' && $(source)[0].className!='checkAppAccessForActionAll'){
+             hideMeAppAccForAction.style.display = 'none';
+         }
+     }
+   
+     };
+     
+     
+        
+   </script>
+   
+   <script>
+   function TableRender(bsuccess){
+   console.log('in str');
+     console.log('>>>test',bsuccess);
+       
+        if(bsuccess == 'true'){
+        console.log('>>>>INSIDE COND::');
+        Tableblockrender();
+         window.location.href = '/'+redirectUrl
+        }
+         
+        }
+        
+        function refreshPage(){
+       // alert('inrefresh');
+      // if you want to refresh from Vf page below statement works
+    //  window.location.href = '/'+redirectUrl
+     window.location.reload();
+}
+   </script>
+   <!-- ====================================================================================== -->
+   <apex:form >
+      <style>
+         
+         .lastName{
+         width: 236px;
+         }      
+         .multiselect {
+         width: 238px;
+         }
+         .selectBox {
+         position: relative;
+         }
+         .selectBox select {
+         width: 100%;
+         font-weight: Arial;
+         }
+         .overSelect {
+         position: absolute;
+         left: 0;
+         right: 0;
+         top: 0;
+         bottom: 0;
+         }
+         <!--Tool Access CSS  -->
+         #appAccCheckboxes{
+         z-index: 9999;
+         position: absolute;
+         background-color: white;
+         width:236px;
+         display: none;
+         border: 1px #dadada solid;
+         overflow: scroll;
+         height: 150px;
+         }
+         #appAccCheckboxes label {
+         display: block;
+         }
+         #appAccCheckboxes label:hover {
+         background-color: #1e90ff;
+         }
+         <!--Tool Access CSS Ends -->
+         <!--Partner Tarck CSS -->
+         #ptnrTrckCheckboxes{
+         z-index: 9999;
+         position: absolute;
+         background-color: white;
+         width:236px;
+         display: none;
+         border: 1px #dadada solid;
+         overflow: scroll;
+         height: 150px;
+         }
+         #ptnrTrckCheckboxes label {
+         display: block;
+         }
+         #ptnrTrckCheckboxes label:hover {
+         background-color: #1e90ff;
+         }
+         <!--Partner Tarck CSS  Ends-->
+         <!--Tool Access CSS For Action -->
+         #appAccCheckboxesForAction{
+         z-index: 9999;
+         position: absolute;
+         background-color: white;
+         width:236px;
+         display: none;
+         border: 1px #dadada solid;
+         overflow: scroll;
+         height: 150px;
+         }
+         #appAccCheckboxesForAction label {
+         display: block;
+         }
+         #appAccCheckboxesForAction label:hover {
+         background-color: #1e90ff;
+         }
+         <!--Tool Access CSS For Action Ends -->
+         <!--Partner Tarck CSS For Action -->
+         #ptnrTrckCheckboxesForAction{
+         z-index: 9999;
+         position: absolute;
+         background-color: white;
+         width:198px;
+         display: none;
+         border: 1px #dadada solid;
+         overflow: scroll;
+         height: 150px;
+         }
+         #ptnrTrckCheckboxesForAction label {
+         display: block;
+         }
+         #ptnrTrckCheckboxesForAction label:hover {
+         background-color: #1e90ff;
+         }
+         <!--Partner Tarck CSS For Action Ends-->
+         
+          #serBtn{ 
+          background: #A0A0A0;
+          }
+         
+      </style>
+      
+      <style>
+            .tooltip {
+            position: relative;
+            display: grid;
+            text-decoration: underline;
+            }
+            
+            .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: white;
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            top: -5px;
+            left: 110%;
+            overflow:auto; 
+            border-style: 1px solid black;
+            }
+            
+            .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            margin-top: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent black transparent transparent;
+            
+            }
+            .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+            }
+            
+            div:hover {background: none; text-decoration:none;} /*BG color is a must for IE6*/
+            div.tooltip p {display:none; padding:2px 3px;margin-top: 4px; margin-left:8px; height: 100px; overflow:auto;}
+            div.tooltip:hover p{display:block; position:static; background:#ffffff; border:1px solid #cccccc; color:#6c6c6c; border-color: darkgray; z-index: 9999;}
+            
+        </style>
+      <!-- ====================================================================================== -->
+       
+       <!--Added By Varsha-->
+        <!-- ====================================================================================== -->
+        <apex:outputPanel rendered="{!AND(NOT(bErrorPartnerGroupTrackAdmin),NOT(ISNULL(confirmActivateOrInactivateUser)))}">
+        <!-- BEGIN INACTIVATE USER CONFIRMATION -->
+        <!--  Display inactivate user confirmation -->
+        <apex:sectionHeader title="{!$Label.my_company}"
+                            subtitle="{!strAccountName}" >
+        </apex:sectionHeader>
+        <apex:pageMessages />
+        <apex:pageMessage severity="confirm"
+            strength="3"
+            title="{!$Label.please_confirm}"
+            detail="{!$Label.confirm_inactivate_user_details}  {!confirmActivateOrInactivateUser.name}" rendered="{!confirmActivateOrInactivateUser.IsActive}"/>
+            
+        <apex:pageMessage severity="confirm"
+            strength="3"
+            title="{!$Label.please_confirm}"
+            detail="{!$Label.Confirm_Activate_User_Details}  {!confirmActivateOrInactivateUser.name}" rendered="{!!confirmActivateOrInactivateUser.IsActive}"/>
+        <apex:pageMessages />
+        <table cellpadding="5" cellspacing="5" border="0"><tr><td>
+                <apex:actionFunction name="activateOrInactivateUser" action="{!doConfirmActivateOrInactivateUser}"/>
+
+                <apex:commandButton value="{!$Label.yes}" action="{!createInactivateUserPartnerRequest}" oncomplete="activateOrInactivateUser();" reRender="pgblckID"/>
+
+                <apex:commandButton value="{!$Label.no}" action="{!doCancelActivateOrInactivateUser}"/>
+           
+            </td></tr></table>
+        <!-- END INACTIVATE USER CONFIRMATION -->
+        </apex:outputPanel>
+        <!-- ====================================================================================== -->
+      <apex:actionFunction name="contactSetupcall" action="{!contactSetup}"  reRender="pgblckID,selTA,selPT,alertForSuccessAndError" >
+         <apex:param value="" name="appAccCheck"/>
+         <apex:param value="" name="ptnrTrackCheck"/>
+      </apex:actionFunction>
+      
+       <apex:actionFunction name="saveContactCallForAction" action="{!saveAction}" id="actionFunc" reRender="alertForSuccessAndError" oncomplete="TableRender('{!bsuccess}');">
+         <apex:param value="" name="ptnrTrackCheckForAction"/>
+          <apex:param value="" name="saveContactConId"/>
+           <apex:param value="" name="ToolAccessForAction"/>
+           <apex:param value="" name="selectedAppAccActionValue"/>
+      </apex:actionFunction>
+     <apex:actionFunction name="Tableblockrender"  reRender="contacts_list" oncomplete="refreshPage();"/ >
+        <apex:actionFunction name="saveContactCallForExportAction" action="{!exportAction}" id="exportActionFun" reRender="pgblckID,alertForSuccessAndError">
+       <apex:param value="" name="conIDExport"/>
+      </apex:actionFunction>
+      
+      <apex:outputPanel rendered="{!bErrorPartnerGroupTrackAdmin}">
+         <!-- BEGIN ACCESS DENIED -->
+         <!--  Display a specific error message explaining to the user access denied because they're not
+            enabled as a ParterGroup/PartnerTrack Admin.  -->
+         <apex:pageMessage severity="ERROR"
+            strength="3"
+            title="{!$Label.access_denied}"
+            detail="To access the page please login as PartnerGroup/Track Admin"/>
+         <!-- END ACCESS DENIED -->
+      </apex:outputPanel>
+      <!-- ====================================================================================== -->
+       <!--Changed by Varsha-->
+      <apex:outputPanel rendered="{!AND(NOT(bErrorPartnerGroupTrackAdmin),(ISNULL(confirmActivateOrInactivateUser)))}">
+         <apex:pageBlock title="{!$Label.Manage_Users}" id="block1">
+           <apex:pageBlockSection title="{!$Label.Search_Users}" collapsible="false" columns="2" id="section1">
+               <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+               <apex:pageBlockSectionItem dataStyle="display:none;">
+                  <script> twistSection(document.getElementById('{!$Component.block1.section1}').getElementsByTagName('img')[0]) </script>
+               </apex:pageBlockSectionItem>
+                
+               <apex:pageBlockSectionItem >
+                  <apex:outputLabel value="{!$Label.Application_Access}"/>
+                  <apex:outputPanel >
+                     <div class="multiselect">
+                        <div class="selectBox" onclick="showAppAccCheckboxes()" id='hideMeAppAcc'>
+                          <select>
+                          <!--<apex:outputPanel rendered="{!strOfAppAccessCheck == null}">-->
+                              <option >{!$Label.none_for_drop_down}</option>
+                          <!-- </apex:outputPanel>-->
+                           <!--<apex:outputPanel rendered="{!strOfAppAccessCheck != null}">
+                              <option>Selected</option>
+                            </apex:outputPanel>id="selTA"-->
+                           </select>
+                           <div class="overSelect" id="appAccselect"></div>
+                        </div>
+                        <div id="appAccCheckboxes">
+                         <label for="Select">
+                               <input type="checkbox" label="Select" id="select" class="checkAppAccessAll" onClick="selectAllToolAccess(this, 'selectall')">{!$Label.All_for_drop_down}</input>
+                           </label>
+                           <apex:repeat value="{!ToolAccess}" var="tlAccess">
+                              <label for="one">
+                              <input type="checkbox" id="{!tlAccess.value}" class="checkAppAccess" onClick="selectAllToolAccess(this, 'single')" name="allToolAccess">{!tlAccess.label}</input>
+                              </label>
+                           </apex:repeat>
+                        </div>
+                     </div>
+                  </apex:outputPanel>
+                            
+               </apex:pageBlockSectionItem>
+              
+               <apex:pageBlockSectionItem >
+                  <apex:outputLabel value="{!$Label.Partner_Tracks}"/>
+                  <apex:outputPanel >
+                     <div class="multiselect">
+                        <div class="selectBox" onclick="showPtnrTrckCheckboxes()" id='hideMePT'>
+                           <select>
+                           <!--<apex:outputPanel rendered="{!strOfPrtnerTrackCheck == null }">-->
+                              <option>{!$Label.none_for_drop_down}</option>
+                           <!-- </apex:outputPanel>-->
+                          <!--<apex:outputPanel rendered="{!strOfPrtnerTrackCheck != null }">
+                              <option>Selected</option>
+                          </apex:outputPanel>id="selPT"-->
+                           </select>
+                           <div class="overSelect" id='pTselect'></div>
+                        </div>
+                        <div id="ptnrTrckCheckboxes">
+                         <label for="Select">
+                               <input type="checkbox" label="Select" id="select" class="checkPtnrTrackAll" onClick="selectAllPartnerTracks(this, 'selectall')">{!$Label.All_for_drop_down}</input>
+                           </label>
+                           <apex:repeat value="{!PartnerTracks}" var="ptnrTrck">
+                              <label for="one">
+                              <input type="checkbox" id="{!ptnrTrck.value}" class="checkPtnrTrack" onClick="selectAllPartnerTracks(this, 'single')" name="allPartnerTracks">{!ptnrTrck.label}</input>
+                              </label>
+                           </apex:repeat>
+                        </div>
+                     </div>
+                  </apex:outputPanel>
+               </apex:pageBlockSectionItem>
+               <apex:pageBlockSectionItem >
+                  <apex:outputLabel value="{!$Label.Partner_Track_Admin}" />
+                  <apex:selectList multiselect="false" value="{!strOfSelTrackAdmin}" size="1" styleClass="multiselect" >
+                     <apex:selectOptions value="{!PartnerTrackAdmin}"></apex:selectOptions>
+                  </apex:selectList>
+               </apex:pageBlockSectionItem>
+               <apex:pageBlockSectionItem >
+                  <apex:outputLabel value="{!$Label.Partner_User_Last_Name}" />
+                 <apex:inputText label="Partner User Last Name"  value="{!strOfLastName}" styleClass="lastName"/>
+               </apex:pageBlockSectionItem>
+               <apex:pageBlockSectionItem >
+                  <apex:outputLabel value="{!$Label.Contact_Status}" />
+                  <apex:selectList multiselect="false" value="{!strOfContactStatus}" size="1" styleClass="multiselect">
+                     <apex:selectOptions value="{!ContactStatus}"></apex:selectOptions>
+                  </apex:selectList>
+               </apex:pageBlockSectionItem>
+               
+             <apex:pageBlockSectionItem >
+              <apex:outputLabel value="" />
+             </apex:pageBlockSectionItem>
+             
+              <apex:pageBlockSectionItem >
+              <apex:outputPanel style="font-weight:bold;" >
+                  <apex:outputLabel value="{!$Label.Accidentally_inactivated_users}" />
+                  <apex:outputLabel /> <a href="https://www.dellemc.com/PartnerSupport" target="_blank" style="color:blue;">{!$Label.raising_a_case}</a>
+                  <apex:outputLabel value="{!$Label.to_them}" />
+                  </apex:outputPanel>
+             </apex:pageBlockSectionItem>
+           
+             <apex:pageBlockSectionItem >
+              <apex:outputLabel value="" />
+             </apex:pageBlockSectionItem>
+             
+             <apex:pageBlockSectionItem >
+             </apex:pageBlockSectionItem>
+             
+             <apex:pageBlockSectionItem >
+             </apex:pageBlockSectionItem>
+             
+              <apex:pageBlockSectionItem >               
+               <apex:outputPanel style="align:center">
+                  <div align="right" >
+                     <div id="serBtn" class="btn" onclick="selectedCheckbox()"  style="color: #fff; background-color: 1px solid #5c5d61;">{!$Label.search}</div>
+                  </div>
+               </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <!-- ====================================================================================== -->
+                 <!--   {!showMsgError}  -->   
+                          
+            <apex:pageBlockSection title="{!$Label.actions}" collapsible="false" id="section2">
+             <apex:outputPanel id="alertForSuccessAndError">
+                <!-- <apex:pageMessages escape="false"/>--> 
+               <apex:pageMessages rendered="{!(bContactSelError == true)}" id="conSelErrMsg" escape="false"/> 
+               <apex:pageMessages rendered="{!(bContactSelSuccess == true)}" id="conSelSuccMsg"/>  
+               <apex:pageMessages rendered="{!(bContactInactiveError == true)}" id="conInactiveErrMsg"/>              
+             </apex:outputPanel> 
+            
+              <apex:outputPanel >
+           <apex:pageBlockSectionItem dataStyle="display:none;" rendered="{!(bContactSelError== false)}">
+                  <script>twistSection(document.getElementById('{!$Component.block1.section2}').getElementsByTagName('img')[0]) </script>
+               </apex:pageBlockSectionItem>   
+              <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>  
+               </apex:outputPanel> 
+            
+               
+               <apex:pageBlockSectionItem >
+                   
+                  <apex:outputLabel value="{!$Label.Please_choose_the_Action_that_you_would_like_to_perform}" style="display:block;width:400px;"/>
+                  <apex:selectList multiselect="false" value="{!strOfActionOptions}"  size="1" id="AccessAction" >
+                      <!--onchange="selectExportAll(this.value);"-->
+                     <apex:selectOptions value="{!Actions}" id="Refresh"/>
+                     <apex:actionSupport event="onchange" reRender="pb1,pb2,buttons,conSelErrMsg,conSelSuccMsg,conInactiveErrMsg,alertForSuccessAndError,exportAllMessage" />
+                  </apex:selectList>
+                  
+               </apex:pageBlockSectionItem>
+              
+             
+               <apex:pageBlockSectionItem >
+                  <apex:outputPanel >
+                     <apex:outputPanel id="pb1">
+                        <apex:pageBlockSection rendered="{!(strOfActionOptions== $Label.Provide_Tools_Access_to_selected_users  || strOfActionOptions== $Label.Remove_Tools_Access_to_selected_users )}">
+                           <apex:pageBlockSectionItem >
+                              <apex:outputPanel >
+                                 <div class="multiselect">
+                                    <div class="selectBox" onclick="showAppAccCheckboxesForAction()" id="hideMeAppAccForAction">
+                                       <select>
+                                          <option>{!$Label.none_for_drop_down}</option>
+                                       </select>
+                                       <div class="overSelect" id='appAccSelectForAction'></div>
+                                    </div>
+                                    <div id="appAccCheckboxesForAction">
+                                      <label for="one">
+                                         <input type="checkbox" class="checkAppAccessForActionAll" onClick="selectAllToolAccesForActions(this, 'selectall')" >{!$Label.All_for_drop_down}</input>
+                                      </label>
+                                       <apex:repeat value="{!ToolAccess}" var="tlAccess">
+                                          <label for="one">
+                                          <input type="checkbox" id="{!tlAccess.value}" class="checkAppAccessForAction" name="allToolAccessForAction" onClick="selectAllToolAccesForActions(this, 'single')">{!tlAccess.label}</input>
+                                          </label>
+                                       </apex:repeat>
+                                    </div>
+                                 </div>
+                              </apex:outputPanel>
+                           </apex:pageBlockSectionItem>
+                        </apex:pageBlockSection>
+                     </apex:outputPanel>
+                     <apex:outputPanel id="pb2">
+                         
+                        <apex:pageblocksection rendered="{!(strOfActionOptions== $Label.Add_selected_users_to_Tracks || strOfActionOptions== $Label.Remove_selected_users_from_Tracks)}" >
+                           <apex:pageBlockSectionItem >
+                              <apex:outputPanel >
+                                 <div class="multiselect">
+                                    <div class="selectBox" onclick="showPtnrTrckCheckboxesForAction()" id="hideMePTForAction">
+                                       <select>
+                                          <option>{!$Label.none_for_drop_down}</option>
+                                       </select>
+                                       <div class="overSelect" id='pTSelectForAction'></div>
+                                    </div>
+                                    <div id="ptnrTrckCheckboxesForAction">
+                                       <label for="one">
+                                         <input type="checkbox" class="checkPtnrTrackForActionAll"  onClick="selectAllPartnerTracksForActions(this, 'selectall')" >{!$Label.All_for_drop_down}</input>
+                                       </label>
+                                       <apex:repeat value="{!PartnerTracks}" var="ptnrTrckAction">
+                                          <label for="one">
+                                          <input type="checkbox" id="{!ptnrTrckAction.value}" class="checkPtnrTrackForAction" name="allPartnerTracksForAction" onClick="selectAllPartnerTracksForActions(this, 'single')">{!ptnrTrckAction.label}</input>
+                                          </label>
+                                       </apex:repeat>
+                                    </div>
+                                 </div>
+                              </apex:outputPanel>
+                           </apex:pageBlockSectionItem>
+                        </apex:pageblocksection>
+                     </apex:outputPanel>
+                  </apex:outputPanel>
+               </apex:pageBlockSectionItem>
+               
+           <apex:pageBlockSectionItem > 
+				<apex:outputPanel id="exportAllMessage" style="font-weight:bold;display:block;width:1000px;">
+                   <apex:outputLabel value="{!$Label.Export_All_Message}" rendered="{!If(strOfActionOptions== $Label.Export_All_users,true,false)}" />
+                   <apex:outputLabel rendered="{!If(strOfActionOptions== $Label.Export_All_users,true,false)}"> <a href="https://www.dell.com/identity/global/in/24bd683b-81ad-4204-a2cd-e13c087b2c14?relaystate=%2Fapex%2FCase_SalesMotionSelection%3Fent%3DCase%26RecordType%3D012A0000000zvurIAA%26retURL%3D%252F500%252Fo" target="_blank" style="color:blue;">{!$Label.Export_All_Message_Link}</a> </apex:outputLabel>
+               </apex:outputPanel> 
+		   </apex:pageBlockSectionItem>
+               <apex:pageBlockSectionItem >
+                  <apex:outputPanel id="buttons" style="align:center">
+					 
+                    <div align="right" style="margin-right: 7%;">
+                     
+                        <apex:commandButton value="{!$Label.save}"  onclick="selectedCheckboxForAction()" rendered="{!If(strOfActionOptions== $Label.Add_selected_users_to_Tracks ||strOfActionOptions== $Label.Provide_Tools_Access_to_selected_users ||strOfActionOptions== $Label.Remove_Tools_Access_to_selected_users ||strOfActionOptions== $Label.Remove_selected_users_from_Tracks,true,false)}" reRender="actionFunc" status="savestatus" />
+                         <apex:commandButton value="{!$Label.Export}" onclick="selectExport()"  rendered="{!If(strOfActionOptions== $Label.Export_Selected_users,true,false)}" reRender="exportActionFun,pgblckID,conSelErrMsg" />
+                        <apex:commandButton value="{!$Label.Export}" action="{!exportActionAll}" rendered="{!If(strOfActionOptions== $Label.Export_All_users,true,false)}" reRender="pgblckID"/>  
+                       
+                        <apex:commandButton value="{!$Label.cancel}" action="{!cancel}" rendered="{!If(strOfActionOptions== $Label.Export_All_users || strOfActionOptions== $Label.Export_Selected_users ||strOfActionOptions== $Label.Add_selected_users_to_Tracks ||strOfActionOptions== $Label.Provide_Tools_Access_to_selected_users ||strOfActionOptions== $Label.Remove_Tools_Access_to_selected_users ||strOfActionOptions== $Label.Remove_selected_users_from_Tracks,true,false)}" reRender="pb0,section2,Refresh"/>
+                      </div>
+                      
+                       
+                     <!-- <apex:actionStatus id="savestatus">
+                          <apex:facet name="start">
+                              <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.25; z-index: 1000; background-color: black;">
+                                  &nbsp;
+                              </div>
+                              <div style="position: fixed; left: 0; top: 0; bottom: 0; right: 0; z-index: 1001; margin: 15% 50%">
+                                  <div style="display: inline-block; padding: 2px; background-color: #fff; width: 125px;">
+                                      <img src="/img/loading.gif" style="float: left; margin: 8px;" />
+                                      <span style="display: inline-block; padding: 10px 0px;">Please Wait...</span>
+                                  </div>
+                              </div>
+                          </apex:facet>
+                      </apex:actionStatus>-->
+
+                  </apex:outputPanel>
+               </apex:pageBlockSectionItem>
+            <!-- <apex:pageBlockSectionItem></apex:pageBlockSectionItem>-->
+            </apex:pageBlockSection><br/>
+            <!-- ====================================================================================== -->
+            <!-- Results Layout -->
+            <div align="center" style="margin-right: 7%;">
+              <apex:actionRegion >
+               <apex:commandButton value="{!$Label.Add_Single_New_Contact}" style="" action="{!newContact}" reRender="null"/>
+              </apex:actionRegion>
+            </div> 
+           <apex:outputPanel id="pgblckID">
+           
+            <!-- Results Section Pagination Start   
+               <apex:stylesheet value="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'css/jquery.dataTables.css')}"/>
+                    <style type="text/css">
+                        .sorting {
+                        background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_both.png') }') no-repeat center right !important;
+                        padding-right: 20px !important;
+                        }
+                        .sorting_asc {
+                        background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_asc.png') }') no-repeat center right !important;
+                        padding-right: 20px !important;
+                        }
+                        .sorting_desc {
+                        background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_desc.png') }') no-repeat center right !important;
+                        padding-right: 20px !important;
+                        }
+                        .sorting_asc_disabled {
+                        background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_asc_disabled.png') }') no-repeat center right !important;
+                        padding-right: 20px !important;
+                        }
+                        .sorting_desc_disabled {
+                        background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_desc_disabled.png') }') no-repeat center right !important;
+                        padding-right: 20px !important;
+                        }
+                        table.dataTablee tr.odd { background-color: white;border-bottom-width:1px }
+                        table.dataTablee tr.even { background-color: white;border-bottom-width:1px }
+                        .bPageBlock .list .last>td { border-bottom-width:1px }
+                        .apexp .bPageBlock .detailList .list .last td { border-bottom-width:1px }
+                        table.dataTablee tr.odd td.sorting_1 { background-color: white; }
+                        table.dataTablee tr.odd td.sorting_2 { background-color: white; }
+                        table.dataTablee tr.odd td.sorting_3 { background-color: white; }
+                        table.dataTablee tr.even td.sorting_1 { background-color: white; }
+                        table.dataTablee tr.even td.sorting_2 { background-color: white; }
+                        table.dataTablee tr.even td.sorting_3 { background-color: white; }
+                        .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate {
+                        padding: 3px;
+                        }
+                    </style>
+            <!-- Results PageBlock Pagination End-->  
+               
+            <apex:pageBlockSection title="{!$Label.Results}" collapsible="false" columns="1"  >
+               <apex:outputPanel rendered="{!bNoResults}">
+                   <!--  Display a specific message if no results found  -->
+                    <apex:pageMessage severity="ERROR"
+                                      strength="3"
+                                      title="{!$Label.no_records_found}"/>
+                 </apex:outputPanel>
+               <apex:outputPanel layout="block" rendered="{!bNoResults == false}">               
+                         
+                  <apex:pageBlockTable value="{!listOfMapConWrap}" var="mapCon" id="contacts_list" styleClass="dataTablee">
+                     <apex:column headerValue="{!$Label.actions}" >
+                        <apex:commandLink value="{!$Label.edit}" action="{!editContact}" reRender="conCheckboxAll">
+                           <apex:param name="strOfContactId " value="{!mapCon.con.id}" assignTo="{!strOfContactId}" />
+                        </apex:commandLink>
+                         <apex:outputPanel >/</apex:outputPanel> <!--  rendered="{!mapCon.con.Partner_User_Active__c == true}"-->
+                         <!--Changed by Varsha-->
+                        <apex:commandLink value="{!IF(mapCon.con.Partner_User_Active__c,$Label.inactivate,$Label.Activate)}" action="{!doActivateOrInactivateUser}">
+                            <apex:param name="userId" value="{!mapCon.con.Partner_User__c}"></apex:param>
+                         </apex:commandLink>
+                     </apex:column>
+                     <apex:column headerValue="Select">
+                       <apex:facet name="header">
+                          <input type="checkbox" label="Select" id="conCheckboxAll" class="ConIDSingle" onclick="selectAllRecords(this,'{!mapCon.con.id}','global')"/>
+                           <!-- <label for="select">{!$Label.Select_all}</label> Removed padma updated the story 29th/jan/2019-->
+                        </apex:facet>
+                       <!-- <apex:inputCheckbox value="{!mapCon.con.id}" id="inputId"/>-->
+                         <input type="checkbox" id="{!mapCon.con.id}" class="ConID" onclick="selectAllRecords(this,'{!mapCon.con.id}','local')"/>
+                     </apex:column>
+                     <apex:column headerValue="{!$Label.status}" >
+                        <apex:outputlabel value="{!IF(mapCon.con.Partner_User_Active__c,$Label.Active,$Label.Inactive)}"/>
+                     </apex:column>
+                     <apex:column headerValue="{!$Label.first_name}" value="{!mapCon.con.FirstName}"></apex:column>
+                     <apex:column headerValue="{!$Label.last_name}" value="{!mapCon.con.LastName}"></apex:column>
+                     <apex:column headerValue="{!$Label.Email_Address}" value="{!mapCon.con.Partner_User__r.Email}"></apex:column>
+                     <apex:column headerValue="{!$Label.Partner_Track_Admin}" value="{!mapCon.con.Partner_User_Partner_Admin__c}"></apex:column>
+                     <apex:column headerValue="{!$Label.Partner_Tracks}" rendered="true">
+            <apex:repeat value="{!mapCon}" var="egTracks">
+                             <apex:outputText value="{!egTracks.mapOfFieldsStrWarp['EligibleTracks__c_of_Size']}"/>
+                            
+          <apex:outputPanel rendered="{!egTracks.bPtMoreVal}">
+                <div class="tooltip" href="#">{!$Label.MoreForPT} 
+           <p><apex:outputText value="{!egTracks.mapOfFieldsStrWarp['EligibleTracks__c']}" escape="false"/></p></div>
+                </apex:outputPanel>
+                 
+                    
+            </apex:repeat>
+                 </apex:column>
+                     <apex:column headerValue="{!$Label.Application_Access}">
+                        <apex:repeat value="{!mapCon}" var="appAccess">
+                             <apex:outputText value="{!appAccess.mapOfFieldsStrWarp['Application_AccessSize']}"/>
+                           
+                             <apex:outputPanel rendered="{!appAccess.bAtMoreVal}"><br/>
+                           <div class="tooltip" href="#" >{!$Label.MoreForPT} 
+                             <p><apex:outputText value="{!appAccess.mapOfFieldsStrWarp['Application_Access']}" escape="false"/></p></div>
+                             </apex:outputPanel>
+                           
+                        </apex:repeat>
+                     </apex:column>
+                  </apex:pageBlockTable>
+                  <apex:outputPanel style="text-align:right;" layout="block" id="buttons">
+                 <apex:commandButton value="First" reRender="contacts_list,buttons" action="{!first}" disabled="{!NOT(bhasPrevious)}" />
+          <apex:commandButton value="Previous" rerender="contacts_list,buttons" action="{!previous}" disabled="{!NOT(bhasPrevious)}" />&nbsp;Page {!intpageNumber} of {!totalPages}&nbsp;
+          <apex:commandButton value="Next" rerender="contacts_list,buttons" action="{!next}" disabled="{!NOT(bhasNext)}" />
+          <apex:commandButton value="Last" rerender="contacts_list,buttons" action="{!last}" disabled="{!NOT(bhasNext)}" />
+         
+          </apex:outputPanel>
+          
+                <!-- Results PageBlock Pagination Start   
+                   <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'js/jquery.js')}"></script>
+                    <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'js/jquery.dataTables.js')}"></script>
+                    <script type="text/javascript" language="javascript">
+                    var j$ = jQuery.noConflict();
+                    j$('table.dataTablee').dataTable({
+                        sPaginationType: "full_numbers"
+                    }); 
+                    </script>
+                <!-- Results PageBlock Pagination End-->   
+                
+               </apex:outputPanel>
+            </apex:pageBlockSection></apex:outputPanel>
+            <!-- Results Layout Ends-->
+            <!-- ====================================================================================== -->
+         </apex:pageBlock>
+      </apex:outputPanel>
+   </apex:form>
+</apex:page>

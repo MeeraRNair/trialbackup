@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rebate_Per_Units__c</fullName>
+    <externalId>false</externalId>
+    <formula>if( (Cost_Per_Unit__c -  Approved_Price_per_unit__c)&lt;0,0,Cost_Per_Unit__c -  Approved_Price_per_unit__c )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Rebate Per Unit (USD)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

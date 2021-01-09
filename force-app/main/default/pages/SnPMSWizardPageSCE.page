@@ -1,0 +1,154 @@
+<apex:page standardController="S_P_Vendors__c" extensions="SnP_MSAdditionalInfoController">
+
+
+
+<style type = "text/css">
+
+.main{font: 120% "Lucida Grande", "Lucida Sans Unicode", "Trebuchet MS", sans-serif;padding: 0; margin: 0; border-collapse: collapse; color: #333; background: #F3F5F7;}
+
+.head{background: #0099CC; padding: 15px 10px; color: #FFFFFF; text-align: left; font-weight: normal; font-style: bold;}
+
+.activeTab{background: #FFFFFF; color: #000000; font-weight: normal;}
+
+.tabHead{background: #FFFFFF; color: #000000; font-weight: normal;}
+
+.tabHead:hover {background: #E6F6F6; color: #111;}
+
+.cols{padding: 10px; text-align: left;  border-bottom: 1px solid #E6E6E6;}
+
+.rows{background: #FFFFFF;}
+
+.rows:hover {background: #E6F6F6; color: #111;}
+
+
+</style>
+<apex:outputPanel layout="block" style="overflow:auto" >
+<apex:tabPanel id="MSAdditionalInfoTabs" width="1" contentStyle="background: #FFFFFF;" activeTabClass="activeTab" inactiveTabClass="tabHead">
+    
+    <apex:tab label="EA Detail" >
+        <apex:form >
+            <apex:pageMessages ></apex:pageMessages>
+            <apex:dataTable value="{!sceProducts}" var="sceProd" id="sceWizardTable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" >
+                <apex:column >
+                    <apex:facet name="header" >EA Type</apex:facet>
+                    <apex:outputText value="SCE" />
+                    <apex:inputField style="display: none;" value="{!sceProd.Type__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >EA Enterprise Product</apex:facet>
+                    <apex:inputField value="{!sceProd.EA_Enterprise_Product__c}" onchange="testProductsText()" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Quantity</apex:facet>
+                    <apex:inputField value="{!sceProd.Quantity__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Unit Price</apex:facet>
+                    <apex:inputField value="{!sceProd.Unit_Price__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Total</apex:facet>
+                    <apex:outputField value="{!sceProd.Total__c}" />
+                </apex:column>
+            </apex:dataTable>
+            
+            <apex:outputpanel id="addText">
+                <apex:outputpanel id="outText" rendered="{!closeAddProductsText}">
+                    Do you have more products for this Opportunity? Please enter number of rows to add and click OK: 
+                    <apex:inputText id="noOfProductsTest" value="{!moreProd}" size="10" />
+                    <a href="javascript:if (window.confirm('Are you sure?')) test();" style="font-weight:bold; font-size: 120%">OK</a>
+                </apex:outputpanel>
+            </apex:outputpanel>
+            <apex:actionFunction name="testProductsText" action="{!openAddProductsText}" reRender="addText"/>
+            
+            <apex:outputpanel id="add">
+                <apex:outputpanel id="out" rendered="{!closeMoreProducts}">
+                    <apex:dataTable value="{!sceAddlProducts}" var="sceProd" id="sceAddlProductsTable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" >
+                        <apex:column >
+                            <apex:facet name="header" >EA Type</apex:facet>
+                            <apex:outputText value="SCE" />
+                            <apex:inputField style="display: none;" value="{!sceProd.Type__c}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >Additional Product Type</apex:facet>
+                            <apex:inputField value="{!sceProd.Additional_Product_Type__c}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >New Products Only</apex:facet>
+                            <apex:inputField value="{!sceProd.New_Products_Only__c}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >Quantity</apex:facet>
+                            <apex:inputField value="{!sceProd.Quantity__c}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >Unit Price</apex:facet>
+                            <apex:inputField value="{!sceProd.Unit_Price__c}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >Total</apex:facet>
+                            <apex:outputField value="{!sceProd.Total__c}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >SIP Incentive</apex:facet>
+                            <apex:outputField value="{!sceProd.SIP_Incentive__c}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >Delete Product?</apex:facet>
+                            <apex:inputField value="{!sceProd.Remove__c}" />
+                        </apex:column>
+                    </apex:dataTable>
+                </apex:outputpanel>
+            </apex:outputpanel>
+            <apex:actionFunction name="test" action="{!openMoreProducts}" reRender="add, addButton"/>
+            
+            <br/><br/><apex:commandButton action="{!previousPage}" value=" Back " />
+            <apex:commandButton action="{!nextPage}" value=" Next " />
+            <apex:outputpanel id="addButton">
+                <apex:outputpanel id="outButton" rendered="{!closeMoreProducts}">
+                    <apex:commandButton value=" Delete Selected Products " onclick="return confirmRemoveAll();"/>
+                    
+                </apex:outputpanel>
+            </apex:outputpanel>
+            <apex:actionFunction name="deleteProd" action="{!deleteAddlProducts}" reRender="add"  />
+            <apex:actionFunction name="checkDeleteProd"  action="{!checkDeleteAddlProducts}" reRender="add" oncomplete="checkDel({!deleteCheck})"  />
+            
+            <script type="text/javascript">
+                function checkDel(deleteCheck){
+                    var d = deleteCheck;
+                    
+                    if(d == 0){
+                        alert('Please select additional products to delete first.');
+                        return false;
+                    }    
+                        
+                    else{
+                        if(confirm('Are you sure?')) {
+                            deleteProd();
+                            return false;
+                        }
+                        return false;
+                    }  
+                }
+                function confirmRemoveAll() {
+                    <!--checkDeleteProd();-->
+                    checkDeleteProd();
+                    return false;
+                      
+                    
+                        
+                }
+            </script>
+            <!-- <apex:outputpanel id="showDelButton">
+                <apex:outputPanel id="hideDelButton" rendered="{!closeDelButton}">
+                    <apex:commandButton value=" Delete Selected Products " onclick="return confirmRemoveAll();"/>
+                </apex:outputPanel>
+            </apex:outputpanel>
+            <apex:actionFunction name="showDelete" action="{!openDelButton}" reRender="showDelButton"/> -->
+ 
+            
+        </apex:form>
+    </apex:tab>
+</apex:tabPanel>
+</apex:outputPanel>    
+</apex:page>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RL_be_default_Req_FollowUp_status</fullName>
+    <active>true</active>
+    <description>Relationship Lead status on creation should be Requires Follow-Up</description>
+    <errorConditionFormula>AND(NOT(ISPICKVAL(Status__c,&quot;Requires Follow-Up&quot;)),ISNEW())</errorConditionFormula>
+    <errorDisplayField>Status__c</errorDisplayField>
+    <errorMessage>Relationship Lead record must have  &quot;Requires Follow-Up&quot; status on creation</errorMessage>
+</ValidationRule>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CR_2630_Prevent_Edit</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND 
+( 
+OR 
+(ISCHANGED(Name),ISCHANGED(CurrencyIsoCode),ISCHANGED(Code__c),ISCHANGED(OwnerId)), 
+CONTAINS( $User.Profile_Name__c, &quot;CEM&quot;))</errorConditionFormula>
+    <errorMessage>Please don&apos;t edit &apos;Country Name&apos; and &apos;Currency&apos; and &apos;ISO 3166-1 Country Code&apos; fields.</errorMessage>
+</ValidationRule>

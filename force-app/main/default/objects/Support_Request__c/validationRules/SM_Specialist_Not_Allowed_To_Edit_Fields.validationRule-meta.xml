@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SM_Specialist_Not_Allowed_To_Edit_Fields</fullName>
+    <active>true</active>
+    <description>No user should be able to edit Contact Name, Receive Notification and Requestor Comments field beside owner.</description>
+    <errorConditionFormula>AND(RecordTypeId = &apos;012A0000000ViNJ&apos;, $User.Id != CreatedById, OR( ISCHANGED(Contact_Name__c), ISCHANGED(Receive_Notification__c), ISCHANGED(Requestor_Comments__c)))</errorConditionFormula>
+    <errorMessage>Contact Name, Receive Notification and Requestor Comments only editable for Requestor.</errorMessage>
+</ValidationRule>

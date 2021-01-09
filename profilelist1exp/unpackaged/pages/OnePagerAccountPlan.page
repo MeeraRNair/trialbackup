@@ -1,0 +1,887 @@
+<!--Name        : AccountPlayList
+* ---------------------------------------------------------
+* Revision  Name        Date        Description
+* 1.1       Azwanti     16.06.2011  R12.7 CR6225: added Hardware Refresh Cycle & Date of Last Refresh for Clients,Peripherals & Enterprise
+* 1.2       Azwanti     16.06.2011  R12.7 CR6231: added Status field under Customer Projects section
+* 1.3       Azwanti     17.06.2011  R12.7 CR6227: added 'Closed Objective Details' field for Account Goals
+* 1.4       MenMee      29.06.2011  R12.7 Defect71172: Hide for External version 
+* 1.5       MenMee      13.07.2011  R12.7 Descope CR6231 
+* 1.6       MenMee      25.07.2011  R12.7 Descope CR6225
+* 1.7		Ray			25.10.2011	R12.10 CRQ0200
+ -->
+<apex:page StandardController="SFDC_Acct_Plan__c" Extensions="VFCntrlr_OnePagerAccountPlan" tabStyle="SFDC_Acct_Plan__c" renderAs="pdf">
+
+<html>
+
+    <head>
+
+        <style>
+
+            /***** START CUSTOM CSS *****/   
+
+        table {page-break-inside: avoid;}
+
+                      
+
+            /* Content of Header and Footer */
+
+             @page
+
+            {    
+
+               margin-top: 0.8in;
+
+                @top-left
+
+                {
+
+                    background-image:url("{!$Resource.Dell_Logo_62}");
+
+                    background-repeat: no-repeat;
+
+                } 
+
+                
+
+                @top-center
+
+                {
+
+                    font-family: Arial Unicode MS;
+
+                    content: "{!$Label.Header_Title}";
+
+                    font-size: 20px;
+
+                    font-weight: bold;
+
+                    color: #7F7F7F;
+
+                }
+
+                 
+
+                @top-right
+
+                {
+
+                    font-family: Arial Unicode MS;
+
+                    content:"{!SelectedRptTypeDesc}";
+
+                    font-size: 10px;
+
+                    color: #AFAFAF;
+
+                }
+
+                
+
+                @bottom-center
+
+                {
+
+                    font-family: Arial Unicode MS;
+
+                    font-size: 10px;
+
+                    content:"{!ConfidentialDesc}";
+
+                    color: #AFAFAF;
+
+                }
+
+            }                        
+
+            body {font-family: Arial Unicode MS;}
+
+            h1 {
+
+                margin: 0px 0px 0px 0px;
+
+                padding: 0px 0px 0px 0px;
+
+                font-family: 'Verdana','Geneva',sans-serif;
+
+                font-size: 10px;
+
+                display: inline;
+
+            }           
+
+            td.label{
+
+                  font-size:10px;
+
+                  vertical-align:top;              
+
+                  text-align:right;
+
+                  padding-right:5px;                  
+
+                  width:25%;
+
+                  align:right;
+
+                  border-bottom: solid 0.5px #DFDFDF;                   
+            }
+
+            td.data{
+
+                    font-size:10px;
+
+                    vertical-align: top;
+
+                    text-align:left; 
+
+                    padding-left:5px;                                 
+
+                    width:25%;
+
+                    align:left;
+
+                    border-bottom: solid 0.5px #DFDFDF;                   
+
+            }
+
+            td.message{
+
+                    font-size:10px;
+
+                    vertical-align: top;
+
+                    text-align:right;                                  
+
+                    width:100%;
+                    
+                    background-color: #fff;  
+                    
+                    border: 0px;                               
+            }
+
+            td.subHeaderData{
+
+                  font-size:10px;
+
+                  color:#14130E;
+
+            }
+
+            table.Mainheader{
+
+                  font-size:12px;
+
+                  height:20px;
+
+                  width:100%;
+
+                  background-color:#8FBC8F;
+
+                  border-bottom: solid 3px #FFFFFF;               
+
+            }
+
+            table.subHeader{          
+
+                  height:16px;
+
+                  width:100%;              
+
+                  background-color:#C6E0D3; 
+
+                  border-top: solid 3px #319431;                                                                             
+
+            }
+
+            table.detail{          
+
+                   width:100%;
+
+                   border:1;                                                     
+
+                   border-bottom: solid 1px #319431;                    
+
+                   background-color:#FFFFFF;
+
+                   cell-spacing: 0px;                     
+
+                   border-collapse: separate;
+
+                   border-spacing: 4pt;                                           
+
+            }           
+
+          .divbreak {display: block; page-break-before: auto;page-break-inside: avoid;}
+
+          .cErrorMessage {
+                color: red;
+                font-weight: bold;
+          }
+
+        </style>
+
+      </head>
+
+    
+
+   <body>
+    <span class="cErrorMessage"><apex:messages title="Errors"/></span>
+     <div class="divbreak"> 
+         <table class="Mainheader">
+
+           <tr><td><h1>{!$Label.Section_Account}</h1></td></tr>
+
+         </table>
+
+         <table class="subHeader">
+             
+           <tr><td class="subHeaderData"><h1>{!accnt.Name}</h1></td></tr>
+
+         </table>
+
+         <table class="detail">
+                 
+             <tr>
+
+                <td  class="label">{!$Label.Field_Acc_Name}</td>
+
+                <td class="data">{!accnt.Name}</td> 
+
+                <td  class="label">{!$Label.Field_Acc_Does_Business_As}</td>
+
+                <td class="data">{!accnt.Does_Business_As__c}</td>
+
+             </tr>
+                 
+             <tr>
+
+                <td  class="label">{!$Label.Field_Acc_Num_Of_Emp}</td>
+
+                <td class="data">{!accnt.NumberOfEmployees}</td>
+
+                <td class="label">{!$Label.Field_Acc_Segment_Desc}</td>
+
+                <td class="data">{!accnt.Segment_Description__c}</td>
+
+             </tr>
+
+             <tr>
+               
+               <td  class="label">{!$Label.Field_Acc_Num_of_Con}</td>
+
+               <td class="data">{!numOfCon}</td>
+
+             </tr>
+
+             <tr style="display:{!DisplayProperty}">
+
+               <td  class="label" style="display:{!DisplayProperty}">{!$Label.Field_Acc_Est_Buying_Power}</td>
+
+               <td class="data"  style="display:{!DisplayProperty}">{!accnt.Est_Buying_Power__c}</td>
+               <td  class="label" style="display:{!DisplayProperty}">&nbsp;</td>
+               <td class="data"  style="display:{!DisplayProperty}">&nbsp;</td>
+             </tr>
+
+         </table>
+
+       </div>
+
+       <br></br>
+
+
+
+        <div class="divbreak">
+
+         <table class="Mainheader">
+
+             <tr>
+
+               <td><h1>{!$Label.Section_Contact}</h1></td>
+
+             </tr>
+
+         </table>
+
+         <apex:repeat value="{!Contacts}" var="cntct">
+
+         <div class="divbreak">
+
+         <table class="subHeader">
+
+             <tr>
+
+                <td class="subHeaderData"><h1>{!cntct.name}</h1></td>
+
+             </tr>
+
+         </table>
+
+         <table class="detail">
+
+              <tr>
+
+                <td class="label">{!$Label.Field_Con_Name}</td> 
+                <td class="data">{!cntct.name} </td> 
+
+                <td class="label">{!$Label.Field_Con_Decision_Making_Role}</td> 
+                <td class="data">{!cntct.Decision_Making_Role__c}</td> 
+
+              </tr>
+
+         </table>
+
+         </div>
+
+        <br></br>
+
+        </apex:repeat>
+
+        <table><tr><td class="message">
+
+           <apex:outputLabel rendered="{!Contacts.size <= 0}">No records found.</apex:outputLabel>
+
+        </td></tr></table>
+
+    </div>
+
+   <br></br>
+
+       
+
+                           
+
+        
+
+        <div class="divbreak">
+
+        <table class="Mainheader">
+
+            <tr>
+
+               <td><h1>{!$Label.Section_Account_Plan}</h1></td>
+
+            </tr>
+
+        </table>
+
+        <table class="subHeader">
+
+            <tr><td class="subHeaderData"><h1>{!SFDC_Acct_Plan__c.Name}</h1></td></tr>
+
+        </table>
+
+        <table class="detail">
+             
+            <tr>
+
+                    <td class="label">{!$Label.Field_AccPlan_Name}</td> 
+
+                    <td class="data">{!SFDC_Acct_Plan__c.name}</td> 
+                    
+                    <td class="label">{!$Label.Field_AccPlan_Status}</td>
+                    
+                    <td class="data">{!SFDC_Acct_Plan__c.Plan_Status__c}</td> 
+
+            </tr>
+
+
+
+             <tr>
+                     
+                  <td class="label">{!$Label.Field_AccPlan_Starting_Fiscal_Year}</td> 
+
+                  <td class="data">{!SFDC_Acct_Plan__c.Plan_Starting_Fiscal_Year__c}</td>
+
+             </tr>
+
+            
+             <tr>
+                <td class="label">Account Fiscal Year End</td>
+                <td class="data">{!SFDC_Acct_Plan__c.Account_Fiscal_Year_End_formula__c}</td>
+                <!-- <td class="data">{!MONTH(SFDC_Acct_Plan__c.Account_Fiscal_Year_End__c)}/{!DAY(SFDC_Acct_Plan__c.Account_Fiscal_Year_End__c)}/{!YEAR(SFDC_Acct_Plan__c.Account_Fiscal_Year_End__c)}</td> -->
+             </tr>
+              
+             <tr>
+                <td class="label">Business Description</td>
+                <td class="data" style="width: 75%" colspan="3">{!SFDC_Acct_Plan__c.Business_Description__c}</td>
+             </tr>
+              
+             <tr>
+                <td class="label">Mission Statement</td>
+                <td class="data" style="width: 75%" colspan="3">{!SFDC_Acct_Plan__c.Mission_Statement__c}</td>
+                
+             </tr>
+              
+             <tr>
+                <td class="label">Short Term Goals</td>
+                <td class="data" style="width: 75%" colspan="3">{!SFDC_Acct_Plan__c.Overall_Customer_Short_Term_Goals__c}</td>
+                
+             </tr>
+              
+             <tr>
+                <td class="label">Long Term Goals</td>
+                <td class="data" style="width: 75%" colspan="3">{!SFDC_Acct_Plan__c.Overall_Customer_Long_Term_Goals__c}</td>
+                
+             </tr>
+              
+             <tr>
+                <td class="label">Large Scale Related Initiatives Planned</td>
+                <td class="data" style="width: 75%" colspan="3">{!SFDC_Acct_Plan__c.Large_Scale_Related_Initiatives_Planned__c}</td>
+                
+             </tr>
+             
+               
+             <tr>
+                <td class="label">Sponsor / Champion</td>  
+                <td class="data">{!SFDC_Acct_Plan__c.Sponsor_Champion__r.FirstName} {!SFDC_Acct_Plan__c.Sponsor_Champion__r.LastName}</td>
+                
+             </tr> 
+             
+              
+             <tr>
+                <td class="label">Satisfaction Issues</td>
+                <td class="data" style="width: 75%" colspan="3">{!SFDC_Acct_Plan__c.Satisfaction_Issues__c}</td>
+                
+             </tr>
+             
+              
+             <tr>
+                <td class="label">Go-To-Market Approach</td>
+                <td class="data" >{!SFDC_Acct_Plan__c.Go_To_Market_Approach__c}</td>
+                
+             </tr>
+              
+             <tr>
+                <td class="label">Go-To-Market Approach Comments</td>
+                <td class="data" style="width: 75%" colspan="3">{!SFDC_Acct_Plan__c.Go_To_Market_Approach_Comments__c}</td>
+                
+             </tr>
+              
+             <tr>
+                <td class="label">NPS Initiatives</td>
+                <td class="data" style="width: 75%" colspan="3">{!SFDC_Acct_Plan__c.Marketing_NPS_Initiatives__c}</td>
+                
+             </tr>
+              
+             <tr>
+                <td class="label">Dell's Value Proposition</td>
+                <td class="data" style="width: 75%" colspan="3">{!SFDC_Acct_Plan__c.Dell_s_Value_Proposition__c}</td>
+                
+             </tr>
+              
+             <tr style="display:{!DisplayProperty}">
+                <td class="label" style="display:{!DisplayProperty}">Account Annual IT Spend</td>
+                <td class="data" style="display:{!DisplayProperty}">{!formatCurrency(SFDC_Acct_Plan__c.CurrencyIsoCode,SFDC_Acct_Plan__c.Account_Annual_IT_Spend__c)} 
+                </td>
+                
+                <td class="label" style="display:{!DisplayProperty}">Total Value of 1st Half Strategies</td>
+                <td class="data" style="display:{!DisplayProperty}">{!formatCurrency(SFDC_Acct_Plan__c.CurrencyIsoCode,SFDC_Acct_Plan__c.Total_Value_of_1st_Half_Strategies__c)} 
+                </td>
+                    
+             </tr>
+              
+             <tr style="display:{!DisplayProperty}">
+                <td class="label" style="display:{!DisplayProperty}">Anticipated IT Spend with Dell</td>
+               <td class="data" style="display:{!DisplayProperty}">{!formatCurrency(SFDC_Acct_Plan__c.CurrencyIsoCode,SFDC_Acct_Plan__c.Anticipated_IT_Spend_with_Dell__c)} 
+                </td>
+             
+             
+                <td class="label" style="display:{!DisplayProperty}">Total Value of 2nd Half Strategies</td>
+               <td class="data" style="display:{!DisplayProperty}">{!formatCurrency(SFDC_Acct_Plan__c.CurrencyIsoCode,SFDC_Acct_Plan__c.Total_Value_of_2nd_Half_Strategies__c)} 
+                </td>
+             
+                
+             </tr>
+              
+             <tr style="display:{!DisplayProperty}">
+                <td class="label" style="display:{!DisplayProperty}">Share of Wallet with Dell</td>
+                <td class="data" style="display:{!DisplayProperty}">{!SFDC_Acct_Plan__c.Share_of_Wallet_with_Dell__c}</td>
+             
+                <td class="label" style="display:{!DisplayProperty}">Annual Value of Strategies</td>
+               <td class="data" style="display:{!DisplayProperty}">{!formatCurrency(SFDC_Acct_Plan__c.CurrencyIsoCode,SFDC_Acct_Plan__c.Annual_Value_of_Strategies__c)} 
+                </td>
+                
+             </tr>
+                       
+             
+ 
+
+        </table>
+
+        </div>   
+
+<br></br>
+
+
+    <div class="divbreak">
+
+         <table class="Mainheader">
+
+          <tr>
+
+             <td><h1>{!$Label.Section_Activity}</h1> </td>
+
+          </tr>
+
+         </table>
+
+         <apex:repeat value="{!tasks}" var="task">
+
+         <div class="divbreak">
+
+          <table class="subHeader">
+
+            <tr>
+
+              <td class="subHeaderData"><h1>Task - {!task.Subject}</h1></td>
+
+            </tr>
+
+          </table>
+
+         <table class="detail">
+
+           <tr>
+
+             <td class="label">{!$Label.Field_Task_Subject}</td>
+
+             <td class="data">{!task.Subject}</td> 
+
+             <td class="label">{!$Label.Field_Task_Due_date}</td> 
+
+             <td class="data">{!MONTH(task.ActivityDate)}/{!DAY(task.ActivityDate)}/{!YEAR(task.ActivityDate)}</td>
+
+          </tr>
+
+          <tr>   
+
+            <td class="label">{!$Label.Field_Task_Assigned_To}</td> 
+
+            <td class="data">{!task.Owner.FirstName} {!task.Owner.LastName}</td>
+
+            <td class="label">&nbsp;</td> 
+
+            <td class="data">&nbsp;</td>
+
+          </tr>
+
+         </table>
+
+         </div>
+
+         <br></br>
+
+         </apex:repeat>
+
+     <table><tr><td class="message">
+
+       <apex:outputLabel rendered="{!tasks.size <= 0}">No records found.</apex:outputLabel>
+
+     </td></tr></table> 
+
+    </div>
+
+     <br></br>
+
+
+
+
+
+     <div class="divbreak">
+
+        <table class="Mainheader">
+
+            <tr>
+
+             <td><h1>{!$Label.Section_Opportunity}</h1> </td>
+
+            </tr>
+
+         </table>
+
+         <apex:repeat value="{!oppty}" var="opty">
+
+         <div class="divbreak">
+
+          <table class="subHeader">
+
+            <tr>
+
+              <td class="subHeaderData"><h1>{!opty.name}</h1></td>
+
+            </tr>
+
+          </table>
+
+         <table class="detail">
+
+           <tr>
+
+             <td class="label">{!$Label.Field_Oppty_Name}</td>
+
+             <td class="data">{!opty.Name}</td> 
+
+             <td class="label">{!$Label.Field_Oppty_Account_Name}</td> 
+
+             <td class="data">{!opty.Account.name}</td>
+
+          </tr>
+
+
+
+          <tr style="display:{!DisplayProperty}">
+
+             <td class="label" style="display:{!DisplayProperty}"><apex:outputLabel for="stage">{!$Label.Field_Oppty_Stage}</apex:outputLabel></td>
+
+             <td class="data" style="display:{!DisplayProperty}"><apex:outputText id="stage">{!opty.StageName}</apex:outputText></td>    
+
+             <td class="label" style="display:{!DisplayProperty}"><apex:outputLabel for="totalMar">{!$Label.Field_Oppty_Total_Margin}</apex:outputLabel></td> 
+
+             <td class="data" style="display:{!DisplayProperty}"><apex:outputText id="totalMar">{!opty.Total_Margin__c}</apex:outputText></td>    
+
+          </tr>
+
+          <tr style="display:{!DisplayProperty}">
+
+              <td class="label" style="display:{!DisplayProperty}"><apex:outputLabel for="unweightedRev">{!$Label.Field_Oppty_Unweighted_Revenue}</apex:outputLabel></td>
+
+              <td class="data" style="display:{!DisplayProperty}"><apex:outputText id="unweightedRev">{!opty.Amount}</apex:outputText></td>
+
+              <td class="label" style="display:{!DisplayProperty}"><apex:outputLabel for="weightedRev">{!$Label.Field_Oppty_Weighted_Revenue}</apex:outputLabel></td>
+
+              <td class="data" style="display:{!DisplayProperty}"><apex:outputText id="weightedRev">{!opty.ExpectedRevenue}</apex:outputText></td>
+
+          </tr> 
+
+
+
+         </table>
+
+         </div>
+
+           <br></br>
+
+         </apex:repeat>
+
+         <table><tr><td class="message">
+
+              <apex:outputLabel rendered="{!oppty.size <= 0}">No records found.</apex:outputLabel>
+
+         </td></tr></table>
+
+     </div>
+
+     <br></br>
+
+
+
+     <div style="page-break-before: always"></div>
+
+     <div class="divbreak">
+
+
+
+         <table class="Mainheader">
+
+           <tr>
+
+             <td><h1>{!$Label.Section_Product_Strategy}</h1></td>
+
+           </tr>
+
+          </table> 
+
+
+
+     <apex:repeat value="{!prodStrategies}" var="strategy">
+
+     <div class="divbreak">
+
+          <table class="subHeader">
+
+           <tr>
+
+             <td class="subHeaderData"><h1>{!strategy.name}</h1></td>
+
+           </tr>
+
+          </table>
+
+          <table class="detail">
+                 
+             <tr>
+
+                <td class="label">{!$Label.Field_ProdStrat_Account_Plan}</td>
+
+                <td class="data">{!strategy.SFDC_Acct_Plan__r.Name}</td> 
+
+                
+
+             </tr>
+             
+             <tr>
+             	<td class="label">{!$Label.Field_ProdStrat_Name}</td>
+
+                <td class="data">{!strategy.name}</td> 
+             </tr>
+
+             
+                
+              <tr>
+                <td class="label">Customer Business Challenges/Objectives</td>
+                 <td class="data" style="width: 75%" colspan="3">{!strategy.Customer_Business_Challenges_Objectives__c}</td>
+                    
+              </tr>
+                
+               <tr>
+                <td class="label">IT Implications</td>
+                 <td class="data" style="width: 75%" colspan="3">{!strategy.IT_Implications__c}</td>
+               
+               </tr>
+               <tr>
+               <td class="label">Dell's Strategy/Response</td>
+                <td class="data" style="width: 75%" colspan="3">{!strategy.Dell_s_Strategy_Response__c}</td>
+               </tr>  
+               <tr>
+                <td class="label">Strategy Sponsor</td>
+                 <td class="data">{!strategy.Sponsor_Champion__r.FirstName} {!strategy.Sponsor_Champion__r.LastName}</td>
+                 
+                  
+                
+               </tr>
+               
+               <tr>
+               	<td class="label">Business Priority</td>
+               	<td class="data">{!strategy.Business_Priority__c}</td>
+               </tr>
+                
+                
+               <tr>
+                <td class="label">Technology Priority</td>
+                 <td class="data">{!strategy.Technology_Priority__c}</td>
+                 
+               </tr>
+                
+               <tr>
+              
+               
+               </tr>
+                
+               <tr>
+                <td class="label">When do you plan to realize Strategy?</td>
+                 <td class="data">{!strategy.When_do_you_plan_to_realize_Strategy__c}</td>
+                
+               </tr>
+                
+               <tr>
+               <td class="label">Region</td>
+                <td class="data">{!strategy.Region__c}</td>
+               
+               </tr>
+               <tr>
+               <td class="label">Which LOB will you offer?</td>
+                <td class="data">{!strategy.Which_LOB_will_you_offer__c}</td>
+               </tr>
+                
+               <tr>
+               <td class="label">What Dell Services will you offer?</td>
+                <td class="data">{!strategy.What_Dell_Services_will_you_offer__c}</td>
+                
+               </tr>
+               
+               <tr>
+               <td class="label" style="display:{!DisplayProperty}">Strategy Potential Product Revenue</td>
+                 <td class="data" style="display:{!DisplayProperty}">{!formatCurrency(strategy.CurrencyIsoCode , strategy.Strategy_Potential_Product_Revenue__c)}
+                </td>
+               </tr>
+
+                
+               <tr style="display:{!DisplayProperty}">
+               <td class="label" style="display:{!DisplayProperty}">Strategy Potential Service Revenue</td>
+                 <td class="data" style="display:{!DisplayProperty}">{!formatCurrency(strategy.CurrencyIsoCode,strategy.Strategy_Potential_Service_Revenue__c)} </td>
+               
+               </tr>
+                
+               <tr>
+               <td class="label">Is Dell the Incumbent Vendor?</td>
+                <td class="data">{!strategy.Is_Dell_the_Incumbent_Vendor__c}</td>
+               
+               </tr>
+                
+               <tr>
+               <td class="label">Incumbent Vendor</td>
+                <td class="data">{!strategy.Incumbent_Vendor__c}</td>
+               
+               </tr>
+                
+               <tr style="display:{!DisplayProperty}">
+               <td class="label" style="display:{!DisplayProperty}">Top Competitor Name 1</td>
+                <td class="data" style="display:{!DisplayProperty}">{!strategy.Top_Competitor_name_1__c}</td>
+               
+               </tr>
+                
+               <tr style="display:{!DisplayProperty}">
+               <td class="label" style="display:{!DisplayProperty}">Top Competitor Strategy 1</td>
+                <td class="data" style="width: 75%;display:{!DisplayProperty}" colspan="3">{!strategy.Top_Competitor_Strategy_1__c}</td>
+               
+               </tr>
+                
+               <tr>
+               <td class="label" style="display:{!DisplayProperty}">Top Competitor Name 2</td>
+                <td class="data" style="display:{!DisplayProperty}">{!strategy.Top_Competitor_name_2__c}</td>
+               
+               </tr>
+                
+               <tr>
+               <td class="label" style="display:{!DisplayProperty}">Top Competitor Strategy 2</td>
+                <td class="data" style="width: 75%;display:{!DisplayProperty}" colspan="3">{!strategy.Top_Competitor_Strategy_2__c}</td>
+               
+               </tr>
+                
+               <tr>
+               <td class="label">Strengths</td>
+                <td class="data" style="width: 75%" colspan="3">{!strategy.Strengths__c}</td>
+               
+               </tr>
+                
+               <tr>
+               <td class="label">Weaknesses</td>
+                <td class="data" style="width: 75%" colspan="3">{!strategy.Weaknesses__c}</td>
+               
+               </tr>
+                
+               <tr>
+               <td class="label">Opportunities</td>
+                <td class="data" style="width: 75%" colspan="3">{!strategy.Opportunities__c}</td>
+               
+               </tr>
+                                
+               <tr>
+               <td class="label">Threats</td>
+                <td class="data" style="width: 75%" colspan="3">{!strategy.Threats__c}</td>
+               
+               </tr>
+               
+
+          </table>
+
+         </div>
+
+         <br></br>
+
+        </apex:repeat>
+
+         <table><tr><td class="message">
+
+             <apex:outputLabel rendered="{!prodStrategies.size<= 0}">No records found.</apex:outputLabel>
+
+         </td></tr></table>
+
+      </div>
+
+    <apex:outputField value="{!SFDC_Acct_Plan__c.Account__c}" rendered="false"/>
+     </body>
+
+   </html>
+
+</apex:page>

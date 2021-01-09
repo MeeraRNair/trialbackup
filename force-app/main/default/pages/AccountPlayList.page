@@ -1,0 +1,55 @@
+<!--Name        : AccountPlayList
+* ---------------------------------------------------------
+* Revision  Name        Date        Description
+* 1.0       Azwanti     14.04.2011  CR5987/88/89 - Account Play listings
+* 1.1       Azwanti     25.05.2011  CR5987/88/89 - workaround for case #05433905: comment out field set 
+-->
+<apex:page StandardController="Account_Play__c" extensions="VFCntrlr_RelationshipLeadAccPlayList" lightningStyleSheets="true">
+<apex:sectionHeader title="Account Play Listing" rendered="{!listOfAP.size!=0}" subtitle="{!subTitle}"></apex:sectionHeader>
+<apex:sectionHeader title="Account Play Listing" rendered="{!listOfAP.size=0}"></apex:sectionHeader>
+<apex:form >
+<apex:pageBlock mode="maindetail" rendered="{!listOfAP.size!=0}">
+<apex:pageBlockTable value="{!listOfAP}" var="apList" styleClass="detailList" id="APTable">
+    <!--R1.1  
+    <apex:repeat value="{!$ObjectType.Account_Play__c.FieldSets.currentQuarterMyAP}" var="fld">
+    <apex:column headerValue="{!$ObjectType.Account_Play__c.Fields[fld].label}">
+    <apex:outputLink value="{!'/'+currQuarterAP.Id}" rendered="{!fld='Name'}">{!currQuarterAP[fld]}</apex:outputLink>
+    <apex:outputField value="{!currQuarterAP[fld]}" rendered="{!fld!='Name'}"/>
+    </apex:column>  
+    </apex:repeat> 
+    R1.1-->
+    <apex:column headerValue="Account Play #">
+    <apex:outputLink value="/{!apList.Id}">{!apList.Name}</apex:outputLink>
+    </apex:column>
+    <apex:column value="{!apList.Account_Play_Owner_Role__c}"/>
+    <apex:column value="{!apList.Account_Play_Owner__c}"/>
+    <apex:column value="{!apList.Account__c}"/>
+    <apex:column value="{!apList.Campaign__c}"/>
+    <apex:column value="{!apList.Account_Play_Expiry_Date_New__c}"/>
+    <apex:column value="{!apList.Status__c}"/>
+</apex:pageBlockTable>
+<apex:pageBlockButtons >            
+<apex:commandButton value="Back" action="{!redirectPage}"/> 
+</apex:pageBlockButtons>
+<!-- previous and next links -->
+<apex:outputPanel style="margin-top: 5px" id="pageNavigation">               
+    <div style="float: left;font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: right; width: 52%;">
+        Page {!currentPage} of {!lastPage}
+    </div>  
+    <div style="float: right; font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: right; width: 48%;">                
+        <apex:commandLink action="{!previous}" rendered="{!hasPrevious}" rerender="APTable,pageNavigation">
+            &lt; Previous Page
+        </apex:commandLink>                 
+        <apex:outputText rendered="{!hasPreviousAndNext}">&nbsp;|&nbsp;</apex:outputText>
+        <apex:commandLink action="{!next}" rendered="{!hasNext}" rerender="APTable,pageNavigation">
+            Next Page &gt;
+        </apex:commandLink>
+    </div>              
+</apex:outputPanel> 
+</apex:pageBlock>
+<apex:pageBlock rendered="{!listOfAP.size=0}">
+<apex:outputText value="No records to display"></apex:outputText>
+<br/><br/><apex:commandButton value="Back" action="{!navigateToAPTab}"/>
+</apex:pageblock>
+</apex:form>
+</apex:page>

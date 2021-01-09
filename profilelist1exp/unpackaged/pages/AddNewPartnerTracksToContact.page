@@ -1,0 +1,49 @@
+<apex:page sidebar="false" showHeader="false"  controller="AddNewPartnerTracksToContactExtension">
+    
+    <apex:form >
+     
+        <!--<apex:actionFunction name="doUnselect" action="{!unselectTracks}"  oncomplete="alert()"/>-->
+       
+        <apex:pageblock title="{!IF(strARPartnerTrack == 'true',$Label.Add_Remove_Partner_Tracks,$Label.Add_Remove_Audit_Tracks)}">
+        
+            <apex:pageMessages />
+            <!-- <apex:actionRegion >-->
+            <apex:pageBlockSection collapsible="false" id="admin1"  columns="1" >
+                <apex:panelGrid columns="3" id="abcd" style="margin:0 auto;">
+                    <apex:outputLabel value="{!IF(strARPartnerTrack == 'true',$Label.Partner_Tracks,$Label.Contact_Eligible_Tracks)}" for="eligible_Track" styleClass="label" style="float:left; padding-left: 15px;" /><br/>
+                    <apex:outputLabel value="{!IF(strARPartnerTrack == 'true',$Label.Contact_Eligible_Tracks,$Label.Audit_Track)}" for="eligible_Track" styleClass="label" style="float:left; padding-left: 15px;"/>
+                    
+                    <apex:selectList id="eligible_Track" value="{!listleftSelected}" multiselect="true" size="10" styleClass="verticalLine" label="test" > 
+                        <apex:selectOptions value="{!EligibleTracks}"/>
+                    </apex:selectList> 
+                    <apex:panelGroup style="padding-Left:35px;" >
+                        <br/><br/>
+                        <br/><br/>    
+                        <apex:commandLink action="{!selectTrack}" id="moveright" reRender="abcd,selected_Track,eligible_Track">
+                            <apex:image value="{!$Resource.Multi_Select}" alt="Move Right" />
+                        </apex:commandLink> 
+                        <br/><br/>
+                        
+                        <apex:commandLink action="{!unselectTracks}" id="moveleft" reRender="abcd,selected_Track,eligible_Track" >
+                            <apex:image value="{!$Resource.Multi_Unselect}" alt="Move Left"  />
+                        </apex:commandLink>
+                       
+                    </apex:panelGroup>
+                    
+                    
+                    <apex:selectList id="selected_Track" value="{!listrightselected}" multiselect="true"  size="10" styleClass="verticalLine" label="test" >
+                        <apex:selectOptions value="{!EligibleTracksSelected}" />
+                    </apex:selectList> 
+                 </apex:panelGrid>
+                
+            </apex:pageBlockSection> 
+            <apex:pageBlockButtons location="Bottom" style="padding-left: 240px;">
+                <apex:commandButton value="Save" action="{!savetracks}"/>
+                <apex:commandButton value="Cancel" action="{!cLoseTracks}"/>
+            </apex:pageBlockButtons>     
+            <!--   </apex:actionRegion>    -->      
+            
+        
+        </apex:pageblock> 
+     </apex:form>
+</apex:page>

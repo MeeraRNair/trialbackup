@@ -1,0 +1,243 @@
+<!-- 
+Revision    Release     Name                   Date            Description 
+2.0         14.5        Fenny                  15-May-2013     CR 8197 - implement CRQ0722 to fix SIT defect 67619
+2.1         24          Venkateswarlu Chirala  21-Dec-2016     CR- 13861 & 13862
+3.0                    Rajashekar   01-Feb-2018    Story 4565522:Deal Reg: Extensions: Deal Reg Extensions Code Clean up --- Commenting unused code related to Quote Check
+-->
+<apex:page standardController="Opportunity" extensions="OpportunityRenewalExtension" lightningStylesheets="true">
+    <script type="text/javascript">
+        function closeWindow() {
+            window.close();
+        }
+    </script>
+
+    <apex:form Id="frmId">
+    
+        <apex:pageBlock title="{!$Label.Request_Renewal}" id="pgblkId">
+            <apex:inputHidden value="{!Opportunity.Request_Status__c}" />
+            <apex:inputHidden value="{!Opportunity.AccountId}" />
+            <apex:inputHidden value="{!Opportunity.Bypass_Close_Date__c}" />
+            <apex:inputHidden value="{!previousPage}" />
+            <apex:inputHidden value="{!Opportunity.Deal_Expiration_Timeframe__c}" />
+            <apex:inputHidden value="{!Opportunity.Submitter_Profile__c }" />
+            <apex:inputHidden value="{!Opportunity.Deal_Extension_Count__c }" />
+           
+            <apex:pageMessages id="stdFrmtErrMsgID" />
+
+            <!-- Begin forAPJ_LATAM_CA Region -->
+            <apex:OutputPanel id="APJ_LATAM_CA_Panel_ID" rendered="{!(Not(OpportunitySubmitted) && isAvailableForAccess) || isDealRegAnalyst}"> 
+                <p>
+                    <apex:inputCheckbox value="{!isAPJ_LATAM_CA_Checked}">
+                        <apex:actionsupport event="onclick" status="actionstatusID" reRender="subBtnID,APJ_LATAM_CA_Panel_ID" />
+                    </apex:inputCheckbox> {!$Label.US_LATAM_CA_Ackn_Stat}
+                </p>
+                <p/>
+                <p/>
+                <apex:actionstatus id="actionstatusID">
+                    <apex:facet name="start">
+                        <div class="waitingSearchDiv" id="el_loading" style="background-color:#F2F2F2;height: 100%;opacity:0.65;width:100%;">
+                            <div class="waitingHolder" style="top: 100px; width: 150px;">
+                                <img class="waitingImage" src="/img/loading.gif" title="{!$Label.loading}" />
+                                <span class="waitingDescription">{!$Label.loading}</span>
+                            </div>
+                        </div>
+                    </apex:facet>
+                </apex:actionstatus>
+                
+                <apex:actionStatus id="saveStatusActID"> 
+        <apex:facet name="stop">
+        <apex:commandButton id="subBtnID" disabled="{!NOT(isAPJ_LATAM_CA_Checked)}" action="{!SubmitAutoRenewal}" value="{!$Label.Submit}" status="saveStatusActID" rerender="pgblkId"/>
+        </apex:facet>
+        <apex:facet name="start">
+        <apex:commandButton value="{!$Label.Submit}" disabled="true" status="saveStatusActID"/>
+        </apex:facet>
+        </apex:actionStatus> 
+
+            <apex:commandButton value="{!$Label.cancel}" action="{!ButtonReturnToPreviousPage}" />
+            </apex:OutputPanel>
+            <!-- End of APJ_LATAM_CA Region -->
+
+
+            <!-- Renders when Opporunity is submitted for auto renewal -->
+            <apex:OutputPanel id="OpportunityCannotSubmit" rendered="{!IF(OpportunitySubmitted && isAvailableForAccess, TRUE, FALSE) }">
+                <apex:PageblockSection id="OpportunitySubmitted">
+                    <h1>"{!$Label.Opportunity_Cannot_Submit}"</h1>
+                    <p>  <apex:commandButton value="{!$Label.Deal_Auto_Approval_Back_Button}" action="{!ButtonReturnToPreviousPage}" /> </p>
+                </apex:PageblockSection>
+            </apex:OutputPanel>
+            <!-- End of renders when Opporunity is submitted for auto renewal -->
+
+
+            <!-- Renders when Renewal Extension screen acess doesn't have access > -->
+            <apex:outputPanel id="UserAccessDenied" rendered="{!NOT(isAvailableForAccess)}">
+                <apex:PageblockSection id="NoAccessMessage">
+                    <h1>"{!$Label.Opportunity_noAccess}"</h1>
+                    <p> <apex:commandButton value="{!$Label.Deal_Auto_Approval_Back_Button}" action="{!ButtonReturnToPreviousPage}" /> </p>
+                </apex:PageblockSection>
+            </apex:outputPanel>
+            <!--  End of renders when Renewal Extension screen acess doesn't have access > -->
+
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
+
+
+<!------Comment the above code and uncomment the below for Extension code Version 3.0
+<!-- 
+
+Revision    Release     Name                   Date            Description 
+2.0         14.5        Fenny                  15-May-2013     CR 8197 - implement CRQ0722 to fix SIT defect 67619
+2.1         24          Venkateswarlu Chirala  21-Dec-2016     CR- 13861 & 13862
+
+
+<apex:page standardController="Opportunity" extensions="OpportunityRenewalExtension" action="{!autoApproveForUS_EMEA_Region}">
+   
+    <script type="text/javascript">
+        function closeWindow() {
+            window.close();
+        }
+    </script>
+
+
+    <apex:form Id="frmId">
+        <apex:pageBlock title="{!$Label.Request_Renewal}" id="pgblkId">
+            <apex:pageMessages id="stdFrmtErrMsgID" />
+            <apex:inputHidden value="{!Opportunity.Request_Status__c}" />
+            <apex:inputHidden value="{!Opportunity.AccountId}" />
+            <apex:inputHidden value="{!Opportunity.Bypass_Close_Date__c}" />
+            <apex:inputHidden value="{!previousPage}" />
+            <apex:inputHidden value="{!Opportunity.Deal_Expiration_Timeframe__c}" />
+            <apex:inputHidden value="{!Opportunity.Submitter_Profile__c }" />
+            
+            
+            <!-- Fenny: ver 2.0 
+            <apex:inputHidden value="{!Opportunity.Related_Parent_Opportunity__c}" />
+            <apex:inputHidden value="{!Opportunity.StageName}" />
+            <!--<apex:inputHidden value="{!Opportunity.Deal_Expiration_Date__c}" /> -->
+            
+            <!-- Begin for US_EMEA Region 
+            <apex:OutputPanel id="US_EMEA_Panel_ID" rendered="{!isUS_EMEA}">
+               <h3> <apex:outputText value="{!$Label.US_EMEA_Renewal_SucMsg}" rendered="{!if(US_EMEA_RnwSucMsg != NULL, True, False)}" style="color:green" />  </h3>
+                <p/>
+                <apex:commandButton value="{!$Label.continue}" action="{!ButtonReturnToPreviousPage}" rendered="{!if(US_EMEA_RnwSucMsg != NULL, True, False)}" />
+                <apex:commandButton value="{!$Label.Deal_Auto_Approval_Back_Button}" action="{!ButtonReturnToPreviousPage}" rendered="{!if(US_EMEA_RnwSucMsg == NULL, True, False)}" />
+            </apex:OutputPanel>
+            <!-- End of US_EMEA Region 
+
+
+
+            <!-- Begin forAPJ_LATAM_CA Region 
+            <apex:OutputPanel id="APJ_LATAM_CA_Panel_ID" rendered="{!isAPJ_LATAM_CA}">
+                <p>
+                    <apex:inputCheckbox value="{!isAPJ_LATAM_CA_Checked}">
+                        <apex:actionsupport event="onclick" status="actionstatusID" reRender="subBtnID,APJ_LATAM_CA_Panel_ID" />
+                    </apex:inputCheckbox> {!$Label.US_LATAM_CA_Ackn_Stat}
+                </p>
+                <p/>
+                <p/>
+                <apex:actionstatus id="actionstatusID">
+                    <apex:facet name="start">
+                        <div class="waitingSearchDiv" id="el_loading" style="background-color:#F2F2F2;height: 100%;opacity:0.65;width:100%;">
+                            <div class="waitingHolder" style="top: 100px; width: 150px;">
+                                <img class="waitingImage" src="/img/loading.gif" title="{!$Label.loading}" />
+                                <span class="waitingDescription">{!$Label.loading}</span>
+                            </div>
+                        </div>
+                    </apex:facet>
+                </apex:actionstatus>
+                
+                <apex:actionStatus id="saveStatusActID"> 
+        <apex:facet name="stop">
+        <apex:commandButton id="subBtnID" disabled="{!NOT(isAPJ_LATAM_CA_Checked)}" action="{!SubmitAutoRenewal}" value="{!$Label.Submit}" status="saveStatusActID" rerender="pgblkId"/>
+        </apex:facet>
+        <apex:facet name="start">
+        <apex:commandButton value="{!$Label.Submit}" disabled="true" status="saveStatusActID"/>
+        </apex:facet>
+        </apex:actionStatus> 
+
+            <apex:commandButton value="{!$Label.cancel}" action="{!ButtonReturnToPreviousPage}" />
+            </apex:OutputPanel>
+            <!-- End of APJ_LATAM_CA Region 
+
+
+
+            <!-- Begin for GC Region 
+            <apex:outputPanel id="GC_Panel_ID" rendered="{!isGc}">
+                   <!-- Commented due to GC also similar to APJ, LATAM, CA Logic
+                    <p> <apex:inputField value="{!Opportunity.Stage_Updated__c}" /> {!$Label.Opportunity_Stage_Updated} </p>                    
+                    <p> <apex:inputField value="{!Opportunity.Close_Date_Updated__c}" /> {!$Label.Opportunity_Close_Date_Updated}  </p>                  
+                    <p> <apex:inputField value="{!Opportunity.Next_Steps_Updated__c}" /> {!$Label.Opportunity_Next_Steps_Updated}  </p>                 
+                    <p> <apex:inputField value="{!Opportunity.Class_Logged_or_Notes_Entered__c}" /> {!$Label.Opportunity_Calls_logged_or_notes_taken} </p>
+                    <p> <apex:inputField value="{!Opportunity.Update_to_Justification_Statement__c}" /> {!$Label.Opportunity_Update_to_Justification_Statement} </p>
+                                    
+                    <p>
+                    <apex:inputCheckbox value="{!isAPJ_LATAM_CA_Checked}">
+                        <apex:actionsupport event="onclick" status="actionstatusIDGC" reRender="subBtnIDGC,GC_Panel_ID" />
+                    </apex:inputCheckbox> {!$Label.US_LATAM_CA_Ackn_Stat}
+                </p>
+                <p/>
+                <p/>
+                <apex:actionstatus id="actionstatusIDGC">
+                    <apex:facet name="start">
+                        <div class="waitingSearchDiv" id="el_loading" style="background-color:#F2F2F2;height: 100%;opacity:0.65;width:100%;">
+                            <div class="waitingHolder" style="top: 100px; width: 150px;">
+                                <img class="waitingImage" src="/img/loading.gif" title="{!$Label.loading}" />
+                                <span class="waitingDescription">{!$Label.loading}</span>
+                            </div>
+                        </div>
+                    </apex:facet>
+        
+        </apex:actionstatus>
+        <apex:actionStatus id="saveStatusAct"> 
+        <apex:facet name="stop">
+        <apex:commandButton id="subBtnIDGC" disabled="{!NOT(isAPJ_LATAM_CA_Checked)}" action="{!SubmitAutoRenewal}" value="{!$Label.Submit}" 
+        status="saveStatusAct" rerender="pgblkId"/>
+        </apex:facet>
+        <apex:facet name="start">
+        <apex:commandButton value="{!$Label.Submit}" disabled="true" status="saveStatusAct"/>
+        </apex:facet>
+        </apex:actionStatus> 
+                <apex:commandButton value="{!$Label.cancel}" action="{!ButtonReturnToPreviousPage}" />
+                
+                <!-- <p> -->
+                        <!--apex:commandButton action="{!SubmitAutoRenewal}" value="{!$Label.Submit}" status="closer" rerender="buttons"/-->
+                        <!-- <apex:commandButton action="{!SubmitAutoRenewal}" value="{!$Label.Submit}" />
+                        <apex:commandButton value="{!$Label.cancel}" action="{!ButtonReturnToPreviousPage}" />
+                    </p>
+                    
+                    
+                                      
+            </apex:outputPanel>
+            <!-- End of GC Region 
+
+
+            <!-- Renders when Opporunity is submitted for auto renewal 
+            <apex:OutputPanel id="OpportunityCannotSubmit" rendered="{!IF(OpportunitySubmitted && isAvailableForAccess, TRUE, FALSE) }">
+                <apex:PageblockSection id="OpportunitySubmitted">
+                    <h1>"{!$Label.Opportunity_Cannot_Submit}"</h1>
+                    <p>  <apex:commandButton value="{!$Label.Deal_Auto_Approval_Back_Button}" action="{!ButtonReturnToPreviousPage}" /> </p>
+                </apex:PageblockSection>
+            </apex:OutputPanel>
+            <!-- End of renders when Opporunity is submitted for auto renewal 
+
+
+            <!-- Renders when Renewal Extension screen acess doesn't have access > 
+            <apex:outputPanel id="UserAccessDenied" rendered="{!NOT(isAvailableForAccess)}">
+                <apex:PageblockSection id="NoAccessMessage">
+                    <h1>"{!$Label.Opportunity_noAccess}"</h1>
+                    <p> <apex:commandButton value="{!$Label.Deal_Auto_Approval_Back_Button}" action="{!ButtonReturnToPreviousPage}" /> </p>
+                </apex:PageblockSection>
+            </apex:outputPanel>
+            <!--  End of renders when Renewal Extension screen acess doesn't have access > 
+
+            <!-- Renders when Country doesnt Eligible for Auto Extension 
+            <apex:outputPanel id="NoCountryAccess" rendered="{!CountryExtensionStatus}">
+               <h3> <apex:outputText value="Your Partner Country is not Eligible for Deal Extension" />  </h3>
+                <p/>
+                <p> <apex:commandButton value="{!$Label.Deal_Auto_Approval_Back_Button}" action="{!ButtonReturnToPreviousPage}" /> </p>
+            </apex:outputPanel>
+            <!--  Renders when Country doesnt Eligible for Auto Extension 
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
+-------->

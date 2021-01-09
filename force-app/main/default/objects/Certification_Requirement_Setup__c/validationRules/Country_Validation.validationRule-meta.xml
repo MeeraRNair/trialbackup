@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Country_Validation</fullName>
+    <active>true</active>
+    <description>If &apos;Apply Requirement To&apos; is chosen as country, its mandetory to choose a country.</description>
+    <errorConditionFormula>AND(ISPICKVAL(Apply_Requirement_To__c , &apos;Country&apos;),ISBLANK ( Country__c ))</errorConditionFormula>
+    <errorDisplayField>Country__c</errorDisplayField>
+    <errorMessage>Choose a country.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,44 @@
+<apex:page standardController="Account" extensions="AccountPlanNewOverrideController"  title="Creating new account plan" tabStyle="Account"  id="mypage" lightningStylesheets="true" >
+    <apex:includeLightning />
+   
+    <div id="LcDisplayId"></div>
+    
+ <script>
+          
+    $Lightning.use("c:newAccountPlan", function() {
+        //alert('inside script') ;
+    if("{!$User.UITheme}" == "Theme4d" || "{!$User.UITheme}" == "Theme4t" || "{!$User.UITheme}" == "Theme4u" ){
+       
+        var jsondet = JSON.parse('{!teamMemberJSON}');
+        
+    $Lightning.createComponent("c:new_Account_Plan",
+    { 
+      accId:'{!$CurrentPage.parameters.Id}',
+      atms : '{!teamMemberJSON}',
+      atmsmgr : '{!managerJSON}'  
+    },
+   "LcDisplayId",
+    function(component) {
+       document.getElementById("mypage:theForm:displaySection").style.display ='none';
+    });
+ }
+ else{
+    CallApexMethod();
+ }
+ });
+ </script>
+     <apex:form id="theForm">
+         <apex:actionFunction name="CallApexMethod" action="{!createNewAccountPlan}"/>
+          
+        <apex:pageBlock id="displaySection">
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton action="{!redirectBack}" value="Back"/>
+            </apex:pageBlockButtons>
+            
+            <apex:pagemessages rendered="{!hasMessage}" />
+            <apex:pagemessage rendered="{!!hasMessage}" summary="Creating new account plan. Please click the 'Back' button if the page does not redirect automatically." severity="info" strength="3" ></apex:pagemessage>
+        </apex:pageBlock>
+     
+
+    </apex:form>
+</apex:page>

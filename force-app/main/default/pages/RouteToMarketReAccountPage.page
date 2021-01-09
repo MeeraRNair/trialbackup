@@ -1,0 +1,240 @@
+<apex:page standardController="Account" showHeader="false" sidebar="false" extensions="vfnctrl_RouteToMarketReAccountPage" >
+<style>
+td, th {
+   text-align: left;
+    padding: 4px;
+    
+}
+.HoverPopup:hover {
+    background-color: #eeeeee;
+    Text-decoration: none;
+    z-index: 50;
+    }
+
+  div {
+    position: absolute;
+    visibility: hidden;
+    z-index: 50;
+    }
+
+.HoverPopup:hover + div {
+    visibility: visible;   
+    border: 1px solid black;    
+    background-color:gray;
+    padding: 10px;       
+    margin: auto;
+    width: auto;
+    height:auto;
+    text-align: left;
+    color:white;    
+    z-index:50;
+    
+    }
+    
+    .helpOrb:hover{
+    background: transparent url(/img/help/helpOrbs.gif) -22px 0px;
+    
+    }
+ 
+.thhide{
+    display:none;
+}
+.error{
+    color:red;
+    
+}
+  
+</style>
+  <center>
+      <apex:form id="frm">     
+          <apex:Messages />
+          <table style="width:100%" border = "0">        
+             <tr>
+                 <td></td>                    
+                 <th>Direct Preference</th>
+                 <th>Channel</th>
+                 <th>Partner Of Record</th>
+                 <th class="{!IF(OR(bisEditButtonVisible,bisvisible),'','thhide')}">Origination Program</th>
+             </tr>
+                 <tr>
+                 <th>Client</th>                    
+                     <td><apex:outputfield value="{!Account.CSG_Direct_Preference__c}" rendered="{!bdetailSection}"/>
+                     
+                     <apex:inputField value="{!Account.CSG_Direct_Preference__c}" rendered="{!beditSection}" id="I1">
+                          <apex:actionSupport event="onclick" rerender="thePanel1,op1" action="{!click}"/> 
+                     </apex:inputfield>
+                     
+                     </td>
+                 <td><apex:outputfield value="{!Account.CSG__c}" rendered="{!bdetailSection}"/>                
+                 <apex:inputField value="{!Account.CSG__c}" rendered="{!beditSection}" >
+                         <apex:actionSupport event="onclick" rerender="thePanel1,op1" action="{!click}"/>  
+                 </apex:inputField>
+                 
+                 </td>
+                     <td>
+                  <span><img src="/s.gif" alt="" class="helpOrb" title="Search for an existing Partner using either the partner’s name or PID"/> </span><apex:outputLink target="_blank" value="/{!Account.LOBi_Preferred_Partner_of_Record__c}" styleClass="HoverPopup" rendered="{!bdetailSection}">{!Account.LOBi_Preferred_Partner_of_Record__r.name}</apex:outputLink>
+                   <div>
+                     Account Name: {!Account.LOBi_Preferred_Partner_of_Record__r.name}<br></br>
+                     Account Owner: {!Account.LOBi_Preferred_Partner_of_Record__r.Owner.Name}<br></br>
+                     AffinityID: {!Account.LOBi_Preferred_Partner_of_Record__r.Account_ID__c}
+                   </div>
+                   <apex:outputPanel id="thePanel1">
+                         <apex:inputfield value="{!Account.LOBi_Preferred_Partner_of_Record__c}" rendered="{!AND(Account.CSG__c,NOT(Account.CSG_Direct_Preference__c),beditSection)}" /><br/>
+                         <apex:outputText value="{!strclientPORMSg }" rendered="{!beditSection}" styleClass="error"></apex:outputText>
+                   </apex:outputPanel>                   
+                     </td>                     
+                 <td>
+                     <apex:outputPanel id="op1">
+                         <apex:inputField value="{!Account.Origination_Program_Client__c}" rendered="{!AND(Account.CSG__c,NOT(Account.CSG_Direct_Preference__c),beditSection)}" /><br/>
+                         <apex:outputText value="{!strclientErrorMessage}" rendered="{!beditSection}" styleClass="error"></apex:outputText>
+                     </apex:outputPanel>
+                         <apex:outputField value="{!Account.Origination_Program_Client__c}" rendered="{!bdetailSection}" />
+                    
+                     
+                 </td>
+                 
+                 </tr>
+                 <tr>
+                 <th>Storage</th>                    
+                 <td></td>
+                 <td><apex:outputfield value="{!Account.Storage__c}" rendered="{!bdetailSection}"/>
+                 <apex:inputfield value="{!Account.Storage__c}" rendered="{!beditSection}">
+                     <apex:actionSupport event="onchange" rerender="thePanel,op2" action="{!click}"/>  
+                 </apex:inputfield>
+                 </td>
+                     <td >
+                     <span><img src="/s.gif" alt="" class="helpOrb" title="Search for an existing Partner using either the partner’s name or PID"/> </span><apex:outputLink value="/{!Account.LOBi_Preferred_Partner_of_Record_Storage__c }" rendered="{!bdetailSection}" styleClass="HoverPopup" target="_blank" >{!Account.LOBi_Preferred_Partner_of_Record_Storage__r.name} </apex:outputLink>
+                     <div>
+                     Account Name: {!Account.LOBi_Preferred_Partner_of_Record_Storage__r.name}<br></br>
+                     Account Owner: {!Account.LOBi_Preferred_Partner_of_Record_Storage__r.Owner.Name}<br></br>
+                     AffinityID: {!Account.LOBi_Preferred_Partner_of_Record_Storage__r.Account_ID__c}
+                   </div>
+                  <apex:outputPanel id="thePanel">
+                   <apex:inputfield value="{!Account.LOBi_Preferred_Partner_of_Record_Storage__c}" rendered="{!AND(Account.Storage__c,beditSection)}"/><br/>
+                   <apex:outputText value="{!strStoragePORMSg }" rendered="{!beditSection}" styleClass="error"></apex:outputText>
+                  </apex:outputPanel>
+                 
+                 </td>
+                <td>
+                    <apex:outputPanel id="op2">
+                        <apex:inputField value="{!Account.Origination_Program_Storage__c}" rendered="{!AND(Account.Storage__c,beditSection)}"/><br/>
+                        <apex:outputText value="{!strstorageErrorMessage }" rendered="{!beditSection}" styleClass="error"></apex:outputText>
+                    </apex:outputPanel>
+                    
+                    <apex:outputField value="{!Account.Origination_Program_Storage__c}" rendered="{!bdetailSection}"/>
+                </td>
+             </tr>
+                 <tr>
+                 <th>Server</th>                    
+                 <td></td>
+                 <td><apex:outputfield value="{!Account.Server__c}" rendered="{!bdetailSection}"/>
+                  <apex:inputfield value="{!Account.Server__c}" rendered="{!beditSection}">
+                       <apex:actionSupport event="onchange" rerender="thePanel2,op3" action="{!click}"/> 
+                  </apex:inputfield>
+                  </td> 
+                 <td>
+                 <span><img src="/s.gif" alt="" class="helpOrb" title="Search for an existing Partner using either the partner’s name or PID"/> </span><apex:outputLink value="/{!Account.LOBi_Preferred_Partner_of_Record_Server__c }"  onmouseover="document.getElementById('samplePop').style.display = 'block';" styleClass="HoverPopup" target="_blank" rendered="{!bdetailSection}">{!Account.LOBi_Preferred_Partner_of_Record_Server__r.name}
+                         </apex:outputLink>
+                     <div id="samplePop">
+                     Account Name: {!Account.LOBi_Preferred_Partner_of_Record_Server__r.name}<br></br>
+                     Account Owner: {!Account.LOBi_Preferred_Partner_of_Record_Server__r.Owner.Name}<br></br>
+                     AffinityID: {!Account.LOBi_Preferred_Partner_of_Record_Server__r.Account_ID__c}
+                   </div>
+                  <apex:outputPanel id="thePanel2">
+                      <apex:inputfield value="{!Account.LOBi_Preferred_Partner_of_Record_Server__c}" rendered="{!AND(Account.Server__c,beditSection)}"/><br/>
+                      <apex:outputText value="{!strServerPORMSg }" rendered="{!beditSection}" styleClass="error"></apex:outputText>
+                  </apex:outputPanel>
+                 
+                 </td>
+                 <td>
+                     <apex:outputPanel id="op3">
+                         <apex:inputfield value="{!Account.Origination_Program_Server__c}" rendered="{!AND(Account.Server__c,beditSection)}"/><br/>
+                          <apex:outputText value="{!strserverErrorMessage }" rendered="{!beditSection}" styleClass="error"></apex:outputText>
+                     </apex:outputPanel>
+                     
+                     <apex:outputfield value="{!Account.Origination_Program_Server__c}" rendered="{!bdetailSection}"/>
+                 
+                 </td>
+             </tr>
+              <tr>
+                 <th>Networking</th>                    
+                 <td></td>
+                 <td><apex:outputfield value="{!Account.Networking__c}" rendered="{!bdetailSection}"/>
+                 <apex:inputfield value="{!Account.Networking__c}" rendered="{!beditSection}">
+                 
+                     <apex:actionSupport event="onchange" rerender="thePanel3,op4" action="{!click}"/>
+                 </apex:inputfield>
+                 </td>
+                 <td>
+                 <span><img src="/s.gif" alt="" class="helpOrb" title="Search for an existing Partner using either the partner’s name or PID"/> </span><apex:outputLink value="/{!Account.LOBi_Preferred_Partner_of_Record_Network__c}" styleClass="HoverPopup" target="_blank" rendered="{!bdetailSection}">{!Account.LOBi_Preferred_Partner_of_Record_Network__r.name}</apex:outputLink>
+                   <div>
+                     Account Name: {!Account.LOBi_Preferred_Partner_of_Record_Network__r.name}<br></br>
+                     Account Owner: {!Account.LOBi_Preferred_Partner_of_Record_Network__r.Owner.Name}<br></br>
+                     AffinityID: {!Account.LOBi_Preferred_Partner_of_Record_Network__r.Account_ID__c}
+                   </div>
+                   <apex:outputPanel id="thePanel3">
+                        <apex:inputfield value="{!Account.LOBi_Preferred_Partner_of_Record_Network__c}" rendered="{!AND(Account.Networking__c,beditSection)}"/><br/>
+                        <apex:outputText value="{!strNetworkPORMSg }" rendered="{!beditSection}" styleClass="error"></apex:outputText>
+                   </apex:outputPanel>
+                    </td>
+                     <td>
+                          <apex:outputPanel id="op4">
+                              <apex:inputfield value="{!Account.Origination_Program_Networking__c}" rendered="{!AND(Account.Networking__c,beditSection)}"/><br/>
+                              <apex:outputText value="{!strnetworkErrorMessage}" rendered="{!beditSection}" styleClass="error"></apex:outputText>
+                          
+                          </apex:outputPanel>
+                          
+                          <apex:outputfield value="{!Account.Origination_Program_Networking__c}" rendered="{!bdetailSection}"/>
+                     </td>                
+             </tr>  
+                <tr>
+                 <th></th>                    
+                 <td></td>
+                 <td><apex:commandButton value="Edit" action="{!editAction}"  rerender="frm" rendered="{!bisEditButtonVisible && bdetailSection && bisEditButtonVisible }" onclick="Editreload()" styleClass="ed"/>
+                 <apex:commandButton value="Save" action="{!saveAction}" rendered="{!beditSection}" status="actStatusId" onclick="this.style.visibility='hidden';"  rerender="frm" id="SaveBtn" oncomplete="reload()">
+                        <apex:actionStatus id="actStatusId" >
+                              <apex:facet name="start" >
+                                 <img src="/img/loading.gif" />
+                              </apex:facet>
+                          </apex:actionStatus>
+                     </apex:commandButton>&nbsp;
+               
+                     <apex:commandButton value="Cancel" onclick="Cancelreload()"  immediate="true" rendered="{!beditSection}" rerender="frm" /> 
+                    </td>
+                 <td>
+                 </td>
+                 <td></td>
+             </tr>     
+    </table> 
+<script language="JavaScript">
+
+function Cancelreload(){
+    self.location =  "/apex/RouteToMarketReAccountPage?Id={!Account.Id}"; 
+          
+}
+function Editreload(){
+     
+      self.location =  "/apex/RouteToMarketReAccountPage?Id={!Account.Id}&strmode=edit"; 
+
+}
+function reload(){
+    if(document.getElementsByClassName('ed')[0]){
+        document.getElementsByClassName('ed')[0].style.visibility='hidden';
+       
+        
+    }
+    if('{!brefreshPage}' == 'true' )
+    { 
+      //  window.top.location=window.top.location;
+        window.top.location.reload(true);
+        
+    }
+    
+}
+
+
+</script>  
+
+ </apex:form>  
+</center>   
+</apex:page>

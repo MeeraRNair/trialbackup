@@ -1,0 +1,102 @@
+<!-- * 
+* Revision CR Number   Release No      Date            Modified By     Description
+* -------- ---------   ----------      -----------     ------------    -----------
+* 1.0 -    CR16422     FY19-DCS-1002   30-Aug-2018:    manip4          added 'lightningStylesheets' attribute for apex component to make the page lightening friendly for the story 5537257
+*/-->
+
+<apex:page standardController="Marketing_Plan__c" extensions="APVProductManagerApprovalController" lightningStylesheets="true">
+  <html>
+    <head>
+        <style>
+            .headerRow .displayStyle{display:none;}
+            .headerRow .colStyle50{width:50px;}
+            .headerRow .colStyle75{width:75px;}
+            .headerRow .colStyle100{width:100px;}
+            .headerRow .colStyle150{width:150px;}
+            .headerRow .colStyle200{width:200px;}            
+            .columnRow .showStyle{display:none;}
+        </style>
+                      
+    </head>
+    <body>
+      <apex:form >
+      <apex:sectionHeader subtitle="{!Marketing_Plan__c.name}"/>
+      <apex:pageMessage rendered="{!MplanErr}" severity="Info" strength="3" summary="Marketing Plan is not submitted for product manager review">
+      <apex:commandButton action="{!Cancel}" value="Back"/></apex:pageMessage>
+     <apex:pageMessage rendered="{!NoAPVErr}" severity="Info" strength="3" summary="There are no APVs to be reviewed by product manager">
+      <apex:commandButton action="{!Cancel}" value="Back"/></apex:pageMessage>
+     
+         <apex:pageBlock title="List of APVs to be reviewed by product manager"  rendered="{!ToBReviewed}" > 
+        
+    <apex:pageBlockTable value="{!ToBReviwedList}" var="apv" rows="1" style="width:1200px;">                        
+        <apex:column style="display:none;align:center;"  headerClass="colStyle100">
+        <apex:facet name="header">APV Name</apex:facet>         
+        </apex:column>        
+        <apex:column style="display:none;align:center;"  headerClass="colStyle100">
+        <apex:facet name="header">Program</apex:facet>         
+        </apex:column>
+        <apex:column style="display:none;align:center;"  headerClass="colStyle100">
+        <apex:facet name="header">Region</apex:facet>         
+        </apex:column>
+        <apex:column style="display:none;align:center;"  headerClass="colStyle100">
+        <apex:facet name="header">Sub Region</apex:facet>         
+        </apex:column>        
+        <apex:column style="display:none;align:center;"  headerClass="colStyle100">
+        <apex:facet name="header">Country</apex:facet>         
+        </apex:column>
+        <apex:column style="display:none;align:center;"  headerClass="colStyle100">
+        <apex:facet name="header">Business Segment</apex:facet>         
+        </apex:column>
+        <apex:column style="display:none;align:center;"  headerClass="colStyle100">
+        <apex:facet name="header">Rate Card price</apex:facet>         
+        </apex:column>        
+        <apex:column style="display:none;align:center;"  headerClass="colStyle100">
+        <apex:facet name="header">Budgeted price</apex:facet>         
+        </apex:column>
+        <apex:column style="display:none;align:center;"  headerClass="colStyle200">
+        <apex:facet name="header">Product Manager Approval</apex:facet>         
+        </apex:column>
+    </apex:pageBlockTable>
+    <div style="position:static;width:1200px;height:340px;overflow:auto;overflow-x:hidden;"> 
+        <apex:pageBlockTable value="{!ToBReviwedList}" var="apv" style="width:1200px;">
+            <apex:column headerClass="displayStyle" style="width:100px;align:center;">
+                <apex:outputLink value="/{!apv.id}">{!apv.name}</apex:outputLink>
+            </apex:column>   
+            <apex:column headerClass="displayStyle" style="width:100px;align:center;">
+                {!apv.MDF_Program__r.name}
+            </apex:column>
+            <apex:column headerClass="displayStyle" style="width:100px;align:center;">
+                {!apv.Region__c}
+            </apex:column>
+            <apex:column headerClass="displayStyle" style="width:100px;align:center;">
+                {!apv.Sub_Region__c}
+            </apex:column>
+            <apex:column headerClass="displayStyle" style="width:100px;align:center;">
+                {!apv.Country__c}
+            </apex:column>
+            <apex:column headerClass="displayStyle" style="width:100px;align:center;">
+                {!apv.Business_Segment__c}
+            </apex:column>
+            <apex:column headerClass="displayStyle" style="width:100px;align:center;">
+                {!apv.Rate_Card_Price__c}
+            </apex:column>
+            <apex:column headerClass="displayStyle" style="width:100px;align:center;">
+                {!apv.Budgeted_Price__c}
+            </apex:column>
+            <apex:column headerClass="displayStyle" style="width:200px;align:center;">
+                <apex:inputfield value="{!apv.Product_Manager_Approval__c}"/>
+            </apex:column>
+        </apex:pageBlockTable>
+    </div>
+  <apex:pageBlockButtons location="bottom">      
+      <apex:commandButton action="{!AcceptAll}" value="Accept All"/>
+      <apex:commandButton action="{!DeclineAll}" value="Decline All"/>
+     <apex:commandButton action="{!updateAPVs}" value="Save PM Review"/>
+      <apex:commandButton action="{!Cancel}" value="Back"/>
+  </apex:pageBlockButtons>
+  </apex:pageBlock>  
+      </apex:form>
+    </body>
+    </html>
+
+</apex:page>

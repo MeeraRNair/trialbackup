@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>gdm_vre_010_Is_Parent_ID_Numeric</fullName>
+    <active>true</active>
+    <description>determines if the parent ID is numeric</description>
+    <errorConditionFormula>AND (
+ NOT ISBLANK( Account_ID__c),
+ NOT ISNUMBER( Parent_Account_ID__c ),
+ RecordType.Name == &apos;Create Account / Reactivate&apos;
+
+)</errorConditionFormula>
+    <errorDisplayField>Parent_Account_ID__c</errorDisplayField>
+    <errorMessage>(010) Parent Account ID can&apos;t be empty if Account ID to deactivate is filled.</errorMessage>
+</ValidationRule>

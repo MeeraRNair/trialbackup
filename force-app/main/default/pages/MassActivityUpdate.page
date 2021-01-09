@@ -1,0 +1,307 @@
+<apex:page controller="MassActivityUpdate" id="pg" sidebar="false" showHeader="true" tabStyle="Activities__tab" lightningStylesheets="true">
+<apex:sectionHeader title="Activities" subtitle="Mass Update Activities"/>
+  <apex:includeScript value="{!URLFOR($Resource.Jquery_10, 'jquery-ui-1.10.4.custom/js/jquery-1.10.2.js')}"  />
+  <apex:includeScript value="{!URLFOR($Resource.Jquery_10, 'jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js')}"  />
+  <apex:includeScript value="/support/console/22.0/integration.js"/>
+  <script type="text/javascript">
+  $j = jQuery.noConflict();
+  function setFocusOnLoad() {}
+  
+  $j(document).ready(function() {
+  
+        exeListeners();      
+  });  
+  
+  exeListeners = function(){
+      $j("body").css("cursor", "default");
+      
+      //var scrnWidth = screen.width;
+
+      //$j(".div12").css("width",scrnWidth);
+                 
+      highliteError();  
+      
+      
+      
+      $j('[id$=tbl] tr').change(function(){
+        var rowNum = this.rowIndex;
+         if( Number(rowNum) !=0){
+             var flagId = 'pg:form1:pgBlock1:section1:tbl:'+(Number(rowNum)-1)+':isModified';
+             document.getElementById(flagId).value = true;             
+            }
+      });
+      $j('.comboboxIcon').click(function(){
+         var nearBytr = $j(this).closest('tr');
+         var rowNum = nearBytr.index();
+         if( Number(rowNum) !=undefined){
+             var flagId = 'pg:form1:pgBlock1:section1:tbl:'+rowNum+':isModified';
+             document.getElementById(flagId).value = true;
+             
+        }
+      });  
+   
+      $j('.cancelButton').on('click', function() {
+           if(isItModified()){
+             if (confirm('Do you want to discard all the changes?')) {
+                 return true;
+             }else{
+               return false; 
+             }
+           }
+        });
+        
+    $j('.saveAndReturn').on('click', function() {
+            if(!isItModified()){
+                alert('No records updated.');
+                return false;
+             }
+            var oldVal = $j('.saveAndReturn').val();
+            $j('.saveAndReturn').val('Saving...');
+            return true;
+        });    
+  }
+
+   selectedPageNum = function(firstParam){
+       $j("body").css("cursor", "wait");
+        if(isItModified()){
+            if (confirm('Do you want to update the records with the new changes?')) {
+                saveandNavigate(firstParam);
+               //return false;
+             }else{
+               //Move to Next page 
+               setPageNum(firstParam);
+               return false; 
+             }
+        }else{
+            setPageNum(firstParam);
+            return false;
+        }
+        
+     }
+     
+     setNextPage = function(firstParam){
+        $j("body").css("cursor", "wait"); 
+        if(isItModified()){
+            if (confirm('Do you want to update the records with the new changes?')) {
+                saveandNavigate('NEXT');
+               //return false;
+             }else{
+               //Move to Next page 
+               callNextPage();
+               return false; 
+             }
+        }else{
+            callNextPage();
+            return false;
+        }
+        
+     }
+     
+     setFirstPage = function(firstParam){
+        $j("body").css("cursor", "wait"); 
+        if(isItModified()){
+            if (confirm('Do you want to update the records with the new changes?')) {
+                saveandNavigate('FIRST');
+               //return false;
+             }else{
+               //Move to Next page 
+               callFirstPage();
+               return false; 
+             }
+        }else{
+            callFirstPage();
+            return false;
+        }
+        
+     }
+     
+     setPrevPage = function(firstParam){
+        $j("body").css("cursor", "wait"); 
+        if(isItModified()){
+            if (confirm('Do you want to update the records with the new changes?')) {
+                saveandNavigate('PREV');
+               //return false;
+             }else{
+               //Move to Next page 
+               callPrevPage();
+               return false; 
+             }
+        }else{
+            callPrevPage();
+            return false;
+        }
+        
+     }
+     
+     setLastPage = function(firstParam){
+         $j("body").css("cursor", "wait");
+        if(isItModified()){
+            if (confirm('Do you want to update the records with the new changes?')) {
+                saveandNavigate('LAST');
+               //return false;
+             }else{
+               //Move to Next page 
+               callLastPage();
+               return false; 
+             }
+        }else{
+            callLastPage();
+            return false;
+        }
+        
+     }
+     
+    isItModified=function(){
+        var rowCount = $j('[id$=isModified]').length;
+        var altered='false';
+        for(var x=0;x<rowCount;x++){
+            altered = document.getElementById('pg:form1:pgBlock1:section1:tbl:'+x+':isModified').value;
+            if(altered === "true"){
+                return true;
+            }
+        }
+        return false;
+      }
+      
+       highliteError=function(){
+          
+          var rowCount = $j('[id$=isModified]').length;
+          var altered=false;
+          var modified=false;
+        for(var x=0;x<rowCount;x++){
+            altered = document.getElementById('pg:form1:pgBlock1:section1:tbl:'+x+':isError').value;
+            modified = document.getElementById('pg:form1:pgBlock1:section1:tbl:'+x+':isModified').value;
+            if(altered === "true" && modified === "true"){
+               $j('[id$=tbl] tbody tr:eq('+x+')').css("background-color", "#FFFFCC");
+            }else{
+                $j('[id$=tbl] tbody tr:eq('+x+')').css("background-color", "#FFFFFF");
+            }
+        }
+        $j('[id$=tbl] tbody tr:has(div.errorMsg)').css("background-color", "#FFFFCC");
+       }
+  </script>
+  <style>
+      select{
+          margin-right: 5px;
+          vertical-align: top;
+          width: 85pt;
+      }
+      
+      select[class=abcd]{
+          margin-right: 5px;
+          vertical-align: middle;
+          width: 100pt;
+      }     
+      
+      input[type=text]{
+         vertical-align: bottom;
+      }
+      th {
+        text-align: center;
+      }
+  </style>
+
+ <apex:form id="form1" styleclass="formClass">
+     <apex:pageMessages escape="false" id="pmsgs"/>  
+     <apex:actionFunction name="setPageNum" action="{!refreshGrid}"  immediate="true" reRender="pgBlock1,pmsgs" oncomplete="exeListeners();"> 
+         <apex:param assignTo="{!pageNum}" name="param1" value=""/>
+     </apex:actionFunction>
+     
+     <apex:actionFunction name="saveandNavigate" action="{!SaveAndRefresh}" reRender="pgBlock1,pmsgs" oncomplete="exeListeners();"> 
+         <apex:param id="pageNumber" name="pageNumber" value=""/>
+     </apex:actionFunction>
+ 
+     
+     <apex:actionFunction name="callNextPage" action="{!Next}"  immediate="true" reRender="pgBlock1,pmsgs" oncomplete="exeListeners();"/> 
+     
+     <apex:actionFunction name="callLastPage" action="{!Last}"  immediate="true" reRender="pgBlock1,pmsgs" oncomplete="exeListeners();"/> 
+
+     <apex:actionFunction name="callPrevPage" action="{!Previous}"  immediate="true" reRender="pgBlock1,pmsgs" oncomplete="exeListeners();"/> 
+     
+     <apex:actionFunction name="callFirstPage" action="{!First}"  immediate="true" reRender="pgBlock1,pmsgs" oncomplete="exeListeners();"/>      
+     
+  
+    <div id="contentToToggle" style="display:{!if(showTable ,"none","block")};width:100%;text-align:center;">
+            <apex:commandButton action="{!cancelAndReturn}" value="Back" immediate="true"/> 
+    </div>
+    
+   
+    <apex:pageBlock id="pgBlock1" rendered="{!showTable}" >
+        
+        <apex:panelGrid columns="20" style="float:left;margin-left:10px">
+            <apex:dynamicComponent componentValue="{!PageNumLinks}" rendered="{!showPagination}"/>
+            <apex:outputText rendered="{!showPagination}">&nbsp;&nbsp;&nbsp;</apex:outputText> 
+            <apex:dynamicComponent componentValue="{!PageNaviLinks}" rendered="{!showPagination}"/>
+            <apex:outputText rendered="{!showPagination}">&nbsp;&nbsp;&nbsp;</apex:outputText>                
+            (Page: <apex:outputText value="{!pageNum}"></apex:outputText> of <apex:outputText value="{!totalPages})"></apex:outputText>
+        </apex:panelGrid>
+        
+        <apex:panelGrid columns="7" style="float:right">
+            <apex:outputText value="{!StartPageRecords}"></apex:outputText>-<apex:outputText value="{!EndPageRecords}"></apex:outputText> of <apex:outputText value="{!totalRec}"></apex:outputText>
+        </apex:panelGrid>
+        
+        <apex:pageBlockButtons style="width:100%;padding-left:155pt">
+                <apex:commandButton action="{!saveAndReturn}" value="Save and Mass Update" styleClass="saveAndReturn"/>
+                <apex:commandButton action="{!cancelAndReturn}" value="Cancel" immediate="true" styleClass="cancelButton"/>
+        </apex:pageBlockButtons>
+      <apex:pageBlockSection columns="1" id="section1">
+      <apex:pageBlockTable value="{!activityList25}" var="activity"  id="tbl" columns="8" rows="25" style="width:100%;table-layout:inherit">
+        <apex:column headerValue="Task/Event" >
+            <apex:outputLink value="/{!activity.taskRec.id}" id="Task" rendered="{!IF(activity.isTask=true,true,false)}">Task</apex:outputLink>
+            <apex:outputLink value="/{!activity.eventRec.id}" id="Event" rendered="{!IF(activity.isTask=true,false,true)}">Event</apex:outputLink>
+        </apex:column> 
+        <apex:column headerValue="Related To">
+            <apex:inputfield value="{!activity.taskRec.WhatId}" rendered="{!IF(activity.isTask=true,true,false)}" />
+            <apex:inputfield value="{!activity.eventRec.WhatId}" rendered="{!IF(activity.isTask=true,false,true)}" />
+        </apex:column>
+        <apex:column headerValue="Subject" style="white-space:nowrap;">
+            <apex:inputHidden value="{!activity.isModified}" id="isModified"/>
+            <apex:inputHidden value="{!activity.isError}" id="isError"/>
+            <div class="requiredInput"><div class="requiredBlock"></div>
+            <apex:inputfield value="{!activity.taskRec.subject}" rendered="{!IF(activity.isTask=true,true,false)}"/>
+            <apex:inputfield value="{!activity.eventRec.subject}" rendered="{!IF(activity.isTask=true,false,true)}"/>
+            </div>
+        </apex:column>    
+        <apex:column headerValue="Type" >
+            <div class="requiredInput"><div class="requiredBlock"></div>
+            <apex:inputfield value="{!activity.taskRec.type}"  rendered="{!IF(activity.isTask=true,true,false)}" styleClass="abcd"/>
+            <apex:inputfield value="{!activity.eventRec.type}"  rendered="{!IF(activity.isTask=true,false,true)}" styleClass="abcd" />
+            </div>
+        </apex:column>
+        <apex:column headerValue="Status" >
+            <apex:inputfield value="{!activity.taskRec.Status}" rendered="{!IF(activity.isTask=true,true,false)}" styleClass="abcd" />
+        </apex:column>
+        <apex:column headerValue="Due Date">
+            <div class="requiredInput"><div class="requiredBlock"></div>
+            <apex:inputfield value="{!activity.taskRec.ActivityDate}"  rendered="{!IF(activity.isTask=true,true,false)}" />
+            <apex:inputfield value="{!activity.eventRec.StartDateTime}"  rendered="{!IF(activity.isTask=true,false,IF(activity.eventRec.IsAllDayEvent,false,true))}" />
+            <apex:inputfield value="{!activity.eventRec.ActivityDate}"  rendered="{!IF(activity.isTask=true,false,IF(activity.eventRec.IsAllDayEvent,true,false))}" />
+            </div>
+        </apex:column>
+        <apex:column headerValue="Description">
+            <apex:inputfield value="{!activity.taskRec.Description}" rendered="{!IF(activity.isTask=true,true,false)}" />
+            <apex:inputfield value="{!activity.eventRec.Description}" rendered="{!IF(activity.isTask=true,false,NOT(activity.eventRec.recordtypeid='012A0000000VhzjIAC'))}" />
+        </apex:column>
+        <apex:column headerValue="Assigned To">
+            <apex:inputfield value="{!activity.taskRec.OwnerId}" rendered="{!IF(activity.isTask=true,true,false)}" />
+            <apex:inputfield value="{!activity.eventRec.OwnerId}" rendered="{!IF(activity.isTask=true,false,true)}" />
+        </apex:column>
+      </apex:pageBlockTable>  
+      </apex:pageBlockSection>
+        
+        <apex:panelGrid columns="20" style="float:left;margin-left:10px">
+            <apex:dynamicComponent componentValue="{!PageNumLinks1}" rendered="{!showPagination}"/>
+            <apex:outputText rendered="{!showPagination}">&nbsp;&nbsp;&nbsp;</apex:outputText> 
+            <apex:dynamicComponent componentValue="{!PageNaviLinks1}" rendered="{!showPagination}"/>
+            <apex:outputText rendered="{!showPagination}">&nbsp;&nbsp;&nbsp;</apex:outputText>                
+            (Page: <apex:outputText value="{!pageNum}"></apex:outputText> of <apex:outputText value="{!totalPages})"></apex:outputText>
+        </apex:panelGrid>
+        
+        <apex:panelGrid columns="7" style="float:right">
+            <apex:outputText value="{!StartPageRecords}"></apex:outputText>-<apex:outputText value="{!EndPageRecords}"></apex:outputText> of <apex:outputText value="{!totalRec}"></apex:outputText>
+        </apex:panelGrid>
+         
+    </apex:pageBlock>
+ </apex:form>
+
+</apex:page>

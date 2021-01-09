@@ -1,0 +1,15 @@
+<apex:page standardController="Task" extensions="NPSTasksRelatedListCntrl" tabStyle="NPS_Tasks__tab" lightningStylesheets="true">
+    <apex:messages />
+    <apex:sectionHeader title="NPS Task" subtitle="Home"/>
+    <apex:pageBlock >
+        <apex:pageBlockTable value="{!NPSTask}" var="t">
+            <apex:column headerValue="Action"><apex:outputlink id="Activity" value="/apex/EditNPSTask?scontrolCaching=1&id={!t.Id}" target="_blank" style="color: blue;">Edit</apex:outputlink></apex:column>
+            <apex:column headerValue="Activity ID" value="{!t.ID}"/>
+            <apex:column headerValue="NSS Category" value="{!t.NSS_Category__c}"/>
+            <apex:column headerValue="Due Date" value="{!t.ActivityDate}"/>
+            <apex:column headerValue="Status" value="{!t.Status}"/>
+            <apex:column headerValue="Priority" value="{!t.Priority }"/>
+            <apex:column headerValue="Related To" ><apex:outputLink target="_blank" value="/{!t.WhatId}" >{!t.WhatId}</apex:outputLink> </apex:column> 
+        </apex:pageBlockTable>
+    </apex:pageBlock>    
+</apex:page>

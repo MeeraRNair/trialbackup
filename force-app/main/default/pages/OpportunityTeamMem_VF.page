@@ -1,0 +1,49 @@
+<apex:page standardController="Opportunity" extensions="OpportunityTeamMem_VF_controller" showHeader="false" sidebar="false">
+    <apex:form >
+        <apex:pageBlock id="pb" >
+            <apex:pageBlockTable id="thepbt" value="{!oppTeamMemPaginationList}" var="oppMemb">
+                <apex:column headerValue="{!$Label.CMAP_Name}"  style="font-size: 90%;">
+                <apex:outputText value="{!oppMemb.User.Contact.Name}" rendered="{!oppMemb.User.Contact!=null}"/>
+                <apex:outputText value="{!oppMemb.User.Name}" rendered="{!oppMemb.User.Contact==null}"/>
+                </apex:column>
+                
+                <apex:column headerValue="{!$Label.Contact_CDG_Page_Phone}" style="font-size: 90%;" >&nbsp;
+                <apex:outputText value="{!oppMemb.User.Contact.Phone}" rendered="{!oppMemb.User.Contact!=null}"/>
+                <apex:outputText value="{!oppMemb.User.Phone}" rendered="{!oppMemb.User.Contact==null}"/>
+                </apex:column>
+                <apex:column headerValue="{!$Label.Contact_CDG_Page_Email}"  style="font-size: 90%;" >&nbsp;
+                <apex:outputText value="{!oppMemb.User.Contact.email}" rendered="{!oppMemb.User.Contact!=null}"/>
+                <apex:outputText value="{!oppMemb.User.email}" rendered="{!oppMemb.User.Contact==null}"/></apex:column>
+                <apex:column headerValue="{!$Label.Access}" style="font-size: 90%;">{!IF(oppMemb.OpportunityAccessLevel == 'Read', 'Read Only', 'Read/Write')}&nbsp;</apex:column>
+                <apex:column headerValue="{!$Label.CMAP_Role}" style="font-size: 90%;">{!oppMemb.teamMemberRole}&nbsp;</apex:column>
+           
+                <apex:facet name="footer">
+                    <apex:outputPanel rendered="{!oppTeamMemPaginationList!=null}">
+                        <p align="center">
+                            <apex:outputPanel >    </apex:outputPanel>
+                            <apex:commandLink value=" First " action="{!oppTeamMemPaginator.first}"
+                                              rendered="{!IF(oppTeamMemPaginator.hasPrevious,'true','false')}"/> &nbsp;&nbsp;
+                            <apex:outputText value=" First " rendered="{!IF(NOT(oppTeamMemPaginator.hasPrevious),'true','false')}"/>&nbsp;&nbsp;
+                            
+                            <apex:commandLink value=" Previous " action="{!oppTeamMemPaginator.previous}"
+                                              rendered="{!IF(oppTeamMemPaginator.hasPrevious,'true','false')}"/>
+                            <apex:outputText value=" Previous " rendered="{!IF(NOT(oppTeamMemPaginator.hasPrevious),'true','false')}"/> 
+                            <apex:outputPanel >    </apex:outputPanel>
+                            <apex:outputText rendered="{!IF((oppTeamMemPaginator.pageCount>0),'true','false')}" value="({!oppTeamMemPaginator.pageNumberDisplayFriendly} - {!oppTeamMemPaginator.pageCount})" ></apex:outputText>
+                            <apex:outputPanel >    </apex:outputPanel>
+                            <apex:commandLink value=" Next " action="{!oppTeamMemPaginator.next}"
+                                              rendered="{!IF(oppTeamMemPaginator.hasNext,'true','false')}"/>&nbsp;&nbsp;
+                            <apex:outputText value=" Next " rendered="{!IF(NOT(oppTeamMemPaginator.hasNext),'true','false')}"/> &nbsp;&nbsp;
+                            
+                            <apex:commandLink value=" Last " action="{!oppTeamMemPaginator.last}"
+                                              rendered="{!IF(oppTeamMemPaginator.hasNext,'true','false')}"/> &nbsp;
+                            <apex:outputText value=" Last " rendered="{!IF(NOT(oppTeamMemPaginator.hasNext),'true','false')}"/> &nbsp;&nbsp;
+                            
+                        </p>
+                    </apex:outputPanel>
+                </apex:facet>
+                             
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,40 @@
+<apex:page Controller="SalesMotion_MultiEditPageController">
+    <style>
+        .customTableCol{vertical-align: middle;}
+    </style>
+<apex:pageMessages />
+<apex:form >
+<apex:sectionHeader subtitle="Step5:Select Salesmotion Page Sections" title="step 5 of 6"/>
+        <apex:commandButton action="{!SelectAllSections}" value="Select All" />     
+        <apex:pageBlock id="SalesmotionSections">            
+            <table Style="align:Left">                
+                <tr>
+                    <td class="customTableCol">
+                       <b>Available</b><br></br>
+                        <apex:selectList id="stages" multiselect="True" value="{!sectionsToAdd}"  size="10">
+                            <apex:selectoptions value="{!availableSections}"/>
+                        </apex:selectList>
+                    </td>
+                    <td style="vertical-align: middle">
+                        <apex:commandLink action="{!addCurSelectedSections}" rerender="SalesmotionSections" title="Add"><img src="/s.gif" alt="Add" class="picklistArrowRight" style="cursor: pointer; " title="Add"/></apex:commandLink>
+                        <br/>
+                        <br/>
+                        <apex:commandLink action="{!removeCurSelectedSections}" rerender="SalesmotionSections" title="Add"><img src="/s.gif" alt="Remove" class="picklistArrowLeft" style="cursor: pointer; " title="Remove"/></apex:commandLink>
+                    </td>
+
+                     <td class="customTableCol">
+                      <b>Selected</b><br></br>
+                        <apex:selectList id="selected" multiselect="True" value="{!sectionsToRemove}" size="10">
+                            <apex:selectoptions value="{!selectedSections}"/>
+                        </apex:selectList>
+                    </td>
+                </tr>                           
+            </table> 
+            <apex:pageblockbuttons location="bottom">                
+                 <apex:commandButton action="{!PreviousPage5}" value="Previous" />                
+                 <apex:commandButton value="Submit" action="{!queryRecords}" immediate="true"/>                  
+                 <apex:commandButton action="{!CancelPage5}" value="Cancel" />
+            </apex:pageblockbuttons>
+        </apex:pageBlock> 
+</apex:form>    
+</apex:page>

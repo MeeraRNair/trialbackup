@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Select_Operating_Systems__c</fullName>
+    <externalId>false</externalId>
+    <formula>HYPERLINK(&apos;/apex/SupportRequestCSEplatform?id=&apos;&amp; Id&amp;
+&apos;&amp;page=operatingsystems&apos;, IMAGE(&quot;/resource/1365144220000/Operating_Systems&quot;,&apos;Operating Systems&apos;),&apos;_parent&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>OS needed for the engagement. If the desired OS is not listed, please select &quot;Other&quot; and specify it in the &quot;Overall Situation&quot; field.</inlineHelpText>
+    <label>Operating Systems</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,163 @@
+<!-- * 
+* Revision CR Number   Release No      Date            Modified By     Description
+* -------- ---------   ----------      -----------     ------------    -----------
+* 1.0 -    CR16420     FY19-DCS-1002   30-Aug-2018:    manip4          added 'lightningStylesheets' attribute for apex component to make the page lightening friendly for the story 5537238
+*/-->
+<apex:page controller="MassUpdateAPVController" tabStyle="Associated_Programs_Vendors__c" lightningStylesheets="true">
+    <style type="text/css">
+        .loadingIcon {
+            background-image: url(/img/loading.gif);
+            width: 16px;
+            height: 16px;
+        }        
+        .pageBlockTableHeader {
+            padding: 0px 0px 0px 0px;            
+        }          
+    </style>
+    
+    <apex:form id="form">   
+        <apex:outputPanel id="thePageBlock" rendered="{!MplanErr}">     
+            <apex:pageMessage rendered="{!MplanErr}" severity="Info" strength="3" summary="APV Mass Update can be performed only by Co-Marketing & Marketing Ops profiles"></apex:pageMessage>
+                 <apex:commandButton action="{!CancelAction}" value="Back"/>
+        </apex:outputPanel>     
+        <apex:outputPanel id="th" rendered="{!(!MplanErr)}">
+            <table width="100%">
+                <tr>
+                    <td style="text-align:left;">
+                        <apex:sectionHeader subtitle="{!Name}" title="Associated Program/Vendor" rendered="true"/>
+                    </td>                   
+                    <td style="text-align:right;">
+                        <apex:outputLink value="https://{!serverName}/a1M/x?id={!marketPlanId}+&rpp_sticky=false&rlid=00NA00000063Pg2"  target="_blank" style="color:blue">Printable View</apex:outputLink>
+                        | <apex:outputLink value="https://help.salesforce.com/htviewhelpdoc?id=co_view.htm&siteLang=en_US"  target="_blank" style="color:blue">Help for this Page</apex:outputLink>
+                    </td>
+                </tr>           
+                <tr>
+                    <td style="text-align:left;">
+                          <apex:outputLink value="https://{!serverName}/{!marketPlanId}" target="_blank" style="color:blue">Marketing plan:{!Name} </apex:outputLink>
+                    </td>
+                </tr>           
+            </table>
+            <br/>
+            <table border="0" width="100%">
+                <tr>
+                    <td style="text-align:left;">
+                        <apex:repeat value="{!alphabet}" var="a">
+                            <apex:commandLink value="{!a}" action="{!refreshList2}" rerender="form" style="{!if($CurrentPage.parameters.alpha=a,'font-weight:bold','')}" status="stat">
+                            <apex:param name="alpha" value="{!a}"/>                  
+                            </apex:commandLink>
+                           &nbsp;|&nbsp;
+                        </apex:repeat>
+                    </td>
+                    <td style="text-align:right;">
+                        <apex:commandButton value="Save" action="{!massUpdateAPVRecrods}"/>
+                        <apex:commandButton value="Cancel" action="{!CancelAction}" immediate="true" html-formnovalidate="formnovalidate"/>
+                    </td>
+                </tr>                  
+            </table>  
+        </apex:outputPanel>        
+        <apex:pageBlock id="block" rendered="{!(!MplanErr)}">
+            <apex:actionStatus id="stat">
+                <apex:facet name="start"> 
+                    <apex:outputPanel layout="block" styleClass="message infoM4">
+                        <apex:panelGrid columns="2" styleClass="messageTable" columnClasses="messageCell" style="padding:0px;margin:0px;">
+                            <apex:panelGroup >
+                                <img class="loadingIcon" src="/s.gif"/>
+                            </apex:panelGroup>
+                            <apex:panelGroup >
+                                <div class="messageText">Please wait...</div>
+                            </apex:panelGroup>
+                        </apex:panelGrid>
+                    </apex:outputPanel>
+                </apex:facet>
+                <apex:facet name="stop">
+                    <apex:outputPanel layout="block" style="overflow:auto;height:800px" >
+                        <apex:pageBlockTable value="{!CurrentList}" var="c" id="table" styleclass="pageBlockTableHeader" border="0">
+                            <apex:column headerValue="Id">            
+                                <apex:facet name="header">
+                                    <apex:commandLink action="{!sorting}" rerender="form">
+                                        <apex:param value="Name" name="column" assignTo="{!sortField}"/>
+                                        <apex:outputText value="Id{!IF(sortField=='Name',IF(sortDirection='ASC','▲','▼'),'')}" style="text-decoration: underline;margin-right: 100%;margin-left: -5px;padding-left: 5px;" />
+                                    </apex:commandLink>
+                                </apex:facet>
+                                <div>
+                                    <apex:outputText value="{!c.Name}"/>
+                                </div>
+                            </apex:column>
+                            
+                            <apex:column headerValue="Program Name">
+                                <apex:facet name="header">
+                                    <apex:commandLink action="{!sorting}" rerender="form">
+                                        <apex:param value="Program_Name__c" name="column" assignTo="{!sortField}"/> 
+                                        <span style="text-decoration: underline;margin-right: 100%;margin-left: -5px;padding-left: 5px;"><apex:outputText value="Program Name{!IF(sortField=='Program_Name__c',IF(sortDirection='ASC','▲','▼'),'')}"/></span>
+                                    </apex:commandLink>
+                                </apex:facet>
+                                <div>
+                                    <apex:outputText value="{!c.Program_Name__c}"/>
+                                </div>
+                            </apex:column>
+                            
+                            <apex:column headerValue="Business Segment" style="width:135px">
+                                <apex:facet name="header">
+                                    <apex:commandLink action="{!sorting}" rerender="form">
+                                        <apex:param value="Business_Segment__c" name="column" assignTo="{!sortField}"/>
+                                        <span style="text-decoration: underline;margin-right: 100%;margin-left: -5px;padding-left: 5px;">
+                                            <apex:outputText value="Business Segment{!IF(sortField=='Business_Segment__c',IF(sortDirection='ASC','▲','▼'),'')}"/>
+                                        </span> 
+                                    </apex:commandLink>
+                                </apex:facet>
+                                <div>
+                                    <apex:outputText value="{!c.Business_Segment__c}"/>
+                                </div>
+                            </apex:column>
+                            
+                            <apex:column headerValue="Rate Card Price" style="width:130px">
+                                <apex:facet name="header">
+                                    <apex:commandLink action="{!sorting}" rerender="form">
+                                        <apex:param value="Rate_Card_Price__c" name="column" assignTo="{!sortField}"/>
+                                        <span style="text-decoration: underline;margin-right: 100%;margin-left: -5px;padding-left: 5px">
+                                            <apex:outputText value="Rate Card Price{!IF(sortField=='Rate_Card_Price__c',IF(sortDirection='ASC','▲','▼'),'')}"/>
+                                        </span>  
+                                    </apex:commandLink>
+                                </apex:facet>
+                                <div>
+                                    <apex:outputText value="USD {!c.Rate_Card_Price__c}"/>
+                                </div>
+                            </apex:column>
+                        
+                            <!-- <apex:column value="{!c.name}" headerValue="Id"/>
+                            <apex:column value="{!c.Program_Name__c}" headerValue="Program Name"/>
+                            <apex:column value="{!c.Business_Segment__c}" headerValue="Business Segment"/>
+                            <apex:column value="{!c.Rate_Card_Price__c}" headerValue="Rate Card Price"/>
+                            <apex:column value="{!c.Budgeted_Price__c}" headerValue="Budgeted Price"/>   -->
+                                                            
+                            <apex:column headervalue="Budgeted Price">
+                                <apex:facet name="header"><apex:outputText value="Budgeted Price" style="margin-left: -5px;padding-left: 5px"/></apex:facet>
+                                <apex:inputField value="{!c.Budgeted_Price__c}" />
+                            </apex:column>
+                                
+                            <apex:column headervalue="POP Status" >
+                                <apex:inputField value="{!c.POP_Status__c}" />
+                            </apex:column>
+                                
+                            <apex:column headervalue="POP Status Reason" >
+                                <apex:inputField value="{!c.POP_Status_Reason__c}" />
+                            </apex:column>
+                                
+                            <apex:column headervalue="Contract Status" >
+                                <apex:inputField value="{!c.Status__c}" />
+                            </apex:column>
+                                
+                            <apex:column headervalue="Status Reason" >
+                                <apex:inputField value="{!c.Contract_Status_Reason__c}" />
+                            </apex:column>    
+                            
+                            <apex:column headerValue="Package">
+                                <apex:outputText value="{!c.Package__c}"/>
+                            </apex:column>    
+                        </apex:pageBlockTable>
+                    </apex:OutputPanel>
+                </apex:facet>
+            </apex:actionStatus>          
+        </apex:pageBlock>        
+    </apex:form>  
+</apex:page>

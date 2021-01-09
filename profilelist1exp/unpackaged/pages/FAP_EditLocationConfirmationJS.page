@@ -1,0 +1,143 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" contentType="text/javascript">
+ /**
+REVISION HISTORY
+================
+Version     Author      Date            Release#    CR#     Description
+-------     ------      ----            --------    ---     -----------
+1.0         Murphy      10-May-2012     13.7        7111    Migrate Google Maps API v2 to v3
+
+**/
+
+var MapController = Class.create({
+    initialize: function(initialAddress,mapElementId){
+        this.initialAddress = initialAddress;
+        this.mapElementId = mapElementId;
+        //1.0 Migrate to v3 
+        //this.map = new GMap2($(mapElementId));
+        var myOptions = {
+                    zoom: 4,
+                    center: new google.maps.LatLng(0, 0),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                map = new google.maps.Map($(mapElementId), myOptions);
+        
+        //1.0 Migrate to v3 
+        //this.map.addControl(new GLargeMapControl());
+        
+        
+            //1.0 Migrate to v3 
+            //var geocoder = new GClientGeocoder();
+            geocoder = new google.maps.Geocoder();
+            var countryCodeHint = $('p:f:countryCodeHint');
+            if(countryCodeHint){
+                if(countryCodeHint.value){
+                    if(!countryCodeHint.value.blank()){
+                        //1.0 Migrate to v3
+                        //geocoder.setBaseCountryCode(countryCodeHint.value);
+                        geocoderRequest = {'address' : this.initialAddress, 'region' : countryCodeHint.value };
+                     }
+                 }       
+            }
+            else{
+                geocoderRequest = {'address' : this.initialAddress};
+            }
+            /* 1.0 Migrate to v3
+            geocoder.getLatLng(
+                    this.initialAddress,
+                    function(point) {
+                        if (point) {
+                            fireLocationFound();
+                            this.setPoint(point,true);
+                        } else {
+                            fireLocationNotFound();
+                            this.setPoint(new GLatLng(37.4419, -122.1419),false);
+                        }
+                    }.bind(this)
+                );
+            */
+            geocoder.geocode(geocoderRequest,
+                    function(results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            fireLocationFound();
+                            this.setPoint(results[0].geometry.location,true);
+                        }
+                        else{
+                            fireLocationNotFound();
+                            this.setPoint(new google.maps.LatLng(37.4419, -122.1419),false);
+                        }
+                    }.bind(this)
+                );
+        
+        
+    },
+    setPoint: function(point, showMarker){
+        //1.0 Migrate to v3 
+        //this.map.setCenter(point,12);
+        map.setCenter(point);
+        map.setZoom(12);
+        if(showMarker){
+            //1.0 Migrate to v3 
+            //var marker = new GMarker(point, {draggable: true});
+            var marker = new google.maps.Marker();
+            marker.setPosition(point);
+            marker.setDraggable(true);
+            
+            //1.0 Migrate to v3 
+            //this.map.addOverlay(marker);
+            marker.setMap(map);
+            
+            this.handleMarkerMoved(marker);
+            /* 1.0 Migrate to v3 
+            GEvent.addListener(marker, "dragend", function() {
+                this.handleMarkerMoved(marker);
+            }.bind(this));
+            */
+            google.maps.event.addListener(marker,'dragend', function(e) {
+                this.handleMarkerMoved(marker);
+            }.bind(this));
+        }
+    },
+    handleMarkerMoved: function(marker){
+        /* 1.0 Migrate to v3
+        $('p:f:longitude').value = marker.getLatLng().lng();
+        $('p:f:latitude').value = marker.getLatLng().lat();
+        */
+        $('p:f:longitude').value = marker.getPosition().lng();
+        $('p:f:latitude').value = marker.getPosition().lat();
+    }
+});
+
+var controller;
+function initializeController() {
+    if($('map_canvas')){
+        
+            try{
+                controller = new MapController($F('p:f:address'),'map_canvas');
+            }catch(err){
+                    //alert(err);
+                alert('Failed to load Google Maps.  If you\'re using Internet Explorer, please ensure the permission \'Display mixed content\' is set to \'Enable\'.');
+            }
+            
+    }
+}
+
+if(document.readyState != 'loading'){
+     initializeController();
+}
+else{
+document.observe('dom:loaded', function() {
+    initializeController();
+}, false);
+}
+<!--
+document.observe('dom:loaded', function() {
+    if($('map_canvas') &amp;&amp; $('p:f:address')){
+        try{
+            new MapController($F('p:f:address'),'map_canvas');
+        }catch(err){
+            alert('Failed to load Google Maps.  If you\'re using Internet Explorer, please ensure the permission \'Display mixed content\' is set to \'Enable\'.');
+        }
+    }
+}, false);
+--> 
+</apex:page>

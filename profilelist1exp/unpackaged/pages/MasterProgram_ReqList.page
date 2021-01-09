@@ -1,0 +1,15 @@
+<apex:page standardController="Master_Program_Setup__c" showHeader="false"  extensions="VFCntrlr_MasterProgram_ReqList" lightningStylesheets="true">
+<apex:pageBlock >  
+    <apex:pageBlockSection columns="1" collapsible="false">
+   
+        <apex:pageMessage rendered="{!NoOfRecords<=0}" summary="{!$Label.NetExam_NoRecs}" severity="warning" strength="3" />
+        <apex:pageBlockTable rendered="{!NoOfRecords>0}"  value="{!ReqList}" var="tr" >
+                <apex:column headerValue="Name">
+                    <apex:outputlink target="_parent" value="/{!tr.id}"><apex:outputtext value="{!tr.Name}" /></apex:outputlink>
+                </apex:column>
+
+                <apex:column value="{!tr.Certification_Name__c}" />
+            </apex:pageBlockTable>   
+        </apex:pageBlockSection>
+</apex:pageBlock>
+</apex:page>

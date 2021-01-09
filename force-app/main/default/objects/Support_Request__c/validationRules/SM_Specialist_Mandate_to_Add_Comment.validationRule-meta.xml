@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SM_Specialist_Mandate_to_Add_Comment</fullName>
+    <active>true</active>
+    <description>Specialist must add the comment in Specialist Comment field.</description>
+    <errorConditionFormula>AND(RecordTypeId = &apos;012A0000000ViNJ&apos;, $User.Id =  Specialist_Name__c,  OR(  ISPICKVAL( Status__c , &apos;Reassigned&apos;) , ISPICKVAL( Status__c , &apos;Reject&apos;)),   ISBLANK( Specialist_Comments__c ) )</errorConditionFormula>
+    <errorDisplayField>Specialist_Comments__c</errorDisplayField>
+    <errorMessage>Specialist Comments field cannot be empty</errorMessage>
+</ValidationRule>

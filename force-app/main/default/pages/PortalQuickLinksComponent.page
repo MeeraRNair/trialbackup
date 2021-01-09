@@ -1,0 +1,427 @@
+<apex:page controller="PortalQuickLinksComponentCtrlExt" sidebar="false" showHeader="false">
+
+<html> 
+<head> 
+
+<script type="text/javascript" src="/js/functions.js"></script> 
+<script src="/soap/ajax/15.0/connection.js"></script> 
+<script src="/soap/ajax/15.0/apex.js" type="text/javascript"></script>
+
+<script>
+function loadCMProfile() { 
+    try{
+        var enableDealReg = '{!enableDealReg}';
+        var userLanguage = '{!userLanguage}';
+        var reportId = '{!$Label.Deal_Reg_Disti_Report}'
+    
+        var newItemLinkLabel = '';
+        var viewItemLinkLabel = '';
+        var closingItemLinkLabel = '';
+        var distiReportLinkLabel = '';
+        //15.3 - CR 8844
+        var enableLeadMgmt = '{!enableLeadMgmt}';
+        var newLeadItemLinkLabel = '';
+        var viewLeadItemLinkLabel = '';
+        
+        //chinese traditional
+        if(userLanguage.indexOf("zh_TW")!= -1)
+        { 
+        
+            newItemLinkLabel = enableDealReg == 'true' ? '專案登記' : '登錄案件';
+            viewItemLinkLabel =  enableDealReg == 'true' ? '查看我的專案' : '我的案件';
+           // newItemLinkLabel = enableDealReg == 'true' ? '登記交易' : '登錄案件';
+           // viewItemLinkLabel =  enableDealReg == 'true' ? '檢視我的交易' : '我的案件';
+            closingItemLinkLabel =  enableDealReg == 'true' ? '本月結案' : '';
+            distiReportLinkLabel = enableDealReg == 'true' ? '執行發佈報告' : '';
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? '註冊商機 ' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? '檢視我的商機' : '';
+        } 
+    
+        //chinese simpiflied 
+        else if(userLanguage.indexOf("zh_CN")!= -1) 
+        { 
+            newItemLinkLabel = enableDealReg == 'true' ? '报备订单' : '登记案例';
+            viewItemLinkLabel =  enableDealReg == 'true' ? '查看我的订单' : '我的案例';
+            closingItemLinkLabel =  enableDealReg == 'true' ? '订单报备' : '';
+            distiReportLinkLabel = enableDealReg == 'true' ? '运行分配报告' : '';
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? '报备销售线索' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? '查看我的销售线索' : '';
+        } 
+    
+        //Spanish 
+        else if(userLanguage.indexOf("es")!= -1) 
+        { 
+            newItemLinkLabel = enableDealReg == 'true' ? 'Registrar una oportunidad' : 'Consulta nueva';
+            viewItemLinkLabel =  enableDealReg == 'true' ? 'Ver Mis oportunidades' : 'Mis consultas';
+            closingItemLinkLabel =  enableDealReg == 'true' ? 'Cierre de este mes' : '';
+            distiReportLinkLabel = enableDealReg == 'true' ? 'Ejecutar informe de distribución' : '';
+
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Registrar un cliente potencial' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Ver mis clientes potenciales' : '';
+        } 
+    
+        //Portuguese (Brazilian) 
+        else if(userLanguage.indexOf("pt_BR")!= -1) 
+        { 
+            newItemLinkLabel = enableDealReg == 'true' ? 'Registrar um negócio' : 'Registrar um caso';
+            viewItemLinkLabel =  enableDealReg == 'true' ? 'Visualizar meus negócios' : 'Meus casos';
+            closingItemLinkLabel =  enableDealReg == 'true' ? 'Fechados este mês' : '';
+            distiReportLinkLabel = enableDealReg == 'true' ? 'Executar relatório de distribuição' : '';
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Registrar um lead' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Visualizar Meus leads' : '';
+        } 
+    
+        //Korean 
+        else if(userLanguage.indexOf("ko")!= -1) 
+        { 
+            newItemLinkLabel = enableDealReg == 'true' ? '딜 등록' : '사례 기록';
+            viewItemLinkLabel =  enableDealReg == 'true' ? '내 딜 등록 보기' : '내 사례';
+            closingItemLinkLabel =  enableDealReg == 'true' ? '이달 종료' : '';
+            distiReportLinkLabel = enableDealReg == 'true' ? '유통 보고서 실행' : '';
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? '리드 등록' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? '내 리드 등록 보기' : '';
+        } 
+    
+        //Japanese 
+        else if(userLanguage.indexOf("ja")!= -1) 
+        { 
+            newItemLinkLabel = enableDealReg == 'true' ? '案件登録' : 'ケースの記録';
+            viewItemLinkLabel =  enableDealReg == 'true' ? '自案件の参照' : 'マイケース';
+            closingItemLinkLabel =  enableDealReg == 'true' ? '当月のクロージング' : '';
+            distiReportLinkLabel = enableDealReg == 'true' ? 'ディストリビューションレポートを実行' : '';
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'リードを登録する ' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? '自分のリードを確認する' : '';
+            
+        } 
+    
+        //French
+        else if(userLanguage.indexOf("fr")!= -1) 
+        { 
+            newItemLinkLabel = enableDealReg == 'true' ? 'Enregistrer une offre' : 'Nouvelle demande';
+            viewItemLinkLabel =  enableDealReg == 'true' ? 'Afficher mes offres.' : 'Mes demandes';
+            closingItemLinkLabel =  enableDealReg == 'true' ? 'Clôture dans le mois' : '';
+             distiReportLinkLabel = enableDealReg == 'true' ? 'Exécuter le rapport de distribution' : '';
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Enregistrer un lead' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Voir Mes leads' : '';
+        } 
+    
+        //Dutch
+        else if(userLanguage.indexOf("nl_NL")!= -1) 
+        { 
+            newItemLinkLabel = enableDealReg == 'true' ? 'Een deal registreren' : 'Nieuwe query';
+            viewItemLinkLabel =  enableDealReg == 'true' ? 'Mijn deals weergeven' : 'Mijn query\'s';
+            closingItemLinkLabel =  enableDealReg == 'true' ? 'Deals die deze maand worden gesloten' : '';
+            distiReportLinkLabel = enableDealReg == 'true' ? 'Distributierapport uitvoeren' : '';
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Een lead registreren' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Mijn leads weergeven' : '';
+        } 
+    
+        //German
+        else if(userLanguage.indexOf("de")!= -1) 
+        { 
+            newItemLinkLabel = enableDealReg == 'true' ? 'Projekt registrieren' : 'Neue Abfrage';
+            viewItemLinkLabel =  enableDealReg == 'true' ? 'Meine Projekte anzeigen' : 'Meine Abfragen';
+            closingItemLinkLabel =  enableDealReg == 'true' ? 'Abschluss in diesem Monat' : '';
+            distiReportLinkLabel = enableDealReg == 'true' ? 'Verteilungsbericht ausführen' : '';
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Lead registrieren' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Meine Leads anzeigen' : '';
+        } 
+    
+        //Italian
+        else if(userLanguage.indexOf("it")!= -1) 
+        { 
+            newItemLinkLabel = enableDealReg == 'true' ? 'Registrare un\'opportunità di vendita' : 'Nuova query';
+            viewItemLinkLabel =  enableDealReg == 'true' ? 'Visualizzare opportunità di vendita' : 'Query';
+            closingItemLinkLabel =  enableDealReg == 'true' ? 'Chiusura di questo mese' : '';
+            distiReportLinkLabel = enableDealReg == 'true' ? 'Esegui report di distribuzione' : '';
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Registra un lead' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Visualizza i miei lead' : '';
+        } 
+    
+        //Polish
+        else if(userLanguage.indexOf("pl")!= -1) 
+        { 
+            newItemLinkLabel = enableDealReg == 'true' ? 'Zarejestruj transakcję' : 'Nowe zapytanie';
+            viewItemLinkLabel =  enableDealReg == 'true' ? 'Wyświetl Moje transakcje' : 'Moje zapytania';
+            closingItemLinkLabel =  enableDealReg == 'true' ? 'Zamknięcie tego miesiąca' : '';
+            distiReportLinkLabel = enableDealReg == 'true' ? 'Rozpocznij generowanie raportu dotyczącego dystrybucji' : '';
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Zarejestruj potencjalnego klienta  (lead)' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Wyświetl moich potencjalnych klientów  (lead\'y)' : '';
+        } 
+    
+        //Swedish 
+        else if(userLanguage.indexOf("sv")!= -1) 
+        { 
+            newItemLinkLabel = enableDealReg == 'true' ? 'Registrera ett avtal' : 'Ny fråga';
+            viewItemLinkLabel =  enableDealReg == 'true' ? 'Visa mina avtal' : 'Mina frågor';
+            closingItemLinkLabel =  enableDealReg == 'true' ? 'Avslutas denna månad' : '';
+            distiReportLinkLabel = enableDealReg == 'true' ? 'Kör distributionsrapport (this is imperative, otherwise use "Köra distributionsrapport". It depends on the situation/context!)' : '';
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Anmäl ett kundämne' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Visa mina kundämnen' : '';
+        } 
+    
+        //Danish 
+        else if(userLanguage.indexOf("da")!= -1) 
+        { 
+            newItemLinkLabel = enableDealReg == 'true' ? 'Registrer en handel' : 'Ny forespørgsel';
+            viewItemLinkLabel =  enableDealReg == 'true' ? 'Vis mine handler' : 'Mine forespørgsler';
+            closingItemLinkLabel =  enableDealReg == 'true' ? 'Afsluttes i denne måned' : '';
+            distiReportLinkLabel = enableDealReg == 'true' ? 'Kør distributionsrapport' : '';
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Registrér en kunde' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Se mine kunder' : '';
+        } 
+    
+        //Czech 
+        else if(userLanguage.indexOf("cs")!= -1) 
+        { 
+            newItemLinkLabel = enableDealReg == 'true' ? 'Zaregistrovat obchod' : 'Nový dotaz';
+            viewItemLinkLabel =  enableDealReg == 'true' ? 'Zobrazit moje obchody' : 'Moje dotazy';
+            closingItemLinkLabel =  enableDealReg == 'true' ? 'Končí tento měsíc' : '';
+            distiReportLinkLabel = enableDealReg == 'true' ? 'Spustit sestavu distribuce' : '';
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Zaregistrovat zákazníka' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Zobrazit mé zákazníky' : '';
+        } 
+    
+        //Hungarian 
+        else if(userLanguage.indexOf("hu")!= -1) 
+        { 
+            newItemLinkLabel = enableDealReg == 'true' ? 'Megállapodás regisztrálása' : 'Új lekérdezés';
+            viewItemLinkLabel =  enableDealReg == 'true' ? 'Saját megállapodásaim megtekintése' : 'Saját lekérdezéseim';
+            closingItemLinkLabel =  enableDealReg == 'true' ? 'E hónapban lezárandó' : '';           
+            distiReportLinkLabel = enableDealReg == 'true' ? 'Eloszlási jelentés futtatása' : '';
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Érdeklődő regisztrálása' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Érdeklődők megtekintése' : '';
+        } 
+    
+        //Turkish 
+        else if(userLanguage.indexOf("tr")!= -1) 
+        { 
+            newItemLinkLabel = enableDealReg == 'true' ? 'Anlaşma Kaydet' : 'Yeni Sorgu';
+            viewItemLinkLabel =  enableDealReg == 'true' ? 'Anlaşmalarımı Görüntüle' : 'Sorgularım';
+            closingItemLinkLabel =  enableDealReg == 'true' ? 'Bu Ay Kapanan' : '';
+            distiReportLinkLabel = enableDealReg == 'true' ? 'Dağıtım Raporunu Çalıştır' : '';
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Bir Olası Satış Kaydedin' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Olası Satışlarımı Görüntüle' : '';
+        } 
+    
+        //Finnish 
+        else if(userLanguage.indexOf("fi")!= -1) 
+        { 
+            newItemLinkLabel = enableDealReg == 'true' ? 'Rekisteröi sopimus' : 'New Query';
+            viewItemLinkLabel =  enableDealReg == 'true' ? 'Näytä omat sopimukset' : 'My Queries';
+            closingItemLinkLabel =  enableDealReg == 'true' ? 'Sulkeutuu tässä kuussa' : '';
+            distiReportLinkLabel = enableDealReg == 'true' ? 'Luo jakeluraportti' : '';
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Luo mahdollisen asiakkaan profiili' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Näytä omat mahdolliset asiakkaat' : '';
+        } 
+    
+        //Russian 
+        else if(userLanguage.indexOf("ru")!= -1) 
+        { 
+            newItemLinkLabel = enableDealReg == 'true' ? 'Зарегистрировать сделку' : 'Новый запрос';
+            viewItemLinkLabel =  enableDealReg == 'true' ? 'Просмотреть мои сделки' : 'Мои запросы';
+            closingItemLinkLabel =  enableDealReg == 'true' ? 'Закрытие этого месяца' : '';
+             distiReportLinkLabel = enableDealReg == 'true' ? 'Создать отчет о рассылке' : '';
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Зарегистрировать потенциального заказчика' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Просмотреть моих потенциальных заказчиков' : '';
+        } 
+    
+        //Thai 
+        else if(userLanguage.indexOf("th")!= -1) 
+        { 
+            newItemLinkLabel = enableDealReg == 'true' ? 'ลงทะเบียนข้อเสนอ' : 'New Query';
+            viewItemLinkLabel =  enableDealReg == 'true' ? 'ดูข้อเสนอของฉัน' : 'My Queries';
+            closingItemLinkLabel =  enableDealReg == 'true' ? 'ปิดในเดือนนี้' : '';
+            distiReportLinkLabel = enableDealReg == 'true' ? '' : '';
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Register a Lead' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'View my Leads' : '';
+        } 
+    
+        //Arabic 
+        else if(userLanguage.indexOf("ar")!= -1) 
+        { 
+            newItemLinkLabel = enableDealReg == 'true' ? 'Register a Deal' : 'حالة جديدة';
+            viewItemLinkLabel = enableDealReg == 'true' ? 'View my Deals' : 'حالاتي';
+            closingItemLinkLabel = enableDealReg == 'true' ? 'Closing this month' : '';
+            distiReportLinkLabel = enableDealReg == 'true' ? 'فتح تقرير التوزيع' : '';
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'تسجيل فرصة بيع محتملة ' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'عرض فرص البيع المحتملة خاصتي' : '';
+        } 
+    
+        //Spanish (Mexican) 
+        else if(userLanguage.indexOf("es_MX")!= -1) 
+        { 
+            newItemLinkLabel = enableDealReg == 'true' ? 'Register a Deal' : 'Nuevo caso';
+            viewItemLinkLabel = enableDealReg == 'true' ? 'View my Deals' : 'Mis casos';
+            closingItemLinkLabel = enableDealReg == 'true' ? 'Closing this month' : '';
+            distiReportLinkLabel = enableDealReg == 'true' ? 'Ejecutar informe de distribución' : '';
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Registrar un cliente potencial' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Ver mis clientes potenciales' : '';
+        } 
+    
+        //Hebrew 
+        else if(userLanguage.indexOf("iw")!= -1) 
+        { 
+            newItemLinkLabel = enableDealReg == 'true' ? 'Register a Deal' : 'מקרה חדש';
+            viewItemLinkLabel = enableDealReg == 'true' ? 'View my Deals' : 'המקרים שלי';
+            closingItemLinkLabel = enableDealReg == 'true' ? 'Closing this month' : '';
+            distiReportLinkLabel = enableDealReg == 'true' ? 'הרץ דוח הפצה' : '';
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'רשום לקוח פוטנציאלי' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'הצג את הלקוחות הפוטנציאליים שלי' : '';
+        } 
+    
+        //Greek 
+        else if(userLanguage.indexOf("el")!= -1) 
+        { 
+            newItemLinkLabel = enableDealReg == 'true' ? 'Register a Deal' : 'Νέα ερώτηση';
+            viewItemLinkLabel = enableDealReg == 'true' ? 'View my Deals' : 'Οι ερωτήσεις μου';
+            closingItemLinkLabel = enableDealReg == 'true' ? 'Closing this month' : '';
+            distiReportLinkLabel = enableDealReg == 'true' ? 'Εκτέλεση αναφοράς διανομής' : '';
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Καταχώριση ευκαιρίας' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Προβολή των ευκαιριών μου' : '';
+        } 
+    
+        //Norwegian 
+        else if(userLanguage.indexOf("no")!= -1) 
+        { 
+            newItemLinkLabel = enableDealReg == 'true' ? 'Register a Deal' : 'Nytt spørsmål';
+            viewItemLinkLabel = enableDealReg == 'true' ? 'View my Deals' : 'Mine spørsmål';
+            closingItemLinkLabel = enableDealReg == 'true' ? 'Closing this month' : '';
+            distiReportLinkLabel = enableDealReg == 'true' ? 'Kjør implementeringsrapport' : '';
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Registrer en potensiell kunde' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Vis mine potensielle kunder' : '';
+        } 
+    
+        //Romanian 
+        else if(userLanguage.indexOf("ro")!= -1) 
+        { 
+            newItemLinkLabel = enableDealReg == 'true' ? 'Register a Deal' : 'Întrebare nouă';
+            viewItemLinkLabel = enableDealReg == 'true' ? 'View my Deals' : 'Întrebările mele';
+            closingItemLinkLabel = enableDealReg == 'true' ? 'Closing this month' : '';
+            distiReportLinkLabel = enableDealReg == 'true' ? 'Rulare raport de distribuţie' : '';
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Înregistrare client potenţial' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Vizualizare clienţi potenţiali' : '';
+        } 
+    
+        //otherwise english 
+        else 
+        { 
+            newItemLinkLabel = enableDealReg == 'true' ? 'Register a Deal' : 'Log a Case';
+            viewItemLinkLabel = enableDealReg == 'true' ? 'View my Deals' : 'My Cases';
+            closingItemLinkLabel = enableDealReg == 'true' ? 'Closing this month' : '';
+            distiReportLinkLabel = enableDealReg == 'true' ? 'Run Distribution Report' : '';
+            //15.3 - CR 8844
+            newLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'Register a Lead' : '';
+            viewLeadItemLinkLabel  = enableLeadMgmt == 'true' ? 'View my Leads' : '';
+        }
+
+        //  var newItemURL = enableDealReg == 'true' ? '../setup/ui/recordtypeselect.jsp?ent=Opportunity&retURL=%2F006%2Fo&save_new_url=%2F006%2Fe%3FretURL%3D%252F006%252Fo' : '../setup/ui/recordtypeselect.jsp?ent=Case&retURL=%2F500%2Fo&save_new_url=%2F500%2Fe%3FretURL%3D%252F500%252Fo';
+        
+        var newItemURL = enableDealReg == 'true' ? '../setup/ui/recordtypeselect.jsp?ent=Opportunity&retURL=%2F006%2Fo&save_new_url=%2Fapex%2FSales_motion_account_selection_vfp%3FretURL%3D%252F006%252Fo' : '../setup/ui/recordtypeselect.jsp?ent=Case&retURL=%2F500%2Fo&save_new_url=%2F500%2Fe%3FretURL%3D%252F500%252Fo';
+        var viewItemURL = enableDealReg == 'true' ? '../006?fcf=00BA0000004VRt2' : '../500?fcf=00B300000036NO1';
+        
+       // var distiReportURL = enableDealReg == 'true' ? '/00O0j000000JVC3?pv1={!accName}&pv2={!accName}' : '';
+          var distiReportURL = enableDealReg == 'true' ? '/'+reportId+'?pv1={!accName}&pv2={!accName}' : '';
+
+        
+        //15.3 - CR 8844
+        var newLeadItemURL  = enableLeadMgmt == 'true' ? '../apex/CMAP_LeadGenerationInterface' : '';
+        var viewLeadItemURL = enableLeadMgmt == 'true' ? '../00Q?fcf=00BA0000004VZty' : '';
+
+        var newItemLink = '<li><a href="' + newItemURL + '" target="_top">' + newItemLinkLabel + '</a></li>';
+        var viewItemLink = '<li><a href="' + viewItemURL + '" target="_top">' + viewItemLinkLabel + '</a></li>';
+        var closingItemLink = closingItemLinkLabel.length > 0 ? '<li><a href="../006?fcf=00BA0000004VRsw" target="_top">' + closingItemLinkLabel + '</a></li>' : '';
+        
+        var distiReportLink = distiReportLinkLabel.length > 0 ? '<li><a href="' + distiReportURL + '" target="_blank">' + distiReportLinkLabel + '</a></li>' : '';
+        //15.3 - CR 8844
+        //var newLeadItemLink = '<li><a href="' + newLeadItemURL + '" target="_top">' + newLeadItemLinkLabel + '</a></li>';
+        //var viewLeadItemLink = '<li><a href="' + viewLeadItemURL + '" target="_top">' + viewLeadItemLinkLabel + '</a></li>';
+        var newLeadItemLink = newLeadItemLinkLabel.length > 0 ? '<li><a href="' + newLeadItemURL + '" target="_top">' + newLeadItemLinkLabel + '</a></li>' : '';
+        var viewLeadItemLink = viewLeadItemLinkLabel.length > 0 ?  '<li><a href="' + viewLeadItemURL + '" target="_top">' + viewLeadItemLinkLabel + '</a></li>' : '';
+        var viewMySalesTeam = '<li><a href="' + '/apex/PartnerSalesTeam' + '" target="_top">' + "{!$Label.View_my_Sales_Team}" + '</a></li>';
+        
+        var output = document.getElementById("cmComponent"); 
+        output.innerHTML += "<ul>"; 
+        output.innerHTML += newItemLink; 
+        output.innerHTML += viewItemLink; 
+        if(closingItemLink.length > 0){
+            output.innerHTML += closingItemLink; 
+        }
+        //15.3 - CR 8844
+        if(newLeadItemLink.length > 0){
+            output.innerHTML += newLeadItemLink; 
+        }
+        if(viewLeadItemLink.length > 0){
+            output.innerHTML += viewLeadItemLink;
+        }
+        if(distiReportLink.length > 0){
+            output.innerHTML += distiReportLink;
+        }
+        if(viewMySalesTeam.length > 0){
+        console.log('>>>> viewMySalesTeam ',viewMySalesTeam);
+            output.innerHTML += viewMySalesTeam;
+        }
+        
+        output.innerHTML += "</ul>"; 
+        console.log('>>>>>> output ',output);
+        
+    }catch(err){
+        document.write("<h2>An error has occurred " + err.message + "</h2>"); 
+    }
+} 
+
+</script> 
+
+<style type="text/css"> 
+#cmComponent { 
+font-family: arial; 
+font-size: 12px; 
+} 
+a { 
+color: #333333; 
+font-size:11px; 
+} 
+a:hover { 
+text-decoration: underline; 
+font-size:11px; 
+} 
+</style> 
+
+
+</head> 
+
+<body onLoad="loadCMProfile()"> 
+
+
+<div id="cmComponent" style="height:140px;overflow-y:scroll"> 
+</div> 
+
+</body> 
+</html>
+
+</apex:page>

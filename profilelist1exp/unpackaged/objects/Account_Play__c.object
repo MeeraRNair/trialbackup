@@ -1,0 +1,3882 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>AccountPlayEditOverridePage</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <content>APCustomView</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>Account_Play_CL</compactLayoutAssignment>
+    <compactLayouts>
+        <fullName>Account_Play_CL</fullName>
+        <fields>Account__c</fields>
+        <fields>Campaign__c</fields>
+        <fields>Called_Customer__c</fields>
+        <fields>Lead_Quality__c</fields>
+        <fields>Rejection_Reason__c</fields>
+        <fields>Unqualified_Lead_Reasons__c</fields>
+        <fields>Opportunity_Status__c</fields>
+        <label>Account Play CL</label>
+    </compactLayouts>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fieldSets>
+        <fullName>currentQuarterMyAP</fullName>
+        <description>This field is used in AccountPlayList page.</description>
+        <displayedFields>
+            <field>Name</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Account_Play_Owner_Role__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Account_Play_Owner__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Account__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Campaign__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Account_Play_Expiry_Date_New__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Status__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>currentQuarterMyAP</label>
+    </fieldSets>
+    <fields>
+        <fullName>Accept_Reject_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Accept/Reject/Reassign Status</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Accepted By Sales</fullName>
+                    <color>#33CC00</color>
+                    <default>false</default>
+                    <label>Accepted By Sales</label>
+                </value>
+                <value>
+                    <fullName>Rejected By Sales</fullName>
+                    <color>#FF0000</color>
+                    <default>false</default>
+                    <label>Rejected By Sales</label>
+                </value>
+                <value>
+                    <fullName>Reassigned By Sales</fullName>
+                    <color>#3366FF</color>
+                    <default>false</default>
+                    <label>Reassigned By Sales</label>
+                </value>
+                <value>
+                    <fullName>Routed to Channel</fullName>
+                    <default>false</default>
+                    <label>Routed to Channel</label>
+                </value>
+                <value>
+                    <fullName>Routed to Segment</fullName>
+                    <default>false</default>
+                    <label>Routed to Segment</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Account_Executive__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Account Executive/ PDM</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Account_Plays</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Account_Owner__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.OwnerId</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Account Owner</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account_Play_Accepted_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Account Play Accepted Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Account_Play_Close_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Account Play Close Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Account_Play_Expiry_Date_New__c</fullName>
+        <externalId>false</externalId>
+        <label>Account Play Expiry Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Account_Play_Expiry_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Campaign__r.Account_Play_Expiry_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Account Play Expiry Date Old</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Account_Play_Owner_Role__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Campaign__r.Follow_Up_Role__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Account Play Owner Role</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account_Play_Owner__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Account Play Owner</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Account_Plays2</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Account_Play_Owners_Manager__c</fullName>
+        <description>Account Play Owners Manager</description>
+        <externalId>false</externalId>
+        <formula>Account_Play_Owner__r.Manager.FirstName + &apos; &apos; + Account_Play_Owner__r.Manager.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Account Play Owner&apos;s Manager</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account_Play_Qualified_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Account Play Qualified Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Account_Sales_Channel_Id__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Sales_Channel__r.Group_ID__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Account Sales Channel Id</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account__c</fullName>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Account Plays</relationshipLabel>
+        <relationshipName>Sales_Plays</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>true</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Actions_Available__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(OR (ISPICKVAL(Status__c, &apos;Closed - Expired&apos;),ISPICKVAL(Status__c, &apos;Routed to Channel&apos;)),&apos;[No Action Available]&apos;,IF( AND( ISPICKVAL(Status__c, &apos;Requires Follow-Up&apos;), OR (ISPICKVAL(Accept_Reject_Status__c, &apos;&apos;), ISPICKVAL(Accept_Reject_Status__c, &apos;Reassigned By Sales&apos;))) , 
+HYPERLINK(Id &amp; &apos;/e?nooverride=1&amp;retURL=/&apos; &amp; Id &amp; &apos;&amp;00NA0000000b8ZI=Accepted By Sales&apos;, IMAGE(&quot;resource/1257839368000/MA_Accept&quot;, &apos;Accept&apos;), &apos;_parent&apos;) &amp; &apos; &apos; &amp; 
+HYPERLINK(Id &amp; &apos;/e?nooverride=1&amp;retURL=/&apos; &amp; Id &amp; &apos;&amp;00NA0000000b8ZI=Rejected By Sales&amp;00NA0000000b8Zc=Rejected - Completed Follow-Up&apos;, IMAGE(&quot;resource/1257839368000/MA_Reject&quot;, &apos;Reject&apos;), &apos;_parent&apos;) &amp; &apos; &apos; &amp; 
+HYPERLINK(&apos;/apex/RelationshipLeadAccPlayTM?Id=&apos;+Id+&apos;&amp;AccId=&apos;+ Account__r.Id+&apos;&amp;OwnerId=&apos;+ Account_Play_Owner__c , IMAGE(&quot;resource/1266470716000/MA_Reassign&quot;, &quot;Reassign&quot;) , &quot;_parent&quot;), 
+
+IF( AND(OR(ISPICKVAL(Status__c, &apos;Attempted to Contact - Awaiting Response&apos;),ISPICKVAL(Status__c, &apos;Future Follow-Up&apos;)),NOT( ISPICKVAL( Lead_Quality__c , &apos;Qualified&apos;) ),NOT( ISPICKVAL(Status__c, &apos;Closed - Expired&apos;) )) , 
+HYPERLINK(Id &amp; &apos;/e?nooverride=1&amp;retURL=/&apos; &amp; Id, IMAGE(&quot;resource/1257839368000/MA_UpdateRecord&quot;, &apos;Update Record&apos;), &apos;_parent&apos;), 
+
+IF(AND( ISPICKVAL(Lead_Quality__c, &apos;Qualified&apos;), OR(ISPICKVAL(Opportunity_Status__c,&apos;New Opportunity&apos;), ISPICKVAL(Opportunity_Status__c,&apos;Existing Opportunity&apos;),ISPICKVAL(Opportunity_Status__c,&apos;Run Rate Opportunity&apos;)), Opportunity__c=null ), 
+HYPERLINK(&apos;006/e?retURL=/&apos; &amp; Id &amp; &apos;&amp;RecordType=012300000004zf2&amp;00NA0000000bC8S=&apos; &amp; Id&amp;&apos;&amp;opp4=&apos;&amp; Account__r.Name &amp;&apos;&amp;opp4_lkid=&apos; &amp; Account__r.Id&amp;&apos;&amp;opp17=&apos;&amp; Campaign__r.Name&amp;&apos;&amp;00NA0000000b8l9=1&amp;opp5=Deal/Bid - Direct&amp;opp11=Plan - 1%25&amp;nooverride=1&apos; , IMAGE(&quot;resource/1257839368000/MA_NewOpptys&quot;, &apos;New Opportunity&apos;),&apos;_parent&apos;) &amp; &apos; &apos; &amp; 
+HYPERLINK(&apos;apex/MarketingExistingOppAssn?retURL=%2F&apos; &amp; Id &amp; &apos;&amp;accountPlayId=&apos; &amp; Id &amp; &apos;&amp;accid=&apos; &amp; Account__r.Id &amp; &apos;&amp;campaignid=&apos; &amp; Campaign__c , IMAGE(&quot;resource/1257839368000/MA_ExistingOpptys&quot;, &apos;Existing Opportunity&apos;),&apos;_parent&apos;)  , 
+
+&apos;[No Action Available]&apos;))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Actions Available</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Called_Customer__c</fullName>
+        <externalId>false</externalId>
+        <label>Spoke to Customer?</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Accept_Reject_Status__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <color>#33CC00</color>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <color>#FF0000</color>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Accepted By Sales</controllingFieldValue>
+                <valueName>Yes</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Accepted By Sales</controllingFieldValue>
+                <valueName>No</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Camp_Vehicle__c</fullName>
+        <description>Campaign Vehicle” formula fields referencing Campaign</description>
+        <externalId>false</externalId>
+        <formula>TEXT(Campaign__r.Campaign_Vehicle__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Campaign Vehicle</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Campaign_Vehicle__c</fullName>
+        <externalId>false</externalId>
+        <label>Campaign Vehicle(Not In Use)</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Advisory Councils</fullName>
+                    <color>#0B6FCE</color>
+                    <default>false</default>
+                    <label>Advisory Councils</label>
+                </value>
+                <value>
+                    <fullName>Assessment (HW/Services)</fullName>
+                    <color>#78C953</color>
+                    <default>false</default>
+                    <label>Assessment (HW/Services)</label>
+                </value>
+                <value>
+                    <fullName>CXO Events</fullName>
+                    <color>#E27001</color>
+                    <default>false</default>
+                    <label>CXO Events</label>
+                </value>
+                <value>
+                    <fullName>Dell Day</fullName>
+                    <color>#A845DC</color>
+                    <default>false</default>
+                    <label>Dell Day</label>
+                </value>
+                <value>
+                    <fullName>DM</fullName>
+                    <color>#F3D904</color>
+                    <default>false</default>
+                    <label>DM</label>
+                </value>
+                <value>
+                    <fullName>Door Opener (High Value)</fullName>
+                    <color>#A53711</color>
+                    <default>false</default>
+                    <label>Door Opener (High Value)</label>
+                </value>
+                <value>
+                    <fullName>Door Opener (Value)</fullName>
+                    <color>#66E9BD</color>
+                    <default>false</default>
+                    <label>Door Opener (Value)</label>
+                </value>
+                <value>
+                    <fullName>eDM/Email</fullName>
+                    <color>#0B24BE</color>
+                    <default>false</default>
+                    <label>eDM/Email</label>
+                </value>
+                <value>
+                    <fullName>eSeminar/Webcast/Webinar</fullName>
+                    <color>#419249</color>
+                    <default>false</default>
+                    <label>eSeminar/Webcast/Webinar</label>
+                </value>
+                <value>
+                    <fullName>Lattice Sales Touch</fullName>
+                    <color>#FFFF66</color>
+                    <default>false</default>
+                    <label>Lattice Sales Touch</label>
+                </value>
+                <value>
+                    <fullName>Multiple Vehicles</fullName>
+                    <color>#B6E32E</color>
+                    <default>false</default>
+                    <label>Multiple Vehicles</label>
+                </value>
+                <value>
+                    <fullName>Non-Marketing</fullName>
+                    <color>#000000</color>
+                    <default>false</default>
+                    <label>Non-Marketing</label>
+                </value>
+                <value>
+                    <fullName>Online Advertising</fullName>
+                    <color>#641CCF</color>
+                    <default>false</default>
+                    <label>Online Advertising</label>
+                </value>
+                <value>
+                    <fullName>Online Inbound</fullName>
+                    <color>#F96FB7</color>
+                    <default>false</default>
+                    <label>Online Inbound</label>
+                </value>
+                <value>
+                    <fullName>Roadshow</fullName>
+                    <color>#2F5D85</color>
+                    <default>false</default>
+                    <label>Roadshow</label>
+                </value>
+                <value>
+                    <fullName>Sales Touch</fullName>
+                    <color>#AFCADF</color>
+                    <default>false</default>
+                    <label>Sales Touch</label>
+                </value>
+                <value>
+                    <fullName>Seed Unit</fullName>
+                    <color>#8F6429</color>
+                    <default>false</default>
+                    <label>Seed Unit</label>
+                </value>
+                <value>
+                    <fullName>Seminar/Conference</fullName>
+                    <color>#EFAE73</color>
+                    <default>false</default>
+                    <label>Seminar/Conference</label>
+                </value>
+                <value>
+                    <fullName>Special Events</fullName>
+                    <color>#57F17C</color>
+                    <default>false</default>
+                    <label>Special Events</label>
+                </value>
+                <value>
+                    <fullName>Standalone Telemarketing</fullName>
+                    <color>#0B6FCE</color>
+                    <default>false</default>
+                    <label>Standalone Telemarketing</label>
+                </value>
+                <value>
+                    <fullName>Trade Show</fullName>
+                    <color>#78C953</color>
+                    <default>false</default>
+                    <label>Trade Show</label>
+                </value>
+                <value>
+                    <fullName>Workshop</fullName>
+                    <color>#E27001</color>
+                    <default>false</default>
+                    <label>Workshop</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Campaign__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Campaign</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Campaign.RecordType.Name</field>
+                <operation>notEqual</operation>
+                <value>Campaign 2.0</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Campaign</referenceTo>
+        <relationshipLabel>Account Plays</relationshipLabel>
+        <relationshipName>Sales_Plays</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Challenges_Driving_the_Project__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Customer pain points past, present, future.</inlineHelpText>
+        <label>Challenges Driving the Project</label>
+        <length>1000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Channel_Lead__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Channel Lead created when routing Account Play to Channel</inlineHelpText>
+        <label>Channel Lead</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Lead.RecordType.Name</field>
+                <operation>notEqual</operation>
+                <value>Channel Lead 2.0</value>
+            </filterItems>
+            <filterItems>
+                <field>Lead.RecordType.Name</field>
+                <operation>notEqual</operation>
+                <value>Direct Lead 2.0</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Lead</referenceTo>
+        <relationshipLabel>Account Plays</relationshipLabel>
+        <relationshipName>Account_Plays</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Completed_Follow_Up_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF ( OR (ISPICKVAL( Status__c, &quot;Accepted - Completed Follow-Up&quot;) , ISPICKVAL( Status__c, &quot;Rejected - Completed Follow-Up&quot;)) , NOW(), null )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Completed Follow Up Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Customer_Consents_to_Engage_Dell_Partner__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Customer consent is required to route a Dell lead to a channel partner; after you have received customer consent, tick the box to complete the “Route to Channel” process.</inlineHelpText>
+        <label>Customer Consents to Engage Dell Partner</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Customer_Email_Address__c</fullName>
+        <externalId>false</externalId>
+        <label>Customer Email Address(s)</label>
+        <length>250</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Desired_Outcome__c</fullName>
+        <externalId>false</externalId>
+        <label>Desired Outcome?</label>
+        <length>1000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Do_they_have_access_to_approved_funds__c</fullName>
+        <externalId>false</externalId>
+        <label>Do they have access to approved funds?</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>N/A</fullName>
+                    <default>true</default>
+                    <label>N/A</label>
+                </value>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Estimated_Budget__c</fullName>
+        <externalId>false</externalId>
+        <label>Estimated Budget?</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Follow_Up_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Follow-Up Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Follow_Up_Notes__c</fullName>
+        <description>Mandatory once the Lead Quality is set to &quot;Valid&quot;</description>
+        <externalId>false</externalId>
+        <label>Sales Comments</label>
+        <length>32000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Geo_Populated__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Geo Populated?</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Inside_Sales_Manager__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Inside Sales Manager/ Channel ISM</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Sales_Plays</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Inside_Sales_Rep__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Inside Sales Rep/ ICAM</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Sales_Plays1</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Interested_in_DFS_funding__c</fullName>
+        <externalId>false</externalId>
+        <label>Interested in DFS funding?</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>N/A</fullName>
+                    <default>true</default>
+                    <label>N/A</label>
+                </value>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Is_this_an_old_migrated_record__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This checkbox is to be populated as TRUE only for the initial migration of old Account CMs to Account Play. For all subsequent data it will be set to FALSE. This will only be used for reporting purposes.</description>
+        <externalId>false</externalId>
+        <label>Is this an old migrated record?</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Last_Owner_Reassignment_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Owner Reassignment Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Lattice_Account_Play_Owner_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>Lattice - Account Play Owner ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lattice_Action_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Lattice - Action Reason</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lattice_Creation_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Lattice - Creation Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Lattice_IsActive__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Lattice - IsActive</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Lattice_Last_Disposition_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Lattice - Last Disposition Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Lattice_Last_Modification_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Lattice - Last Modification Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Lattice_Last_Transitioner_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>Lattice - Last Transitioner ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lattice_Last_Transitioner__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Lattice - Last Transitioner</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Account_Plays4</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Lattice_Likelihood_Category__c</fullName>
+        <externalId>false</externalId>
+        <label>Lattice - Likelihood Category</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lattice_Likelihood__c</fullName>
+        <externalId>false</externalId>
+        <label>Lattice - Likelihood</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lattice_Manager_2_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>Lattice - Manager 2 ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lattice_Manager_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Lattice - Manager 2</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lattice_Manager_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>Lattice - Manager ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lattice_Manager__c</fullName>
+        <externalId>false</externalId>
+        <label>Lattice - Manager</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lattice_Play_External_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>Lattice - Play External ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lattice_Play_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>Lattice - Play ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lattice_Play_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Lattice - Play Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lattice_Pre_Lead_External_ID__c</fullName>
+        <caseSensitive>true</caseSensitive>
+        <externalId>true</externalId>
+        <label>Lattice - Pre Lead External ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Lattice_Region__c</fullName>
+        <externalId>false</externalId>
+        <label>Lattice - Region</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lattice_Role__c</fullName>
+        <externalId>false</externalId>
+        <label>Lattice - Role</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lattice_Source_of_Play__c</fullName>
+        <externalId>false</externalId>
+        <label>Lattice - Source of Play</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lead_Quality__c</fullName>
+        <externalId>false</externalId>
+        <label>Sales Qualified?</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Called_Customer__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Qualified</fullName>
+                    <color>#33CC00</color>
+                    <default>false</default>
+                    <label>Qualified</label>
+                </value>
+                <value>
+                    <fullName>Unqualified</fullName>
+                    <color>#FF0000</color>
+                    <default>false</default>
+                    <label>Unqualified</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>Qualified</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>Unqualified</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Lead_Reset_By__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Indicates who reset this Lead</description>
+        <externalId>false</externalId>
+        <label>Lead Reset By</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Account_Plays1</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Lead_Reset_Date__c</fullName>
+        <description>Indicates when this Lead is reset</description>
+        <externalId>false</externalId>
+        <label>Lead Reset Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Lead_Reset__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Indicates if this Lead has been reset</description>
+        <externalId>false</externalId>
+        <label>Lead Reset?</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>License_Expiration_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>License Expiration Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>License_Expiration_Month__c</fullName>
+        <externalId>false</externalId>
+        <label>License Expiration Month</label>
+        <length>20</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>License_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>License Number</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Manufacturer_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Manufacturer Name</label>
+        <length>200</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Marketing_Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Marketing Comments</label>
+        <length>32000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Next_Steps__c</fullName>
+        <externalId>false</externalId>
+        <label>Next Steps</label>
+        <length>32000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Nominated_By__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Nominated By</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Account_Plays3</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Nomination_date__c</fullName>
+        <externalId>false</externalId>
+        <label>Nomination date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Opportunity_Created__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Opportunity Created?</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Opportunity_Status__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please click on the relevant opportunity buttons after selecting opportunity status to complete lead follow up</inlineHelpText>
+        <label>Opportunity Status?</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Lead_Quality__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>New Opportunity</fullName>
+                    <color>#0B6FCE</color>
+                    <default>false</default>
+                    <label>New Opportunity</label>
+                </value>
+                <value>
+                    <fullName>Existing Opportunity</fullName>
+                    <color>#78C953</color>
+                    <default>false</default>
+                    <label>Existing Opportunity</label>
+                </value>
+                <value>
+                    <fullName>APOS Opportunity</fullName>
+                    <color>#A845DC</color>
+                    <default>false</default>
+                    <label>APOS Opportunity</label>
+                </value>
+                <value>
+                    <fullName>SMB Opportunity</fullName>
+                    <default>false</default>
+                    <label>SMB Opportunity</label>
+                </value>
+                <value>
+                    <fullName>Channel Opportunity</fullName>
+                    <default>false</default>
+                    <label>Channel Opportunity</label>
+                </value>
+                <value>
+                    <fullName>Run Rate Opportunity</fullName>
+                    <default>false</default>
+                    <label>Run Rate Opportunity</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Qualified</controllingFieldValue>
+                <valueName>New Opportunity</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Qualified</controllingFieldValue>
+                <valueName>Existing Opportunity</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Qualified</controllingFieldValue>
+                <valueName>APOS Opportunity</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Qualified</controllingFieldValue>
+                <valueName>SMB Opportunity</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Qualified</controllingFieldValue>
+                <valueName>Channel Opportunity</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Qualified</controllingFieldValue>
+                <valueName>Run Rate Opportunity</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Opportunity__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipName>Sales_Plays</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Original_Created_Date__c</fullName>
+        <description>This date is to be populated with the original Created Date value only for the initial migration of old Account CMs to Account Play. For all subsequent data it will be blank. This will only be used for reporting purposes.</description>
+        <externalId>false</externalId>
+        <label>Original Created Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Other_Action__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+AND( 
+ISPICKVAL(Lead_Quality__c, &apos;Qualified&apos;), 
+ISPICKVAL(Opportunity_Status__c,&apos;APOS Opportunity&apos;), 
+Opportunity__c=null ), 
+
+HYPERLINK(&apos;006/e?retURL=/&apos; &amp; Id &amp; &apos;&amp;RecordType=012A0000000UvEp&amp;00NA0000000bC8S=&apos; &amp; Id&amp;&apos;&amp;opp4=&apos;&amp; Account__r.Name &amp;&apos;&amp;opp4_lkid=&apos; &amp; Account__r.Id&amp;&apos;&amp;opp17=&apos;&amp; Campaign__r.Name&amp;&apos;&amp;00NA0000000b8l9=1&amp;opp5=Deal/Bid - Direct&amp;00N700000028ArQ=APOS&amp;00N30000001O7vL=APOS&amp;opp14=&apos;&amp; Name &amp;&apos;&amp;opp11=Discover - 10%25&amp;nooverride=1&apos; , IMAGE(&quot;resource/1298094458000/APOS_RT&quot;, &apos;APOS&apos;),&apos;_parent&apos;) &amp; &apos; &apos; &amp; 
+
+HYPERLINK(&apos;apex/MarketingExistingOppAssn?retURL=%2F&apos; &amp; Id &amp; &apos;&amp;accountPlayId=&apos; &amp; Id &amp; &apos;&amp;accid=&apos; &amp; Account__r.Id &amp; &apos;&amp;campaignid=&apos; &amp; Campaign__c , IMAGE(&quot;resource/1268544881000/MA_ExistingOpptys&quot;, &apos;Existing Opportunity&apos;),&apos;_parent&apos;) , 
+
+IF(AND( ISPICKVAL(Lead_Quality__c, &apos;Qualified&apos;),(ISPICKVAL(Opportunity_Status__c,&apos;SMB Opportunity&apos;)), Opportunity__c=null ), 
+
+HYPERLINK(&apos;006/e?retURL=/&apos; &amp; Id &amp; &apos;&amp;RecordType=012A0000000Vhy7&amp;00NA0000000bC8S=&apos; &amp; Id&amp;&apos;&amp;opp4=&apos;&amp; Account__r.Name &amp;&apos;&amp;opp4_lkid=&apos; &amp; Account__r.Id&amp;&apos;&amp;opp17=&apos;&amp; Campaign__r.Name&amp;&apos;&amp;00NA0000000b8l9=1&amp;opp5=Deal/Bid - Direct&amp;opp11=Plan - 1%25&amp;nooverride=1&apos; , IMAGE(&quot;resource/1352358599000/MA_NewSMBOpptys&quot;, &apos;New SMB Opportunity&apos;),&apos;_parent&apos;), 
+
+&apos;[No Action Available]&apos;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Other Action</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Play_Type__c</fullName>
+        <externalId>false</externalId>
+        <formula>$RecordType.DeveloperName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Play Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Primary_Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Primary Contact</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Contact.AccountId</field>
+                <operation>equals</operation>
+                <valueField>$Source.Account__c</valueField>
+            </filterItems>
+            <infoMessage>Contacts listed here are filtered automatically to the associated Account in this Account Play record</infoMessage>
+            <isOptional>true</isOptional>
+        </lookupFilter>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Account Plays</relationshipLabel>
+        <relationshipName>Account_Plays</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>Projected Value</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Rejection_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Rejection Reason</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Accept_Reject_Status__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Not my account</fullName>
+                    <color>#0B6FCE</color>
+                    <default>false</default>
+                    <label>Not my account</label>
+                </value>
+                <value>
+                    <fullName>No contact info</fullName>
+                    <color>#78C953</color>
+                    <default>false</default>
+                    <label>No contact info</label>
+                </value>
+                <value>
+                    <fullName>Dell not on contract</fullName>
+                    <color>#E27001</color>
+                    <default>false</default>
+                    <label>Dell not on contract</label>
+                </value>
+                <value>
+                    <fullName>Wrong / missing information</fullName>
+                    <color>#A845DC</color>
+                    <default>false</default>
+                    <label>Wrong / missing information</label>
+                </value>
+                <value>
+                    <fullName>Already lost</fullName>
+                    <color>#F3D904</color>
+                    <default>false</default>
+                    <label>Already lost</label>
+                </value>
+                <value>
+                    <fullName>Already in progress</fullName>
+                    <color>#A53711</color>
+                    <default>false</default>
+                    <label>Already in progress</label>
+                </value>
+                <value>
+                    <fullName>Already won</fullName>
+                    <color>#66E9BD</color>
+                    <default>false</default>
+                    <label>Already won</label>
+                </value>
+                <value>
+                    <fullName>Lost to competitor</fullName>
+                    <color>#0B24BE</color>
+                    <default>false</default>
+                    <label>Lost to competitor</label>
+                </value>
+                <value>
+                    <fullName>Chose not to renew</fullName>
+                    <color>#419249</color>
+                    <default>false</default>
+                    <label>Chose not to renew</label>
+                </value>
+                <value>
+                    <fullName>Moved to Dell owned S/W</fullName>
+                    <color>#B6E32E</color>
+                    <default>false</default>
+                    <label>Moved to Dell owned S/W</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Rejected By Sales</controllingFieldValue>
+                <valueName>Not my account</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Rejected By Sales</controllingFieldValue>
+                <valueName>No contact info</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Rejected By Sales</controllingFieldValue>
+                <valueName>Dell not on contract</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Rejected By Sales</controllingFieldValue>
+                <valueName>Wrong / missing information</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Rejected By Sales</controllingFieldValue>
+                <valueName>Already lost</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Rejected By Sales</controllingFieldValue>
+                <valueName>Already in progress</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Rejected By Sales</controllingFieldValue>
+                <valueName>Already won</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Rejected By Sales</controllingFieldValue>
+                <valueName>Lost to competitor</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Rejected By Sales</controllingFieldValue>
+                <valueName>Chose not to renew</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Rejected By Sales</controllingFieldValue>
+                <valueName>Moved to Dell owned S/W</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Roadblocks__c</fullName>
+        <externalId>false</externalId>
+        <label>Roadblocks</label>
+        <length>1000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Route_to_Channel__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( AND(ISBLANK(Channel_Lead__c), 
+	RecordTypeId = &apos;012A0000000TWRX&apos;, 
+	OR(ISPICKVAL( Status__c , &apos;Opened&apos;),
+           ISPICKVAL(Status__c, &apos;Contacted&apos;),
+           ISPICKVAL(Status__c, &apos;Assign to Channel Partner&apos;) 
+        ), 
+	OR( $User.Id = Account_Executive__c, 
+		$User.Id = Account_Play_Owner__c, 
+		$User.Id = Inside_Sales_Manager__c , 
+		$User.Id = Inside_Sales_Rep__c, 
+		$User.Id = Technical_Sales_Rep__c , 
+		$User.Id = Solution_Specialist__c) 
+) 
+, HYPERLINK(&apos;/apex/CMAP_RouteAccountPlay?APId=&apos;+Id, 
+IMAGE(&apos;resource/1362106041000/CMAP_RouteToChannel&apos;, &apos;RouteToChannelButton&apos;),&apos;_parent&apos;), &quot;&quot;)</formula>
+        <inlineHelpText>Routing Segment Account Play to Channel</inlineHelpText>
+        <label>Route to Channel</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Solution_Specialist__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Solution Specialist</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Account_Plays_SS</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Source_System_Id__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Source System Id</label>
+        <length>250</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Status_Importance__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( ISPICKVAL( Status__c , &quot;Requires Follow-Up&quot;) , 1, 
+IF( ISPICKVAL( Status__c , &quot;Future Follow-Up&quot;) , 2, 
+IF( ISPICKVAL( Status__c , &quot;Attempted to Contact - Awaiting Response&quot;) , 3, 
+IF( ISPICKVAL( Status__c , &quot;Nominated&quot;) , 4, 
+IF( ISPICKVAL( Status__c , &quot;Opportunity not Created&quot;) , 5, 
+IF( ISPICKVAL( Status__c , &quot;Opportunity not Linked&quot;) , 6, 
+IF( ISPICKVAL( Status__c , &quot;Accepted&quot;) , 7, 
+IF( ISPICKVAL( Status__c , &quot;Accepted By Sales&quot;) , 8, 
+IF( ISPICKVAL( Status__c , &quot;Accepted - Completed Follow-Up&quot;) , 9, 
+IF( ISPICKVAL( Status__c , &quot;Rejected - Completed Follow-Up&quot;) , 10, 
+IF( ISPICKVAL( Status__c , &quot;Nomination Rejected by Marketing&quot;) , 11, 
+IF( ISPICKVAL( Status__c , &quot;Nomination Rejected by Sales&quot;) , 12, 
+IF( ISPICKVAL( Status__c , &quot;Closed - Expired&quot;) , 13, 
+IF( ISPICKVAL( Status__c , &quot;Inactive&quot;) , 14, 
+IF( ISPICKVAL( Status__c , &quot;Cancelled&quot;) , 15, 
+100)))))))))))))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Status Importance</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>Accepted</fullName>
+                    <color>#0B6FCE</color>
+                    <default>false</default>
+                    <label>Accepted</label>
+                </value>
+                <value>
+                    <fullName>Accepted By Sales</fullName>
+                    <color>#78C953</color>
+                    <default>false</default>
+                    <label>Accepted By Sales</label>
+                </value>
+                <value>
+                    <fullName>Accepted - Completed Follow-Up</fullName>
+                    <color>#E27001</color>
+                    <default>false</default>
+                    <label>Accepted - Completed Follow-Up</label>
+                </value>
+                <value>
+                    <fullName>Assign to Channel Partner</fullName>
+                    <default>false</default>
+                    <label>Assign to Channel Partner</label>
+                </value>
+                <value>
+                    <fullName>Attempted to Contact - Awaiting Response</fullName>
+                    <color>#F3D904</color>
+                    <default>false</default>
+                    <label>Attempted to Contact - Awaiting Response</label>
+                </value>
+                <value>
+                    <fullName>Attended</fullName>
+                    <color>#A845DC</color>
+                    <default>false</default>
+                    <label>Attended</label>
+                </value>
+                <value>
+                    <fullName>Bounced</fullName>
+                    <color>#A53711</color>
+                    <default>false</default>
+                    <label>Bounced</label>
+                </value>
+                <value>
+                    <fullName>Cancelled</fullName>
+                    <color>#66E9BD</color>
+                    <default>false</default>
+                    <label>Cancelled</label>
+                </value>
+                <value>
+                    <fullName>Clicked</fullName>
+                    <color>#0B24BE</color>
+                    <default>false</default>
+                    <label>Clicked</label>
+                </value>
+                <value>
+                    <fullName>Closed - Expired</fullName>
+                    <color>#419249</color>
+                    <default>false</default>
+                    <label>Closed - Expired</label>
+                </value>
+                <value>
+                    <fullName>Completed Follow-Up</fullName>
+                    <color>#B6E32E</color>
+                    <default>false</default>
+                    <label>Completed Follow-Up</label>
+                </value>
+                <value>
+                    <fullName>Contacted</fullName>
+                    <color>#641CCF</color>
+                    <default>false</default>
+                    <label>Contacted</label>
+                </value>
+                <value>
+                    <fullName>Existing Opportunity</fullName>
+                    <color>#F96FB7</color>
+                    <default>false</default>
+                    <label>Existing Opportunity</label>
+                </value>
+                <value>
+                    <fullName>Existing Opportunity or Quoted</fullName>
+                    <default>false</default>
+                    <label>Existing Opportunity or Quoted</label>
+                </value>
+                <value>
+                    <fullName>General comment</fullName>
+                    <color>#AFCADF</color>
+                    <default>false</default>
+                    <label>General comment</label>
+                </value>
+                <value>
+                    <fullName>Identified</fullName>
+                    <color>#8F6429</color>
+                    <default>false</default>
+                    <label>Identified</label>
+                </value>
+                <value>
+                    <fullName>Inactive</fullName>
+                    <color>#EFAE73</color>
+                    <default>false</default>
+                    <label>Inactive</label>
+                </value>
+                <value>
+                    <fullName>In Progress</fullName>
+                    <color>#57F17C</color>
+                    <default>false</default>
+                    <label>In Progress</label>
+                </value>
+                <value>
+                    <fullName>Invited</fullName>
+                    <color>#0B6FCE</color>
+                    <default>false</default>
+                    <label>Invited</label>
+                </value>
+                <value>
+                    <fullName>New Opportunity</fullName>
+                    <color>#78C953</color>
+                    <default>false</default>
+                    <label>New Opportunity</label>
+                </value>
+                <value>
+                    <fullName>Nominated</fullName>
+                    <color>#E27001</color>
+                    <default>false</default>
+                    <label>Nominated</label>
+                </value>
+                <value>
+                    <fullName>Nomination Rejected by Marketing</fullName>
+                    <color>#A845DC</color>
+                    <default>false</default>
+                    <label>Nomination Rejected by Marketing</label>
+                </value>
+                <value>
+                    <fullName>Nomination Rejected by Sales</fullName>
+                    <color>#F3D904</color>
+                    <default>false</default>
+                    <label>Nomination Rejected by Sales</label>
+                </value>
+                <value>
+                    <fullName>Not Interested</fullName>
+                    <color>#A53711</color>
+                    <default>false</default>
+                    <label>Not Interested</label>
+                </value>
+                <value>
+                    <fullName>Offered</fullName>
+                    <color>#66E9BD</color>
+                    <default>false</default>
+                    <label>Offered</label>
+                </value>
+                <value>
+                    <fullName>Opened</fullName>
+                    <color>#0B24BE</color>
+                    <default>false</default>
+                    <label>Opened</label>
+                </value>
+                <value>
+                    <fullName>Opportunity not Created</fullName>
+                    <color>#419249</color>
+                    <default>false</default>
+                    <label>Opportunity not Created</label>
+                </value>
+                <value>
+                    <fullName>Opportunity not Linked</fullName>
+                    <color>#B6E32E</color>
+                    <default>false</default>
+                    <label>Opportunity not Linked</label>
+                </value>
+                <value>
+                    <fullName>Profiled customer</fullName>
+                    <color>#641CCF</color>
+                    <default>false</default>
+                    <label>Profiled customer</label>
+                </value>
+                <value>
+                    <fullName>Purchasing Plans identified</fullName>
+                    <color>#F96FB7</color>
+                    <default>false</default>
+                    <label>Purchasing Plans identified</label>
+                </value>
+                <value>
+                    <fullName>Qualified current data</fullName>
+                    <color>#2F5D85</color>
+                    <default>false</default>
+                    <label>Qualified current data</label>
+                </value>
+                <value>
+                    <fullName>Registered</fullName>
+                    <color>#AFCADF</color>
+                    <default>false</default>
+                    <label>Registered</label>
+                </value>
+                <value>
+                    <fullName>Rejected By Sales</fullName>
+                    <color>#8F6429</color>
+                    <default>false</default>
+                    <label>Rejected By Sales</label>
+                </value>
+                <value>
+                    <fullName>Rejected - Completed Follow-Up</fullName>
+                    <color>#EFAE73</color>
+                    <default>false</default>
+                    <label>Rejected - Completed Follow-Up</label>
+                </value>
+                <value>
+                    <fullName>Requires Follow-Up</fullName>
+                    <color>#57F17C</color>
+                    <default>false</default>
+                    <label>Requires Follow-Up</label>
+                </value>
+                <value>
+                    <fullName>Returned</fullName>
+                    <color>#0B6FCE</color>
+                    <default>false</default>
+                    <label>Returned</label>
+                </value>
+                <value>
+                    <fullName>Routed to Segment</fullName>
+                    <default>false</default>
+                    <label>Routed to Segment</label>
+                </value>
+                <value>
+                    <fullName>Sent</fullName>
+                    <color>#78C953</color>
+                    <default>false</default>
+                    <label>Sent</label>
+                </value>
+                <value>
+                    <fullName>Unqualified</fullName>
+                    <color>#E27001</color>
+                    <default>false</default>
+                    <label>Unqualified</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Supporting_Information__c</fullName>
+        <externalId>false</externalId>
+        <label>Supporting Information</label>
+        <length>32000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>System_Auto_Populated_AE__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>AP AE System Auto-Populated?</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>System_Auto_Populated_AP_Owner__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>AP Owner System Auto-Populated?</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>System_Auto_Populated_ISR__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>AP ISR System Auto-Populated?</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Technical_Sales_Rep__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Technical Sales Rep</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Account_Plays5</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Territory_Sales_User_Assignment__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Territory Sales User Assignment</label>
+        <referenceTo>Territory_Sales_User_Assignment__c</referenceTo>
+        <relationshipLabel>Account Plays</relationshipLabel>
+        <relationshipName>Account_Plays</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Unqualified_Lead_Reasons__c</fullName>
+        <externalId>false</externalId>
+        <label>Unqualified Lead Reasons</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Lead_Quality__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Unable to reach</fullName>
+                    <default>false</default>
+                    <label>Unable to reach</label>
+                </value>
+                <value>
+                    <fullName>No budget</fullName>
+                    <default>false</default>
+                    <label>No budget</label>
+                </value>
+                <value>
+                    <fullName>No authority</fullName>
+                    <default>false</default>
+                    <label>No authority</label>
+                </value>
+                <value>
+                    <fullName>No need</fullName>
+                    <default>false</default>
+                    <label>No need</label>
+                </value>
+                <value>
+                    <fullName>Not ready to buy</fullName>
+                    <default>false</default>
+                    <label>Not ready to buy</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Unqualified</controllingFieldValue>
+                <valueName>Unable to reach</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Unqualified</controllingFieldValue>
+                <valueName>No budget</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Unqualified</controllingFieldValue>
+                <valueName>No authority</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Unqualified</controllingFieldValue>
+                <valueName>No need</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Unqualified</controllingFieldValue>
+                <valueName>Not ready to buy</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Update_Record__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+AND( 
+CONTAINS( $User.Profile_Name__c, &apos;Sales&apos;), 
+ISPICKVAL(Status__c, &apos;Accepted - Completed Follow-Up&apos;)), 
+HYPERLINK(&apos;apex/UpdateOrResetRLorAP?retURL=/&apos; &amp; Id &amp; &apos;&amp;id=&apos; &amp; Id &amp; &apos;&amp;action=Update&apos;, IMAGE(&quot;resource/1257839368000/MA_UpdateRecord&quot;, &apos;Update Record&apos;), &apos;_parent&apos;), 
+
+IF( 
+AND( 
+CONTAINS( $User.Profile_Name__c, &apos;Sales&apos;), 
+ISPICKVAL(Status__c, &apos;Rejected - Completed Follow-Up&apos;)), 
+HYPERLINK(&apos;apex/UpdateOrResetRLorAP?retURL=/&apos; &amp; Id &amp; &apos;&amp;id=&apos; &amp; Id &amp; &apos;&amp;action=Update&apos;, IMAGE(&quot;resource/1282810384000/MA_UpdateRecord2&quot;, &apos;Update Record&apos;), &apos;_parent&apos;) &amp; &apos; &apos; &amp; 
+HYPERLINK(&apos;apex/UpdateOrResetRLorAP?retURL=/&apos; &amp; Id &amp; &apos;&amp;id=&apos; &amp; Id &amp; &apos;&amp;action=Reset&apos;, IMAGE(&quot;resource/1282810236000/MA_Reset&quot;, &apos;Reset Record&apos;), &apos;_parent&apos;), 
+
+IF(
+ AND(!ISPICKVAL(Status__c, &apos;Routed to Channel&apos;), !ISPICKVAL(Status__c, &apos;Routed to Segment&apos;),
+ OR( 
+CONTAINS( $User.Profile_Name__c, &apos;Marketing&apos;), 
+CONTAINS( $User.Profile_Name__c, &apos;System&apos;), 
+CONTAINS( $User.Profile_Name__c, &apos;Lead Assignment&apos;), 
+CONTAINS( $User.Profile_Name__c, &apos;IT&apos;) 
+)), 
+HYPERLINK(Id &amp; &apos;/e?nooverride=1&amp;retURL=/&apos; &amp; Id, IMAGE(&quot;resource/1254277273000/MA_UpdateRecord&quot;, &apos;Update Record&apos;), &apos;_parent&apos;), 
+&apos; &apos;)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Update Record</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>What_is_their_implementation_deadline__c</fullName>
+        <externalId>false</externalId>
+        <label>What is their implementation deadline?</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>isExpiryDateChanged__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Campaign__r.Account_Play_Expiry_Date__c = Account_Play_Expiry_Date_New__c , &apos;No&apos;, &apos;Yes&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Is Expiry Date Changed?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_Days_to_Close_AP__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account_Play_Close_Date__c - CreatedDate</formula>
+        <label># of Days to Close AP</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_Days_to_Convert_AP_to_SA__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account_Play_Accepted_Date__c - CreatedDate</formula>
+        <label># of Days to Convert AP to SA</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Account Play</label>
+    <listViews>
+        <fullName>Account_Play_Test</fullName>
+        <columns>NAME</columns>
+        <columns>Account__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account_Play_Expiry_Date__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Campaign__c</field>
+            <operation>equals</operation>
+            <value>FY11W02-LE-ABU-CA-ST-Server_Refresh_Dallal</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Account_Play__c.GBL_Account_Play_RT_R10_10</value>
+        </filters>
+        <label>Canada Svr Refresh Dallal</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Account_Play_Owner_Role__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Account_Play_Expiry_Date_New__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Account_Play__c.GBL_Account_Play_RT_R10_10</value>
+        </filters>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>All4</fullName>
+        <columns>NAME</columns>
+        <columns>Account_Play_Owner_Role__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Account_Play_Expiry_Date_New__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Account_Play__c.GBL_Account_Play_RT_R10_10</value>
+        </filters>
+        <filters>
+            <field>Campaign__c</field>
+            <operation>equals</operation>
+            <value>FY14W14-PLE-ABU-MU-ST-Power_to_Change_NSS</value>
+        </filters>
+        <label>FY14-LI-Power_to_Change_NSS</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Awaiting_Follow_Up</fullName>
+        <columns>NAME</columns>
+        <columns>Account_Play_Owner_Role__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Account_Play_Expiry_Date_New__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Attempted to Contact - Awaiting Response</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Account_Play__c.GBL_Account_Play_RT_R10_10</value>
+        </filters>
+        <label>Attempted to Contact - Awaiting Response</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Created_by_Me</fullName>
+        <columns>NAME</columns>
+        <columns>Account_Play_Owner_Role__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Account_Play_Expiry_Date_New__c</columns>
+        <columns>Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CREATEDBY_USER</field>
+            <operation>contains</operation>
+            <value>selvavignesh</value>
+        </filters>
+        <label>Created by Me</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Created_by_Me_2</fullName>
+        <columns>NAME</columns>
+        <columns>Account_Play_Owner_Role__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Account_Play_Expiry_Date_New__c</columns>
+        <columns>Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CREATEDBY_USER</field>
+            <operation>equals</operation>
+            <value>005A0000003NL4U</value>
+        </filters>
+        <label>Created by Me_new</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Expired_Follow_Up</fullName>
+        <columns>NAME</columns>
+        <columns>Account_Play_Owner_Role__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Account_Play_Expiry_Date_New__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Closed - Expired</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Account_Play__c.GBL_Account_Play_RT_R10_10</value>
+        </filters>
+        <label>Expired Follow-Up</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>FY14_PAD_Power_to_Change_NSS</fullName>
+        <columns>NAME</columns>
+        <columns>Account_Play_Owner_Role__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Account_Play_Expiry_Date_New__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Account_Play__c.GBL_Account_Play_RT_R10_10</value>
+        </filters>
+        <filters>
+            <field>Campaign__c</field>
+            <operation>equals</operation>
+            <value>FY14W15-PAD-ABU-US-NSS-ST-Power_To_Change</value>
+        </filters>
+        <label>FY14-PAD-Power_to_Change_NSS</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>FY14_PAD_Power_to_Change_NSS1</fullName>
+        <columns>NAME</columns>
+        <columns>Account_Play_Owner_Role__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Account_Play_Expiry_Date_New__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Account_Play_Owner_Role__c</field>
+            <operation>contains</operation>
+            <value>Networking</value>
+        </filters>
+        <filters>
+            <field>Account_Play_Owner__c</field>
+            <operation>equals</operation>
+            <value>Camilo Valderrama</value>
+        </filters>
+        <label>FY14-PAD-Power_to_Change_NSS</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>FY14_PAD_Power_to_Change_NSS2</fullName>
+        <columns>NAME</columns>
+        <columns>Account_Play_Owner_Role__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Account_Play_Expiry_Date_New__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Account_Play_Owner_Role__c</field>
+            <operation>contains</operation>
+            <value>Networking</value>
+        </filters>
+        <filters>
+            <field>Account_Play_Owner__c</field>
+            <operation>equals</operation>
+            <value>Camilo Valderrama</value>
+        </filters>
+        <label>FY14-PAD-Power_to_Change_NSS</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>FY14_PAD_Power_to_Change_NSS3</fullName>
+        <columns>NAME</columns>
+        <columns>Account_Play_Owner_Role__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Account_Play_Expiry_Date_New__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Account_Play_Owner_Role__c</field>
+            <operation>contains</operation>
+            <value>Networking</value>
+        </filters>
+        <label>FY14-PAD-Power_to_Change_NSS</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Fiorino_Server_Refresh_Play</fullName>
+        <columns>NAME</columns>
+        <columns>Account_Play_Owner_Role__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Account_Play_Expiry_Date__c</columns>
+        <columns>Status__c</columns>
+        <columns>Called_Customer__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Campaign__c</field>
+            <operation>equals</operation>
+            <value>FY11W02-SMB-ABU-CAN-EM-VMware_Playbook</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Account_Play__c.GBL_Account_Play_RT_R10_10</value>
+        </filters>
+        <label>Fiorino - Server Refresh Play</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>My_Completed_Follow_Up</fullName>
+        <booleanFilter>1 or 2 OR 3</booleanFilter>
+        <columns>NAME</columns>
+        <columns>Account_Play_Owner_Role__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Account_Play_Expiry_Date_New__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Accepted - Completed Follow-Up,Rejected - Completed Follow-Up</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Completed Follow-Up</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Account_Play__c.GBL_Account_Play_RT_R10_10</value>
+        </filters>
+        <label>Completed Follow-Up</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>My_Future_Follow_Up</fullName>
+        <columns>NAME</columns>
+        <columns>Account_Play_Owner_Role__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Account_Play_Expiry_Date_New__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Future Follow-Up</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Account_Play__c.GBL_Account_Play_RT_R10_10</value>
+        </filters>
+        <label>Future Follow-Up</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>My_Open_All</fullName>
+        <booleanFilter>1 or 2 OR 3</booleanFilter>
+        <columns>NAME</columns>
+        <columns>Account_Play_Owner_Role__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Account_Play_Expiry_Date_New__c</columns>
+        <columns>Status__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Awaiting Follow Up,Future Follow-Up,Opportunity not Created,Requires Follow-Up</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Opportunity not Linked</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Account_Play__c.GBL_Account_Play_RT_R10_10</value>
+        </filters>
+        <label>All Open</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>My_Server_ACQ_Play</fullName>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5</booleanFilter>
+        <columns>NAME</columns>
+        <columns>Account_Play_Owner_Role__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Account_Play_Expiry_Date__c</columns>
+        <columns>Status__c</columns>
+        <columns>Called_Customer__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Campaign__c</field>
+            <operation>equals</operation>
+            <value>FY11W14-LE-ABU-ST-ServAcq</value>
+        </filters>
+        <filters>
+            <field>Campaign__c</field>
+            <operation>equals</operation>
+            <value>FY11W19-LE-ABU-ST-BladeConsolidation</value>
+        </filters>
+        <filters>
+            <field>Campaign__c</field>
+            <operation>equals</operation>
+            <value>FY11W19-LE-ABU-ST-ServerRefresh</value>
+        </filters>
+        <filters>
+            <field>Campaign__c</field>
+            <operation>equals</operation>
+            <value>FY11W18-LE-ABU-ST-DMC</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Account_Play__c.GBL_Account_Play_RT_R10_10</value>
+        </filters>
+        <label>My Server Account Plays</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>My_Virtualization_account_plays</fullName>
+        <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
+        <columns>NAME</columns>
+        <columns>Account_Play_Owner_Role__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Account_Play_Expiry_Date__c</columns>
+        <columns>Status__c</columns>
+        <columns>Called_Customer__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Campaign__c</field>
+            <operation>equals</operation>
+            <value>FY11W14-LE-ABU-ST-VirtualizationAcq</value>
+        </filters>
+        <filters>
+            <field>Campaign__c</field>
+            <operation>equals</operation>
+            <value>FY11W14-LE-ABU-ST-DellVMwarewhitespace</value>
+        </filters>
+        <filters>
+            <field>Campaign__c</field>
+            <operation>equals</operation>
+            <value>FY11W14-LE-ABU-ST-ApplicationVirtualization</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Account_Play__c.GBL_Account_Play_RT_R10_10</value>
+        </filters>
+        <label>My Virtualization account plays</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>My_Win_7_Play_Account_Plays</fullName>
+        <columns>NAME</columns>
+        <columns>Account_Play_Owner_Role__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Account_Play_Expiry_Date__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Campaign__c</field>
+            <operation>contains</operation>
+            <value>FY10W39-SPA-ABU-US-ST-STORM_Win7_RevGen,FY10W39-MPA-ABU-US-ST-STORM_Win7_RevGen</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Account_Play__c.GBL_Account_Play_RT_R10_10</value>
+        </filters>
+        <label>My Win 7 Play - Account Plays - PUB ABU</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>My_Win_7_Play_Account_Plays_LE_ABU</fullName>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5</booleanFilter>
+        <columns>NAME</columns>
+        <columns>Account_Play_Owner_Role__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Account_Play_Expiry_Date__c</columns>
+        <columns>Status__c</columns>
+        <columns>Called_Customer__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Campaign__c</field>
+            <operation>equals</operation>
+            <value>FY11W4-LE-ABU-MU-ST-SoftwareReps_Migration_Windows7</value>
+        </filters>
+        <filters>
+            <field>Campaign__c</field>
+            <operation>equals</operation>
+            <value>FY11W4-LE-ABU-MU-ST-Migration_to_Windows7</value>
+        </filters>
+        <filters>
+            <field>Campaign__c</field>
+            <operation>equals</operation>
+            <value>FY11W4-LE-ABU-MU-ST-Clearview_Windows7</value>
+        </filters>
+        <filters>
+            <field>Campaign__c</field>
+            <operation>equals</operation>
+            <value>FY11W6-LE-ABU-MU-ST-Services_Windows7</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Account_Play__c.GBL_Account_Play_RT_R10_10</value>
+        </filters>
+        <label>My Win 7 Play - Account Plays - LE ABU</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Opportunity_Not_Created</fullName>
+        <columns>NAME</columns>
+        <columns>Account_Play_Owner_Role__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Account_Play_Expiry_Date_New__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Opportunity not Created</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Account_Play__c.GBL_Account_Play_RT_R10_10</value>
+        </filters>
+        <label>Opportunity Not Created</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Opportunity_Not_Linked</fullName>
+        <columns>NAME</columns>
+        <columns>Account_Play_Owner_Role__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Account_Play_Expiry_Date_New__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Opportunity not Linked</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Account_Play__c.GBL_Account_Play_RT_R10_10</value>
+        </filters>
+        <label>Opportunity Not Linked</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Requires_Follow_Up4</fullName>
+        <columns>NAME</columns>
+        <columns>Account_Play_Owner_Role__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Account_Play_Expiry_Date_New__c</columns>
+        <columns>Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Requires Follow-Up</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Account_Play__c.GBL_Account_Play_RT_R10_10</value>
+        </filters>
+        <label>Requires Follow-Up</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Requires_Follow_up_Created_Last_30_Days</fullName>
+        <columns>NAME</columns>
+        <columns>Account_Play_Owner_Role__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Account_Play_Expiry_Date_New__c</columns>
+        <columns>Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Requires Follow-Up</value>
+        </filters>
+        <filters>
+            <field>CREATED_DATE</field>
+            <operation>equals</operation>
+            <value>LAST_N_DAYS:30</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Account_Play__c.GBL_Account_Play_RT_R10_10</value>
+        </filters>
+        <label>Requires Follow-Up(Created Last 30 Days)</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Requires_Follow_up_Created_Last_90_Days</fullName>
+        <columns>NAME</columns>
+        <columns>Account_Play_Owner_Role__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Account_Play_Expiry_Date_New__c</columns>
+        <columns>Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Requires Follow-Up</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Account_Play__c.GBL_Account_Play_RT_R10_10</value>
+        </filters>
+        <filters>
+            <field>CREATED_DATE</field>
+            <operation>equals</operation>
+            <value>LAST_N_DAYS:30</value>
+        </filters>
+        <label>Requires Follow-Up(Created Last 90 Days)</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Requires_Follow_up_Expiring_Next_Month</fullName>
+        <columns>NAME</columns>
+        <columns>Account_Play_Owner_Role__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Account_Play_Expiry_Date_New__c</columns>
+        <columns>Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Requires Follow-Up</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Account_Play__c.GBL_Account_Play_RT_R10_10</value>
+        </filters>
+        <filters>
+            <field>Account_Play_Expiry_Date_New__c</field>
+            <operation>equals</operation>
+            <value>NEXT_MONTH</value>
+        </filters>
+        <label>Requires Follow-Up(Expiring Next Month)</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Requires_Follow_up_Expiring_This_Month</fullName>
+        <columns>NAME</columns>
+        <columns>Account_Play_Owner_Role__c</columns>
+        <columns>Account_Play_Owner__c</columns>
+        <columns>Account__c</columns>
+        <columns>Campaign__c</columns>
+        <columns>Account_Play_Expiry_Date_New__c</columns>
+        <columns>Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Requires Follow-Up</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Account_Play__c.GBL_Account_Play_RT_R10_10</value>
+        </filters>
+        <filters>
+            <field>Account_Play_Expiry_Date_New__c</field>
+            <operation>equals</operation>
+            <value>THIS_MONTH</value>
+        </filters>
+        <label>Requires Follow-Up(Expiring This Month)</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>AP - {000000000}</displayFormat>
+        <label>Account Play #</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Account Plays</pluralLabel>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>GBL_Account_Play_RT_R10_10</fullName>
+        <active>true</active>
+        <label>GBL_Account_Play_RT_R10.10</label>
+        <picklistValues>
+            <picklist>Accept_Reject_Status__c</picklist>
+            <values>
+                <fullName>Accepted By Sales</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reassigned By Sales</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected By Sales</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Routed to Channel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Routed to Segment</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Called_Customer__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Campaign_Vehicle__c</picklist>
+            <values>
+                <fullName>Advisory Councils</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Assessment %28HW%2FServices%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CXO Events</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DM</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dell Day</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Door Opener %28High Value%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Door Opener %28Value%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lattice Sales Touch</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Multiple Vehicles</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Non-Marketing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Online Advertising</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Online Inbound</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Roadshow</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sales Touch</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Seed Unit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Seminar%2FConference</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Special Events</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Standalone Telemarketing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trade Show</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Workshop</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>eDM%2FEmail</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>eSeminar%2FWebcast%2FWebinar</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Do_they_have_access_to_approved_funds__c</picklist>
+            <values>
+                <fullName>N%2FA</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Interested_in_DFS_funding__c</picklist>
+            <values>
+                <fullName>N%2FA</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Lead_Quality__c</picklist>
+            <values>
+                <fullName>Qualified</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unqualified</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Opportunity_Status__c</picklist>
+            <values>
+                <fullName>APOS Opportunity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Channel Opportunity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Existing Opportunity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Opportunity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Run Rate Opportunity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SMB Opportunity</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Rejection_Reason__c</picklist>
+            <values>
+                <fullName>Already in progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Already lost</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Already won</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Chose not to renew</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dell not on contract</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lost to competitor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Moved to Dell owned S%2FW</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No contact info</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not my account</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wrong %2F missing information</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Accepted - Completed Follow-Up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Accepted By Sales</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Assign to Channel Partner</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Attended</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bounced</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Clicked</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed - Expired</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed Follow-Up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contacted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>General comment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Identified</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Inactive</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invited</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Nominated</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Nomination Rejected by Marketing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Nomination Rejected by Sales</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Interested</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Offered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Opened</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Opportunity not Created</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Opportunity not Linked</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Profiled customer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchasing Plans identified</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Qualified current data</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Registered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected - Completed Follow-Up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected By Sales</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Requires Follow-Up</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Returned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Routed to Segment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sent</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Unqualified_Lead_Reasons__c</picklist>
+            <values>
+                <fullName>No authority</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No budget</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No need</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not ready to buy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unable to reach</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Lattice</fullName>
+        <active>true</active>
+        <label>Lattice</label>
+        <picklistValues>
+            <picklist>Accept_Reject_Status__c</picklist>
+            <values>
+                <fullName>Accepted By Sales</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reassigned By Sales</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected By Sales</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Called_Customer__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Campaign_Vehicle__c</picklist>
+            <values>
+                <fullName>Advisory Councils</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Assessment %28HW%2FServices%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CXO Events</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DM</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dell Day</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Door Opener %28High Value%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Door Opener %28Value%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Multiple Vehicles</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Online Advertising</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Online Inbound</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Roadshow</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sales Touch</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Seed Unit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Seminar%2FConference</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Special Events</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Standalone Telemarketing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trade Show</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Workshop</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>eDM%2FEmail</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>eSeminar%2FWebcast%2FWebinar</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Lead_Quality__c</picklist>
+            <values>
+                <fullName>Qualified</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unqualified</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Opportunity_Status__c</picklist>
+            <values>
+                <fullName>APOS Opportunity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Existing Opportunity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Opportunity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Run Rate Opportunity</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Rejection_Reason__c</picklist>
+            <values>
+                <fullName>Dell not on contract</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No contact info</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not my account</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed - Expired</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Existing Opportunity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Existing Opportunity or Quoted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Opportunity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Requires Follow-Up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unqualified</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Unqualified_Lead_Reasons__c</picklist>
+            <values>
+                <fullName>No authority</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No budget</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No need</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not ready to buy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unable to reach</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>S_P_License_Renewals</fullName>
+        <active>true</active>
+        <description>Software and Peripherals License Renewals Account Play</description>
+        <label>S&amp;P License Renewals</label>
+        <picklistValues>
+            <picklist>Accept_Reject_Status__c</picklist>
+            <values>
+                <fullName>Accepted By Sales</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reassigned By Sales</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected By Sales</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Called_Customer__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Campaign_Vehicle__c</picklist>
+            <values>
+                <fullName>Advisory Councils</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Assessment %28HW%2FServices%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CXO Events</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DM</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dell Day</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Door Opener %28High Value%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Door Opener %28Value%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lattice Sales Touch</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Multiple Vehicles</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Non-Marketing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Online Advertising</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Online Inbound</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Roadshow</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sales Touch</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Seed Unit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Seminar%2FConference</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Special Events</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Standalone Telemarketing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trade Show</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Workshop</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>eDM%2FEmail</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>eSeminar%2FWebcast%2FWebinar</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Lead_Quality__c</picklist>
+            <values>
+                <fullName>Qualified</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unqualified</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Opportunity_Status__c</picklist>
+            <values>
+                <fullName>APOS Opportunity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Existing Opportunity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Opportunity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Run Rate Opportunity</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Rejection_Reason__c</picklist>
+            <values>
+                <fullName>Already in progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Already lost</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Already won</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Chose not to renew</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dell not on contract</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lost to competitor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Moved to Dell owned S%2FW</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No contact info</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not my account</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wrong %2F missing information</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Accepted - Completed Follow-Up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Accepted By Sales</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Attended</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bounced</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Clicked</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed - Expired</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed Follow-Up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contacted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>General comment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Identified</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Inactive</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invited</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Nominated</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Nomination Rejected by Marketing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Nomination Rejected by Sales</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Interested</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Offered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Opened</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Opportunity not Created</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Opportunity not Linked</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Profiled customer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchasing Plans identified</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Qualified current data</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Registered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected - Completed Follow-Up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected By Sales</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Requires Follow-Up</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Returned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sent</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Unqualified_Lead_Reasons__c</picklist>
+            <values>
+                <fullName>No authority</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No budget</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No need</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not ready to buy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unable to reach</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>Account__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Account_Play_Expiry_Date_New__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Campaign__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Status__c</customTabListAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchResultsAdditionalFields>Account_Play_Owner_Role__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Account_Play_Owner__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Account__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Campaign__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Account_Play_Expiry_Date_New__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Status__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CREATED_DATE</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>AP_and_Inactive_campaign_rule</fullName>
+        <active>true</active>
+        <description>Account Play records should not be created for Inactive Campaigns</description>
+        <errorConditionFormula>AND(ISNEW(), NOT( Campaign__r.IsActive = TRUE ))</errorConditionFormula>
+        <errorDisplayField>Accept_Reject_Status__c</errorDisplayField>
+        <errorMessage>Account Play records should not be created for Inactive Campaigns</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Account_Plays_should_be_Account_Campaign</fullName>
+        <active>true</active>
+        <description>Enhanced in R13.10 for INC000008982618
+Account Plays should be created for Account based campaigns Only</description>
+        <errorConditionFormula>IF(Campaign__r.Is_this_Account_Play_Campaign__c == FALSE,true,false)</errorConditionFormula>
+        <errorMessage>Account Plays should be created for Account based campaigns Only</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Account_field_Access</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( 
+ISCHANGED(Account__c), 
+NOT( 
+OR( 
+CONTAINS($Profile.Name, &quot;GBL Lead Assignment Users&quot;),	
+CONTAINS($Profile.Name, &quot;GBL Admin Marketing User&quot;),	
+CONTAINS($Profile.Name, &quot;System Administrator&quot;) 
+) 
+) 
+)</errorConditionFormula>
+        <errorDisplayField>Account__c</errorDisplayField>
+        <errorMessage>You do not have permission to update this field.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>CMAP_Cant_Associate_AP_to_Channel_Camp</fullName>
+        <active>true</active>
+        <description>R14.2 CMAP Validation Rule to prevent user from creating a new Account Play when RT is Channel Campaign.</description>
+        <errorConditionFormula>Campaign__r.RecordTypeId = &quot;012A00000012Xt5&quot;</errorConditionFormula>
+        <errorMessage>Cannot associate an Account Play to a Channel Campaign.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Campaign_Name_Mandatory_for_Account_Play</fullName>
+        <active>true</active>
+        <description>Field is mandatory even when it is coming from integration and data load.</description>
+        <errorConditionFormula>AND(ISBLANK( Campaign__c),$RecordType.Id !=&apos;012A0000000Vhxd&apos;)</errorConditionFormula>
+        <errorMessage>Campaign is mandatory for Account Play records</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Campaign_Vehicle_Matching</fullName>
+        <active>false</active>
+        <errorConditionFormula>AND(NOT( TEXT(Campaign_Vehicle__c )=TEXT( Campaign__r.Type)), $RecordType.Id !=&apos;012A0000000Vhxd&apos;)</errorConditionFormula>
+        <errorDisplayField>Campaign_Vehicle__c</errorDisplayField>
+        <errorMessage>The Campaign Vehicle must be the same as the Campaign Vehicle on the Campaign record</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Campaign_name_should_not_be_changed</fullName>
+        <active>true</active>
+        <description>After creating a Account Play records, the campaign name should not be changed</description>
+        <errorConditionFormula>AND( NOT( ISNEW()), ISCHANGED( Campaign__c ), $RecordType.Id !=&apos;012A0000000Vhxd&apos;)</errorConditionFormula>
+        <errorMessage>Campaign name should not be changed</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Follow_Up_Date_is_required</fullName>
+        <active>true</active>
+        <description>If Unqualified Lead Reasons is Future Follow Up or Called Customer? is No, Follow-Up Date should not be blank</description>
+        <errorConditionFormula>AND(OR(ISPICKVAL( Unqualified_Lead_Reasons__c , &apos;Future Follow-Up&apos;), ISPICKVAL( Called_Customer__c , &quot;No&quot;) ), ISNULL( Follow_Up_Date__c ),$RecordType.Id !=&apos;012A0000000Vhxd&apos; )</errorConditionFormula>
+        <errorDisplayField>Follow_Up_Date__c</errorDisplayField>
+        <errorMessage>Please enter the Follow-Up Date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>License_details_mandatory_for_LR_AP</fullName>
+        <active>true</active>
+        <description>Field is mandatory even when it is coming from integration and data load.</description>
+        <errorConditionFormula>AND(OR(ISBLANK(Projected_Value__c),ISBLANK(Manufacturer_Name__c),ISBLANK(License_Expiration_Date__c)), $RecordType.Id = &apos;012A0000000Vi2O&apos; )</errorConditionFormula>
+        <errorDisplayField>Projected_Value__c</errorDisplayField>
+        <errorMessage>Projected Value, Manufacturer Name,  License Expiration Date are mandatory for License Renewal Account Play records</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Primary_Contact_Account_Match</fullName>
+        <active>true</active>
+        <description>Primary Contact should be selected from the Account associated to this Account Play</description>
+        <errorConditionFormula>AND( IF( Account__r.Id = Primary_Contact__r.AccountId, FALSE, TRUE), NOT(LEN(Primary_Contact__c ) = 0),$RecordType.Id !=&apos;012A0000000Vhxd&apos;, NOT($Setup.System_Behavior_Bypasser__c.Bypass_Account_Play_VRs__c))</errorConditionFormula>
+        <errorDisplayField>Primary_Contact__c</errorDisplayField>
+        <errorMessage>Primary Contact should be selected from the Account associated to this Account Play</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>New_Account_Play</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>New Account Play</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>/setup/ui/recordtypeselect.jsp?ent=01IA0000000LhJl&amp;retURL=%2F{!Campaign.Id}&amp;save_new_url=%2Fa0U%2Fe%3FretURL%3D%2F{!Campaign.Id}&amp;CF00NA0000000b8ZO={!Campaign.Name}&amp;CF00NA0000000b8ZO_lkid={!Campaign.Id}&amp;retURL=%2F{!Campaign.Id}&amp;00NA0000000b8ZN={!Campaign.Type}</url>
+    </webLinks>
+</CustomObject>

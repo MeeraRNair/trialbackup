@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Adobe_CLP_Number</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF( AND( CLP_number__c  =&quot;&quot;, ISPICKVAL( Is_Adobe_CLP_open__c , &quot;Yes&quot;) ) , TRUE, FALSE)</errorConditionFormula>
+    <errorDisplayField>CLP_number__c</errorDisplayField>
+    <errorMessage>If &quot;Is Adobe CLP open&quot; is Yes, then Program Number field must be specified.</errorMessage>
+</ValidationRule>

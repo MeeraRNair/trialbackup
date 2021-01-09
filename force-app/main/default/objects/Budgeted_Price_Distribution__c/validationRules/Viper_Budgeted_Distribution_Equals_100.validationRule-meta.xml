@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Viper_Budgeted_Distribution_Equals_100</fullName>
+    <active>true</active>
+    <description>This validation rule ensures that when added up, all the Budgeted Price Distribution fields will only add up to 100%.</description>
+    <errorConditionFormula>OR (
+CSMR__c + LE__c + SMB__c + PUB__c &gt; 1,
+CSMR__c + LE__c + SMB__c + PUB__c &lt; 1
+)</errorConditionFormula>
+    <errorMessage>The Budgeted Price Distribution for all 4 segments should add up to 100%.</errorMessage>
+</ValidationRule>

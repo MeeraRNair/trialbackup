@@ -1,0 +1,43 @@
+<apex:page standardController="Lead" extensions="CMAP_RouteToSegmentController" action="{!addPermissionset}" tabStyle="Lead">
+    <apex:form id="myForm">
+		<apex:actionFunction name="redirect" action="{!redirect}" reRender="myPanel" immediate="true"/>
+		
+		<apex:outputPanel id="myPanel">
+			<apex:pageMessages />
+			<apex:pageBlock rendered="{!showFirstBlock}">       
+				<apex:pageblockButtons location="bottom">
+					<apex:commandButton value="OK" action="{!okButton}"/>
+				</apex:pageblockButtons>
+			</apex:pageBlock>
+			
+			<apex:pageBlock title="Please Edit or Enter Comments" rendered="{!showSecondBlock}">
+				<apex:pageBlockSection columns="1">
+					<apex:inputField value="{!channelLead.Questions_Comments__c}" required="TRUE" style="Width:60%"/>
+					<apex:inputField value="{!channelLead.Sales_Comments__c}" required="TRUE" style="Width:60%"/>
+				</apex:pageBlockSection>
+				<apex:pageblockButtons location="bottom">
+					<apex:commandButton value="Save" action="{!saveButton}"/>                 
+				</apex:pageblockButtons>
+			</apex:pageBlock>
+			
+			<apex:pageBlock title="Please Edit or Enter Comments" rendered="{!showThirdBlock}">
+				<apex:pageBlockSection columns="1">
+					<apex:inputField value="{!relationshipLead.Questions_Comments__c}" required="TRUE" style="Width:60%"/>
+					<apex:inputField value="{!relationshipLead.Sales_Comments__c}" required="TRUE" style="Width:60%"/>               
+				</apex:pageBlockSection>
+				<apex:pageblockButtons location="bottom">
+					<apex:commandButton value="Save" action="{!saveButton}"/>                 
+				</apex:pageblockButtons>
+			</apex:pageBlock>
+		</apex:outputPanel>
+    </apex:form>
+    
+    <script>
+        var errors = '{!isError}';
+        var secondBlock = '{!showSecondBlock}';
+        var thirdBlock = '{!showThirdBlock}';
+        if(errors == 'false' && secondBlock == 'false' && thirdBlock == 'false') {
+            redirect();
+        }
+    </script>
+</apex:page>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ValidateIncludeExclude</fullName>
+    <active>true</active>
+    <description>Restrict user to select Inlcude and exclude together</description>
+    <errorConditionFormula>AND(Include__c = true , Exclude__c = true)</errorConditionFormula>
+    <errorMessage>Select either Include or Exclude.</errorMessage>
+</ValidationRule>

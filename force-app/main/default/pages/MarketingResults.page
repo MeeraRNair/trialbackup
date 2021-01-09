@@ -1,0 +1,29 @@
+<apex:page standardController="Invoice__c" extensions="MarketingResultsCtrlExt" lightningStylesheets="true">
+    <apex:form >
+        <apex:sectionHeader title="Invoice Package"/>
+        <apex:pageMessages showDetail="true"></apex:pageMessages>
+        <apex:outputText value="Please select the Marketing Plan(s) that you would like to include in the Invoice Package." /><br/><br/>
+        <apex:pageBlock title="Marketing Plans">
+            
+            <apex:pageBlockTable value="{!marketingPlanIteratedList}" var="MP" rendered="{!marketingPlanIteratedList.size>0}">
+                <apex:column headerValue="Select">
+                    <apex:inputCheckbox value="{!MP.selected}"/>
+                </apex:column>
+                <apex:column headerValue="MP Name" value="{!MP.mpRecord.Name}"/>
+                <apex:column headerValue="Contract Status" value="{!MP.mpRecord.Contract_Status__c}"/>
+                <apex:column headerValue="Contract Type" value="{!MP.mpRecord.Contract_Type__c}"/>
+                <apex:column headerValue="Region" value="{!MP.mpRecord.Region__c}"/>
+            </apex:pageBlockTable>
+            
+            <apex:pageBlockButtons rendered="{!marketingPlanIteratedList.size>0}" location = "bottom">
+                <apex:commandButton value="Generate" action="{!insertSelectedMarketingPlans}" rendered="{!GenerateBtn}"/>
+                <apex:commandButton value="Attach file" action="{!insertAttachment}" rendered="{!AttachBtn}"/>
+                <apex:commandButton value="Cancel" action="{!Cancel}"/>                                     
+            </apex:pageBlockButtons>
+
+            <apex:pageMessage summary="Please select atleaset one Marketing Plan from the List" severity="error" rendered="{!nullMP}"></apex:pageMessage>
+            <apex:outputLabel styleClass="label" rendered="{!marketingPlanIteratedList.size<=0}">No qualified Marketing Plans are found for this Vendor.</apex:outputLabel>
+        
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

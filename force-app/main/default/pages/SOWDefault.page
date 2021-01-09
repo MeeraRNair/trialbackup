@@ -1,0 +1,286 @@
+<apex:page standardController="Marketing_Plan__c" extensions="SOWDefaultCtrlExt"
+    showHeader="False" contentType="application/msword#generateSOW.doc" cache="true">
+<head>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+</head>
+
+<html Content-Type="application/vnd.msword#generateSOW.doc">
+
+<head>
+    <style>
+        @page divbreak
+        {
+            margin:.25in .25in .25in .25in;
+        }
+        div.divbreak {page:divbreak;}
+        td.data{border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;border-collapse:collapse;}
+        table.Bdr{border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;border-collapse:collapse;}
+    </style>
+</head>
+
+<body>
+
+    <div class="divbreak">
+        <br clear="all" style="page-break-before:always"/>
+
+        <table width="90%" align="center" bgcolor="#DCDCDC" class="Bdr">
+            <tr><td align="center"><b>Schedule {!vendorRecord.Schedule__c}</b></td></tr>
+        </table>
+        <br></br>
+
+        <table width="90%" align="center" class="Bdr">
+            <tr><td align="center"><b>{!vendorRecord.Name}</b></td></tr>
+            <tr><td align="center"><b>S&amp;P Marketing Program</b></td></tr>
+            <tr><td align="center"></td></tr>
+            <tr><td align="center"><b>MDF Program Schedule</b></td></tr>
+        </table>
+        <br></br>
+
+        <table width="90%" align="center" class="Bdr">
+            <tr><td align="left">{!vendorRecord.Terms_Conditions_reference_language__c}</td></tr>
+        </table>
+        <br></br>
+
+        <table width="90%" align="center" class="Bdr">
+            <tr><td align="left" colspan="6" class="data"><b>MDF Terms and Conditions:</b></td></tr>
+            <tr><td align="left" colspan="6" class="data">A.   Unless otherwise agreed by the parties, the Marketing Development Funds (the "MDF") provided under this MDF Program Schedule shall only be used to support the Program Deliverables set forth below.</td></tr>
+            <tr><td align="left" colspan="6" class="data">B.   The parties shall meet quarterly to determine the subsequent period marketing activities to which the MDF shall be applied.  The MDF may only be applied to marketing activities approved by {!vendorRecord.Name}.</td></tr>
+            <tr><td align="left" colspan="6" class="data">C.   Dell will provide backup documentation supporting its reimbursement request.  {!vendorRecord.Name} may only request backup documentation consistent with the Proof of Compliance section below and relative to Dell's current or past immediate quarter's marketing activities.  {!vendorRecord.Name} reserves the right to deny any claims where required documentation for reimbursement is not available or is incomplete.</td></tr>
+            <tr><td align="left" colspan="6" class="data">D.   The Program shall be run at the sole discretion of {!vendorRecord.Name} and may be cancelled at any time on reasonable notice to Dell.}</td></tr>
+            <tr><td align="left" colspan="6" class="data">E.   {!vendorRecord.Name} reserves the right to audit, upon reasonable notice and at its sole expense, the Program's applicable supporting documentation, to the extent such documentation relates to {!vendorRecord.Name}'s payment of MDF.  The audit shall be conducted by a third party auditor from a national firm, which has been agreed to by the parties and shall be limited to Dell's current or immediate past quarter's marketing activities.</td></tr>
+        </table>
+        <br></br>
+
+        <table width="90%" align="center" class="Bdr">
+            <tr>
+                <td  colspan="2" class="data"><b>Fiscal Quarter/Year:</b></td>
+                <td class="data">{!marketingPlanRec.Fiscal_Quarter__c}</td>
+            </tr>
+            <tr>
+                <td  colspan="2" class="data"><b>Segment:</b></td>
+                <td class="data">See attached Marketing Plan and Program Detail Form(s)</td>
+            </tr>
+            <tr>
+                <td  colspan="2" class="data"><b>Program Description:</b></td>
+                <td class="data">To provide services at the request and sole discretion of {!vendorRecord.Name}.</td>
+            </tr>
+        </table>
+        <br></br>
+
+        <table width="90%" align="center" class="Bdr">
+            <tr>
+                <td  colspan="2" class="data"><b>Program Objective:</b></td>
+                <td class="data">To provide marketing services for {!vendorRecord.Name} as specified in program deliverables below.  </td>
+            </tr>
+            <tr>
+                <td  colspan="2" class="data"><b>Program Deliverables:</b></td>
+                <td class="data">The Program will include several events and activities to be executed by Dell between {!marketingPlanRec.Fiscal_Quarter__c}.
+                    Partner funds are intended for the following events / activities (see attached Marketing Plan and Program Detail Form(s) for a listing of specific deliverables), which may be replaced by other mutually agreed upon programs.
+                </td>
+            </tr>
+            <tr>
+                <td  colspan="2" class="data"><b>Partner Payment Details:</b></td>
+                <td class="data">Dell will invoice {!vendorRecord.Name} for the agreed upon amount of up to {!Marketing_Plan__c.Currency_Code__c} {!budgetedPrice*Marketing_Plan__c.Conversion_Rate__c}(budgeted amount OR {!marketingPlanRec.Volume_Based_Rule_Header__r.COGS__c}% of COGS.  Amounts will be due and payable to Dell as specified below:
+                    <br></br><br></br><br></br>
+                    <table width="90%" align="center" style="border-style:solid;border-width: 1px 1px 1px 1px;border-color: #000000;font-size:15px;">
+                        <tr>
+                            <td class="data"><b> Name </b></td>
+                            <td class="data"><b> Amount in $/Unit </b></td>
+                            <td class="data"><b> Dell Skus </b></td>
+                            <td class="data"><b> Mfg Part No </b></td>
+                            <td class="data"><b> Class </b></td>
+                            <td class="data"><b> Sub Class </b></td>
+                            <td class="data"><b> Effective Date </b></td>
+                        </tr>
+
+                            <apex:repeat value="{!RRLIList}" var="I">
+                                <tr>
+                                    <td class="data"> {!I.Name} </td>
+                                    <td class="data"> {!Marketing_Plan__c.Currency_Code__c}{!I.Amount__c*Marketing_Plan__c.Conversion_Rate__c} </td>
+                                    <td class="data"> {!I.Dell_SKU__c} </td>
+                                    <td class="data"> {!I.Mfg_SKU__c} </td>
+                                    <td class="data"> {!I.Class__c} </td>
+                                    <td class="data"> {!I.Sub_Class__c} </td>
+                                    <td class="data"> <apex:outputField value="{!I.Effective_Date_From__c}"/>  -
+                                          <apex:outputField value="{!I.Effective_Date_To__c}"/>
+                                    </td>
+                                </tr>
+                            </apex:repeat>
+
+                    </table>
+                    <br></br>
+                    Amounts will be due and payable to Dell as specified below:
+                    <br></br>
+                    <br></br>Make Check Payable/Remit To:<br></br>
+                    Dell Marketing, L.P.<br></br>
+                    c/o Dell USA L.P.<br></br>
+                    PO Box 676044<br></br>
+                    Dallas, TX 75267-6044<br></br>
+                    EFT PAYMENT INFORMATION:<br></br>
+                    Pay To: Dell USA L.P.<br></br>
+                    Routing:    043-000-096<br></br>
+                    Account:    1017304582<br></br>
+                    <br></br>
+                    Bank Address:   PNC Bank<br></br>
+                    c/o Dell USA L.P.<br></br>
+                    500 First Street<br></br>
+                    Pittsburgh, PA 15219<br></br>
+                    <br></br>
+                    Funding contribution to the Marketing Plan Program(s) will be paid upon completion of the attached program deliverables
+                    <br></br>
+                </td>
+            </tr>
+            <tr>
+                <td  colspan="2" class="data"><b>Proof of Compliance (POC) Details:</b></td>
+                <td class="data">See attached Program Detail Form(s) for Proof of Compliance details</td>
+            </tr>
+        </table>
+        <br></br>
+    </div>
+
+<br clear="all" style="page-break-before:always"/>
+
+<div class="divbreak">
+    <table width="90%" align="center" >
+        <tr>
+        <td align="left"><b>{!marketingPlanRec.Fiscal_Quarter__c}</b></td>
+        <!-- <td align="right"><b>Fax to:  S&amp;P Partner Programs</b></td></tr> -->
+        <td align="right"><b>{!Marketing_Plan__c.Reply_Method__c}</b></td></tr>
+        <!-- <tr><td align="left"><b></b></td>
+        <td align="right"><b>(512) 283-9289</b></td></tr> -->
+        <tr><td align="left"><b><i>Dell Software&amp;Peripherals Marketing Program</i></b></td>
+        <td align="right"></td></tr>
+    </table>
+
+
+<br></br>
+
+<table  width="90%" align="center">
+    <tr><td><b>{!vendorRecord.Name} Contact Information:</b></td></tr>
+</table>
+
+<table  width="90%" align="center" style="border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;">
+         <tr>
+            <td colspan="6" class="data">Name:{!marketingPlanRec.Primary_Marketing_Contact_Name__c}</td>
+         </tr>
+         <tr>
+            <td  colspan="6" class="data">Title:{!marketingPlanRec.Primary_Marketing_Contact_Title__c}</td>
+         </tr>
+         <tr>
+            <td  colspan="6" class="data">Address:{!marketingPlanRec.Primary_Marketing_Contact_Address__c}</td>
+         </tr>
+         <tr>
+            <td  colspan="4" class="data">City:{!marketingPlanRec.Primary_Marketing_Contact_City__c}</td>
+            <td class="data">State:{!marketingPlanRec.Primary_Marketing_Contact_State__c}</td>
+            <td class="data">Zip (Postal Code):{!marketingPlanRec.Primary_Marketing_Contact_Zip__c}</td>
+         </tr>
+         <tr>
+            <td  colspan="5" class="data">Phone:{!marketingPlanRec.Primary_Marketing_Contact_Phone__c}</td>
+            <td class="data">Email:{!marketingPlanRec.Primary_Marketing_Contact_E_mail__c}</td>
+         </tr>
+</table>
+<br></br>
+
+<table  width="90%" align="center">
+    <tr><td><b>{!vendorRecord.Name} Bill To Information:</b></td></tr>
+</table>
+
+<table  width="90%" align="center" style="border-style:solid;border-width: 1px 1px 1px 1px;border-color: #000000;">
+         <tr>
+            <td colspan="6" class="data">Name:{!marketingPlanRec.Billing_Contact_Name__c}</td>
+         </tr>
+         <tr>
+            <td  colspan="6" class="data">Title:{!marketingPlanRec.Billing_Contact_Title__c}</td>
+         </tr>
+         <tr>
+            <td  colspan="6" class="data">Address:{!marketingPlanRec.Bill_To_Address__c}</td>
+         </tr>
+         <tr>
+            <td  colspan="4" class="data">City:{!marketingPlanRec.Billing_City__c}</td>
+            <td class="data">State:{!marketingPlanRec.Billing_State__c}</td>
+            <td class="data">Zip (Postal Code):{!marketingPlanRec.Billing_Zip__c}</td>
+         </tr>
+         <tr>
+            <td  colspan="5" class="data">Phone:{!marketingPlanRec.Billing_Contact_Phone__c}</td>
+            <td class="data">Email:{!marketingPlanRec.Billing_Contact_Email__c}</td>
+         </tr>
+
+         <tr>
+            <td  colspan="6" class="data" style="font-size:12px">Is PO # required for invoicing?
+             Yes () No () If "Yes" , provide PO # : {!Marketing_Plan__c.Purchase_Order__c}</td>
+         </tr>
+</table>
+
+<br></br>
+<table  width="90%" align="center" style="border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;">
+    <tr><td><b>Price: ${!budgetedPrice} (budgeted amount)</b></td></tr>
+    <tr><td><b>Program Name:  See attached Marketing Plan and Program Detail Form(s)</b></td></tr>
+    <tr><td><b>Dell Contact:  {!IF(mdfContact.Name != null,'[','')}{!mdfContact.Name}{!IF(mdfContact.Email__c != null,',','')}{!mdfContact.Email__c}{!IF(mdfContact.Phone__c != null,',','')} {!mdfContact.Phone__c}{!IF(mdfContact.Name != null,']','')}</b></td></tr>
+</table>
+<br></br>
+
+<table  width="90%" align="center" style="border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;">
+         <tr>
+            <td align="left" colspan="6">IN WITNESS WHEREOF, the parties hereto have caused this program schedule to be executed by their duly authorized representatives. </td>
+         </tr>
+            <tr></tr>
+         <tr>
+            <td style="font-size:15px">AUTHORIZED SIGNATURE (Supplier):</td>
+             <td>_____________________________________________________________________________________________</td>
+         </tr>
+         <tr>
+            <td> </td>
+            <td>By:__________________________________________________________________________________________</td>
+         </tr>
+
+          <tr>
+            <td></td>
+            <td>_____________________________________________________________________________________________</td>
+         </tr>
+         <tr>
+            <td></td>
+            <td align="center">(Print name)</td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>_____________________________________________________________________________________________</td>
+         </tr>
+
+         <tr>
+            <td></td>
+            <td align="center">(Print title)</td>
+         </tr>
+        <br> </br>
+        <br> </br>
+         <tr>
+            <td style="font-size:15px">AUTHORIZED SIGNATURE (Dell):</td>
+             <td>{!Marketing_Plan__c.Vendor__r.Dell_Entity__c}</td>
+         </tr>
+         <tr>
+            <td> </td>
+            <td>By:__________________________________________________________________________________________</td>
+         </tr>
+          <tr>
+            <td></td>
+            <td>_____________________________________________________________________________________________</td>
+         </tr>
+         <tr>
+            <td></td>
+            <td align="center">(Print name)</td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>_____________________________________________________________________________________________</td>
+         </tr>
+
+         <tr>
+            <td></td>
+            <td align="center">(Print title)</td>
+         </tr>
+</table>
+</div>
+
+</body>
+</html>
+
+</apex:page>

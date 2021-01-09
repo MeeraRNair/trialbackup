@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Assignable__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(AND(Role__r.Is_Active__c = TRUE, User__r.IsActive = TRUE, Territory__r.Is_Active__c =TRUE, Is_Active__c = TRUE),&quot;Yes&quot;,
+
+IF(AND(Role__r.Is_Active__c = TRUE, User__r.IsActive = TRUE, Territory__r.Is_Active__c =FALSE),&quot;No:&quot; &amp; BR()&amp; &quot;Territory - Inactive&quot;,
+
+IF(AND(Role__r.Is_Active__c = FALSE, User__r.IsActive = TRUE, Territory__r.Is_Active__c =TRUE),&quot;No:&quot; &amp; BR()&amp; &quot;Role - Inactive&quot;,
+
+IF(AND(Role__r.Is_Active__c = TRUE, User__r.IsActive = FALSE, Territory__r.Is_Active__c =TRUE),&quot;No:&quot; &amp; BR()&amp; &quot;User - Inactive&quot;,
+
+IF(AND(Role__r.Is_Active__c = FALSE, User__r.IsActive = FALSE, Territory__r.Is_Active__c =FALSE),&quot;No:&quot; &amp; BR()&amp; &quot;Role, Territory and User - Inactive&quot;,
+
+IF(AND(Role__r.Is_Active__c = TRUE, User__r.IsActive = FALSE, Territory__r.Is_Active__c =FALSE), &quot;No:&quot; &amp; BR()&amp; &quot;Territory and User - Inactive&quot;,
+
+IF(AND(Role__r.Is_Active__c = FALSE, User__r.IsActive = FALSE, Territory__r.Is_Active__c =TRUE), &quot;No:&quot; &amp; BR()&amp; &quot;Role and User - Inactive&quot;, 
+
+IF(AND(Role__r.Is_Active__c = FALSE, User__r.IsActive = TRUE, Territory__r.Is_Active__c =FALSE),&quot;No:&quot; &amp; BR()&amp; &quot;Territory and Role - Inactive&quot;,
+&quot;No&quot;)
+)))))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Assignable</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,54 @@
+<apex:page showHeader="false" sidebar="false" standardController="Opportunity" extensions="VFCntrlr_GoalDealCreation" tabStyle="Opportunity">
+ <style>
+    #statusPanel{
+        text-align: left;
+        margin: 0 auto;
+        width: 600px;
+        border-style:none; 
+        z-index: 0;
+    }
+   
+    </style>
+
+    <script>
+    
+    function checkIE(){
+        var agent = window.navigator.userAgent;
+        var isIE = agent.indexOf("MSIE");
+        if (isIE > 0) 
+                return parseInt(agent.substring(isIE+ 5, agent.indexOf(".", isIE)));
+        else if (!!navigator.userAgent.match(/Trident\/7\./)) 
+                return 11;
+        else
+                return 0; //It is not IE
+    }
+    
+    
+        //var browserName = navigator.appName; //Commented as part of CR11822
+        
+        
+        
+
+        //if (browserName == "Microsoft Internet Explorer")
+        if(checkIE()>0) { 
+            window.onload = function() {getBrowserInfo();}
+        }
+        else {            
+            window.addEventListener("load", function() {unsupportedBrowser();}, false);           
+        }   
+    </script>     
+   
+    <apex:form id="GoalDealPage" rendered="{!errorMessage==null}">
+        <apex:actionFunction name="getBrowserInfo" id="getBrowserInfo" action="{!createGoalDeal}"/>        
+        <apex:actionFunction name="unsupportedBrowser" id="unsupportedBrowser" action="{!unsupportedBrowserWarning}"/>
+    </apex:form>
+    
+    <apex:form id="ErrorForm" rendered="{!errorMessage!=null}">       
+        <div id="statusPanel">
+            <apex:pageblock title="GOAL Deal Creation">        
+                <apex:pageMessage severity="ERROR" strength="3" title="GOAL Pricing Approval" escape="false" detail="{!errorMessage}" />         
+            </apex:pageblock>     
+        </div>  
+    </apex:form>
+
+</apex:page>

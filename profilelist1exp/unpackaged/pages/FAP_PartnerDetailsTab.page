@@ -1,0 +1,15 @@
+<apex:page showHeader="true" 
+    sidebar="false" 
+    standardStylesheets="true" controller="FAP_PartnerDetailsController" action="{!doOnLoad}">
+
+   <!--  <apex:outputPanel rendered="{!IF(termsConditionVal='English_Terms_Conditions',true,false)}">
+          <apex:image value="{!URLFOR($Resource.English_Terms_Conditions)}"  height="400px" />
+      </apex:outputPanel> -->
+
+   <!-- <iframe scrolling="auto" id="iframe" name="iframe" frameborder="0" src="{!$Page.PartnerDetails'}" width="100%" height="6000px"/> -->
+   <iframe scrolling="auto" id="iframe" name="iframe" frameborder="0" src="{!partnerDetailsURL}" width="100%" height="6000px"/> 
+
+
+
+   
+</apex:page>

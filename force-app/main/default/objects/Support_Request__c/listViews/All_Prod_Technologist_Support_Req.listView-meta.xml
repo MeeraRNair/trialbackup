@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Prod_Technologist_Support_Req</fullName>
+    <booleanFilter>(1 OR 2 OR 3)</booleanFilter>
+    <columns>Deal_ID__c</columns>
+    <columns>NAME</columns>
+    <columns>Engagement_Type__c</columns>
+    <columns>Opportunity__c</columns>
+    <columns>Request_meets_requirement__c</columns>
+    <columns>Accept_Request__c</columns>
+    <columns>Support_Status__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Support_Request__c.Request_Pre_Sales_Product_Technologist_Support</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Support_Request__c.Request_Pre_Sales_Product_Technologist_Support_IM</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Support_Request__c.Request_Pre_Sales_Product_Technologist_Support_SE</value>
+    </filters>
+    <label>All Prod Technologist Support Req</label>
+    <language>en_US</language>
+</ListView>

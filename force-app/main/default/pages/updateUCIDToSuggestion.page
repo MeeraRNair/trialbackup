@@ -1,0 +1,24 @@
+<apex:page showHeader="true" 
+			sidebar="true" 
+			standardController="Partner_Request__c"  
+			extensions="VFCntrlr_UpdateSuggestion"
+            action="{!updateSugg}">
+    <apex:form >
+        <apex:pageBlock > 
+            <apex:pageBlockSection title="Error Occured">  
+                <table align="center">
+                    <tr align="center">
+                        <td>
+                            <apex:pageMessages id="errorMSg"></apex:pageMessages>
+                        </td>
+                    </tr>
+                    <tr align="center">
+                        <td>
+                            <apex:commandButton action="{!goBacktoPRPage}"  value="Cancel"/>
+                        </td>
+                    </tr>
+                </table>
+            </apex:pageBlockSection>             
+        </apex:pageBlock>
+   </apex:form>
+</apex:page>

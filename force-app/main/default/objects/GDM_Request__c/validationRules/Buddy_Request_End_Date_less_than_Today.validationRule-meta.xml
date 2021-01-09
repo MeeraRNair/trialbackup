@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Buddy_Request_End_Date_less_than_Today</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(ISPICKVAL(Buddy_Access_Status__c,&apos;&apos;), RecordType.DeveloperName = &apos;Buddy_Access&apos;,Buddy_Access_End_Date__c &lt; Today())</errorConditionFormula>
+    <errorDisplayField>Buddy_Access_End_Date__c</errorDisplayField>
+    <errorMessage>Please select a future date that is, at minimum, one day beyond the Start Date.</errorMessage>
+</ValidationRule>

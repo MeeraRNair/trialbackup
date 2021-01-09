@@ -1,0 +1,23 @@
+<apex:page standardController="OEM_Change_Control__c" extensions="OEMChangeControlCntrl" standardStylesheets="true">
+      <apex:form id="theForm">
+        <apex:pageMessages id="msg" />
+        
+        
+        <apex:pageBlock title="">
+            <apex:pageBlockButtons > 
+                <apex:commandButton action="{!save}" value="Save"/> 
+                <apex:commandButton action="{!cancel}" value="Cancel"/> 
+            </apex:pageBlockButtons> 
+
+            <apex:pageBlockSection title="OEM Change Control Details" columns="2"> 
+                <apex:inputField value="{!changeControl.Revision__c}"/> 
+                <apex:inputField value="{!changeControl.Date__c}"/> 
+                <apex:inputField value="{!changeControl.Customer_approver__c}"/>
+                <apex:inputField value="{!changeControl.Schedule_Impact__c}"/> 
+                <apex:inputField value="{!changeControl.Change_details__c}"/> 
+            </apex:pageBlockSection> 
+
+        </apex:pageBlock> 
+
+    </apex:form>
+</apex:page>

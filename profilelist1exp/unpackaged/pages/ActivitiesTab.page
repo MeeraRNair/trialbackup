@@ -1,0 +1,34 @@
+<apex:page tabStyle="Activities__tab">
+<apex:sectionHeader title="Activities" subtitle="Home"/>
+<apex:includeScript value="/support/console/30.0/integration.js"/>
+
+<script>
+
+function showConsoleUrl(result) {
+    alert(result.success+'---'+result.consoleUrl);
+    sforce.console.openConsoleUrl(null, result.consoleUrl, true)
+}
+
+
+
+navigateToMass = function(){
+    /*if (sforce.console.isInConsole()) {
+    sforce.console.generateConsoleUrl('/apex/MassActivityUpdate', showConsoleUrl);
+    }*/
+    //Defect Fix - 218740 - error saying - Unsupported type Activity encountered in sales console. Dec 05
+    if (sforce.console.isInConsole()) {
+    	window.location.href = '/apex/MassActivityUpdate?isdtp=nv';
+    }else{
+        window.location.href = '/apex/MassActivityUpdate';
+    }
+}
+
+</script>
+  <apex:form >
+      <center><input type="button" class="btn" value="Mass Update" id="mass_update" onclick="navigateToMass();"/>  </center>
+  </apex:form>
+  
+<apex:enhancedList type="Activity" height="500" rowsPerPage="25" id="activityList" />
+
+
+</apex:page>

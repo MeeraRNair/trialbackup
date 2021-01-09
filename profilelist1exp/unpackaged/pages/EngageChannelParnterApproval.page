@@ -1,0 +1,111 @@
+<apex:page standardController="Opportunity" extensions="EngageChannelParnterApproval" action="{!showPopup}">
+    
+<style type="text/css">
+          .custPopup{
+                    background-color: white;
+                    border-width: 2px;
+                    border-style: solid;
+                    z-index: 9999;
+                    left: 50%;
+                    padding:10px;
+                    position: absolute;
+                    width: 500px;
+                    height: 60px;
+                    margin-left: -250px;
+                    top:100px;
+                    }
+          .popupBackground{
+                    background-color:black;
+                    opacity: 0.20;
+                    filter: alpha(opacity = 20);
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    top: 0;
+                    left: 0;
+                    z-index: 9998;
+                }
+          .closeButton {
+               float: center;
+               font-weight: bold;
+               font-size: 15px;
+               font-family:Quintessential;
+              background-color:black;
+               
+            }  
+            .closeButton1 {
+               float: right;
+            } 
+          .okButton {
+         //     font-weight: bold;
+               font-size: 14px;
+               font-family:Quintessential;
+              background-color:black;
+              // background-color:#B2CCCC ;
+               
+            }
+        .Validation{
+            font-weight: bold;
+            color:Red;
+        }
+        .boldStyle {
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .Bold{
+            font-size: 20px;
+            color:Red;
+        }
+        .Text{
+            font-size: 12px;
+        }
+        .Button {
+            font-weight: bold;
+            font-size: 15px;
+            font-family:Quintessential;
+            background-color:#B2CCCC ;
+        }
+    </style>
+    
+<!---- Added by Rajashekar kura  ::  Defect 4454190 For Exception Handling  --->
+   <apex:form id="myid">
+   
+     <apex:pageBlock rendered="{!bdisplayPopup1 }">
+                      <apex:outputPanel >
+          <apex:pageMessages />
+          <br/>
+           <apex:commandButton value="{!$Label.Deal_Auto_Approval_Back_Button}" action="{!cancel}"/>
+      </apex:outputPanel>
+       </apex:pageBlock>
+         <apex:outputPanel id="tstpopup" rendered="{!bdisplayPopup }">
+        <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!bdisplayPopup }"/>
+            <apex:outputPanel styleClass="custPopup" layout="block" rendered="{!bdisplayPopup }">
+     <!--       <apex:commandButton value="X" action="{!cancelOppAction}" styleClass="closeButton1" title="{!$Label.MDM_CloseButton}" reRender="tstpopup"/>  -->
+                
+                <div align="center" >
+               <apex:outputLabel value="{!$Label.Disti_alert_message}" rendered="{!bdisplayPopup2}"/><br/>  
+                <apex:outputLabel value="{!$Label.Engage_auto_approved}"/><br/><br/>              
+                <apex:commandButton value="{!$Label.Submit_For_Approval}" styleClass="btn" style="text-decoration:none;padding:4px;" action="{!saveOpp}" reRender="myid" status="saveStatus"/>&nbsp; 
+               <apex:actionStatus id="saveStatus">
+                    <apex:facet name="start">
+                        <apex:outputPanel >
+                            <img src="/img/loading32.gif" width="15" height="15" />
+                        </apex:outputPanel>            
+                    </apex:facet>
+                </apex:actionStatus>
+                <!--<apex:commandLink styleClass="btn" style="text-decoration:none;padding:4px;" action="{!saveOpp}"  value="{!$Label.continue}" onclick="this.disable=true;"/> -->
+           <!-- <apex:commandButton value="{!$Label.Add_Deal_Access}" styleClass="okButton" action="{!addDealAccess}" rendered="{!bdisplayPopup2}"/>  -->
+                <apex:commandLink target="_blank" styleClass="btn" style="text-decoration:none;padding:4px;" action="{!addDealAccess}" rendered="{!bdisplayPopup2}" value="{!$Label.Add_Deal_Access}" />&nbsp;
+                <apex:commandButton value="{!$Label.MDM_CloseButton}" styleClass="btn" style="text-decoration:none;padding:4px;" action="{!cancelOppAction}" reRender="tstpopup" status="saveStatus1"/>
+                <apex:actionStatus id="saveStatus1">
+                    <apex:facet name="start">
+                        <apex:outputPanel >
+                            <img src="/img/loading32.gif" width="15" height="15" />
+                        </apex:outputPanel>            
+                    </apex:facet>
+                </apex:actionStatus>
+                </div>
+            </apex:outputPanel>
+        </apex:outputPanel> 
+  </apex:form>
+</apex:page>

@@ -1,0 +1,36 @@
+<apex:page standardController="Account" sidebar="false" showHeader="false">
+    <apex:includeScript value="/soap/ajax/35.0/connection.js"/>
+    <apex:includeScript value="/soap/ajax/35.0/apex.js"/>  
+     <apex:includeLightning />
+    <div id="lightning" />
+    <script>
+    var mgId = "{!Account.Master_Group_Id__c}";
+    var accountName = "{!Account.Name}";
+    var ptId = "{!Account.Partner_Track__c}";
+    console.log(mgId);
+    function createReferral(){
+            console.log('about to call component');
+            $Lightning.use("c:SalesMotionContactsApp", function() {
+                $Lightning.createComponent("c:SalesMotionContacts",
+                {"masterGroupId" : mgId,
+                 "accName" : accountName,
+                 "partnerTrackId" : ptId},                      
+                "lightning",
+                function(component) {
+                $A.eventService.addHandler({ "event": "force:navigateToSObject", "handler" : visualForceFunction});
+                
+                
+                });
+            });
+    
+            var visualForceFunction = function(event){  
+            var myEventData1 = event.getParam("recordId");
+            sforce.one.navigateToSObject(myEventData1, "detail");
+            };
+        }
+        
+        if(mgId!='' && mgId!= undefined)
+            window.onload = createReferral; 
+    </script>
+    
+</apex:page>

@@ -1,0 +1,229 @@
+<apex:page standardController="S_P_Vendors__c" extensions="SnP_MSAdditionalInfoController">
+
+<style type = "text/css">
+
+.main{font: 120% "Lucida Grande", "Lucida Sans Unicode", "Trebuchet MS", sans-serif;padding: 0; margin: 0; border-collapse: collapse; color: #333; background: #F3F5F7;}
+
+.head{background: #0099CC; padding: 15px 10px; color: #FFFFFF; text-align: left; font-weight: normal; font-style: bold;}
+
+.activeTab{background: #FFFFFF; color: #000000; font-weight: normal;}
+
+.tabHead{background: #FFFFFF; color: #000000; font-weight: normal;}
+
+.tabHead:hover {background: #E6F6F6; color: #111;}
+
+.cols{padding: 10px; text-align: left;  border-bottom: 1px solid #E6E6E6; }
+
+.rows{background: #FFFFFF;}
+
+.rows:hover {background: #E6F6F6; color: #111;}
+
+.panelCenter { margin-left:auto; margin-right:auto;}
+
+.customPopup {
+    background-color: white;
+    border-style: solid;
+    border-width: 2px;
+    left: 20%;
+    padding: 10px;
+    position: absolute;
+    z-index: 9999;
+    /* These are the 3 css properties you will need to tweak so the pop 
+                            up displays in the center of the screen. First set the width. Then set 
+                            margin-left to negative half of what the width is. You can also add 
+                            the height property for a fixed size pop up.*/
+    
+    top: 20%;
+}
+
+
+
+</style>
+
+<apex:tabPanel id="MSAdditionalInfoTabs" width="1" contentStyle="background: #FFFFFF;" activeTabClass="activeTab" inactiveTabClass="tabHead" style="panelCenter">
+    
+    <apex:tab label="EA Detail" rendered="{!isThisEa}" >
+        <apex:form >
+            <apex:pageMessages ></apex:pageMessages>
+            <apex:dataTable value="{!addlInfoQuery}" var="ea" id="EATable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" rendered="{!(!checkEaProductsEmpty)}">
+                <apex:column >
+                    <apex:facet name="header" >EA Type</apex:facet>
+                    <apex:outputField value="{!ea.EA_Type__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Agreement Level</apex:facet>
+                    <apex:inputField value="{!ea.Agreement_Level__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >EA Year 1 Total</apex:facet>
+                    <apex:inputField value="{!ea.Total__c}" />
+                </apex:column>
+            </apex:dataTable>
+            
+            <apex:dataTable value="{!addlInfoQuery}" var="ea" id="EATable1" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" rendered="{!checkEaProductsEmpty}">
+                <apex:column >
+                    <apex:facet name="header" >EA Type</apex:facet>
+                    <apex:inputField value="{!ea.EA_Type__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Agreement Level</apex:facet>
+                    <apex:inputField value="{!ea.Agreement_Level__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >EA Year 1 Total</apex:facet>
+                    <apex:inputField value="{!ea.Total__c}" />
+                </apex:column>
+            </apex:dataTable>
+            
+            <br/><br/><apex:commandButton action="{!wizardStart}" value=" Next " />
+        
+        
+        </apex:form>
+    </apex:tab>
+    
+    <apex:tab label="Product Detail" rendered="{!isThisNotEa}">
+        
+        <apex:form >
+            <apex:pageMessages ></apex:pageMessages>
+            
+            <!-- <apex:dataTable value="{!prodSelQuery}" var="sipProdSelQuery" id="sipTable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" >-->
+            <apex:dataTable value="{!sipProducts}" var="sipProdSelQuery" id="sipTable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" >
+                <apex:column rendered="true">
+                    <apex:facet name="header" >SIP Type</apex:facet>
+                    <apex:outputText value="SIP" />
+                    <apex:inputField style="display: none;" value="{!sipProdSelQuery.Type__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SIP Deal Reg Type</apex:facet>
+                    <apex:inputField value="{!sipProdSelQuery.Additional_Product_Type__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >New Products Only</apex:facet>
+                    <apex:inputField value="{!sipProdSelQuery.New_Products_Only__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Quantity</apex:facet>
+                    <apex:inputField value="{!sipProdSelQuery.Quantity__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Unit Price</apex:facet>
+                    <apex:inputField value="{!sipProdSelQuery.Unit_Price__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Total</apex:facet>
+                    <apex:outputField value="{!sipProdSelQuery.Total__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SIP Incentive</apex:facet>
+                    <apex:outputField value="{!sipProdSelQuery.SIP_Incentive__c}" />
+                </apex:column>
+                
+                
+            </apex:dataTable>
+            
+            <!-- <br/><apex:commandButton value=" Add more products? " action="{!showPopup}" rerender="popup"/> -->
+            <apex:outputPanel >
+            Do you have more products for this Opportunity? Please enter number of rows to add and click OK:  
+            <apex:inputText id="noOfProductsTest" value="{!moreProd}" size="10" />
+            <!-- <apex:outputPanel onclick="test()" styleClass="rows"><b><u>OK</u></b></apex:outputPanel> -->
+            <a href="javascript:if (window.confirm('Are you sure?')) testSip();" style="font-weight:bold">OK</a>
+                  
+            </apex:outputPanel>
+            
+            <apex:outputpanel id="addSip">
+                <apex:outputpanel id="outSip" rendered="{!closeMoreProductSip}">
+                    <apex:dataTable value="{!sipAddlProducts}" var="sip" id="sipAddlTable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" >
+                        <apex:column rendered="true">
+                            <apex:facet name="header" >SIP Type</apex:facet>
+                            <apex:outputText value="SIP" />
+                            <apex:inputField style="display: none;" value="{!sip.Type__c}"/>
+                        </apex:column>
+                        <apex:column rendered="false">
+                            <apex:facet name="header" >SIP Type</apex:facet>
+                            <apex:inputField value="{!sip.Type__c}"/>
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >SIP Deal Reg Type</apex:facet>
+                            <apex:inputField value="{!sip.Additional_Product_Type__c}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >New Products Only</apex:facet>
+                            <apex:inputField value="{!sip.New_Products_Only__c}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >Quantity</apex:facet>
+                            <apex:inputField value="{!sip.Quantity__c}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >Unit Price</apex:facet>
+                            <apex:inputField value="{!sip.Unit_Price__c}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >Total</apex:facet>
+                            <apex:outputField value="{!sip.Total__c}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >SIP Incentive</apex:facet>
+                            <apex:outputField value="{!sip.SIP_Incentive__c}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >Delete_Product?</apex:facet>
+                            <apex:inputField value="{!sip.Remove__c}"  />
+                        </apex:column>
+                        
+                    </apex:dataTable>
+                </apex:outputpanel>
+            </apex:outputpanel>
+            <apex:actionFunction name="testSip" action="{!openMoreProductSip}" reRender="addSip, addButton" />
+            
+            
+            <br/><br/><apex:commandButton action="{!showFinalSIP}" value=" Next " />
+            <apex:outputpanel id="addButton">
+                <apex:outputpanel id="outButton" rendered="{!closeMoreProductSip}">
+                    <apex:commandButton value=" Delete Selected Products " onclick="return confirmRemoveAll();"/>
+                </apex:outputpanel>
+            </apex:outputpanel>
+            <apex:actionFunction name="deleteProd" action="{!deleteAddlProductsSip}" reRender="addSip"/>
+            <apex:actionFunction name="checkDeleteProd"  action="{!checkDeleteAddlProductsSip}" reRender="add" oncomplete="checkDel({!deleteCheck})"  />
+            <script type="text/javascript">
+                function checkDel(deleteCheck){
+                    var d = deleteCheck;
+                    
+                    if(d == 0){
+                        alert('Please select additional products to delete first.');
+                        return false;
+                    }    
+                        
+                    else{
+                        if(confirm('Are you sure?')) {
+                            deleteProd();
+                            return false;
+                        }
+                        return false;
+                    }  
+                }
+                function confirmRemoveAll() {
+                    <!--checkDeleteProd();-->
+                    checkDeleteProd();
+                    return false;
+                      
+                    
+                        
+                }
+            </script>
+            <!-- <apex:outputpanel id="showDelButton">
+                <apex:outputPanel id="hideDelButton" rendered="{!closeDelButtonSip }">
+                    <apex:commandButton value=" Delete Selected Products " onclick="return confirmRemoveAll();"/>
+                </apex:outputPanel>
+            </apex:outputpanel>
+            <apex:actionFunction name="showDelete" action="{!openDelButtonSip}" reRender="showDelButton"/> -->
+            
+            
+            
+        </apex:form>
+        
+    </apex:tab>
+    
+</apex:tabPanel>
+
+</apex:page>

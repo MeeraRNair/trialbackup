@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>New_Idea_Intake</fullName>
+    <columns>CREATED_DATE</columns>
+    <columns>Status__c</columns>
+    <columns>NAME</columns>
+    <columns>Original_Requester__c</columns>
+    <columns>Requested_on_behalf_of__c</columns>
+    <columns>Requesting_organization__c</columns>
+    <columns>Workstream__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>New</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Idea_Intake__c.Idea</value>
+    </filters>
+    <label>New Idea Intake</label>
+    <language>en_US</language>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
+</ListView>

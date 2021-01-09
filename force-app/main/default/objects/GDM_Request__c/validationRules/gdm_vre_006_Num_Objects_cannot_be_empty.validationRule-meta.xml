@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>gdm_vre_006_Num_Objects_cannot_be_empty</fullName>
+    <active>true</active>
+    <description>If DLR is selected No of Objects field cannot be empty</description>
+    <errorConditionFormula>( ISBLANK( Number_of_Objects__c ) || Number_of_Objects__c &lt;=0) &amp;&amp; TEXT( Type_of_Request__c ) = &apos;DLR&apos;</errorConditionFormula>
+    <errorDisplayField>Number_of_Objects__c</errorDisplayField>
+    <errorMessage>(006) If DLR is selected, the No of Objects must be filled in with a value greater than or equal to 1.</errorMessage>
+</ValidationRule>

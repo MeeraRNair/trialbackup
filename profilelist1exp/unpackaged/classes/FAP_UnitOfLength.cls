@@ -1,0 +1,1 @@
+global enum FAP_UnitOfLength {MILES,KILOMETERS}

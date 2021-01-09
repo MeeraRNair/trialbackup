@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>POP_Status_Reason__c</fullName>
+    <externalId>false</externalId>
+    <label>POP Status Reason</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>POP_Status__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>No POP Applies</fullName>
+                <default>false</default>
+                <label>No POP Applies</label>
+            </value>
+            <value>
+                <fullName>Vendor Dissatisfied with Program</fullName>
+                <default>false</default>
+                <label>Vendor Dissatisfied with Program</label>
+            </value>
+            <value>
+                <fullName>Cancelled by PM / Segment</fullName>
+                <default>false</default>
+                <label>Cancelled by PM / Segment</label>
+            </value>
+            <value>
+                <fullName>Cancelled by Vendor</fullName>
+                <default>false</default>
+                <label>Cancelled by Vendor</label>
+            </value>
+            <value>
+                <fullName>Vendor Absent – Charge</fullName>
+                <default>false</default>
+                <label>Vendor Absent – Charge</label>
+            </value>
+            <value>
+                <fullName>Program Full</fullName>
+                <default>false</default>
+                <label>Program Full</label>
+            </value>
+            <value>
+                <fullName>Program Replaced</fullName>
+                <default>false</default>
+                <label>Program Replaced</label>
+            </value>
+            <value>
+                <fullName>Vendor Missed Deadline</fullName>
+                <default>false</default>
+                <label>Vendor Missed Deadline</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Executed</controllingFieldValue>
+            <valueName>No POP Applies</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Executed</controllingFieldValue>
+            <valueName>Vendor Dissatisfied with Program</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Executed</controllingFieldValue>
+            <controllingFieldValue>Not Executed</controllingFieldValue>
+            <valueName>Vendor Absent – Charge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Executed</controllingFieldValue>
+            <valueName>Cancelled by PM / Segment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Executed</controllingFieldValue>
+            <valueName>Cancelled by Vendor</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Executed</controllingFieldValue>
+            <valueName>Program Full</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Executed</controllingFieldValue>
+            <valueName>Vendor Missed Deadline</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

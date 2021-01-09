@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Role_Territory_or_Group_cannot_be_change</fullName>
+    <active>true</active>
+    <description>Role, Territory and Group in the ‘Territory Sales User Assignment’ can not be changed once the record is saved</description>
+    <errorConditionFormula>ISCHANGED( Role__c ) || ISCHANGED( Territory__c ) || ISCHANGED( Group__c)</errorConditionFormula>
+    <errorMessage>Role, Territory or Group cannot be changed once the record is saved.</errorMessage>
+</ValidationRule>

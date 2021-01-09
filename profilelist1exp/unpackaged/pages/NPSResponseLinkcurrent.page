@@ -1,0 +1,9 @@
+<apex:page standardController="Contact" showHeader="false" sidebar="false" >
+    <apex:outputLink target="_blank" style="font-family: arial; font-size: 12px; color: black" 
+                                     value="https://report3.ccsurvey.com/login/sfentry.pl?session={!GETSESSIONID()}&server={!$Api.Enterprise_Server_URL_90}&owner={!Contact.Account.OwnerId}&username={!$User.Username}&organizationid={!$Organization.Id}&version=3&type=dashboard1&domain=dell&model=SFDC.ContactCurrent&contactid={!Contact.Id}" 
+                                     title="Please note, it will take on average 1 minute for SFDC to communicate with the NPS server">
+                                     
+        Current NPS Loyalty Responses
+         
+    </apex:outputLink>
+</apex:page>

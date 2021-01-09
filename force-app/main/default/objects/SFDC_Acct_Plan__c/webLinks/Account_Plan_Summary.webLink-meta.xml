@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_Plan_Summary</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Account Plan Summary</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>function showBox() {
+
+var box = new parent.SimpleDialog(&quot;helder&quot;+Math.random(), true);
+parent.box = box;
+
+box.createDialog();
+box.setWidth(1000);
+
+box.setContentInnerHTML(&quot;&lt;table width=\&quot;970\&quot; height=\&quot;20\&quot; cellpadding=\&quot;4\&quot; cellspacing=\&quot;0\&quot; border=\&quot;0\&quot; style=\&quot;border:1px #CC3300 solid;\&quot;&gt;&lt;tr&gt;&lt;td bgcolor=&apos;#f6a828&apos; width=\&quot;73%\&quot; style=\&quot;font-family:verdana,arial;font-size:10pt;font-weight:bold;color:#FFFFFF\&quot;&gt;Account Plan Summary&lt;/td&gt;&lt;td bgcolor=&apos;#f6a828&apos; width=\&quot;27%\&quot; style=\&quot;font-family:verdana,arial;font-size:8pt;color:#FFFFFF\&quot;&gt;&lt;a href=01ZA0000000WZze target=\&quot;_blank\&quot;&gt;WW Account Planning Dynamic Dashboard&lt;/a&gt;&lt;/td&gt;&lt;td bgcolor=&apos;#f6a828&apos; width=\&quot;15%\&quot; align=\&quot;right\&quot;&gt;&lt;a href=\&quot;#\&quot; onclick=\&quot;box.hide();\&quot; style=\&quot;font-weight:bold;font-family:verdana,arial;font-size:10pt;color:#ffffff;text-decoration:none;\&quot;&gt;X&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/br&gt;&lt;iframe src =\&quot;/apex/AccountPlanSummary?id={!SFDC_Acct_Plan__c.Id}\&quot; height=\&quot;460\&quot; width=\&quot;970\&quot; frameborder=\&quot;0\&quot; style=\&quot;border:none; width:970px; margin-left:0; margin-right: auto; height:460px;overflow-x:hidden;\&quot;&gt;&lt;/iframe&gt;&quot;);
+
+box.setupDefaultButtons();
+box.show();
+}
+showBox();</url>
+</WebLink>

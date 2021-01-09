@@ -1,0 +1,210 @@
+<apex:page controller="UploadQuarterProductsController" lightningStylesheets="true">
+    
+        <!-- Define Tab panel .css styles  -->
+        <apex:stylesheet value="/sCSS/21.0/sprites/1297816277000/Theme3/default/gc/versioning.css" />   
+        <apex:stylesheet value="/sCSS/21.0/sprites/1297816277000/Theme3/default/gc/extended.css" />
+        <style>
+            .activeTab {background-color: #236FBD; color:white; background-image:none}
+            .inactiveTab { background-color: lightgrey; color:black; background-image:none}
+        </style>
+                
+        <!-- Create Tab panel -->
+        <apex:tabPanel switchType="client" selectedTab="uploadFile" id="AccountTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab" styleClass="theTabPanel" > 
+            
+            <!-- Download File Content  -->
+            <apex:tab label="Download File" name="downloadFile" id="tabDownload">
+             <apex:form id="fm">
+             <apex:actionRegion >
+             
+            <apex:pagemessages id="errormsgId"/>
+                <apex:pageBlock title="Select Products to update">
+                    
+                    <apex:pageBlockSection columns="2">
+                        <apex:inputField value="{!rebateReqObj.Start_Date__c}" />
+                        <apex:inputField value="{!rebateReqObj.End_Date__c}" />
+
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Client / Enterprise" />
+                            <apex:selectList value="{!search_clientEnter}" size="1">
+                                <apex:selectOption itemValue="None" itemLabel="--None--"/>
+                                <apex:selectOption itemValue="Client" itemLabel="Client"/>
+                                <apex:selectOption itemValue="Enterprise" itemLabel="Enterprise"/>
+                            </apex:selectList> 
+                        </apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="System Partner Name" />
+                            <apex:selectList value="{!search_partnerName}" size="1">
+                                <apex:selectOption itemValue="None" itemLabel="--None--"/>
+                                <apex:selectOption itemValue="Intel" itemLabel="Intel"/>
+                                <apex:selectOption itemValue="Nvidia" itemLabel="Nvidia"/>
+                                <apex:selectOption itemValue="Brocade" itemLabel="Brocade"/>
+                                <apex:selectOption itemValue="Mellanox" itemLabel="Mellanox"/>
+                                <apex:selectOption itemValue="Broadcom/Emulex" itemLabel="Broadcom/Emulex"/>
+                                <apex:selectOption itemValue="AMD" itemLabel="AMD"/>
+                                <apex:selectOption itemValue="microsoft" itemLabel="Microsoft"/>
+                                <apex:selectOption itemValue="Qlogic/Cavium" itemLabel="Qlogic/Cavium"/>
+                                <apex:selectOption itemValue="Qualcomm" itemLabel="Qualcomm"/>
+                            </apex:selectList> 
+                        </apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Region" />
+                            <apex:selectList value="{!search_Region}" size="1">
+                                <apex:selectOption itemValue="None" itemLabel="--None--"/>
+                                <apex:selectOption itemValue="GLOBAL" itemLabel="GLOBAL"/>
+                                <apex:selectOption itemValue="APJ" itemLabel="APJ"/>
+                                <apex:selectOption itemValue="LATAM" itemLabel="LATAM"/>
+                                <apex:selectOption itemValue="EMEA" itemLabel="EMEA"/>
+                                <apex:selectOption itemValue="NA" itemLabel="NA"/>
+                            </apex:selectList> 
+                        </apex:pageBlockSectionItem>
+                         
+                    </apex:pageBlockSection>
+
+                    <apex:pageBlockButtons location="bottom">
+                        <apex:commandButton value="Search" action="{!searchProducts}" reRender="tableId, errormsgId" status="statusId"/>
+                        <apex:commandButton value="Download" action="{!exportAll}" status="statusId"/>
+                        <apex:actionStatus id="statusId" >
+                            <apex:facet name="start" >
+                              <img src="/img/loading.gif" />                    
+                            </apex:facet>
+                        </apex:actionStatus>
+                    </apex:pageBlockButtons>
+                </apex:pageBlock>
+
+                <apex:outputPanel id="tableId" > 
+                    <apex:pageBlock rendered="{!prodsSize > 0}" >
+                        <apex:outputText rendered="{!prodsSize > 1000}" > 
+                            Below results display 1000 records out of {!prodsSize}, It gives you complete result in Excel file once you downloads.
+                        </apex:outputText>
+                        <apex:pageBlockSection columns="1" >
+                            
+                            <apex:stylesheet value="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'css/jquery.dataTables.css')}"/>
+                            <style type="text/css">
+                                .sorting {
+                                    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_both.png') }') no-repeat center right !important;
+                                    padding-right: 20px !important;
+                                }
+                                .sorting_asc {
+                                    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_asc.png') }') no-repeat center right !important;
+                                    padding-right: 20px !important;
+                                }
+                                .sorting_desc {
+                                    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_desc.png') }') no-repeat center right !important;
+                                    padding-right: 20px !important;
+                                }
+                                .sorting_asc_disabled {
+                                    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_asc_disabled.png') }') no-repeat center right !important;
+                                    padding-right: 20px !important;
+                                }
+                                .sorting_desc_disabled {
+                                    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_desc_disabled.png') }') no-repeat center right !important;
+                                    padding-right: 20px !important;
+                                }
+                                table.dataTablee tr.odd { background-color: white;border-bottom-width:1px }
+                                table.dataTablee tr.even { background-color: white;border-bottom-width:1px }
+                                .bPageBlock .list .last>td { border-bottom-width:1px }
+                                .apexp .bPageBlock .detailList .list .last td { border-bottom-width:1px }
+                                table.dataTablee tr.odd td.sorting_1 { background-color: white; }
+                                table.dataTablee tr.odd td.sorting_2 { background-color: white; }
+                                table.dataTablee tr.odd td.sorting_3 { background-color: white; }
+                                table.dataTablee tr.even td.sorting_1 { background-color: white; }
+                                table.dataTablee tr.even td.sorting_2 { background-color: white; }
+                                table.dataTablee tr.even td.sorting_3 { background-color: white; }
+                                .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate {
+                                    padding: 3px;
+                                }
+                             </style>
+                  <div styleClass= "pbBody">
+                            <apex:pageBlockTable value="{!produtSearchResults}" var="prod" id="prodResultId" styleClass="dataTablee">
+                                <apex:column value="{!prod.Alliance_Rebate_Request__r.Name }"/>
+                                <apex:column value="{!prod.CreatedDate }"/>
+                                <apex:column value="{!prod.Alliance_Rebate_Request__r.Client_Enterprise__c }"/>
+                                <apex:column value="{!prod.Alliance_Rebate_Request__r.System_Partner_Name__c }"/>
+                                <apex:column value="{!prod.Alliance_Rebate_Request__r.Region__c }"/>
+                                <apex:column value="{!prod.Quantity_Approved__c }"/>
+                                <apex:column value="{!prod.Quantity_Claimed__c }"/>
+                                <apex:column value="{!prod.Price_Requested__c }"/>
+                                <apex:column value="{!prod.Cost_Per_Unit__c }"/>
+                                 <apex:column value="{!prod.Start_Date__c }"/>
+                                <apex:column value="{!prod.End_Date__c }"/>
+                                <apex:column value="{!prod.Alliance_Rebate_Request__r.Additional_Sales_Person_Email_2__c }"/>
+                            </apex:pageBlockTable>
+                            </div>
+                            <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'js/jquery.js')}"></script>
+                            <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'js/jquery.dataTables.js')}"></script>
+                            <script type="text/javascript" language="javascript">
+                              var j$ = jQuery.noConflict();
+                                j$('table.dataTablee').dataTable({
+                                  sPaginationType: "full_numbers"
+                              }); 
+                            </script>
+                
+                         </apex:pageBlockSection>
+                    </apex:pageBlock>
+               </apex:outputPanel>
+                
+                </apex:actionRegion>
+            </apex:form>
+            </apex:tab>
+            
+            <!-- Upload File Content -->
+            <apex:tab label="Upload File" name="uploadFile" id="tabUpload">
+            <apex:form id="fm1">
+            <apex:actionRegion >
+                <html>
+                  <head>
+                  </head>
+                 <body>      
+                    <apex:pagemessages />
+                    <apex:pageBlock title="Mass Upload Quarterly Updates">            
+                    <table>
+                        <tr>
+                            <td>
+                                <strong>1.</strong>
+                            </td>
+                            <td>
+                                <strong>Select the File</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>Click the Choose File button to upload the file.</td>
+                        </tr>
+                        <tr style=" background-color: white;">
+                            <td>&nbsp;</td>
+                            <td style="padding-bottom: 1em">
+                                 <apex:inputFile value="{!csvFileBody}"  filename="{!csvAsString}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>2.</strong>
+                            </td>
+                            <td>
+                                <strong>Click the "Update Rebate Request Products" button.</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>
+                            <apex:actionRegion >
+                                <apex:commandButton value="Update Rebate Request Products" action="{!uploadCSVFile}" reRender="fm1"/>
+                            </apex:actionRegion>
+                            </td>
+                        </tr>
+                    </table>
+                    </apex:pageBlock>
+                </body>
+               </html>
+               </apex:actionRegion>
+               </apex:form>
+            </apex:tab> 
+            
+        </apex:tabPanel> 
+                  
+</apex:page>

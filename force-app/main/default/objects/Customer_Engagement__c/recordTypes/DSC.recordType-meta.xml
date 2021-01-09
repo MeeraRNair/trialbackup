@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DSC</fullName>
+    <active>true</active>
+    <description>Use this record type for: Technical briefing, Hands-On Environment, Design Sessions and Proof of Concepts. Formerly Solution Deep Dive</description>
+    <label>Dell Solution Centers</label>
+    <picklistValues>
+        <picklist>Account_Region__c</picklist>
+        <values>
+            <fullName>APJ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EMEA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>US%2FCAN</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Answer1__c</picklist>
+        <values>
+            <fullName>Agree</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disagree</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Neutral</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Strongly Agree</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Strongly Disagree</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Answer2__c</picklist>
+        <values>
+            <fullName>Agree</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disagree</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Neutral</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Strongly Agree</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Strongly Disagree</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Answer3__c</picklist>
+        <values>
+            <fullName>Agree</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disagree</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Neutral</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Strongly Agree</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Strongly Disagree</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>BU__c</picklist>
+        <values>
+            <fullName>CSMB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Public</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Briefing_Tier__c</picklist>
+        <values>
+            <fullName>Gold</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Platinum</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Silver</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Cancel_Request__c</picklist>
+        <values>
+            <fullName>Cancel Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Change Request</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Content_on_Account_Plan__c</picklist>
+        <values>
+            <fullName>Extremely Dissatisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Extremely Satisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Somewhat Dissatisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Somewhat Satisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Undecided</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Customer_Type__c</picklist>
+        <values>
+            <fullName>Onsite Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Remote Customer</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Engagement_Delivery__c</picklist>
+        <values>
+            <fullName>Face to face</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Telephone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Video Conference</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Web Conference</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Engagement_on_Customer_Call__c</picklist>
+        <values>
+            <fullName>Extremely Dissatisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Extremely Satisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Somewhat Dissatisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Somewhat Satisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Undecided</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Engagement_on_Presenter_Call__c</picklist>
+        <values>
+            <fullName>Extremely Dissatisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Extremely Satisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Somewhat Dissatisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Somewhat Satisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Undecided</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Event_Category__c</picklist>
+        <values>
+            <fullName>Internal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Meeting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non-standard</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Event_Status__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Assigned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Canceled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Executed by EMC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>On Site</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requested</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scoping</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SoW Delivered</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Event_Type_Changed_To__c</picklist>
+        <values>
+            <fullName>Architectural Design Session</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing %26 Analyst Events</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proof of Concept</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Training</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Event_Type__c</picklist>
+        <values>
+            <fullName>Architectural Design Session</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Briefing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing %26 Analyst Events</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proof of Concept</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Training</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Highest_Customer_Attendee__c</picklist>
+        <values>
+            <fullName>CXO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manager and below</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VP</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Knowledge_of_Account__c</picklist>
+        <values>
+            <fullName>Extremely Dissatisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Extremely Satisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Somewhat Dissatisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Somewhat Satisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Undecided</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>NDA__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Overall_Engagement__c</picklist>
+        <values>
+            <fullName>Extremely Dissatisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Extremely Satisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Somewhat Dissatisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Somewhat Satisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Undecided</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Participation_on_Account_Call__c</picklist>
+        <values>
+            <fullName>Extremely Dissatisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Extremely Satisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Somewhat Dissatisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Somewhat Satisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Undecided</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Potential_for_case_study__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_for_Cancellation__c</picklist>
+        <values>
+            <fullName>AE decided to host outside the EBC%2FDSC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Analyst canceled due to no show to calls</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Appropriate customers or Dell participants unavailable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Associated opportunity won%2Flost%2C engagement no longer requirement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Budget Cuts%2FTravel Restrictions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Center not available in required timeframe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Could not get commitment from customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Emergency</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DSC cannot provide required technical resources</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Date Changed%2C new date not known</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Duplicate request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incomplete Information Submitted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>On Waiting List%2C could not get moved into the center</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Trade_Compliant__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -1,0 +1,141 @@
+<apex:page standardController="Lead" extensions="CMAP_SubmitSingleLeadController" lightningStylesheets="true">
+     <style>
+        .errorStyle {
+            font-Weight:bold;
+            color: #071019;
+        }
+        .alligntext {
+            allign:Center;
+        }
+     </style>
+        
+    <apex:form >
+         <apex:pageBlock rendered="{!ShowErrorMsg}" >
+              <apex:pagemessages ></apex:pagemessages>
+        </apex:pageBlock>
+        <apex:pageBlock rendered="{!ShowSuccessmsg}" >
+              <apex:pagemessages escape="false"></apex:pagemessages>
+        </apex:pageBlock> 
+        <apex:pageBlock rendered="{!showFirstPage}" mode="edit">  
+           
+            <apex:outputText value="{!$Label.CMAP_Submit_Lead_for} - {!campName}: {!$Label.CMAP_Step_1_of_2}" styleClass="errorStyle"/>
+            <br/>
+            <br/>
+            <apex:pageBlockSection columns="2">
+                <apex:outputPanel id="custPanel" >
+                <apex:pageBlockSection rendered="{!isEndCust}">
+                    <apex:outputField value="{!ldObj.Search_My_Customer__c}" />
+                </apex:pageBlockSection>
+                <apex:actionRegion rendered="{!notEndCust}">
+                    <apex:pageBlockSection columns="1">
+                         <apex:inputField value="{!ldObj.Search_My_Customer__c}">
+                         <apex:actionSupport event="onchange" reRender="contactPanel, CompanyDetails, ContactDetails" status="myCust" action="{!populateCompanyInfo}"/>
+                             <!--<apex:actionStatus id="myCust" startText="Loading..." layout="inline">
+                                 <apex:facet name="start" >
+                                     <apex:image value="/img/loading32.gif" alt="Loading..."/> 
+                                 </apex:facet>
+                             </apex:actionStatus>-->
+                      </apex:inputField>
+                   </apex:pageBlockSection>
+                </apex:actionRegion>
+                </apex:outputPanel>
+                <apex:outputPanel id="contactPanel" >
+                
+                    <apex:pageBlockSection rendered="{!isEndCust}">
+                     
+                        <apex:outputField value="{!ldObj.Search_My_Customer_Contact__c}"/>
+                        
+                    </apex:pageBlockSection>
+                    <apex:actionRegion rendered="{!notEndCust}">
+                        <apex:pageBlockSection >
+                            <apex:inputField value="{!ldObj.Search_My_Customer_Contact__c}">
+                            <apex:actionSupport event="onchange" reRender="ContactDetails,contactPanel" status="myCon" action="{!populateContactInfo}"/> 
+                             <!-- <apex:actionStatus id="myCon" startText="Loading..." layout="inline">
+                                 <apex:facet name="start" >
+                                     <apex:image value="/img/loading32.gif" alt="Loading..."/> 
+                                 </apex:facet>
+                            </apex:actionStatus>  --> 
+                            </apex:inputField>
+                       </apex:pageBlockSection>
+                   </apex:actionRegion>
+                </apex:outputPanel>
+            </apex:pageBlockSection>            
+            <apex:pageBlockSection title="{!$Label.CMAP_End_User_Company_Details}" columns="2" id="CompanyDetails">
+                <apex:inputField value="{!mylead.Company}" required="TRUE"/>
+    
+                <apex:inputField value="{!mylead.Country}" required="TRUE" />
+                <apex:inputField value="{!mylead.Website}"/>
+                <apex:inputField value="{!mylead.Street}"/>
+                <apex:inputField value="{!mylead.Industry}"/>
+                <apex:inputField value="{!mylead.City}"/>
+                <apex:inputField value="{!mylead.Employees__c}"/>
+                <apex:inputField value="{!mylead.State}"/>
+                <apex:inputField value="{!mylead.AnnualRevenue}"/>
+               
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="{!$Label.CMAP_End_User_Contact_Details}" columns="2" id="ContactDetails">
+                <apex:inputField value="{!mylead.Salutation}"/>
+                <!--Ver2.0: Code Start: Make Email optional
+                <apex:inputField value="{!mylead.Email}" required="TRUE"/>-->
+                <apex:inputField value="{!mylead.Email}" />
+                <!-- Ver2.0: Code End-->
+                <apex:inputField value="{!mylead.FirstName}" required="TRUE" />
+                <apex:inputField value="{!mylead.MobilePhone}"/>
+                <apex:inputField value="{!mylead.LastName}" required="TRUE"/>
+                <apex:inputField value="{!mylead.Fax}"/>
+                <apex:inputField value="{!mylead.Title}"/>
+                <apex:inputField value="{!mylead.Phone}"/>
+                <apex:inputField value="{!mylead.Save_Contact_Details_for_selected_Custom__c}" rendered="{!showSaveContactCheckbox}"/> 
+            </apex:pageBlockSection>
+            <apex:pageblockButtons location="bottom">
+               <apex:commandButton value="{!$Label.CMAP_Next}" action="{!nextButton}"/>
+            </apex:pageblockButtons>
+        </apex:pageBlock> 
+        <!-- Display Step 2 Page -->
+        <apex:pageBlock rendered="{!showSecondPage}" >  
+            <apex:outputText value="{!$Label.CMAP_Submit_Lead_for} - {!campName}: {!$Label.CMAP_Step_2_of_2}" styleClass="errorStyle"/>
+            <br/>
+            <br/>
+            <apex:pageBlockSection title="{!$Label.CMAP_Lead_Topic_Of_Interest}" columns="2">
+                <apex:inputField value="{!mylead.Solution_Type__c}" style="Width:50%"/>
+                <!--<apex:inputField value="{!mylead.End_user_Productivity__c}" />-->
+                <apex:inputField value="{!mylead.Solution_Scope__c}" style="Width:50%"/>
+                <br/>
+                <!-- FR 7.2 To Remove IT process Simplification field from all PLs
+                <apex:inputField value="{!mylead.IT_Process_Simplification__c}"/> -->
+                <!--<apex:inputField value="{!mylead.Data_Center_Optimization__c}" />-->
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="{!$Label.CMAP_Additional_Information}" columns="2">
+                <apex:outputText label="{!$Label.CMAP_Campaign_Vehicle}" value="{!campVehicle}" style="Width:45%"/>
+                <apex:inputField value="{!mylead.Purchase_Timeframe__c}" style="Width:50%"/>
+                <apex:inputField value="{!mylead.Product_Focus__c}"/>
+                <apex:inputField value="{!mylead.Operating_System__c}" style="Width:50%"/>
+                <apex:inputField value="{!mylead.Focus_LOB__c}"/>
+                <apex:inputField value="{!mylead.Decision_Making_Role__c}" style="Width:50%"/>
+                <apex:inputField value="{!mylead.Budget__c}" style="Width:45%"/>
+                <apex:inputField value="{!mylead.Total_Expected_Dell_Revenue__c}" style="Width:49%"/>
+                <apex:inputField value="{!mylead.Budget_Range__c}" style="Width:44%"/>
+                <apex:inputField value="{!mylead.Lead_Score__c}" style="Width:50%"/>
+                <apex:inputField value="{!mylead.Solution_Provider_can_contact_me__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="{!$Label.CMAP_Opt_In_Out_Comments}" columns="2">
+                <apex:inputField value="{!mylead.Lead_Email_Opt_In__c}" style="Width:5%"/>
+                <apex:inputField value="{!mylead.Lead_Mail_Opt_In__c}"/>
+                <apex:inputField value="{!mylead.Lead_Phone_Opt_In__c}"/>
+                <apex:inputField value="{!mylead.Lead_Fax_Opt_In__c}"/>
+                <apex:inputField value="{!mylead.Sales_Comments__c}" style="Width:95%" />
+                <!-- defect 80684: comment marketing comment field from VF page as per QH 8284
+                <apex:inputField value="{!mylead.Marketing_Comments__c}" style="Width:95%"/>
+                -->
+                <br/>
+                <apex:inputField value="{!mylead.Questions_Comments__c}" style="Width:95%"/>
+            </apex:pageBlockSection>
+            
+            <apex:pageblockButtons location="bottom">
+               <apex:commandButton value="{!$Label.CMAP_Previous}" action="{!previousButton}"/>
+               <apex:commandButton value="{!$Label.CMAP_Submit}" action="{!submitButton}"/>
+            </apex:pageblockButtons>
+        </apex:pageBlock> 
+       
+    </apex:form>
+</apex:page>

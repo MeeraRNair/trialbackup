@@ -1,0 +1,37 @@
+<apex:page standardController="Customer_Engagement__c" extensions="Customer_Engagements_DSCcontroller" showHeader="true"  id="thePage"   sidebar="false">   
+ <apex:form id="theForm">
+ 
+  <apex:pageBlock >   
+        <apex:outputText style="font-size:13px;font-weight:bold" value="Thank you for scheduling a Customer Solution Center engagement."/><br/>
+        <apex:outputText style="font-size:13px;font-weight:bold" value="Please begin by choosing your preferred event type and global Solution Center,
+        then click on Continue to complete the request form."/>
+  </apex:pageBlock>
+  
+  <apex:pageBlock id="thePb">
+  <apex:pageBlockSection columns="1">
+   <apex:outputPanel id="asd">
+       <apex:pageMessage summary="{!err}" severity="FATAL" strength="3"  rendered="{!showHideErr}"/>
+   </apex:outputPanel>
+   <br/>
+       <apex:pageBlockSectionItem >
+        <apex:outputLabel value="Event Type : " styleClass="fontstyle" style="height:10px;width:250px"/>   
+        <apex:InputField label="Event Type :" value="{!customerEng.Event_Type__c}" id="eventType" style="width:250px"   />
+       </apex:pageBlockSectionItem>
+       
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Site :  " for="site" styleClass="fontstyle" style="height:10px;width:250px"/>
+            <apex:selectList value="{!posId}" size="1" style="width:250px">
+            <apex:selectOptions value="{!sites}" />
+            </apex:selectList>
+          </apex:pageBlockSectionItem>
+   <br/>               
+           <apex:commandButton value="Continue" action="{!Displayerr}"  reRender="asd"/>               
+   </apex:pageBlockSection>                            
+  </apex:pageBlock>
+  
+  <apex:pageBlock >
+        
+  </apex:pageBlock>
+        
+ </apex:form>
+</apex:page>

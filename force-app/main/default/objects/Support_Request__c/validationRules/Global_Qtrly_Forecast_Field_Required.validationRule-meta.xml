@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Global_Qtrly_Forecast_Field_Required</fullName>
+    <active>true</active>
+    <description>Global Quarterly Unit Forecast field is required if &quot;Solution Type&quot; = Customization OR Pricing Only OR RFx Support OR Sell Through OR Other and its value is greater than 0.</description>
+    <errorConditionFormula>OR((Global_Quarterly_Unit_Forecast__c &lt; 1),
+AND( 
+RecordType.DeveloperName=&apos;Request_OEM_Customized_Solution_Support&apos;, 
+ISBLANK(Global_Quarterly_Unit_Forecast__c), 
+OR( ISPICKVAL( OEM_Solution_Bundle__c , &apos;Customization&apos;), 
+ISPICKVAL( OEM_Solution_Bundle__c , &apos;Pricing Only&apos;), 
+ISPICKVAL( OEM_Solution_Bundle__c , &apos;RFx Support&apos;), 
+ISPICKVAL( OEM_Solution_Bundle__c , &apos;Sell Through&apos;), 
+ISPICKVAL( OEM_Solution_Bundle__c , &apos;Other&apos;))))</errorConditionFormula>
+    <errorDisplayField>Global_Quarterly_Unit_Forecast__c</errorDisplayField>
+    <errorMessage>You must enter a value and number must be greater than 0.</errorMessage>
+</ValidationRule>

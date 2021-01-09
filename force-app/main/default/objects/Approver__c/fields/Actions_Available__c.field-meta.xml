@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Actions_Available__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( 
+AND( 
+Approver__r.Id == $User.Id, 
+ISPICKVAL(Approver_Status__c, &apos;Submitted&apos;), 
+NOT(ISPICKVAL( Approval_Request__r.Approval_Status__c , &apos;Closed as Rejected&apos;)) 
+), 
+HYPERLINK(&apos;/apex/ApprovalRequestApprove?approverId=&apos; &amp; Id , &apos;Approve/Reject&apos;, &apos;_parent&apos;) &amp; &apos; &apos;, 
+&apos;&apos; 
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Approver Actions</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,129 @@
+<apex:page standardController="Vendor__c" extensions="VFCntrlr_AssociateProgramsNPartners"> 
+    <html>
+        <head>
+            <style>
+                .headerRow .displayStyle{display:none;}
+                .headerRow .colStyle50{width:50px;}
+                .headerRow .colStyle75{width:75px;}
+                .headerRow .colStyle100{width:100px;}
+                .headerRow .colStyle150{width:150px;}
+                .headerRow .colStyle250{width:250px;}            
+                .columnRow .showStyle{display:none;}
+            </style>                      
+        </head>
+    <body>
+    <apex:sectionHeader title="Select Program(s) to be associated to the Partner :" subtitle="{!Vendor__c.name}"/>
+    <apex:form >
+        <apex:pageBlock >
+                 **Select region,sub region,country and business segment to display list of programs
+                 <br></br>
+                 ***All fields are mandatory
+                 <table Style="width:100%">
+                 <tr>
+                 <td align="right"><b> Region </b>&nbsp;&nbsp;</td>
+                 <td align="left">&nbsp;&nbsp;<apex:inputField value="{!MDFProgram.Region__c}"/></td>
+                 <td align="right"><b>Sub Region</b>&nbsp;&nbsp;</td>
+                 <td align="left">&nbsp;&nbsp;<apex:inputField value="{!MDFProgram.Sub_Region__c}"/></td>
+                 <td align="right"><b>Country</b>&nbsp;&nbsp;</td>
+                 <td align="left">&nbsp;&nbsp;<apex:inputField value="{!MDFProgram.Country__c}"/></td>                 
+                 </tr>
+                 <tr></tr>
+                 <tr>
+                 <td align="right"><b> Fiscal Quarter </b>&nbsp;&nbsp;</td>
+                 <td align="left">&nbsp;&nbsp;<apex:inputField value="{!MDFProgram.Fiscal_Quarter__c}" /></td>
+                 <td align="right"><b>Business Segment</b>&nbsp;&nbsp;</td>
+                 <td align="left">&nbsp;&nbsp;
+                
+                <apex:panelGrid columns="3">
+                <apex:selectList id="unselected_list" required="false"
+                value="{!selected}" multiselect="true" size="10" style="width:120px">
+                <apex:selectOptions value="{!unSelectedOptions}" />
+                </apex:selectList>
+                <apex:panelGroup >
+                <br/> <br/>
+                <apex:commandButton value=">>" action="{!DoSelect}"/>
+                <br/>
+                <apex:commandButton value="<<" action="{!DoUnselect}"/>
+                <br/>
+                <apex:commandButton value="Add All" action="{!DoSelectALL}"/>
+                <br/>
+                <apex:commandButton value="Remove All" action="{!DoUnSelectALL}"/>
+                </apex:panelGroup>
+                <apex:selectList id="selected_list" required="false"
+                value="{!unselected}" multiselect="true" size="10" style="width:120px">
+                <apex:selectOptions value="{!selectedOptions}" />
+                </apex:selectList>
+                </apex:panelGrid>
+                </td>
+                </tr></table>
+            
+            
+            <apex:pageBlockButtons location="bottom">                               
+                <apex:commandButton action="{!ShowWrapperAPVRecordsForProposeAPV}" value="Show Programs"/>
+                <apex:commandButton action="{!Cancel}" value="Cancel"/>
+               </apex:pageBlockButtons> 
+            
+        </apex:pageBlock>
+    
+        <br></br><br></br>
+
+        <apex:pageBlock rendered="{!ApvWrapperList.size>0}" title="Program list">
+        Only Programs with <b>"Program Status" Equals Approved</b>  is displayed here.
+        <br></br>
+  <apex:pageBlockTable value="{!ApvWrapperList}" var="pgm" style="width:1100px;">                        
+       <apex:column style="display:none;align:center;"  headerClass="colStyle50">
+        <apex:facet name="header">Select</apex:facet>
+        </apex:column>        
+        <apex:column style="display:none;align:left;"  headerClass="colStyle250">
+                <apex:facet name="header">   
+                    <apex:commandLink action="{!ShowWrapperAPVRecordsForProposeAPV}" value="Program Name{!IF(sortExpression=='name',IF(sortDirection='ASC','▼','▲'),'')}" >             
+                        <apex:param value="name" name="column" assignTo="{!sortExpression}" ></apex:param>
+                    </apex:commandLink>
+                </apex:facet>        
+        </apex:column>
+        <apex:column style="display:none;align:left;"  headerClass="colStyle250">
+                <apex:facet name="header">   
+                    <apex:commandLink action="{!ShowWrapperAPVRecordsForProposeAPV}" value="Business Segment{!IF(sortExpression=='name',IF(sortDirection='ASC','▼','▲'),'')}" >             
+                        <apex:param value="Business_Segment__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                    </apex:commandLink>
+                </apex:facet>        
+        </apex:column>                          
+        <apex:column style="display:none;align:center;"  headerClass="colStyle150">
+        <apex:facet name="header">Rate Card Price</apex:facet>
+        </apex:column>
+        <apex:column style="display:none;align:center;"  headerClass="colStyle150">
+        <apex:facet name="header">Program Owner</apex:facet>
+        </apex:column>        
+    </apex:pageBlockTable>
+
+    <div style="position:static;width:1100px;height:340px;overflow:auto;overflow-x:hidden;">
+        <apex:pageBlockTable value="{!ApvWrapperList}" var="pgm" title="Program" style="width:1100px;"> 
+            <apex:column headerClass="displayStyle" style="width:50px;align:left;">
+                <apex:inputCheckbox value="{!pgm.selected}"/>
+            </apex:column> 
+            <apex:column headerClass="displayStyle" style="width:250px;align:left;">
+                <apex:outputLink value="/{!pgm.pgmMpElt.id}">{!pgm.pgmMpElt.Name}</apex:outputLink>
+            </apex:column>       
+            <apex:column headerClass="displayStyle" style="width:100px;align:left;" value="{!pgm.pgmMpElt.Business_Segment__c}"/>            
+            <apex:column headerClass="displayStyle" style="width:150px;align:left;"> 
+                <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                    <apex:param value="{!pgm.pgmMpElt.Rate_Card_Price__c}"/>
+                </apex:outputText>
+            </apex:column>
+            <apex:column headerClass="displayStyle" style="width:75px;align:left;" value="{!pgm.pgmMpElt.Program_Owner__c}"/>            
+        </apex:pageBlockTable>
+    </div>  
+
+    <apex:pageBlockButtons location="top">  
+      <apex:commandButton action="{!insertProposedProgramRecs}" value="Propose For Association" rendered="{!ApvWrapperList.size>0}"/>
+      <apex:commandButton action="{!Cancel}" value="Cancel"/>
+    </apex:pageBlockButtons>
+    </apex:pageBlock>
+
+    <apex:pageBlock title="No Programs are Available For Association" rendered="{!NoApv}">
+        
+    </apex:pageBlock>
+    </apex:form>
+    </body>
+    </html>
+</apex:page>

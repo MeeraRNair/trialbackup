@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Please_list_the_Partner_Distributor_Name</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF( AND( Please_list_the_Partner_Distributor_Name__c =&quot;&quot;, ISPICKVAL( Other_Partner_Involved_Distr_Reseller__c , &quot;Yes&quot;) ) , TRUE, FALSE)</errorConditionFormula>
+    <errorDisplayField>Please_list_the_Partner_Distributor_Name__c</errorDisplayField>
+    <errorMessage>If  Other Partner Involved (Distributor or Reseller) = Yes, Please specify</errorMessage>
+</ValidationRule>

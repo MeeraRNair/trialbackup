@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>UDS_Isilon_Application__c</fullName>
+    <externalId>false</externalId>
+    <label>UDS Isilon Application</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>UDS_Isilon_Workload__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>AI/Deep Learning -- Intel</fullName>
+                <default>false</default>
+                <label>AI/Deep Learning -- Intel</label>
+            </value>
+            <value>
+                <fullName>AI/Deep Learning -- No GPU</fullName>
+                <default>false</default>
+                <label>AI/Deep Learning -- No GPU</label>
+            </value>
+            <value>
+                <fullName>AI/Deep Learning -- Nvidia DGX</fullName>
+                <default>false</default>
+                <label>AI/Deep Learning -- Nvidia DGX</label>
+            </value>
+            <value>
+                <fullName>AI/Deep Learning -- PowerEdge Nvidia</fullName>
+                <default>false</default>
+                <label>AI/Deep Learning -- PowerEdge Nvidia</label>
+            </value>
+            <value>
+                <fullName>AI/Deep Learning -- Server + GPU</fullName>
+                <default>false</default>
+                <label>AI/Deep Learning -- Server + GPU</label>
+            </value>
+            <value>
+                <fullName>Analytics -- Analytics</fullName>
+                <default>false</default>
+                <label>Analytics -- Analytics</label>
+            </value>
+            <value>
+                <fullName>Analytics -- Hadoop</fullName>
+                <default>false</default>
+                <label>Analytics -- Hadoop</label>
+            </value>
+            <value>
+                <fullName>Analytics -- Streaming</fullName>
+                <default>false</default>
+                <label>Analytics -- Streaming</label>
+            </value>
+            <value>
+                <fullName>AppDev -- Application Development</fullName>
+                <default>false</default>
+                <label>AppDev -- Application Development</label>
+            </value>
+            <value>
+                <fullName>Archive -- Audio Archive</fullName>
+                <default>false</default>
+                <label>Archive -- Audio Archive</label>
+            </value>
+            <value>
+                <fullName>Archive -- Content -- Satellite Images / GIS</fullName>
+                <default>false</default>
+                <label>Archive -- Content -- Satellite Images / GIS</label>
+            </value>
+            <value>
+                <fullName>Archive -- ECM Enterprise Content Management</fullName>
+                <default>false</default>
+                <label>Archive -- ECM Enterprise Content Management</label>
+            </value>
+            <value>
+                <fullName>Archive -- EIA Enterprise Information Archiving</fullName>
+                <default>false</default>
+                <label>Archive -- EIA Enterprise Information Archiving</label>
+            </value>
+            <value>
+                <fullName>Archive -- Enterprise Archive</fullName>
+                <default>false</default>
+                <label>Archive -- Enterprise Archive</label>
+            </value>
+            <value>
+                <fullName>Backup -- Enterprise Backup</fullName>
+                <default>false</default>
+                <label>Backup -- Enterprise Backup</label>
+            </value>
+            <value>
+                <fullName>Backup -- Enterprise Backup / Source</fullName>
+                <default>false</default>
+                <label>Backup -- Enterprise Backup / Source</label>
+            </value>
+            <value>
+                <fullName>Backup -- Enterprise Backup / Target</fullName>
+                <default>false</default>
+                <label>Backup -- Enterprise Backup / Target</label>
+            </value>
+            <value>
+                <fullName>Database -- Database</fullName>
+                <default>false</default>
+                <label>Database -- Database</label>
+            </value>
+            <value>
+                <fullName>DesignSim -- Automotive -- ADAS</fullName>
+                <default>false</default>
+                <label>DesignSim -- Automotive -- ADAS</label>
+            </value>
+            <value>
+                <fullName>DesignSim -- Automotive -- CAD</fullName>
+                <default>false</default>
+                <label>DesignSim -- Automotive -- CAD</label>
+            </value>
+            <value>
+                <fullName>DesignSim -- Automotive -- CAE</fullName>
+                <default>false</default>
+                <label>DesignSim -- Automotive -- CAE</label>
+            </value>
+            <value>
+                <fullName>DesignSim -- Automotive -- Other</fullName>
+                <default>false</default>
+                <label>DesignSim -- Automotive -- Other</label>
+            </value>
+            <value>
+                <fullName>DesignSim -- Automotive -- PLM/PDM</fullName>
+                <default>false</default>
+                <label>DesignSim -- Automotive -- PLM/PDM</label>
+            </value>
+            <value>
+                <fullName>DesignSim -- EDA</fullName>
+                <default>false</default>
+                <label>DesignSim -- EDA</label>
+            </value>
+            <value>
+                <fullName>DesignSim -- Oil &amp; Gas</fullName>
+                <default>false</default>
+                <label>DesignSim -- Oil &amp; Gas</label>
+            </value>
+            <value>
+                <fullName>DesignSim -- Other Design / Simulation / CAD</fullName>
+                <default>false</default>
+                <label>DesignSim -- Other Design / Simulation / CAD</label>
+            </value>
+            <value>
+                <fullName>Email -- Email</fullName>
+                <default>false</default>
+                <label>Email -- Email</label>
+            </value>
+            <value>
+                <fullName>EntApps -- CRM</fullName>
+                <default>false</default>
+                <label>EntApps -- CRM</label>
+            </value>
+            <value>
+                <fullName>EntApps -- ERP</fullName>
+                <default>false</default>
+                <label>EntApps -- ERP</label>
+            </value>
+            <value>
+                <fullName>EntApps -- SCM</fullName>
+                <default>false</default>
+                <label>EntApps -- SCM</label>
+            </value>
+            <value>
+                <fullName>Generic NAS Fileshare</fullName>
+                <default>false</default>
+                <label>Generic NAS Fileshare</label>
+            </value>
+            <value>
+                <fullName>Health -- Digital Pathology</fullName>
+                <default>false</default>
+                <label>Health -- Digital Pathology</label>
+            </value>
+            <value>
+                <fullName>Health -- Healthcare Document Management</fullName>
+                <default>false</default>
+                <label>Health -- Healthcare Document Management</label>
+            </value>
+            <value>
+                <fullName>Health -- Other</fullName>
+                <default>false</default>
+                <label>Health -- Other</label>
+            </value>
+            <value>
+                <fullName>Health -- PACS Imaging</fullName>
+                <default>false</default>
+                <label>Health -- PACS Imaging</label>
+            </value>
+            <value>
+                <fullName>Health -- Vendor Neutral Archive</fullName>
+                <default>false</default>
+                <label>Health -- Vendor Neutral Archive</label>
+            </value>
+            <value>
+                <fullName>HomeDirs -- Department share</fullName>
+                <default>false</default>
+                <label>HomeDirs -- Department share</label>
+            </value>
+            <value>
+                <fullName>HomeDirs -- Enterprise DropBox</fullName>
+                <default>false</default>
+                <label>HomeDirs -- Enterprise DropBox</label>
+            </value>
+            <value>
+                <fullName>HomeDirs -- Home Directory</fullName>
+                <default>false</default>
+                <label>HomeDirs -- Home Directory</label>
+            </value>
+            <value>
+                <fullName>HPC -- Other</fullName>
+                <default>false</default>
+                <label>HPC -- Other</label>
+            </value>
+            <value>
+                <fullName>HPC -- Research &amp; Scientific Computing</fullName>
+                <default>false</default>
+                <label>HPC -- Research &amp; Scientific Computing</label>
+            </value>
+            <value>
+                <fullName>LifeSci -- Genomic Sequencing</fullName>
+                <default>false</default>
+                <label>LifeSci -- Genomic Sequencing</label>
+            </value>
+            <value>
+                <fullName>LifeSci -- Home Directories / Project Shares</fullName>
+                <default>false</default>
+                <label>LifeSci -- Home Directories / Project Shares</label>
+            </value>
+            <value>
+                <fullName>LifeSci -- Life Sciences Archive</fullName>
+                <default>false</default>
+                <label>LifeSci -- Life Sciences Archive</label>
+            </value>
+            <value>
+                <fullName>LifeSci -- Other</fullName>
+                <default>false</default>
+                <label>LifeSci -- Other</label>
+            </value>
+            <value>
+                <fullName>LifeSci -- Proteomics</fullName>
+                <default>false</default>
+                <label>LifeSci -- Proteomics</label>
+            </value>
+            <value>
+                <fullName>Media -- Archive / Library</fullName>
+                <default>false</default>
+                <label>Media -- Archive / Library</label>
+            </value>
+            <value>
+                <fullName>Media -- Editing</fullName>
+                <default>false</default>
+                <label>Media -- Editing</label>
+            </value>
+            <value>
+                <fullName>Media -- MAM / Broadcast Automation</fullName>
+                <default>false</default>
+                <label>Media -- MAM / Broadcast Automation</label>
+            </value>
+            <value>
+                <fullName>Media -- Rendering / Animation / Game Design</fullName>
+                <default>false</default>
+                <label>Media -- Rendering / Animation / Game Design</label>
+            </value>
+            <value>
+                <fullName>MediaStreaming -- CDN</fullName>
+                <default>false</default>
+                <label>MediaStreaming -- CDN</label>
+            </value>
+            <value>
+                <fullName>MediaStreaming -- IPTV</fullName>
+                <default>false</default>
+                <label>MediaStreaming -- IPTV</label>
+            </value>
+            <value>
+                <fullName>MediaStreaming -- nPVR</fullName>
+                <default>false</default>
+                <label>MediaStreaming -- nPVR</label>
+            </value>
+            <value>
+                <fullName>MediaStreaming -- OTT</fullName>
+                <default>false</default>
+                <label>MediaStreaming -- OTT</label>
+            </value>
+            <value>
+                <fullName>MediaStreaming -- OVP</fullName>
+                <default>false</default>
+                <label>MediaStreaming -- OVP</label>
+            </value>
+            <value>
+                <fullName>MediaStreaming -- VOD</fullName>
+                <default>false</default>
+                <label>MediaStreaming -- VOD</label>
+            </value>
+            <value>
+                <fullName>Media -- Transcoding / Stereo Conversion</fullName>
+                <default>false</default>
+                <label>Media -- Transcoding / Stereo Conversion</label>
+            </value>
+            <value>
+                <fullName>Media -- VFX / Compositing / Restoration</fullName>
+                <default>false</default>
+                <label>Media -- VFX / Compositing / Restoration</label>
+            </value>
+            <value>
+                <fullName>Modern App Dev -- Pivotal</fullName>
+                <default>false</default>
+                <label>Modern App Dev -- Pivotal</label>
+            </value>
+            <value>
+                <fullName>Surveillance -- ISR</fullName>
+                <default>false</default>
+                <label>Surveillance -- ISR</label>
+            </value>
+            <value>
+                <fullName>Surveillance -- Video Surveillance</fullName>
+                <default>false</default>
+                <label>Surveillance -- Video Surveillance</label>
+            </value>
+            <value>
+                <fullName>Virtual Desktops -- VDI</fullName>
+                <default>false</default>
+                <label>Virtual Desktops -- VDI</label>
+            </value>
+            <value>
+                <fullName>Web Infrastructure</fullName>
+                <default>false</default>
+                <label>Web Infrastructure</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Healthcare Application</controllingFieldValue>
+            <valueName>Health -- Digital Pathology</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Healthcare Application</controllingFieldValue>
+            <valueName>Health -- Healthcare Document Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Healthcare Application</controllingFieldValue>
+            <valueName>Health -- Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Healthcare Application</controllingFieldValue>
+            <valueName>Health -- PACS Imaging</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Healthcare Application</controllingFieldValue>
+            <valueName>Health -- Vendor Neutral Archive</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Directories / Project Shares</controllingFieldValue>
+            <valueName>HomeDirs -- Department share</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Directories / Project Shares</controllingFieldValue>
+            <valueName>HomeDirs -- Enterprise DropBox</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Directories / Project Shares</controllingFieldValue>
+            <valueName>HomeDirs -- Home Directory</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>HPC</controllingFieldValue>
+            <valueName>HPC -- Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>HPC</controllingFieldValue>
+            <valueName>HPC -- Research &amp; Scientific Computing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Life Sciences Technical Application</controllingFieldValue>
+            <valueName>LifeSci -- Genomic Sequencing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Life Sciences Technical Application</controllingFieldValue>
+            <valueName>LifeSci -- Home Directories / Project Shares</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Life Sciences Technical Application</controllingFieldValue>
+            <valueName>LifeSci -- Life Sciences Archive</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Life Sciences Technical Application</controllingFieldValue>
+            <valueName>LifeSci -- Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Life Sciences Technical Application</controllingFieldValue>
+            <valueName>LifeSci -- Proteomics</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Media Streaming / Content Delivery</controllingFieldValue>
+            <valueName>MediaStreaming -- CDN</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Media Streaming / Content Delivery</controllingFieldValue>
+            <valueName>MediaStreaming -- IPTV</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Media Streaming / Content Delivery</controllingFieldValue>
+            <valueName>MediaStreaming -- nPVR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Media Streaming / Content Delivery</controllingFieldValue>
+            <valueName>MediaStreaming -- OTT</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Media Streaming / Content Delivery</controllingFieldValue>
+            <valueName>MediaStreaming -- OVP</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Media Streaming / Content Delivery</controllingFieldValue>
+            <valueName>MediaStreaming -- VOD</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Media Tech Apps</controllingFieldValue>
+            <valueName>Media -- Archive / Library</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Media Tech Apps</controllingFieldValue>
+            <valueName>Media -- Editing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Media Tech Apps</controllingFieldValue>
+            <valueName>Media -- MAM / Broadcast Automation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Media Tech Apps</controllingFieldValue>
+            <valueName>Media -- Rendering / Animation / Game Design</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Media Tech Apps</controllingFieldValue>
+            <valueName>Media -- Transcoding / Stereo Conversion</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Media Tech Apps</controllingFieldValue>
+            <valueName>Media -- VFX / Compositing / Restoration</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Modern App Development</controllingFieldValue>
+            <valueName>Modern App Dev -- Pivotal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Surveillance</controllingFieldValue>
+            <valueName>Surveillance -- ISR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Surveillance</controllingFieldValue>
+            <valueName>Surveillance -- Video Surveillance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Virtual Desktops</controllingFieldValue>
+            <valueName>Virtual Desktops -- VDI</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>AI/Deep Learning</controllingFieldValue>
+            <valueName>AI/Deep Learning -- Intel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>AI/Deep Learning</controllingFieldValue>
+            <valueName>AI/Deep Learning -- No GPU</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>AI/Deep Learning</controllingFieldValue>
+            <valueName>AI/Deep Learning -- Nvidia DGX</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>AI/Deep Learning</controllingFieldValue>
+            <valueName>AI/Deep Learning -- PowerEdge Nvidia</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>AI/Deep Learning</controllingFieldValue>
+            <valueName>AI/Deep Learning -- Server + GPU</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Analytics</controllingFieldValue>
+            <valueName>Analytics -- Analytics</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Analytics</controllingFieldValue>
+            <valueName>Analytics -- Hadoop</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Analytics</controllingFieldValue>
+            <valueName>Analytics -- Streaming</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Application Development</controllingFieldValue>
+            <valueName>AppDev -- Application Development</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Archive</controllingFieldValue>
+            <valueName>Archive -- Audio Archive</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Archive</controllingFieldValue>
+            <valueName>Archive -- Content -- Satellite Images / GIS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Archive</controllingFieldValue>
+            <valueName>Archive -- ECM Enterprise Content Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Archive</controllingFieldValue>
+            <valueName>Archive -- EIA Enterprise Information Archiving</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Archive</controllingFieldValue>
+            <valueName>Archive -- Enterprise Archive</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Backup</controllingFieldValue>
+            <valueName>Backup -- Enterprise Backup</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Backup</controllingFieldValue>
+            <valueName>Backup -- Enterprise Backup / Source</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Backup</controllingFieldValue>
+            <valueName>Backup -- Enterprise Backup / Target</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Database</controllingFieldValue>
+            <valueName>Database -- Database</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Design &amp; Simulation (EDA,Oil&amp;Gas)</controllingFieldValue>
+            <valueName>DesignSim -- Automotive -- ADAS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Design &amp; Simulation (EDA,Oil&amp;Gas)</controllingFieldValue>
+            <valueName>DesignSim -- Automotive -- CAD</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Design &amp; Simulation (EDA,Oil&amp;Gas)</controllingFieldValue>
+            <valueName>DesignSim -- Automotive -- CAE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Design &amp; Simulation (EDA,Oil&amp;Gas)</controllingFieldValue>
+            <valueName>DesignSim -- Automotive -- Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Design &amp; Simulation (EDA,Oil&amp;Gas)</controllingFieldValue>
+            <valueName>DesignSim -- Automotive -- PLM/PDM</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Design &amp; Simulation (EDA,Oil&amp;Gas)</controllingFieldValue>
+            <valueName>DesignSim -- EDA</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Design &amp; Simulation (EDA,Oil&amp;Gas)</controllingFieldValue>
+            <valueName>DesignSim -- Oil &amp; Gas</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Design &amp; Simulation (EDA,Oil&amp;Gas)</controllingFieldValue>
+            <valueName>DesignSim -- Other Design / Simulation / CAD</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Email</controllingFieldValue>
+            <valueName>Email -- Email</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Enterprise Apps (CRM, ERP, SCM)</controllingFieldValue>
+            <valueName>EntApps -- CRM</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Enterprise Apps (CRM, ERP, SCM)</controllingFieldValue>
+            <valueName>EntApps -- ERP</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Enterprise Apps (CRM, ERP, SCM)</controllingFieldValue>
+            <valueName>EntApps -- SCM</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Web Infrastructure</controllingFieldValue>
+            <valueName>Web Infrastructure</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

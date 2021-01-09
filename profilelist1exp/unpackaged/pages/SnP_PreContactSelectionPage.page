@@ -1,0 +1,21 @@
+<apex:page standardController="S_P_Vendors__c" extensions="SnP_ContactSelectionCntrlr" action="{!redirect}">
+    <style type = "text/css">
+        .boxed{width:1000px;padding:10px;border:1px solid gray;margin:0px;background: #E6F6F6;}
+        .font{font: 120% "Lucida Grande", "Lucida Sans Unicode", "Trebuchet MS"}
+    </style>
+    
+    <apex:form >
+        <center><div class = "boxed">        
+            <p class="font">Click &quot;Yes&quot; to pull in a contact from Account Contacts.  Click &quot;No&quot; to go directly to the S&amp;P Vendors page.</p>
+            <apex:commandButton value=" Yes " action="{!goToContactSelection}"/>
+            <apex:commandButton value=" No " action="{!goToSVEditPage}"/>
+        </div></center>
+    </apex:form>
+    
+    <apex:outputPanel id="hiddenfields" rendered="false">
+        {!S_P_Vendors__c.Opportunity__r.AccountId} 
+        {!S_P_Vendors__c.Contact_Name__c}
+        {!S_P_Vendors__c.Phone__c}
+        {!S_P_Vendors__c.Email__c}
+    </apex:outputPanel>
+</apex:page>

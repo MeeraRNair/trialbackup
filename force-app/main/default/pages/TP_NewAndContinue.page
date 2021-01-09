@@ -1,0 +1,9 @@
+<apex:page standardController="Territory_Plan__c" extensions="TP_NewContinuePrintCtrlExt" action="{!redirectToPage}" sidebar="false" lightningStylesheets="true">
+    <apex:pageMessages id="showmsg"></apex:pageMessages>
+    <button onclick="goBack()">Back</button>
+    <script>
+    function goBack() {
+        window.history.back();
+    }
+    </script>
+</apex:page>

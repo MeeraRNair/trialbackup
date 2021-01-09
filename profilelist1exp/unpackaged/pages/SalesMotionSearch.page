@@ -1,0 +1,169 @@
+<apex:page controller="SalesMotionSearchCtrl" id="thepage" lightningStylesheets="true">
+    <apex:form id="theForm">
+  <script  language="javascript" type="text/javascript">
+  function printOut()
+  {
+
+  window.open("{!url}");
+
+      }
+  
+   </script>
+   <apex:pageBlock title="Sales Motion Search">
+   <table>
+   <tr style="height:100px;">
+   <td style="width:100px;"><br/><br/><br/><br/><font color="red" ><b>PLEASE NOTE </b></font></td>
+   <td>
+    - All fields are mandatory.<br/><br/>
+    - Domain, Solution Type and Name option enables searching Sales Motions within the Domain and/or Solution Type selected.<br/><br/>
+    - Product option enables searching all Sales Motions associated with a product.<br/><br/> 
+    - TextSearch option enables searching Sales Motions with a keyword or phrase. The tool will search for those word(s) within the Sales Motion use case definition.<br/><br/>
+    - Region, Business Unit and Country Specific fields allow the Sales Motion to show information relevant to the specific region, segment and country.<br/><br/>
+    - Generic Sales option enables searching for Sales Motion that is NOT tagged to a Domain/Solution Type or Solution Name
+   </td>
+   </tr>
+   </table>
+   </apex:pageBlock>
+   
+      <apex:pageBlock title="Search Options">
+            <apex:selectRadio value="{!selectRecordType}">
+                <apex:selectOptions value="{!searchRecordTypeList}"/>
+                <apex:actionSupport event="onclick" action="{!Display}" rerender="fieldPanel,pb,GenericSales,GenericPB"/>
+                
+            </apex:selectRadio>             
+      </apex:pageBlock>  
+      
+            
+      <apex:pageBlock id="fieldPanel" >   
+                     
+            <apex:pageBlockSection id="DomainSolutionTypeName" columns="2" rendered="{!solnDomainRender}">
+                
+                <apex:inputField value="{!salesmotion.Domain__c}"/>
+                <apex:inputField value="{!salesMotionPageSection.Region__c}" />
+                <apex:inputField value="{!salesmotion.Solution_Type__c}" />
+                <apex:inputField value="{!salesMotionPageSection.Business_Unit__c}" />
+                <apex:inputField value="{!salesmotion.Solution_Name__c}"/>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Country Specific</apex:outputLabel>
+                    <apex:inputField value="{!salesMotionPageSection.Sales_Motion_Country__c}" />
+                </apex:pageBlockSectionItem>                               
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection id="Product" columns="2" rendered="{!productRender}">
+                <apex:inputField value="{!salesMotionPageSection.Region__c}" />
+                <apex:inputField value="{!salesmotion.Product__c}"/>
+                <apex:inputField value="{!salesMotionPageSection.Business_Unit__c}" />
+               <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Country Specific</apex:outputLabel>
+                    <apex:inputField value="{!salesMotionPageSection.Sales_Motion_Country__c}" />
+                </apex:pageBlockSectionItem>                                  
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection id="textSearch" columns="2" rendered="{!textSearchRender }">
+                <apex:inputField value="{!salesMotionPageSection.Region__c}"  />
+                <apex:pageblockSectionItem >
+                    <apex:outputLabel >Enter Text to Search</apex:outputLabel>                   
+                    <apex:inputText id="textsearch"  style="width:300px" value="{!searchtext}" /> 
+                </apex:pageblockSectionItem>
+                <apex:inputField value="{!salesMotionPageSection.Business_Unit__c}" />
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Country Specific</apex:outputLabel>
+                    <apex:inputField value="{!salesMotionPageSection.Sales_Motion_Country__c}" />
+                </apex:pageBlockSectionItem>                                
+            </apex:pageBlockSection>
+            
+            
+            <apex:pageBlockSection id="GenericSales" columns="2" rendered="{!GenericTableRender}" >
+                <apex:pageBlockSectionItem id="smNameItem">
+                  
+                   <apex:outputLabel >Sales Motion Name</apex:outputLabel>
+                   <apex:outputPanel id="GenricPB">
+                  <!-- <apex:inputField value="{!salesMotionpage.Sales_Motion_Name__c}" id="smName"/>-->
+                   <apex:inputField value="{!smPRec.Sales_Motion_Name__c}" id="smName" />
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+              <apex:pageBlockSectionItem >
+                     <apex:outputLabel >Region</apex:outputLabel>
+                 <apex:inputField value="{!salesMotionpageSection.Region__c}"/>
+                 
+                  </apex:pageBlockSectionItem>
+                  <apex:pageBlockSectionItem >
+                    <apex:outputLabel ></apex:outputLabel>
+                    <font color="green">For Generic Sales, if you know the EXACT name of the generic sales motion you are searching for, enter that information in the open field directly.  If you would like to do a general search to pull up ALL generic sales motions with a certain word in the title- then use the Look up icon to search.</font>
+                  </apex:pageBlockSectionItem>
+                  <apex:pageBlockSectionItem > 
+                       <apex:outputLabel >Business Unit</apex:outputLabel>
+                     <apex:inputField value="{!salesMotionpageSection.Business_Unit__c}"/>
+               </apex:pageBlockSectionItem>  
+                <br/>
+               <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Country Specific</apex:outputLabel>
+                    <apex:inputField value="{!salesMotionPageSection.Sales_Motion_Country__c}" />
+               </apex:pageBlockSectionItem>
+                <script>
+                                                   
+                 //  var val=document.getElementById('thepage:theForm:fieldPanel:GenericSales:smNameItem:smName');
+                  // alert(val);
+                    var href1="JavaScript:openLookup('/apex/salesMotionLookup?searchSM='+document.getElementById('thepage:theForm:fieldPanel:GenericSales:smNameItem:smName').value,670)";
+                    var smElement=document.getElementById("thepage:theForm:fieldPanel:GenericSales:smNameItem:smName"+"_lkwgt");
+                   smElement.href=href1;
+        </script>
+            </apex:pageBlockSection>
+              
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Search" action="{!search}"/>
+            </apex:pageBlockButtons> 
+          
+                   
+            <!------------------------------ Ranjini -End------------------------------------------>
+      </apex:pageBlock>    
+    <apex:pageBlock id="pb" >
+    <apex:pageMessages />   
+          <apex:pageBlockTable value="{!SMPSList}" id="iddomain" var="obj" rendered="{!domainTableRender && searchrec==true}" title="Solution Search Results">
+              <apex:column headerValue="Sales Motion Name">
+                    <apex:outputLink rendered="{!selectedCountry!=null}" value="/apex/SalesMotion?SalesMotionid={!obj.id}&domain={!obj.Domain__c}&solType={!URLENCODE(obj.Solution_Type__c)}&solName={!URLENCODE(obj.Solution_Name__c)}&country={!selectedCountry}&businessunit={!salesMotionPageSection.Business_Unit__c}&stage=Plan%20-%201%25&search=smsearch&region={!salesMotionPageSection.Region__c}" target="_blank">{!obj.Name} </apex:outputLink>                     
+                     <apex:outputLink rendered="{!selectedCountry==null}" value="/apex/SalesMotion?SalesMotionid={!obj.id}&domain={!obj.Domain__c}&solType={!URLENCODE(obj.Solution_Type__c)}&solName={!URLENCODE(obj.Solution_Name__c)}&country={!salesMotionPageSection.Region__c}&businessunit={!salesMotionPageSection.Business_Unit__c}&stage=Plan%20-%201%25&search=smsearch&region={!salesMotionPageSection.Region__c}" target="_blank">{!obj.Name} </apex:outputLink> 
+              </apex:column>
+              <apex:column value="{!obj.Domain__c}"/>
+              <apex:column value="{!obj.Solution_Type__c}"/>
+              <apex:column value="{!obj.Solution_Name__c}"/>
+              <apex:column value="{!obj.Solution_Description__c}"/>
+          </apex:pageBlockTable>
+          
+          <apex:pageBlockTable value="{!SMPSList}" var="obj" rendered="{!prodcutTableRender && searchrec==true}" title="Product Search Results" >
+              <apex:column headerValue="Sales Motion Name">
+                    
+                  <apex:outputLink rendered="{!selectedCountry!=null}" value="/apex/SalesMotion?SalesMotionid={!obj.id}&product={!obj.Product__c}&country={!selectedCountry}&businessunit={!salesMotionPageSection.Business_Unit__c}&stage=Plan%20-%201%25&search=smsearch&region={!salesMotionPageSection.Region__c}" target="_blank">{!obj.Name} </apex:outputLink>                     
+                  <apex:outputLink rendered="{!selectedCountry==null}" value="/apex/SalesMotion?SalesMotionid={!obj.id}&product={!obj.Product__c}&country={!salesMotionPageSection.Region__c}&businessunit={!salesMotionPageSection.Business_Unit__c}&stage=Plan%20-%201%25&search=smsearch&region={!salesMotionPageSection.Region__c}" target="_blank">{!obj.Name} </apex:outputLink>                   
+              </apex:column>
+              <apex:column value="{!obj.Product__r.Name}" headerValue="Product"/>
+              <apex:column value="{!obj.Solution_Description__c}"/>
+          </apex:pageBlockTable>
+          
+          <apex:pageBlockTable value="{!SMPSList}" var="obj" rendered="{!textSearchTableRender && searchrec==true}" title="Text Search Results">
+              <apex:column headerValue="Sales Motion Name">
+                    <apex:outputLink rendered="{!selectedCountry!=null}" value="/apex/SalesMotion?SalesMotionid={!obj.id}&domain={!obj.Domain__c}&solType={!URLENCODE(obj.Solution_Type__c)}&solName={!URLENCODE(obj.Solution_Name__c)}&country={!selectedCountry}&businessunit={!salesMotionPageSection.Business_Unit__c}&product={!obj.Product__c}&stage=Plan%20-%201%25&search=smsearch&region={!salesMotionPageSection.Region__c}" target="_blank">{!obj.Name} </apex:outputLink>
+                    <apex:outputLink rendered="{!selectedCountry==null}" value="/apex/SalesMotion?SalesMotionid={!obj.id}&domain={!obj.Domain__c}&solType={!URLENCODE(obj.Solution_Type__c)}&solName={!URLENCODE(obj.Solution_Name__c)}&country={!salesMotionPageSection.Region__c}&businessunit={!salesMotionPageSection.Business_Unit__c}&product={!obj.Product__c}&stage=Plan%20-%201%25&search=smsearch&region={!salesMotionPageSection.Region__c}" target="_blank">{!obj.Name} </apex:outputLink>                      
+              </apex:column>
+              <apex:column value="{!obj.Domain__c}"/>
+              <apex:column value="{!obj.Solution_Type__c}"/>
+              <apex:column value="{!obj.Solution_Name__c}"/>
+              <apex:column value="{!obj.Product__r.Name}" headerValue="Product"/>
+              <apex:column value="{!obj.Solution_Description__c}"/>
+          </apex:pageBlockTable> 
+          <apex:pageBlockTable value="{!SMPSList}" var="obj" rendered="{!GenericsearchTableRender && searchrec==true}" title="Generic Search Results">
+              
+              <apex:column headerValue="Sales Motion Name" >
+                                  
+                  <apex:outputLink rendered="{!selectedCountry!=null}" value="/apex/SalesMotion?SalesMotionid={!obj.id}&country={!selectedCountry}&businessunit={!salesMotionPageSection.Business_Unit__c}&region={!salesMotionPageSection.Region__c}&stage=Plan%20-%201%25" target="_blank">{!obj.Name} </apex:outputLink>
+                  <apex:outputLink rendered="{!selectedCountry==null}" value="/apex/SalesMotion?SalesMotionid={!obj.id}&country={!selectedCountry}&businessunit={!salesMotionPageSection.Business_Unit__c}&region={!salesMotionPageSection.Region__c}&stage=Plan%20-%201%25" target="_blank">{!obj.Name} </apex:outputLink>
+                  
+              </apex:column>
+             <apex:column value="{!obj.Solution_Description__c}"/>
+          </apex:pageBlockTable>  
+         
+      </apex:pageBlock>
+      
+          
+    </apex:form>
+</apex:page>

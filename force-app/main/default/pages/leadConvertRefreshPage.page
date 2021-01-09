@@ -1,0 +1,16 @@
+<!-- Lead Convert Page
+Revision CR Number  Release No      Date            Modified By     Description
+* 1.0      14012    FY18-DCS-0302   21-Feb-2017     Azwanti         LM2_Optimization in lead conversion process - UI changes refresh                                                                 
+-->
+<apex:page standardController="Lead" extensions="LeadConvertRefreshPageCtrl" action="{!updateAccContCMTask}"  lightningStylesheets="true">
+    <apex:pageBlock >
+    <apex:pageBlockSection >
+        <apex:pageBlockSectionItem >
+            <apex:outputPanel id="RefreshPanel"> 
+                    <apex:pageMessage severity="info" id="Message" strength="3"
+                            summary="Please do not close or refresh this window, lead conversion is in progress."/>
+            </apex:outputPanel>
+        </apex:pageBlockSectionItem>
+    </apex:pageBlockSection>
+</apex:pageBlock>
+</apex:page>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Viper_PO_Mandatory</fullName>
+    <active>true</active>
+    <description>Purchase Order expenses: User must enter PO#.</description>
+    <errorConditionFormula>ISPICKVAL( Method_of_Purchase__c , &quot;Purchase Order&quot;)&amp;&amp; ISBLANK( DO__c )</errorConditionFormula>
+    <errorMessage>PO # must be completed. Record not saved.</errorMessage>
+</ValidationRule>

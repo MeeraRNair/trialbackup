@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sale_Of_Eval__c</fullName>
+    <externalId>false</externalId>
+    <formula>AND(Opportunity__r.RecordType.Name=&quot;Standard Opportunity&quot; , 
+OR(ISPICKVAL(Opportunity__r.Dell_Sales_FIM__Inventory_Request__r.Dell_Sales_FIM__Inventory_Type__c, &apos;Eval&apos;), ISPICKVAL(Opportunity__r.Quote_Order_Type__c, &apos;SALE OF EVAL&apos;)))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Sale Of Eval</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

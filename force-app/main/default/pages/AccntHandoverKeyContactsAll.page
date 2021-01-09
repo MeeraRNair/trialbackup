@@ -1,0 +1,44 @@
+<apex:page standardcontroller="Account_Handover__c" extensions="AccntHandoverKeyContactsCtrl" action="{!getAllContacts}" lightningStylesheets="true">
+    
+    <apex:sectionHeader title="Key/Critical Customer Contacts" subtitle="{!accHandover.Name}" > 
+    <div class="ptBreadcrumb"><apex:outputLink value="/{!accHandover.Id}">Account Handover : {!accHandover.Name}</apex:outputLink></div>
+    <!--div class="ptBreadcrumb">&nbsp;&nbsp;<a href ="/{!accHandover.Id}">Account Handover : {!accHandover.Name}</a></div-->
+    </apex:sectionHeader>
+    
+    <br/>
+    <br/>
+    <!--To display Error messages>-->    
+    <apex:outputPanel style="font-weight: Bold; Color: Red" rendered="{!IF(errorMessage <> null, true,false)}">        
+        <apex:outputLabel escape="false" value="{!errorMessage}" /> <br/><br/>
+    </apex:outputPanel>
+    
+    <apex:pageBlock >
+        
+        <apex:outputPanel rendered="{!IF(contacts.size>0,false,true)}">   
+            No records to display
+        </apex:outputPanel>
+        
+        <apex:pageBlockTable value="{!contacts}" var="contact" rendered="{!IF(contacts.size>0,true,false)}">
+            
+            <apex:column styleClass="actionColumn" headerValue="Action">
+                <apex:outputLink styleClass="actionLink" value="/{!contact.Id}/e?retURL=%2F{!accHandover.Id}" target="_parent">Edit</apex:outputLink>
+            </apex:column>
+            
+            <apex:column headerValue="Contact Name">
+                <apex:outputLink value="/{!contact.Id}" target="_parent">{!contact.Name}</apex:outputLink>
+            </apex:column>
+            
+            <apex:column value="{!contact.Title}"/> 
+            <apex:column value="{!contact.Email}"/> 
+            <apex:column value="{!contact.Phone}"/> 
+            <apex:column value="{!contact.Phone_Extn__c}"/> 
+            <apex:column value="{!contact.NPS_Category__c }"/>               
+           
+        </apex:pageBlockTable>
+        
+        
+    </apex:pageBlock>
+    
+  
+    
+</apex:page>

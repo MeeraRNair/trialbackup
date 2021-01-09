@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OEM_Support_Requests</fullName>
+    <columns>NAME</columns>
+    <columns>Request_Status__c</columns>
+    <columns>Region_F__c</columns>
+    <columns>OEM_Region__c</columns>
+    <columns>Account_Name__c</columns>
+    <columns>Request_Name__c</columns>
+    <columns>Intake_Manager_Bus_Ops_PM_Name__c</columns>
+    <columns>Affinity_Account_ID__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Support_Request__c.Request_OEM_Customized_Solution_Support</value>
+    </filters>
+    <label>OEM Support Requests</label>
+    <language>en_US</language>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
+</ListView>

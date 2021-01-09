@@ -1,0 +1,32 @@
+<!-- * 
+* Revision CR Number   Release No      Date            Modified By     Description
+* -------- ---------   ----------      -----------     ------------    -----------
+* 1.0 -    CR16418     FY19-DCS-1002   3-Sep-2018:     manip4          added 'lightningStylesheets' attribute for apex component to make the page lightening friendly for the story 5537222
+*/-->
+
+<apex:page id="pgChooseRegion" title="Choose Region" showheader="true" controller="VFCntrlr_CertTracker_RegionPopup" lightningStylesheets="true">
+  <apex:form id="frmRegion">
+  <apex:pageBlock title="{!IF(fromPage='Eval','Competency Evaluation','Competency Tracker')}" rendered="{! NOT(OR(Begins($Profile.Name,'System Administrator'),Begins($Profile.Name,'GBL PRM Certification Admin')))}">
+        <apex:pageMessage summary="{!$Label.NetExam_AccessError}" severity="Error" strength="1" />
+        
+         <apex:pageBlockButtons location="bottom">          
+            <apex:commandButton value="Cancel" action="{!cancel}"/>
+        </apex:pageBlockButtons>    
+  </apex:pageBlock>
+    <apex:pageBlock title="{!IF(fromPage='Eval','Competency Evaluation','Competency Tracker')}" mode="edit" id="pgBlkRegion" rendered="{! OR(Begins($Profile.Name,'System Administrator'),Begins($Profile.Name,'GBL PRM Certification Admin'))}">
+        <apex:pageMessages />
+         
+        <apex:pageBlockSection id="pgBlkSecAddEditTraining" title="Choose Region">
+            <apex:outputtext >Region </apex:outputtext>
+            <apex:selectList value="{!Region}" multiselect="false">
+                <apex:selectOptions value="{!items}"/>
+            </apex:selectList>
+            
+        </apex:pageBlockSection>
+        <apex:pageBlockButtons location="bottom">
+            <apex:commandButton value="Go" action="{!go}"  />
+            <apex:commandButton value="Cancel" action="{!cancel}"/>
+        </apex:pageBlockButtons>    
+    </apex:pageBlock>    
+  </apex:form>
+</apex:page>

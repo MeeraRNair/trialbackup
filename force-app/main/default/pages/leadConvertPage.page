@@ -1,0 +1,80 @@
+<!-- Lead Convert Page
+Revision CR Number  Release No      Date            Modified By     Description
+1.0                                                                 Initial
+2.0      13309      FY17-DCS-0801   21-Jul-2016     Gan             Disable the button when Convertion in progress 
+3.0      15435      FY19-DCS-0401   14-Feb-2018     Azwanti         Affinity Interlock: Making Legal English or Legal Local Address mandatory for China and Japan countries
+4.0      18330      FY20-DCS-0102   25-Nov-2019     Yamini          Added <apex:slds /> for lightning compatibility
+-->
+<!-- This is our page component tag -->
+<!-- We are using the Standard Controller for Lead and a Controller Extension called 'leadConvertController' -->
+
+<apex:page standardController="Lead" extensions="LeadConvertPageCtrl" action="{!validateLead}" lightningStylesheets="true">
+<!-- Page section header -->
+    <apex:slds />
+
+<apex:sectionHeader title="Convert Lead" subtitle="{!Lead.name}"/>
+
+<!-- Visualforce Component with custom page header text -->
+
+<c:leadConvertPageHeaderTextComponent />
+
+<!-- This form tag must include any fields or buttons used in the Lead Convert operation -->
+ 
+<apex:form id="theForm" >
+
+    <!-- This pageBlock component is a container that includes the visual elements of the Lead Convert page -->
+    <!-- All custom Components should be included within this pageBlock unless you are using more advanced custom styling -->
+    <apex:pageBlock id="ValidationPageBlock" rendered="{!!isValidated}">
+     <apex:pageBlockButtons >
+      <!-- <apex:commandButton action="{!goBack}" value="Back"/>  -->
+      <apex:commandLink value="Back"  styleClass="btn" style="text-decoration:none;padding:4px;" action="{!goBack}" target="_parent"/>
+     </apex:pageBlockButtons>
+      <apex:pageMessages id="messages"/>
+    </apex:pageBlock>
+    
+    <apex:pageBlock mode="edit" id="pageBlock" rendered="{!isValidated}">
+   
+        <!-- This component is used to display error messages on the page -->
+           
+        <apex:pageMessages id="messages"/>
+       
+ 
+        <!-- This pageBlockButtons component is where you can add / remove custom buttons from the Lead Convert page -->
+       <!--2.0-->
+        <apex:pageBlockButtons location="top">
+            <apex:actionStatus id="convertActionStatus">
+                <apex:facet name="stop">
+                    <apex:outputPanel id="pbButtons"> 
+                        <apex:commandButton action="{!convertLead}" value="Convert" status="convertActionStatus" rerender="messages"/>
+                        <apex:commandButton action="{!cancel}" value="Cancel"/>  
+                    </apex:outputPanel>
+                </apex:facet>
+                <apex:facet name="start">
+                    <apex:outputPanel > 
+                        <apex:commandButton disabled="true" value="Processing..."/>
+                        <apex:commandButton disabled="true" value="Processing..."/>    
+                    </apex:outputPanel>   
+                </apex:facet>
+            </apex:actionStatus>
+        </apex:pageBlockButtons>     
+
+        <!-- This custom component contains the section & fields specific to converting a Lead to an Account, Contact, and Opportunity -->
+          
+        <c:leadConvertCoreComponent id="leadComp" thepageController="{!this}" LeadToConvert="{!leadToConvert}" rendered="True" />
+
+        <!-- This custom component contains the section & fields specific to creating a new Task on Lead Convert -->
+        <!-- If you would like to hide this section, set the rendered attribute to 'False' -->
+           
+        <c:leadConvertTaskInfoComponent thepageController="{!this}" rendered="true" />
+
+    <!-- This is the closing tag for the pageBlock component -->
+    
+    </apex:pageBlock>
+       
+<!-- This is the closing tag for the form -->
+
+</apex:form>
+   
+<!-- This is the closing tag for the page -->
+    
+</apex:page>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Channel_Campaign_Validation</fullName>
+    <active>true</active>
+    <description>Only Channel campaign can be selected when creating or editing MLUR</description>
+    <errorConditionFormula>OR(
+	AND(
+		Campaign__r.RecordType.Name &lt;&gt; &apos;Channel Campaign&apos;,
+		Campaign__r.RecordType.Name &lt;&gt; &apos;Campaign 2.0&apos;
+	),
+	CONTAINS(&apos;DSG Partner&apos;,  Campaign__r.Name)
+)</errorConditionFormula>
+    <errorMessage>Selected campaign is incorrect, or cannot be found, please contact your channel marketing team for assistance</errorMessage>
+</ValidationRule>

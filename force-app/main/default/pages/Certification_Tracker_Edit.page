@@ -1,0 +1,97 @@
+<apex:page id="pgCTEdit" title="Competency Tracker Edit" standardController="Certification_Tracker__c" extensions="VFCntrlr_Certification_Tracker_Edit" showHeader="True">
+    <apex:form id="frmctEdit">
+        <apex:actionFunction name="rightArrow" action="{!availableToSelected}" reRender="pgBlkSection"/>
+        <apex:actionFunction name="leftArrow"  action="{!unSelectToAvailable}" reRender="pgBlkSection"/>
+        
+        <apex:pageBlock title="Competency Tracker Edit" id="c">
+            <apex:pageBlockButtons location="both">
+                <apex:commandButton value="Save"   action="{!save}"   rerender="pgBlk"/>   
+                <apex:commandButton value="Cancel" action="{!cancel}" rerender="pgBlk"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection id="pgBlkSection" title="Information">
+                <apex:inputField value="{!ct.Account_Name__c}"/>
+                <apex:inputField value="{!ct.Qualified_as_Dell_Preferred_Partner__c}"/>
+                <apex:inputField value="{!ct.Account_Country__c}"/>
+                <apex:inputField value="{!ct.Qualified_as_Dell_Premier_Partner__c}"/>
+                <apex:inputField value="{!ct.Training_Criteria_Met__c}"/>
+                <apex:inputField value="{!ct.Certification_Completed__c}"/>
+                <apex:inputField value="{!ct.Demo_Unit_Criteria_Met__c}"/>
+                <apex:inputField value="{!ct.Demo_Units_Purchased__c}"/>
+                <apex:inputField value="{!ct.Contractual_Agreement__c}"/>
+                <apex:pageBlockSectionItem >
+                    <apex:outputtext >Dell Competencies</apex:outputtext>
+                    <apex:panelGrid columns="8">
+                        <apex:panelgroup >
+                            <apex:outputPanel id="availableBlock"> 
+                                <apex:outputLabel value="Available" style="font-weight:bold;" /> &nbsp;
+                                <apex:selectList value="{!selAvailableList}" size="4" multiselect="true">
+                                    <apex:selectOptions value="{!AvailableList}"/>
+                                </apex:selectList>
+                            </apex:outputPanel>
+                        </apex:panelgroup>
+                        
+                        <apex:panelGroup layout="block" style="text-align: center; padding:10px;">
+                             <br/>
+                             <a href="javascript:rightArrow();" style="text-decoration:none">
+                                <img src="/s.gif" alt="Select" class="rightArrowIcon" title="Add"/>
+                             </a><br/><br/>
+                             <a href="javascript:leftArrow();" style="text-decoration:none">
+                                 <img src="/s.gif" alt="Unselect" class="leftArrowIcon" title="Remove"/>
+                             </a><br/>  
+                        </apex:panelGroup>
+                    
+                        <apex:panelgroup >
+                            <apex:outputPanel id="selectBlock"> 
+                            <apex:outputLabel value="Chosen" style="font-weight:bold;" /> &nbsp;             
+                                 <apex:selectList value="{!selSelectList}" multiselect="true"  size="4" style="width:250px" >
+                                     <apex:selectOptions value="{!SelectedList}"/> 
+                                 </apex:selectList>
+                            </apex:outputPanel>  
+                        </apex:panelgroup>
+                    </apex:panelGrid>
+                </apex:pageBlockSectionItem>
+                <apex:inputField value="{!ct.Approved_Business_Plan__c}"/>
+                <apex:inputField value="{!ct.Evaluate_Criteria__c}"/>                
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection id="pgBlkSection1" title="Partner Competency Details">
+                <apex:inputField value="{!ct.Certification_Changed_Date__c}"/>
+                <apex:inputField value="{!ct.Previous_Partner_Relationship_Type__c}"/>
+                <apex:inputField value="{!ct.Certification_Date__c}"/>
+                <apex:inputField value="{!ct.Date_Qualified_as_Dell_Preferred_Partner__c}" rendered="{!NOT(preferredDate_IsReadOnly)}" />
+                <apex:outputField value="{!ct.Date_Qualified_as_Dell_Preferred_Partner__c}" rendered="{!preferredDate_IsReadOnly}" />
+                <apex:inputField value="{!ct.De_Certification_Date__c}"/>
+                <apex:inputField value="{!ct.Date_Qualified_as_Dell_Premier_Partner__c}" rendered="{!NOT(premierDate_IsReadOnly)}"/>
+                <apex:outputField value="{!ct.Date_Qualified_as_Dell_Premier_Partner__c}" rendered="{!premierDate_IsReadOnly}"/>
+                <apex:inputField value="{!ct.Audit_Date__c}"/>
+                <apex:inputField value="{!ct.Last_Evaluation_Date__c}"/>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection id="pgBlkSection2" title="Partner Revenue Details">
+                <apex:inputField value="{!ct.Current_QTR__c}"/>
+                <apex:inputField value="{!ct.Rev_External_Id__c}"/>
+                <apex:inputField value="{!ct.Current_QTD_Ent_Rev__c}"/>
+                <apex:inputField value="{!ct.QTD_Updated_Date__c}"/>
+                <apex:inputField value="{!ct.Current_QTD_Total_Rev__c}"/>
+                <apex:inputField value="{!ct.QTR_Updated_Date__c}"/>
+                <apex:inputField value="{!ct.Back_4_QTRs_Ent_Rev__c}"/>
+                <apex:inputField value="{!ct.CurrencyIsoCode}"/>
+                <apex:inputField value="{!ct.Back_3_QTRs_Ent_Rev__c}"/>
+                <apex:inputField value="{!ct.Back_4_QTRs_Total_Rev__c}"/>
+                <apex:inputField value="{!ct.Back_2_QTRs_Ent_Rev__c}"/>
+                <apex:inputField value="{!ct.Back_3_QTRs_Total_Rev__c}"/>
+                <apex:inputField value="{!ct.Back_1_QTRs_Ent_Rev__c}"/>
+                <apex:inputField value="{!ct.Back_2_QTRs_Total_Rev__c}"/>
+                <apex:outputLabel ></apex:outputLabel>
+                <apex:inputField value="{!ct.Back_1_QTRs_Total_Rev__c}"/>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection id="pgBlkSection3" title="Deployment Certification Details" columns="2">
+                <apex:inputField value="{!ct.Deployment_Certification__c}"/>
+                <apex:inputField value="{!ct.Deployment_Certifications_Completed__c}"/>
+                <apex:inputField value="{!ct.Deployment_Certification_Date__c}"/>
+            </apex:pageBlockSection>
+            
+         </apex:pageBlock>
+    </apex:form>
+</apex:page>

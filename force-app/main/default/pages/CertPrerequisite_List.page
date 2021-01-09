@@ -1,0 +1,9 @@
+<apex:page standardController="Certification_Prerequisites_Setup__c" showHeader="false"  extensions="VFCntrlr_CertPrerequisite">
+<apex:pageBlock >
+    <apex:pageBlockSection columns="1" collapsible="false">
+        <apex:pageBlockTable value="{!CertTraining}" var="opt" >
+            <apex:column value="{!opt.crOption}"/>                 
+        </apex:pageBlockTable>
+    </apex:pageBlockSection>
+</apex:pageBlock> 
+</apex:page>

@@ -1,0 +1,27 @@
+<!-- 
+REVISION HISTORY
+================
+Version     Author          Date            Release#       CR#      Description
+-------     ------          ----            --------       ----     -----------
+1.0         Jessie          5 Sept 2016     1002           13461    Created to route to different VF depending on the environment (LEx/SF1 or Classic)
+ -->
+<apex:page standardController="Opportunity" title="Creating new Opportunity" tabStyle="Opportunity">
+
+<script type="text/javascript">
+
+// Function to check if it is Lightning Environment (LEx/SF1). If it is Lightning Environment, go to Custom LEx RecordType selection page, otherwise go to standard Classic RecordType selection page. 
+function goLightningCheck() {
+
+    if( (typeof sforce != 'undefined') && (sforce != null) ) {
+        sforce.one.navigateToURL('/apex/LExOpportunityRecordTypeSelector', true);        
+    } else {
+        location.assign("/setup/ui/recordtypeselect.jsp?ent=Opportunity&retURL={!If($CurrentPage.parameters.retURL!=null, $CurrentPage.parameters.retURL, '%2F006%2Fo')}&save_new_url=%2Fapex%2FSales_motion_account_selection_vfp%3FretURL%3D{!If($CurrentPage.parameters.retURL!=null, $CurrentPage.parameters.retURL, '%252F006%252Fo') }%26accid%3D{!$CurrentPage.parameters.accid}&00NA00000063VZx={!$CurrentPage.parameters.00NA00000063VZx}");     
+    }
+      
+}
+
+goLightningCheck();
+
+</script> 
+
+</apex:page>

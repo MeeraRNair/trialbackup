@@ -1,0 +1,91 @@
+<apex:page standardController="DellEMC_Key_Contacts__c">
+<apex:includeScript value="/soap/ajax/43.0/connection.js"/>
+<apex:includeScript value="/soap/ajax/43.0/apex.js"/>
+    <script>
+    sforce.connection.sessionId='{!GETSESSIONID()}';
+
+    var DellEMCkeyConID = "{!DellEMC_Key_Contacts__c.Id}";
+    var operation = "{!DellEMC_Key_Contacts__c.EMC_Operation__c}";
+    var integStatus= "{!DellEMC_Key_Contacts__c.EMC_Integration_Status__c}";
+    var EMCID = "{!DellEMC_Key_Contacts__c.EMC_ID__c}";
+    var Activedelete = "{!DellEMC_Key_Contacts__c.Activate_Delete__c}";
+    var PTID = "{!DellEMC_Key_Contacts__c.Partner_Track__c}";
+    console.log('operation:::'+operation);
+    if(EMCID !==null &&  EMCID!=="" && Activedelete == 'false'){
+if(operation !== "Deletion"){
+    console.log("Deletion Blog");
+    
+    var DEKCToUpdate = new sforce.SObject("DellEMC_Key_Contacts__c");
+    DEKCToUpdate.Id =DellEMCkeyConID;
+    DEKCToUpdate.EMC_Operation__c = "Deletion";
+    DEKCToUpdate.EMC_Integration_Status__c = "Waiting Sync" ;
+    
+    console.log("Deletion Blog"+DellEMCkeyConID +":"+DEKCToUpdate .EMC_Operation__c);
+    sforce.connection.update([DEKCToUpdate ]);
+
+    //location.reload(true);
+    window.location.href='/'+DellEMCkeyConID ;
+
+}
+else{
+    alert("Record is already marked as deleted. Waiting for the corresponding record to be deleted in EMC.");
+    window.location.href='/'+DellEMCkeyConID;
+}
+}
+else if(EMCID !==''  && Activedelete == 'true' ){
+        if(operation !== "Deletion"){
+        if(integStatus == 'Waiting Sync' || integStatus == 'Do Not Sync' || integStatus == 'Has Error'){
+             var DEKCToUpdate= new sforce.SObject("DellEMC_Key_Contacts__c");
+        DEKCToUpdate.Id =DellEMCkeyConID;
+          sforce.connection.deleteIds([DEKCToUpdate.Id]);
+       window.location.href='/'+PTID;
+        }
+        else{
+        var DEKCToUpdate= new sforce.SObject("DellEMC_Key_Contacts__c");
+        DEKCToUpdate.Id =DellEMCkeyConID;
+        DEKCToUpdate.EMC_Operation__c = "Deletion";
+        DEKCToUpdate.EMC_Integration_Status__c = "Waiting Sync";
+        
+        
+        sforce.connection.update([DEKCToUpdate]);
+       window.location.href='/'+DellEMCkeyConID;}
+      }
+      
+      else{
+          if(integStatus == 'Waiting Sync' || integStatus == 'Do Not Sync' || integStatus == 'Has Error'){
+          var DEKCToUpdate= new sforce.SObject("DellEMC_Key_Contacts__c");
+        DEKCToUpdate.Id =DellEMCkeyConID;
+          sforce.connection.deleteIds([DEKCToUpdate.Id]);
+       window.location.href='/'+PTID;}
+       else{
+           alert("Record is already marked as deleted. Waiting for the corresponding record to be deleted in EMC.");
+    window.location.href='/'+DellEMCkeyConID;
+       }
+      }
+    }  
+    
+else if(EMCID =='' && EMCID ==null && Activedelete == 'true' && (integStatus == 'Waiting Sync' || integStatus == 'Do Not Sync' || integStatus == 'Has Error')){
+        var DEKCToUpdate= new sforce.SObject("DellEMC_Key_Contacts__c");
+        DEKCToUpdate.Id =DellEMCkeyConID;
+        
+       sforce.connection.deleteIds([DEKCToUpdate.Id]);
+       window.location.href='/'+PTID;
+      
+    }
+    
+    else if(EMCID =='' && EMCID ==null && Activedelete == 'false' && (integStatus == 'Waiting Sync' || integStatus == 'Do Not Sync' || integStatus == 'Has Error')){
+        alert("Please wait record to sync with EMC.");
+    window.location.href='/'+DellEMCkeyConID;
+      }
+    
+    else{
+    var DEKCToUpdate= new sforce.SObject("DellEMC_Key_Contacts__c");
+        DEKCToUpdate.Id =DellEMCkeyConID;
+        
+       sforce.connection.deleteIds([DEKCToUpdate.Id]);
+       window.location.href='/'+PTID;
+    
+    }
+  
+    </script>
+</apex:page>

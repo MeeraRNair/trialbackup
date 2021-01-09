@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Viper_Budgeted_Price_Product_Managers</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+	$Profile.Name = &apos;MDF Product Managers&apos;,
+	ISCHANGED(Budgeted_Price__c),
+	NOT(
+		OR(
+			MDF_Program__r.RecordType.Name = &apos;Sales Tools&apos;,
+			MDF_Program__r.RecordType.Name = &apos;Contest&apos;,
+			MDF_Program__r.RecordType.Name = &apos;Other&apos;
+		)
+	)
+	
+)</errorConditionFormula>
+    <errorDisplayField>Budgeted_Price__c</errorDisplayField>
+    <errorMessage>You are not authorized to edit this field. Please contact your administrator.</errorMessage>
+</ValidationRule>

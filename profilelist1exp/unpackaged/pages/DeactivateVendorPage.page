@@ -1,0 +1,30 @@
+<apex:page standardController="Vendor__c" extensions="ActivateDeactivateVFController" lightningStylesheets="true">
+    <apex:form id="fm"> 
+        <apex:actionFunction name="callControler" action="{!DeactivateVendor}" rerender="fm"/>
+        <apex:pageMessage severity="info" strength="3" title="Sub Vendor ({!Vendor__c.Name}) cannot be modified with its parent vendor Inactive.                                                                                                        
+                      Activate vendor ({!parentvendor}) to modify the sub vendor. " rendered="{!(!displayerr)}" /> <br/>
+        <apex:commandButton action="{!Cancel}" value="Back" rendered="{!(!displayerr)}" />
+        <apex:Messages style="color:red; font-weight:bold"/>
+        
+        <apex:outputPanel rendered="{!displayerr}"> 
+            <apex:pageMessage severity="confirm"
+                                        strength="3"
+                                        title="Confirmation required"
+                                        detail="Are you sure you want to Deactivate the record?" />
+            <table align="center">
+                <tr><td>
+                    <apex:commandButton onclick="gotoLightningView();"  value="Confirm" />                  
+                    <apex:commandButton action="{!Cancel}" value="Cancel" />
+                </td></tr>
+            </table>
+        </apex:outputPanel>
+        
+    </apex:form> 
+    <script>
+        var gotoLightningView = function() {
+             callControler();
+              window.parent.location = '/'+'{!strvndrId}';
+
+        };
+    </script>
+</apex:page>

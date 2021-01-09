@@ -1,0 +1,155 @@
+<!--
+History:
+    
+    Version Date            Modified By       CR#                Description     
+--------------------------------------------------------------------------------------
+1.0                                                              Created
+1.1     22-Mar-2016     Afiq                 CR12751             Added text for Quantity & Configuration Services
+-->
+
+
+<apex:page controller="Vfcontrl_OpportunityEditPage" action="{!redirectToDetail}" showHeader="false" lightningStylesheets="true">
+
+<apex:form >
+
+    <apex:pageBlock rendered="{!UpdatedOppLineItems.size > 0}">
+    <!--CR11453 added -->
+    <apex:pageMessages />
+    
+    <!--CR11453 added -->
+    <!--CR12751 added -->
+<apex:outputLabel rendered="{!IF(opp.Order_Compliance_Product__c = true,'true','false')}"><font color="black">”You must enter a valid Quote#, Quantity, Configuration Services and Customer Requested Date on the Product in order to save the Opportunity at the desired Probability.  Otherwise all other changes will be saved and the Stage / Probability will not be updated.”
+</font></apex:outputLabel>
+<br>
+<apex:outputText ><span style="color: black; font-weight: bold; font-size: 1em;">{!EligibleToMessage}</span></apex:outputText>
+</br>
+        <apex:pageBlockSection >
+            <apex:pageBlockTable value="{!UpdatedOppLineItems}" var="lineItem">
+              <apex:column headerValue="Product Name">
+              <apex:outputLink >
+                <apex:outputLink value="/{!lineItem.Id}" target="_blank">{!lineItem.PricebookEntry.Name}</apex:outputLink>
+              </apex:outputLink> 
+              </apex:column> 
+                
+                <apex:column headerValue="Quote #">
+                    
+                    <apex:outputPanel rendered="{!IF($CurrentPage.parameters.readOnly='true', 'false', 'true')}">  
+                    <apex:inputField value="{!lineItem.Quote__c}" required="true"/>
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel rendered="{!IF($CurrentPage.parameters.readOnly='true', 'true', 'false')}">  
+                    <apex:outputField value="{!lineItem.Quote__c}"/>
+                    </apex:outputPanel>
+                    
+                </apex:column>
+                
+                 <!-- CR11453 : added OpportunityLineItem Quantity field---->
+                <apex:column headerValue="Quantity">  
+                    
+                    <apex:outputPanel rendered="{!IF($CurrentPage.parameters.readOnly='true', 'false', 'true')}">  
+                    <apex:inputField value="{!lineItem.Quantity}" required="true"/>
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel rendered="{!IF($CurrentPage.parameters.readOnly='true', 'true', 'false')}">  
+                    <apex:outputField value="{!lineItem.Quantity}"/>
+                    </apex:outputPanel>
+                    
+                </apex:column>
+                
+                <!-- CR11453 : added LOT fields-->
+                <apex:column headerValue="Configuration Services">
+                    
+                    <apex:outputPanel rendered="{!IF($CurrentPage.parameters.readOnly='true', 'false', 'true')}">  
+                    <apex:inputField value="{!lineItem.Configuration_Services__c}" required="true"/>
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel rendered="{!IF($CurrentPage.parameters.readOnly='true', 'true', 'false')}">  
+                    <apex:outputField value="{!lineItem.Configuration_Services__c}"/>
+                    </apex:outputPanel>
+                    
+                </apex:column>
+                
+                <apex:column headerValue="Customer Requested Date">
+                    
+                    <apex:outputPanel rendered="{!IF($CurrentPage.parameters.readOnly='true', 'false', 'true')}" >  
+                    <apex:inputField value="{!lineItem.Customer_Requested_Date__c}" required="true"/>
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel rendered="{!IF($CurrentPage.parameters.readOnly='true', 'true', 'false')}">  
+                    <apex:outputField value="{!lineItem.Customer_Requested_Date__c}"/>
+                    </apex:outputPanel>
+                    
+                    
+                </apex:column>
+                
+                <apex:column headerValue="Request Type">
+                    
+                    <apex:outputPanel rendered="{!IF($CurrentPage.parameters.readOnly='true', 'false', 'true')}">  
+                    <apex:inputField value="{!lineItem.Request_Type__c}" />
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel rendered="{!IF($CurrentPage.parameters.readOnly='true', 'true', 'false')}">  
+                    <apex:outputField value="{!lineItem.Request_Type__c}"/>
+                    </apex:outputPanel>
+                    
+                </apex:column>
+                <!-- CR11453 : added LOT fields-->
+                
+                <!-- CR11453 : added ReadOnly Supportability fields-->
+                <apex:column headerValue="Supportability Status">
+                    <apex:outputField value="{!lineItem.Supportability_Status__c}"/>
+                </apex:column>
+                <apex:column headerValue="Support by Date">
+                    <apex:outputField value="{!lineItem.Support_by_Date__c}"/>
+                </apex:column>
+                <apex:column headerValue="Supported Quantity">
+                    <apex:outputField value="{!lineItem.Supported_Quantity__c}"/>
+                </apex:column>
+                <apex:column headerValue="Alternate Item">
+                    <apex:outputField value="{!lineItem.Alternate_Item__c}"/>
+                </apex:column>
+                <apex:column headerValue="Supportability Comments">
+                    <apex:outputField value="{!lineItem.Supportability_Comments__c}"/>
+                </apex:column>
+                <!-- CR11453 : added Supportability fields--> 
+            </apex:pageBlockTable>                
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Save" action="{!save}" rendered="{!IF($CurrentPage.parameters.readOnly='true', 'false', 'true')}"/>
+            <apex:commandButton value="Edit" immediate="true" rendered="{!IF($CurrentPage.parameters.readOnly='true', 'true', 'false')}" action="{!editURL}"/>
+            <apex:commandButton value="Cancel" action="{!cancel}" immediate="true"  rendered="{!IF($CurrentPage.parameters.readOnly='true', 'false', 'true')}"/>
+            
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+    <apex:pageBlock rendered="{!UpdatedOppLineItems.size == 0}">
+    <script type="text/javascript">
+        window.resizeTo(600,200);
+         function closeIt()
+    {
+        
+       if( isLightningExperienceOrSalesforce1() ) {
+            // Do something for Lightning Experience
+            window.history.back();
+        }
+        else {
+            javascript:self.close();
+        }
+        
+    
+    }
+    function isLightningExperienceOrSalesforce1() {
+        return((typeof sforce != 'undefined') && sforce && (!!sforce.one));
+    }
+    </script>
+        <apex:outputLabel >
+            <font color="black">”There are not any products that currently meet LOT/Ocean/Needed-Quote criteria.”</font>
+        </apex:outputLabel>
+        <apex:pageBlockButtons >
+            <input type="button" value="Close" class="btn" onclick="closeIt()"/>
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+    
+</apex:form>
+
+</apex:page>

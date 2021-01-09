@@ -1,0 +1,84 @@
+<apex:page standardController="Account" extensions="ContactHierarchyChartCtrlExt" lightningStyleSheets="true" sidebar="false">
+    <style>
+         
+    </style>
+  <apex:sectionHeader subtitle="{!Account.Name}" title="Showing Contact hierarchy"/>
+  <hr/>
+  <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+  <script type='text/javascript'>
+      google.load('visualization', '1', {packages:['orgchart']}); 
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Name');
+        data.addColumn('string', 'Manager');
+        data.addColumn('string', 'ToolTip');       
+        data.addColumn('string', 'color'); 
+        data.addRows([
+          
+       {!rowSet}
+       //[{v:'Mike', f:'Mike<div style="color:red; font-style:italic">President</div>'}, '', 'The President'],
+          //[{v:'Jim', f:'Jim<div style="color:red; font-style:italic">Vice President</div>'}, 'Mike', 'VP'],
+        // ['Alice', 'Mike', ''],
+        // ['Bob', 'Jim', 'Bob Sponge'],
+         //['Carol', 'Bob', '']
+       
+       //['Fredric March','Jim Graham',''],['Michael Jackson','',''],[{v:'Spencer Tracy', f:'Spencer Tracy<div style="color:red; font-style:italic">o how much information can we put in the box?  Answer we gave was To Be Determined </div>'},'Jim Graham','sdsfsdfdsfdgdgfdgfgdgfdfddfdfdgfgdfddgdf'],['Jim Graham','',''],['Orphan Node','','']
+          
+        ]);
+        
+          // {!rowSet}
+        /*
+        [{v:'Mike', f:'Mike<div style="color:red; font-style:italic">President</div>'}, '', 'The President'],
+          [{v:'Jim', f:'Jim<div style="color:red; font-style:italic">Vice President</div>'}, 'Mike', 'VP'],
+          ['Alice', 'Mike', ''],
+          ['Bob', 'Jim', 'Bob Sponge'],
+          ['Carol', 'Bob', '']
+        */       
+        
+        // Loop through the data table and set the color of the Border with the corresponding value using the below statement
+        //data.setRowProperty(0,'style', 'border: 6px solid green');
+        var rowCount = data.getNumberOfRows();
+        var i = 0;
+        for (i = 0 ; i < rowCount ; i++)
+        {
+            data.setRowProperty(i,'style', data.getValue(i, 3));
+        }
+        var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
+        chart.draw(data, {allowHtml:true});
+               
+        
+        document.getElementById('wait_label').style.visibility = 'hidden';
+        
+      }
+    </script>
+
+
+
+<!--
+  <apex:outputText value="{!rowSet}" escape="true"> </apex:outputText><br/>
+  <apex:outputText value="{!rowSet}" escape="false"> </apex:outputText>  -->
+  <apex:form >
+                <apex:commandLink action="{!redirectBack}" value="Back"/>
+  </apex:form>
+  
+  <div id='chart_div'></div>
+  <div id='wait_label'>Processing the Contact hierarchy...Please wait!    </div>
+   
+    <table style="width: 100%"> 
+        <tr>
+            
+            
+            <td style="width: 75%" colspan="3">
+                <apex:image value="{!$Resource.OrgChartLegend}"/>
+                <br/><br/>
+                <apex:image value="{!$Resource.OrgChartHeatMapLegendTransparent}"/>
+            </td>
+            <td style="width: 30%" colspan="3">
+            
+            </td>
+        </tr>
+    </table>
+    
+  
+</apex:page>

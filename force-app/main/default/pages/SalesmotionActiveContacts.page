@@ -1,0 +1,129 @@
+<!-- 
+   Story       CR Number   Release No      Date            Created By     Modified By     Description
+   --------    ---------   ----------      -----------     ------------   -----------     -----------
+   #5906775                FY20-0402       04-Jan-2019     Varsha                         Display salesmotion Active contacts in Partner Account page layout
+   #00559071               FY20-0404       24-Apr-2019                     Sneha          To increase the number of records to be shown on VF Page
+   -->
+<apex:page standardcontroller="Account" sidebar="false" showHeader="false" extensions="SalesmotionActiveContactsCtrl"  readOnly="true" docType="html-5.0" >
+         <apex:stylesheet value="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'css/jquery.dataTables.css')}"/>
+   <style type="text/css">
+      body{
+      font-size: 60%;
+      }
+      .sorting {
+      background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources) }') no-repeat center right !important;
+      padding-right: 20px !important;
+      }
+      .sorting_asc {
+      background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources) }') no-repeat center right !important;
+      padding-right: 20px !important;
+      }
+      .sorting_desc {
+      background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources) }') no-repeat center right !important;
+      padding-right: 20px !important;
+      }
+      .sorting_asc_disabled {
+      background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_asc_disabled.png') }') no-repeat center right !important;
+      padding-right: 20px !important;
+      }
+      .sorting_desc_disabled {
+      background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_desc_disabled.png') }') no-repeat center right !important;
+      padding-right: 20px !important;
+      }
+      table.dataTable tr.odd { background-color: white;border-bottom-width:1px }
+      table.dataTable tr.even { background-color: white;border-bottom-width:1px }
+      .bPageBlock .list .last>td { border-bottom-width:1px }
+      .apexp .bPageBlock .detailList .list .last td { border-bottom-width:1px }
+      table.dataTable tr.odd td.sorting_1 { background-color: white; }
+      table.dataTable tr.odd td.sorting_2 { background-color: white; }
+      table.dataTable tr.odd td.sorting_3 { background-color: white; }
+      table.dataTable tr.even td.sorting_1 { background-color: white; }
+      table.dataTable tr.even td.sorting_2 { background-color: white; }
+      table.dataTable tr.even td.sorting_3 { background-color: white; }
+      .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate {
+      padding: 3px;
+      }
+      .backgroundColorClass {
+      background-color: orange;
+      }
+      
+   </style>
+   <apex:form id="formActiveRelatedList">
+      <!-- <div>-->
+      <apex:pageBlock id="block" ><!-- title="{!$Label.Active_Contacts}"-->
+      <table id="example" >
+          <thead >
+          <tr>
+            <th>{!$Label.Action}</th>
+            <th>{!$Label.name}</th>
+            <th>{!$Label.Partner_User_Active}</th>
+            <th >{!$Label.Enable_as_Partner_Group_Administrator}</th>
+            <th >{!$Label.Enable_as_Partner_Track_Administrator}</th>
+            <th >{!$Label.Enable_Deal_Registration}</th>
+            <th>{!$Label.status}</th>
+            <th>{!$Label.Phone}</th>
+            <th>{!$Label.email}</th>
+            <th style="word-wrap: break-word">{!$Label.Decision_Making_Role}</th>
+            <th style="word-wrap: break-word">{!$Label.Primary_Contact_For_Services_Type}</th>
+       </tr> </thead> 
+         <tbody>
+         <apex:repeat value="{!SalesMotionActiveContacts}" var="actCon">
+            <!--<apex:repeat value="{!actCon}" var="cont">-->
+            <tr>
+               <td>
+                  <apex:commandLink action="{!editContact}" value="{!$Label.edit}" style="color: #015ba7;" target="_blank">
+                     &nbsp;|&nbsp;
+                     <apex:param name="conId" value="{!actCon.id}" assignTo="{!strConId}"/>
+                  </apex:commandLink>
+                  <apex:outputLink value="{!URLFOR($Action.Contact.View, actCon.Id)}" target="_blank" style="color: #015ba7;">{!$Label.Del}</apex:outputLink>
+               </td>
+               <td>
+                  <apex:outputlink value="{!URLFOR($Action.Contact.View, actCon.Id)}" target="_blank">{!actCon.Name}</apex:outputlink>
+               </td>
+               <td>
+                  <Apex:inputCheckbox value="{!actCon.Partner_User_Active__c}" disabled="true" />
+               </td>
+               <td>
+                  <Apex:inputCheckbox value="{!actCon.Enable_as_Partner_Group_Administrator__c}" disabled="true" />
+               </td>
+               <td>
+                  <Apex:inputCheckbox value="{!actCon.Partner_User_Partner_Admin__c}" disabled="true" />
+               </td>
+               <td>
+                  <Apex:inputCheckbox value="{!actCon.Partner_User_Deal_Registration__c}" disabled="true" />
+               </td>
+               <td>
+                  {!actCon.Status__c}
+               </td>
+               <td>
+                  {!actCon.Phone}
+               </td>
+               <td>
+                  {!actCon.Email}
+               </td>
+               <td>
+                  {!actCon.Decision_Making_Role__c}
+               </td>
+               <td> 
+                  {!actCon.Primary_Contact_for_Service_Type__c}
+               </td>
+            </tr>
+         </apex:repeat>
+       </tbody>
+      </table>
+     </apex:pageBlock> 
+      <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'js/jquery.js')}"></script>
+      <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'js/jquery.dataTables.js')}"></script>
+     <script type="text/javascript" language="javascript">
+         var j$ = jQuery.noConflict();
+         j$('#example').dataTable({
+             sPaginationType: "full_numbers",
+             "lengthMenu": [ 5 ],
+             "bLengthChange": false
+         }); 
+      </script> 
+   </apex:form>
+    
+  
+    
+</apex:page>

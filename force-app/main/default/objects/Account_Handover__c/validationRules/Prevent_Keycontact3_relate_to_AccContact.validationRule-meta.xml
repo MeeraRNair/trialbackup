@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_Keycontact3_relate_to_AccContact</fullName>
+    <active>true</active>
+    <description>To allow only contacts related to account selected on Account Handover.</description>
+    <errorConditionFormula>AND(Key_Contact_3__c &lt;&gt; &apos;&apos;,Key_Contact_3__r.Account_ID__c &lt;&gt;  Account__c)</errorConditionFormula>
+    <errorDisplayField>Key_Contact_3__c</errorDisplayField>
+    <errorMessage>Please select a valid contact for the selected account</errorMessage>
+</ValidationRule>

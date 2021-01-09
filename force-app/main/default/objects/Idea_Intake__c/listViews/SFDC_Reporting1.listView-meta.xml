@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SFDC_Reporting1</fullName>
+    <columns>Record_ID__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>NAME</columns>
+    <columns>Status__c</columns>
+    <columns>Workstream__c</columns>
+    <columns>Requesting_organization__c</columns>
+    <columns>Researcher_Moderator__c</columns>
+    <columns>Original_Requester__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Workstream__c</field>
+        <operation>equals</operation>
+        <value>SFDC Reporting</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>Rejected,Resolved</value>
+    </filters>
+    <label>SFDC Reporting</label>
+    <language>en_US</language>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
+</ListView>

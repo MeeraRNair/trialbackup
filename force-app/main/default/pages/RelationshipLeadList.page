@@ -1,0 +1,59 @@
+<!--Name        : relationshipleadlist
+* ---------------------------------------------------------
+* Revision  Name        Date        Description
+* 1.0       Azwanti     14.04.2011  CR5987/88/89 - Relationship Lead listings
+* 1.1       Azwanti     25.05.2011  CR5987/88/89 - workaround for case #05433905: comment out field set 
+-->
+<apex:page standardController="Relationship_Lead__c" extensions="VFCntrlr_RelationshipLeadAccPlayList">
+<apex:sectionHeader title="Relationship Lead Listing" rendered="{!listOfRL.size!=0}" subtitle="{!subTitle}"></apex:sectionHeader>
+<apex:sectionHeader title="Relationship Lead Listing" rendered="{!listOfRL.size=0}"></apex:sectionHeader>
+<apex:form >
+<apex:pageBlock mode="maindetail" rendered="{!listOfRL.size!=0}">
+<apex:pageBlockTable value="{!listOfRL}" var="rlList" styleClass="detailList" id="RLTable">
+    <!--R1.1
+    <apex:repeat value="{!$ObjectType.Relationship_Lead__c.FieldSets.currentQuarterMyRL}" var="fld">
+    <apex:column headerValue="{!$ObjectType.Relationship_Lead__c.Fields[fld].label}">
+    <apex:outputLink value="{!'/'+currQuarterRL.Id}" rendered="{!fld='Name'}">{!currQuarterRL[fld]}</apex:outputLink>
+    <apex:outputField value="{!currQuarterRL[fld]}"  rendered="{!fld!='Name'}"/>
+    </apex:column>  
+    </apex:repeat>
+    R1.1 -->    
+    <apex:column headerValue="Relationship Lead #">
+    <apex:outputlink value="/{!rlList.Id}">{!rlList.Name}</apex:outputlink>
+    </apex:column>
+    <apex:column value="{!rlList.Relationship_Lead_Owner_Role__c}"/>
+    <apex:column value="{!rlList.Relationship_Lead_Owner__c}"/>
+    <apex:column value="{!rlList.Contact__c}"/>
+    <apex:column value="{!rlList.Account__c}"/>
+    <apex:column value="{!rlList.Campaign__c}"/>
+    <apex:column value="{!rlList.Due_Date__c}"/>
+    <apex:column value="{!rlList.Status__c}"/>
+    <apex:column value="{!rlList.Relationship_Lead_Score__c}"/>
+</apex:pageBlockTable>
+
+<apex:pageBlockButtons >            
+<apex:commandButton value="Back" action="{!redirectPage}"/> 
+</apex:pageBlockButtons> 
+<!-- previous and next links -->
+<apex:outputPanel style="margin-top: 5px" id="pageNavigation">               
+    <div style="float: left;font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: right; width: 52%;">
+        Page {!currentPage} of {!lastPage}
+    </div>  
+    <div style="float: right; font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: right; width: 48%;">                
+        <apex:commandLink action="{!previous}" rendered="{!hasPrevious}" rerender="RLTable,pageNavigation">
+            &lt; Previous Page
+        </apex:commandLink>                 
+        <apex:outputText rendered="{!hasPreviousAndNext}">&nbsp;|&nbsp;</apex:outputText>
+        <apex:commandLink action="{!next}" rendered="{!hasNext}" rerender="RLTable,pageNavigation">
+            Next Page &gt;
+        </apex:commandLink>
+    </div>              
+</apex:outputPanel> 
+
+</apex:pageBlock>
+<apex:pageBlock rendered="{!listOfRL.size=0}">
+<apex:outputText value="No records to display"></apex:outputText>
+<br/><br/><apex:commandButton value="Back" action="{!navigateToRLTab}"/>
+</apex:pageblock>
+</apex:form>
+</apex:page>

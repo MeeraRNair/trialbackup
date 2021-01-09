@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mass_update_detail</fullName>
+    <columns>NAME</columns>
+    <columns>Region__c</columns>
+    <columns>Request_Status__c</columns>
+    <columns>Type_of_Bulk_Request__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Request_Type__c</field>
+        <operation>equals</operation>
+        <value>Mass Update</value>
+    </filters>
+    <filters>
+        <field>Request_Status__c</field>
+        <operation>equals</operation>
+        <value>Assigned,Open</value>
+    </filters>
+    <filters>
+        <field>Region__c</field>
+        <operation>equals</operation>
+        <value>EMEA,LATAM,NAMER,Global</value>
+    </filters>
+    <filters>
+        <field>Type_of_Bulk_Request__c</field>
+        <operation>equals</operation>
+        <value>Change Ownership,Deactivate Account,Update Account,Other</value>
+    </filters>
+    <label>Mass update detail</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>GDM_DPTDS</group>
+    </sharedTo>
+</ListView>

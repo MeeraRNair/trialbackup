@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RequestContractsSupport_SBU_must_be_PLE</fullName>
+    <active>true</active>
+    <description>When the “Support Status” field is modified, “Segment Business Unit” field must be PLE in order to save the record.</description>
+    <errorConditionFormula>AND(
+RecordType.Name = &quot;Request Contracts Support&quot;,
+ISPICKVAL( Segment_Business_Unit__c , &quot;CSMB&quot;),
+OR( AND( ISNEW(), NOT( ISPICKVAL( Support_Status__c , &quot;Resource requested&quot;) ) ) ,AND(ISCHANGED( Support_Status__c ), NOT( OR(ISPICKVAL(Support_Status__c,&quot;Approved&quot;), ISPICKVAL(Support_Status__c,&quot;Finalized&quot;),ISPICKVAL(Support_Status__c,&quot;Rejected&quot;),ISPICKVAL(Support_Status__c,&quot;Completed&quot;),ISPICKVAL(Support_Status__c,&quot;Cancelled&quot;)))
+)))</errorConditionFormula>
+    <errorMessage>The Support Status field cannot be changed if Segment Business Unit = CSMB. Please adjust either Segment Business Unit to PLE or change the 
+Support Status to its original value.</errorMessage>
+</ValidationRule>

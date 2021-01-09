@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OEM_status_control2</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR(ISPICKVAL(PRIORVALUE(OEM_Status__c),&quot;Closed&quot;),ISPICKVAL(PRIORVALUE(OEM_Status__c),&quot;In Progress&quot;)) &amp;&amp; ISPICKVAL(OEM_Status__c, &quot;New&quot;)</errorConditionFormula>
+    <errorMessage>OEM status cannot revert back to &quot;New&quot; once Request is &quot;In Progress&quot; OR &quot;Closed&quot;</errorMessage>
+</ValidationRule>

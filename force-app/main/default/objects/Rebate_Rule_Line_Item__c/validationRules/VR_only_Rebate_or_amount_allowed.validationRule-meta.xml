@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR_only_Rebate_or_amount_allowed</fullName>
+    <active>true</active>
+    <errorConditionFormula>($RecordType.Id = &apos;012A0000000VhN6&apos; || $RecordType.Id = &apos;012A0000000VhN8&apos;) &amp;&amp; ( NOT(ISNULL( Amount__c )) &amp;&amp; NOT(ISNULL( Rebate__c )) )</errorConditionFormula>
+    <errorMessage>Enter either Rebate % or Amount only.</errorMessage>
+</ValidationRule>

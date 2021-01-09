@@ -1,0 +1,838 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>&quot;Look For Reseller Record In the Record Contracted Distributor Relationship Matrix&quot;</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Contracted_Disti__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Contracted Distributor(s)</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Disti_Account_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Disti_Account__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Distributor Account Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Disti_Account__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Storage Preferred Distributor</label>
+        <lookupFilter>
+            <active>true</active>
+            <booleanFilter>(1 OR 2 OR 3) AND 4 AND 5</booleanFilter>
+            <filterItems>
+                <field>Account.Partner_Type__c</field>
+                <operation>equals</operation>
+                <value>federal distributor,commercial distributor,oem distributor,distributor (GCC),consumer distributor,sub distributor,federal oem distributor</value>
+            </filterItems>
+            <filterItems>
+                <field>Account.Partner_Type__c</field>
+                <operation>equals</operation>
+                <value>FEDERAL DISTRIBUTOR,OEM DISTRIBUTOR,COMMERCIAL DISTRIBUTOR,DISTRIBUTOR (GCC),CONSUMER DISTRIBUTOR,SUB DISTRIBUTOR,FEDERAL OEM DISTRIBUTOR</value>
+            </filterItems>
+            <filterItems>
+                <field>Account.Partner_Type__c</field>
+                <operation>equals</operation>
+                <value>Federal Distributor,OEM Distributor,Commercial Distributor,Distributor (GCC),Consumer Distributor,Sub Distributor,Federal OEM Distributor</value>
+            </filterItems>
+            <filterItems>
+                <field>Account.Partner_Registration__c</field>
+                <operation>notEqual</operation>
+                <value></value>
+            </filterItems>
+            <filterItems>
+                <field>Account.Calculated_Status__c</field>
+                <operation>equals</operation>
+                <value>Active</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Distributor Relationship (Distributor Account)</relationshipLabel>
+        <relationshipName>DistiRelationships1</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Disti_Affinity_Id__c</fullName>
+        <externalId>false</externalId>
+        <formula>Disti_Account__r.Account_ID__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Distributor Affinity Id</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Disti_Country__c</fullName>
+        <externalId>false</externalId>
+        <formula>Disti_Account__r.Account_Country__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Distributor Country</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Distributor_Account_Name_text__c</fullName>
+        <externalId>false</externalId>
+        <label>Distributor Account Name text</label>
+        <length>200</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Distributor_Request_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Distributor Request Reason</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Distributor_Switch__c</fullName>
+        <description>Checks the flag based on time period stored in custom setting</description>
+        <externalId>false</externalId>
+        <formula>AND(TODAY() &gt;= $Setup.Distributor_Switch_Time_Period__c.Start_Date__c &amp;&amp;( ISBLANK($Setup.Distributor_Switch_Time_Period__c.End_Date__c) || TODAY() &lt;= $Setup.Distributor_Switch_Time_Period__c.End_Date__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Flag to display change hyperlink in partner portal</inlineHelpText>
+        <label>Distributor Switch On</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Enabled_for_2_Contracted_Disti_s__c</fullName>
+        <externalId>false</externalId>
+        <formula>AND(Reseller_Account__c != null, 
+OR(CONTAINS(LOWER($Label.DealReg_GcCountries), LOWER(Reseller_Account__r.Account_Country__c)), ($Label.DealReg_GcCountries == &apos;ALLCOUNTRIES&apos;)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Setting that displays two default Distributor Search Results for Partners</inlineHelpText>
+        <label>Enabled for 2 Contracted Distributors</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Existing_Distributor_Informed__c</fullName>
+        <externalId>false</externalId>
+        <label>Existing Distributor Informed?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Existing_Secondary_Distributor_Informed__c</fullName>
+        <externalId>false</externalId>
+        <label>Existing Secondary Distributor Informed?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Onboarding_Distributors__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Reseller_Account__r.Partner_Registration__r.Sponsoring_Distributor__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Sponsoring Distributor</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Partner_Tier__c</fullName>
+        <externalId>false</externalId>
+        <formula>Reseller_Account__r.Partner_Tier__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Purchase Path</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Category__c</fullName>
+        <externalId>false</externalId>
+        <label>Product Category</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Client</fullName>
+                    <default>false</default>
+                    <label>Client</label>
+                </value>
+                <value>
+                    <fullName>Servers</fullName>
+                    <default>false</default>
+                    <label>Servers</label>
+                </value>
+                <value>
+                    <fullName>Storage</fullName>
+                    <default>false</default>
+                    <label>Storage</label>
+                </value>
+                <value>
+                    <fullName>Networking</fullName>
+                    <default>false</default>
+                    <label>Networking</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Product_Identifier__c</fullName>
+        <externalId>false</externalId>
+        <label>Product Identifier</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Volume</fullName>
+                    <default>false</default>
+                    <label>Volume</label>
+                </value>
+                <value>
+                    <fullName>Value</fullName>
+                    <default>false</default>
+                    <label>Value</label>
+                </value>
+                <value>
+                    <fullName>Both</fullName>
+                    <default>false</default>
+                    <label>Both</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Requested_Distributor_By__c</fullName>
+        <externalId>false</externalId>
+        <label>Requested Distributor By</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Requested_Distributor_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Requested Distributor Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Requested_Distributor_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Requested Distributor Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Submitted</fullName>
+                    <default>false</default>
+                    <label>Submitted</label>
+                </value>
+                <value>
+                    <fullName>In Progress</fullName>
+                    <default>false</default>
+                    <label>In Progress</label>
+                </value>
+                <value>
+                    <fullName>Approved</fullName>
+                    <default>false</default>
+                    <label>Approved</label>
+                </value>
+                <value>
+                    <fullName>Rejected</fullName>
+                    <default>false</default>
+                    <label>Rejected</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Requested_Distributor__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Requested Distributor</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Distributor  Relationship (Requested Distributor)</relationshipLabel>
+        <relationshipName>Distributor_Relationship1</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Requested_Secondary_Distributor_By__c</fullName>
+        <externalId>false</externalId>
+        <label>Requested Secondary Distributor By</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Requested_Secondary_Distributor_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Requested Secondary Distributor Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Requested_Secondary_Distributor_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Requested Secondary Distributor Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Submitted</fullName>
+                    <default>false</default>
+                    <label>Submitted</label>
+                </value>
+                <value>
+                    <fullName>In Progress</fullName>
+                    <default>false</default>
+                    <label>In Progress</label>
+                </value>
+                <value>
+                    <fullName>Approved</fullName>
+                    <default>false</default>
+                    <label>Approved</label>
+                </value>
+                <value>
+                    <fullName>Rejected</fullName>
+                    <default>false</default>
+                    <label>Rejected</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Requested_Secondary_Distributor__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Requested Secondary Distributor</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Distributor  Relationship (Requested Secondary Distributor)</relationshipLabel>
+        <relationshipName>Requested_Secondary_Distributor</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Reseller_Account_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Reseller_Account__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reseller Account Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reseller_Account__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Reseller Account</label>
+        <lookupFilter>
+            <active>true</active>
+            <booleanFilter>(1 OR 2 OR 3 OR 4 OR 7 OR 8) AND 5 AND 6</booleanFilter>
+            <filterItems>
+                <field>Account.Partner_Type__c</field>
+                <operation>equals</operation>
+                <value>GLOBAL ALLIANCE,SOLUTION PROVIDER,SYSTEM INTEGRATOR (GLOBAL ALLIANCES),MSP/CSP/SERVICE PROVIDER,OEM,COMMERCIAL GENERAL,US FEDERAL,OEM SOLUTION PROVIDER,CLOUD SERVICE PROVIDER,SYSTEMS INTEGRATOR,CONSUMER PARTNER</value>
+            </filterItems>
+            <filterItems>
+                <field>Account.Partner_Type__c</field>
+                <operation>equals</operation>
+                <value>global alliance,solution provider,system integrator (global alliances),MSP/CSP/service provider,OEM,commercial general,us federal,oem solution provider,cloud service provider,systems integrator,consumer partner</value>
+            </filterItems>
+            <filterItems>
+                <field>Account.Partner_Type__c</field>
+                <operation>equals</operation>
+                <value>Global Alliance,Solution Provider,System Integrator (Global Alliances),MSP/CSP/Service Provider,OEM,Commercial General,US Federal,OEM Solution Provider,Cloud Service Provider,Systems Integrator,Consumer Partner</value>
+            </filterItems>
+            <filterItems>
+                <field>Account.Partner_Type__c</field>
+                <operation>equals</operation>
+                <value>managed service provider,Managed Service Provider,MANAGED SERVICE PROVIDER,</value>
+            </filterItems>
+            <filterItems>
+                <field>Account.Partner_Registration__c</field>
+                <operation>notEqual</operation>
+                <value></value>
+            </filterItems>
+            <filterItems>
+                <field>Account.Calculated_Status__c</field>
+                <operation>equals</operation>
+                <value>Active</value>
+            </filterItems>
+            <filterItems>
+                <field>Account.Partner_Type__c</field>
+                <operation>equals</operation>
+                <value>Federal Cloud Service Provider, Federal OEM, Federal OEM Solution Provider, Federal OEM Systems Integrator, Federal Solution Provider, Federal Systems Integrator</value>
+            </filterItems>
+            <filterItems>
+                <field>Account.Partner_Type__c</field>
+                <operation>equals</operation>
+                <value>FEDERAL CLOUD SERVICE PROVIDER, FEDERAL OEM, FEDERAL OEM SOLUTION PROVIDER, FEDERAL OEM SYSTEMS INTEGRATOR, FEDERAL SOLUTION PROVIDER, FEDERAL SYSTEMS INTEGRATOR</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Distributor  Relationship</relationshipLabel>
+        <relationshipName>DistributorRelationships</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Reseller_Affinity_Id__c</fullName>
+        <externalId>false</externalId>
+        <formula>Reseller_Account__r.Account_ID__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reseller Affinity Id</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Secondary_Distributor_Account_Name_text__c</fullName>
+        <externalId>false</externalId>
+        <label>Secondary Distributor Account Name text</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Secondary_Distributor_Affinity_Id__c</fullName>
+        <externalId>false</externalId>
+        <formula>Secondary_Storage_Preferred_Distributor__r.Account_ID__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Secondary Distributor Affinity Id</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Secondary_Distributor_Country__c</fullName>
+        <externalId>false</externalId>
+        <formula>Secondary_Storage_Preferred_Distributor__r.Account_Country__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Secondary Distributor Country</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Secondary_Distributor_Request_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Secondary Distributor Request Reason</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Secondary_Storage_Preferred_Distributor__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Secondary Storage Preferred Distributor</label>
+        <lookupFilter>
+            <active>true</active>
+            <booleanFilter>(1 OR 2 OR 3) AND 4 AND 5</booleanFilter>
+            <filterItems>
+                <field>Account.Partner_Type__c</field>
+                <operation>equals</operation>
+                <value>federal distributor,commercial distributor,oem distributor,distributor (GCC),consumer distributor,sub distributor,federal oem distributor</value>
+            </filterItems>
+            <filterItems>
+                <field>Account.Partner_Type__c</field>
+                <operation>equals</operation>
+                <value>FEDERAL DISTRIBUTOR,OEM DISTRIBUTOR,COMMERCIAL DISTRIBUTOR,DISTRIBUTOR (GCC),CONSUMER DISTRIBUTOR,SUB DISTRIBUTOR,FEDERAL OEM DISTRIBUTOR</value>
+            </filterItems>
+            <filterItems>
+                <field>Account.Partner_Type__c</field>
+                <operation>equals</operation>
+                <value>Federal Distributor,OEM Distributor,Commercial Distributor,Distributor (GCC),Consumer Distributor,Sub Distributor,Federal OEM Distributor</value>
+            </filterItems>
+            <filterItems>
+                <field>Account.Partner_Registration__c</field>
+                <operation>notEqual</operation>
+                <value></value>
+            </filterItems>
+            <filterItems>
+                <field>Account.Calculated_Status__c</field>
+                <operation>equals</operation>
+                <value>Active</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Distributor Relationship (Secondary Storage Preferred Distributor)</relationshipLabel>
+        <relationshipName>Secondary_Storage_Preferred_Distributor</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Storage_Partner_Tier__c</fullName>
+        <externalId>false</externalId>
+        <formula>text( Reseller_Account__r.Purchasing_Model__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Specialty Product Purchase Path</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Distributor  Relationship</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>Contracted_Disti__c</columns>
+        <columns>Reseller_Account_Name__c</columns>
+        <columns>Onboarding_Distributors__c</columns>
+        <columns>Disti_Account__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>All_Disti_Relationships</fullName>
+        <columns>NAME</columns>
+        <columns>Reseller_Account__c</columns>
+        <columns>Contracted_Disti__c</columns>
+        <columns>Disti_Account__c</columns>
+        <columns>Disti_Account_Name__c</columns>
+        <columns>Disti_Affinity_Id__c</columns>
+        <columns>Reseller_Account_Name__c</columns>
+        <columns>Reseller_Affinity_Id__c</columns>
+        <columns>OBJECT_ID</columns>
+        <columns>Product_Category__c</columns>
+        <columns>Disti_Country__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All Disti Relationships</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>{000000}</displayFormat>
+        <label>Distributor id</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Distributor  Relationship</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Dist_Accoun_And_Reseller_Account_Not_Nul</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(ISBLANK (Disti_Account__c), ISBLANK (Reseller_Account__c))</errorConditionFormula>
+        <errorMessage>Disti Account OR  Reseller Account Should Not Be Null.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Secondary_Distributor_Null_Check</fullName>
+        <active>true</active>
+        <errorConditionFormula>!Enabled_for_2_Contracted_Disti_s__c &amp;&amp; ( Secondary_Storage_Preferred_Distributor__c != null)</errorConditionFormula>
+        <errorDisplayField>Secondary_Storage_Preferred_Distributor__c</errorDisplayField>
+        <errorMessage>Reseller Country is not authorized to select Secondary Distributor</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Secondary_Distributor_check</fullName>
+        <active>true</active>
+        <errorConditionFormula>(Disti_Account__c != null) &amp;&amp; (Disti_Account__c  =  Secondary_Storage_Preferred_Distributor__c)</errorConditionFormula>
+        <errorDisplayField>Secondary_Storage_Preferred_Distributor__c</errorDisplayField>
+        <errorMessage>Please select a different secondary distributor</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Secondary_Requested_Distributor_check</fullName>
+        <active>true</active>
+        <errorConditionFormula>CONTAINS( $Profile.Name , &quot;PRM Portal&quot;) &amp;&amp;
+Requested_Distributor__c != null &amp;&amp; Distributor_Request_Reason__c  == null &amp;&amp; ( Requested_Distributor__c == Requested_Secondary_Distributor__c )</errorConditionFormula>
+        <errorDisplayField>Requested_Secondary_Distributor__c</errorDisplayField>
+        <errorMessage>Please Request for a Different Secondary Distributor</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>New_Custom</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>New Disti Relationship</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/20.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/20.0/apex.js&quot;)}
+
+var id =  sforce.apex.execute(&quot;DistiRelationshipOverrideController&quot;,&quot;navigateNewEditPage&quot;,
+                             { partnerType: &quot;{!Account.Partner_Type__c}&quot;,
+                              partnerRelationship: &quot;{!Account.Partner_Relationship__c}&quot;
+ });
+
+
+if(id == &apos;distributor&apos;){
+
+window.location=&quot;/a7d/e?CF00N4B000000hMXo={!Account.Name}&amp;CF00N4B000000hMXo_lkid={!Account.Id}&amp;retURL=%2F0013B000007FKQ7&quot;;
+
+}else if(id == &apos;reseller&apos;) {
+  window.location=&quot;/a7d/e?CF00N4B000000hMXu={!Account.Name}&amp;CF00N4B000000hMXu_lkid={!Account.Id}&amp;retURL=%2F0013B000007FKQ7&quot;;
+}</url>
+    </webLinks>
+</CustomObject>

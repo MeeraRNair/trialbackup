@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AE_PDM_Priority__c</fullName>
+    <externalId>false</externalId>
+    <formula>if(
+	Account__r.RecordType.DeveloperName = &apos;GBL_Standard_RT&apos;,
+	if( Team_Member_Role__c = &apos;Account Executive&apos;,
+		1,
+		if(
+			Team_Member_Role__c = &apos;Client &amp; Compute Sales Exec&apos;,
+			2,
+			if( Team_Member_Role__c = &apos;Client &amp; Compute Global Sales Exec&apos;,
+				3,
+				-1
+			)
+		)
+	),
+	if(	Account__r.RecordType.DeveloperName = &apos;Partner_Account&apos;,
+		if( Team_Member_Role__c = &apos;Partner Development Manager&apos;,
+			1,
+			if(
+				Team_Member_Role__c = &apos;Distribution Partner Development Manager&apos;,
+				2,
+				-1
+			)
+		),
+		if(	Account__r.RecordType.DeveloperName = &apos;Master_Account&apos;,
+			if( Team_Member_Role__c = &apos;Partner Development Manager&apos;,
+				1,
+				if(
+					Team_Member_Role__c = &apos;Distribution Partner Development Manager&apos;,
+					2,
+					-1
+				)
+			),
+			-1
+		)
+	)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>AE/PDM Priority</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

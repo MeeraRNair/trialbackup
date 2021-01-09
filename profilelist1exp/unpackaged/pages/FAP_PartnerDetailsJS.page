@@ -1,0 +1,242 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" contentType="text/javascript">
+
+
+
+
+var infoWindow = new google.maps.InfoWindow();
+var overlays = [];
+
+function addMarker(map, latLng) {
+    var marker = new google.maps.Marker({
+    position: latLng,
+    map: map
+    });
+    //Add Marker to Overlays collection
+    overlays.push(marker);
+}
+
+function clearOverlays() {
+    for (var n = 0, overlay; overlay = overlays[n]; n++) {
+        overlay.setMap(null);
+    }
+    //Clear overlays from collection
+    overlays = [];
+}
+
+ var PartnerLocationMapController = Class.create({
+    initialize: function(mapDivFieldID,locationJSONDataFieldID){
+        this.locationJSONDataFieldID = locationJSONDataFieldID;
+        //1.0 migrate to v3
+        //this.map = new GMap2($(mapDivFieldID));
+        var myOptions = {
+                    zoom: 4,
+                    center: new google.maps.LatLng(0, 0),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                map = new google.maps.Map($(mapDivFieldID), myOptions);
+    },
+    updateMap: function(){
+        //1.0 migrate to v3
+        //this.map.clearOverlays();
+        clearOverlays();
+        this.pointLookup = new Hash();
+        this.locationLookup = new Hash();
+        //alert('before locations');
+        var locations = $F(this.locationJSONDataFieldID).evalJSON().locations;
+        //alert('after locations');
+        //1.0 migrate to v3
+        //var bounds = new GLatLngBounds();
+        var bounds = new google.maps.LatLngBounds();
+        var points = [];
+        var point;
+        locations.each(function(location){
+            //1.0 migrate to v3
+            //point = new GLatLng(location.latitude, location.longitude);
+            point = new google.maps.LatLng(location.latitude, location.longitude);
+            point.serialNumber = location.serialNumber;
+            points.push(point);
+            bounds.extend(point);
+            this.locationLookup.set(location.serialNumber,location);
+        }.bind(this));
+        
+        /*1.0 migrate to v3 
+        this.map.setCenter(bounds.getCenter());
+        this.map.setZoom(this.map.getBoundsZoomLevel(bounds)-1);
+        this.map.addControl(new GLargeMapControl());
+        */
+        
+        map.fitBounds(bounds);
+        map.setCenter(bounds.getCenter());
+        
+        points.each(function(point){
+            //1.0 migrate to v3
+            //var marker = new GMarker(point);
+            var marker = new google.maps.Marker();
+            marker.setPosition(point);
+            this.pointLookup.set(point.serialNumber,marker);
+            //1.0 migrate to v3
+            //this.map.addOverlay(marker);
+            marker.setMap(map);
+        }.bind(this));
+    },
+    
+    addLocation:function(locationNumber){
+        //alert('add location!Serial Number' + locationNumber);
+        //1.0 migrate to v3
+        //this.map.clearOverlays();
+        clearOverlays();
+        this.pointLookup = new Hash();
+        this.locationLookup = new Hash();
+        var locations = $F(this.locationJSONDataFieldID).evalJSON().locations;
+        //1.0 migrate to v3
+        //var bounds = new GLatLngBounds();
+        var bounds = new google.maps.LatLngBounds();
+        var points = [];
+        var point;
+        locations.each(function(location){
+        if(location.serialNumber==locationNumber){
+            //1.0 migrate to v3
+            //point = new GLatLng(location.latitude, location.longitude);
+            point = new google.maps.LatLng(location.latitude, location.longitude);
+            point.serialNumber = location.serialNumber;
+            //point.id = location.id;
+            //point.recordNumber = location.recordNumber;
+            point.name = location.name;
+            point.city = location.city;
+            point.street = location.street;
+            point.state = location.state;
+            point.country = location.country;
+            point.postalCode= location.postalCode;
+            points.push(point);
+            bounds.extend(point);
+            
+            /*1.0 migrate to v3 
+            var marker = new GMarker(point);
+            //alert('point :' + point.serialNumber);
+            marker.title=point.name;
+            GEvent.addListener(marker,"click", function(point) {
+                this.openInfoWindowHtml('<b>'+ point.serialNumber  + '-</b> '+ 
+                                        '<b> ' + point.name + '</b><br/>' + 
+                                        (Object.isUndefined(point.street) || (point.street==null) || point.street.blank() ?'': point.street + ', ') + 
+                                        (Object.isUndefined(point.city) || (point.city==null) || point.city.blank() ?'': point.city + ', ') + 
+                                        (Object.isUndefined(point.state) || (point.state==null) || point.state.blank() ?' ': point.state + '  ') + 
+                                        (Object.isUndefined(point.postalCode) || (point.postalCode==null) || point.postalCode.blank() ?'': point.postalCode ) + 
+                                        '<br/>' + 
+                                        point.country);
+            */
+            var marker = new google.maps.Marker();
+                marker.setPosition(point);
+                marker.setTitle(point.name);
+                
+                google.maps.event.addListener(marker,'click', function(e) {
+                    //var infoWindow = new google.maps.InfoWindow();
+                    infoWindow.setContent('<b>'+ e.latLng.serialNumber  + '-</b> '+ 
+                                        '<b> ' + e.latLng.name + '</b><br/>' + 
+                                        (Object.isUndefined(e.latLng.street) || (e.latLng.street==null) || e.latLng.street.blank() ?'': e.latLng.street + ', ') + 
+                                        (Object.isUndefined(e.latLng.city) || (e.latLng.city==null) || e.latLng.city.blank() ?'': e.latLng.city + ', ') + 
+                                        (Object.isUndefined(e.latLng.state) || (e.latLng.state==null) || e.latLng.state.blank() ?' ': e.latLng.state + '  ') + 
+                                        (Object.isUndefined(e.latLng.postalCode) || (e.latLng.postalCode==null) || e.latLng.postalCode.blank() ?'': e.latLng.postalCode ) + 
+                                        '<br/>' + 
+                                        e.latLng.country);
+                    infoWindow.open(map,this);   
+                });
+            this.pointLookup.set(point.id,marker);
+            //1.0 migrate to v3
+            //this.map.addOverlay(marker);
+            marker.setMap(map); // this.map or map?
+            this.locationLookup.set(location.serialNumber,location);
+            }
+        }.bind(this));
+        
+        
+        /*1.0 migrate to v3 
+        this.map.setCenter(bounds.getCenter());
+        this.map.setZoom(this.map.getBoundsZoomLevel(bounds)-1);
+        this.map.addControl(new GLargeMapControl());
+        */
+        
+        map.fitBounds(bounds);
+        map.setCenter(bounds.getCenter());
+        var listener = google.maps.event.addListener(map, "idle", function() { 
+            if (map.getZoom() > 13) map.setZoom(13); 
+                google.maps.event.removeListener(listener); 
+        });
+        
+        /*points.each(function(point){
+            var marker = new GMarker(point);
+            this.pointLookup.set(point.serialNumber,marker);
+            this.map.addOverlay(marker);
+        }.bind(this));
+        */
+        
+    }
+    
+    ,showLocation: function(locationNumber){
+        
+        this.addLocation(locationNumber)
+    //  console.log(locationNumber);
+    //  var location = this.locationLookup.get(locationNumber);
+        
+    //  console.log(location);
+    //  this.pointLookup.get(locationNumber).openInfoWindowHtml('<b>' + location.name + '</b><br/>' 
+    //      + location.street + ', ' + location.city + ', ' + location.state + '  ' + location.postalCode + '<br/>' + location.country);
+    
+    }
+});
+
+var controller;
+function updateMap(locationNumber){
+    if(!Object.isUndefined(controller)){
+        //controller.updateMap();
+        //alert('updateMap -> locNum ' + locationNumber );
+        controller.showLocation(locationNumber);
+    }   
+}
+
+function showLocation(locationNumber){
+    //alert('showLocation -> argument :' + locationNumber + ' controller:' + controller);
+    // Ver 1.1
+    if(Object.isUndefined(controller)){
+      controller = new PartnerLocationMapController('map_canvas','Page:Form:LocationData');
+     } 
+    controller.showLocation(locationNumber);
+}
+
+
+function initializeController() {
+    if($('map_canvas')){
+        try{
+                //alert('map_canvas' + map_canvas); 
+                //alert('map_canvas1' + $('map_canvas'));
+            //alert('initializeController() locnum' + locationNumber + ' initializeController() controller:' + controller);
+            controller = new PartnerLocationMapController('map_canvas','Page:Form:LocationData');
+               // alert('initializeController() controller 2 :' + controller);
+            showLocation(1);
+        }catch(err){
+                //alert(err);
+            alert('Failed to load Google Maps.  If you\'re using Internet Explorer, please ensure the permission \'Display mixed content\' is set to \'Enable\'.');
+        }
+    }
+}
+
+if(document.readyState != 'loading'){
+     initializeController();
+}
+else{
+document.observe('dom:loaded', function() {
+    initializeController();
+}, false);
+}
+<!--
+function confirmDeletion(locId){
+    alert('Confirm');
+    var r=confirm("{!JSENCODE(HTMLENCODE($Label.are_you_sure_to_delete_the_partner_locat))}");
+    if (r==true){
+        deleteLocation(locId);
+    } else {
+        
+    }
+}
+-->
+
+</apex:page>

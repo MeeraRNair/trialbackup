@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>x_Transformation_Open</fullName>
+    <booleanFilter>2 and (1 or 3 or 4)</booleanFilter>
+    <columns>Record_ID__c</columns>
+    <columns>NAME</columns>
+    <columns>Status__c</columns>
+    <columns>Project__c</columns>
+    <columns>Feature_Team__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>Related_Release_Record__c</columns>
+    <columns>TFS_ID__c</columns>
+    <columns>Targeted_Release__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Project__c</field>
+        <operation>equals</operation>
+        <value>Transformation</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>Rejected,Resolved,Implemented</value>
+    </filters>
+    <filters>
+        <field>Related_Release_Record__c</field>
+        <operation>startsWith</operation>
+        <value>FY20 USE</value>
+    </filters>
+    <filters>
+        <field>NAME</field>
+        <operation>contains</operation>
+        <value>FY20 USE</value>
+    </filters>
+    <label>USE - Open Ideas</label>
+    <language>en_US</language>
+</ListView>

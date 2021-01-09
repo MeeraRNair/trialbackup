@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SnP_Deal_Reg_Program_Type_EPP_Burndown</fullName>
+    <active>true</active>
+    <description>If Program Type = EPP Burndown for VMware Deals</description>
+    <errorConditionFormula>AND( ISPICKVAL( Program_Type__c , &apos;EPP Post-Sale Burn-Down&apos;) ,  ISBLANK( What_is_the_Customer_Initial_Order__c ) )</errorConditionFormula>
+    <errorDisplayField>What_is_the_Customer_Initial_Order__c</errorDisplayField>
+    <errorMessage>If Program Type is EPP Burndown, then the What is the Customer’s initial Order # field must be specified.</errorMessage>
+</ValidationRule>

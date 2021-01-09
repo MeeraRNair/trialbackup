@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>gdm_vre_012_NotDRL_Then_Acct_Required</fullName>
+    <active>true</active>
+    <description>For SFDC Update request type, if DLR is NOT selected, then Account , Account ID, Rep, Badge # are all required</description>
+    <errorConditionFormula>AND (
+  Request_Type__c == &quot;SFDC Update&quot;
+, TEXT( Type_of_Request__c) &lt;&gt; &quot;DLR&quot;
+, ISBLANK( Account__r.Id  )
+
+)</errorConditionFormula>
+    <errorDisplayField>Account__c</errorDisplayField>
+    <errorMessage>(012) Please select an Account.</errorMessage>
+</ValidationRule>

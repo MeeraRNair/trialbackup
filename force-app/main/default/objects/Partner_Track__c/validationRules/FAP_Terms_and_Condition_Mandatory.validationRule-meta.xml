@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FAP_Terms_and_Condition_Mandatory</fullName>
+    <active>true</active>
+    <description>1. Approved for Partner Finder: checked
+2. Partner User Agreed to PF Terms&amp;Cond: Not Null
+3. Profile Published to Partner Finder: Not Null
+4. Date Agreed to PF Terms &amp; Cond: Not Null
+5. Partner Location: Not Null</description>
+    <errorConditionFormula>AND((Approved_for_Partner_Finder__c = TRUE),ISPICKVAL( Profile_Published_to_Partner_Finder__c , &apos;Yes&apos;),(ISBLANK(  User_Agreed_to_PF_Terms_Cond__c)))</errorConditionFormula>
+    <errorDisplayField>User_Agreed_to_PF_Terms_Cond__c</errorDisplayField>
+    <errorMessage>Your profile cannot be published until you have accepted the FAP Terms and Conditions. Please ensure that you accept these before you publish your profile.</errorMessage>
+</ValidationRule>

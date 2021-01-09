@@ -1,0 +1,313 @@
+<apex:page controller="FAP_PartnerDetailsController"
+    sidebar="{!LEN($Site.Name)<=0}"  
+    showHeader="false"
+    standardStylesheets="false" id="Page"
+    language="{!preferredLanguageCode}">
+    
+    <html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<script language="JavaScript" type="text/javascript"> 
+     <!--Start - For Omniture Tool Tracking, Added By Naga on 20-May-2016 -->     
+    Dell = window.Dell || {};
+    Dell.Metrics = Dell.Metrics || {};
+    Dell.Metrics.sc = Dell.Metrics.sc || {};    
+    Dell.Metrics.sc.country = "{!countryCode}";  /***dynamic value based on site***/     
+    Dell.Metrics.sc.language = "{!languageCodeOmniture}"; /***dynamic value based on site***/
+    Dell.Metrics.sc.segment = "chn";      /***dynamic value based on site***/
+    Dell.Metrics.sc.customerset = "19";  /***dynamic value based on site***/
+    Dell.Metrics.sc.cms = "partnerdirect";     /***always set to external***/
+    Dell.Metrics.sc.pagename = "{!countryCode}|{!languageCodeOmniture}|chn|Email_Partner";  /***relevant unique page name or empty string***/
+    Dell.Metrics.sc.applicationname = "Find a Partner"; /***relevant application name***/
+    
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/   
+    <!-- var s_code=s_dell.t();if(s_code)document.write(s_code);//--> -->
+    </script>
+<!-- Naga start - to get dynamic urls based on salesforce instance-->        
+<apex:outputPanel rendered="{!IF(sandBox = false, true, false)}">
+<script src="//nexus.ensighten.com/dell/Bootstrap.js"></script></apex:outputPanel>
+    
+<apex:outputPanel rendered="{!IF(sandBox = true, true, false)}">
+<script src="//nexus.ensighten.com/dell/dev/Bootstrap.js"></script></apex:outputPanel>
+<!-- End By Naga-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><h2>{!JSENCODE(HTMLENCODE($Label.titleContactPartner))} - {!partnerRecord.name}</h2></title>
+<!-- <link href="{!$Page.PartnerFinderCSS}" rel="stylesheet" type="text/css" /> -->
+<apex:stylesheet value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css"/>        
+<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"/>
+<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"/>
+<style type="text/css">
+/*.contact_box {width: 550px;padding:0px;margin:0;font: bold 12px "Arial", sans-serif; color:#333333;}.contact_title {width: 535px;padding:10px 0 10px 15px;margin:0;   height: 20px;background-color:#e2e2e2;font: bold 14px/22px "Arial", sans-serif; color:#006699;}body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;}a.ovalbutton{background: transparent url('{!$Resource.left_button_png}') no-repeat top left;display: block;float: left;font: normal 11px Arial;*/ /* Change 13px as desired *//*line-height: 14px;*//* This value + 4px + 4px (top and bottom padding of SPAN) must equal height of button background (default is 24px) *//*height: 24px;*//* Height of button background height *//*padding-left: 11px;*//* Width of left menu image *//*text-decoration: none;}a:link.ovalbutton, a:visited.ovalbutton, a:active.ovalbutton{color: #494949;*/ /*button text color*//*}a.ovalbutton span{background: transparent url('{!$Resource.right_button_png}') no-repeat top right;color:#FFFFFF;display: block;padding: 4px 11px 4px 0;*/ /*Set 11px below to match value of 'padding-left' value above*//*}a.ovalbutton:hover{ *//* Hover state CSS *//*background-position: top left;}a.ovalbutton:hover span{*//* Hover state CSS *//*background-position: top right;}.buttonwrapper{ *//* Container you can use to surround a CSS button to clear float *//*overflow: hidden;*/ /*See: http://www.quirksmode.org/css/clearing.html *//*width: 100%;}*/
+
+body{
+    margin-left:0px;
+    margin-top:0px;
+    margin-right:0px;
+    margin-bottom:0px;
+    background:url({!$Resource.bg_gif}) top left repeat-x;
+    font: normal 13px Trebuchet MS, sans-serif;
+}
+
+h2 {
+    width: 715px;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    font-family: Trebuchet MS, Arial, Sans-Serif;
+    font-weight: Bold;
+    color:#333333;
+    padding: 15px 0 15px 0;
+    
+}
+
+.container{
+    width:725px;
+    margin-top:0px;
+    margin-right:auto;
+    margin-bottom:0px;
+    margin-left:auto;
+    padding:10px 10px 10px 10px;
+    background:url({!$Resource.bg_container_gif}) top center;
+    background-repeat:no-repeat
+}
+
+.bottom_bar {
+    width:735px;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    clear:both;
+}
+
+.buttonwrapper{
+    width: 200px;
+}
+    
+a.ovalbutton{
+    background:transparent url('{!$Resource.left_button_png}') no-repeat top left;
+    display:block;
+    float:right;
+    line-height:14px;
+    height:24px;
+    padding-left:11px;
+    text-decoration:none
+}
+
+a:link.ovalbutton,a:visited.ovalbutton,a:active.ovalbutton,a:hover.avalbutton{text-decoration:none}
+
+a.ovalbutton span{
+    background:transparent url('{!$Resource.right_button_png}') no-repeat top right;
+    <!-- font:12px Trebuchet MS Bold;-->
+    font:bold 12px Trebuchet MS, sans-serif; 
+    color:#FFF;
+    display:block;
+    padding:4px 11px 4px 0 
+}
+
+a.ovalbutton:hover{
+    background:transparent url('{!$Resource.left_button_png_hover}') no-repeat top left;
+    display:block;
+    float:right;
+    line-height:14px;
+    height:24px;
+    padding-left:11px;
+    text-decoration:none
+}
+
+a.ovalbutton:hover span{
+    background:transparent url('{!$Resource.right_button_png_hover}') no-repeat top right;
+    <!--font:12px Trebuchet MS Bold, sans-serif Bold; -->
+    font:bold 12px Trebuchet MS, sans-serif;
+    color:#FFF;
+    display:block;
+    padding:4px 11px 4px 0 
+}
+
+.detail_listing {
+    width: 915px;
+    padding: 15px 15px 0 15px;
+    margin:0;
+}
+
+.detail_listing p {
+    margin:0 0 10px 0;
+    padding:0;
+}
+
+.detail_listing table {
+    border-collapse: collapse; margin-bottom:20px;  
+}
+
+.detail_listing table td {
+    padding: 2px 0 2px 12px;
+    vertical-align: top;
+}
+
+.detail_listing table td.border {
+    border-bottom: #D5D5D5 1px solid;
+}
+
+.detail_listing table td.field_label {
+    font-weight: bold;
+    border-bottom: #D5D5D5 1px solid;
+}
+
+input,select,textarea{
+    font: normal 13px Trebuchet MS, sans-serif;
+    width:250px;
+    border: 1px solid #dadada; 
+    background: transparent;
+    margin: 0px 0px;
+}
+
+<!-- CR12405---->
+.requiredInputField
+ { 
+ border-left:3px solid #DF0101; //red vertical line
+    font: normal 13px Trebuchet MS;
+ }
+ .nonrequiredInputField
+ { 
+ padding-left:3px;
+ }
+ 
+ .link{
+ text-decoration: none;
+ font-size: 10px;
+ }
+<!-- CR12405---->
+
+</style>
+
+</head>
+
+<body>
+    <!-- DISPLAY PAGE LOAD ERROR IF ONE EXISTS -->
+    <apex:outputPanel rendered="{!errorOccurred}">
+        <apex:variable var="errorMsg" value="{!JSENCODE(HTMLENCODE($Label.msgemptyidparam))}" rendered="{!errorCode == eMPTYIDPARAM}"/>
+        <apex:variable var="errorMsg" value="{!JSENCODE(HTMLENCODE($Label.msgrecordnotfound))}" rendered="{!errorCode == rECORDNOTFOUND}"/>
+        <apex:variable var="errorMsg" value="{!JSENCODE(HTMLENCODE($Label.msgaccessdenied))}" rendered="{!errorCode == aCCESSDENIED}"/>
+        <!--apex:pageMessage severity="error" strength="2" title="{!errorMsg}"/-->
+    </apex:outputPanel>
+        <!-- OTHERWISE, DISPLAY DETAILS SCREEN -->
+    <apex:outputPanel rendered="{!NOT(errorOccurred)}">
+        <apex:form id="Form">
+        <!--<apex:pageMessages id="Messages"/> -->
+        
+        
+        
+        <!-- 
+        <div class="contact_box"> 
+<div class="contact_title">{!JSENCODE(HTMLENCODE($Label.titleContactPartner2))}: {!partnerRecord.name}</div>
+        -->
+
+<div class="container" layout="block">
+<h2>{!JSENCODE(HTMLENCODE($Label.titlecontactpartner2))}: {!partnerRecord.name}</h2><br/>
+<apex:outputPanel style="width:100%" layout="block" styleClass="detail_listing" id="mainblk">
+<table width="100%" border="0" cellspacing="0" cellpadding="10">   
+<!--CR12405 : replace with First Name and Last Name below
+   <tr>
+    <td width="23%" valign="middle" class="field_label">{!JSENCODE(HTMLENCODE($Label.senderFullName))}:</td>
+    <td width="77%"><apex:inputText id="senderFullName" value="{!senderEmailFullName}" /></td>
+  </tr> -->
+  <!--start: CR12405-->
+   <tr>
+    <td width="23%" valign="middle" class="field_label">{!JSENCODE(HTMLENCODE($Label.senderFirstName))}:</td>
+    <td width="77%">
+    <apex:inputText id="First_Name" value="{!senderEmailFirstName }" styleClass="requiredInputField" />
+    <apex:outputText rendered="{!If(LEN(reqErrField)>0 && senderEmailFirstName == null, true, false)}">{!reqErrField}</apex:outputText></td>
+  </tr> 
+  <tr>
+    <td width="23%" valign="middle" class="field_label">{!JSENCODE(HTMLENCODE($Label.senderLastName))}:</td>
+    <td width="77%"><apex:inputText id="Last_Name" value="{!senderEmailLastName}" styleClass="requiredInputField" />
+    <apex:outputText rendered="{!If(LEN(reqErrField)>0 && senderEmailLastName == null, true, false)}">{!reqErrField}</apex:outputText></td>
+  </tr>
+  <!--end: CR12405-->
+    <tr>
+    <td width="23%" valign="middle" class="field_label">{!JSENCODE(HTMLENCODE($Label.senderEmail))}:</td>
+    <td width="77%"><apex:inputText id="Email" value="{!senderEmailAddress}" styleClass="requiredInputField" />
+    <apex:outputText rendered="{!If(LEN(reqErrField)>0 && senderEmailAddress == null, true, false)}">{!reqErrField}</apex:outputText>
+    <apex:outputText rendered="{!If(LEN(emailValidation)>0 && senderEmailAddress != null, true, false)}">{!emailValidation}</apex:outputText></td>
+  </tr>
+  <tr>
+    <td width="23%" valign="middle" class="field_label">{!$Label.senderPhone}:</td><!--CR12405-->
+    <td width="77%"><apex:inputText id="senderPhone" value="{!senderEmailPhone}" styleclass="nonrequiredInputField"/></td>
+  </tr>
+  <tr>
+    <td width="23%" valign="middle" class="field_label">{!JSENCODE(HTMLENCODE($Label.senderCompany))}:</td><!--CR12405-->
+    <td width="77%"><apex:inputText id="Company" value="{!senderEmailCompany}" styleClass="requiredInputField" />
+    <apex:outputText rendered="{!If(LEN(reqErrField)>0 && senderEmailCompany == null, true, false)}">{!reqErrField}</apex:outputText></td>
+  </tr>
+  <tr>
+    <td width="23%" valign="middle" class="field_label">{!JSENCODE(HTMLENCODE($Label.senderCountry))}:</td><!--CR12405-->
+    <td width="77%"><apex:selectList id="Country" value="{!countrySelected}" styleClass="requiredInputField"  size="1" style="width:255px;">
+        <apex:selectOptions value="{!senderEmailCountry}"></apex:selectOptions>
+    </apex:selectList>
+    <apex:outputText rendered="{!If(LEN(reqErrField)>0 && countrySelected == null, true, false)}">{!reqErrField}</apex:outputText>
+    </td>
+  </tr>
+  <tr>
+    <td width="23%" valign="middle" class="field_label">{!JSENCODE(HTMLENCODE($Label.senderBusinessNeedRequirement))}:</td><!--CR12405-->
+    <td width="70%" ><apex:inputTextArea id="senderBusinessNeedRequirement" value="{!senderEmailBusinessNeed}" cols="45" rows="5" style="width:248px;" styleClass="requiredInputField" />
+    <apex:outputText rendered="{!If(LEN(reqErrField)>0 && senderEmailBusinessNeed == null, true, false)}">{!reqErrField}</apex:outputText></td>
+  </tr>
+  <tr>
+    <td width="23%" valign="middle" class="field_label">{!JSENCODE(HTMLENCODE($Label.senderTimeFrame))}:</td><!--CR12405-->
+    <td width="77%" ><apex:selectList id="senderTimeFrame" value="{!timeframeSelected}" size="1" style="width:255px;" styleclass="nonrequiredInputField">
+        <apex:selectOptions value="{!TimeframeOptions}"></apex:selectOptions>
+    </apex:selectList>
+    </td>
+  </tr>
+  <tr>
+    <td width="23%" valign="middle" class="field_label">{!JSENCODE(HTMLENCODE($Label.senderEmployee))}:</td><!--CR12405-->
+    <td width="77%" ><apex:selectList id="senderEmployee" value="{!EmpSelected}" size="1" style="width:255px;">
+        <apex:selectOptions value="{!EmpOptions}"></apex:selectOptions>
+    </apex:selectList>
+    </td>
+  </tr>
+  <tr><!--US5699627_Vismy Start-->
+    <table width="60%">
+    <tr>
+        <apex:outputPanel rendered="{!IF(oKey != 'Account__r.',true, false)}">
+       <td><apex:outputText value="{!$Label.FAP_Contact_Us_Help_Text}" escape="false"></apex:outputText>
+       <apex:outputLink value="http://www.dell.com/support"> {!JSENCODE(HTMLENCODE($Label.FAP_Contact_Us_Help_Text_Link))}</apex:outputLink>
+       </td> 
+       </apex:outputPanel>
+    </tr>
+    </table>  
+  </tr> <!--US5699627_Vismy end-->
+  </table>
+
+  <!--CR12405 : replace with Business need or requirement
+  <tr>
+    <td width="23%"  valign="middle" class="field_label">{!JSENCODE(HTMLENCODE($Label.emailSubject))}:</td>
+    <td width="77%"><apex:inputText id="EmailSubject" value="{!senderEmailSubject}" /></td>
+  </tr>  
+  <tr>
+    <td valign="top" class="field_label">{!JSENCODE(HTMLENCODE($Label.emailmessage))}:</td>
+    <td><apex:inputTextArea id="EmailBody" value="{!senderEmailBody}" cols="45" rows="5" /></td>
+  </tr>-->
+  <table width="600px">
+  <tr>
+    <td align="left"><apex:outputLink styleclass="link" value="http://www.dell.com/learn/policies-privacy?s=corp">{!JSENCODE(HTMLENCODE($Label.dellPrivacyStatement))}</apex:outputLink></td></tr>
+   <tr> <td align="center"><div class="buttonwrapper">
+   <apex:commandLink styleClass="ovalbutton dellmetrics-submitpartneremail" action="{!sendContactEmail}" ><span>{!JSENCODE(HTMLENCODE($Label.btnsubmit))}</span></apex:commandLink>      
+   <apex:commandLink styleClass="ovalbutton" style="margin-right: 16px;" action="{!cancelContactEmail}" ><span>{!JSENCODE(HTMLENCODE($Label.btncancel))}</span></apex:commandLink>
+    <script>                                            
+      var JSONSubmit = '{"btnname":"submitpartneremail"}';                                            
+      var submit = JSON.parse(JSONSubmit);                                                                        
+      jQuery('.dellmetrics-submitpartneremail').data("metrics", submit);                                            
+   </script>
+</div> 
+</td>
+  </tr>
+</table>
+</apex:outputPanel>
+
+</div><div class="bottom_bar"><img src="{!$Resource.bottom_bar_gif}" /></div>   
+        </apex:form>
+    </apex:outputPanel>
+    </body>
+    </html>
+</apex:page>

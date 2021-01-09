@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MPAStartDate_shouldnt_greater_MPAEndDate</fullName>
+    <active>true</active>
+    <description>The MPA Start Date should not be after MPA End Date.</description>
+    <errorConditionFormula>MPA_StartDate__c  &gt;  MPA_EndDate__c</errorConditionFormula>
+    <errorDisplayField>MPA_StartDate__c</errorDisplayField>
+    <errorMessage>The MPA Start Date should not be after MPA End Date.</errorMessage>
+</ValidationRule>

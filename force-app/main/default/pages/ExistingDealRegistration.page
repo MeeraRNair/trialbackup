@@ -1,0 +1,322 @@
+<!-- 
+REVISION HISTORY
+================
+Version     Author      Date            Release#    CR#              Description
+-------     ------      ----            --------    ---             -----------
+1.0         
+2.0         Annie        13-Oct-2014     15.10      10483 FR 9.4.1    
+3.0         Annie        12-Nov-2014     15.10      10623  
+4.0         Annie        14-Nov-2014     15.10      10623            Added SFDC Profiles are add 
+                                                                     to OSC_Profile_Settings__c custom setting  
+5.0         Samridh      30-Dec-2014     16.03      10752            user now able to search through Deal Id search box
+6.0         Jaya         23-Jun-2016     MIM        CRQ000000462832  Fix solution records select query, replace with aggregation count() query.   
+7.0         Venkat       10-Oct-2018     FY19-0102  16670            Locked Deal Registration status to 'Approved' and removed 'Win - 100%','Lost, Cancelled - 0%' from Stage field  
+8.0         Emily        04-Jan-2019     FY20-0202  16970            Field Trip clean up for Opportunity
+-->
+<apex:page tabStyle="Opportunity" controller="ExistingDealRegistrationCls" id="pg">
+
+<script type="text/javascript">
+    
+function focusDealId(){
+    document.getElementById('pg:frm:pb:pbs:pbs1:DealId').focus();    
+}
+
+function hideMe(){
+    
+    document.getElementById('pg:frm:pb:pbs:pbs2:searchOppName').value = '';
+    document.getElementById('pg:frm:pb:pbs:pbs3:searchEndUserAccName').value = '';
+    document.getElementById('pg:frm:pb:pbs:pbs4:searchBookDate').value = '';
+    document.getElementById('pg:frm:pb:pbs:pbs5:searchStage').value = '';    
+    document.getElementById('pg:frm:pb:pbs:pbs7:searchTagged').value = '';
+    if(document.getElementById('pg:frm:pb:pbs:pbs7:searchTagged').value != 'Owned'){
+      document.getElementById('pg:frm:pb:pbs:pbs8:SalesMotion').value = '';
+    } 
+    
+    
+    document.getElementById('pg:frm:pb:pbs:pbs2:searchOppName').setAttribute('disabled', 'disabled');    
+    document.getElementById('pg:frm:pb:pbs:pbs3:searchEndUserAccName').setAttribute("disabled","disabled");    
+    document.getElementById('pg:frm:pb:pbs:pbs4:searchBookDate').setAttribute("disabled","disabled");    
+    document.getElementById('pg:frm:pb:pbs:pbs5:searchStage').setAttribute("disabled","disabled");        
+    document.getElementById('pg:frm:pb:pbs:pbs7:searchTagged').setAttribute("disabled","disabled");
+    if(document.getElementById('pg:frm:pb:pbs:pbs7:searchTagged').value != 'Owned'){
+      document.getElementById('pg:frm:pb:pbs:pbs8:SalesMotion').setAttribute("disabled","disabled");  
+    }else{
+        document.getElementById('pg:frm:pb:pbs:pbs8:SalesMotion').removeAttribute("disabled");             
+     }
+    
+}
+
+function hideMe1(){
+    
+    document.getElementById('pg:frm:pb:pbs:pbs2:searchOppName').value = '';
+    document.getElementById('pg:frm:pb:pbs:pbs3:searchEndUserAccName').value = '';
+    document.getElementById('pg:frm:pb:pbs:pbs4:searchBookDate').value = '';
+    document.getElementById('pg:frm:pb:pbs:pbs5:searchStage').value = '';    
+    document.getElementById('pg:frm:pb:pbs:pbs1:DealId').value = '';
+    if(document.getElementById('pg:frm:pb:pbs:pbs7:searchTagged').value != 'Owned'){
+      document.getElementById('pg:frm:pb:pbs:pbs8:SalesMotion').value = '';
+    }    
+    
+    document.getElementById('pg:frm:pb:pbs:pbs2:searchOppName').setAttribute('disabled', 'disabled');    
+    document.getElementById('pg:frm:pb:pbs:pbs3:searchEndUserAccName').setAttribute("disabled","disabled");    
+    document.getElementById('pg:frm:pb:pbs:pbs4:searchBookDate').setAttribute("disabled","disabled");    
+    document.getElementById('pg:frm:pb:pbs:pbs5:searchStage').setAttribute("disabled","disabled");        
+    document.getElementById('pg:frm:pb:pbs:pbs1:DealId').setAttribute("disabled","disabled");  
+    if(document.getElementById('pg:frm:pb:pbs:pbs7:searchTagged').value != 'Owned'){
+      document.getElementById('pg:frm:pb:pbs:pbs8:SalesMotion').setAttribute("disabled","disabled");  
+    }else{
+        document.getElementById('pg:frm:pb:pbs:pbs8:SalesMotion').removeAttribute("disabled");             
+     }
+}
+
+function hideMe2(){
+    
+    document.getElementById('pg:frm:pb:pbs:pbs2:searchOppName').value = '';
+    document.getElementById('pg:frm:pb:pbs:pbs3:searchEndUserAccName').value = '';
+    document.getElementById('pg:frm:pb:pbs:pbs4:searchBookDate').value = '';
+    document.getElementById('pg:frm:pb:pbs:pbs5:searchStage').value = '';    
+    document.getElementById('pg:frm:pb:pbs:pbs1:DealId').value = '';
+    document.getElementById('pg:frm:pb:pbs:pbs7:searchTagged').value = '';
+    
+    
+    document.getElementById('pg:frm:pb:pbs:pbs2:searchOppName').setAttribute('disabled', 'disabled');    
+    document.getElementById('pg:frm:pb:pbs:pbs3:searchEndUserAccName').setAttribute("disabled","disabled");    
+    document.getElementById('pg:frm:pb:pbs:pbs4:searchBookDate').setAttribute("disabled","disabled");    
+    document.getElementById('pg:frm:pb:pbs:pbs5:searchStage').setAttribute("disabled","disabled");        
+    document.getElementById('pg:frm:pb:pbs:pbs1:DealId').setAttribute("disabled","disabled");
+    document.getElementById('pg:frm:pb:pbs:pbs7:searchTagged').setAttribute('disabled', 'disabled');     
+}
+
+function showMe(){
+
+    if(document.getElementById('pg:frm:pb:pbs:pbs1:DealId').value != ''){
+        document.getElementById('pg:frm:pb:pbs:pbs2:searchOppName').setAttribute('disabled', 'disabled');    
+        document.getElementById('pg:frm:pb:pbs:pbs3:searchEndUserAccName').setAttribute("disabled","disabled");
+        document.getElementById('pg:frm:pb:pbs:pbs4:searchBookDate').setAttribute("disabled","disabled");    
+        document.getElementById('pg:frm:pb:pbs:pbs5:searchStage').setAttribute("disabled","disabled");            
+        document.getElementById('pg:frm:pb:pbs:pbs7:searchTagged').setAttribute("disabled","disabled");
+    }
+    else if(document.getElementById('pg:frm:pb:pbs:pbs1:DealId').value == ''){
+        document.getElementById('pg:frm:pb:pbs:pbs2:searchOppName').removeAttribute("disabled");    
+        document.getElementById('pg:frm:pb:pbs:pbs3:searchEndUserAccName').removeAttribute("disabled");
+        document.getElementById('pg:frm:pb:pbs:pbs4:searchBookDate').removeAttribute("disabled");    
+        document.getElementById('pg:frm:pb:pbs:pbs5:searchStage').removeAttribute("disabled");           
+        document.getElementById('pg:frm:pb:pbs:pbs7:searchTagged').removeAttribute("disabled");         
+    }          
+}
+
+function showMe1(){
+
+    if(document.getElementById('pg:frm:pb:pbs:pbs7:searchTagged').value != ''){
+        document.getElementById('pg:frm:pb:pbs:pbs2:searchOppName').setAttribute('disabled', 'disabled');    
+        document.getElementById('pg:frm:pb:pbs:pbs3:searchEndUserAccName').setAttribute("disabled","disabled");
+        document.getElementById('pg:frm:pb:pbs:pbs4:searchBookDate').setAttribute("disabled","disabled");    
+        document.getElementById('pg:frm:pb:pbs:pbs5:searchStage').setAttribute("disabled","disabled");            
+        document.getElementById('pg:frm:pb:pbs:pbs1:DealId').setAttribute("disabled","disabled");
+         if(document.getElementById('pg:frm:pb:pbs:pbs7:searchTagged').value != 'Owned'){
+           document.getElementById('pg:frm:pb:pbs:pbs8:SalesMotion').setAttribute("disabled","disabled");  
+         }else{
+           document.getElementById('pg:frm:pb:pbs:pbs8:SalesMotion').removeAttribute("disabled");             
+     }
+    }
+    else if(document.getElementById('pg:frm:pb:pbs:pbs7:searchTagged').value == ''){
+        document.getElementById('pg:frm:pb:pbs:pbs2:searchOppName').removeAttribute("disabled");    
+        document.getElementById('pg:frm:pb:pbs:pbs3:searchEndUserAccName').removeAttribute("disabled");
+        document.getElementById('pg:frm:pb:pbs:pbs4:searchBookDate').removeAttribute("disabled");    
+        document.getElementById('pg:frm:pb:pbs:pbs5:searchStage').removeAttribute("disabled");           
+        document.getElementById('pg:frm:pb:pbs:pbs1:DealId').removeAttribute("disabled");       
+    }          
+}
+
+function showMe2(){
+
+    if(document.getElementById('pg:frm:pb:pbs:pbs8:searchPrimaryOwner').value != ''){
+        document.getElementById('pg:frm:pb:pbs:pbs2:searchOppName').setAttribute('disabled', 'disabled');    
+        document.getElementById('pg:frm:pb:pbs:pbs3:searchEndUserAccName').setAttribute("disabled","disabled");
+        document.getElementById('pg:frm:pb:pbs:pbs4:searchBookDate').setAttribute("disabled","disabled");    
+        document.getElementById('pg:frm:pb:pbs:pbs5:searchStage').setAttribute("disabled","disabled");            
+        document.getElementById('pg:frm:pb:pbs:pbs1:DealId').setAttribute("disabled","disabled");
+        document.getElementById('pg:frm:pb:pbs:pbs7:searchTagged').setAttribute("disabled","disabled");
+    }
+    else if(document.getElementById('pg:frm:pb:pbs:pbs8:searchPrimaryOwner').value == ''){
+        document.getElementById('pg:frm:pb:pbs:pbs2:searchOppName').removeAttribute("disabled");    
+        document.getElementById('pg:frm:pb:pbs:pbs3:searchEndUserAccName').removeAttribute("disabled");
+        document.getElementById('pg:frm:pb:pbs:pbs4:searchBookDate').removeAttribute("disabled");    
+        document.getElementById('pg:frm:pb:pbs:pbs5:searchStage').removeAttribute("disabled");           
+        document.getElementById('pg:frm:pb:pbs:pbs1:DealId').removeAttribute("disabled");
+        document.getElementById('pg:frm:pb:pbs:pbs1:searchTagged').removeAttribute("disabled");     
+    }          
+}
+
+function HideDealID(){
+    document.getElementById('pg:frm:pb:pbs:pbs1:DealId').setAttribute("disabled","disabled");      
+}
+
+function HideDealID1(){
+    if(document.getElementById('pg:frm:pb:pbs:pbs5:searchStage').value != 'All'){
+        document.getElementById('pg:frm:pb:pbs:pbs1:DealId').setAttribute("disabled","disabled");
+    } 
+    
+}
+
+function HideDealID3(){
+    if(document.getElementById('pg:frm:pb:pbs:pbs2:searchOppName').value == '' && 
+ document.getElementById('pg:frm:pb:pbs:pbs3:searchEndUserAccName').value == '' &&
+ document.getElementById('pg:frm:pb:pbs:pbs4:searchBookDate').value == '' &&
+ ( document.getElementById('pg:frm:pb:pbs:pbs5:searchStage').value == 'All' ||
+ document.getElementById('pg:frm:pb:pbs:pbs5:searchStage').value == '') && 
+ (document.getElementById('pg:frm:pb:pbs:pbs1:DealId').value == 'All'||
+ document.getElementById('pg:frm:pb:pbs:pbs1:DealId').value == '' ) 
+ )
+   {
+     document.getElementById('pg:frm:pb:pbs:pbs7:searchTagged').removeAttribute("disabled");
+   }
+    
+}
+
+    
+ function ShowDealID(){
+ 
+ if(document.getElementById('pg:frm:pb:pbs:pbs2:searchOppName').value == '' && 
+ document.getElementById('pg:frm:pb:pbs:pbs3:searchEndUserAccName').value == '' &&
+ document.getElementById('pg:frm:pb:pbs:pbs4:searchBookDate').value == '' &&
+ ( document.getElementById('pg:frm:pb:pbs:pbs5:searchStage').value == 'All' ||
+ document.getElementById('pg:frm:pb:pbs:pbs5:searchStage').value == '')      
+ ) 
+   {
+     document.getElementById('pg:frm:pb:pbs:pbs1:DealId').removeAttribute("disabled");
+   }
+   
+ }   
+        
+
+</script>
+
+<apex:form acceptcharset="UTF-8" id="frm">
+    <apex:sectionHeader subtitle="{!$Label.My_Open_Opportunities}" title="Deals"/>
+      <apex:outputPanel id="op1">
+       <apex:pageMessage summary="{!err}" severity="error" strength="3"  rendered="{!showHideErr}" />
+       </apex:outputPanel>
+       <apex:outputPanel id="op2">
+       <apex:pageMessage summary="{!confmsg}" severity="confirm" strength="3"  rendered="{!ishasList}" />
+       </apex:outputPanel>
+    
+    
+    <apex:pageBlock id="pb">
+        
+       <!-- R14.5 - Add Search/filter -->
+       <apex:pageBlockSection title="Search" columns="1" rendered="{!IsProfile}" id="pbs">
+
+             <apex:pageBlockSectionItem id="pbs1">
+               <apex:outputLabel value="Deal ID" for="DealId"/>
+               <apex:inputText id="DealId" value="{!DealId}" onblur="showMe()" onfocus="hideMe();" onchange="hideMe();"/>
+           </apex:pageBlockSectionItem>
+              
+           <apex:pageBlockSectionItem id="pbs2" >
+            <apex:outputLabel value="Opportunity Name" for="searchOppName"/>
+           <apex:inputText id="searchOppName" value="{!searchOppName}" onfocus="HideDealID()"  onblur="ShowDealID()"/>
+           </apex:pageBlockSectionItem>
+           
+           <apex:pageBlockSectionItem id="pbs3" >
+               <apex:outputLabel value="End User Account" for="searchEndUserAccName"/>
+               <apex:inputText id="searchEndUserAccName" value="{!searchEndUserAccName}" onfocus="HideDealID()"  onblur="ShowDealID()" />
+           </apex:pageBlockSectionItem>  
+                      
+           <apex:pageBlockSectionItem id="pbs4">
+               <apex:outputLabel value="Book Date" for="searchBookDate"/>
+               <apex:inputField id="searchBookDate" value="{!searchOpp.Decision_Date__c}"  onchange="HideDealID()"  onblur="ShowDealID()"/>
+           </apex:pageBlockSectionItem>
+           
+           <apex:pageBlockSectionItem id="pbs5">  
+               <apex:outputLabel value="Stage" for="searchStage"/>
+               <apex:selectList id="searchStage" value="{!searchStage}" size="1" required="false"  onchange="HideDealID1()"  onblur="ShowDealID()">
+                   <apex:selectOptions value="{!stages}" />
+               </apex:selectList>
+           </apex:pageBlockSectionItem>
+           
+          <apex:pageBlockSectionItem id="pbs6">
+             <apex:outputLabel value="Deal Registration Status" for="searchDealRegStatus"/>
+            <apex:selectList id="searchDealRegStatus" value="{!searchDealRegStatus}" size="1" required="false" disabled="true">
+                   <apex:selectOptions value="{!dealRegStatuses}"/>
+               </apex:selectList> 
+           </apex:pageBlockSectionItem> 
+           
+           <apex:pageBlockSectionItem id="pbs7">
+               <apex:outputLabel value="Tagged/Owned" for="searchTagged"/>
+               <apex:selectList id="searchTagged" value="{!searchTagged}" size="1" required="false"  onblur="showMe1()" onfocus="hideMe1();" onchange="hideMe1();">
+                   <apex:selectOptions value="{!Tagged}"/>
+               </apex:selectList>
+           </apex:pageBlockSectionItem>
+           
+            <apex:pageBlockSectionItem id="pbs8">
+               <apex:outputLabel value="Selected Account" for="SalesMotion"/>
+               <apex:selectList id="SalesMotion" value="{!strsalesMotionAccId}" size="0" required="false">
+                   <apex:selectOptions value="{!SalesMotion}"/>
+               </apex:selectList>
+           </apex:pageBlockSectionItem>
+           
+           
+           
+           <!--8.0
+           <apex:pageBlockSectionItem id="pbs8">
+              <apex:outputLabel value="Primary Owner" for="searchPrimaryOwner"/>
+               <apex:inputField id="searchPrimaryOwner" value="{!searchOpp.Primary_Owner__c}"  onblur="showMe2()" onfocus="hideMe2();" onchange="hideMe2();"/>
+           </apex:pageBlockSectionItem>
+           -->
+           
+           <apex:outputPanel >
+           <div align="left">
+            <apex:commandButton value="Search" action="{!SearchAction}" status="consent" reRender="op1,pbss,op2,op3"/> 
+            <apex:commandButton value="Reset" action="{!ResetAction}" reRender="pbs,op1,op2,pbt,op3" oncomplete="focusDealId();" />
+            </div>
+            <br/>           
+            <apex:actionStatus id="consent" startText="Loading..." layout="inline">
+            <apex:facet name="start" >
+            <apex:image value="/img/loading32.gif" alt="Loading..."/> 
+            </apex:facet>
+            </apex:actionStatus>    
+            </apex:outputPanel>       
+           
+           
+            
+           
+       </apex:pageBlockSection>
+        
+       
+       <apex:pageBlockSection rendered="{!IsProfile}" columns="1" id="pbss">
+           <apex:outputText value="Search result displays maximum 2000 records"  style="font-weight:bold;color:Red;float:right;" ></apex:outputText>
+           <apex:pageBlockTable value="{!lstopp}" var="l" rendered="{!IsProfile}" id="pbt" >
+               <apex:column headerValue="{!$Label.OSC_Action}">
+                   <apex:commandLink value="{!$Label.Associate}" action="{!associate}" Style="text-decoration:none; color:#1797C0">
+                   <apex:param name="oppid" value="{!l.id}" assignTo="{!oppid}"/>
+                   </apex:commandLink>
+               </apex:column>
+               
+               <apex:column value="{!l.name}" headerValue="{!$Label.Opportunity_Name}"/>
+               <apex:column value="{!l.End_User_Account_Name__c}" headerValue="{!$Label.End_User_Account_Name}" />
+               <apex:column value="{!l.closedate}" headerValue="{!$Label.Book_Date}"/>
+               <apex:column value="{!l.stagename}" headerValue="{!$Label.Stage}"/>
+               <apex:column value="{!l.Deal_Registration_Status__c}" headerValue="{!$Label.Deal_Registration_Status}" /> 
+               <apex:column headerValue="{!$Label.IsTagged}">
+                    <apex:outputText value="{!IF(l.OwnerId == loggedInUserIdVar, 'No', 'Yes')}"></apex:outputText> 
+               </apex:column>
+                <apex:column value="{!l.OwnerId}" headerValue="{!$Label.Owner}" /> 
+               </apex:pageBlockTable>
+       </apex:pageBlockSection>
+   </apex:pageBlock>
+   <!-- IF(l.OwnerId == loggedInUserIdVar, NOT(isTagged), isTagged) -->
+   
+      
+       <apex:outputPanel rendered="{!IsProfile}" id="op3">
+        <div align="center">
+         
+        <apex:commandButton action="{!Beginning}" title="Beginning" value="<<" disabled="{!disablePrevious}"/>
+        <apex:commandButton action="{!Previous}" title="Previous" value="< Previous" disabled="{!disablePrevious}"/>        
+        <apex:commandButton action="{!Next}" title="Next" value="Next >" disabled="{!disableNext}"/>
+        <apex:commandButton action="{!End}" title="End" value=">>" disabled="{!disableNext}"/>  <br/><br/>     Showing Page # {!pageNumber} of {!totalPages}
+        </div>
+      </apex:outputPanel>
+      
+   </apex:form>
+
+</apex:page>

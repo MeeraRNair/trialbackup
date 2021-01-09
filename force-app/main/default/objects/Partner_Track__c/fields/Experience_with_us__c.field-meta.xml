@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Experience_with_us__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( DATETIMEVALUE(Legacy_Partner_Program_Ts_Cs_Date__c) &gt;= DATETIMEVALUE( TODAY() - 365 ) , &quot;Less than a year&quot;,
+     IF( 
+        AND(DATETIMEVALUE(Legacy_Partner_Program_Ts_Cs_Date__c) &lt;= DATETIMEVALUE( TODAY() - 365 ),
+            DATETIMEVALUE(Legacy_Partner_Program_Ts_Cs_Date__c) &gt;= DATETIMEVALUE( TODAY() - 365*3 )
+           ) , &quot;More than 1 year&quot;, 
+     IF( 
+        AND(DATETIMEVALUE(Legacy_Partner_Program_Ts_Cs_Date__c) &lt; DATETIMEVALUE( TODAY() - 365*3 ),
+            DATETIMEVALUE(Legacy_Partner_Program_Ts_Cs_Date__c) &gt;= DATETIMEVALUE( TODAY() - 365*5 )
+           ) , &quot;More than 3 years&quot;, 
+     IF( 
+        AND(DATETIMEVALUE(Legacy_Partner_Program_Ts_Cs_Date__c) &lt; DATETIMEVALUE( TODAY() - 365*5 ),
+            DATETIMEVALUE(Legacy_Partner_Program_Ts_Cs_Date__c) &gt;= DATETIMEVALUE( TODAY() - 365*10 )
+           ) , &quot;More than 5 years&quot;,
+     IF( 
+        AND(DATETIMEVALUE(Legacy_Partner_Program_Ts_Cs_Date__c) &lt; DATETIMEVALUE( TODAY() - 365*10 ),
+            DATETIMEVALUE(Legacy_Partner_Program_Ts_Cs_Date__c) &gt;= DATETIMEVALUE( TODAY() - 365*15 )
+           ),&quot;More than 10 years&quot;,
+	 IF(DATETIMEVALUE(Legacy_Partner_Program_Ts_Cs_Date__c) &lt;= DATETIMEVALUE( TODAY() - 365*15 ),&quot;More than 15 years&quot;,&quot;&quot;)
+)))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Experience with us</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

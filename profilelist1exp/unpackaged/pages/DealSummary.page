@@ -1,0 +1,175 @@
+<apex:page controller="DealSummary" showHeader="false" sidebar="false" action="{!insOppty}">
+<head>
+<style> 
+    .fontMainTitle {font-family:verdana; font-weight:bold;font-size:8pt;}
+    .fontMainHeading {font-family:verdana; font-weight:bold;font-size:8pt;height:18px;border:1px #000000 solid;background-color:#dcdcdc; height=20px;}
+    .fontMain {font-family:verdana; font-weight:normal;font-size:8pt;}
+    .fontMainTable {font-family:verdana; font-weight:normal;font-size:8pt;border:1px #dcdcdc solid;height:20px;}    
+</style>
+ 
+<apex:includeScript value="{!URLFOR($Resource.JQuery, '/jquery-1.8.2.min.js')}"/>    
+<apex:includeScript value="{!URLFOR($Resource.JQuery, '/postmessage/jquery.ba-postmessage.js')}"/>      
+ 
+<script type="text/javascript">        
+    var j$ = jQuery.noConflict();           
+    var parent_domain = '{!$CurrentPage.parameters.parent_domain}';           
+    j$(document).ready(function() 
+    {             
+        j$('input[id$=btnCloseModalDialog]').click(function(event) 
+        {                 
+            event.preventDefault();                 
+            closeModalDialog();             
+        });         
+    });                   
+ 
+    function closeModalDialog() 
+    {             
+        var cross_result = new Object();             
+        cross_result.action = 'close_modal_dialog';                       
+        
+        j$.postMessage(                 
+            cross_result,                 
+            parent_domain,                 
+            parent             
+        );         
+    }     
+</script>
+</head>
+ 
+<apex:form id="form1">
+    
+    <apex:pageBlock id="pb1">
+    <apex:pageMessages escape="false" id="msg" />   
+        <table width="100%" cellspacing="0" cellpadding="3" border="0" id="tbl1">
+         <tr>
+          <td class="fontMain" valign="middle" width="25%"><b>Opportunity Name</b></td>
+          <td class="fontMain" valign="middle" width="75%"><b>:&nbsp;<apex:outputText value="{!Opportunity.Name}"></apex:outputText></b></td>
+         </tr> 
+         <tr>
+          <td class="fontMain" valign="middle">Deal ID<!--Changed Defect 81394--></td>
+          <td class="fontMain" valign="middle">:&nbsp;<apex:outputText value="{!Opportunity.Deal_ID__c}"></apex:outputText></td>
+         </tr>
+         <tr>
+          <td class="fontMain" valign="middle">Unweighted revenue<!--Changed Defect 81394--></td>
+          <td class="fontMain" valign="middle">:&nbsp;<apex:outputText value="{!Opportunity.Unweighted_Rev_Formula__c}"></apex:outputText></td>
+         </tr>
+         <tr>
+          <td class="fontMain" valign="middle">Total Margin %</td>
+          <td class="fontMain" valign="middle">:&nbsp;<apex:outputText value="{!Opportunity.Total_Margin__c}"></apex:outputText>%</td>
+         </tr>
+         <tr>
+          <td class="fontMain" valign="middle">Stage</td>
+          <td class="fontMain" valign="middle">:&nbsp;<apex:outputText value="{!Opportunity.StageName}"></apex:outputText></td>
+         </tr>
+         <tr>
+          <td class="fontMain" valign="middle">Scheduled Opportunity</td>
+          <td class="fontMain" valign="middle">:&nbsp;<apex:outputText value="{!ScheduledOpportunity}"></apex:outputText></td>
+         </tr>
+         <tr>
+          <td class="fontMain" valign="middle">Probability</td>
+          <td class="fontMain" valign="middle">:&nbsp;<apex:outputText value="{!Opportunity.Probability}"></apex:outputText>%</td>
+         </tr>         
+        </table>
+
+        <table width="100%" cellspacing="0" cellpadding="0" border="0" id="tbl1">
+         <tr>
+          <td width="50%" valign="top">
+           <table width="100%" cellspacing="1" cellpadding="2" style="border:1px #dcdcdc solid;">
+            <tr>
+             <td class="fontMainHeading" valign="middle" width="70%">Activities</td>
+             <td class="fontMainHeading" valign="middle" width="30%" align="center">Total</td>
+            </tr> 
+            <tr>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;height:25px;">Linked to Strategy in Account Plan</td>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputText value="{!RelatedStrategy}"></apex:outputText></td>
+            </tr> 
+            <tr>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">Opportunity Plan created<!--Changed Defect 81394--></td>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputText value="{!OpportunityPlan}"></apex:outputText></td>
+            </tr> 
+            <tr>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">Number of Call Plans created<!--Changed Defect 81394--></td>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputText value="{!CallPlanCt}"></apex:outputText></td>
+            </tr> 
+            <tr>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">Number of Calls logged</td>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputText value="{!CallsLoggedCt}"></apex:outputText></td>
+            </tr> 
+            <tr>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">Number of Trip Reports created<!--Changed Defect 81394--></td>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputText value="{!TripReportsCt}"></apex:outputText></td>
+            </tr> 
+            <tr>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">Number of times Book Date has moved<!--Changed Defect 81394--></td>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputText value="{!Opportunity.No_times_BookDate_moved__c}"></apex:outputText></td>
+            </tr> 
+            <tr>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">Date of Last Activity</td>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center"><apex:outputText value="{0,date, dd MMM yyyy}"><apex:param value="{!Opportunity.LastActivityDate}"/></apex:outputText></td>
+            </tr> 
+            <tr>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">Number of Qualified NPS Contacts on the Account</td>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputText value="{!NPSCt}"></apex:outputText></td>
+            </tr> 
+           </table>
+          </td>
+          <td width="1%" valign="top">
+           <table>
+            <tr>
+             <td></td>
+            </tr>
+           </table>
+          </td> 
+          <td width="49%" valign="top">
+           <table width="100%" cellspacing="1" cellpadding="2" style="border:1px #dcdcdc solid;">
+            <tr>
+             <td class="fontMainHeading" valign="middle" width="30%">Stage</td>
+             <td class="fontMainHeading" valign="middle" width="70%" align="center">Number of days spent per stage<!--Changed Defect 81394--></td>
+            </tr> 
+            <tr>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;height:25px;">Plan</td>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputText value="{!OHDaysInPlan}"></apex:outputText></td>
+            </tr> 
+            <tr>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">Discover</td>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputText value="{!OHDaysInDiscover}"></apex:outputText></td>
+            </tr> 
+            <tr>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">Qualify</td>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputText value="{!OHDaysInQualify}"></apex:outputText></td>
+            </tr> 
+            <tr>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">Propose</td>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputText value="{!OHDaysInPropose}"></apex:outputText></td>
+            </tr> 
+            <tr>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">Commit</td>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputText value="{!OHDaysInCommit}"></apex:outputText></td>
+            </tr>
+            <!--CR14521 start-->
+            <tr>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;">Order Submitted</td>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;" align="center">&nbsp;<apex:outputText value="{!OHDaysInSubmit}"></apex:outputText></td>
+            </tr> 
+            <!--CR14521 end-->
+            <tr>
+             <td class="fontMainTable" valign="middle" style="border:1px #dcdcdc solid;font-size:8pt;" colspan="2"><apex:commandButton action="{!theRefresh}" value="REFRESH" id="theRefresh" style="font-family:verdana;font-size:7.5pt;font-weight:bold;"  /></td>
+            </tr> 
+
+           </table>
+          </td>
+         </tr>
+        </table> 
+    </apex:pageBlock>
+</apex:form>
+
+<apex:outputPanel id="refresh" rendered="true">
+ <apex:outputPanel id="refresh1" rendered="{!refreshPage}">
+  <script>
+   //window.top.location='/apex/DealSummary?id={!Opportunity.id}';
+   window.location='/apex/DealSummary?id={!Opportunity.id}';
+  </script>
+ </apex:outputPanel>
+</apex:outputPanel>
+
+</apex:page>

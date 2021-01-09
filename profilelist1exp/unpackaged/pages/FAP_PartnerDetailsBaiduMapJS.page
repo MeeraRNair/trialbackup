@@ -1,0 +1,136 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" contentType="text/javascript">
+
+/**
+REVISION HISTORY
+================
+Version     Author      Date            Release#        CR#     Description
+-------     ------      ----            --------        ---     -----------
+1.0         Gan         03-Nov-2016     FY17-DCS-0103   13725   Initial based on PartnerDetailsJS
+
+
+**/
+
+function addMarker(map, point) {
+    var marker = new BMap.Marker(point);
+    //Add Marker to Overlays collection
+    map.addOverlay(marker);
+}
+
+function clearOverlays(map) {
+    map.clearOverlays();
+}
+   
+    var PartnerLocationDetailMapController = Class.create({
+    initialize: function(mapDivFieldID,locationJSONDataFieldID){
+       
+        this.locationJSONDataFieldID = locationJSONDataFieldID;  
+        map = new BMap.Map($(mapDivFieldID));
+        map.centerAndZoom(new BMap.Point(0,0), 4);
+        map.enableScrollWheelZoom();
+        var bottom_right_navigation = new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL});
+        map.addControl(bottom_right_navigation);
+   
+    }, 
+    addLocation:function(locationNumber){
+        map.clearOverlays();
+        this.pointLookup = new Hash();
+        this.locationLookup = new Hash();
+        var locations = $F(this.locationJSONDataFieldID).evalJSON().locations;
+        var bounds = map.getBounds();
+        var points = [];
+        var point;
+        locations.each(function(location){
+        if(location.serialNumber==locationNumber){
+            point = new BMap.Point(location.longitude,location.latitude);
+            //alert("location.longitude : " + location.longitude + ", location.latitude: " + location.latitude);       
+            points.push(point);
+            bounds.extend(point);
+            
+            var marker = new BMap.Marker(point);
+            marker.setPosition(point);
+            marker.serialNumber = location.serialNumber;
+            marker.name = location.name;
+            marker.city = location.city;
+            marker.street = location.street;
+            marker.state = location.state;
+            marker.country = location.country;
+            marker.postalCode= location.postalCode;
+            marker.setTitle(location.name);
+    
+            marker.addEventListener("click",function(e) {
+                var p = e.target;
+                var mPoint = new BMap.Point(p.getPosition().lng, p.getPosition().lat);   
+                var infoWindow = new BMap.InfoWindow('<b>'+ p.serialNumber  + '-</b> '+ 
+                                        '<b> ' + p.name + '</b><br/>' + 
+                                        (Object.isUndefined(p.street) || (p.street==null) || p.street.blank() ?'': p.street + ', ') + 
+                                        (Object.isUndefined(p.city) || (p.city==null) || p.city.blank() ?'': p.city + ', ') + 
+                                        (Object.isUndefined(p.state) || (p.state==null) || p.state.blank() ?' ': p.state + '  ') + 
+                                        (Object.isUndefined(p.postalCode) || (p.postalCode==null) || p.postalCode.blank() ?'': p.postalCode ) + 
+                                        '<br/>' + 
+                                        this.country);          
+   
+                    map.openInfoWindow(infoWindow, mPoint);
+                });
+                
+            this.pointLookup.set(location.id,marker);
+            map.addOverlay(marker);
+            this.locationLookup.set(location.serialNumber,location);
+            }
+        }.bind(this));
+        
+        map.setViewport(points);
+        map.setZoom(14);
+           
+        var listener = map.addEventListener("idle", function() { 
+            if (map.getZoom() > 13) map.setZoom(13); 
+                map.removeEventListener(listener); 
+        });
+    
+    }
+    
+    ,showLocation: function(locationNumber){
+        
+        this.addLocation(locationNumber)
+    }
+});
+    
+function showLocation(locationNumber){
+    //alert('showLocation -> argument :' + locationNumber + ' controller:' + controller);
+    // Ver 1.1
+    if(Object.isUndefined(controller)){
+      controller = new PartnerLocationDetailMapController('map_canvas','Page:Form:LocationData');
+     } 
+    controller.showLocation(locationNumber);
+}
+
+    
+function initializeController() {
+    //alert("Test inside the initializeController");
+    
+    if($('map_canvas')){
+    try{
+            //alert('map_canvas' + map_canvas); 
+            //alert('map_canvas1' + $('map_canvas'));
+            //alert('initializeController() locnum' + locationNumber + ' initializeController() controller:' + controller);
+            controller = new PartnerLocationDetailMapController('map_canvas','Page:Form:LocationData');
+            showLocation(1);
+      }catch(err){
+        //alert(err);
+        //alert('Failed to load Baidu Maps.  If you\'re using Internet Explorer, please ensure the permission \'Display mixed content\' is set to \'Enable\'.');
+       }
+    }
+    
+}
+
+
+if(document.readyState != 'loading'){
+    initializeController();
+}
+else{
+
+document.observe('dom:loaded', function() {
+    initializeController();
+}, false);
+}
+
+</apex:page>

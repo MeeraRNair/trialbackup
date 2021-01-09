@@ -1,0 +1,44 @@
+<apex:page Controller="SalesMotionFindNReplaceController">
+    <style>
+        .customTableCol{vertical-align: middle;}
+    </style>
+
+<apex:form >
+        <apex:sectionHeader subtitle="Step5:Select Salesmotion Page Sections" title="step 5 of 6"/>
+        <apex:pageMessages />
+         <apex:outputText rendered="{!availableSections.size==0}"><b> No SalesMotionPageSection To Display!!!</b></apex:outputText>
+         <apex:outputText ><b>Only SalesMotion Page Sections with a  data in "Section Content" field will be displayed in Available List</b></apex:outputText>
+         <br/>
+        <apex:commandButton value="Select All" action="{!SelectAllSections}"/>     
+        <apex:pageBlock rendered="{!showMultiPickofTandC}">            
+            <table Style="align:Left;">                
+                <tr>
+                    <td class="customTableCol">
+                       <b>Available</b><br></br>
+                        <apex:selectList id="stages" multiselect="True" value="{!sectionsToAdd}"  size="10">
+                            <apex:selectoptions value="{!availableSections}"/>
+                        </apex:selectList>
+                    </td>
+                    <td style="vertical-align: middle">
+                        <apex:commandLink action="{!addCurSelectedSections}" title="Add"><img src="/s.gif" alt="Add" class="picklistArrowRight" style="cursor: pointer; " title="Add"/></apex:commandLink>
+                        <br/>
+                        <br/>
+                        <apex:commandLink action="{!removeCurSelectedSections}" title="Add"><img src="/s.gif" alt="Remove" class="picklistArrowLeft" style="cursor: pointer; " title="Remove"/></apex:commandLink>
+                    </td>
+
+                     <td class="customTableCol">
+                      <b>Selected</b><br></br>
+                        <apex:selectList id="selected" multiselect="True" value="{!sectionsToRemove}" size="10">
+                            <apex:selectoptions value="{!selectedSections}"/>
+                        </apex:selectList>
+                    </td>
+                </tr>                           
+            </table> 
+            <apex:pageblockbuttons location="bottom">                
+                 <apex:commandButton action="{!PreviousPage5}" value="Previous" />                
+                 <apex:commandButton value="Next" action="{!Submit}"/>                  
+                 <apex:commandButton action="{!CancelPage5}" value="Cancel" />
+            </apex:pageblockbuttons>
+        </apex:pageBlock> 
+</apex:form>    
+</apex:page>

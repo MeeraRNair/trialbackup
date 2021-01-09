@@ -1,0 +1,142 @@
+<!-- * 
+* Revision CR Number   Release No      Date            Modified By     Description
+* -------- ---------   ----------      -----------     ------------    -----------
+* 1.0 -    CR16426     FY19-DCS-1002   31-Aug-2018:    manip4          added 'lightningStylesheets' attribute for apex component to make the page lightening friendly for the story 5537325
+*/-->
+
+<apex:page id="thePage" controller="LinkOppToStrategyCtrl" tabStyle="SFDC_Strategy__c" lightningStylesheets="true">
+   
+    <head>
+
+    <style type="text/css">
+    
+    .pbTitle .mainTitle {
+        white-space: nowrap;
+        margin-left: -633px;
+    }
+    
+  
+    </style>
+    </head>
+    
+    <apex:form id="oppForm">
+        
+    <!-- Status image-->   
+    <div style="text-align: center;">
+        <apex:actionStatus id="searchStatus">
+            <apex:facet name="start"><apex:image url="{!$Resource.loading}"/></apex:facet>
+        </apex:actionStatus>            
+    </div> 
+    
+    
+    <!-- previous and next links -->                
+    <apex:sectionHeader title="{!$Label.Strategy_LinkOppToStrat_OppList}" subtitle="{!$Label.Strategy_LinkOppToStrat_Opp}"/> 
+
+    <!--To display Error messages>-->    
+    <apex:outputPanel style="font-weight: Bold; Color: Red" rendered="{!IF(errorMessage <> null, true,false)}">        
+        <apex:outputLabel escape="false" value="{!errorMessage}" /> <br/><br/>
+    </apex:outputPanel>
+  
+    <apex:outputPanel style="margin-top: 5px"  id="pageNavTop" rendered="{!IF(oppListCount>0,true,false)}">              
+        <div style="float: left;font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: right; width: 52%;">
+        
+            <apex:outputText value="{!$Label.Strategy_LinkOppToStrat_PageNum}">
+                <apex:param value="{!componentRecords.pageNumber}"/>
+                <apex:param value="{!lastPage}"/>
+            </apex:outputText>
+
+        </div>
+
+        <div style="float: right; font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: right; width: 48%;">                
+            <apex:commandLink action="{!componentRecords.previous}" rendered="{!componentRecords.hasPrevious}" rerender="pageNavTop,OpenOpptyTable,pageNavTop2" status="searchStatus">
+            &lt; {!$Label.Strategy_LinkOppToStrat_PrevPage}
+            </apex:commandLink>                 
+            <apex:outputText rendered="{!AND(componentRecords.hasPrevious, componentRecords.hasNext)}">&nbsp;|&nbsp;</apex:outputText>
+            <apex:commandLink action="{!componentRecords.next}" rendered="{!componentRecords.hasNext}" rerender="pageNavTop,OpenOpptyTable,pageNavTop2" status="searchStatus">
+            {!$Label.Strategy_LinkOppToStrat_NextPage} &gt;
+            </apex:commandLink>
+        </div>              
+    </apex:outputPanel> 
+    
+    <apex:pageBlock title="{!$Label.Strategy_LinkOppToStrat_Title} : {!accName}">
+        
+        <apex:pageBlockButtons location="bottom" id="buttons">
+            <apex:commandButton value="{!$Label.Strategy_LinkOppToStrat_CancelButton}" action="{!back}"/> 
+        </apex:pageBlockButtons> 
+        
+        <!-- Message for No Opportunities -->   
+        <apex:pageBlockSection columns="1" rendered="{!IF(oppListCount>0,false,true)}">   
+            {!$Label.Strategy_LinkOppToStrat_NoOppMessage}
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockTable id="OpenOpptyTable" value="{!oppList}" var="oppWrapper" rendered="{!IF(oppListCount>0,true,false)}">
+            <apex:column headerValue="{!$Label.Strategy_LinkOppToStrat_Action}">
+            <b>
+            <apex:commandLink action="{!link}" value="{!$Label.Strategy_LinkOppToStrat_Link}" id="link"  oncomplete="refreshInLex('{!showError}');" rerender="oppForm" > 
+                <apex:param name="selectedOppid" value="{!oppWrapper.opp.id}" assignTo="{!selectedOppid}"/>
+            </apex:commandLink>
+            &nbsp;|&nbsp;
+            <apex:outputLink value="/{!oppWrapper.opp.id}" target="_blank">{!$Label.Strategy_LinkOppToStrat_View}</apex:outputLink>
+            </b>
+            </apex:column>
+            
+            <apex:column value="{!oppWrapper.opp.Name}"/> 
+            <apex:column value="{!oppWrapper.opp.StageName}"/>
+            <apex:column value="{!oppWrapper.opp.Unweighted_Rev_Formula__c}" style="text-align:right"/>
+            <apex:column headerValue="{!$ObjectType['Opportunity'].fields['CloseDate'].Label}">{!oppWrapper.formattedCloseDate}&nbsp;</apex:column>   
+            <apex:column value="{!oppWrapper.opp.Weighted_Rev_Formula__c}" style="text-align:right"/>   
+            <apex:column headerValue="{!$ObjectType['Opportunity'].fields['LastModifiedDate'].Label}">{!oppWrapper.formattedLastModifiedDate}&nbsp;</apex:column>   
+            <apex:column value="{!oppWrapper.opp.Deal_Reg_Oppty__c}"/>   
+            <apex:column value="{!oppWrapper.opp.Deal_ID__c}"/>   
+            
+        </apex:pageBlockTable>
+        
+        
+    </apex:pageBlock>
+    
+    <!-- previous and next links --> 
+    <apex:outputPanel style="margin-top: 5px"  id="pageNavTop2" rendered="{!IF(oppListCount>0,true,false)}">              
+        <div style="float: left;font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: right; width: 52%;">
+            <apex:outputText value="{!$Label.Strategy_LinkOppToStrat_PageNum}">
+                <apex:param value="{!componentRecords.pageNumber}"/>
+                <apex:param value="{!lastPage}"/>
+            </apex:outputText>
+        </div>
+
+        <div style="float: right; font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: right; width: 48%;">                
+      <apex:commandLink action="{!componentRecords.previous}" rendered="{!componentRecords.hasPrevious}" rerender="pageNavTop,OpenOpptyTable,pageNavTop2" status="searchStatus">
+            &lt; {!$Label.Strategy_LinkOppToStrat_PrevPage}
+            </apex:commandLink>            
+            <apex:outputText rendered="{!AND(componentRecords.hasPrevious, componentRecords.hasNext)}">&nbsp;|&nbsp;</apex:outputText>
+            <apex:commandLink action="{!componentRecords.next}" rendered="{!componentRecords.hasNext}" rerender="pageNavTop,OpenOpptyTable,pageNavTop2" status="searchStatus">
+            {!$Label.Strategy_LinkOppToStrat_NextPage} &gt;
+            </apex:commandLink>
+        </div>              
+    </apex:outputPanel>          
+    
+    <!--<apex:pageBlock id="errorBlock" rendered="{!IF(canProceed, false, true)}">
+        
+        <apex:pageMessages /> 
+        <br/>
+        <apex:commandButton value="{!$Label.Strategy_LinkOppToStrat_CancelButton}" action="{!back}" immediate="true"/>
+        
+    </apex:pageBlock>-->
+    
+    </apex:form>
+    <script>
+        
+
+       function refreshInLex(showval){       
+                      
+                      if(showval == 'true') {
+                       console.log('Error Done');
+                      }
+                     if(showval == 'false') {
+                       window.parent.location = '/'+'{!strategyId}';
+                      }
+       }
+  
+
+    </script>
+
+</apex:page>

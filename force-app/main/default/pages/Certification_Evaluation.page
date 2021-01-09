@@ -1,0 +1,122 @@
+<!-- * 
+* Revision CR Number   Release No      Date            Modified By     Description
+* -------- ---------   ----------      -----------     ------------    -----------
+* 1.0 -    CR16418     FY19-DCS-1002   3-Sep-2018:     manip4          added 'lightningStylesheets' attribute for apex component to make the page lightening friendly for the story 5537222
+*/-->
+
+<apex:page id="pg" controller="VFCntrlr_Certification_Evaluation" lightningStylesheets="true">
+  <apex:form id="frm" >
+      <script language="javascript">        
+        function js_Evaluate_ChkUnique(cnt){           
+            if (cnt == -1){
+                ShowMessage();
+            }
+            else{
+                Evaluate_EachAccount();
+            }                     
+        }        
+        function checkAll(chkSelectAll){
+            var inputElem = document.getElementsByTagName("input");
+            for(var i=0; i<inputElem.length; i++){
+                if(inputElem[i].id.indexOf("chk")!=-1)
+                    inputElem[i].checked = chkSelectAll.checked;    
+            }
+        }
+        function unCheckSelectAll(chk){
+            var inputElem = document.getElementsByTagName("input");            
+            if (chk.checked == false){
+                for(var i=0; i<inputElem.length; i++){                   
+                    if(inputElem[i].id.indexOf("SelectAll")!=-1)
+                        inputElem[i].checked = false;    
+                }
+            }
+        }        
+      </script>
+      
+    <apex:actionFunction status="status_chk" name="Evaluate_EachAccount" action="{!Evaluate_EachAccount}" onComplete="{js_Evaluate_ChkUnique('{!Eval_AcctCount}')}" />
+    <apex:actionFunction status="status_chk" name="ShowMessage" action="{!ShowMessage}" />
+        
+    <apex:pageBlock title="Competency Evaluation" rendered="{! NOT(OR(Begins($Profile.Name,'System Administrator'),Begins($Profile.Name,'GBL PRM Certification Admin')))}">
+        <apex:pageMessage summary="{!$Label.NetExam_AccessError}" severity="Error" strength="1" />        
+        <apex:pageBlockButtons location="bottom">          
+            <apex:commandButton value="Cancel" action="{!cancel}"/>            
+        </apex:pageBlockButtons>    
+    </apex:pageBlock>
+   
+    <apex:pageBlock rendered="{! OR(Begins($Profile.Name,'System Administrator'),Begins($Profile.Name,'GBL PRM Certification Admin'))}" title="Competency Evaluation" mode="edit" id="pgBlkCert" >
+       <apex:pageMessages id="pgmsg" />
+        <apex:pageBlockButtons location="bottom" > 
+            
+            <apex:actionStatus id="status_chk">
+                 <apex:facet name="stop">     
+                   <apex:commandButton rendered="{!NoOfRecords>0}" onComplete="{js_Evaluate_ChkUnique('{!Eval_AcctCount}')}" action="{!Evaluate}"  status="status_chk" value="Evaluate" />
+                 </apex:facet>     
+                 <apex:facet name="start">
+                   <apex:commandButton rendered="{!NoOfRecords>0}" onComplete="{js_Evaluate_ChkUnique('{!Eval_AcctCount}')}" action="{!Evaluate}"  status="status_chk" value="Evaluating..." disabled="true"/>                  
+                 </apex:facet>
+            </apex:actionStatus>
+            
+            <apex:commandButton value="Cancel" action="{!cancel}"/>
+        </apex:pageBlockButtons>    
+           
+        <apex:actionStatus id="status" startText="Searching..."/>    
+        
+        <apex:outputPanel style="margin-top: 5px;"  id="pageNavTop" rendered="{!lastPage > 0}">              
+            <div style="font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: left; ">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Page {!currentPage} of {!lastPage}
+            </div>
+            <div style="font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: right; ">                
+                <apex:commandLink action="{!previous}" rendered="{!hasPrevious}" rerender="pgBlkRegion" status="searchStatus">
+                    &lt; Previous 
+                </apex:commandLink>                 
+                <apex:outputText rendered="{!hasPreviousAndNext}">&nbsp;|&nbsp;</apex:outputText>
+                <apex:commandLink action="{!next}" rendered="{!hasNext}" rerender="pgBlkRegion" status="searchStatus">
+                    Next &gt; 
+                </apex:commandLink>
+            </div>      
+        </apex:outputPanel> 
+    
+        <apex:pageMessage rendered="{!NoOfRecords<=0}" summary="{!$Label.NetExam_NoRecs}" severity="warning" strength="3" />                 
+        <apex:pageBlockSection rendered="{!NoOfRecords>0}" id="pgblkCT" columns="1" collapsible="false">
+            <apex:pageBlockTable id="pgBlkTable" value="{!Accounts}" var="tr" >
+                <apex:column headervalue="Select All" width="20px;" id="col1">
+                      <apex:facet name="header"> 
+                          <apex:outputPanel >
+                            <apex:inputCheckbox id="SelectAll" onclick="{checkAll(this);}" value="{!chkSelectAll}" />                                                      
+                            <apex:outputLabel style="vertical-align:top;">Select All</apex:outputLabel>
+                          </apex:outputPanel>
+                        
+                    </apex:facet>
+                    <apex:inputcheckbox id="chk" value="{!tr.isSelected}" onclick="{unCheckSelectAll(this);}" />                                                            
+                </apex:column>
+                
+                <apex:column headervalue="Account Name">
+                    <apex:outputlink target="_parent" value="/{!tr.Acct.Account_Name__c}">
+                        <apex:outputtext value="{!tr.Acct.Account_Name__r.name}" />
+                    </apex:outputlink>             
+                 </apex:column>
+                <apex:column value="{!tr.Acct.Account_Name__r.Account_ID__c}" />                
+                <apex:column value="{!tr.Acct.Account_Name__r.Partner_Relationship__c}" />                              
+            </apex:pageBlockTable>   
+        </apex:pageBlockSection>
+        
+        <!-- previous and next links --> 
+        <apex:outputPanel style="margin-top: 5px"  id="pageNavBottom" rendered="{!lastPage>0}">               
+            <div style="font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: left;">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Page {!currentPage} of {!lastPage} 
+            </div>
+
+            <div style="font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: right; ">                
+                <apex:commandLink action="{!previous}" rendered="{!hasPrevious}" rerender="pgBlkTable,pageNavTop,pageNavBottom" status="searchStatus">
+                    &lt; Previous 
+                </apex:commandLink>                 
+                <apex:outputText rendered="{!hasPreviousAndNext}">&nbsp;|&nbsp;</apex:outputText>
+                <apex:commandLink action="{!next}" rendered="{!hasNext}" rerender="pgBlkTable,pageNavTop,pageNavBottom" status="searchStatus">
+                    Next &gt; 
+                </apex:commandLink>
+            </div>              
+        </apex:outputPanel>       
+    </apex:pageBlock>
+    
+    </apex:form>
+</apex:page>

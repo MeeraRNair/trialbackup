@@ -1,0 +1,110 @@
+<apex:page standardController="Partner_Request__c"
+    extensions="PartnerRegistrationLinkToAcctCtrlrExt"
+    tabStyle="Partner_Request__c"
+    action="{!doPageLoad}">
+     
+   <apex:form >
+        <apex:sectionHeader title="Partner Registration, Link Registration to Account" subtitle="{!registration.Name}" rendered="{!ConfirmAccount}"/>
+  <apex:sectionHeader title="Partner Registration, Link  End Customer to Account" subtitle="{!registration.End_Customer__r.name}" rendered="{!ConfirmEUAcc}"/>
+  
+  <br/>
+  <apex:commandLink styleclass="btn" value="Back" action="/{!registration.Id}"/>
+  
+  <br/>
+        <apex:outputPanel rendered="{!!isAccountSelected}">
+            <apex:pageMessage severity="info"
+                strength="3"
+                title="Please search for the Account to link to Partner Registration {!registration.Name}"
+                detail="NOTE:  If the Account does not exist, then the Account first needs to be created in Affinity."
+                rendered="{!ConfirmAccount}"
+            />
+            <apex:pageMessage severity="info"
+                strength="3"
+                title="Please search for the Account to link to End Customer {!registration.End_Customer__r.name}"
+                detail="NOTE:  If the Account does not exist, then the Account first needs to be created in Affinity."
+                rendered="{!ConfirmEUAcc}"
+            />
+            <apex:pageMessages />
+            <table width="100%" cellpadding="0" cellspacing="0" align="center" border="0">
+                <tr>
+                    <td> 
+                        <table width="100%" align="left" border="0" cellpadding="0" cellspacing="0" style="background-color: #d9d9d9;font-size: 97%;float: none;margin-top: 0pt;margin-right: 0pt;margin-bottom: 0pt;margin-left: 0pt;padding-top: 9px;">
+                            <tr>
+                                <td>
+                                    <table align="left" border="0" cellpadding="1" cellspacing="1">
+                                        <tr>
+                                            <td valign="middle" align="left" style="font-family: 'Verdana','Geneva',sans-serif;font-size: 100%;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;margin-left: 0px;display: inline;text-align: left;font-weight: bold;padding-right: 0.69em;">&nbsp;&nbsp;Account name:</td>
+                                            <td align="left" valign="middle"><apex:inputText size="40" id="SearchString" value="{!searchString}"/><apex:commandButton id="SearchButton" value="Search" action="{!doSearch}"/></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr><td>&nbsp;</td></tr>
+                <tr>
+                    <td> 
+                        <apex:pageBlock title="Account Search Results [{!accountSearchResultsCount}]" tabStyle="Partner_Request__c">
+                            <apex:pageblockTable value="{!accountSearchResults}" var="singlAccountSearchResult">
+                                <apex:column headerValue="Actions"  rendered="{!ConfirmAccount}">
+                                     <apex:commandLink id="Select" value="Select" action="{!doSelectAccount}">
+                                         <apex:param id="accountId" name="accountId" value="{!singlAccountSearchResult.Id}"/>
+                                     </apex:commandLink>
+                                </apex:column>
+                                <apex:column headerValue="Actions"  rendered="{!ConfirmEUAcc}">
+                                     <apex:commandLink id="LinkEndCstmr" value="Link to End Customer" action="{!doSelectAccount}">
+                                         <apex:param id="accountId2" name="accountId2" value="{!singlAccountSearchResult.Id}"/>
+                                     </apex:commandLink>
+                                </apex:column>
+                                <apex:column headerValue="Account Name" >
+                                    <apex:commandLink value="{!singlAccountSearchResult.Name}" action="/{!singlAccountSearchResult.Id}" target="_blank"/>                                         
+                                </apex:column>
+                                <apex:column headerValue="Street" value="{!singlAccountSearchResult.ShippingStreet}" rendered="{!ConfirmAccount}"/>
+                                <apex:column headerValue="City" value="{!singlAccountSearchResult.ShippingCity}" rendered="{!ConfirmAccount}"/>
+                                <apex:column headerValue="State/Province" value="{!singlAccountSearchResult.ShippingState}" rendered="{!ConfirmAccount}"/>
+                                <apex:column headerValue="Postal Code" value="{!singlAccountSearchResult.ShippingPostalCode}" rendered="{!ConfirmAccount}"/>
+                                <apex:column headerValue="Country" value="{!singlAccountSearchResult.ShippingCountry}" rendered="{!ConfirmAccount}"/>
+                                
+                                <apex:column headerValue="Account ID" value="{!singlAccountSearchResult.Account_ID__c}" rendered="{!ConfirmEUAcc}"/>
+                                <apex:column headerValue="Segmnet Desc" value="{!singlAccountSearchResult.Segment_Desc__c}" rendered="{!ConfirmEUAcc}"/>
+                                <apex:column headerValue="Segmnet Business Unit Name" value="{!singlAccountSearchResult.Segment_Business_Unit_Name__c}" rendered="{!ConfirmEUAcc}"/>
+                                <apex:column headerValue="Billing City" value="{!singlAccountSearchResult.billingCity}" rendered="{!ConfirmEUAcc}"/>
+                                <apex:column headerValue="Billing State/Province" value="{!singlAccountSearchResult.billingState}" rendered="{!ConfirmEUAcc}"/>
+                                <apex:column headerValue="Billing Country" value="{!singlAccountSearchResult.billingCountry}" rendered="{!ConfirmEUAcc}"/> 
+                                <apex:column headerValue="Record Type" value="{!singlAccountSearchResult.recordtype.name}" rendered="{!ConfirmEUAcc}"/>
+                                <apex:column headerValue="Owner" rendered="{!ConfirmAccount}">
+                                    <apex:outputLink value="/{!singlAccountSearchResult.Owner.Id}" target="_blank">{!singlAccountSearchResult.Owner.Name}</apex:outputLink>
+                                </apex:column>
+                            </apex:pageblockTable>
+                        </apex:pageBlock>  
+                    </td>
+                </tr>
+             </table>
+        
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!isAccountSelected}">
+            <apex:pageMessage severity="confirm"
+                strength="3"
+                title="Confirmation required"
+                detail="You are about to link Partner Registration [{!registration.Name}] to Account [{!selectedAccount.name}].  Please be advised that this operation cannot be reversed."
+                 rendered="{!ConfirmAccount}"
+            />
+            
+            <apex:pageMessage severity="confirm"
+                strength="3"
+                title="Confirmation required"
+                detail="You are about to link End customer: [{!registration.End_Customer__r.name}] to Account [{!selectedAccount.name}]."
+                rendered="{!ConfirmEUAcc}"
+            />
+            
+            <apex:pageMessages />
+            <table cellpadding="5" cellspacing="5" border="0"><tr><td>
+                <apex:commandButton value="Confirm" action="{!doConfirmEndUserAccount}" rendered="{!ConfirmEUAcc}"/>
+                 <apex:commandButton value="Confirm" action="{!doConfirmAccount}" rendered="{!ConfirmAccount}"/>
+                <apex:commandButton value="Cancel" action="{!doCancel}"/>
+            </td></tr></table>
+        </apex:outputPanel>
+   </apex:form>        
+    
+</apex:page>

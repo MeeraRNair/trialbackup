@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CR5774_Other_Service_Detail_required</fullName>
+    <active>true</active>
+    <description>If ProSupport &amp; Support Service Requirement include &quot;Other&quot;, then Other Service Details must be specified.</description>
+    <errorConditionFormula>IF(AND(
+INCLUDES(ProSupport_Support_Services_Requiremen__c, &quot;Other&quot;),
+Other_Services_Details__c =&quot;&quot;), TRUE,FALSE)</errorConditionFormula>
+    <errorDisplayField>Other_Services_Details__c</errorDisplayField>
+    <errorMessage>If ProSupport &amp; Support Service Requirement include &quot;Other&quot;, then Other Service Details must be specified.</errorMessage>
+</ValidationRule>

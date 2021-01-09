@@ -1,0 +1,765 @@
+<apex:page standardController="Volume_Based_Forecast__c" extensions="VFCntrl_AlaCarteForeCast" sidebar="false">
+<head>
+      <style>
+            .headerRow .displayStyle{display:none;}            
+      </style>                         
+</head>
+
+<apex:form id="theform">
+<apex:sectionHeader title="AlaCarte Forecast Plan - {!Volume_Based_Forecast__c.Name} "/>
+ <apex:pageBlock mode="mainDetail" id="pgblk1">
+         <apex:pageBlockButtons location="top">
+             <apex:commandButton value="Edit" action="{!edit}"/>
+         </apex:pageBlockButtons>
+        <apex:pageBlockSection title="Information" collapsible="false" columns="1" id="titleblock">
+               <apex:outputField value="{!Volume_Based_Forecast__c.Name}"/>
+               <apex:outputField value="{!Volume_Based_Forecast__c.Sub_Vendor__c}" />
+               <apex:outputField value="{!Volume_Based_Forecast__c.Fiscal_Quarter__c}" />
+               <apex:outputField value="{!Volume_Based_Forecast__c.Region__c}"/>                           
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection title="Ala Carte MDF Forecast" collapsible="false" columns="1" id="americas_mdf_forecast" rendered="{!Volume_Based_Forecast__c.Region__c='Americas'}">
+             <apex:pageBlockTable value="{!Volume_Based_Forecast__c}" var="a">
+                 <apex:column headerValue="" style="width:325px">
+                     <apex:outputLabel value="Ala Carte MDF Forecast" />
+                 </apex:column>
+                 <apex:column headerValue="CSMR">
+                     <apex:outputField value="{!a.AlaCarte_MDF_Forecast_CSMR__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="LE">
+                     <apex:outputField value="{!a.AlaCarte_MDF_Forecast_LE__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="PUB">
+                     <apex:outputField value="{!a.AlaCarte_MDF_Forecast_PUB__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="SMB">
+                     <apex:outputField value="{!a.AlaCarte_MDF_Forecast_SMB__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="ABU S&P">
+                     <apex:outputField value="{!a.AlaCarte_MDF_Forecast_ABU_S_P__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="Global Mktg">
+                     <apex:outputField value="{!a.AlaCarte_MDF_Forecast_Global_Mktg__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="ASAP">
+                     <apex:outputField value="{!a.AlaCarte_MDF_Forecast_ASAP__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="CSMR S&P">
+                     <apex:outputField value="{!a.AlaCarte_MDF_Forecast_CSRM_S_P__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="Corporate Events">
+                     <apex:outputField value="{!a.AlaCarte_MDF_Forecast_Corporate_Events__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="Int'l">
+                     <apex:outputField value="{!a.AlaCarte_MDF_Forecast_Intl__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="Total">
+                     <apex:outputField value="{!a.AlaCarte_MDF_Forecast_Total__c}" style="width:60px"/>
+                 </apex:column>                
+             </apex:pageBlockTable>       
+         </apex:pageBlockSection>
+         
+        <apex:pageBlockSection title="Ala Carte MDF Forecast" collapsible="false" columns="1" id="emea_mdf_forecast" rendered="{!Volume_Based_Forecast__c.Region__c='EMEA'}">
+             <apex:pageBlockTable value="{!Volume_Based_Forecast__c}" var="a">
+                 <apex:column headerValue="" style="width:350px">
+                     <apex:outputLabel value="Ala Carte MDF Forecast" />
+                 </apex:column>
+                 <apex:column headerValue="CSMR">
+                     <apex:outputField value="{!a.AlaCarte_MDF_Forecast_CSMR__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="LE" >
+                     <apex:outputField value="{!a.AlaCarte_MDF_Forecast_LE__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="PUB">
+                     <apex:outputField value="{!a.AlaCarte_MDF_Forecast_PUB__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="SMB Direct">
+                     <apex:outputField value="{!a.AlaCarte_MDF_Forecast_SMB_Direct__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="SMB channel">
+                     <apex:outputField value="{!a.AlaCarte_MDF_Forecast_SMB_Channel__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="All Segments">
+                     <apex:outputField value="{!a.AlaCarte_MDF_Forecast_All_Segments__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="Total">
+                     <apex:outputField value="{!a.AlaCarte_MDF_Forecast_Total__c}" style="width:60px"/>
+                 </apex:column>                
+             </apex:pageBlockTable>       
+         </apex:pageBlockSection>
+        
+        <apex:pageBlockSection title="Ala Carte MDF Forecast" collapsible="false" columns="1" id="apj_mdf_forecast" rendered="{!Volume_Based_Forecast__c.Region__c='APJ'}">
+             <apex:pageBlockTable value="{!Volume_Based_Forecast__c}" var="a">
+                 <apex:column headerValue="" style="width:300px">
+                     <apex:outputLabel value="Ala Carte MDF Forecast" />
+                 </apex:column>
+                 <apex:column headerValue="CSMR" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_MDF_Forecast_CSMR__c}" />
+                 </apex:column>
+                 <apex:column headerValue="LE" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_MDF_Forecast_LE__c}" />
+                 </apex:column>
+                 <apex:column headerValue="PUB" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_MDF_Forecast_PUB__c}" />
+                 </apex:column>
+                 <apex:column headerValue="SMB" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_MDF_Forecast_SMB__c}" />
+                 </apex:column>
+                 <apex:column headerValue="Total" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_MDF_Forecast_Total__c}" />
+                 </apex:column>                
+             </apex:pageBlockTable>       
+         </apex:pageBlockSection>
+         
+         <apex:pageBlockSection title="Ala Carte Plan BreakOut" collapsible="false" columns="1" id="americas_PB" rendered="{!Volume_Based_Forecast__c.Region__c='Americas'}">
+             <apex:pageBlockTable value="{!Volume_Based_Forecast__c}" var="a">
+                 <apex:column headerValue="" style="width:350px">
+                     <apex:outputLabel value="Ala Carte Plan BreakOut" />
+                 </apex:column>
+                 <apex:column headerValue="CSMR">
+                     <apex:outputField value="{!a.AlaCarte_Plan_Breakout_CSMR__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="LE">
+                     <apex:outputField value="{!a.AlaCarte_Plan_Breakout_LE__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="PUB">
+                     <apex:outputField value="{!a.AlaCarte_Plan_Breakout_PUB__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="SMB">
+                     <apex:outputField value="{!a.AlaCarte_Plan_Breakout_SMB__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="ABU S&P">
+                     <apex:outputField value="{!a.AlaCarte_Plan_Breakout_ABU_S_P__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="Global Mktg">
+                     <apex:outputField value="{!a.AlaCarte_Plan_Breakout_Global_Mktg__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="ASAP">
+                     <apex:outputField value="{!a.AlaCarte_Plan_Breakout_ASAP__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="CSMR S&P">
+                     <apex:outputField value="{!a.AlaCarte_Plan_Breakout_CSRM_S_P__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="Corporate Events">
+                     <apex:outputField value="{!a.AlaCarte_Plan_Breakout_Corporate_Events__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="Int'l">
+                     <apex:outputField value="{!a.AlaCarte_Plan_Breakout_Int_l__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="Total">
+                     <apex:outputField value="{!a.AlaCarte_Plan_BreakOut_Total__c}" style="width:60px"/>
+                 </apex:column>                
+             </apex:pageBlockTable>       
+         </apex:pageBlockSection>
+        
+        <apex:pageBlockSection title="Ala Carte Plan BreakOut" collapsible="false" columns="1" id="emea_PB" rendered="{!Volume_Based_Forecast__c.Region__c='EMEA'}">
+             <apex:pageBlockTable value="{!Volume_Based_Forecast__c}" var="a">
+                 <apex:column headerValue="" style="width:350px">
+                     <apex:outputLabel value="Ala Carte Plan BreakOut" />
+                 </apex:column>
+                 <apex:column headerValue="CSMR">
+                     <apex:outputField value="{!a.AlaCarte_Plan_Breakout_CSMR__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="LE">
+                     <apex:outputField value="{!a.AlaCarte_Plan_Breakout_LE__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="PUB">
+                     <apex:outputField value="{!a.AlaCarte_Plan_Breakout_PUB__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="SMB Direct">
+                     <apex:outputField value="{!a.AlaCarte_Plan_Breakout_SMB_Direct__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="SMB channel">
+                     <apex:outputField value="{!a.AlaCarte_Plan_Breakout_SMB_Channel__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="All Segments">
+                     <apex:outputField value="{!a.AlaCarte_Plan_Breakout_All_Segments__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="Total">
+                     <apex:outputField value="{!a.AlaCarte_Plan_BreakOut_Total__c}" style="width:60px"/>
+                 </apex:column>                
+             </apex:pageBlockTable>       
+         </apex:pageBlockSection>
+        
+        <apex:pageBlockSection title="Ala Carte Plan BreakOut" collapsible="false" columns="1" id="apj_PB" rendered="{!Volume_Based_Forecast__c.Region__c='APJ'}">
+             <apex:pageBlockTable value="{!Volume_Based_Forecast__c}" var="a">
+                 <apex:column headerValue="" style="width:300px">
+                     <apex:outputLabel value="Ala Carte Plan BreakOut" />
+                 </apex:column>
+                 <apex:column headerValue="CSMR" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_Plan_Breakout_CSMR__c}" />
+                 </apex:column>
+                 <apex:column headerValue="LE" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_Plan_Breakout_LE__c}" />
+                 </apex:column>
+                 <apex:column headerValue="PUB" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_Plan_Breakout_PUB__c}" />
+                 </apex:column>
+                 <apex:column headerValue="SMB" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_Plan_Breakout_SMB__c}" />
+                 </apex:column>
+                 <apex:column headerValue="Total" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_Plan_BreakOut_Total__c}" />
+                 </apex:column>                
+             </apex:pageBlockTable>       
+         </apex:pageBlockSection>
+        
+        <apex:pageBlockSection title="Ala Carte Available MDF" collapsible="false" columns="1" id="americas_availableMDF" rendered="{!Volume_Based_Forecast__c.Region__c='Americas'}">
+             <apex:pageBlockTable value="{!Volume_Based_Forecast__c}" var="a">
+                 <apex:column headerValue="" style="width:350px">
+                     <apex:outputLabel value="Ala Carte Available MDF" />
+                 </apex:column>
+                 <apex:column headerValue="CSMR">
+                     <apex:outputField value="{!a.AlaCarte_Available_MDF_CSMR__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="LE">
+                     <apex:outputField value="{!a.AlaCarte_Available_MDF_LE__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="PUB">
+                     <apex:outputField value="{!a.AlaCarte_Available_MDF_PUB__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="SMB">
+                     <apex:outputField value="{!a.AlaCarte_Available_MDF_SMB__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="ABU S&P">
+                     <apex:outputField value="{!a.AlaCarte_Available_MDF_ABU_S_P__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="Global Mktg">
+                     <apex:outputField value="{!a.AlaCarte_Available_MDF_Global_Mktg__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="ASAP">
+                     <apex:outputField value="{!a.AlaCarte_Available_MDF_ASAP__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="CSMR S&P">
+                     <apex:outputField value="{!a.AlaCarte_Available_MDF_CSRM_S_P__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="Corporate Events">
+                     <apex:outputField value="{!a.AlaCarte_Available_MDF_Corporate_Events__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="Int'l">
+                     <apex:outputField value="{!a.AlaCarte_Available_MDF_Int_l__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="Total">
+                     <apex:outputField value="{!a.AlaCarte_Available_MDF_Total__c}" style="width:60px"/>
+                 </apex:column>                
+             </apex:pageBlockTable>       
+         </apex:pageBlockSection>
+        
+        <apex:pageBlockSection title="Ala Carte Available MDF" collapsible="false" columns="1" id="emea_availableMDF" rendered="{!Volume_Based_Forecast__c.Region__c='EMEA'}">
+             <apex:pageBlockTable value="{!Volume_Based_Forecast__c}" var="a">
+                 <apex:column headerValue="" style="width:350px">
+                     <apex:outputLabel value="Ala Carte Available MDF" />
+                 </apex:column>
+                 <apex:column headerValue="CSMR">
+                     <apex:outputField value="{!a.AlaCarte_Available_MDF_CSMR__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="LE">
+                     <apex:outputField value="{!a.AlaCarte_Available_MDF_LE__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="PUB">
+                     <apex:outputField value="{!a.AlaCarte_Available_MDF_PUB__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="SMB Direct">
+                     <apex:outputField value="{!a.AlaCarte_Available_MDF_SMB_Direct__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="SMB channel">
+                     <apex:outputField value="{!a.AlaCarte_Available_MDF_SMB_Channel__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="All Segments">
+                     <apex:outputField value="{!a.AlaCarte_Available_MDF_All_Segments__c}" style="width:60px"/>
+                 </apex:column>
+                 <apex:column headerValue="Total">
+                     <apex:outputField value="{!a.AlaCarte_Available_MDF_Total__c}" style="width:60px"/>
+                 </apex:column>                
+             </apex:pageBlockTable>       
+         </apex:pageBlockSection>
+        
+        <apex:pageBlockSection title="Ala Carte Available MDF" collapsible="false" columns="1" id="apj_availableMDF" rendered="{!Volume_Based_Forecast__c.Region__c='APJ'}">
+             <apex:pageBlockTable value="{!Volume_Based_Forecast__c}" var="a">
+                 <apex:column headerValue="" style="width:300px">
+                     <apex:outputLabel value="Ala Carte Available MDF" />
+                 </apex:column>
+                 <apex:column headerValue="CSMR" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_Available_MDF_CSMR__c}" />
+                 </apex:column>
+                 <apex:column headerValue="LE" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_Available_MDF_LE__c}" />
+                 </apex:column>
+                 <apex:column headerValue="PUB" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_Available_MDF_PUB__c}" />
+                 </apex:column>
+                 <apex:column headerValue="SMB" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_Available_MDF_SMB__c}" />
+                 </apex:column>
+                 <apex:column headerValue="Total" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_Available_MDF_Total__c}" />
+                 </apex:column>                
+             </apex:pageBlockTable>       
+         </apex:pageBlockSection>
+     
+    </apex:pageBlock>
+    <apex:pageBlock mode="mainDetail" id="pgblk_americas" rendered="{!Volume_Based_Forecast__c.Region__c='Americas'}">
+       <apex:pageBlockSection title="Non Declined APVs" columns="1">
+           <apex:pageBlockTable value="{!acceptedAPVList}" var="a"> 
+               <apex:column headerValue="APV Link" style="width:20px">
+                  <apex:outputLink value="/{!a.id}" id="theLink" target="_blank">{!a.Name}</apex:outputLink>              
+                </apex:column>
+                <apex:column headerValue="Program" style="width:30px">
+                     <apex:outputField value="{!a.MDF_Program__r.Name}"/>
+              </apex:column>                
+              <apex:column headerValue="Bus Sgmnt" style="width:20px">
+                     <apex:outputField value="{!a.Business_Segment__c}" />
+              </apex:column>
+              <apex:column headerValue="Status" style="width:10px">
+                     <apex:outputField value="{!a.Status__c}" />
+              </apex:column> 
+              <apex:column headerValue="Bdgtd Price" style="width:20px">
+                     <apex:outputField value="{!a.Budgeted_Price__c}" />
+              </apex:column>
+              <apex:column headerValue="CSMR" style="width:60px">
+                     <apex:outputField value="{!a.CSMR__c}" />
+              </apex:column> 
+              <apex:column headerValue="LE"  style="width:60px">
+                     <apex:outputField value="{!a.LE__c}"/>
+              </apex:column>
+              <apex:column headerValue="PUB" style="width:60px">
+                     <apex:outputField value="{!a.PUB__c}" />
+              </apex:column>
+              <apex:column headerValue="SMB" style="width:60px">
+                     <apex:outputField value="{!a.SMB__c}" />
+              </apex:column>
+              <apex:column headerValue="ABU S&P"  style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_ABU_S_P__c}"/>
+              </apex:column>
+              <apex:column headerValue="Global Mktg" style="width:60px">
+                     <apex:outputField value="{!a.Alacarte_Global_Mktg__c}" />
+              </apex:column>
+              <apex:column headerValue="ASAP" style="width:60px">
+                     <apex:outputField value="{!a.Alacarte_ASAP__c}" />
+              </apex:column>
+              <apex:column headerValue="CSMR S&P"  style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_CSRM_S_P__c}"/>
+              </apex:column>
+              <apex:column headerValue="Corporate Events"  style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_Corporate_Events__c}"/>
+              </apex:column>
+              <apex:column headerValue="Int'l"  style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_Int_l__c}"/>
+              </apex:column>
+              <apex:column headerValue="Total" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_Total__c}" />
+              </apex:column>
+          </apex:pageBlockTable> 
+          <apex:pageBlockTable value="{!accepttotalclass}" var="a"> 
+               <apex:column headerValue="APV Link" style="width:275px" headerClass="displayStyle">
+                  <apex:outputText value="Total"/>             
+                </apex:column>               
+              <apex:column headerValue="CSMR" style="width:30px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_CSMR}" />
+              </apex:column> 
+              <apex:column headerValue="LE"  style="width:30px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_LE}"/>
+              </apex:column>
+              <apex:column headerValue="PUB" style="width:30px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_PUB}" />
+              </apex:column>
+              <apex:column headerValue="SMB" style="width:50px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_SMB}" />
+              </apex:column>
+              <apex:column headerValue="ABU S&P"  style="width:50px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_ABU_S_P}"/>
+              </apex:column>
+              <apex:column headerValue="Global Mktg" style="width:50px" headerClass="displayStyle"> 
+                     <apex:outputText value="{!a.total_Global_Mktg}" />
+              </apex:column>
+              <apex:column headerValue="ASAP" style="width:50px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_ASAP}" />
+              </apex:column>
+              <apex:column headerValue="CSMR S&P"  style="width:50px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_CSRM_S_P}"/>
+              </apex:column>
+              <apex:column headerValue="Corporate Events"  style="width:50px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_Corporate_Events}"/>
+              </apex:column>
+              <apex:column headerValue="Int'l"  style="width:20px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_Int_l}"/>
+              </apex:column>
+              <apex:column headerValue="Total" style="width:20px" headerClass="displayStyle">
+                     <apex:outputText value="{!(a.total_CSMR+a.total_LE+a.total_PUB+a.total_SMB+a.total_ABU_S_P+a.total_Global_Mktg+a.total_ASAP+a.total_CSRM_S_P+a.total_Corporate_Events+a.total_Int_l)}" />
+              </apex:column>
+          </apex:pageBlockTable> 
+       </apex:pageBlockSection>
+       <apex:pageBlockSection title="Declined APVs" columns="1">
+           <apex:pageBlockTable value="{!declinedAPVList}" var="a"> 
+               <apex:column headerValue="APV Link" style="width:20px">
+                  <apex:outputLink value="/{!a.id}" id="theLink" target="_blank">{!a.Name}</apex:outputLink>              
+                </apex:column>
+                <apex:column headerValue="Program" style="width:30px">
+                     <apex:outputField value="{!a.MDF_Program__r.Name}"/>
+              </apex:column>                
+              <apex:column headerValue="Bus Sgmnt" style="width:20px">
+                     <apex:outputField value="{!a.Business_Segment__c}" />
+              </apex:column>
+              <apex:column headerValue="Status" style="width:10px">
+                     <apex:outputField value="{!a.Status__c}" />
+              </apex:column> 
+              <apex:column headerValue="Bdgtd Price" style="width:20px">
+                     <apex:outputField value="{!a.Budgeted_Price__c}" />
+              </apex:column>
+              <apex:column headerValue="CSMR" style="width:60px">
+                     <apex:outputField value="{!a.CSMR__c}" />
+              </apex:column> 
+              <apex:column headerValue="LE"  style="width:60px">
+                     <apex:outputField value="{!a.LE__c}"/>
+              </apex:column>
+              <apex:column headerValue="PUB" style="width:60px">
+                     <apex:outputField value="{!a.PUB__c}" />
+              </apex:column>
+              <apex:column headerValue="SMB" style="width:60px">
+                     <apex:outputField value="{!a.SMB__c}" />
+              </apex:column>
+              <apex:column headerValue="ABU S&P"  style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_ABU_S_P__c}"/>
+              </apex:column>
+              <apex:column headerValue="Global Mktg" style="width:60px">
+                     <apex:outputField value="{!a.Alacarte_Global_Mktg__c}" />
+              </apex:column>
+              <apex:column headerValue="ASAP" style="width:60px">
+                     <apex:outputField value="{!a.Alacarte_ASAP__c}" />
+              </apex:column>
+              <apex:column headerValue="CSMR S&P"  style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_CSRM_S_P__c}"/>
+              </apex:column>
+              <apex:column headerValue="Corporate Events"  style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_Corporate_Events__c}"/>
+              </apex:column>
+              <apex:column headerValue="Int'l"  style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_Int_l__c}"/>
+              </apex:column>
+              <apex:column headerValue="Total" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_Total__c}" />
+              </apex:column>
+          </apex:pageBlockTable> 
+          <apex:pageBlockTable value="{!declinedtotalclass}" var="a"> 
+               <apex:column headerValue="APV Link" style="width:275px" headerClass="displayStyle">
+                  <apex:outputText value="Total"/>             
+                </apex:column>               
+              <apex:column headerValue="CSMR" style="width:30px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_CSMR}" />
+              </apex:column> 
+              <apex:column headerValue="LE"  style="width:30px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_LE}"/>
+              </apex:column>
+              <apex:column headerValue="PUB" style="width:30px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_PUB}" />
+              </apex:column>
+              <apex:column headerValue="SMB" style="width:50px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_SMB}" />
+              </apex:column>
+              <apex:column headerValue="ABU S&P"  style="width:50px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_ABU_S_P}"/>
+              </apex:column>
+              <apex:column headerValue="Global Mktg" style="width:50px" headerClass="displayStyle"> 
+                     <apex:outputText value="{!a.total_Global_Mktg}" />
+              </apex:column>
+              <apex:column headerValue="ASAP" style="width:50px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_ASAP}" />
+              </apex:column>
+              <apex:column headerValue="CSMR S&P"  style="width:50px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_CSRM_S_P}"/>
+              </apex:column>
+              <apex:column headerValue="Corporate Events"  style="width:50px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_Corporate_Events}"/>
+              </apex:column>
+              <apex:column headerValue="Int'l"  style="width:20px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_Int_l}"/>
+              </apex:column>
+              <apex:column headerValue="Total" style="width:20px" headerClass="displayStyle">
+                     <apex:outputText value="{!(a.total_CSMR+a.total_LE+a.total_PUB+a.total_SMB+a.total_ABU_S_P+a.total_Global_Mktg+a.total_ASAP+a.total_CSRM_S_P+a.total_Corporate_Events+a.total_Int_l)}" />
+              </apex:column>
+          </apex:pageBlockTable> 
+       </apex:pageBlockSection>
+    </apex:pageBlock>
+    <apex:pageBlock mode="mainDetail" id="pgblk_EMEA" rendered="{!Volume_Based_Forecast__c.Region__c='EMEA'}">
+       <apex:pageBlockSection title="Non Declined APVs" columns="1">
+           <apex:pageBlockTable value="{!acceptedAPVList}" var="a"> 
+               <apex:column headerValue="APV Link" style="width:20px">
+                  <apex:outputLink value="/{!a.id}" id="theLink" target="_blank">{!a.Name}</apex:outputLink>              
+                </apex:column> 
+                <apex:column headerValue="Program" style="width:30px">
+                     <apex:outputField value="{!a.MDF_Program__r.Name}"/>
+              </apex:column>
+              <apex:column headerValue="Bus Sgmnt" style="width:20px">
+                     <apex:outputField value="{!a.Business_Segment__c}" />
+              </apex:column>
+              <apex:column headerValue="Status"  style="width:10px">
+                     <apex:outputField value="{!a.Status__c}"/>
+              </apex:column> 
+              <apex:column headerValue="Bdgtd Price"  style="width:20px">
+                     <apex:outputField value="{!a.Budgeted_Price__c}"/>
+              </apex:column>
+              <apex:column headerValue="CSMR" style="width:60px">
+                     <apex:outputField value="{!a.CSMR__c}" />
+              </apex:column> 
+              <apex:column headerValue="LE"  style="width:60px">
+                     <apex:outputField value="{!a.LE__c}"/>
+              </apex:column>
+              <apex:column headerValue="PUB"  style="width:60px">
+                     <apex:outputField value="{!a.PUB__c}"/>
+              </apex:column>
+              <apex:column headerValue="SMB Direct" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_SMB_Direct__c}" />
+              </apex:column>
+              <apex:column headerValue="SMB Channel" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_SMB_Channel__c}" />
+              </apex:column>
+              <apex:column headerValue="All Segments" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_All_Segments__c}" />
+              </apex:column>
+              <apex:column headerValue="Total" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_Total__c}" />
+              </apex:column>
+          </apex:pageBlockTable> 
+          <apex:pageBlockTable value="{!accepttotalclass}" var="a"> 
+               <apex:column headerValue="APV Link" style="width:305px" headerClass="displayStyle">
+                  <apex:outputText value="Total"/>              
+                </apex:column>  
+              <apex:column headerValue="CSMR" style="width:60px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_CSMR}" />
+              </apex:column> 
+              <apex:column headerValue="LE"  style="width:60px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_LE}"/>
+              </apex:column>
+              <apex:column headerValue="PUB"  style="width:60px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_PUB}"/>
+              </apex:column>
+              <apex:column headerValue="SMB Direct" style="width:60px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_SMB_Direct}" />
+              </apex:column>
+              <apex:column headerValue="SMB Channel" style="width:60px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_SMB_Channel}" />
+              </apex:column>
+              <apex:column headerValue="All Segments" style="width:60px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_All_Segments}" />
+              </apex:column>
+              <apex:column headerValue="Total" style="width:60px" headerClass="displayStyle">
+                     <apex:outputText value="{!(a.total_CSMR+a.total_LE+a.total_PUB+a.total_SMB_Direct+a.total_SMB_Channel+a.total_All_Segments)}" />
+              </apex:column>
+          </apex:pageBlockTable> 
+       </apex:pageBlockSection>
+       <apex:pageBlockSection title="Declined APVs" columns="1">
+           <apex:pageBlockTable value="{!declinedAPVList}" var="a"> 
+               <apex:column headerValue="APV Link" style="width:20px">
+                  <apex:outputLink value="/{!a.id}" id="theLink" target="_blank">{!a.Name}</apex:outputLink>              
+                </apex:column> 
+                <apex:column headerValue="Program" style="width:30px">
+                     <apex:outputField value="{!a.MDF_Program__r.Name}"/>
+              </apex:column>
+              <apex:column headerValue="Bus Sgmnt" style="width:20px">
+                     <apex:outputField value="{!a.Business_Segment__c}" />
+              </apex:column>
+              <apex:column headerValue="Status"  style="width:10px">
+                     <apex:outputField value="{!a.Status__c}"/>
+              </apex:column> 
+              <apex:column headerValue="Bdgtd Price"  style="width:20px">
+                     <apex:outputField value="{!a.Budgeted_Price__c}"/>
+              </apex:column>
+              <apex:column headerValue="CSMR" style="width:60px">
+                     <apex:outputField value="{!a.CSMR__c}" />
+              </apex:column> 
+              <apex:column headerValue="LE"  style="width:60px">
+                     <apex:outputField value="{!a.LE__c}"/>
+              </apex:column>
+              <apex:column headerValue="PUB"  style="width:60px">
+                     <apex:outputField value="{!a.PUB__c}"/>
+              </apex:column>
+              <apex:column headerValue="SMB Direct" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_SMB_Direct__c}" />
+              </apex:column>
+              <apex:column headerValue="SMB Channel" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_SMB_Channel__c}" />
+              </apex:column>
+              <apex:column headerValue="All Segments" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_All_Segments__c}" />
+              </apex:column>
+              <apex:column headerValue="Total" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_Total__c}" />
+              </apex:column>
+          </apex:pageBlockTable> 
+          <apex:pageBlockTable value="{!declinedtotalclass}" var="a"> 
+               <apex:column headerValue="APV Link" style="width:350px" headerClass="displayStyle">
+                  <apex:outputText value="Total"/>              
+                </apex:column>  
+              <apex:column headerValue="CSMR" style="width:60px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_CSMR}" />
+              </apex:column> 
+              <apex:column headerValue="LE"  style="width:60px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_LE}"/>
+              </apex:column>
+              <apex:column headerValue="PUB"  style="width:60px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_PUB}"/>
+              </apex:column>
+              <apex:column headerValue="SMB Direct" style="width:60px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_SMB_Direct}" />
+              </apex:column>
+              <apex:column headerValue="SMB Channel" style="width:60px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_SMB_Channel}" />
+              </apex:column>
+              <apex:column headerValue="All Segments" style="width:60px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_All_Segments}" />
+              </apex:column>
+              <apex:column headerValue="Total" style="width:60px" headerClass="displayStyle">
+                     <apex:outputText value="{!(a.total_CSMR+a.total_LE+a.total_PUB+a.total_SMB_Direct+a.total_SMB_Channel+a.total_All_Segments)}" />
+              </apex:column>
+          </apex:pageBlockTable> 
+       </apex:pageBlockSection>
+    </apex:pageBlock>
+    
+    <apex:pageBlock mode="mainDetail" id="pgblk_APJ" rendered="{!Volume_Based_Forecast__c.Region__c='APJ'}">
+
+       <apex:pageBlockSection title="Non Declined APVs" columns="1">
+           <apex:pageBlockTable value="{!acceptedAPVList}" var="a"> 
+               <apex:column headerValue="APV Link" style="width:20px">
+                  <apex:outputLink value="/{!a.id}" id="theLink" target="_blank">{!a.Name}</apex:outputLink>              
+                </apex:column>
+                <apex:column headerValue="Program" style="width:30px">
+                     <apex:outputField value="{!a.MDF_Program__r.Name}"/>
+              </apex:column>
+              <apex:column headerValue="Bus Sgmnt" style="width:20px">
+                     <apex:outputField value="{!a.Business_Segment__c}" />
+              </apex:column>
+              <apex:column headerValue="Status" style="width:10px">
+                     <apex:outputField value="{!a.Status__c}" />
+              </apex:column> 
+              <apex:column headerValue="Bdgtd Price" style="width:20px">
+                     <apex:outputField value="{!a.Budgeted_Price__c}" />
+              </apex:column>
+              <apex:column headerValue="CSMR" style="width:60px">
+                     <apex:outputField value="{!a.CSMR__c}" />
+              </apex:column> 
+              <apex:column headerValue="LE" style="width:60px">
+                     <apex:outputField value="{!a.LE__c}" />
+              </apex:column>
+              <apex:column headerValue="PUB" style="width:60px">
+                     <apex:outputField value="{!a.PUB__c}" />
+              </apex:column>
+              <apex:column headerValue="SMB" style="width:60px">
+                     <apex:outputField value="{!a.SMB__c}" />
+              </apex:column>
+              <apex:column headerValue="Total" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_Total__c}" />
+              </apex:column>
+          </apex:pageBlockTable> 
+          <apex:pageBlockTable value="{!accepttotalclass}" var="a"> 
+               <apex:column headerValue="APV Link" style="width:315px" headerClass="displayStyle">
+                  <apex:outputText value="Total"/>             
+                </apex:column>
+              <apex:column headerValue="CSMR" style="width:60px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_CSMR}" />
+              </apex:column> 
+              <apex:column headerValue="LE" style="width:60px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_LE}" />
+              </apex:column>
+              <apex:column headerValue="PUB" style="width:60px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_PUB}" />
+              </apex:column>
+              <apex:column headerValue="SMB" style="width:60px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_SMB}" />
+              </apex:column>
+              <apex:column headerValue="Total" style="width:60px" headerClass="displayStyle">
+                     <apex:outputText value="{!(a.total_CSMR+a.total_LE+a.total_PUB+a.total_SMB)}" />
+              </apex:column>
+          </apex:pageBlockTable> 
+       </apex:pageBlockSection>
+       <apex:pageBlockSection title="Declined APVs" columns="1">
+           <apex:pageBlockTable value="{!declinedAPVList}" var="a"> 
+               <apex:column headerValue="APV Link" style="width:20px">
+                  <apex:outputLink value="/{!a.id}" id="theLink" target="_blank">{!a.Name}</apex:outputLink>              
+                </apex:column>
+                <apex:column headerValue="Program" style="width:30px">
+                     <apex:outputField value="{!a.MDF_Program__r.Name}"/>
+              </apex:column>
+              <apex:column headerValue="Bus Sgmnt" style="width:20px">
+                     <apex:outputField value="{!a.Business_Segment__c}" />
+              </apex:column>
+              <apex:column headerValue="Status" style="width:10px">
+                     <apex:outputField value="{!a.Status__c}" />
+              </apex:column> 
+              <apex:column headerValue="Bdgtd Price" style="width:20px">
+                     <apex:outputField value="{!a.Budgeted_Price__c}" />
+              </apex:column>
+              <apex:column headerValue="CSMR" style="width:60px">
+                     <apex:outputField value="{!a.CSMR__c}" />
+              </apex:column> 
+              <apex:column headerValue="LE" style="width:60px">
+                     <apex:outputField value="{!a.LE__c}" />
+              </apex:column>
+              <apex:column headerValue="PUB" style="width:60px">
+                     <apex:outputField value="{!a.PUB__c}" />
+              </apex:column>
+              <apex:column headerValue="SMB" style="width:60px">
+                     <apex:outputField value="{!a.SMB__c}" />
+              </apex:column>
+              <apex:column headerValue="Total" style="width:60px">
+                     <apex:outputField value="{!a.AlaCarte_Total__c}" />
+              </apex:column>
+          </apex:pageBlockTable> 
+          <apex:pageBlockTable value="{!declinedtotalclass}" var="a"> 
+               <apex:column headerValue="APV Link" style="width:315px" headerClass="displayStyle">
+                  <apex:outputText value="Total"/>             
+                </apex:column>
+              <apex:column headerValue="CSMR" style="width:60px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_CSMR}" />
+              </apex:column> 
+              <apex:column headerValue="LE" style="width:60px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_LE}" />
+              </apex:column>
+              <apex:column headerValue="PUB" style="width:60px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_PUB}" />
+              </apex:column>
+              <apex:column headerValue="SMB" style="width:60px" headerClass="displayStyle">
+                     <apex:outputText value="{!a.total_SMB}" />
+              </apex:column>
+              <apex:column headerValue="Total" style="width:60px" headerClass="displayStyle">
+                     <apex:outputText value="{!(a.total_CSMR+a.total_LE+a.total_PUB+a.total_SMB)}" />
+              </apex:column>
+          </apex:pageBlockTable> 
+       </apex:pageBlockSection>
+    </apex:pageBlock> 
+     <apex:pageBlock title="WishList" mode="maindetail" >
+         <apex:pageBlockButtons location="top">
+             <apex:commandButton value="Add Programs" action="{!newWishlist}"/>
+         </apex:pageBlockButtons>
+         <apex:pageBlockSection columns="1">
+             <apex:pageBlockTable value="{!wishlist}" var="a">
+                 <apex:column headerValue="Action">
+                     <apex:commandLink value="Delete" action="{!deleteWishlist}">
+                     <apex:param name="WLId" value="{!a.Id}" assignTo="{!wislistId}"/>
+                     </apex:commandLink>
+                  </apex:column>
+                 <apex:column headerValue="Name">
+                     <apex:outputField value="{!a.Name}" style="width:50px"/>
+                  </apex:column>
+                 <apex:column headerValue="MDF Program">
+                     <apex:outputField value="{!a.MDF_Program__c}" style="width:50px"/>
+                  </apex:column>
+                <apex:column headerValue="Region">
+                     <apex:outputField value="{!a.MDF_Program__r.Region__c}" style="width:50px"/>
+              </apex:column>
+              <apex:column headerValue="Sub Region">
+                     <apex:outputField value="{!a.MDF_Program__r.Sub_Region__c}" style="width:50px"/>
+              </apex:column>
+              <apex:column headerValue="Country">
+                     <apex:outputField value="{!a.MDF_Program__r.Country__c}" style="width:50px"/>
+              </apex:column>
+              <apex:column headerValue="Business Segment">
+                     <apex:outputField value="{!a.MDF_Program__r.Business_Segment__c}" style="width:50px"/>
+              </apex:column>
+              <apex:column headerValue="Fiscal Quarter">
+                     <apex:outputField value="{!a.MDF_Program__r.Fiscal_Quarter__c}" style="width:50px"/>
+              </apex:column>
+             </apex:pageBlockTable>
+         </apex:pageBlockSection>
+     </apex:pageBlock>
+</apex:form>
+</apex:page>

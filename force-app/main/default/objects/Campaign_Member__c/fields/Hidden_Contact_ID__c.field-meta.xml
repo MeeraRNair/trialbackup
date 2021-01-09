@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hidden_Contact_ID__c</fullName>
+    <description>This field is populates the Contact ID of the Campaign Member and is hidden from the Users. It is used in the email notification reminders for Follow –Up (CR 1122)</description>
+    <externalId>false</externalId>
+    <formula>Contact__r.Id</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Hidden Contact ID</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Other_Actions__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(NOT( ISPICKVAL(LOB_registration_status__c , &apos;Partner(submit for approval)&apos;)), 
+HYPERLINK(&apos;/006/e?retURL=/apex/PartnerDealRegistration&amp;cancelURL=/apex/PartnerDealRegistration&apos; &amp; 
+&apos;&amp;RecordType=012A0000000VhKk&apos; &amp;
+&apos;&amp;00N70000001mdPS=&apos;&amp; Registered_End_User__r.Name &amp;
+&apos;&amp;CF00NA00000043Pva=&apos;&amp; Registered_End_User__r.Name &amp;
+&apos;&amp;00N70000001mdQ0=&apos;&amp; Registered_End_User__r.Primary_Contact__r.FirstName &amp;
+&apos;&amp;00N70000001mdRP=&apos;&amp; Registered_End_User__r.Primary_Contact__r.LastName &amp;
+&apos;&amp;00N70000001mdPX=&apos;&amp; Registered_End_User__r.Primary_Contact__r.Email &amp;
+&apos;&amp;00N70000001mdXn=&apos;&amp; Registered_End_User__r.Primary_Contact__r.Phone &amp;
+&apos;&amp;00N70000001mdPS=&apos;&amp; Registered_End_User__r.Name &amp;
+&apos;&amp;00N70000001maXm=&apos;&amp; Location__r.Name &amp;
+&apos;&amp;00N70000001mdTn=&apos;&amp; Registered_End_User__r.Account_Country__c&amp;
+&apos;&amp;00N70000001mdSs=&apos;&amp; Registered_End_User__r.ShippingStreet &amp;
+&apos;&amp;00N70000001mdSm=&apos;&amp; Registered_End_User__r.ShippingCity&amp;
+&apos;&amp;00N70000001mdU2=&apos;&amp; Registered_End_User__r.ShippingState&amp;
+&apos;&amp;00N70000001mdU8=&apos;&amp; Registered_End_User__r.ShippingPostalCode&amp;
+&apos;&amp;00N7000000284s8=&apos;&amp; Registered_End_User__r.Tax_Registration_Number__c&amp;
+&apos;&amp;00NA00000063VVb=&apos;&amp; LOB_Record_ID__c&amp;
+&apos;&amp;00NA0000000b8l9=1&amp;nooverride=1&apos; , IMAGE(&quot;/resource/1298343381000/Create_New_Deal&quot;, &apos;NEWDEAL&apos;),&apos;_parent&apos;), &apos;[No Actions Available]&apos;)</formula>
+    <label>Other Actions</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

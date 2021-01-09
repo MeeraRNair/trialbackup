@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Database__c</fullName>
+    <externalId>false</externalId>
+    <label>Database</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Workload__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Amazon S3</fullName>
+                <default>false</default>
+                <label>Amazon S3</label>
+            </value>
+            <value>
+                <fullName>Apache</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Apache</label>
+            </value>
+            <value>
+                <fullName>CacheDB</fullName>
+                <default>false</default>
+                <label>CacheDB</label>
+            </value>
+            <value>
+                <fullName>Cassandra</fullName>
+                <default>false</default>
+                <label>Cassandra</label>
+            </value>
+            <value>
+                <fullName>Cloudera</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Cloudera</label>
+            </value>
+            <value>
+                <fullName>Hadoop - Apache</fullName>
+                <default>false</default>
+                <label>Hadoop - Apache</label>
+            </value>
+            <value>
+                <fullName>Hadoop - Cloudera</fullName>
+                <default>false</default>
+                <label>Hadoop - Cloudera</label>
+            </value>
+            <value>
+                <fullName>Hadoop - HortonWorks</fullName>
+                <default>false</default>
+                <label>Hadoop - HortonWorks</label>
+            </value>
+            <value>
+                <fullName>Hadoop - MapR</fullName>
+                <default>false</default>
+                <label>Hadoop - MapR</label>
+            </value>
+            <value>
+                <fullName>HortonWorks</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>HortonWorks</label>
+            </value>
+            <value>
+                <fullName>IBM DB2</fullName>
+                <default>false</default>
+                <label>IBM DB2</label>
+            </value>
+            <value>
+                <fullName>MapR</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>MapR</label>
+            </value>
+            <value>
+                <fullName>Max DB</fullName>
+                <default>false</default>
+                <label>Max DB</label>
+            </value>
+            <value>
+                <fullName>Microsoft SQL</fullName>
+                <default>false</default>
+                <label>Microsoft SQL</label>
+            </value>
+            <value>
+                <fullName>MongoDB</fullName>
+                <default>false</default>
+                <label>MongoDB</label>
+            </value>
+            <value>
+                <fullName>n/a</fullName>
+                <default>false</default>
+                <label>n/a</label>
+            </value>
+            <value>
+                <fullName>Opensource</fullName>
+                <default>false</default>
+                <label>Opensource</label>
+            </value>
+            <value>
+                <fullName>Oracle Exadata</fullName>
+                <default>false</default>
+                <label>Oracle Exadata</label>
+            </value>
+            <value>
+                <fullName>Oracle Exalytics</fullName>
+                <default>false</default>
+                <label>Oracle Exalytics</label>
+            </value>
+            <value>
+                <fullName>Oracle RAC</fullName>
+                <default>false</default>
+                <label>Oracle RAC</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>SAP ASE</fullName>
+                <default>false</default>
+                <label>SAP ASE</label>
+            </value>
+            <value>
+                <fullName>SAP HANA</fullName>
+                <default>false</default>
+                <label>SAP HANA</label>
+            </value>
+            <value>
+                <fullName>SAP IQ</fullName>
+                <default>false</default>
+                <label>SAP IQ</label>
+            </value>
+            <value>
+                <fullName>Splunk</fullName>
+                <default>false</default>
+                <label>Splunk</label>
+            </value>
+            <value>
+                <fullName>Teradata</fullName>
+                <default>false</default>
+                <label>Teradata</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Product Lifecycle Management</controllingFieldValue>
+            <controllingFieldValue>Supply Chain Management</controllingFieldValue>
+            <controllingFieldValue>Supplier Relationship Management</controllingFieldValue>
+            <controllingFieldValue>Email</controllingFieldValue>
+            <controllingFieldValue>Internet of Things</controllingFieldValue>
+            <controllingFieldValue>Master Data Management</controllingFieldValue>
+            <controllingFieldValue>Other Online Transaction Processing Application</controllingFieldValue>
+            <controllingFieldValue>Enterprise Application Integration</controllingFieldValue>
+            <controllingFieldValue>Customer Relationship Management</controllingFieldValue>
+            <controllingFieldValue>Customer Engagement</controllingFieldValue>
+            <controllingFieldValue>Custom Business Application</controllingFieldValue>
+            <controllingFieldValue>E-Commerce, Online Store</controllingFieldValue>
+            <controllingFieldValue>Enterprise Resource Planning</controllingFieldValue>
+            <controllingFieldValue>Human Resources Management</controllingFieldValue>
+            <controllingFieldValue>Manufacturing Automation</controllingFieldValue>
+            <valueName>Cassandra</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Lifecycle Management</controllingFieldValue>
+            <controllingFieldValue>Supply Chain Management</controllingFieldValue>
+            <controllingFieldValue>Supplier Relationship Management</controllingFieldValue>
+            <controllingFieldValue>Big Data Analytics</controllingFieldValue>
+            <controllingFieldValue>Business Management System</controllingFieldValue>
+            <controllingFieldValue>Customer Intimacy Analytics</controllingFieldValue>
+            <controllingFieldValue>Decision Support-Other</controllingFieldValue>
+            <controllingFieldValue>Predictive Analytics</controllingFieldValue>
+            <controllingFieldValue>Prescriptive Analytics</controllingFieldValue>
+            <controllingFieldValue>Email</controllingFieldValue>
+            <controllingFieldValue>Traditional Analytics &amp; Reporting</controllingFieldValue>
+            <controllingFieldValue>Data Warehouse</controllingFieldValue>
+            <controllingFieldValue>Master Data Management</controllingFieldValue>
+            <controllingFieldValue>Electronic Medical/Health Records</controllingFieldValue>
+            <controllingFieldValue>Precision Medicine / Genomic</controllingFieldValue>
+            <controllingFieldValue>Student Information System</controllingFieldValue>
+            <controllingFieldValue>Other Online Transaction Processing Application</controllingFieldValue>
+            <controllingFieldValue>Data Mart</controllingFieldValue>
+            <controllingFieldValue>Enterprise Application Integration</controllingFieldValue>
+            <controllingFieldValue>Customer Relationship Management</controllingFieldValue>
+            <controllingFieldValue>Customer Engagement</controllingFieldValue>
+            <controllingFieldValue>Custom Business Application</controllingFieldValue>
+            <controllingFieldValue>E-Commerce, Online Store</controllingFieldValue>
+            <controllingFieldValue>Enterprise Resource Planning</controllingFieldValue>
+            <controllingFieldValue>Human Resources Management</controllingFieldValue>
+            <controllingFieldValue>Manufacturing Automation</controllingFieldValue>
+            <valueName>IBM DB2</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Lifecycle Management</controllingFieldValue>
+            <controllingFieldValue>Supply Chain Management</controllingFieldValue>
+            <controllingFieldValue>Supplier Relationship Management</controllingFieldValue>
+            <controllingFieldValue>Content Management</controllingFieldValue>
+            <controllingFieldValue>File Sharing</controllingFieldValue>
+            <controllingFieldValue>Big Data Analytics</controllingFieldValue>
+            <controllingFieldValue>Business Management System</controllingFieldValue>
+            <controllingFieldValue>Customer Intimacy Analytics</controllingFieldValue>
+            <controllingFieldValue>Decision Support-Other</controllingFieldValue>
+            <controllingFieldValue>Predictive Analytics</controllingFieldValue>
+            <controllingFieldValue>Prescriptive Analytics</controllingFieldValue>
+            <controllingFieldValue>Email</controllingFieldValue>
+            <controllingFieldValue>Traditional Analytics &amp; Reporting</controllingFieldValue>
+            <controllingFieldValue>Unstructured Data Analysis</controllingFieldValue>
+            <controllingFieldValue>Other Online Transaction Processing Application</controllingFieldValue>
+            <controllingFieldValue>Predictive Maintenance</controllingFieldValue>
+            <controllingFieldValue>Enterprise Application Integration</controllingFieldValue>
+            <controllingFieldValue>Customer Relationship Management</controllingFieldValue>
+            <controllingFieldValue>Customer Engagement</controllingFieldValue>
+            <controllingFieldValue>Custom Business Application</controllingFieldValue>
+            <controllingFieldValue>E-Commerce, Online Store</controllingFieldValue>
+            <controllingFieldValue>Enterprise Resource Planning</controllingFieldValue>
+            <controllingFieldValue>Human Resources Management</controllingFieldValue>
+            <controllingFieldValue>Manufacturing Automation</controllingFieldValue>
+            <valueName>Max DB</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Lifecycle Management</controllingFieldValue>
+            <controllingFieldValue>Supply Chain Management</controllingFieldValue>
+            <controllingFieldValue>Supplier Relationship Management</controllingFieldValue>
+            <controllingFieldValue>Big Data Analytics</controllingFieldValue>
+            <controllingFieldValue>Business Management System</controllingFieldValue>
+            <controllingFieldValue>Customer Intimacy Analytics</controllingFieldValue>
+            <controllingFieldValue>Decision Support-Other</controllingFieldValue>
+            <controllingFieldValue>Predictive Analytics</controllingFieldValue>
+            <controllingFieldValue>Prescriptive Analytics</controllingFieldValue>
+            <controllingFieldValue>Email</controllingFieldValue>
+            <controllingFieldValue>Traditional Analytics &amp; Reporting</controllingFieldValue>
+            <controllingFieldValue>Data Warehouse</controllingFieldValue>
+            <controllingFieldValue>Extract Transform Load</controllingFieldValue>
+            <controllingFieldValue>Internet of Things</controllingFieldValue>
+            <controllingFieldValue>Master Data Management</controllingFieldValue>
+            <controllingFieldValue>Electronic Medical/Health Records</controllingFieldValue>
+            <controllingFieldValue>Precision Medicine / Genomic</controllingFieldValue>
+            <controllingFieldValue>Student Information System</controllingFieldValue>
+            <controllingFieldValue>Other Online Transaction Processing Application</controllingFieldValue>
+            <controllingFieldValue>Data Mart</controllingFieldValue>
+            <controllingFieldValue>Enterprise Application Integration</controllingFieldValue>
+            <controllingFieldValue>Customer Relationship Management</controllingFieldValue>
+            <controllingFieldValue>Customer Engagement</controllingFieldValue>
+            <controllingFieldValue>Custom Business Application</controllingFieldValue>
+            <controllingFieldValue>E-Commerce, Online Store</controllingFieldValue>
+            <controllingFieldValue>Enterprise Resource Planning</controllingFieldValue>
+            <controllingFieldValue>Human Resources Management</controllingFieldValue>
+            <controllingFieldValue>Manufacturing Automation</controllingFieldValue>
+            <valueName>Microsoft SQL</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Lifecycle Management</controllingFieldValue>
+            <controllingFieldValue>Supply Chain Management</controllingFieldValue>
+            <controllingFieldValue>Supplier Relationship Management</controllingFieldValue>
+            <controllingFieldValue>Content Management</controllingFieldValue>
+            <controllingFieldValue>File Sharing</controllingFieldValue>
+            <controllingFieldValue>Big Data Analytics</controllingFieldValue>
+            <controllingFieldValue>Customer Intimacy Analytics</controllingFieldValue>
+            <controllingFieldValue>Decision Support-Other</controllingFieldValue>
+            <controllingFieldValue>Predictive Analytics</controllingFieldValue>
+            <controllingFieldValue>Prescriptive Analytics</controllingFieldValue>
+            <controllingFieldValue>Email</controllingFieldValue>
+            <controllingFieldValue>Traditional Analytics &amp; Reporting</controllingFieldValue>
+            <controllingFieldValue>Unstructured Data Analysis</controllingFieldValue>
+            <controllingFieldValue>Data Warehouse</controllingFieldValue>
+            <controllingFieldValue>Extract Transform Load</controllingFieldValue>
+            <controllingFieldValue>Internet of Things</controllingFieldValue>
+            <controllingFieldValue>Master Data Management</controllingFieldValue>
+            <controllingFieldValue>Archive</controllingFieldValue>
+            <controllingFieldValue>Other Online Transaction Processing Application</controllingFieldValue>
+            <controllingFieldValue>Predictive Maintenance</controllingFieldValue>
+            <controllingFieldValue>Data Lake</controllingFieldValue>
+            <controllingFieldValue>Enterprise Application Integration</controllingFieldValue>
+            <controllingFieldValue>Customer Relationship Management</controllingFieldValue>
+            <controllingFieldValue>Customer Engagement</controllingFieldValue>
+            <controllingFieldValue>Custom Business Application</controllingFieldValue>
+            <controllingFieldValue>E-Commerce, Online Store</controllingFieldValue>
+            <controllingFieldValue>Genomic / Life Sciences Research</controllingFieldValue>
+            <controllingFieldValue>Enterprise Resource Planning</controllingFieldValue>
+            <controllingFieldValue>Human Resources Management</controllingFieldValue>
+            <controllingFieldValue>Manufacturing Automation</controllingFieldValue>
+            <valueName>MongoDB</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Lifecycle Management</controllingFieldValue>
+            <controllingFieldValue>Supply Chain Management</controllingFieldValue>
+            <controllingFieldValue>Supplier Relationship Management</controllingFieldValue>
+            <controllingFieldValue>Big Data Analytics</controllingFieldValue>
+            <controllingFieldValue>Business Management System</controllingFieldValue>
+            <controllingFieldValue>Customer Intimacy Analytics</controllingFieldValue>
+            <controllingFieldValue>Decision Support-Other</controllingFieldValue>
+            <controllingFieldValue>Predictive Analytics</controllingFieldValue>
+            <controllingFieldValue>Prescriptive Analytics</controllingFieldValue>
+            <controllingFieldValue>Email</controllingFieldValue>
+            <controllingFieldValue>Traditional Analytics &amp; Reporting</controllingFieldValue>
+            <controllingFieldValue>Data Warehouse</controllingFieldValue>
+            <controllingFieldValue>Extract Transform Load</controllingFieldValue>
+            <controllingFieldValue>Master Data Management</controllingFieldValue>
+            <controllingFieldValue>Other Online Transaction Processing Application</controllingFieldValue>
+            <controllingFieldValue>Data Mart</controllingFieldValue>
+            <controllingFieldValue>Enterprise Application Integration</controllingFieldValue>
+            <controllingFieldValue>Customer Relationship Management</controllingFieldValue>
+            <controllingFieldValue>Customer Engagement</controllingFieldValue>
+            <controllingFieldValue>Custom Business Application</controllingFieldValue>
+            <controllingFieldValue>E-Commerce, Online Store</controllingFieldValue>
+            <controllingFieldValue>Enterprise Resource Planning</controllingFieldValue>
+            <controllingFieldValue>Human Resources Management</controllingFieldValue>
+            <controllingFieldValue>Manufacturing Automation</controllingFieldValue>
+            <valueName>Oracle Exadata</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Lifecycle Management</controllingFieldValue>
+            <controllingFieldValue>Supply Chain Management</controllingFieldValue>
+            <controllingFieldValue>Supplier Relationship Management</controllingFieldValue>
+            <controllingFieldValue>Email</controllingFieldValue>
+            <controllingFieldValue>Data Warehouse</controllingFieldValue>
+            <controllingFieldValue>Electronic Medical/Health Records</controllingFieldValue>
+            <controllingFieldValue>Precision Medicine / Genomic</controllingFieldValue>
+            <controllingFieldValue>Student Information System</controllingFieldValue>
+            <controllingFieldValue>Other Online Transaction Processing Application</controllingFieldValue>
+            <controllingFieldValue>Data Mart</controllingFieldValue>
+            <controllingFieldValue>Enterprise Application Integration</controllingFieldValue>
+            <controllingFieldValue>Customer Relationship Management</controllingFieldValue>
+            <controllingFieldValue>Customer Engagement</controllingFieldValue>
+            <controllingFieldValue>Custom Business Application</controllingFieldValue>
+            <controllingFieldValue>E-Commerce, Online Store</controllingFieldValue>
+            <controllingFieldValue>Enterprise Resource Planning</controllingFieldValue>
+            <controllingFieldValue>Human Resources Management</controllingFieldValue>
+            <controllingFieldValue>Manufacturing Automation</controllingFieldValue>
+            <valueName>Oracle RAC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Lifecycle Management</controllingFieldValue>
+            <controllingFieldValue>Engineering prototyping</controllingFieldValue>
+            <controllingFieldValue>Supply Chain Management</controllingFieldValue>
+            <controllingFieldValue>Weather Modeling &amp; simulations</controllingFieldValue>
+            <controllingFieldValue>Supplier Relationship Management</controllingFieldValue>
+            <controllingFieldValue>Content Management</controllingFieldValue>
+            <controllingFieldValue>File Sharing</controllingFieldValue>
+            <controllingFieldValue>Big Data Analytics</controllingFieldValue>
+            <controllingFieldValue>Business Management System</controllingFieldValue>
+            <controllingFieldValue>Customer Intimacy Analytics</controllingFieldValue>
+            <controllingFieldValue>Machine Learning / Artificial Intelligence</controllingFieldValue>
+            <controllingFieldValue>Decision Support-Other</controllingFieldValue>
+            <controllingFieldValue>Predictive Analytics</controllingFieldValue>
+            <controllingFieldValue>Prescriptive Analytics</controllingFieldValue>
+            <controllingFieldValue>Email</controllingFieldValue>
+            <controllingFieldValue>Traditional Analytics &amp; Reporting</controllingFieldValue>
+            <controllingFieldValue>Unstructured Data Analysis</controllingFieldValue>
+            <controllingFieldValue>Data Warehouse</controllingFieldValue>
+            <controllingFieldValue>Extract Transform Load</controllingFieldValue>
+            <controllingFieldValue>Internet of Things</controllingFieldValue>
+            <controllingFieldValue>Master Data Management</controllingFieldValue>
+            <controllingFieldValue>Student Information System</controllingFieldValue>
+            <controllingFieldValue>Archive</controllingFieldValue>
+            <controllingFieldValue>Other Online Transaction Processing Application</controllingFieldValue>
+            <controllingFieldValue>Predictive Maintenance</controllingFieldValue>
+            <controllingFieldValue>Data Lake</controllingFieldValue>
+            <controllingFieldValue>Data Mart</controllingFieldValue>
+            <controllingFieldValue>Enterprise Application Integration</controllingFieldValue>
+            <controllingFieldValue>Customer Relationship Management</controllingFieldValue>
+            <controllingFieldValue>Customer Engagement</controllingFieldValue>
+            <controllingFieldValue>Custom Business Application</controllingFieldValue>
+            <controllingFieldValue>Seismic Research</controllingFieldValue>
+            <controllingFieldValue>E-Commerce, Online Store</controllingFieldValue>
+            <controllingFieldValue>Genomic / Life Sciences Research</controllingFieldValue>
+            <controllingFieldValue>Enterprise Resource Planning</controllingFieldValue>
+            <controllingFieldValue>Graphics rendering</controllingFieldValue>
+            <controllingFieldValue>Human Resources Management</controllingFieldValue>
+            <controllingFieldValue>Fluid dynamics</controllingFieldValue>
+            <controllingFieldValue>Manufacturing Automation</controllingFieldValue>
+            <controllingFieldValue>Structural Analysis</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Lifecycle Management</controllingFieldValue>
+            <controllingFieldValue>Supply Chain Management</controllingFieldValue>
+            <controllingFieldValue>Supplier Relationship Management</controllingFieldValue>
+            <controllingFieldValue>Email</controllingFieldValue>
+            <controllingFieldValue>Electronic Medical/Health Records</controllingFieldValue>
+            <controllingFieldValue>Student Information System</controllingFieldValue>
+            <controllingFieldValue>Other Online Transaction Processing Application</controllingFieldValue>
+            <controllingFieldValue>Enterprise Application Integration</controllingFieldValue>
+            <controllingFieldValue>Customer Relationship Management</controllingFieldValue>
+            <controllingFieldValue>Customer Engagement</controllingFieldValue>
+            <controllingFieldValue>Custom Business Application</controllingFieldValue>
+            <controllingFieldValue>E-Commerce, Online Store</controllingFieldValue>
+            <controllingFieldValue>Enterprise Resource Planning</controllingFieldValue>
+            <controllingFieldValue>Human Resources Management</controllingFieldValue>
+            <controllingFieldValue>Manufacturing Automation</controllingFieldValue>
+            <valueName>SAP ASE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Lifecycle Management</controllingFieldValue>
+            <controllingFieldValue>Supply Chain Management</controllingFieldValue>
+            <controllingFieldValue>Supplier Relationship Management</controllingFieldValue>
+            <controllingFieldValue>Big Data Analytics</controllingFieldValue>
+            <controllingFieldValue>Business Management System</controllingFieldValue>
+            <controllingFieldValue>Customer Intimacy Analytics</controllingFieldValue>
+            <controllingFieldValue>Machine Learning / Artificial Intelligence</controllingFieldValue>
+            <controllingFieldValue>Decision Support-Other</controllingFieldValue>
+            <controllingFieldValue>Predictive Analytics</controllingFieldValue>
+            <controllingFieldValue>Prescriptive Analytics</controllingFieldValue>
+            <controllingFieldValue>Email</controllingFieldValue>
+            <controllingFieldValue>Traditional Analytics &amp; Reporting</controllingFieldValue>
+            <controllingFieldValue>Data Warehouse</controllingFieldValue>
+            <controllingFieldValue>Extract Transform Load</controllingFieldValue>
+            <controllingFieldValue>Master Data Management</controllingFieldValue>
+            <controllingFieldValue>Precision Medicine / Genomic</controllingFieldValue>
+            <controllingFieldValue>Student Information System</controllingFieldValue>
+            <controllingFieldValue>Other Online Transaction Processing Application</controllingFieldValue>
+            <controllingFieldValue>Data Mart</controllingFieldValue>
+            <controllingFieldValue>Enterprise Application Integration</controllingFieldValue>
+            <controllingFieldValue>Customer Relationship Management</controllingFieldValue>
+            <controllingFieldValue>Customer Engagement</controllingFieldValue>
+            <controllingFieldValue>Custom Business Application</controllingFieldValue>
+            <controllingFieldValue>E-Commerce, Online Store</controllingFieldValue>
+            <controllingFieldValue>Enterprise Resource Planning</controllingFieldValue>
+            <controllingFieldValue>Human Resources Management</controllingFieldValue>
+            <controllingFieldValue>Manufacturing Automation</controllingFieldValue>
+            <valueName>SAP HANA</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Weather Modeling &amp; simulations</controllingFieldValue>
+            <controllingFieldValue>Content Management</controllingFieldValue>
+            <controllingFieldValue>File Sharing</controllingFieldValue>
+            <controllingFieldValue>Big Data Analytics</controllingFieldValue>
+            <controllingFieldValue>Customer Intimacy Analytics</controllingFieldValue>
+            <controllingFieldValue>Machine Learning / Artificial Intelligence</controllingFieldValue>
+            <controllingFieldValue>Decision Support-Other</controllingFieldValue>
+            <controllingFieldValue>Predictive Analytics</controllingFieldValue>
+            <controllingFieldValue>Prescriptive Analytics</controllingFieldValue>
+            <controllingFieldValue>Traditional Analytics &amp; Reporting</controllingFieldValue>
+            <controllingFieldValue>Unstructured Data Analysis</controllingFieldValue>
+            <controllingFieldValue>Data Warehouse</controllingFieldValue>
+            <controllingFieldValue>Extract Transform Load</controllingFieldValue>
+            <controllingFieldValue>Internet of Things</controllingFieldValue>
+            <controllingFieldValue>Master Data Management</controllingFieldValue>
+            <controllingFieldValue>Precision Medicine / Genomic</controllingFieldValue>
+            <controllingFieldValue>Archive</controllingFieldValue>
+            <controllingFieldValue>Predictive Maintenance</controllingFieldValue>
+            <controllingFieldValue>Data Lake</controllingFieldValue>
+            <controllingFieldValue>Genomic / Life Sciences Research</controllingFieldValue>
+            <controllingFieldValue>Graphics rendering</controllingFieldValue>
+            <valueName>Hadoop - Apache</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Weather Modeling &amp; simulations</controllingFieldValue>
+            <controllingFieldValue>Content Management</controllingFieldValue>
+            <controllingFieldValue>File Sharing</controllingFieldValue>
+            <controllingFieldValue>Big Data Analytics</controllingFieldValue>
+            <controllingFieldValue>Customer Intimacy Analytics</controllingFieldValue>
+            <controllingFieldValue>Machine Learning / Artificial Intelligence</controllingFieldValue>
+            <controllingFieldValue>Decision Support-Other</controllingFieldValue>
+            <controllingFieldValue>Predictive Analytics</controllingFieldValue>
+            <controllingFieldValue>Prescriptive Analytics</controllingFieldValue>
+            <controllingFieldValue>Traditional Analytics &amp; Reporting</controllingFieldValue>
+            <controllingFieldValue>Unstructured Data Analysis</controllingFieldValue>
+            <controllingFieldValue>Data Warehouse</controllingFieldValue>
+            <controllingFieldValue>Extract Transform Load</controllingFieldValue>
+            <controllingFieldValue>Internet of Things</controllingFieldValue>
+            <controllingFieldValue>Master Data Management</controllingFieldValue>
+            <controllingFieldValue>Precision Medicine / Genomic</controllingFieldValue>
+            <controllingFieldValue>Archive</controllingFieldValue>
+            <controllingFieldValue>Predictive Maintenance</controllingFieldValue>
+            <controllingFieldValue>Data Lake</controllingFieldValue>
+            <controllingFieldValue>Genomic / Life Sciences Research</controllingFieldValue>
+            <controllingFieldValue>Graphics rendering</controllingFieldValue>
+            <valueName>Hadoop - Cloudera</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Weather Modeling &amp; simulations</controllingFieldValue>
+            <controllingFieldValue>Content Management</controllingFieldValue>
+            <controllingFieldValue>File Sharing</controllingFieldValue>
+            <controllingFieldValue>Big Data Analytics</controllingFieldValue>
+            <controllingFieldValue>Customer Intimacy Analytics</controllingFieldValue>
+            <controllingFieldValue>Machine Learning / Artificial Intelligence</controllingFieldValue>
+            <controllingFieldValue>Decision Support-Other</controllingFieldValue>
+            <controllingFieldValue>Predictive Analytics</controllingFieldValue>
+            <controllingFieldValue>Prescriptive Analytics</controllingFieldValue>
+            <controllingFieldValue>Traditional Analytics &amp; Reporting</controllingFieldValue>
+            <controllingFieldValue>Unstructured Data Analysis</controllingFieldValue>
+            <controllingFieldValue>Data Warehouse</controllingFieldValue>
+            <controllingFieldValue>Extract Transform Load</controllingFieldValue>
+            <controllingFieldValue>Internet of Things</controllingFieldValue>
+            <controllingFieldValue>Master Data Management</controllingFieldValue>
+            <controllingFieldValue>Precision Medicine / Genomic</controllingFieldValue>
+            <controllingFieldValue>Archive</controllingFieldValue>
+            <controllingFieldValue>Predictive Maintenance</controllingFieldValue>
+            <controllingFieldValue>Data Lake</controllingFieldValue>
+            <controllingFieldValue>Genomic / Life Sciences Research</controllingFieldValue>
+            <controllingFieldValue>Graphics rendering</controllingFieldValue>
+            <valueName>Hadoop - HortonWorks</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Weather Modeling &amp; simulations</controllingFieldValue>
+            <controllingFieldValue>Content Management</controllingFieldValue>
+            <controllingFieldValue>File Sharing</controllingFieldValue>
+            <controllingFieldValue>Big Data Analytics</controllingFieldValue>
+            <controllingFieldValue>Customer Intimacy Analytics</controllingFieldValue>
+            <controllingFieldValue>Machine Learning / Artificial Intelligence</controllingFieldValue>
+            <controllingFieldValue>Decision Support-Other</controllingFieldValue>
+            <controllingFieldValue>Predictive Analytics</controllingFieldValue>
+            <controllingFieldValue>Prescriptive Analytics</controllingFieldValue>
+            <controllingFieldValue>Traditional Analytics &amp; Reporting</controllingFieldValue>
+            <controllingFieldValue>Unstructured Data Analysis</controllingFieldValue>
+            <controllingFieldValue>Data Warehouse</controllingFieldValue>
+            <controllingFieldValue>Extract Transform Load</controllingFieldValue>
+            <controllingFieldValue>Internet of Things</controllingFieldValue>
+            <controllingFieldValue>Master Data Management</controllingFieldValue>
+            <controllingFieldValue>Precision Medicine / Genomic</controllingFieldValue>
+            <controllingFieldValue>Archive</controllingFieldValue>
+            <controllingFieldValue>Predictive Maintenance</controllingFieldValue>
+            <controllingFieldValue>Data Lake</controllingFieldValue>
+            <controllingFieldValue>Genomic / Life Sciences Research</controllingFieldValue>
+            <controllingFieldValue>Graphics rendering</controllingFieldValue>
+            <valueName>Hadoop - MapR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Weather Modeling &amp; simulations</controllingFieldValue>
+            <controllingFieldValue>Voice/Video over IP</controllingFieldValue>
+            <controllingFieldValue>General Simulation &amp; Modelling</controllingFieldValue>
+            <controllingFieldValue>Business Continuity &amp; Disaster Recovery</controllingFieldValue>
+            <controllingFieldValue>Backup &amp; Restore</controllingFieldValue>
+            <controllingFieldValue>Electronic Medical/Health Records</controllingFieldValue>
+            <controllingFieldValue>Picture Archiving &amp; Comm Systems / Enterprise HC Imaging</controllingFieldValue>
+            <controllingFieldValue>Student Information System</controllingFieldValue>
+            <valueName>n/a</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Content Management</controllingFieldValue>
+            <controllingFieldValue>File Sharing</controllingFieldValue>
+            <controllingFieldValue>Big Data Analytics</controllingFieldValue>
+            <controllingFieldValue>Customer Intimacy Analytics</controllingFieldValue>
+            <controllingFieldValue>Decision Support-Other</controllingFieldValue>
+            <controllingFieldValue>Predictive Analytics</controllingFieldValue>
+            <controllingFieldValue>Prescriptive Analytics</controllingFieldValue>
+            <controllingFieldValue>Traditional Analytics &amp; Reporting</controllingFieldValue>
+            <controllingFieldValue>Unstructured Data Analysis</controllingFieldValue>
+            <controllingFieldValue>Data Warehouse</controllingFieldValue>
+            <controllingFieldValue>Extract Transform Load</controllingFieldValue>
+            <controllingFieldValue>Internet of Things</controllingFieldValue>
+            <controllingFieldValue>Master Data Management</controllingFieldValue>
+            <controllingFieldValue>Archive</controllingFieldValue>
+            <controllingFieldValue>Predictive Maintenance</controllingFieldValue>
+            <controllingFieldValue>Data Lake</controllingFieldValue>
+            <valueName>Opensource</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Big Data Analytics</controllingFieldValue>
+            <controllingFieldValue>Business Management System</controllingFieldValue>
+            <controllingFieldValue>Customer Intimacy Analytics</controllingFieldValue>
+            <controllingFieldValue>Decision Support-Other</controllingFieldValue>
+            <controllingFieldValue>Predictive Analytics</controllingFieldValue>
+            <controllingFieldValue>Prescriptive Analytics</controllingFieldValue>
+            <controllingFieldValue>Traditional Analytics &amp; Reporting</controllingFieldValue>
+            <controllingFieldValue>Data Mart</controllingFieldValue>
+            <valueName>Oracle Exalytics</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Big Data Analytics</controllingFieldValue>
+            <controllingFieldValue>Business Management System</controllingFieldValue>
+            <controllingFieldValue>Customer Intimacy Analytics</controllingFieldValue>
+            <controllingFieldValue>Decision Support-Other</controllingFieldValue>
+            <controllingFieldValue>Predictive Analytics</controllingFieldValue>
+            <controllingFieldValue>Prescriptive Analytics</controllingFieldValue>
+            <controllingFieldValue>Traditional Analytics &amp; Reporting</controllingFieldValue>
+            <controllingFieldValue>Data Warehouse</controllingFieldValue>
+            <controllingFieldValue>Extract Transform Load</controllingFieldValue>
+            <controllingFieldValue>Master Data Management</controllingFieldValue>
+            <controllingFieldValue>Data Mart</controllingFieldValue>
+            <valueName>SAP IQ</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Big Data Analytics</controllingFieldValue>
+            <controllingFieldValue>Customer Intimacy Analytics</controllingFieldValue>
+            <controllingFieldValue>Machine Learning / Artificial Intelligence</controllingFieldValue>
+            <controllingFieldValue>Decision Support-Other</controllingFieldValue>
+            <controllingFieldValue>Predictive Analytics</controllingFieldValue>
+            <controllingFieldValue>Unstructured Data Analysis</controllingFieldValue>
+            <controllingFieldValue>Internet of Things</controllingFieldValue>
+            <controllingFieldValue>Predictive Maintenance</controllingFieldValue>
+            <valueName>Splunk</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Big Data Analytics</controllingFieldValue>
+            <controllingFieldValue>Business Management System</controllingFieldValue>
+            <controllingFieldValue>Customer Intimacy Analytics</controllingFieldValue>
+            <controllingFieldValue>Decision Support-Other</controllingFieldValue>
+            <controllingFieldValue>Predictive Analytics</controllingFieldValue>
+            <controllingFieldValue>Prescriptive Analytics</controllingFieldValue>
+            <controllingFieldValue>Traditional Analytics &amp; Reporting</controllingFieldValue>
+            <controllingFieldValue>Data Warehouse</controllingFieldValue>
+            <controllingFieldValue>Extract Transform Load</controllingFieldValue>
+            <controllingFieldValue>Master Data Management</controllingFieldValue>
+            <controllingFieldValue>Data Mart</controllingFieldValue>
+            <valueName>Teradata</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Decision Support-Other</controllingFieldValue>
+            <valueName>Amazon S3</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Electronic Medical/Health Records</controllingFieldValue>
+            <valueName>CacheDB</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

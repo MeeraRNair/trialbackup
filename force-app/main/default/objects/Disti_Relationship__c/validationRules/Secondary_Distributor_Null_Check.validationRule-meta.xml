@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Secondary_Distributor_Null_Check</fullName>
+    <active>true</active>
+    <errorConditionFormula>!Enabled_for_2_Contracted_Disti_s__c &amp;&amp; ( Secondary_Storage_Preferred_Distributor__c != null)</errorConditionFormula>
+    <errorDisplayField>Secondary_Storage_Preferred_Distributor__c</errorDisplayField>
+    <errorMessage>Reseller Country is not authorized to select Secondary Distributor</errorMessage>
+</ValidationRule>

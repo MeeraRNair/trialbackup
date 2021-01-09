@@ -1,0 +1,762 @@
+<apex:page controller="VFcntrl_SearchEndCustomerFromDnB" sidebar="true" showheader="true" tabStyle="Opportunity" action="{!onPageLoad}" id="searchpage">
+    <apex:form id="frm">
+        <apex:outputPanel id="popup" layout="block">
+        <apex:outputPanel styleClass="box-wrapper" rendered="{!bdisplayPopup}"> 
+        <apex:outputPanel styleClass="box" >
+                {!$Label.Warning_End_user_contact_domain_is_same_as_partner_domain} <br/> 
+                {!$Label.Is_this_opporunity_intended_for_your_company_internal_use} <br/><br/>                                  
+              <!--  Warning:End user contact domain is same as partner domain.<br/>
+                Is this opporunity intended for your company internal use?<br/><br/>    -->        
+               <apex:selectRadio value="{!strSelectedvalue}">
+                   <apex:actionSupport id="supportId"  event="onchange" reRender="popup" action="{!closepopup}"/>
+                   <apex:selectOptions value="{!radiobuttonsItems}"></apex:selectOptions>
+               </apex:selectRadio>                         
+        </apex:outputPanel>         
+        </apex:outputPanel> 
+        </apex:outputpanel>
+        <apex:actionFunction name="close" action="{!closepopup}" reRender="popup"/>
+        <script>
+        function closepop(){
+           
+            close();
+        }
+        </script>
+        <!-- <c:Advanced_PBTableEnhancerCmp targetPbTableIds="tbl" pageSizeOptions="5,10,15,20,25,30" defaultPageSize="25" /> -->
+        
+        <style>
+            .box {
+            width: 500px;
+            height: 120px;
+            text-align: center;
+            padding: 22px;
+            border: 1px solid white;
+            background-color:#e4e4e4;
+            border-radius: 10px;
+            color: #383535;            
+            position: absolute;
+            /*top: 50%;
+            left: 50%;
+            margin-right: -50%;
+            margin-top: -15%;*/
+            transform: translate(35vw, 35vh);
+            margin: auto;
+            text-align: -webkit-center;
+            font-size: initial;
+            z-index: 22222;
+            }
+            .box-wrapper
+            {
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #c7c7c7a8;
+            z-index: 22222;
+            }
+            .box:target {
+            display: block;
+            }     
+        </style>    
+        
+        <style>
+            h1{
+            font-size: 125%;
+            }
+            h2{
+            font-size: 100%;
+            }
+            h3{
+            font-size: 115%;
+            }
+            table.dataTable tr.odd { background-color: white;border-bottom-width:1px }
+            table.dataTable tr.even { background-color: white;border-bottom-width:1px }
+            .bPageBlock .list .last>td { border-bottom-width:1px }
+            .apexp .bPageBlock .detailList .list .last td { border-bottom-width:1px }
+            }
+        </style>
+        <!--    <apex:sectionHeader title="Custom Settings" subtitle="List Demo"/>
+<apex:pageBlock >
+
+<apex:selectList value="{!selectedcountry}" size="1">
+</apex:selectList>
+
+</apex:pageBlock>  -->
+        <script>
+        
+        function getzipvalue(zipcode){                
+            document.getElementById("searchpage:frm:newzip").value= zipcode                         
+        }      
+        
+        function updatezip(country){
+            // alert(country);
+            if(country == "UNITED STATES" || country == "CANADA"){
+                document.getElementById("searchpage:frm:PageBlock:a:zipus:zipcan").value = document.getElementById("searchpage:frm:newzip").value;
+            }
+            else{
+                document.getElementById("searchpage:frm:PageBlock:a:zipreq:zipnonus").value = document.getElementById("searchpage:frm:newzip").value;
+            }
+        }
+        </script>
+        <apex:inputHidden id="newzip"/>
+        
+        <apex:pageBlock rendered="{!showDnbMessage}"  id="DnBMsgPb" >
+            <h1>{!$Label.DealReg_DnBSearchInstruction} </h1> 
+        </apex:pageBlock>
+        
+        
+        <apex:pageblock title="{!$Label.New_Customer}" id="PageBlock">
+            <apex:outputPanel id="searchPanel" rendered="{!editableSearchPanel}">  
+                <apex:pageblocksection title="{!$Label.Deal_Reg_company_details}" id="a" collapsible="false" columns="1" >
+                    <apex:pageBlockSectionItem id="zipnotreq">
+                        <apex:outputLabel value="{!$Label.End_User_Mailing_Country}" styleClass="label"/>
+                        <apex:outputPanel >
+                            <div class="requiredInput">
+                                <div class="requiredBlock"/>                
+                                <apex:actionFunction name="markRequired" rerender="searchPanel,frm,refresh,refreshpbb,DunsInfoblock" action="{!markRequired}" oncomplete="updatezip('{!EndCustomer.Mailing_country__c}')" status="StatusId1"/>
+                                <apex:selectList id="mailingcountries" value="{!EndCustomer.Mailing_country__c}"
+                                                 size="1" onchange="markRequired()">
+                                    <apex:selectOptions value="{!MailingCountries}"/>
+                                </apex:selectList> 
+                                <!-- Commented by Raj  <apex:inputfield value="{!EndCustomer.Mailing_country__c}" onchange="markRequired()" />-->
+                                <apex:actionStatus id="StatusId1" >
+                                    <apex:facet name="start" >
+                                        <img src="/img/loading.gif" />
+                                    </apex:facet>
+                                </apex:actionStatus>
+                            </div>    
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageblocksectionitem rendered="{!showLocaLanguageCheckBox}">
+                        <apex:outputLabel value="{!$Label.DealReg_Search_In_Local_Languag}"/>
+                        <apex:inputCheckbox value="{!isLocalLanguageSearch}"/>                                            
+                    </apex:pageblocksectionitem>
+                    <apex:pageBlockSectionItem >
+                        <!--   <apex:outputLabel value= "{!$Label.End_User_Account_Name}" /> -->
+                        <apex:outputPanel >
+                            {!$Label.End_User_Account_Name} <h1>*</h1>
+                        </apex:outputPanel>
+                        <apex:outputPanel >
+                            <div class="requiredInput">
+                                <div class="requiredBlock"/>
+                                <apex:inputfield value="{!EndCustomer.Name}" />&nbsp;&nbsp;<p>
+                                </p>
+                                <!--    <apex:outputText ><b>{!$Label.DealReg_DnBwildcardusage}</b></apex:outputText> -->
+                            </div>
+                        </apex:outputPanel> 
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionitem rendered="{!showDnbMessage}" >
+                        <apex:outputLabel /> 
+                        <b>{!$Label.DealReg_DnBwildcardusage}</b> 
+                    </apex:pageBlockSectionitem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Deal_Reg_End_User_Mailing_Street}" styleClass="label"/>
+                        <apex:outputPanel >
+                            <div class="requiredInput">
+                                <div class="requiredBlock"/>
+                                <apex:inputfield value="{!EndCustomer.Mailing_street__c}"  />
+                            </div>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >                    
+                        <!-- <apex:outputLabel value="{!$Label.Deal_Reg_End_User_Mailing_City}" styleClass="label"/> -->
+                        {!$Label.Deal_Reg_End_User_Mailing_City} <h1>*</h1>
+                        <apex:outputPanel >
+                            <div class="requiredInput">
+                                <div class="requiredBlock"/>
+                                <apex:inputfield value="{!EndCustomer.Mailing_city__c}" required="false"/>
+                            </div>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!!isEmergingCountry}">
+                        <!--    <apex:outputLabel value="{!$Label.Deal_Reg_End_User_Tax_ID_Code}" styleClass="label"/>-->
+                        {!$Label.Deal_Reg_End_User_Tax_ID_Code}<h1>*</h1>
+                        <apex:outputPanel >
+                            <apex:inputfield value="{!EndCustomer.Tax_Id__c}"/>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    
+                     <apex:pageBlockSectionItem rendered="{!isEmergingCountry}">
+                       
+                        {!$Label.Deal_Reg_End_User_Tax_ID_Code}<h1>*</h1>
+                        <apex:outputPanel >
+                        <div class="requiredInput">
+                            <div class="requiredBlock"/> 
+                            <apex:inputfield value="{!EndCustomer.Tax_Id__c}"/>
+                        </div>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem rendered="{!!isEMEA}">
+                        <!--  <apex:outputLabel value="{!$Label.Deal_Reg_End_User_Mailing_State_Province_Region}" styleClass="label"/> -->
+                        {!$Label.Deal_Reg_End_User_Mailing_State_Province_Region}<h1>*</h1>
+                        <apex:outputPanel >
+                            <div class="requiredInput">
+                                <div class="requiredBlock"/> 
+                                <apex:inputfield value="{!EndCustomer.Mailing_State__c}" required="false"/>
+                            </div>
+                        </apex:outputPanel> 
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!isEMEA}">
+                        <!--    <apex:outputLabel value="{!$Label.Deal_Reg_End_User_Mailing_State_Province_Region}" styleClass="label"/> -->
+                        {!$Label.Deal_Reg_End_User_Mailing_State_Province_Region}<h1>*</h1>
+                        <apex:inputfield value="{!EndCustomer.Mailing_State__c}" required="false"/>
+                        
+                    </apex:pageBlockSectionItem>
+                    <!--     <apex:pageBlockSectionItem rendered="{!OR(EndCustomer.Mailing_country__c == 'UNITED STATES',EndCustomer.Mailing_country__c == 'CANADA')}" id="zipus"> -->
+                    <apex:pageBlockSectionItem rendered="{!ziprequired}" id="zipus"> 
+                        
+                        <apex:outputLabel value="{!$Label.Deal_Reg_End_User_Mailing_Zip_Postal_Code}" styleClass="label"/>
+                        <apex:outputPanel >
+                            <div class="requiredInput">
+                                <div class="requiredBlock" />
+                                <apex:inputfield value="{!EndCustomer.Zip_Code__c}"  id="zipcan" onchange="getzipvalue(this.value)"/>
+                            </div>                      
+                        </apex:outputPanel>   
+                    </apex:pageBlockSectionItem>
+                    <!--      <apex:pageBlockSectionItem rendered="{!AND(EndCustomer.Mailing_country__c != 'UNITED STATES',EndCustomer.Mailing_country__c != 'CANADA')}" id="zipreq"> -->
+                    <apex:pageBlockSectionItem rendered="{!!ziprequired}" id="zipreq">  
+                        <apex:outputLabel value="{!$Label.Deal_Reg_End_User_Mailing_Zip_Postal_Code}" styleClass="label"/>
+                        <apex:inputfield value="{!EndCustomer.Zip_Code__c}" id="zipnonus" onchange="getzipvalue(this.value)" />                            
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.DealReg_End_User_Account_Department}" styleClass="label"/>
+                        <apex:inputfield value="{!EndCustomer.Account_Department__c}"  />                            
+                    </apex:pageBlockSectionItem> 
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.DealReg_End_User_Segment}" styleClass="label"/>
+                        <apex:inputfield value="{!EndCustomer.Segment__c}"  />                            
+                    </apex:pageBlockSectionItem> 
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.DealReg_End_User_Website}" styleClass="label"/>
+                        <apex:inputfield value="{!EndCustomer.Website__c}"  />                            
+                    </apex:pageBlockSectionItem>                     
+                    <!--      <apex:pageBlockSectionItem >
+<apex:outputLabel value="Match Score" styleClass="label"/>
+<apex:selectList label="Match Score" size="1"  value="{!minscore}">
+<apex:selectOptions value="{!Items}" />
+</apex:selectList>
+</apex:pageBlockSectionItem>   -->
+                </apex:pageblocksection>
+            </apex:outputPanel>
+            
+            <!-- Read-only search panel--->
+            <apex:outputPanel id="searchPanelReadOnly" rendered="{!!editableSearchPanel}">
+                <apex:pageblocksection title="{!$Label.Deal_Reg_company_details}" id="b" collapsible="false" columns="1" >
+                    <apex:pageBlockSectionItem id="zipnotreq1">
+                        <apex:outputLabel value="{!$Label.End_User_Mailing_Country}" styleClass="label"/>
+                        <apex:outputPanel >
+                            <div class="requiredInput">
+                                <div class="requiredBlock"/>                
+                                <apex:actionFunction name="markRequired" rerender="searchPanel" />
+                                <apex:selectList id="mailingcountries" value="{!EndCustomer.Mailing_country__c}"
+                                                 size="1" onchange="markRequired()" disabled="true">
+                                    <apex:selectOptions value="{!MailingCountries}"/>
+                                </apex:selectList>                         
+                                <!-- commented by raj <apex:inputtext value="{!EndCustomer.Mailing_country__c}" onchange="markRequired()" disabled="true"/>-->
+                            </div>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem> 
+                    <apex:pageBlockSectionItem >
+                        <!-- <apex:outputLabel value="{!$Label.End_User_Account_Name}"/> -->
+                        {!$Label.End_User_Account_Name}<h1>*</h1>
+                        <apex:outputPanel >
+                            <div class="requiredInput">
+                                <div class="requiredBlock"/>
+                                <apex:inputtext value="{!EndCustomer.Name}" disabled="true" />
+                            </div>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Deal_Reg_End_User_Mailing_Street}" styleClass="label"/>
+                        <apex:outputPanel >
+                            <div class="requiredInput">
+                                <div class="requiredBlock"/>
+                                <apex:inputTextarea value="{!EndCustomer.Mailing_street__c}" disabled="true" />
+                            </div>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >                    
+                        <!-- <apex:outputLabel value="{!$Label.Deal_Reg_End_User_Mailing_City}" styleClass="label"/> -->
+                        {!$Label.Deal_Reg_End_User_Mailing_City}<h1>*</h1>
+                        <apex:outputPanel >
+                            <div class="requiredInput">
+                                <div class="requiredBlock"/> 
+                                <apex:inputtext value="{!EndCustomer.Mailing_city__c}" required="false" disabled="true"/>
+                            </div>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.Deal_Reg_End_User_Tax_ID_Code}" styleClass="label"/>
+                        <apex:inputtext value="{!EndCustomer.Tax_Id__c}" disabled="true"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <!-- <apex:outputLabel value="{!$Label.Deal_Reg_End_User_Mailing_State_Province_Region}" styleClass="label"/> -->
+                        {!$Label.Deal_Reg_End_User_Mailing_State_Province_Region}<h1>*</h1>
+                        <apex:outputPanel >
+                            <div class="requiredInput">
+                                <div class="requiredBlock"/> 
+                                <apex:inputtext value="{!EndCustomer.Mailing_State__c}" required="false" disabled="true"/>
+                            </div>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!OR(EndCustomer.Mailing_country__c == 'UNITED STATES',EndCustomer.Mailing_country__c == 'CANADA')}"> 
+                        <!--   <apex:pageBlockSectionItem rendered="{!ziprequired}">   -->
+                        <apex:outputLabel value="{!$Label.Deal_Reg_End_User_Mailing_Zip_Postal_Code}" styleClass="label"/>
+                        <apex:outputPanel >
+                            <div class="requiredInput">
+                                <div class="requiredBlock" />
+                                <apex:inputtext value="{!EndCustomer.Zip_Code__c}" disabled="true"/>
+                            </div>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!AND(EndCustomer.Mailing_country__c != 'UNITED STATES',EndCustomer.Mailing_country__c != 'CANADA')}" id="zipreq1"> 
+                        <!--    <apex:pageBlockSectionItem rendered="{!!ziprequired}" id="zipreq1"> -->
+                        <apex:outputLabel value="{!$Label.Deal_Reg_End_User_Mailing_Zip_Postal_Code}" styleClass="label"/>
+                        <apex:inputtext value="{!EndCustomer.Zip_Code__c}" disabled="true" />                            
+                    </apex:pageBlockSectionItem>  
+                    <!--     <apex:pageBlockSectionItem id="zipnotreq1">
+<apex:outputLabel value="{!$Label.End_User_Mailing_Country}" styleClass="label"/>
+<apex:outputPanel >
+<div class="requiredInput">
+<div class="requiredBlock"/>                
+<apex:actionFunction name="markRequired" rerender="searchPanel" />
+<apex:inputtext value="{!EndCustomer.Mailing_country__c}" onchange="markRequired()" disabled="true"/>
+</div>
+</apex:outputPanel>
+</apex:pageBlockSectionItem> -->
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.DealReg_End_User_Account_Department}" styleClass="label"/>
+                        <apex:inputtext value="{!EndCustomer.Account_Department__c}"  disabled="true"/>                            
+                    </apex:pageBlockSectionItem> 
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.DealReg_End_User_Segment}" styleClass="label"/>
+                        <apex:inputtext value="{!EndCustomer.Segment__c}" disabled="true" />                            
+                    </apex:pageBlockSectionItem> 
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.DealReg_End_User_Website}" styleClass="label"/>
+                        <apex:inputtext value="{!EndCustomer.Website__c}"  disabled="true"/>                            
+                    </apex:pageBlockSectionItem>                     
+                    <!--        <apex:pageBlockSectionItem >
+<apex:outputLabel value="Match Score" styleClass="label"/>
+<apex:selectList label="Match Score" size="1"  value="{!minscore}" disabled="true">
+<apex:selectOptions value="{!Items}" />
+</apex:selectList>
+</apex:pageBlockSectionItem> -->
+                </apex:pageblocksection>
+            </apex:outputPanel>
+            
+            <apex:pageBlockButtons id="pgblkbuttons" location="bottom" >
+                <apex:outputPanel id="refresh">
+                    <apex:outputPanel rendered="{!showPageBlockButtons}">
+                        <apex:commandButton value="{!$Label.Deal_Reg_End_User_Search_for_End_Customer}" action="{!searchDnB}" rerender="frm" status="StatusId" rendered="{!editableSearchPanel}"  />
+                    </apex:outputPanel>
+                    <!--  <apex:commandButton value="{!$Label.Deal_Reg_Use_Original_Address}" rendered="{!!showError && showButton}" action="{!useOriginalAddress}" rerender="searchPanel"/>
+<apex:commandButton value="{!$Label.Reset}"  action="{!reset}" immediate="true" rerender="searchPanel"/>
+<apex:commandButton value="{!$Label.cancel}" action="{!navigateToExistingEndcustomer}" immediate="true"/> -->
+                </apex:outputPanel>
+                <apex:outputPanel id="refreshpbb">
+                    <apex:outputPanel rendered="{!showunsupportPageBlockButtons}"> 
+                        
+                        <apex:commandButton value="{!$Label.Deal_Reg_Use_Original_Address}" action="{!useOriginalAddress}" rendered="{!!showError && showButton}" rerender="searchPanel,frm,errorMsg" status="StatusId"/>
+                        
+                    </apex:outputPanel> 
+                    <apex:commandButton value="{!$Label.cancel}" action="{!navigateToExistingEndcustomer}" immediate="true"/>
+                </apex:outputPanel>
+                <apex:actionStatus id="StatusId" >
+                    <apex:facet name="start" >
+                        <img src="/img/loading.gif" />
+                    </apex:facet>
+                </apex:actionStatus>
+            </apex:pageBlockButtons>
+        </apex:pageblock>
+        <apex:pageMessage severity="error" strength="2"  detail="{!errorMsg}" rendered="{!showErroMsg}" id="errorMsg"/>
+        <apex:pageMessage severity="error" strength="2"  detail="{!exceptionMessage}" rendered="{!showexceptionMessage}"/>
+        <apex:pageBlock id="DunsInfoblock" rendered="{!showResultBlock}">
+            <apex:stylesheet value="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'css/jquery.dataTables.css')}"/>
+            <style type="text/css">
+                .sorting {
+                background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_both.png') }') no-repeat center right !important;
+                padding-right: 20px !important;
+                }
+                .sorting_asc {
+                background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_asc.png') }') no-repeat center right !important;
+                padding-right: 20px !important;
+                }
+                .sorting_desc {
+                background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_desc.png') }') no-repeat center right !important;
+                padding-right: 20px !important;
+                }
+                .sorting_asc_disabled {
+                background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_asc_disabled.png') }') no-repeat center right !important;
+                padding-right: 20px !important;
+                }
+                .sorting_desc_disabled {
+                background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_desc_disabled.png') }') no-repeat center right !important;
+                padding-right: 20px !important;
+                }
+                table.dataTablee tr.odd { background-color: white;border-bottom-width:1px }
+                table.dataTablee tr.even { background-color: white;border-bottom-width:1px }
+                .bPageBlock .list .last>td { border-bottom-width:1px }
+                .apexp .bPageBlock .detailList .list .last td { border-bottom-width:1px }
+                table.dataTablee tr.odd td.sorting_1 { background-color: white; }
+                table.dataTablee tr.odd td.sorting_2 { background-color: white; }
+                table.dataTablee tr.odd td.sorting_3 { background-color: white; }
+                table.dataTablee tr.even td.sorting_1 { background-color: white; }
+                table.dataTablee tr.even td.sorting_2 { background-color: white; }
+                table.dataTablee tr.even td.sorting_3 { background-color: white; }
+                .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate {
+                padding: 3px;
+                }
+            </style>
+            <apex:pageBlockButtons location="bottom">
+                <apex:outputPanel id="orignalUseButton">
+                    <apex:commandbutton value="{!$Label.DealReg_AddEndCustomer}" rendered="{!showResultTable}" action="{!addCustomerToDeal}" rerender="frm"  status="StatusId"/>
+                </apex:outputPanel>
+                
+                <!--  <apex:actionStatus id="StatusId1" >
+<apex:facet name="start" >
+<img src="/img/loading.gif" />
+</apex:facet>
+</apex:actionStatus> -->
+                <apex:commandButton value="{!$Label.Deal_Reg_Use_Original_Address}" action="{!useOriginalAddress2}" rendered="{!!showError && showButton}" rerender="searchPanel,frm,errorMsg" status="StatusId"/>
+                <apex:actionStatus id="StatusId" >
+                    <apex:facet name="start" >
+                        <img src="/img/loading.gif" />
+                    </apex:facet>
+                </apex:actionStatus>
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockSection columns="1" title="{!$Label.search_results}" collapsible="false">
+                <apex:outputPanel id="out" styleclass="Bold">
+                    <apex:actionstatus id="status" startText="Calling the result..." styleclass="Bold">
+                        <apex:facet name="stop">
+                            <apex:outputLabel style="color:red" styleclass="Bold" value="{!oMessage}" rendered="{!IF( oMessage != null ,true,false)}"></apex:outputLabel>
+                        </apex:facet>
+                    </apex:actionstatus>
+                </apex:outputPanel>
+                
+                <apex:pageBlockTable value="{!finalList}" var="duns" id="tbl" rendered="{!showResultTable}" styleClass="dataTablee" >
+                    <apex:column >
+                        <input type="radio" name="selectedDUnsId" value= "{!duns.DunsId}" >
+                        <apex:actionSupport event="onclick"  rerender="recordSelected" ></apex:actionSupport>
+                    </input>
+                </apex:column>
+                <!-- <apex:column headerValue="{!$Label.MDM_Field_DunsNumber}">
+<apex:outputlabel value="{!duns.DunsId}"/>
+</apex:column> -->
+                <apex:column headerValue="{!$Label.Deal_Reg_Customer_Name}">
+                    <apex:outputlabel value="{!duns.DunsName}"/>
+                </apex:column>
+                <apex:column headerValue="{!$Label.address}">
+                    <apex:outputlabel value="{!duns.Address}"/>
+                </apex:column>
+                <apex:column headerValue="{!$Label.city}">
+                    <apex:outputlabel value="{!duns.City}"/>
+                </apex:column>
+                <apex:column headerValue="{!$Label.T2D_State}">
+                    <apex:outputlabel value="{!duns.State}"/>
+                </apex:column>
+                <apex:column headerValue="{!$Label.country}">
+                    <apex:outputlabel value="{!duns.Country}"/>
+                </apex:column>
+                <apex:column headerValue="{!$Label.MDM_Field_PostalCd}">
+                    <apex:outputlabel value="{!duns.PostalCode}"/>
+                </apex:column>
+                <apex:column headerValue="{!$Label.MDM_Field_OOBIndicator}" rendered="false">
+                    <apex:outputlabel value="{!duns.OOB}"/>
+                </apex:column>
+                <apex:column headerValue="{!$Label.Deal_Reg_End_User_Tax_ID_Code}">
+                    <apex:outputlabel value="{!duns.TaxId}"/>
+                </apex:column>
+            </apex:pageBlockTable>
+            
+            <apex:pageBlockSectionItem >
+                <br/>
+                <h1>{!$Label.Deal_Reg_DnB_Message} </h1>
+                <br/><br/>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'js/jquery.js')}"></script>
+        <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'js/jquery.dataTables.js')}"></script>
+        <script type="text/javascript" language="javascript">
+        var j$ = jQuery.noConflict();
+        j$('table.dataTablee').dataTable({
+            sPaginationType: "full_numbers"
+        }); 
+        </script>
+        <!--<apex:pageMessages/>-->
+    </apex:pageBlock>
+    <apex:pageblock title="{!$Label.DealReg_Contact_Details}"  rendered="{!showContactSection}" id="Contactblock" >
+        <h2>{!$Label.DealReg_now_create_a_new_contact}</h2>
+        <br/><br/>     
+        <apex:pageblocksection >
+            <apex:pageblocksectionitem >
+                <apex:outputLabel value="{!$Label.DealReg_End_User_First_Name}"/>
+                <apex:outputPanel >
+                    <div class="requiredInput">
+                        <div class="requiredBlock"/>
+                        <apex:inputfield value="{!endCustomerContact.Name}"/>
+                    </div>
+                </apex:outputPanel>
+            </apex:pageblocksectionitem>
+            <apex:pageblocksectionitem >
+                <apex:outputLabel value="{!$Label.DealReg_End_User_Email}"/>
+                <apex:outputPanel >
+                    <div class="requiredInput">
+                        <div class="requiredBlock"/>
+                        <apex:inputfield value="{!endCustomerContact.Email__c}" required="false"/>
+                    </div>
+                </apex:outputPanel>
+            </apex:pageblocksectionitem>
+            <apex:pageblocksectionitem >
+                <apex:outputLabel value="{!$Label.DealReg_End_User_Last_Name}"/>
+                <apex:outputPanel >
+                    <div class="requiredInput">
+                        <div class="requiredBlock"/>
+                        <apex:inputfield value="{!endCustomerContact.Last_Name__c}" required="false"/>
+                    </div>
+                </apex:outputPanel>
+            </apex:pageblocksectionitem>
+            
+            <apex:pageBlockSectionItem >                       
+                <apex:outputLabel value="{!$Label.DealReg_End_User_Phone}" styleClass="label"/>
+                <apex:outputPanel >
+                    <div class="requiredInput">
+                        <div class="requiredBlock"/>
+                        <apex:inputField value="{!endCustomerContact.Phone__c}"/>
+                    </div>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageblocksectionitem >
+                <apex:outputLabel value="{!$Label.DealReg_End_User_Mobile}"/>
+                <apex:inputfield value="{!endCustomerContact.Mobile__c}"/>
+            </apex:pageblocksectionitem>
+            <apex:pageblocksectionitem >
+                <apex:outputLabel value="{!$Label.DealReg_End_User_Fax}"/>
+                <apex:inputfield value="{!endCustomerContact.Fax__c}"/>
+            </apex:pageblocksectionitem>
+            <apex:pageblocksectionitem >
+                <apex:outputLabel value="{!$Label.DealReg_End_User_Title}"/>
+                <apex:inputfield value="{!endCustomerContact.Title__c}"/>
+            </apex:pageblocksectionitem>
+        </apex:pageblocksection>         
+         
+        <apex:pageblockbuttons location="Bottom">                    
+            <apex:commandButton value="{!$Label.Add_Contact_to_Deal}" action="{!addContactToDeal}" rerender="frm,showmsgAll,Contactblock,popup" status="StatusId"/>
+            <apex:actionStatus id="StatusId" >
+                <apex:facet name="start" >
+                    <img src="/img/loading.gif" />
+                </apex:facet>
+            </apex:actionStatus>
+        </apex:pageblockbuttons>
+        
+    </apex:pageblock>
+    
+    <apex:outputPanel id="endCustomerContactsData" rendered="{!showendcustduplicateerror }">
+        <apex:pageMessage severity="error" strength="2"  detail="{!duperror}"/>
+        <apex:pageBlock title="Contact List" id="endCustContBlckId" rendered="{!OR(showEndCustContTable,displaynewContactOption)}" >
+            
+            <apex:pageMessage severity="Info" strength="2" detail="{!showNoContMsg}" rendered="{!!showEndCustContTable}"/>
+            <apex:outputPanel id="endCustContListId" rendered="{!showEndCustContTable}">  
+                <!-- <c:Advanced_PBTableEnhancerCmp targetPbTableIds="tbId1" pageSizeOptions="5,10,15,20,25,30" defaultPageSize="15" />  -->
+                <apex:stylesheet value="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'css/jquery.dataTables.css')}"/>
+                <style type="text/css">
+                    .sorting {
+                    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_both.png') }') no-repeat center right !important;
+                    padding-right: 20px !important;
+                    }
+                    .sorting_asc {
+                    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_asc.png') }') no-repeat center right !important;
+                    padding-right: 20px !important;
+                    }
+                    .sorting_desc {
+                    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_desc.png') }') no-repeat center right !important;
+                    padding-right: 20px !important;
+                    }
+                    .sorting_asc_disabled {
+                    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_asc_disabled.png') }') no-repeat center right !important;
+                    padding-right: 20px !important;
+                    }
+                    .sorting_desc_disabled {
+                    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_desc_disabled.png') }') no-repeat center right !important;
+                    padding-right: 20px !important;
+                    }
+                    table.dataTable tr.odd { background-color: white;border-bottom-width:1px }
+                    table.dataTable tr.even { background-color: white;border-bottom-width:1px }
+                    .bPageBlock .list .last>td { border-bottom-width:1px }
+                    .apexp .bPageBlock .detailList .list .last td { border-bottom-width:1px }
+                    table.dataTable tr.odd td.sorting_1 { background-color: white; }
+                    table.dataTable tr.odd td.sorting_2 { background-color: white; }
+                    table.dataTable tr.odd td.sorting_3 { background-color: white; }
+                    table.dataTable tr.even td.sorting_1 { background-color: white; }
+                    table.dataTable tr.even td.sorting_2 { background-color: white; }
+                    table.dataTable tr.even td.sorting_3 { background-color: white; }
+                    .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate {
+                    padding: 3px;
+                    }
+                </style>
+                <br/>   <h1> <label>{!$Label.EndCustomerContactHeader} </label>  </h1> 
+                <apex:pageBlockTable value="{!endCustomerContacts}" var="b" id="tbId1" styleClass="dataTable" >
+                    <apex:column headerValue="{!$Label.AVS_Field_Select}">
+                        
+                        <apex:actionSupport action="{!hideNewContForm}" event="onclick" reRender="createNewContOptId, newEndCustContFormId, msgId" > 
+                            <input type = "radio" name ="dupEndCustContact" value ="{!b.Id}" /> 
+                        </apex:actionSupport> 
+                        
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.CMAP_FirstName}" value="{!b.Name}"/>
+                    <apex:column headerValue="{!$Label.CMAP_LastName}" value="{!b.Last_Name__c}"/>
+                    <apex:column headerValue="{!$Label.T2D_Title_field}" value="{!b.Title__c}"/>
+                    <apex:column headerValue="{!$Label.Contact_CDG_Page_Email}" value="{!b.Email__c}"/>
+                    <apex:column headerValue="{!$Label.status}" value="{!b.Status__c}"/>
+                </apex:pageBlockTable>
+                <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'js/jquery.js')}"></script>
+                <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'js/jquery.dataTables.js')}"></script>
+                <script type="text/javascript" language="javascript">
+                var j$ = jQuery.noConflict();
+                j$('table.dataTable').dataTable({
+                    sPaginationType: "full_numbers"
+                }); 
+                </script>
+            </apex:outputPanel>
+            
+            <apex:outputPanel id="createNewContOptId" rendered="{!displaynewContactOption}">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <apex:actionSupport action="{!createNewContForm}" event="onclick" status="createNewContOptionStatusId" reRender="endCustContListId, newEndCustContFormId, msgId" >
+                    <input type = "radio" name ="selectedAccId2" value ="{!createNewContact}" id="createNewContId" /><label for="createNewContId">                        
+                    <strong>{!$Label.Boomi_button_new}</strong></label>
+                </apex:actionSupport>
+                
+                <apex:actionStatus id="createNewContOptionStatusId" >
+                    <apex:facet name="start" >
+                        <img src="/img/loading.gif" />
+                    </apex:facet>
+                </apex:actionStatus>
+            </apex:outputPanel>
+            
+            <apex:outputPanel id="newEndCustContFormId"  > 
+                <apex:outputPanel rendered="{!displayContactForm}">
+                    <apex:pageBlockSection > 
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.DealReg_End_User_First_Name}" />
+                            <apex:outputPanel >
+                                <div class="requiredInput">
+                                    <div class="requiredBlock"/> 
+                                    <apex:inputField value="{!objEndCustumerContact.Name}" required="false"/>
+                                </div>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        <!--apex:outputText value="{!ErrorMessage}" rendered="{!LEN(ErrorMessage)>0}"/ -->
+                        <apex:pageBlockSectionItem >                       
+                            <apex:outputLabel value="{!$Label.DealReg_End_User_Email}" styleClass="label"/>
+                            <apex:outputPanel >
+                                <div class="requiredInput">
+                                    <div class="requiredBlock"/>
+                                    <apex:inputField value="{!objEndCustumerContact.Email__c}" required="false"/>
+                                </div>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >                       
+                            <apex:outputLabel value="{!$Label.DealReg_End_User_Last_Name}" styleClass="label"/>
+                            <apex:outputPanel >
+                                <div class="requiredInput">
+                                    <div class="requiredBlock"/>
+                                    <apex:inputField value="{!objEndCustumerContact.Last_Name__c}" required="false"/>
+                                </div>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >                       
+                            <apex:outputLabel value="{!$Label.DealReg_End_User_Phone}" styleClass="label"/>
+                            <apex:outputPanel >
+                                <div class="requiredInput">
+                                    <div class="requiredBlock"/>
+                                    <apex:inputField value="{!objEndCustumerContact.Phone__c}"/>
+                                </div>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >                       
+                            <apex:outputLabel value="{!$Label.DealReg_End_User_Mobile}" styleClass="label"/>
+                            <apex:inputField value="{!objEndCustumerContact.Mobile__c}"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >                       
+                            <apex:outputLabel value="{!$Label.DealReg_End_User_Fax}" styleClass="label"/>
+                            <apex:inputField value="{!objEndCustumerContact.Fax__c}"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >                       
+                            <apex:outputLabel value="{!$Label.DealReg_End_User_Title}" styleClass="label"/>
+                            <apex:inputField value="{!objEndCustumerContact.Title__c}"/>
+                        </apex:pageBlockSectionItem>
+                        
+                    </apex:pageBlockSection>
+                </apex:outputPanel>
+            </apex:outputPanel> 
+            
+            <apex:outputPanel id="msgId"> 
+                <apex:pageMessage detail="{!errorMsg}" severity="Error" rendered="{!showErroMsg}" strength="2"></apex:pageMessage>
+                
+                <center>  
+                    <apex:commandButton value="{!$Label.Add_Existing_Customer_to_Deal}"  status="addCustomerBtnStatusId" action="{!saveEndCustomerDetails}" reRender="msgId, newEndCustContFormId"/>
+                    <apex:actionStatus id="addCustomerBtnStatusId" >
+                        <apex:facet name="start" >
+                            <img src="/img/loading.gif" /> 
+                        </apex:facet>
+                    </apex:actionStatus>    
+                </center>
+                
+                <!--    <apex:commandButton value="{!$Label.Add_Contact_to_Deal}" action="{!saveEndCustomerDetails}" reRender="msgId, newEndCustContFormId" status="addContDealStatusId" rendered="{!OR(showEndCustContTable,displaynewContactOption)}"/>
+<apex:actionStatus id="addContDealStatusId" >
+<apex:facet name="start" >
+<img src="/img/loading.gif" />
+</apex:facet>
+</apex:actionStatus> -->
+                
+            </apex:outputPanel>
+            
+        </apex:pageBlock>
+    </apex:outputPanel>
+    
+    
+    <!--    <apex:pageblock rendered="{!showendcustduplicateerror }">  
+<apex:pageMessage severity="error" strength="2"  detail="{!duperror}"/>
+
+<apex:commandButton value="Add Existing End Customer to Deal" action="{!navigateToExistingEndcustomer}"/>  
+
+<apex:outputPanel id="endCustContListId" rendered="{!showendcustduplicateerror}">  
+<c:Advanced_PBTableEnhancerCmp targetPbTableIds="tbId1" pageSizeOptions="5,10,15,20,25,30" defaultPageSize="15" />
+<br/>   <h1> <label>{!$Label.EndCustomerContactHeader} </label>  </h1> 
+<apex:pageBlockTable value="{!endCustomerContacts}" var="b" id="tbId1" >
+<apex:column headerValue="{!$Label.AVS_Field_Select}">
+<!--   <input type = "radio" name ="selectedAccId1" value ="{!b.id}"> 
+<apex:actionSupport action="{!hideNewContForm}" event="onclick" reRender="createNewContOptId" >
+</apex:actionsupport>
+</input>    
+<apex:actionSupport action="{!navigateoppTyDetail}" event="onclick" > --
+<input type = "radio" name ="dupEndCustContact" value ="{!b.Id}" /> 
+<!-- </apex:actionSupport> --
+
+</apex:column>
+<apex:column headerValue="{!$Label.CMAP_FirstName}" value="{!b.Name}"/>
+<apex:column headerValue="{!$Label.CMAP_LastName}" value="{!b.Last_Name__c}"/>
+<apex:column headerValue="{!$Label.T2D_Title_field}" value="{!b.Title__c}"/>
+<apex:column headerValue="{!$Label.Contact_CDG_Page_Email}" value="{!b.Email__c}"/>
+<apex:column headerValue="{!$Label.status}" value="{!b.Status__c}"/>
+</apex:pageBlockTable>
+</apex:outputPanel> 
+
+<apex:pageblockButtons location="bottom">  
+<apex:commandButton value="Add Existing End Customer to Deal"  status="addCustomerBtnStatusId" action="{!navigateoppTyDetail}"/>
+<apex:actionStatus id="addCustomerBtnStatusId" >
+<apex:facet name="start" >
+<img src="/img/loading.gif" /> 
+</apex:facet>
+</apex:actionStatus>    
+</apex:pageblockbuttons>
+</apex:pageblock>   -->
+</apex:form>
+</apex:page>

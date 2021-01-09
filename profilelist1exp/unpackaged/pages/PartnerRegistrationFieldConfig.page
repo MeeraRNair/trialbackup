@@ -1,0 +1,261 @@
+<apex:page standardController="Partner_Type_Field_Configuration__c" extensions="PartnerRegistrationFieldConfigExt" action="{!doPageLoad}" showHeader="true" tabStyle="Partner_Type_Field_Configuration__c" >
+
+<style>
+
+      .activeTab {background-color: #236FBD; color:white; background-image:none}
+      .inactiveTab { background-color: lightgrey; color:black; background-image:none}
+
+</style>
+<apex:form >
+ <apex:pageBlock title="Create/Edit Partner Type - Field Configuration" mode="edit">
+    <apex:pageBlockSection columns="2">
+        <apex:pageblocksectionitem >
+        <apex:outputLabel value="Partner Type" for="Partner_Type__c__namevalue"/>                                       
+        <apex:outputText value="{!partnerTypeName}" id="Partner_Type__c__namevalue"/>
+        </apex:pageblocksectionitem>
+        <apex:pageblocksectionitem >                                
+        <apex:outputLabel value="Country" for="Partner_Type__countryNameValue"/>
+        <apex:outputText value="{!partnerTypecountry}"  id="Partner_Type__countryNameValue"/>
+        </apex:pageblocksectionitem>        
+                                        
+    </apex:pageBlockSection> 
+              
+                
+    
+</apex:pageBlock>
+
+ <apex:outputPanel rendered="{!showErrorMsg}">
+  <apex:pageMessages /> 
+  <center><apex:commandButton action="{!doBackToPartnerTypeList}" value="Cancel" rendered="{!ptIdNotFound}"/></center>
+  
+  <!-- Fenny - 05.10.2011 - Fixed defect 15701
+    <apex:pageBlock >
+    <apex:pageBlockButtons >                        
+                        <apex:commandButton action="{!doCancel}" value="Cancel"/>
+    </apex:pageBlockButtons>
+    </apex:pageBlock>
+     -->
+ </apex:outputPanel>
+     <apex:tabPanel switchType="client" selectedTab="tabdetails" id="AccountTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab" rendered="{!NOT(ptIdNotFound)}">
+     
+            <!--START R14.2-->
+            <apex:tab label="{!$Label.smart_entry_tab}" name="smartEntryDetails" id="tabSmartEntry"  >
+        
+                 <apex:pageBlock >
+                 <apex:pageBlockButtons >
+                        <apex:commandButton action="{!doSave}" value="Save"/>
+                        <apex:commandButton action="{!doCancel}" value="Cancel"/>
+                 </apex:pageBlockButtons>
+                 
+                 <apex:pageBlockSection collapsible="false" showHeader="false" columns="1">
+                    <apex:pageBlockSectionItem >
+                        <apex:pageBlockTable value="{!fieldConfigSmartEntryOutputList}" var="item" width="100%">
+                        
+                                    
+                        <apex:column headerValue="Field Name" width="50%">                                      
+                             <apex:outputText value="{!item.fieldName}" rendered="{!item.tabName=='Partner Selection'}"/>                                                      
+                        </apex:column>
+                        <!-- CR 13135 -->                       
+                        <apex:column headerValue="Is Enabled" width="25%" >                              
+                              <apex:inputCheckbox value="{!item.isEnabled}" disabled="{!item.fieldName='Partner Selection'}" rendered="{!item.tabName=='Partner Selection'}"/>
+                        </apex:column>
+                        
+                        <apex:column headerValue="Is Required(Mandatory)" width="25%" >                              
+                              <apex:inputCheckbox value="{!item.isRequired}" disabled="{!item.fieldName='Partner Selection'}" rendered="{!item.tabName=='Partner Selection'}"/>                                                   
+                        </apex:column>
+                                                                        
+                    </apex:pageBlockTable>
+                        
+                    </apex:pageBlockSectionItem>
+                 </apex:pageBlockSection>
+
+                </apex:pageBlock>
+        
+            </apex:tab>
+            <!--END R14.2-->
+     
+         
+          <apex:tab label="{!$Label.company_tab}" name="companyDetails" id="tabCompany" >
+        
+                 <apex:pageBlock >
+                 <apex:pageBlockButtons >
+                        <apex:commandButton action="{!doSave}" value="Save"/>
+                        <apex:commandButton action="{!doCancel}" value="Cancel"/>
+                 </apex:pageBlockButtons>
+                 <apex:pageBlockSection collapsible="false" showHeader="false" columns="1">
+                    <apex:pageBlockSectionItem >
+                        <apex:pageBlockTable value="{!fieldConfigCompanyOutputList}" var="item" width="100%">
+                        
+                                    
+                        <apex:column headerValue="Field Name"  width="50%"> 
+                             <apex:outputText value="{!item.fieldName}" rendered="{!item.tabName=='Company'}"/>                                                     
+                        </apex:column>                                              
+                        
+                        <apex:column headerValue="Is Enabled" width="25%" >                              
+                              <apex:inputCheckbox value="{!item.isEnabled}" disabled="{!OR(LOWER(item.fieldName) = 'company' ,LOWER(item.fieldName) = 'full legal name of your organization')}" rendered="{!item.tabName=='Company'}"/>
+                        </apex:column>
+                        
+                        <!-- START R15.03  Patrick Redor  01.16.14  CR9230 Changed the "disabled=" line -->
+                        <apex:column headerValue="Is Required(Mandatory)" width="25%" >                              
+                              <apex:inputCheckbox value="{!item.isRequired}" 
+                              disabled="{!OR(LOWER(item.fieldName) ='company', LOWER(item.fieldName) ='hardware reseller', 
+                              LOWER(item.fieldName) ='software reseller', LOWER(item.fieldName) ='referral partner', LOWER(item.fieldName) ='distributor',
+                              LOWER(item.fieldName) = 'system integrator (gsi)', LOWER(item.fieldName) = 'service Provider (msp)',LOWER(item.fieldName) ='technology partner', 
+                              LOWER(item.fieldName) = 'oem', LOWER(item.fieldName) ='telco', LOWER(item.fieldName) ='isv' , 
+                             LOWER(item.fieldName) = 'other',  LOWER(item.fieldName) = 'full legal name of your organization')}"  
+                              rendered="{!item.tabName=='Company'}"/>                                                 
+                        </apex:column>
+                        <!-- END R15.03 -->                                               
+                    </apex:pageBlockTable>
+                        
+                    </apex:pageBlockSectionItem>
+                 </apex:pageBlockSection>
+
+                </apex:pageBlock>
+        
+          </apex:tab>
+          
+          <apex:tab label="{!$Label.contact_tab}" name="contactDetails" id="tabContact"  >
+        
+                 <apex:pageBlock >
+                 <apex:pageBlockButtons >
+                        <apex:commandButton action="{!doSave}" value="Save"/>
+                        <apex:commandButton action="{!doCancel}" value="Cancel"/>
+                 </apex:pageBlockButtons>
+                 
+                 <apex:pageBlockSection collapsible="false" showHeader="false" columns="1">
+                    <apex:pageBlockSectionItem >
+                        <apex:pageBlockTable value="{!fieldConfigContactOutputList}" var="item" width="100%">
+                        
+                                    
+                        <apex:column headerValue="Field Name" width="50%">                                      
+                             <apex:outputText value="{!item.fieldName}" rendered="{!item.tabName=='Contact'}"/>                                                     
+                        </apex:column>
+                                                
+                        
+                        <apex:column headerValue="Is Enabled" width="25%">                                               
+                              <apex:inputCheckbox value="{!item.isEnabled}" disabled="{!OR(LOWER(item.fieldName)='last name',LOWER(item.fieldName)='email')}" rendered="{!item.tabName=='Contact'}"/>
+                        </apex:column>
+                        
+                        <apex:column headerValue="Is Required(Mandatory)" width="25%">                                                   
+                              <apex:inputCheckbox value="{!item.isRequired}" disabled="{!OR(LOWER(item.fieldName)='last name',LOWER(item.fieldName)='email')}" rendered="{!item.tabName=='Contact'}"/>                                                  
+                        </apex:column>
+                                                                        
+                    </apex:pageBlockTable>
+                        
+                    </apex:pageBlockSectionItem>
+                 </apex:pageBlockSection>
+
+                </apex:pageBlock>
+        
+          </apex:tab>
+          
+           <apex:tab label="{!$Label.Focus_Tab}" name="focusDetails" id="tabFocus" >
+        
+                 <apex:pageBlock >
+                 <apex:pageBlockButtons >
+                        <apex:commandButton action="{!doSave}" value="Save"/>
+                        <apex:commandButton action="{!doCancel}" value="Cancel"/>
+                 </apex:pageBlockButtons>
+                 <apex:pageBlockSection collapsible="false" showHeader="false" columns="1">
+                    <apex:pageBlockSectionItem >
+                        <apex:pageBlockTable value="{!fieldConfigFocusOutputList}" var="item" width="100%">
+                        
+                                    
+                        <apex:column headerValue="Field Name" width="50%" > 
+                             <apex:outputText value="{!item.fieldName}" rendered="{!item.tabName=='Focus'}"/>                                                       
+                        </apex:column>
+                                                                        
+                        <apex:column headerValue="Is Enabled" width="25%" >                              
+                              <apex:inputCheckbox value="{!item.isEnabled}" rendered="{!item.tabName=='Focus'}"/>                       
+                        </apex:column>
+                        
+                        <apex:column headerValue="Is Required(Mandatory)" width="25%" >                              
+                              <apex:inputCheckbox value="{!item.isRequired}" rendered="{!item.tabName=='Focus'}"/>                                                  
+                        </apex:column>
+                                                                        
+                    </apex:pageBlockTable>
+                        
+                    </apex:pageBlockSectionItem>
+                 </apex:pageBlockSection>
+
+                </apex:pageBlock>
+        
+          </apex:tab>
+          
+           <apex:tab label="{!$Label.segment_tab}" name="segmentDetails" id="tabSegment" >
+        
+                 <apex:pageBlock >
+                 <apex:pageBlockButtons >
+                        <apex:commandButton action="{!doSave}" value="Save"/>
+                        <apex:commandButton action="{!doCancel}" value="Cancel"/>                       
+                 </apex:pageBlockButtons>
+                 <apex:pageBlockSection collapsible="false" showHeader="false" columns="1">
+                    <apex:pageBlockSectionItem >
+                        <apex:pageBlockTable value="{!fieldConfigSegmentOutputList}" var="item" width="100%">
+                        
+                                    
+                        <apex:column headerValue="Field Name" width="50%" > 
+                             <apex:outputText value="{!item.fieldName}" rendered="{!item.tabName=='Segment'}"/>                                                     
+                        </apex:column>
+                                                                        
+                        <apex:column headerValue="Is Enabled" width="25%" >                              
+                              <apex:inputCheckbox value="{!item.isEnabled}" rendered="{!item.tabName=='Segment'}" />
+                              <!--Ujwala CR13804 ----->
+                           <!--   disabled="{!OR(LOWER(item.fieldName)= 'currently under investigation?'
+                               ,LOWER(item.fieldName)= 'position of influence or power?')}"/> -->
+                               <!--End of CR13804 -->
+                        </apex:column>  
+                      
+                        
+                        <apex:column headerValue="Is Required(Mandatory)" width="25%" >                              
+                              <apex:inputCheckbox value="{!item.isRequired}" disabled="{!OR(LOWER(item.fieldName)='agree dell reseller',
+                              LOWER(item.fieldName)='agree both dell resellertechpart')}" rendered="{!item.tabName=='Segment'}"/>
+                              <!-- ,LOWER(item.fieldName)='agree dell partner dist pro',LOWER(item.fieldName)='agree dell partner dist sup' CR 8522-->                                                    
+                        </apex:column>
+                                                                        
+                    </apex:pageBlockTable>
+                        
+                    </apex:pageBlockSectionItem>
+                 </apex:pageBlockSection>
+
+                </apex:pageBlock> 
+        
+          </apex:tab>
+          <apex:tab label="{!$Label.Service_Tab}" name="ServiceDetails" id="tabService" >
+        
+                 <apex:pageBlock >
+                 <apex:pageBlockButtons >
+                        <apex:commandButton action="{!doSave}" value="Save"/>
+                        <apex:commandButton action="{!doCancel}" value="Cancel"/>
+                 </apex:pageBlockButtons>
+                 <apex:pageBlockSection collapsible="false" showHeader="false" columns="1">
+                    <apex:pageBlockSectionItem >
+                        <apex:pageBlockTable value="{!fieldConfigServiceOutputList}" var="item" width="100%">
+                        
+                                    
+                        <apex:column headerValue="Field Name" width="50%" > 
+                             <apex:outputText value="{!item.fieldName}" rendered="{!item.tabName=='Service'}"/>                                                       
+                        </apex:column>
+                                                                        
+                        <apex:column headerValue="Is Enabled" width="25%" >                              
+                              <apex:inputCheckbox value="{!item.isEnabled}" rendered="{!item.tabName=='Service'}"/>                       
+                        </apex:column>
+                        
+                        <apex:column headerValue="Is Required(Mandatory)" width="25%" >                              
+                              <apex:inputCheckbox value="{!item.isRequired}" rendered="{!item.tabName=='Service'}"/>                                                  
+                        </apex:column>
+                                                                        
+                    </apex:pageBlockTable>
+                        
+                    </apex:pageBlockSectionItem>
+                 </apex:pageBlockSection>
+
+                </apex:pageBlock>
+        
+          </apex:tab>
+
+     
+    </apex:tabPanel>
+ </apex:form>
+</apex:page>

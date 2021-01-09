@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Som_Mandatory</fullName>
+    <active>true</active>
+    <description>Som field should be mandatory if status not equal to &apos;NEW&apos;</description>
+    <errorConditionFormula>AND(NOT(ISPICKVAL( Status__c , &apos;NEW&apos;) ), ISBLANK( SOM__c ) , RecordTypeId =&apos;012A0000000ViNO&apos;,
+OR( Opportunity__r.RecordTypeId=&apos;012300000004zf2&apos;,
+Opportunity__r.RecordTypeId=&apos;012A0000000Vhy7&apos;,
+Opportunity__r.RecordTypeId=&apos;012A0000000TWOi&apos;) )</errorConditionFormula>
+    <errorDisplayField>SOM__c</errorDisplayField>
+    <errorMessage>You must enter a value</errorMessage>
+</ValidationRule>

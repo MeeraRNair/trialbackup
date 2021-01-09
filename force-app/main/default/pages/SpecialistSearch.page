@@ -1,0 +1,144 @@
+<!--
+SinLin   28-Feb-2019   FY20-0402  Add SLDS
+-->
+<apex:page controller="SpecialistSearchCtrl" lightningStylesheets="true">
+    <apex:form >
+    
+        
+        <script language="javascript">
+        
+            function redirectToSupportRequest(){
+                var url = "{!SupportRequestURL}";
+                // alert(url);               
+                document.location.href =url;              
+            }
+        
+        </script>
+      
+        <apex:pageBlock title="Resource Engagement">
+      
+                             <apex:outputLabel > <center>Fill in as many fields below in order to locate the right specialized resource required. (ex: services, sales specialist, sales engineer, etc) ** accuracy of search results will depend on how many fields are filled and accuracy of inputted information**
+ </center></apex:outputLabel>
+                             
+        <script type="text/javascript">
+        
+            function redirectToSupportRequest(){
+                var url = "{!SupportRequestURL}";
+                //alert(url);
+                parent.location.href = url;
+            }
+        
+        </script>
+
+         
+         
+            <apex:pageBlockSection title="Filter Criteria" collapsible="true" >
+                <!--<apex:outputLabel value="Specialization "/>-->
+                <!--<apex:selectList size="1" value="{!SpecialistUser.Specialist_Role__c}">
+                    <apex:selectOptions value="{!RoleOptions}"/>
+                </apex:selectList>-->
+                <apex:pageBlockSectionItem helpText="The Account Name the Opportunity is related to">
+                    Account Name
+                     <apex:inputText id="AccountName" value="{!accountName}" label="Account Name"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="Title of the job of a sales maker. (ex. SSE, SAE)">
+                    Job Title
+                    <apex:inputText id="JobTitle" value="{!JobTitle}" label="Job Title"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="Sales maker’s specific area of expertise 
+                (ex:services,storage specialist,network specialist etc) Do not use for Tiger Team support request.">
+                    Specialization
+                    <apex:inputText id="Specialization" value="{!Specialization}" label="Specialization"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="The Services line of business the sales maker falls under. (I&CC, Applications)">
+                    Services LOB
+                    <apex:inputText id="ServicesLOB" value="{!ServicesLOB}" label="Services LOB"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="Sales maker’s country of work.">
+                    Geography
+                    <apex:inputText id="Geography" value="{!Geography}" label="Geography"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="Specific territory the sales maker works in. (ex. North America East)">
+                    Territory
+                    <apex:inputText id="Territory" value="{!Territory}" label="Territory"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="The segment in which the sales maker primarily works in.">
+                    Segment Business Unit
+                    <apex:inputText id="SegmentBusinessUnit" value="{!SegmentBusinessUnit}" label="Segment Business Unit"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="Across the lines of businesses, the vertical represents the specific industry the sales maker specializes in. (ex. Healthcare, Banking and Financial, Commercial)">
+                    Verticals
+                    <apex:inputText id="Verticals" value="{!Verticals}" label="Verticals"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="Name of the sales maker.">
+                    Specialist Name
+                    <apex:inputText id="SpecialistName" value="{!SpecialistName}" label="Specialist Name"/>
+                </apex:pageBlockSectionItem>
+                <br/>
+                <apex:pageBlockSectionItem dataStyle="text-align:right">
+                    <!--<apex:commandButton action="{!Display}" value="Search" reRender="SpecialistTable, ButtonList"/>-->
+                    <apex:commandButton action="{!Display}" value="Search" style="Margin-left:20%"> 
+                    <input type="button" class="btn btn"  onclick="redirectToSupportRequest();" value="Go To Support Request"  />
+                    </apex:commandButton>
+                </apex:pageBlockSectionItem>
+                <br />
+            </apex:pageBlockSection>
+            <apex:pageBlockTable value="{!Specialist}" var="spe" id="SpecialistTable">
+                <apex:column headerValue="Select">
+                   
+                   <!-- Fenny TODO<apex:outputLink value="/a0J/e?RecordType=012Z00000000HmQ&CF00NZ0000000cb32_lkid ={!spe.User__r.Id}&CF00NZ0000000cb32={!spe.User__r.Name}&00NZ0000000c3a0={!spe.Specialization__c}&00NZ0000000WZAU=New&CF00N70000002NKud_lkid={!OppId}&CF00N70000002NKud={!OppName}&retURL=/apex/SpecialistSearch?id={!$CurrentPage.parameters.id}%26name={!$CurrentPage.parameters.name}%26country={!$CurrentPage.parameters.country}%26businessUnit={!$CurrentPage.parameters.businessUnit}%26verticals={!$CurrentPage.parameters.verticals}" style="color:blue">Select</apex:outputLink> -->
+                  <!-- <apex:outputLink value="/a0J/e?RecordType=012Z00000000HmQ&CF00NZ0000000cb32_lkid ={!spe.User__r.Id}&CF00NZ0000000cb32={!spe.User__r.Name}&00NZ0000000c3a0={!spe.Specialization__c}&00NZ0000000WZAU=New&CF00N70000002NKud_lkid={!OppId}&CF00N70000002NKud={!OppName}&retURL=/apex/SpecialistSearch?id={!$CurrentPage.parameters.id}%26name={!OppName}%26country={!$CurrentPage.parameters.country}%26businessUnit={!$CurrentPage.parameters.businessUnit}%26verticals={!$CurrentPage.parameters.verticals}" style="color:blue">Select</apex:outputLink>              -->
+                  <!--<apex:outputLink value="/a0J/e?RecordType=012Z00000000HmQ&CF00NZ0000000cb32_lkid ={!spe.User__r.Id}&CF00NZ0000000cb32={!spe.User__r.Name}&00NZ0000000c3a0={!spe.Specialization__c}&00NZ0000000WZAU=New&CF00N70000002NKud_lkid={!OppId}&CF00N70000002NKud={!OppName}&retURL=/apex/SpecialistSearch?id={!$CurrentPage.parameters.id}&name={!$CurrentPage.parameters.name}&country={!$CurrentPage.parameters.country}&businessUnit={!$CurrentPage.parameters.businessUnit}&verticals={!$CurrentPage.parameters.verticals}" style="color:blue">Select</apex:outputLink>-->
+               <!-- KP-->
+              <!--<apex:outputLink value="/a0J/e?RecordType=012Z00000000HmQ&CF00NZ0000000cb32_lkid={!spe.User__r.Id}&CF00NZ0000000cb32={!URLENCODE(spe.User__r.Name)}&00NZ0000000c3a0={!URLENCODE(spe.Specialization__c)}&00NZ0000000WZAU=New&CF00N70000002NKud_lkid={!OppId}&CF00N70000002NKud={!URLENCODE(OppName)}&retURL={!URLENCODE('/apex/SpecialistSearch?id=' + $CurrentPage.parameters.id + '&name=' + URLENCODE(OppName) + '&country=' + $CurrentPage.parameters.country+ '&businessUnit=' + URLENCODE($CurrentPage.parameters.businessUnit) + '&verticals=' + $CurrentPage.parameters.verticals)}" style="color:blue">Select</apex:outputLink>-->      
+                  <!--<apex:outputLink value="/a0J/e?RecordType=012Z0000000CviF&CF00NZ0000000ZNp6_lkid={!spe.User__r.Id}&CF00NZ0000000ZNp6={!URLENCODE(spe.User__r.Name)}&00NZ0000000ZNp7={!URLENCODE(spe.Specialization__c)}&00NZ0000000WZAU=New&CF00N70000002NKud_lkid={!OppId}&CF00N70000002NKud={!URLENCODE(OppName)}&retURL={!URLENCODE('/apex/SpecialistSearch?id=' + $CurrentPage.parameters.id + '&name=' + URLENCODE(OppName) + '&country=' + $CurrentPage.parameters.country+ '&businessUnit=' + URLENCODE($CurrentPage.parameters.businessUnit) + '&verticals=' + $CurrentPage.parameters.verticals)}" style="color:blue">Select</apex:outputLink>-->
+       <!-- Defect85614 changes start-->
+       <apex:outputLink rendered="{!spe.Specialization__c==NULL}" value="/a0J/e?RecordType=012A0000000ViNJ&CF00NA00000063f6t_lkid={!spe.User__r.Id}&CF00NA00000063f6t={!URLENCODE(spe.User__r.Name)}&00NZ0000000WZAU=New&CF00N70000002NKud_lkid={!OppId}&CF00N70000002NKud={!URLENCODE(OppName)}&retURL={!URLENCODE('/apex/SpecialistSearch?id=' + $CurrentPage.parameters.id + '&name=' + URLENCODE(OppName) + '&country=' + $CurrentPage.parameters.country+ '&businessUnit=' + URLENCODE($CurrentPage.parameters.businessUnit) + '&verticals=' + $CurrentPage.parameters.verticals)}" style="color:blue">Select</apex:outputLink>
+       <apex:outputLink rendered="{!spe.Specialization__c!=NULL}" value="/a0J/e?RecordType=012A0000000ViNJ&CF00NA00000063f6t_lkid={!spe.User__r.Id}&CF00NA00000063f6t={!URLENCODE(spe.User__r.Name)}&00NA00000063f7D={!URLENCODE(spe.Specialization__c)}&00NZ0000000WZAU=New&CF00N70000002NKud_lkid={!OppId}&CF00N70000002NKud={!URLENCODE(OppName)}&retURL={!URLENCODE('/apex/SpecialistSearch?id=' + $CurrentPage.parameters.id + '&name=' + URLENCODE(OppName) + '&country=' + $CurrentPage.parameters.country+ '&businessUnit=' + URLENCODE($CurrentPage.parameters.businessUnit) + '&verticals=' + $CurrentPage.parameters.verticals)}" style="color:blue">Select</apex:outputLink>
+       <!-- Defect 85614 changes end-->
+               <!-- KP-->
+               
+                </apex:column>
+                <apex:column headerValue="Specialist Name" value="{!spe.Name}"/>
+                <apex:column headerValue="Account Name" >{!connectUserAccountNames[spe.Id]} </apex:column>
+                <apex:column headerValue="Specialization" value="{!spe.Specialization__c}"/>
+                <apex:column headerValue="Geography" value="{!spe.Geography__c}"/>
+                <apex:column headerValue="Region" value="{!spe.Region__c}"/>
+                <apex:column headerValue="Segment Business Unit" value="{!spe.Segment_Business_Unit__c}"/>
+                <apex:column headerValue="Job Title" value="{!spe.Job_Title__c}"/>
+                <apex:column headerValue="Services LOB" value="{!spe.Services_LOB__c}"/>
+                <apex:column headerValue="Territory" value="{!spe.Territory__c}"/>
+                <apex:column headerValue="Verticals" value="{!spe.Verticals__c}"/>
+                <!--<apex:column headerValue="Work Phone" value="{!spe.User__r.Phone}"/>-->
+                <apex:column headerValue="Work Cell Phone" value="{!spe.User__r.MobilePhone}"/>
+                <!--<apex:column headerValue="Email" value="{!spe.User__r.Email}"/>-->
+            </apex:pageBlockTable>
+            <apex:pageBlockSection id="ButtonList" columns="4">
+                <apex:pageBlockSectionItem dataStyle="text-align:left;white-space:nowrap;width:5%">
+                    <apex:outputText value="{!RecordNumber}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem dataStyle="text-align:center">
+                    <apex:commandButton action="{!Previous}" value="Previous" disabled="{!disablePrevious}"/>
+                    <apex:commandButton action="{!Next}" value="Next" disabled="{!disableNext}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem dataStyle="text-align:center">
+                    <apex:commandButton action="{!gotoOpportunity}" value="Cancel" />
+                    <!-- <apex:commandButton value="Go To Support Request" onclick="redirectToSupportRequest()" />-->
+                  <!-- <input type="button" class="btn btn"  onclick="redirectToSupportRequest();" value="Go To Support Request"/> -->
+                </apex:pageBlockSectionItem>
+                 
+                <apex:pageBlockSectionItem dataStyle="text-align:right;white-space:nowrap;width:5%">
+                    <apex:outputText value="{!PageNumber}" />
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+       </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,179 @@
+<apex:page showHeader="false" 
+           standardController="Lead" 
+           extensions="VFCntrlr_SendDSTSuggestionCtrlExt" 
+            lightningStylesheets="true">
+           
+    <apex:includeScript value="{!$Resource.prototype}"/>
+    
+    <!-- START OF JAVASCRIPT BLOCK-->
+    
+    <script type="text/javascript">
+        
+        function hideAndShowComponents(hideThis,showThis){        
+                        
+            var component=$(hideThis);
+            if(component!=null){
+                component.style.display='none';
+            }
+            var component=$(showThis);
+            if(component!=null){
+                component.style.display='block';
+            }   
+        }              
+    </script>
+                                    
+    <!-- END OF JAVASCRIPT BLOCK-->
+    
+    <br/><br/><br/><br/>
+    
+    <table width="600px" cellpadding="0" cellspacing="0" align="center" border="0">
+        <tr><td>
+            <apex:form id="suggestionForm">   
+                     
+                
+                <!---------------------- Asks for confirmation before sending the DST suggestion -------->                  
+                <div id="confirmationPaneldiv">
+                
+                    <!--<apex:outputPanel rendered="false" id="confirmationPanel">-->
+                    
+                    <apex:outputPanel rendered="{!AND(strStatus == CONFIRM_SUGGESTION,!bError)}" id="confirmationPanel"> 
+                        <apex:pageMessage severity="confirm"
+                            strength="3"
+                            title="Confirmation required"
+                            detail="Are you sure you want to send the Account suggestion?" />
+                        
+                        <table align="center"><tr><td>
+                            <apex:commandButton value="Confirm" 
+                                                action="{!sendFirstSuggestion}" 
+                                                rerender="suggestionForm" 
+                                                onclick="hideAndShowComponents('confirmationPaneldiv','PleaseWaitBanner')"/>
+                                                
+                            <apex:commandButton value="Cancel" action="{!Cancel}" />
+                        </td></tr></table>
+                    </apex:outputPanel>
+                </div>                     
+                 
+                 
+                 
+                <!-- If duplicate exists -->
+                
+                <!--<apex:outputPanel rendered="false" id="duplicateFound">-->
+                 <apex:outputPanel rendered="{!AND(strStatus == DUPLICATE_EXISTS,!bError)}" id="duplicateFound">                 
+                    <apex:pageMessage id="duplicateMessage"
+                            severity="WARNING"
+                            strength="3"
+                            title="{!strDuplicationMessage}" >
+                                <ul>
+                                    <li>Click '<b>Send Again</b>' to ignore the duplicates and create new Account.</li>
+                                    <li>Click '<b>Cancel Suggestion</b>' to cancel the suggestion.</li>
+                                    <li>Click '<b>Back</b>' to navigate back to the lead page.</li>
+                                </ul> 
+                    </apex:pageMessage>                    
+                    
+                    <table align="center"><tr><td>
+                           <apex:commandButton value="Send Again" 
+                                               action="{!sendSecondSuggestion}" 
+                                               rerender="suggestionForm" 
+                                               onclick="hideAndShowComponents('$Component.duplicateFound','PleaseWaitBanner')"/>
+                                               
+                           <apex:commandButton value="Cancel Suggestion" 
+                                               action="{!cancelSuggestion}"
+                                               rerender="suggestionForm"/>
+                           <apex:commandButton value="Back" action="{!Cancel}" />
+                    </td></tr></table>                                              
+                    <hr/>
+                    
+                    <apex:outputText > 
+                        <b>Note:</b>    Clicking the 'Cancel Suggestion' will close the lead and you will not be able to process it again.
+                    </apex:outputText>
+                                       
+                </apex:outputPanel>
+                
+
+
+                <!----- Sending ..Banner -------->  
+                <div id="PleaseWaitBanner" style="display:none">
+                    
+                    <div id="processingMessage" align="center" style="visibility:block">
+                        <br/><br/>
+                        <h4> Sending Account suggestion...</h4>
+                        <br/> <br/><br/>
+                        <apex:image url="/img/waiting_dots.gif" alt=""/>
+                    </div>
+                    
+                    <br/><br/>
+                    
+                    <div id="warning" class="statusContainer">
+                        <apex:pageMessage id="errorMessage"
+                            severity="ERROR"
+                            strength="3"
+                            title="Please do not close or navigate away from this screen."
+                            detail="NOTE: This operation may take 15 to 30 seconds."/>
+                    </div>                    
+                </div>
+                
+                
+                
+                
+                
+                <!----- Validation Error -------->                  
+                
+                <!-- <apex:outputPanel rendered="false" id="validationErrorPanel"> -->
+                <apex:outputPanel rendered="{!AND(strStatus == VALIDATION_ERROR,!bError)}" id="validationErrorPanel">
+                    <apex:pageMessage severity="ERROR"
+                        strength="3"
+                        title="Validation Error"
+                        detail=" Error : {!strErrorDescription}{!strOracleError}" >                                
+                            <ul>
+                                <li>Click '<b>Continue</b>' to open the lead in Edit mode</li>                                    
+                                <li>Click '<b>Back</b>' to navigate back to the lead page.</li>
+                            </ul> 
+                    </apex:pageMessage>
+                        
+                    <table align="center"><tr><td>                                                                           
+                        <apex:commandButton value="Back" action="{!Cancel}" />
+                        <apex:commandButton value="Continue" action="{!goToEdit}" />                             
+                    </td></tr></table>
+                </apex:outputPanel>
+                
+                
+                
+                <!----- Successfully completed -------->    
+                
+                <!--<apex:outputPanel rendered="false" id="completedPanel">-->
+                 <apex:outputPanel rendered="{!AND(strStatus == PROCESS_COMPLETE,!bError)}" id="completedPanel"> 
+                        <apex:pageMessage severity="confirm"
+                            strength="2"
+                            title="Successfully submitted"
+                            detail="The Account suggestion has been successfully submitted : {!intSuggestionID}" />                                
+                        
+                        
+                        <table align="center"><tr><td>
+                            <apex:commandButton value="OK" action="{!Cancel}" />
+                        </td></tr></table>
+                        
+                        <hr/>
+                        <apex:outputText > <div style="text-align: center">
+                            <b>Note:</b>    As the suggestion is being procesed on DST side, the lead record is locked for editting</div>
+                        </apex:outputText>
+                        
+                </apex:outputPanel>
+                
+                
+                
+                 <!--  If error Occurred -->
+                
+                <apex:outputPanel rendered="{!bError}" id="errorPanel">
+                    <apex:pageMessages />
+                    
+                    <table align="center"><tr><td>
+                            <apex:commandButton value="Back" action="{!Cancel}" />
+                    </td></tr></table>
+                   
+                </apex:outputPanel>                
+                
+                
+            </apex:form>  
+        </td></tr>
+    </table>
+</apex:page>

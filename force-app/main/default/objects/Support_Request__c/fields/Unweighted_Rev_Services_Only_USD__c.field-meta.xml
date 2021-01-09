@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unweighted_Rev_Services_Only_USD__c</fullName>
+    <description>Created for CR 12118 to create the service only revenue in USD in support request</description>
+    <externalId>false</externalId>
+    <formula>Opportunity__r.Unweighted_Rev_Services_Only__c/ CURRENCYRATE(TEXT(CurrencyIsoCode))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Unweighted Rev Services Only USD</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

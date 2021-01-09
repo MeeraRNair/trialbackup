@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>R12_5_Prevent_Status_Update</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR
+(
+ 
+AND
+(
+CreatedById = $User.Id,
+ISCHANGED(Plan_Status__c) ,
+OR(
+ISPICKVAL(Plan_Status__c, &apos;Approved&apos;) , ISPICKVAL(Plan_Status__c, &apos;Rejected&apos;)
+)
+),
+ 
+AND
+(
+ISNEW(),
+OR(
+ISPICKVAL(Plan_Status__c, &apos;Approved&apos;) , ISPICKVAL(Plan_Status__c, &apos;Rejected&apos;)
+)
+)
+ 
+)</errorConditionFormula>
+    <errorDisplayField>Plan_Status__c</errorDisplayField>
+    <errorMessage>You are not authorized to Approve or Reject the Account Plan . Kindly submit the account plan for approval by clicking on “Submit for Approval” button</errorMessage>
+</ValidationRule>

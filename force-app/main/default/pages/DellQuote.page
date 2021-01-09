@@ -1,0 +1,139 @@
+<apex:page controller="QuoteController"  showHeader="false" >
+<apex:composition template="SalesCentralTemplate">
+    <apex:define name="body">
+    
+    <apex:outputPanel rendered="{!!(Quote.ID='')}">
+    
+<!-- paste this code for tree view -->
+<link href="{!$Resource.CSS_treestyler}" rel="stylesheet" type="text/css" media="screen" />
+<script language="JavaScript" type="text/javascript" src="{!$Resource.js_treestyler}"></script>
+<!-- end -->
+
+	<apex:outputPanel title="Quotation" layout="block" style="background-color:#FFFFFF">
+		<c:DellQuoteHeaderUS />
+	</apex:outputPanel>
+	
+    <apex:pageBlock title="Quote Summary" > 
+    	<TABLE>
+      		<TR>
+				<TD align=left>Product Subtotal:&nbsp;&nbsp;</TD>
+				<TD align=right>{!Quote.SubTotal}</TD>
+    		</TR>
+      		<TR>
+				<TD align=left>Tax:&nbsp;&nbsp;</TD>
+				<TD align=right>{!Quote.TaxTotal}</TD>
+    		</TR>
+    		<TR>
+				<TD align=left>Shipping & Handling:&nbsp;&nbsp;</TD>
+				<TD align=right>{!Quote.ShipTotal}</TD>
+				<TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+				<TD align=left><apex:outputText rendered="{!!(Quote.ShippingMethod='')}" >Shipping Method:&nbsp;{!Quote.ShippingMethod} </apex:outputText></TD>
+    		</TR>
+    		<TR>
+				<TD align=left>----------------------------</TD>
+				<TD align=left>-----------------</TD>
+    		</TR>
+    		<TR>
+				<TD align=left><STRONG>Total Price:&nbsp;&nbsp;</STRONG></TD>
+				<TD align=right><STRONG>{!Quote.TotalPrice}</STRONG></TD>
+    		</TR>  		
+    	</TABLE>               
+    </apex:pageBlock>
+    
+    <apex:pageBlock title="Products"> 
+ 		<ul id ="treemap">	     
+        <apex:pageBlockTable value="{!Quote.Items}" var="q">
+         
+            <apex:column HeaderValue="Description">
+                    <apex:repeat value="{!q.Description}"> 
+                        <li><a>{!q.Description}</a>
+                        	<apex:repeat value="{!q.Configuration}" var="c" > 
+                        		<ul>
+									<apex:repeat value="{!c.Options}" var="o" >                                          			
+                            			<li>
+                                 			<a>{!o.Description}</a><br/>                                     
+                              			</li>
+									</apex:repeat>
+								</ul>
+                        	</apex:repeat>
+                        </li>
+                    </apex:repeat>
+            </apex:column>
+                  
+            <apex:column value="{!q.Quantity}" HeaderValue="Quantity"/>
+            <apex:column value="{!q.TotalPrice}" HeaderValue="Price"/>
+            
+        </apex:pageBlockTable>
+       	</ul>
+                    
+    </apex:pageBlock> 
+    
+    <apex:pageBlock title="Billing Information">
+    
+    	<apex:outputText rendered="{!!(Quote.BillToContact.Name='')}" >{!Quote.BillToContact.Name} <br/></apex:outputText>
+        <apex:outputText rendered="{!!(Quote.BillToContact.Street1='')}" >{!Quote.BillToContact.Street1} <br/></apex:outputText>
+		<apex:outputText rendered="{!!(Quote.BillToContact.Street2='')}" >{!Quote.BillToContact.Street2} <br/></apex:outputText>
+		<apex:outputText rendered="{!!(Quote.BillToContact.Street3='')}" >{!Quote.BillToContact.Street3} <br/></apex:outputText>
+		<apex:outputText rendered="{!!(Quote.BillToContact.Street4='')}" >{!Quote.BillToContact.Street4} <br/></apex:outputText>
+		<apex:outputText rendered="{!!(Quote.BillToContact.City='')}" >{!Quote.BillToContact.City},&nbsp;</apex:outputText>
+		<apex:outputText rendered="{!!(Quote.BillToContact.Province='')}" >{!Quote.BillToContact.Province}&nbsp;</apex:outputText>
+		<apex:outputText rendered="{!!(Quote.BillToContact.PostalCode='')}" >{!Quote.BillToContact.PostalCode} <br/></apex:outputText>
+		<apex:outputText rendered="{!!(Quote.BillToContact.Homephone='')}" >Home Phone:&nbsp;{!Quote.BillToContact.Homephone} <br/><br/></apex:outputText>
+    
+    </apex:pageBlock>
+      
+    <apex:pageBlock title="Shipping Information"> 
+
+        <apex:outputText rendered="{!!(Quote.ShipToContact.Name='')}" >{!Quote.ShipToContact.Name} <br/></apex:outputText>
+        <apex:outputText rendered="{!!(Quote.ShipToContact.Street1='')}" >{!Quote.ShipToContact.Street1} <br/></apex:outputText>
+		<apex:outputText rendered="{!!(Quote.ShipToContact.Street2='')}" >{!Quote.ShipToContact.Street2} <br/></apex:outputText>
+		<apex:outputText rendered="{!!(Quote.ShipToContact.Street3='')}" >{!Quote.ShipToContact.Street3} <br/></apex:outputText>
+		<apex:outputText rendered="{!!(Quote.ShipToContact.Street4='')}" >{!Quote.ShipToContact.Street4} <br/></apex:outputText>
+		<apex:outputText rendered="{!!(Quote.ShipToContact.City='')}" >{!Quote.ShipToContact.City},&nbsp;</apex:outputText>
+		<apex:outputText rendered="{!!(Quote.ShipToContact.Province='')}" >{!Quote.ShipToContact.Province}&nbsp;</apex:outputText>
+		<apex:outputText rendered="{!!(Quote.ShipToContact.PostalCode='')}" >{!Quote.ShipToContact.PostalCode} <br/></apex:outputText>
+		<apex:outputText rendered="{!!(Quote.ShipToContact.Homephone='')}" >Home Phone:&nbsp;{!Quote.ShipToContact.Homephone} <br/><br/></apex:outputText>
+		<apex:outputText rendered="{!!(Quote.ShippingMethod='')}" >Shipping Method:&nbsp;{!Quote.ShippingMethod} <br/></apex:outputText>
+		
+		
+    </apex:pageBlock>
+	<br/>
+   	<apex:repeat value="{!Quote.SalesRepContact}" var="s"> 
+		<TABLE>
+      		<TR>
+				<TD align=left>SALES REP:&nbsp;&nbsp;</TD>
+				<TD align=left><STRONG>{!s.FullName}</STRONG></TD>
+				<TD>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+				<TD align=left>PHONE:&nbsp;</TD>
+				<TD align=left><STRONG>{!s.PhoneNumber}</STRONG></TD>
+				<TD align=left>&nbsp;&nbsp;Ext:&nbsp;</TD>
+				<TD align=left><STRONG>{!s.PhoneExtension}</STRONG></TD>
+    		</TR>
+    	</TABLE>
+	</apex:repeat>
+	<br/><br/>
+	
+	<apex:outputText escape="false" style="font-size: l4px; font-weight: bold;" value="Internal Document only. Do not send to customer.">
+    </apex:outputText>
+	<br/><br/>
+	
+	<apex:outputPanel rendered="{!!(Quote.GEDISCFOLink='')}">
+		<span class="LinkStyle"><a href="{!Quote.GEDISCFOLink}" target="_blank">Generate QuotePlus PDF</a></span>
+	<br/><br/>
+	</apex:outputPanel>
+	
+   	
+   	</apex:outputPanel>
+   	
+  	<apex:outputPanel rendered="{!(Quote.ID='')}">
+		<apex:image url="{!$Site.Prefix}{!$Label.site.img_path}/warning.gif"/>
+	   	<apex:outputText escape="false" style="font-size: larger; font-weight: bold;" value="Quote information is unavailable.">
+      	</apex:outputText>
+      	<br/><br/>
+      	<apex:pageMessages />
+      	
+	</apex:outputPanel>
+	
+    </apex:define>
+</apex:composition>
+</apex:page>

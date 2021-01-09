@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SnP_MS_Is_This_An_EA_VR</fullName>
+    <active>true</active>
+    <description>Is this an Enterprise Agreement? field in MS page layout is required for Sales users</description>
+    <errorConditionFormula>AND( ISPICKVAL( Is_this_an_Enterprise_Agreement__c , &quot;&quot;),
+OR(CONTAINS($Profile.Name, &quot;GBL EMEA Sales Mgr&quot;),
+CONTAINS($Profile.Name, &quot;GBL EMEA Sales Rep&quot;),
+CONTAINS($Profile.Name, &quot;GBL Sales Manager_CEO&quot;),
+CONTAINS($Profile.Name, &quot;GBL Sales Mgr&quot;),
+CONTAINS($Profile.Name, &quot;GBL Sales Rep&quot;),
+CONTAINS($Profile.Name, &quot;JPN Sales Mgr&quot;),
+CONTAINS($Profile.Name, &quot;JPN Sales Rep&quot;),
+CONTAINS($Profile.Name, &quot;GBL Sales Operation Support&quot;),
+CONTAINS($Profile.Name, &quot;GBL KACE ASR&quot;),
+CONTAINS($Profile.Name, &quot;GBL Dell Services Mgr&quot;),
+CONTAINS($Profile.Name, &quot;GBL Dell Services Rep&quot;),
+CONTAINS($Profile.Name, &quot;MSG Service Sales&quot;),
+CONTAINS($Profile.Name, &quot;Services Solution competency Profile - Non SSO&quot;)),
+S_P_Vendors_Name__c = &quot;Microsoft&quot;,
+Customer_Name__c &lt;&gt; &quot;&quot;,
+DATEVALUE(CreatedDate) &gt; DATE(2013,3,4) 
+)</errorConditionFormula>
+    <errorMessage>Is this an Enterprise Agreement?” field must be specified</errorMessage>
+</ValidationRule>

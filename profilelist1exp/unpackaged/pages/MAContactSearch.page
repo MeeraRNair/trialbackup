@@ -1,0 +1,107 @@
+<apex:page standardcontroller="Referral_Lead__c"    
+    extensions="MAReferralLeadExt"
+    sidebar="false"
+    showheader="true"
+    standardStylesheets="false"
+    id="p"
+    action="{!doPageLoad}" lightningStylesheets="true"
+    >
+
+<apex:form >
+
+ <apex:sectionHeader title="{!$Label.Boomi_SearchTitle}" subtitle="{!$Label.Boomi_contact}"/>
+
+  
+ <apex:outputPanel rendered="{!showErrorMsg}">
+  <apex:pageMessages /> 
+ </apex:outputPanel>
+ 
+ 
+ <apex:outputPanel rendered="{!NOT(showErrorMsg)}">
+  
+ <table width="100%" cellpadding="0" cellspacing="0" align="center" border="0">
+             
+               
+                <tr>
+                    <td> 
+                        <apex:pageBlock title="{!$Label.Boomi_SearchResult_Title}" tabStyle="Contact">
+                            <apex:pageBlockButtons rendered="{!showCreateButton}">
+                                    <apex:commandButton action="{!doCreateContact}" value="{!$Label.Boomi_button_new}" />
+                                    <apex:commandButton action="{!doCancel}" value="Cancel" />
+                             </apex:pageBlockButtons>
+                            <apex:pageblockTable value="{!contactPaginationList}" var="singlecontact" columns="6">
+                                <apex:column >   
+                                     <apex:facet name="header">{!$Label.Boomi_table_action}</apex:facet>                                        
+                                     <apex:outputPanel >
+                                         <apex:commandLink id="selected" value="Associate" action="{!doSelectContact}"  rendered="true">
+                                         <apex:param id="linkcontactID" name="linkcontactID" value="{!singlecontact.id}"/>
+                                         <apex:param id="linkcontactName" name="linkcontactName" value="{!singlecontact.name}"/>                                                                             
+                                         <apex:param id="linkcontactMailingPostalCode" name="linkcontactMailingPostalCode" value="{!singlecontact.MailingPostalCode}"/>
+                                    </apex:commandLink>
+                                    </apex:outputPanel>
+                                </apex:column>
+                                <apex:column >
+                                    <apex:facet name="header">{!$Label.Boomi_table_Name}</apex:facet>  
+                                    <apex:outputPanel >
+                                    <apex:outputLink value="/{!singlecontact.id}" target="_blank">{!singlecontact.name}</apex:outputLink>
+                                    </apex:outputPanel>
+                                </apex:column>
+                                
+                                 <apex:column >
+                                     <apex:facet name="header">{!$Label.Boomi_table_Account}</apex:facet>
+                                      <apex:outputPanel >
+                                        {!singlecontact.account.name} 
+                                      </apex:outputPanel>
+                                 </apex:column>
+                                
+                                 <apex:column >                                     
+                                    <apex:facet name="header">{!$Label.Boomi_table_phone}</apex:facet> 
+                                    <apex:outputPanel > {!singlecontact.phone} </apex:outputPanel>
+                                 </apex:column>
+                                
+                               <apex:column >                                     
+                                    <apex:facet name="header">{!$Label.Boomi_table_mobile}</apex:facet> 
+                                    <apex:outputPanel > {!singlecontact.MobilePhone} </apex:outputPanel>
+                                 </apex:column>
+                               
+                                 <apex:column >                                     
+                                    <apex:facet name="header">{!$Label.Boomi_table_email}</apex:facet> 
+                                    <apex:outputPanel > {!singlecontact.Email} </apex:outputPanel>
+                                 </apex:column>
+                               
+                                <apex:facet name="footer">
+                                    <apex:outputPanel >
+                                          <p align="center">
+                                            <!-- <apex:outputText value="Page {!acctPaginator.pageNumberDisplayFriendly} of {!acctPaginator.pageCount} in {!acctPaginator.recordCount} Results"/> -->
+                                            <apex:outputPanel >    </apex:outputPanel>
+                                            <apex:commandLink value="< Previous " action="{!contactPaginator.previous}"
+                                                rendered="{!IF(contactPaginator.hasPrevious,'true','false')}"/>
+                                             <apex:outputText value="< Previous " rendered="{!IF(NOT(contactPaginator.hasPrevious),'true','false')}"/> 
+                                                <apex:outputPanel >    </apex:outputPanel>
+                                                <apex:outputText rendered="{!IF((contactPaginator.pageCount>0),'true','false')}" value="({!contactPaginator.pageNumberDisplayFriendly} - {!contactPaginator.pageCount})" ></apex:outputText>
+                                                <apex:outputPanel >    </apex:outputPanel>
+                                            <apex:commandLink value=" Next >" action="{!contactPaginator.next}"
+                                                rendered="{!IF(contactPaginator.hasNext,'true','false')}"/>
+                                             <apex:outputText value=" Next >" rendered="{!IF(NOT(contactPaginator.hasNext),'true','false')}"/> 
+                                            </p>
+                                    </apex:outputPanel>
+                                </apex:facet>
+                             
+                            
+                            </apex:pageblockTable>
+                        </apex:pageBlock>  
+                    </td>
+                </tr>
+                <tr><td>&nbsp;</td></tr>
+                
+                                
+                
+             </table>
+ 
+ </apex:outputPanel>
+
+
+</apex:form>
+
+
+</apex:page>

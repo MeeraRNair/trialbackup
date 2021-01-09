@@ -1,0 +1,14 @@
+<!--*
+ * Author   : Subramani Ramamurthy
+ * Purpose  : This page is used to update the Lead Status Field to Closed - Work.
+ *
+ * Revision  CR Number   Release No      Date           Modified By             Description
+ * --------  ---------   ----------      -----------    -----------             -----------
+ * 1.0       CR 15625    FY19-DCE-0502   9-APr-2018     Subramani Ramamurthy    Channel Lead Status Field.
+
+
+*-->
+
+<apex:page standardController="Lead" extensions="CloseChannelUpdateLeadExtension" action="{!LeadChannelUpdate}" lightningStylesheets="{!$User.UITheme != 'Theme3'}">
+<apex:pageMessages ></apex:pageMessages>
+</apex:page>

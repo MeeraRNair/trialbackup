@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CSE_Unassigned_Requests</fullName>
+    <columns>Opportunity__c</columns>
+    <columns>NAME</columns>
+    <columns>Request_Description__c</columns>
+    <columns>Status__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Project_Manager__c</columns>
+    <columns>Business_Consultant__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Support_Request__c.Request_PG_Custom_Solutions_Engineering_Support</value>
+    </filters>
+    <label>CSE - all requests</label>
+    <language>en_US</language>
+</ListView>

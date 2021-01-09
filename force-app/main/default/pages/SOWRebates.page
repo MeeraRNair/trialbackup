@@ -1,0 +1,358 @@
+<apex:page standardController="Marketing_Plan__c"  extensions="VFCntlr_RebatesSOW"
+            showHeader="False" contentType="application/msword#SOWRebates.doc" cache="true">
+<head>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+</head>
+
+    <html Content-Type="application/vnd.msword#SOWRebates.doc">
+        <head>
+        <style>
+        @page divbreak
+        {
+            margin:.25in .25in .25in .25in;
+        }
+        div.divbreak {page:divbreak;}
+        td.data{border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;border-collapse:collapse;}
+        table.Bdr{border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;border-collapse:collapse;}
+
+        </style>
+        </head>
+    <body>
+
+        <br clear="all" style="page-break-before:always"/>
+        <div class="divbreak">
+
+        <!---------------------------------- Header-------------------------------------------------------->
+
+            <table width="90%" align="center" >
+                <tr>
+                    <td width="40%" align="left" style="font-size:19px" ><b> <I> {!Marketing_Plan__c.fiscal_quarter__c} </I> </b></td>
+                    <td width="60%" align="right"><b> <I> {!Marketing_Plan__c.Reply_Method__c} </I> </b></td>
+                </tr>
+                <tr><td align="left"  style="font-size:19px" colspan="2"><b> <I> Dell  S&amp;P Marketing Program - Rebate ("SOW")</I> </b></td>
+                </tr>
+            </table>
+            <br></br>
+
+            <!----------------------------------- Primary Contact Info ---------------------------------------------->
+
+            <table  width="90%" align="center">
+                <tr>
+                    <td  style="font-size:16px" > <b> <I> Participant Primary Contact Information: (please print) </I> </b> </td>
+                </tr>
+            </table>
+
+            <table  width="90%" align="center" style="border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;">
+                <tr>
+                    <td colspan="3" class="data">Company Name:{!Marketing_Plan__c.vendor__r.name}</td>
+                </tr>
+                <tr>
+                    <td  colspan="2" class="data">Primary Marketing Contact Name:{!Marketing_Plan__c.Primary_Marketing_Contact_Name__c}</td>
+                    <td class="data">Phone:{!Marketing_Plan__c.Primary_Marketing_Contact_Phone__c} </td>
+                </tr>
+                <tr>
+                    <td  colspan="2" class="data">Primary Marketing Contact Title:{!Marketing_Plan__c.Primary_Marketing_Contact_Title__c}</td>
+                    <td>Fax:{!Marketing_Plan__c.Primary_Marketing_Contact_Fax__c}</td>
+                </tr>
+                <tr>
+                    <td  colspan="2" class="data">Primary Marketing Contact E-mail:{!Marketing_Plan__c.Primary_Marketing_Contact_E_mail__c}</td>
+                    <td class="data">Cell:{!Marketing_Plan__c.Primary_Marketing_Contact_Cell__c}</td>
+                </tr>
+                <tr>
+                    <td  colspan="3" class="data">Address:{!Marketing_Plan__c.Primary_Marketing_Contact_Address__c}</td>
+                </tr>
+               <!--  <tr>
+                    <td class="data">City:{!Marketing_Plan__c.Primary_Marketing_Contact_City__c}</td>
+                    <td class="data">State:{!Marketing_Plan__c.Primary_Marketing_Contact_State__c}</td>
+                    <td class="data">Zip:{!Marketing_Plan__c.Primary_Marketing_Contact_Zip__c}</td>
+                </tr> -->
+                <tr>
+                    <td colspan="3" class="data">City/State/Postal Code/Country: {!addMarketingStr}</td>            
+                </tr>
+            </table>
+
+            <br></br>
+
+            <!----------------------------------- Billing Contact Info ---------------------------------------------->
+
+            <table  width="90%" align="center">
+                <tr>
+                    <td style="font-size:16px"><b><I> Participant Bill to Contact Information: (please print) </I></b></td>
+                </tr>
+            </table>
+
+            <table  width="90%" align="center" style="border-style:solid;border-width: 1px 1px 1px 1px;border-color: #000000;">
+                <tr>
+                    <td colspan="3" class="data">Company Name:{!Marketing_Plan__c.vendor__r.name}</td>
+
+                </tr>
+                <tr>
+                    <td  colspan="2" class="data">AP / Billing Contact Name:{!Marketing_Plan__c.Billing_Contact_Name__c}</td>
+                    <td class="data">Phone:{!Marketing_Plan__c.Billing_Contact_Phone__c}</td>
+                </tr>
+                <tr>
+                    <td  colspan="2" class="data">AP / Billing Contact Title:{!Marketing_Plan__c.Billing_Contact_Title__c}</td>
+                    <td class="data">Fax:{!Marketing_Plan__c.Billing_Fax__c}</td>
+                </tr>
+                <tr>
+                    <td  colspan="2" class="data">AP / Billing Contact E-mail:{!Marketing_Plan__c.Billing_Contact_Email__c}</td>
+                    <td class="data">Cell:{!Marketing_Plan__c.Billing_Cell__c}</td>
+                </tr>
+                <tr>
+                    <td  colspan="3" class="data">Bill-to Address :{!Marketing_Plan__c.Bill_To_Address__c}</td>
+                </tr>
+               <!--  <tr>
+                    <td class="data">City:{!Marketing_Plan__c.Billing_City__c}</td>
+                    <td class="data">State:{!Marketing_Plan__c.Billing_State__c}</td>
+                    <td class="data">Zip:{!Marketing_Plan__c.Billing_Zip__c}</td>
+                </tr> -->
+                <tr>
+                    <td colspan="3" class="data">City/State/Postal Code/Country: {!addBillingStr}</td>            
+                </tr>
+
+                <tr>
+                    <td  colspan="3" class="data" >Is PO or PA # required for invoicing?
+                     Yes () No () If "Yes" , provide PO or PA # : {!Marketing_Plan__c.Purchase_Order__c}</td>
+                </tr>
+            </table>
+
+            <br></br>
+
+            <!----------------------------------- Performance Info ---------------------------------------------->
+            <table  width="90%" align="center" style="border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;">
+                <tr>
+                    <td width="25%">Performance Dates :</td> <td> {!Marketing_Plan__c.Fiscal_Quarter__c} {!years}</td>
+
+                </tr>
+                <tr>
+                    <td width="25%">Participant Name  : </td><td>{!Marketing_Plan__c.Vendor__r.name} </td>
+
+                </tr>
+                <tr>
+                    <td width="25%">Program Type      : </td><td> Dell S&amp;P Rebate(s) </td>
+
+                </tr>
+                <tr>
+                    <td width="25%">Program Name      : </td><td><b>{!Marketing_Plan__c.Rebate_Rule_Header__r.Name}</b>(see attached rebate rules)</td>
+                </tr>
+
+            </table>
+                      <br></br>
+
+            <!----------------------------------- Message ---------------------------------------------->
+            <table  width="90%" align="center">
+                <tr>
+                    <td style="font-size:12px"> {!Marketing_Plan__c.Vendor__r.Terms_Conditions_reference_language__c}  </td>
+                </tr>
+            </table>
+            <br></br>
+
+            <!----------------------------------- Signature ---------------------------------------------->
+            <table  width="90%" align="center" style="border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;font-size:15px;">
+                <tr>
+                    <td style="font-size:15px">AUTHORIZED SIGNATURE (Participant):</td>
+                    <td>Company:___________________________________________</td>
+                </tr>
+                <tr>
+                    <td> </td>
+                    <td>By:_______________________________Date:____________</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>(Participant Signature)</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>___________________________________________________</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>(Print name)</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>___________________________________________________</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>(Print title)</td>
+                </tr>
+            <br> </br>
+            <br> </br>
+                <tr>
+                    <td style="font-size:15px">AUTHORIZED SIGNATURE (Dell):</td>
+                    <td>{!Marketing_Plan__c.Vendor__r.Dell_Entity__c} </td>
+                </tr>
+                <tr>
+                    <td> </td>
+                    <td>By:_______________________________Date:____________</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <!--<td>(Marketing Contact)</td>-->
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>___________________________________________________</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>(Print name)</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>___________________________________________________</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>(Print title)</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="divbreak">
+        <br clear="all" style="page-break-before:always"/>
+            <table width="90%" align="center"  class="Bdr" bgcolor="#DCDCDC" >
+                <tr><td align="left"><b>{!Marketing_Plan__c.Vendor__r.name}</b></td><td align="right"><b>Rebate Rules</b></td></tr>
+            </table>
+        <br></br>
+            <table  width="90%" align="center"  class="Bdr">
+                <tr>
+                    <td colspan="2" bgcolor="#DCDCDC"><b>*{!Marketing_Plan__c.Rebate_Rule_Header__r.Region__c} - *{!Marketing_Plan__c.Rebate_Rule_Header__r.Sub_Region__c}</b></td>
+                </tr>
+            <tr>
+                <td class="data" width="60%"><b>{!Marketing_Plan__c.Rebate_Rule_Header__r.Name}</b></td>
+                <td class="data" width="40%"><b>{!Marketing_Plan__c.Vendor__r.name}</b></td>
+            </tr>
+            <tr>
+                <td class="data" width="60%"><b>{!Marketing_Plan__c.Fiscal_Quarter__c}</b></td>
+                <td class="data" width="40%"></td>
+            </tr>
+            </table>
+            <br></br>
+<!----------------------------------- Rebate Rule Section  ---------------------------------------------->
+
+            <table  width="90%" align="center" >
+                <tr>
+                    <td style="font-size:16px"><b><I> Rebate Rules </I></b></td>
+                </tr>
+                </table>
+            <table  width="90%" align="center" style="font-size:15px">
+                <tr>
+                    <td><b> Rebate Name :</b> {!Marketing_Plan__c.Rebate_Rule_Header__r.Name}</td>
+                </tr>
+            </table>
+
+<!------------------------------------SKU type Line Item ----------------------------------->
+        <apex:repeat value="{!lineitem}" var="Item"  rendered="{!SKU_RT}" >
+
+            <table width="90%" align="center" style="border-style:solid;border-width: 1px 1px 1px 1px;border-color: #000000;font-size:15px;" class="Bdr">
+                <tr >
+                    <td ><b> <apex:outputLabel value="Business Segment" rendered="{!SKU_business}" />  </b></td>
+                    <td ><b> <apex:outputLabel value="Amount/Unit" rendered="{!SKU_amount}" />  </b></td>
+                    <td ><b> <apex:outputLabel value="Rebate %" rendered="{!SKU_rebate}" /> </b></td>
+                    <td ><b> <apex:outputLabel value="Dell Sku" rendered="{!SKU_sku}" /> </b></td>
+                    <td ><b> <apex:outputLabel value="Mfg Part No" rendered="{!SKU_mfg}" /> </b></td>
+                    <td ><b> <apex:outputLabel value="Effective Date" /> </b></td>
+                    <td ><b> <apex:outputLabel value="Max $ Amount" rendered="{!SKU_maxAmount}" /> </b></td>
+                    <td ><b> <apex:outputLabel value="Min Units" rendered="{!SKU_minUnit}" /> </b></td>
+                    <td ><b> <apex:outputLabel value="Max Units" rendered="{!SKU_maxUnit}" /></b></td>
+                    <td ><b> <apex:outputLabel value="Comments" rendered="{!SKU_comments}" /></b></td>
+                </tr>
+
+                <apex:repeat value="{!RRLI_List_SKU}" var="I">
+                    <tr>
+                        <td > <apex:outputField value="{!I.Business_Segment__c}" rendered="{!SKU_business}" /> </td>
+                        <td > <apex:outputField value="{!I.Amount__c}" rendered="{!SKU_amount}" /> </td>
+                        <td > <apex:outputLabel value="{!I.Rebate__c}" rendered="{!SKU_rebate}" /> </td>
+                        <td > <apex:outputLabel value="{!I.Dell_SKU__c}" rendered="{!SKU_sku}" /> </td>
+                        <td > <apex:outputLabel value="{!I.Mfg_SKU__c}" rendered="{!SKU_mfg}" /> </td>
+                        <td > <apex:outputLabel value="{!MONTH(I.Effective_Date_From__c)}/{!DAY(I.Effective_Date_From__c)}/{!RIGHT(TEXT(Year(I.Effective_Date_From__c)),2)}  -
+                              {!MONTH(I.Effective_Date_To__c)}/{!DAY(I.Effective_Date_To__c)}/{!RIGHT(TEXT(Year(I.Effective_Date_To__c)),2)}" />
+                        </td>
+                        <td > <apex:outputField value="{!I.Max_Amount__c}" rendered="{!SKU_maxAmount}" /> </td>
+                        <td > <apex:outputField value="{!I.Min_Units__c}" rendered="{!SKU_minUnit}" /> </td>
+                        <td > <apex:outputField value="{!I.Max_Units__c}" rendered="{!SKU_maxUnit}" /> </td>
+                        <td > <apex:outputLabel value="{!I.Comments__c}" rendered="{!SKU_comments}" /> </td>
+                    </tr>
+                </apex:repeat>
+
+            </table>
+            <br></br>
+            </apex:repeat>
+
+<!------------------------------------Class/Sub Class type Line Item ----------------------------------->
+
+            <apex:repeat value="{!lineitem}" var="Item" rendered="{!Class_RT}" >
+
+            <table width="90%" align="center" style="border-style:solid;border-width: 1px 1px 1px 1px;border-color: #000000;font-size:15px;" class="Bdr">
+                <tr>
+                    <td ><b> <apex:outputLabel value="Business Segment" rendered="{!Class_business}" />  </b></td>
+                    <td ><b> <apex:outputLabel value="Amount/Unit" rendered="{!Class_amount}" />  </b></td>
+                    <td ><b> <apex:outputLabel value="Rebate %" rendered="{!Class_rebate}" /> </b></td>
+                    <td ><b> <apex:outputLabel value="Class" rendered="{!Class_class}" /> </b></td>
+                    <td ><b> <apex:outputLabel value="Sub Class" rendered="{!Class_subClass}" /> </b></td>
+                    <td ><b> <apex:outputLabel value="Effective Date" /> </b></td>
+                    <td ><b> <apex:outputLabel value="Max $ Amount" rendered="{!Class_maxAmount}" /> </b></td>
+                    <td ><b> <apex:outputLabel value="Min Units" rendered="{!Class_minUnit}" /> </b></td>
+                    <td ><b> <apex:outputLabel value="Max Units" rendered="{!Class_maxUnit}" /></b></td>
+                    <td ><b> <apex:outputLabel value="Comments" rendered="{!Class_comments}" /></b></td>
+                </tr>
+
+                <apex:repeat value="{!RRLI_List_Class}" var="I">
+                    <tr >
+                        <td > <apex:outputField value="{!I.Business_Segment__c}" rendered="{!Class_business}" /> </td>
+                        <td > <apex:outputLabel value="{!I.Amount__c}" rendered="{!Class_amount}" /> </td>
+                        <td > <apex:outputLabel value="{!I.Rebate__c}" rendered="{!Class_rebate}" /> </td>
+                        <td > <apex:outputLabel value="{!I.Class__c}" rendered="{!Class_class}" /> </td>
+                        <td > <apex:outputLabel value="{!I.Sub_Class__c}" rendered="{!Class_subClass}" /> </td>
+                        <td > <apex:outputLabel value="{!MONTH(I.Effective_Date_From__c)}/{!DAY(I.Effective_Date_From__c)}/{!RIGHT(TEXT(Year(I.Effective_Date_From__c)),2)}  -
+                              {!MONTH(I.Effective_Date_To__c)}/{!DAY(I.Effective_Date_To__c)}/{!RIGHT(TEXT(Year(I.Effective_Date_To__c)),2)}" />
+                        </td>
+                        <td > <apex:outputField value="{!I.Max_Amount__c}" rendered="{!Class_maxAmount}" /> </td>
+                        <td > <apex:outputField value="{!I.Min_Units__c}" rendered="{!Class_minUnit}" /> </td>
+                        <td > <apex:outputField value="{!I.Max_Units__c}" rendered="{!Class_maxUnit}" /> </td>
+                        <td > <apex:outputLabel value="{!I.Comments__c}" rendered="{!Class_comments}" /> </td>
+                    </tr>
+                </apex:repeat>
+
+            </table>
+            <br></br>
+            </apex:repeat>
+
+<!------------------------------------Flat Rate type Line Item ----------------------------------->
+            <apex:repeat value="{!lineitem}" var="Item" rendered="{!FR_RT}" >
+            <table width="90%" align="center" style="border-style:solid;border-width: 1px 1px 1px 1px;border-color: #000000;font-size:15px;" class="Bdr">
+                <tr>
+                    <td ><b> <apex:outputLabel value="Business Segment" rendered="{!FR_business}" /></b></td>
+                    <td ><b> <apex:outputLabel value="Flat Rate in $/Unit" rendered="{!FR_flatrate}" />  </b></td>
+                    <td ><b> <apex:outputLabel value="Mfg Part No" rendered="{!FR_mfg}" /> </b></td>
+                    <td ><b> <apex:outputLabel value="Effective Date" /> </b></td>
+                    <td ><b> <apex:outputLabel value="Comments" rendered="{!FR_comments}" /></b></td>
+                </tr>
+
+                <apex:repeat value="{!RRLI_List_FR}" var="I">
+                    <tr style="border-bottom: solid 1px black;">
+                        <td > <apex:outputField value="{!I.Business_Segment__c}" rendered="{!FR_business}" /> </td>
+                        <td > <apex:outputLabel value="{!I.Flat_Rate__c}" rendered="{!FR_flatrate}" />  </td>
+                        <td > <apex:outputLabel value="{!I.Mfg_SKU__c}" rendered="{!FR_mfg}" /> </td>
+                        <td > <apex:outputLabel value="{!MONTH(I.Effective_Date_From__c)}/{!DAY(I.Effective_Date_From__c)}/{!RIGHT(TEXT(Year(I.Effective_Date_From__c)),2)}  -
+                              {!MONTH(I.Effective_Date_To__c)}/{!DAY(I.Effective_Date_To__c)}/{!RIGHT(TEXT(Year(I.Effective_Date_To__c)),2)}"  />
+                        </td>
+                        <td > <apex:outputLabel value="{!I.Comments__c}" rendered="{!FR_comments}" /> </td>
+                    </tr>
+                </apex:repeat>
+            </table>
+            <br></br>
+            </apex:repeat>
+
+
+        <table width="90%" align="center" style="border-style:solid;border-width: 1px 1px 1px 1px;border-color: ##000000;"  class="data">
+            <tr> <td width="30%">Program Type:</td> <td>Rebate</td><td></td> </tr>
+        </table>
+        <br></br>
+
+        </div>
+    </body>
+    </html>
+</apex:page>

@@ -1,0 +1,171 @@
+<apex:page controller="PartnerFinderSearchCtrl"
+	sidebar="false"
+	tabStyle="Account"
+	language="{!preferredLanguageCode}">
+      
+	<apex:outputPanel rendered="{!ISNULL(accountDataHolder)}">
+	
+		<!-- BEGIN SEARCH SCREEN -->
+	   	<apex:form > 
+		    <apex:includeScript value="{!$Resource.prototype}"/>
+		    <apex:includeScript value="{!$Page.jsScriptaculous}?load=effects"/>
+		    <script type="text/javascript">
+		    	function toggleSearchTips(){
+		    		if($('SearchTips').visible()){
+				    	$('SearchTips').hide(); 
+				    	$('ToggleSearchTipsLink').update('{!$Label.show_search_tips}');
+		    		} else {
+				    	Effect.SlideDown('SearchTips'); 
+				    	$('ToggleSearchTipsLink').update('{!$Label.hide_search_tips}');
+		    		}
+			    }
+		    </script>
+		    <apex:sectionHeader title="{!$Label.partner_finder}"/>
+	 		<apex:pageMessage severity="ERROR"
+				strength="3"
+				title="{!$Label.search_too_broad}"
+				detail="{!$Label.search_too_broad_details}"
+				rendered="{!errorTooManySearchResults}"/>
+	 		<apex:pageMessage severity="ERROR"
+				strength="3"
+				title="{!$Label.no_records_found}"
+				detail="{!$Label.no_records_found_details}"
+				rendered="{!errorNoSearchResults}"/>
+			<apex:pageMessages />
+	    	<table width="100%" cellpadding="0" cellspacing="0" align="center" border="0">
+	            <tr>
+		            <td> 
+		                <table width="100%" align="left" border="0" cellpadding="0" cellspacing="0" style="background-color: #d9d9d9;font-size: 97%;float: none;margin-top: 0pt;margin-right: 0pt;margin-bottom: 0pt;margin-left: 0pt;padding-top: 9px;">
+		                    <tr>
+		                        <td>
+		                            <table align="left" border="0" cellpadding="1" cellspacing="1">
+		                                <tr>
+		                                    <td valign="middle" align="left" 
+		                                    	style="font-family: 'Verdana','Geneva',sans-serif;font-size: 100%;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;margin-left: 0px;display: inline;text-align: left;font-weight: bold;padding-right: 0.69em;">&nbsp;&nbsp;{!$Label.search}:</td>
+		                                    <td align="left" valign="middle">
+		                                    	<apex:inputText size="60" id="SearchString" value="{!searchString}"/>
+		                                    	<apex:commandButton id="SearchButton" value="{!$Label.search}" action="{!doSearch}"/>
+		                                    </td>
+		                                    <td>
+		                                    	<a href="#" onclick="toggleSearchTips()" id="ToggleSearchTipsLink">{!$Label.show_search_tips}</a>
+		                                    </td>
+		                                </tr>
+		                            </table>
+		                        </td>
+		                    </tr>
+		                </table>
+		            </td>
+		        </tr>
+	            <tr><td>&nbsp;</td></tr>
+	            <tr><td>
+	            	<div id="SearchTips" style="display:none;">
+	            		<div>
+			                <table width="100%" align="left" cellpadding="5" cellspacing="0" style="border-style: solid; border-color: #000000; border-width: 1px;">
+			                	<tr><td style="border-bottom-style: solid; border-bottom-color: #000000; border-bottom-width: 1px; background-color: #dddddd;"><h3>{!$Label.search_tips}</h3></td></tr>
+			                    <tr>
+			                        <td>
+								   		{!$Label.search_tips_line_1}<br/>
+								   		<br/>
+								   		{!$Label.search_tips_line_2}<br/>
+								   		<br/>
+								   		<b>{!$Label.example_searches}:</b><br/>
+								   		<br/>
+								   		Acme* <i>({!$Label.finds_all_partners_whose_name_begins_with} Acme)</i><br/>
+								   		78664 <i>({!$Label.finds_all_partners_in_postal_code} 78664)</i><br/>
+								   		Miami <i>({!$Label.finds_all_partners_in_city} Miami)</i><br/>
+			                        </td>
+			                    </tr>
+			                </table>
+	            		</div>
+	            	</div>
+	            </td></tr>
+	            <tr><td>&nbsp;</td></tr>
+	            <tr>
+	                <td> 
+	                    <apex:pageBlock title="{!$Label.search_results} [{!searchResultsCount}]" tabStyle="Account">
+	                        <apex:pageblockTable value="{!searchResults}" var="singleSearchResult" columns="2">
+	                            <apex:column headerValue="{!$Label.name}">
+			                         <apex:commandLink value="{!singleSearchResult.Name}" action="{!doSelectAccount}">
+			                             <apex:param id="accountId" name="accountId" value="{!singleSearchResult.Id}"/>
+			                         </apex:commandLink>
+	                            </apex:column>
+	                            <apex:column headerValue="{!$Label.description}" value="{!singleSearchResult.Partner_Finder_Business_Description__c}"/>
+	                            <apex:column headerValue="{!$Label.city}" value="{!singleSearchResult.ShippingCity}"/>
+	                            <apex:column headerValue="{!$Label.state_province}" value="{!singleSearchResult.ShippingState}"/>
+	                            <apex:column headerValue="{!$Label.postal_code}" value="{!singleSearchResult.ShippingPostalCode}"/>
+	                            <apex:column headerValue="{!$Label.country}" value="{!singleSearchResult.Account_Country__c}"/>
+	                        </apex:pageblockTable>
+	                    </apex:pageBlock>  
+	                </td>
+	            </tr>
+	         </table>
+		</apex:form>        
+		<!-- END SEARCH SCREEN -->
+	</apex:outputPanel>
+	<apex:outputPanel rendered="{!NOT(ISNULL(accountDataHolder))}">
+		<!-- BEGIN DETAILS SCREEN -->
+	    <apex:includeScript value="{!$Resource.prototype}"/>
+		<apex:includeScript value="http://maps.google.com/maps?file=api&v=2&sensor=false&key=ABQIAAAAGoaVQBOkOH9-phmBkZXqchQdMY-rqcBK7mOLf4exckLw5w98-BR0durq66RVHlh1FLpt8CYaALR2Nw"/>
+
+	    <apex:sectionHeader title="{!$Label.partner_details}" 
+	    	 subtitle="{!accountDataHolder.Company__c}"
+	    />
+		<apex:form >
+		    <apex:commandLink value="{!$Label.back_to_list_partner_finder_search_results}" action="{!doBackToSearch}"/>
+		</apex:form>
+		<br/>
+	   	<apex:pageMessages />
+
+	  	<apex:pageBlock title="{!$Label.company_details}" mode="view">
+	  	  	<apex:pageBlockSection title="{!$Label.details}" columns="1" 
+	  	  		showHeader="false" collapsible="false">
+	  	  		<apex:outputField value="{!accountDataHolder.Company__c}"/>
+			    <apex:pageBlockSectionItem >
+			    	<apex:outputLabel value="{!$Label.email}"/>
+		  	  		<apex:outputField value="{!accountDataHolder.Partner_Finder_Contact_Me_Email__c}"/>
+			    </apex:pageBlockSectionItem>
+	  	  		<apex:outputField value="{!accountDataHolder.Org_Phone__c}"/>
+	  	  		<apex:outputField value="{!accountDataHolder.Website__c}"/>
+	  	  		<apex:outputField value="{!accountDataHolder.Description__c}"/>
+			    <apex:pageBlockSectionItem >
+			    	<apex:outputLabel value="{!$Label.address}"/>
+			    	<apex:outputPanel >
+			    		<table border="0" cellpadding="0" cellspacing="0">
+			    			<tr><td><apex:outputField value="{!accountDataHolder.Org_Address_1__c}"/></td></tr>
+			    			<tr><td><apex:outputField value="{!accountDataHolder.Org_Address_2__c}"/></td></tr>
+			    			<tr><td><apex:outputField value="{!accountDataHolder.Org_Address_3__c}"/></td></tr>
+			    			<tr><td><apex:outputField value="{!accountDataHolder.Org_City__c}"/>,&nbsp;<apex:outputField value="{!accountDataHolder.Org_State__c}"/>&nbsp;&nbsp;<apex:outputField value="{!accountDataHolder.Org_Postal_Code__c}"/></td></tr>
+			    		</table>
+			    	</apex:outputPanel>
+			    </apex:pageBlockSectionItem>
+	  	  	</apex:pageBlockSection>
+	  	</apex:pageBlock>
+	  	<apex:pageBlock title="{!$Label.map}" mode="view">
+	  	  	<apex:pageBlockSection title="{!$Label.map}" columns="1" showHeader="false" collapsible="false">
+				<div id="map_canvas" style="width: 950px; height: 400px"></div>
+	  	  	</apex:pageBlockSection>
+	  	</apex:pageBlock>
+		<script type="text/javascript"> 
+			document.observe('dom:loaded', function() {
+				var address = '{!accountDataHolder.Org_Address_1__c} {!accountDataHolder.Org_Address_2__c} {!accountDataHolder.Org_Address_3__c} {!accountDataHolder.Org_City__c}, {!accountDataHolder.Org_State__c}  {!accountDataHolder.Org_Postal_Code__c}';
+				var map = new GMap2(document.getElementById("map_canvas"));
+				map.addControl(new GLargeMapControl());
+				var geocoder = new GClientGeocoder();
+				geocoder.getLatLng(
+    				address,
+					function(point) {
+						if (!point) {
+							map.setCenter(new GLatLng(37.4419, -122.1419), 12);
+						} else {
+							map.setCenter(point,12);
+							var marker = new GMarker(point);
+							map.addOverlay(marker);
+							marker.openInfoWindowHtml('<b>{!accountDataHolder.Company__c}</b><br/><br/>' + address);
+						}
+					}
+				);
+			}, false);
+		</script>
+		<!-- END DETAILS SCREEN -->
+	</apex:outputPanel>
+</apex:page>

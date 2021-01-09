@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Autodesk_Opportunity_Type__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>-Commercial = Using Commercial skus
+-Government = Using Government skus
+-Education is free = Not Eligible
+-Education customer and has a Commercial opportunity please choose Commercial</inlineHelpText>
+    <label>Autodesk Opportunity Type:</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Commercial</fullName>
+                <default>false</default>
+                <label>Commercial</label>
+            </value>
+            <value>
+                <fullName>Government</fullName>
+                <default>false</default>
+                <label>Government</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

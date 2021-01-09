@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PrimaryContact_FirstUserProv_Validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( 
+ISPICKVAL(Create_Primary_Contact__c,&apos;Yes&apos;), 
+NOT(ISPICKVAL(PRIORVALUE (Create_Primary_Contact__c), &apos;Created&apos;)), 
+OR(Provision_First_User_Is_Complete_Flag__c == FALSE , 
+ISBLANK(Account__c), 
+ISPICKVAL(Primary_Contact_Aligned__c,&apos;Yes&apos;), 
+ISBLANK(Primary_Contact_Last_Name__c), 
+ISBLANK(Primary_Contact_Email__c) 
+) 
+)</errorConditionFormula>
+    <errorDisplayField>Create_Primary_Contact__c</errorDisplayField>
+    <errorMessage>Primary Contact cannot be created until the First User has been provisioned and Primary Contact details provided.</errorMessage>
+</ValidationRule>

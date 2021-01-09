@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prohibited_Countries</fullName>
+    <columns>NAME</columns>
+    <columns>Is_Active_Partner_Country__c</columns>
+    <columns>Region__c</columns>
+    <columns>Partner_Support_Email__c</columns>
+    <columns>Partner_Support_Queue_ID__c</columns>
+    <columns>User_Profile_ID__c</columns>
+    <columns>Public_Portal_Home_URL__c</columns>
+    <columns>Enable_for_FAP__c</columns>
+    <columns>DnB_Supported_Country__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Code__c</field>
+        <operation>equals</operation>
+        <value>CU,KP,IR,SD,SY,UA</value>
+    </filters>
+    <label>Prohibited Countries</label>
+    <language>en_US</language>
+</ListView>

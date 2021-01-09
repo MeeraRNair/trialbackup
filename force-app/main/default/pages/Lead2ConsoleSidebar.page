@@ -1,0 +1,100 @@
+<!--*
+ * Author   : Gan
+ * Purpose  : This page is to display opportunity related to particular account 
+ * 
+ * Revision CR Number   Release No    Date            Modified By     Description
+ * -------- ---------   ----------    -----------     ------------    -----------
+ * 1.0       13424      FY17-DCS-1002 22-Aug-2016     SuiYee          LM2_21-Adding contact priority into Sales console view
+ * 2.0       14442      FY18-DCS-0702 29-May-2017     Ashok           LM2_New Lead type - To recognize new potential customers contacted by Dell Reps
+ * 3.0       15609      FY19-DCS-0502 01-apr-2018     Sharad          LM2_New product map for non sfdc contacts
+ *-->
+
+<apex:page standardController="Lead" showHeader="true" extensions="Lead2ConsoleSidebarController" title="Related Account Info" lightningStylesheets="true" >
+    <style>
+        .statusPanel {
+            margin-left: 10px;
+            width:100%; 
+            height: 22px;
+            font-weight: bold;  
+            font-size: 13px;
+            text-wrap: normal;
+            vertical-align: middle;
+            text-align: left;
+        }
+    </style>
+    <script>
+    alert('Lead Type: '+leadrecord.Lead_Type__c);
+    </script>
+    <!-- v1.0 -->
+    <apex:outputpanel rendered="{!IF(OR(leadrecord.Lead_Type__c=="Outbound",leadrecord.Lead_Type__c=="Inbound",leadrecord.Lead_Type__c=="Prospect"), true, false)}"><!--2.0-->
+        <div style="width:120%">
+            <apex:pageBlock > 
+                <apex:facet name="header"> <div class="statusPanel">Account Contacts</div></apex:facet>
+                <!-- Nominated Contact List -->   
+                <apex:pageblockTable value="{!contactDetails}" var="con" style="width:100%">
+                    <apex:column headerValue="Name">
+                    <!-- CR : added Contact hyperlink-->
+                        <apex:outputLink value="/{!con.id}">
+                            <apex:outputText value="{!con.Name}"/>
+                        </apex:outputLink>
+                    </apex:column>
+                    <apex:column headerValue="Job Title" value="{!con.Title}"/>
+                    <apex:column headerValue="Decision Making Role" value="{!con.Decision_Making_Role__c}"/>
+                    <apex:column headerValue="Status" value="{!con.Status__c}"/>
+                    <apex:column headerValue="Email" value="{!con.Email}"/>
+                    <apex:column headerValue="Phone" value="{!con.Phone}"/>
+                    <apex:column headerValue="Priority" value="{!con.Priority__c}"/>
+                </apex:pageblockTable> 
+            </apex:pageBlock> 
+        </div>
+        <div style="width:120%">
+            <apex:pageBlock >
+                <apex:facet name="header"> <div class="statusPanel">Leads for Selected Account</div></apex:facet>  
+                <!-- Nominated Plays for selected account List -->   
+                <apex:pageblockTable value="{!leadDetails}" var="lead" style="width:100%">
+                    <apex:column headerValue="Campaign">
+                        <apex:outputField value="{!lead.Campaign__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Campaign Short Name" value="{!lead.Campaign_Short_Name__c}"/>
+                    <apex:column headerValue="Lead Name">
+                        <apex:outputLink value="/{!lead.id}">
+                            <apex:outputText value="{!lead.Name}"/>
+                        </apex:outputLink>
+                    </apex:column>
+                    <apex:column headerValue="Lead Type" value="{!lead.Lead_Type__c}"/>
+                    <apex:column headerValue="Lead Status" value="{!lead.Status}"/>
+                    <apex:column headerValue="Lead Owner" value="{!lead.OwnerId}"/>
+                    <apex:column headerValue="Lead Owner's Role" value="{!lead.Lead_Owner_Role__c}"/>
+                    <apex:column headerValue="Created Date" value="{!lead.CreatedDate}"/>
+                    
+                    <!-- CR12634 - remove Lead Score column from list -->
+                    <!-- <apex:column headerValue="Lead Source" value="{!lead.LeadSource}"/> -->
+                    <!-- <apex:column headerValue="Lead Score" value="{!lead.Lead_Score__c}"/> -->
+                    
+                </apex:pageblockTable>
+            </apex:pageBlock>
+        </div>
+        <!-- v3.0 CR 15609  Non sfdc contact Product Map -->
+        <div style="width:200%">
+        <apex:pageBlock > 
+            <apex:facet name="header"> <div class="statusPanel">Non SFDC Contacts</div></apex:facet>
+            <apex:pageblockTable value="{!NonSFDCContactsDetails}" var="nonSFDCProdMap"> 
+                <apex:column width="5" headerValue="Non SFDC Contact ID">
+                    <apex:outputLink value="/{!nonSFDCProdMap.Id}">
+                    <apex:outputText value="{!nonSFDCProdMap.Name}"/>
+                    </apex:outputLink>
+                </apex:column>
+                <!--<apex:column headerValue="Non SFDC Contact" value="{!nonSFDCProdMap.Product_Map_Type__c}"/>-->
+                <!--<apex:column headerValue="Account ID" value="{!nonSFDCProdMap.Account_ID__c}"/>-->
+                <apex:column headerValue="Contact Name" value="{!nonSFDCProdMap.Contact_Name__c}"/>
+                <apex:column headerValue="Contact Phone 1" value="{!nonSFDCProdMap.Contact_Phone_1__c}"/>
+                <apex:column headerValue="Contact Phone 2" value="{!nonSFDCProdMap.Contact_Phone_2__c}"/>  
+                <apex:column headerValue="Job Title" value="{!nonSFDCProdMap.Job_Title__c}"/>
+                <apex:column headerValue="Contact Rank" value="{!nonSFDCProdMap.Contact_Rank__c}"/> 
+                <apex:column headerValue="Contact Source" value="{!nonSFDCProdMap.Contact_Source__c}"/>
+            </apex:pageblockTable>             
+        </apex:pageBlock>
+        </div>
+        <!-- v3.0 end CR 15609-->
+    </apex:outputpanel>
+</apex:page>

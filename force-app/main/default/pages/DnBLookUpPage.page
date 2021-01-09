@@ -1,0 +1,154 @@
+<apex:page standardcontroller="opportunity" extensions="VFcntrl_DnBLookUpPage" lightningStyleSheets="true" tabStyle="Opportunity" sidebar="false" showHeader="false" action="{!searchDnB}" lightningStylesheets="true">
+    <apex:form id="frm">
+    <apex:actionFunction action="{!goBack}" name="callGoBack" oncomplete="alert('Executed')"/>
+        <br/>
+        <br/>
+        <c:Advanced_PBTableEnhancerCmp targetPbTableIds="tbl" pageSizeOptions="5,10,15,20,25,30" defaultPageSize="15" />
+        <apex:outputPanel id="errorMsgPanel" rendered="{!(if(oppRecord.End_Customer__c== null,true,false))}">
+            <apex:pageMessages />
+           <apex:commandButton value="Close" onclick="closePage()" />
+           <script>
+               function closePage(){
+                if( (typeof sforce != 'undefined') && (sforce != null) ) {
+      
+         callGoBack();
+        }
+        else{
+              
+                window.parent.close();    
+               }
+               } 
+           </script>
+        </apex:outputPanel>
+        <apex:outputPanel id="mainPanel" rendered="{!!(if(oppRecord.End_Customer__c== null,true,false))}">
+        <apex:pageBlock title="End User Details">
+            <apex:pageBlockSection columns="1" >
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="{!$Label.End_User_Mailing_Country}" styleClass="label"/>
+                        <apex:outputPanel >
+                            <div class="requiredInput">
+                                <div class="requiredBlock"/>                
+                             <apex:actionFunction name="markRequired" rerender="mainPanel,refresh,refreshpbb,DunsInfoblock" action="{!markRequired}" status="StatusId1"/>
+                            <apex:selectList size="1"  value="{!mailingCountry}" onchange="markRequired()" >
+                                <apex:selectOptions value="{!countries}"/>
+                            </apex:selectList>
+                              <apex:actionStatus id="StatusId1" >
+                                <apex:facet name="start" >
+                                    <img src="/img/loading.gif" />
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </div>
+                    </apex:outputPanel>
+                </apex:pageblockSectionItem>
+                <apex:pageblocksectionitem rendered="{!showLocaLanguageCheckBox}">
+                        <apex:outputLabel value="{!$Label.DealReg_Search_In_Local_Languag}"/>
+                        <apex:inputCheckbox value="{!isLocalLanguageSearch}"/>                                            
+                    </apex:pageblocksectionitem>
+                <apex:pageblockSectionItem >
+                    <apex:outputLabel value="{!$Label.End_User_Account_Name}"/>
+                    <apex:outputPanel >
+                        <div class="requiredInput">
+                            <div class="requiredBlock" />
+                            <apex:inputtext value="{!acctName}"/>
+                        </div>
+                    </apex:outputPanel>
+                </apex:pageblockSectionItem>
+                <apex:pageblockSectionItem >
+                    <apex:outputLabel value="{!$Label.Deal_Reg_End_User_Mailing_City}"/>
+                    <apex:outputPanel >
+                        <div class="requiredInput">
+                            <div class="requiredBlock" />
+                            <apex:inputtext value="{!city}"/>
+                        </div>
+                    </apex:outputPanel>
+                </apex:pageblockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!!isEMEA}">
+                      <apex:outputLabel value="{!$Label.Deal_Reg_End_User_Mailing_State_Province_Region}" styleClass="label"/> 
+                        <apex:outputPanel >
+                            <div class="requiredInput">
+                                <div class="requiredBlock"/> 
+                        <apex:inputtext value="{!state}" required="false"/>
+                        </div>
+                        </apex:outputPanel> 
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!isEMEA}">
+                     <apex:outputLabel value="{!$Label.Deal_Reg_End_User_Mailing_State_Province_Region}" styleClass="label"/> 
+                        <apex:inputtext value="{!state}" required="false"/> 
+                    </apex:pageBlockSectionItem>
+                <apex:pageblockSectionItem rendered="{!showCountryError}" >
+                    <apex:outputLabel />
+                    <div class="errorMsg">
+                        <strong></strong>&nbsp;Error:You must Select a value
+                    </div>
+                </apex:pageblockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageblockButtons location="Bottom">
+                <apex:commandButton value="Search" action="{!searchDnB}" reRender="frm" status="StatusId" />
+                <apex:commandButton value="Close" onclick="closePage()" />
+                <script>
+                    function closePage(){
+                    alert('hi 2');
+                    window.parent.close();    
+                 } 
+              </script>
+              <apex:actionStatus id="StatusId" >
+                    <apex:facet name="start" >
+                        <img src="/img/loading.gif" />
+                    </apex:facet>
+                </apex:actionStatus>
+            </apex:pageblockButtons>
+        </apex:pageBlock>
+        <apex:pageMessages rendered="{!showError}"/>
+        <apex:pageBlock id="DunsInfoblock" rendered="{!showResultBlock}" >
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandbutton value="{!$Label.DealReg_AddEndCustomer}" action="{!addCustomerToDeal}" rendered="{!showResultTable}"  rerender="frm"  status="StatusId"/>
+                <apex:actionStatus id="StatusId" >
+                    <apex:facet name="start" >
+                        <img src="/img/loading.gif" />
+                    </apex:facet>
+                </apex:actionStatus>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="1" title="{!$Label.DealReg_SearchResults}" collapsible="false">
+                <apex:outputPanel id="out" styleclass="Bold">
+                    <apex:actionstatus id="status" startText="Calling the result..." styleclass="Bold">
+                        <apex:facet name="stop">
+                            <apex:outputLabel style="color:red" styleclass="Bold" value="{!oMessage}" rendered="{!IF( oMessage != null ,true,false)}"></apex:outputLabel>
+                        </apex:facet>
+                    </apex:actionstatus>
+                </apex:outputPanel>
+                <apex:pageBlockTable value="{!finalList}" var="duns" id="tbl" rendered="{!showResultTable}"  styleClass="dataTable" >
+                    <apex:column >
+                        <input type="radio" name="selectedDUnsId" value= "{!duns.DunsId}" >
+                        <apex:actionSupport event="onclick"  rerender="recordSelected" />
+                        </input>
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.MDM_Field_DunsNumber}">
+                        <apex:outputlabel value="{!duns.DunsId}"/>
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.MDM_Field_DunsName}">
+                        <apex:outputlabel value="{!duns.DunsName}"/>
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.address}">
+                        <apex:outputlabel value="{!duns.Address}"/>
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.city}">
+                        <apex:outputlabel value="{!duns.City}"/>
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.T2D_State}">
+                        <apex:outputlabel value="{!duns.State}"/>
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.country}">
+                        <apex:outputlabel value="{!duns.Country}"/>
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.MDM_Field_PostalCd}">
+                        <apex:outputlabel value="{!duns.PostalCode}"/>
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.Deal_Reg_End_User_Tax_ID_Code}">
+                        <apex:outputlabel value="{!duns.TaxId}"/>
+                    </apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+       </apex:outputPanel>
+    </apex:form>
+</apex:page>

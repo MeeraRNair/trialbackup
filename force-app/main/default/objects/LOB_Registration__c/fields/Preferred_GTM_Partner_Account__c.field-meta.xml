@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Preferred_GTM_Partner_Account__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Dell gives exclusive responsibility for the partner contacts of this partner account to manage all the deals created for ANY End-User accounts ,to which this partner account is linked.The partner account should be Dell&apos;s direct partner.The field should be on the detail page of an End User account.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Enter a partner account here which indicates that the End User Account is assigned to a LOB registration Partner.</inlineHelpText>
+    <label>Preferred LOB Registration Partner</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Account.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Partner Account</value>
+        </filterItems>
+        <filterItems>
+            <field>Account.Is_GTM_Partner__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Available Customers (LOB registration)</relationshipLabel>
+    <relationshipName>LOB_Registrations1</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

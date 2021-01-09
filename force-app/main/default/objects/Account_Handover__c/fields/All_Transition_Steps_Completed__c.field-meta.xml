@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Transition_Steps_Completed__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(
+    ISPICKVAL(Tier_level__c, &apos;&apos;),
+    &apos;&apos;,
+    HYPERLINK(&quot;/apex/TransitionStepComplete?Id=&quot; &amp; Id, IMAGE(&quot;/servlet/servlet.FileDownload?file=015A0000002j4xt&quot;, &apos;All Transition Steps Completed&apos;), &apos;_parent&apos;)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>.</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>gdm_vre_004_only_assigned_user_can_mod</fullName>
+    <active>true</active>
+    <description>Once assigned, only an Assigned User can modify</description>
+    <errorConditionFormula>AND (
+ NOT ISBLANK( Assigned_To__c )
+ ,Assigned_To__r.Badge_Number__c  &lt;&gt;  $User.Badge_Number__c
+ ,TEXT(Request_Status__c) &lt;&gt; &quot;Hold - Missing Info&quot;
+ ,TEXT(Request_Status__c) &lt;&gt; &quot;Open&quot;
+ ,NOT ISNEW()
+ ,TEXT(Request_Status__c) &lt;&gt; &quot;Cancelled&quot;
+ ,TEXT(Request_Status__c) &lt;&gt; &quot;Closed&quot;
+ ,NOT BEGINS(TEXT(Request_Status__c), &quot;Rejected&quot;)
+
+)</errorConditionFormula>
+    <errorMessage>(004) The request has already been assigned. You cannot modify this request at this time.</errorMessage>
+</ValidationRule>

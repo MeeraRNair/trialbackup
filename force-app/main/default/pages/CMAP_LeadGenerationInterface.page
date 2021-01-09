@@ -1,0 +1,98 @@
+<!-- 
+REVISION HISTORY
+================
+Version     Author      Date            Release#        CR#         Description
+-------     ------      ----            --------        ---         -----------
+1.0         Afiq        15-Sep-2015     16.10           --          Adding Flag of Campaign associated with Leads
+2.0         Josie       03-Feb-2019     0402            CR17094     STORY 6070717 Channel:[PAM]Retire Single Lead submission in Partner Portal
+3.0         Yamini      12-Feb-2019     0402            CR17115     Story 6070726: Channel: [PAM] Update Mass Lead Upload Requests design in Partner Portal
+3.1         Shue        24-Feb-2019     FY20-0202       CR17115     Fix PMD Violations
+4.0         Shue        14-Mar-2019     FY20-0402       CR17125     Defect 6326439: SDET - Wunderkind:: CAMP:: FY20-0402:: Unable to submit MLUR - <apex:param name="accName" value="{!strSelectedItem}" />
+-->
+
+
+<apex:page standardController="Lead" extensions="CMAP_LeadGenerationController" lightningStylesheets="true">    
+    <apex:form id="frm">
+        <apex:pagemessages ></apex:pagemessages>
+        <!-- V3.0 Starts -->
+        <apex:pageBlock title="{!$Label.CMAP_Lead_Generation_Interface}" rendered="{!bShowLeadGenerationPage}" id="pageBlock1" >
+            <apex:pageBlockSection title="{!$Label.CMAP_SalesMotionAccsselect}" rendered="{!bShowLeadGenerationPage}" id="pageBlockSection1" collapsible="False" >
+               <apex:outputPanel >
+               <apex:outputtext value="{!$Label.CMAP_Sales_Motion_Accounts} : "/> &nbsp;&nbsp;  
+                <apex:selectList value="{!strSelectedItem}" multiselect="false" size="1">
+                    <apex:actionSupport event="onchange" action="{!fetchCampaigns}" reRender="CampnsforselectedSMA, frm"/>
+                    <apex:selectOptions value="{!listItems}"/>
+                </apex:selectList><p/>
+                               </apex:outputPanel>
+
+            </apex:pageBlockSection>  
+            
+            
+            
+            <!--<apex:pageBlockSection title="{!$Label.CMAP_Available_campaigns}{!$Label.CMAP_Page} #{!intPageNumber} {!$Label.CMAP_of} {!intTotalPages}" rendered="{!bNotendCustomer}"> --->
+            
+            <apex:pageBlockSection title="{!$Label.CMAP_Available_campaigns}{!$Label.CMAP_Page} #{!intPageNumber} {!$Label.CMAP_of} {!intTotalPages}" rendered="{!IF(listPartnerCampaign.size>0,'true','false')}" id="CampnsforselectedSMA">
+            <!-- -->
+                <!-- V3.0 Ends -->   
+                
+               <apex:pageBlockTable value="{!listPartnerCampaign}" var="campList" style="width:1000px">
+                    <apex:column headerValue="{!$Label.CMAP_Campaign_Name}"  value="{!campList.Campaign__r.Name}" style="padding-right:100px;white-space:nowrap"/>
+                    <!--1.0 Adding Flag of Campaign associated with Leads -->
+                  <apex:column headervalue="{!$Label.CMAP_NumberOfLeads}"  value="{!campList.Campaign_Lead_Flag__c}"/>
+                    <apex:column headerValue="{!$Label.CMAP_Action}">  
+                        <!-- 2.0 Retire Single Lead submission in Partner Portal 
+                       <apex:commandbutton value="{!$Label.CMAP_Submit_Single_Lead}" action="{!submitSingleLeadButton}" reRender="newId">
+                            <apex:param name="strCampId" value="{!campList.Campaign__c}" />
+                            <apex:param name="strCampName" value="{!campList.Campaign__r.Name}" />
+                        </apex:commandbutton> -->
+                    <apex:commandbutton value="{!$Label.CMAP_Submit_multiple_Leads}" action="{!submitMultipleLeadsButton}" reRender="newId" style="position:relative;left:5px;">
+                            <apex:param name="campId" value="{!campList.Campaign__c}" />
+                            <apex:param name="campName" value="{!campList.Campaign__r.Name}"/>
+                            <apex:param name="accName" value="{!strSelectedItem}" />
+                        </apex:commandbutton> 
+                    </apex:column>
+                </apex:pageBlockTable>  
+                <br/>
+                <apex:panelGrid columns="4" rendered="{!bHasNext || bHasPrevious}">
+                    <apex:commandLink action="{!first}" value="{!$Label.CMAP_First}"></apex:commandlink>
+                    <apex:commandLink action="{!previous}" rendered="{!bHasPrevious}" value="{!$Label.CMAP_Previous}"></apex:commandlink>
+                    <apex:commandLink action="{!next}" rendered="{!bHasNext}" value="{!$Label.CMAP_Next}"></apex:commandlink>
+                    <apex:commandLink action="{!last}">{!$Label.CMAP_Last}</apex:commandlink>
+                </apex:panelGrid>  
+            </apex:pageBlockSection> 
+            
+            <!------------  --->
+            
+            <apex:pageBlockSection title="{!$Label.CMAP_Available_campaigns}" rendered="{!bIsendCustomer}">
+                <apex:pageBlockTable value="{!campaignName}" var="campaigns" style="width:700px">
+                    <apex:column headerValue="{!$Label.CMAP_Action}">
+                        <input type="radio" name="radioName" value="{!campaigns.Id}" />
+                    </apex:column>  
+                    <apex:column headerValue="{!$Label.CMAP_Campaign_Name}" value="{!campaigns.strCampName}" />
+                </apex:pageBlockTable>
+                <br/><br/><br/><br/>
+                <apex:panelGrid columns="4" rendered="{!bHasNext || bHasPrevious}">
+                    <apex:commandLink action="{!first}" value="{!$Label.CMAP_First}"></apex:commandlink>
+                    <apex:commandLink action="{!previous}" rendered="{!bHasPrevious}" value="{!$Label.CMAP_Previous}"></apex:commandlink>
+                    <apex:commandLink action="{!next}" rendered="{!bHasNext}" value="{!$Label.CMAP_Next}"></apex:commandlink>
+                    <apex:commandLink action="{!last}">{!$Label.CMAP_Last}</apex:commandlink>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;
+                    {!$Label.CMAP_Page} #{!intPageNumber} {!$Label.CMAP_of} {!intTotalPages}
+                </apex:panelGrid> 
+            </apex:pageBlockSection>
+                <br/>
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             <apex:commandButton value="{!$Label.CMAP_Continue}" action="{!continueButton}" rendered="{!bIsendCustomer}"/>            
+        </apex:pageBlock>
+            <br/><br/>
+            <apex:pageBlock >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <apex:outputText value="{!$Label.CMAP_Campaign_associated_with_leads_not_shown}" />
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

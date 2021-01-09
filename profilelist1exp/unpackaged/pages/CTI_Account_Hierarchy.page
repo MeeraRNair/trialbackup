@@ -1,0 +1,117 @@
+<apex:page StandardController="CTI_Call_Log__c" extensions="CTIAccountHierarchyExtn" lightningStylesheets="true" >
+  <apex:includeScript value="{!URLFOR($Resource.Jquery_10, 'jquery-ui-1.10.4.custom/js/jquery-1.10.2.js')}"  />
+  <apex:includeScript value="{!URLFOR($Resource.Jquery_10, 'jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js')}"  />
+
+    <script type="text/javascript">
+        $j = jQuery.noConflict();
+        $j(document).ready(function() {
+            init();
+        });    
+             
+    init = function(){
+        $j('.DMUCheck').each(function(){ 
+                 if(this.value == "true"){
+                    this.checked = true;
+                 }
+                 this.disabled = true;
+             });
+            
+            $j('.selAccount').each(function(){ 
+                var oriAcc="{!CTI_Call_Log__c.Account__c}";
+                if(this.value == oriAcc){
+                    this.checked = true;    
+                    $j(this).closest('tr').addClass("boldTR");
+                }
+            });
+            
+            $j('.selAccount').on('change',function(){
+                if($j(this).is(':checked')){
+                    $j('.selAccount').not(this).prop('checked', false);
+                 }else{
+                     $j(this).prop('checked', true);
+                 }
+             });
+       }
+    
+    saveCTILog = function(){
+        var isSelected = false;
+        $j('.selAccount').each(function(){ 
+            if(this.checked){
+                isSelected = true;    
+                saveCTI(this.value);
+            }
+         });   
+         if(!isSelected){
+             alert('Please select atleast 1 Account');         
+         }
+      }
+    
+    </script>
+    
+    <style>
+        .boldTR{
+            font-weight:bold;
+        }
+    
+    </style>
+    
+    
+<apex:form >
+    
+    
+    <apex:actionFunction name="saveCTI" action="{!save}" reRender="pgBlock1,pmsgs" oncomplete="init();">
+        <apex:param id="accountId" name="accountId" value=""/>
+    </apex:actionFunction>    
+    
+<apex:outputPanel rendered="false">
+{!CTI_Call_Log__c.Account__c}
+{!CTI_Call_Log__c.Account__r.parentid}
+{!CTI_Call_Log__c.Opportunity__r.accountid}
+{!CTI_Call_Log__c.Contact__r.Accountid}
+{!CTI_Call_Log__c.Trip_Report__r.Account__c}    
+</apex:outputPanel>
+        
+<apex:pageBlock id="pgBlock1">
+    
+    <apex:pageMessages escape="false" id="pmsgs"/>      
+    
+    <apex:panelGrid >
+    <apex:outputLabel ><b>ACCOUNT:  {!CTI_Call_Log__c.Account__r.Name}</b></apex:outputLabel>
+    <br/>
+    <apex:outputLabel ><b>Please Choose one of the below Accounts:</b></apex:outputLabel>    
+    
+    </apex:panelGrid>
+    
+    <apex:pageBlockButtons style="width:100%;padding-left:250px">
+        <apex:commandbutton value="Save" onclick="javascript:saveCTILog();return false;"/>
+        <apex:commandbutton value="Cancel" action="{!cancel}"/>
+    </apex:pageBlockButtons>
+    
+    <br/>
+    
+<apex:pageBlockTable value="{!ctiAccList}" var="cti">
+    <apex:column headerValue="Select">
+    <input type="checkbox" name="selAccount" class="selAccount" value="{!cti.id}"/>
+    </apex:column>
+    <apex:column headerValue="Account Name">
+        <apex:outputLink value="/{!cti.id}">{!cti.Name}</apex:outputLink>
+    </apex:column> 
+    <apex:column headerValue="Affinity Account ID" value="{!cti.Account_ID}"/> 
+    <apex:column headerValue="Parent Name">
+        <apex:outputLink value="/{!cti.parentid}">{!cti.parentName}</apex:outputLink>   
+    </apex:column> 
+    <apex:column headerValue="Account Type Integration" value="{!cti.Account_Type_Integration}"/> 
+    <apex:column headerValue="Segment Desc" value="{!cti.Segment_Desc}"/> 
+    <apex:column headerValue="Billing City" value="{!cti.BillingCity}"/> 
+    <apex:column headerValue="Billing Country" value="{!cti.BillingCountry}"/> 
+    <apex:column headerValue="Account Owner" value="{!cti.ownerName}"/> 
+    <apex:column headerValue="Status/DMU Status" value="{!cti.Calculated_Status}"/> 
+    <apex:column headerValue="DMU">
+        <input type="checkbox" class='DMUCheck' name="DMU" value="{!cti.DMU}"/>    
+    </apex:column> 
+</apex:pageBlockTable>    
+</apex:pageBlock>
+
+</apex:form>
+
+</apex:page>

@@ -1,0 +1,384 @@
+<apex:page standardController="Territory_Plan__c" extensions="TP_HTOverviewCtrlExt,TP_PageNavCtrlExt" sidebar="false" lightningStylesheets="true">
+    <style type="text/css">
+         body .bPageBlock .pbBody { 
+            padding: 15px 0 0 0;
+            
+        }
+        .tb {
+            border: 0px solid black;
+            border-spacing: 0px 1px; 
+            width:100%
+        }
+        
+        <!-- style header text -->
+        .tb .tg-hdr{
+            font-size:26px;
+            font-family:'Arial White', Gadget, sans-serif !important; 
+            padding: 0px 0px 10px 15px;
+            text-indent:15px;
+        }
+        
+        <!-- Style chart border -->
+        .tb .tdcommon{
+            position: relative;
+            border: 1px dotted #42AEAF; 
+            width: 97.05%;
+            height:100%;
+            padding:5px;
+            margin-left:20px; 
+            vertical-align: top; 
+        }
+        
+        .tb .td12title{
+            border-right:none;
+            border-bottom:none;
+        }
+        .tb .td13title{
+            border-right:none;
+            border-bottom:none;
+            border-left:none;
+        }
+        .tb .td14title{
+            width: 92.8%;
+            border-bottom:none;
+            border-left:none;
+        }
+        .tb .td22chart{
+            border-top:none;    
+            border-right:none;
+            border-bottom:none; 
+        }
+        .tb .td24chart{
+            width: 92.8%;
+            border-top:none;
+            border-bottom:none;
+            border-left:none;
+        }
+        .tb .tdemc{
+            border-top:none;
+        }
+        
+        
+        
+        .tb .tg-tdhint{
+            text-align:right; 
+        }
+        .tb .tg-tdChart{
+            height: 210px;  
+            text-align:center
+        }
+        .tb .tg-tdChart-title{
+            font-weight:bold;
+            text-align:center
+        }
+        
+        
+        <!-- style heading and input field boxes -->
+        .tb .tg-tdContent{
+            border: 0px solid black;
+            width:100%;
+            padding:15px 0px 0px 0px;
+            vertical-align:top;
+        }
+        .tb .tg-tdContent .tg-tdContent-parg{
+            position:relative;
+            display:block;
+            float:left;
+            font-size:16px;
+            color: #FFFFFF;
+            background-color:#42AEAF; 
+            padding:15px 0 15px 0px;
+            border: 1px solid #42AEAF;
+            width:98%;
+            top:0px;
+            text-indent:20px;
+            left:20px;
+        }              
+        .tb .tg-tdContent .tg-tdContent-inputFld{
+            border: 0px solid #AAAAAA;
+            width:97.85%;
+            height:120px;
+            margin-top:0px;
+            background-color:#AAAAAA;
+            color:#FFFFFF;
+            margin-left:20px;
+            resize:none;
+        }
+        
+        <!-- Style dot circle box left -->
+        .tb .dot1{
+            vertical-align:top;
+            padding:15px 0px 0px 0px;
+            float:left;
+            
+        }       
+        .rectangle1  { 
+            position:relative;  
+            border: 1px solid #444444; 
+            width: 25px; 
+            height: 25px; 
+            background: #444444; 
+        }
+        .rectangle1 div{ 
+            background: white; 
+            margin: 5px 5px 5px 5px;
+            width: 13px; 
+            height: 13px; 
+            border-radius: 64px; 
+            border : 1px solid white; 
+        } 
+        .dotConnection1{
+            border-bottom: 1px dotted #42AEAF;
+            padding: 0px 50px 0px 0px; 
+            margin:5px 2px 0px 15px; 
+        }
+        
+        <!-- Style dot circle box right -->
+        .tb .dot2{
+            vertical-align:top;
+            padding:15px 0px 0px 0px;
+            float:right;
+            margin-left:20px;
+        }
+        .rectangle2  {
+            position:relative;  
+            border: 1px solid #444444; 
+            width: 25px; 
+            height: 25px; 
+            background: #444444; 
+        }
+        .rectangle2 div{ 
+            background: white; 
+            margin: 5px 5px 5px 5px;
+            width: 13px; 
+            height: 13px; 
+            border-radius: 64px; 
+            border : 1px solid white; 
+        }
+        .dotConnection2{
+            border-bottom: 1px dotted #42AEAF; 
+            padding: 0px 0px 0px 0px; 
+            margin:5px 15px 0px -50px;
+        } 
+        
+         <!-- Style hint section -->
+        .Bulb-logo{
+            position: relative; 
+            top: 15px; 
+            left:0px;
+        }
+        .underLine-logo {
+            position: relative; 
+            padding: 5px 0 0 0;
+            top:12px; 
+            left:17px; 
+            border-bottom :1px solid #888888; 
+            border-left: 1px solid #888888; 
+            width: 85%; 
+            height: 10px;
+        }
+        .DellEMC-logo { 
+            position: relative; 
+            top:-10px;
+            float:right;
+            padding: 0px 0px 0px 0px;
+            margin: 0px 10px;
+        }        
+        .hintText{
+            font-style:italic; 
+            font-size: 12px;
+            position: relative;
+            padding:0px 0px 0px 0px;
+            top:-15px;
+            left: 15px;
+            margin:5px;
+        }
+                
+        .tb .tg-tdBtns{
+            text-align:right;
+            padding: 15px 10px 0px 0px; 
+        }
+        
+        .tb .tg-tdBtns .btn{
+            margin-left:3px;
+            margin-right:3px;        
+        }
+        
+        .tb .footer {
+            width: 100%;
+            color:black;
+            text-align: center;
+            padding:0px;
+            font-size:12px;
+        }   
+        
+        <!-- To reduce margin-bottom at bottom of page -->      
+        body .bDetailBlock.bPageBlock, body .individualPalette .bDetailBlock.bPageBlock { 
+            border: 0;
+            background-color: transparent;
+            margin-bottom: 0px;
+        }
+        <!-- to style complete page in classic and lightning and reduce bottom padding -->
+        body .bodyDiv .outerNoSidebar{  
+            padding-bottom: 0px;
+            max-height: 100%;
+            max-width: 100%;
+        } 
+        <!-- placeholder color for different browsers -->
+        ::-webkit-input-placeholder { /* Chrome */
+            color: white;
+        }
+        :-ms-input-placeholder { /* IE 10+ */
+            color: white !important;
+        }
+        ::-moz-placeholder { /* Firefox 19+ */
+            color: white;
+        }
+        :-moz-placeholder { /* Firefox 4 - 18 */
+            color: white;
+        }
+        
+    </style>
+    
+    <apex:pageBlock mode="maindetail" id="pbId">
+        <apex:pageMessages id="showmsg"></apex:pageMessages>
+        <table class="tb" id="tblId">
+            <tr id="hd-trId">
+                <th class="tg-hdr" id = "hdrId" colspan="5">Historical Territory Overview</th>
+            </tr>
+            
+            <tr id="tr-chrTitleId">
+                <td  class="dot1"></td>
+                <td class="tg-tdChart-title" id="title-RMId">
+                    <div class="tdcommon td12title">Revenue and Margins Totals</div>
+                </td>
+                <td class="tg-tdChart-title" id="title-RevId">
+                    <div class="tdcommon td13title">Revenue by LOB</div>
+                </td>
+                <td class="tg-tdChart-title" id="title-LOBId">
+                    <div class="tdcommon td14title">LOB P4Q vs L4Q</div>
+                </td>
+                <td  class="dot2"></td>
+            </tr> 
+            
+            <tr id="tr-chrtId">
+                <td  class="dot1"></td>
+                <td class="tg-tdChart" id="td-chrtRMId"> 
+                    <div class="tdcommon td22chart" id="td22chartId">
+                        <apex:chart height="200" width="340" data="{!revenuesData}" id="chrt-RMId">
+                            <apex:legend position="right" id="lgnd-RMId"/>
+                            <apex:axis type="Numeric" position="left" fields="Revenue,Margins" 
+                                       title="Millions" grid="true" id="axisLeft-RMId"/>
+                            <apex:axis type="Category" position="bottom" fields="name" id="axisBtm-RMId"/>
+                            <apex:barSeries orientation="vertical" axis="left" id="bar-RMId" xField="name" yField="Revenue,Margins"
+                                            title="Revenue ($M),Margins ($M)" colorSet="#007DB8,#6EA204">
+                                <apex:chartLabel display="outside" id="label-RMId"/>
+                                <apex:chartTips height="35" width="190" rendererFn="chartTip" id="tip-RMId"/>
+                            </apex:barSeries>
+                        </apex:chart>
+                    </div>
+                </td>
+                
+                <td class="tg-tdChart" id="td-chrtRevId"> 
+                    <apex:chart height="200" width="340" data="{!revenuesData}" id="chrt-RevId">
+                        <apex:legend position="right" id="lgnd-RevId"/>
+                        <apex:axis type="Numeric" position="left" fields="{!cFields}" 
+                                   title="Millions" grid="true" id="axisLeft-RevId"/> 
+                        <apex:axis type="Category" position="bottom" fields="name" id="axisBtm-RevId"/>
+                        <apex:barSeries orientation="vertical" axis="left" id="bar-RevId" xField="name" yField="{!cFields}"
+                                        stacked="true" colorSet="#007DB8,#6EA204,#F2AF00,#EE6411,#5882AB" > 
+                            <apex:chartTips height="35" width="195" rendererFn="chartTip" id="tip-RevId"/>
+                        </apex:barSeries>
+                    </apex:chart>
+                </td>   
+                
+                <td class="tg-tdChart" id="td-chrtLOBId"> 
+                    <div class="tdcommon td24chart" id="td24chartId">
+                        <apex:chart height="200" width="450" data="{!LOB_CompareData}" id="chrt-LOBId">
+                            <apex:legend position="right" id="lgnd-LOBId"/>
+                            <apex:axis type="Numeric" position="left" fields="revenueL4Q,revenueP4Q" 
+                                       title="Millions" grid="true" id="axisLeft-LOBId"/>
+                            <apex:axis type="Category" position="bottom" fields="name" id="axisBtm-LOBId">
+                                <apex:chartLabel rotate="315" id="label-rotatLOBId"/>
+                            </apex:axis>
+                            <apex:barSeries orientation="vertical" axis="left" xField="name" yField="revenueL4Q,revenueP4Q"
+                                            title="Revenue L4Q ($M), Revenue P4Q ($M)"  colorSet="#007DB8,#6EA204">
+                                <apex:chartLabel display="outside" id="label-LOBId"/>
+                                <apex:chartTips height="35" width="230"  rendererFn="chartTip" id="tip-LOBId"/>
+                            </apex:barSeries>
+                        </apex:chart>
+                    </div>
+                </td>
+                <td  class="dot2"></td>
+            </tr> 
+            
+            <tr id="tr-emcID">
+                <td  class="dot1"></td>
+                <td class="tg-tdhint" colspan="3" id="td-emcID">
+                    <div class="tdcommon tdemc" id="div-emcId">*EMC data included in Storage</div>
+                </td>
+            </tr> 
+            <apex:form >
+                <tr>
+                    <td class="dot1" id="dot1Id">
+                        <div class="rectangle1"  id="rect1Id">
+                            <div id="circle1Id">
+                                <p class="dotConnection1" id="connect1Id"></p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="tg-tdContent" id="content-td2Id" colspan="3">
+                        <apex:outputText styleclass="tg-tdContent-parg" id="paraId" value="Observations & Actions"></apex:outputText>
+                        <apex:inputfield value="{!Territory_Plan__c.HTO_Observations_Actions__c}" styleclass="tg-tdContent-inputFld" html-placeholder="  Type observations & actions here." id="inputId"/>
+                    </td>
+                    <td class="dot2" id="dot2Id">
+                        <div class="rectangle2"  id="rect2Id">
+                            <div id="circle2Id">
+                                <p class="dotConnection2" id="connect2Id"></p>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr id="hint-trId">
+                    <td class="tg-tdHint" id="hint-tdId" colspan="5">
+                        <div class="Bulb-logo" id="bulb-divId">
+                            <apex:image url="{!URLFOR($Resource.TP_PPT_Images, 'TP_PPT_Images/Bulbicon_hint.png')}" width="35" height="35" alt="Description of image here" id="bulb-logoId"/>
+                        </div>
+                        <div class="underLine-logo" id="underlineDivId">
+                            <apex:outputtext styleClass="hintText" id="hintTextId" value="Describe strength of your territory, opportunities, specific actions and next steps. You can leverage the BMS Customer Engagement Map for a deeper dive of the data."/>
+                        </div>
+                        <apex:image styleClass="DellEMC-logo" url="{!URLFOR($Resource.TP_PPT_Images, 'TP_PPT_Images/DellEMC.png')}" width="90" height="15" alt="Description of image here" id="dellEMClogoId"/>
+                    </td> 
+                </tr>
+                <tr id ="tr-btnId">
+                    <td class="tg-tdBtns" colspan="5" id="td-btnId">
+                        <apex:commandButton action="{!saveRecord}" value="Save" id="saveId" styleClass="btn"/> 
+                        <apex:commandButton action="{!goToPrevPage}" value="Previous" id="backId" styleClass="btn"/>
+                        <apex:commandButton action="{!goToNextPage}" value="Next" id="nextId" styleClass="btn"/>
+                        <apex:commandButton action="{!cancel}" value="Cancel" id="cancelId" styleClass="btn"/>
+                    </td>
+                </tr>
+                <tfoot>
+                    <tr>
+                        <td class="footer" colspan ="5">
+                            [ {!currentPageNum} of {!totalPages} ]
+                        </td>
+                    </tr>
+                </tfoot>
+            </apex:form>
+        </table>
+    </apex:pageBlock>
+    <script >
+    function chartTip(klass, item) {
+        //console.log(klass);
+        //console.log(item);
+        var xName = klass.getData().name;
+        var yField = item.yField;
+        var ammt = 's_'+yField;
+        var amount = item.storeItem.get(ammt);   
+        //console.log('Series "'+yField+'"  Point "' +xName+ '"\n Value : '+ amount);
+        this.setTitle('Series "'+yField+'"  Point "' +xName+ '"\n Value:$'+ amount);
+    }
+    
+    </script>
+</apex:page>

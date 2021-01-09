@@ -1,0 +1,47 @@
+<apex:page Controller="MyCustomersListNSearchCtrler" sidebar="false" showHeader="false"  standardStylesheets="True" action="{!doAction}">
+    <apex:form >
+        <apex:pageBlock mode="maindetail" id="test" title="{!ECContactVar.name}" rendered="{!BoolViewContact}">
+            <apex:pageBlockSection title="{!$Label.T2D_Contact}  {!$Label.details}" columns="2">        
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.First_Name_REUD}" styleClass="label"/><apex:outputfield value="{!ECContactVar.Name}"/></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Email_REUD}" styleClass="label"/><apex:outputfield value="{!ECContactVar.Email__c}"/></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Last_Name_REUD}" styleClass="label"/><apex:outputfield value="{!ECContactVar.Last_Name__c}"/> </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Phone}" styleClass="label"/><apex:outputfield value="{!ECContactVar.Phone__c}"/> </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.End_Customer}" styleClass="label"/>
+                    <a href="{!BaseURL}/secur/frontdoor.jsp?sid={!$Api.Session_ID}&portalId=06070000000DZHq&retURL=/apex/EndCustomerDetailPage?id={!ECContactVar.End_Customer__c}"> {!ECContactVar.End_Customer__r.name} </a>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Mobile}" styleClass="label"/><apex:outputfield value="{!ECContactVar.Mobile__c}"/></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Status_REUD}" styleClass="label"/><apex:outputfield value="{!ECContactVar.Status__c}"/></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Fax}" styleClass="label"/><apex:outputfield value="{!ECContactVar.Fax__c}"/></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Title}" styleClass="label"/><apex:outputfield value="{!ECContactVar.Title__c}"/></apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!BaseURL}/secur/frontdoor.jsp?sid={!$Api.Session_ID}&portalId=06070000000DZHq&retURL={!URLENCODE('/apex/EndCustomerContactPage?contactID2='+ECContactVar.id+'&mode=Edit&ECCID='+ECContactVar.End_Customer__c)}" value="{!$Label.Edit_REUD}"/>
+                <apex:commandButton action="{!BaseURL}/secur/frontdoor.jsp?sid={!$Api.Session_ID}&portalId=06070000000DZHq&retURL={!URLENCODE('/apex/EndCustomerContactPage?mode=Clone&ECCID='+ECContactVar.End_Customer__c)}" value="Clone"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+
+        <apex:pageBlock mode="edit" title="{!ECContactVar.name}" rendered="{!BoolModifyContact}">
+            <apex:Messages style="color:red; font-weight:bold"/>
+            <apex:pageBlockSection title="{!$Label.T2D_Contact}  {!$Label.details}" columns="2">        
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.First_Name_REUD}" styleClass="label"/><apex:inputfield value="{!ECContactVar.Name}"  required="true"/></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Email_REUD}" styleClass="label"/><apex:inputfield value="{!ECContactVar.Email__c}"  required="true"/></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Last_Name_REUD}" styleClass="label"/><apex:inputfield value="{!ECContactVar.Last_Name__c}"/> </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Phone}" styleClass="label"/><apex:inputfield value="{!ECContactVar.Phone__c}"/> </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.End_Customer}" styleClass="label"/>
+                    <a href="{!BaseURL}/secur/frontdoor.jsp?sid={!$Api.Session_ID}&portalId=06070000000DZHq&retURL=/apex/EndCustomerDetailPage?id={!ECContactVar.End_Customer__c}">{!SelectedEndCustomer.name} </a>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Mobile}" styleClass="label"/><apex:inputfield value="{!ECContactVar.Mobile__c}"/></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!IF($CurrentPage.parameters.mode=='Create','true',IF($CurrentPage.parameters.mode=='Clone','true','false'))}"><apex:outputLabel value="{!$Label.Status_REUD}" styleClass="label"/><apex:outputfield value="{!ECContactVar.Status__c}"/> </apex:pageBlockSectionItem>        
+                <apex:pageBlockSectionItem rendered="{!$CurrentPage.parameters.mode='Edit'}"><apex:outputLabel value="{!$Label.Status_REUD}" styleClass="label"/><apex:inputfield value="{!ECContactVar.Status__c}"/></apex:pageBlockSectionItem>        
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Fax}" styleClass="label"/><apex:inputfield value="{!ECContactVar.Fax__c}"/></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ><apex:outputLabel value="{!$Label.Title}" styleClass="label"/><apex:inputfield value="{!ECContactVar.Title__c}"/></apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons >
+                <apex:commandLink value="{!$Label.save}"  action="{!ModifyEndCustomerContact}" styleClass="btn">
+                    <apex:param value="ContactCreate" name="ContactCreate"/>
+                </apex:commandLink>
+                <apex:commandButton action="{!BaseURL}/secur/frontdoor.jsp?sid={!$Api.Session_ID}&portalId=06070000000DZHq&retURL=/apex/EndCustomerDetailPage?id={!ECContactVar.End_Customer__c}" value="{!$Label.cancel}" immediate="true"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

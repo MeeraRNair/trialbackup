@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Campaign_type_matched</fullName>
+    <active>true</active>
+    <description>Matches Campaign Type on the member with the value of the type field on the campaign record</description>
+    <errorConditionFormula>NOT ( Text(Campaign_Type__c) == Text(Campaign__r.Type) )</errorConditionFormula>
+    <errorDisplayField>Campaign_Type__c</errorDisplayField>
+    <errorMessage>The Campaign Vehicle must be the same as the Campaign Vehicle on the Campaign record!</errorMessage>
+</ValidationRule>

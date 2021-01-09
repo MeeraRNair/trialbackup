@@ -1,0 +1,241 @@
+<apex:page controller="AgendaTopicController">
+    
+    <script>
+        function switchMenu(obj,obj1,obj2) 
+        {
+            var el = document.getElementById(obj) ;                                       
+            if ( el.style.display != 'none' ) {
+            el.style.display = 'none';
+            }
+            else {
+            el.style.display = '';
+            }
+            var e2 = document.getElementById(obj1);                                       
+            if ( e2.style.display != 'none' ) {
+            e2.style.display = 'none';
+            }
+            else {
+            e2.style.display = '';
+            }
+             var e3 = document.getElementById(obj2);                                       
+            if ( e2.style.display != 'none' ) {
+            e3.style.display = 'none';
+            }
+            else {
+            e3.style.display = '';
+            }
+
+        }
+    </script>
+    <style>
+        .sample {
+            font-weight:bold;
+        }
+    </style>
+    <apex:pageBlock title="Select Topics" >
+            <apex:form >
+                <apex:actionFunction name="rerenderSubj" rerender="subjectSelectList" >
+                    <apex:param name="firstParam" assignTo="{!subject}" value="" />
+                </apex:actionFunction>
+                <table>
+                    <tbody>
+                        <tr>
+                           <th>Subject</th>
+                            <td width="500">
+                                <apex:selectList id="subject" styleclass="std" size="1"
+                                value="{!subject}">
+                                <apex:actionSupport event="onchange" action="{!subjSelected}" />
+                                    <apex:selectOptions value="{!subjectSelectList}"/>
+                                </apex:selectList>
+                            </td>
+                            <td width="100"/>
+                            <td width="100"><b>                          
+                                Total Duration : </b>
+                            </td>
+                            <td >
+                                <apex:outputText value="{!durationhrs}" />
+                            </td>
+                            <td width="15"/>    
+                            <td>
+                                <apex:commandButton value="Back to Customer Engagements" action="{!backToCustomer}"  />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </apex:form> 
+            <table width="100%">
+                <tr><br/>
+                    <td width="65%">              
+                        <apex:outputPanel id="out">
+                            <apex:actionstatus id="status" >
+                                <apex:facet name="stop">
+                                    <apex:form title="Select a topic" rendered="{!displayTopics}">
+                                        <apex:pageBlockTable value="{!TopicDisplayList}" var="tops">
+                                            <apex:column width="200" style="border:1px solid #f3f3eb;" headerValue="Topic Name" value="{!tops.topic.name}"/>
+                                            <apex:column width="800" style="border:1px solid #f3f3eb;" headerValue="Description" value="{!tops.topic.Description__c}"/>
+                                            <apex:column width="70" style="border:1px solid #f3f3eb;text-align:center" headerValue="Duration(min)" value="{!tops.topic.Duration_minutes__c}"/>
+                                            <apex:column headerValue="Select ">
+                                                <apex:inputCheckbox value="{!tops.selected}"/>
+                                            </apex:column>
+                                        </apex:pageBlockTable>
+                                        <apex:commandButton value="Add Topic" action="{!add}"/>
+                                        <!--<apex:pageMessages ></apex:pageMessages>-->
+                                    </apex:form>
+                                </apex:facet>
+                            </apex:actionstatus>  
+                            <apex:pageMessages ></apex:pageMessages>
+                        </apex:outputPanel>
+                    </td>   
+                    <td width="5"/>               
+                    <td width="30%">
+                        <apex:outputPanel >
+                            <apex:outputText styleClass="sample" value="Step 1: Select a Subject from picklist."/><br></br>
+                            <apex:outputText styleClass="sample" value="Step 2: Click Select tick box to include one or more "/><br></br>
+                            <span style="padding-left:1.1cm">
+                                <apex:outputText styleClass="sample" value="Topics to the agenda."/>
+                            </span><br></br>
+                            <apex:outputText value="Step 3: Click Add Topic button to confirm selection." styleClass="sample"/><br></br>
+                            <apex:outputText value="Step 4: Click “+” sign to expand your topics selected." styleClass="sample"/><br></br>
+                            <apex:outputText value="Step 5: Answer questions addressed to the Account " styleClass="sample"/><br></br>
+                            <span style="padding-left:1.1cm">
+                                <apex:outputText styleClass="sample" value="Executive (AE) if needed."/>
+                            </span><br></br>
+                            <apex:outputText value="Step 6: Click Save." styleClass="sample"/><br></br>
+                            <apex:outputText value=" Note : It is only possible to remove topics before " styleClass="sample"/><br></br>
+                            <span style="padding-left:1.1cm">
+                                <apex:outputText styleClass="sample" value="clicking “Save”."/>
+                            </span><br></br>
+                        </apex:outputPanel>
+                    </td>
+                </tr>
+            </table>    
+        </apex:pageBlock>
+        <apex:form >
+            <apex:pageblock rendered="{!DisplayAgenda}" >
+                <apex:pageblocktable value="{!subjectNewList}"  var="subj">
+                    <apex:column >
+                        <apex:facet name="header">                                        
+                            Subjects and topics selected are:                                                                              
+                        </apex:facet>
+                        <apex:outputpanel id="plusimage">
+                            <apex:image url="{!$Resource.Plus_Image}" style="width:20px" onclick="switchMenu('{!$Component.inlinetablesec}','{!$Component.minusimage}','{!$Component.plusimage}')" title="Expand - Subject"/> 
+                            <h3><apex:outputLabel value="{!subj.subjectName}"/></h3>
+                        </apex:outputpanel>
+                        <apex:outputpanel id="minusimage" style="display:none;">
+                            <apex:image url="{!$Resource.Minus_Image}" style="width:20px" onclick="switchMenu('{!$Component.inlinetablesec}','{!$Component.plusimage}','{!$Component.minusimage}')" title="Collapse - Subject"/>
+                            <h3><apex:outputLabel value="{!subj.subjectName}"/></h3>
+                        </apex:outputpanel>
+                        <apex:outputpanel id="inlinetablesec" style="display:none;">
+                            <apex:variable value="{!0}" var="rowNum"/>
+                            <apex:repeat var="count" value="{!subj.subjectName}">
+                                <apex:variable var="rowNum" value="{!rowNum+1}"/>
+                            </apex:repeat>
+                            <apex:repeat value="{!subj.agendaTopicsList}" var="Final">
+                                <apex:pageblockTable value="{!Final}" var="firstrow">
+                                    <apex:column headerValue="Topics" width="44%" >
+                                        <b><apex:outputtext value="{!firstrow.Name}"/></b>
+                                    </apex:column>
+                                    <apex:column headerValue="Description" width="47%">
+                                        <apex:outputtext value="{!firstrow.Description__c}"/>
+                                    </apex:column> 
+                                    <apex:column width="6%" headerValue="Action" style="text-align:center">
+                                        <apex:commandLink action="{!deleteTopics}"> 
+                                            <apex:image url="{!$Resource.Remove_Image}"/>
+                                            <apex:param name="delTopic" value="{!firstrow.Topics__c}"/>
+                                        </apex:commandLink> 
+                                    </apex:column> 
+                                </apex:pageblocktable> 
+                                <apex:repeat value="{!Final}" var="secrow">  
+                                    <table>  
+                                        <tr>
+                                            <td><b>Questions</b></td>
+                                            <td><b>Notes</b></td>
+                                            <td colspan="2"></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="45%">                     
+                                                <apex:outputText value="{!secrow.AE_Questions__c}"/> 
+                                            </td>
+                                            <td width="55%">
+                                                <apex:outputText value="{!secrow.AE_Notes__c}" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </apex:repeat> 
+                                <apex:repeat value="{!Final}" var="thirdrow">   
+                                    <table>  
+                                        <tr>
+                                            <td><b>Analyst Questions</b></td>
+                                            <td><b>Analyst Notes</b></td>
+                                            <td colspan="2"></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="45%">
+                                                <apex:outputField value="{!thirdrow.Analyst_Questions__c}"/> 
+                                            </td>
+                                            <td width="55%">
+                                                <apex:inputTextarea cols="100" rows="6" value="{!thirdrow.Analyst_Notes__c}"/>  
+                                            </td>
+                                       </tr>
+                                   </table>
+                               </apex:repeat>
+                           </apex:repeat>                       
+                           <apex:repeat value="{!subj.agendaExistingTopicsList}" var="existFinal">
+                               <apex:pageblockTable value="{!existFinal}" var="firstexistrow">
+                                   <apex:column headerValue="Topics" width="44%">
+                                       <b><apex:outputtext value="{!firstexistrow.Name}"/></b>
+                                   </apex:column>
+                                   <apex:column headerValue="Description" width="47%">
+                                       <apex:outputtext value="{!firstexistrow.Description__c}"/>
+                                   </apex:column> 
+                                   <apex:column width="6%" headerValue="Duration(minutes)" style="text-align:center">
+                                       <apex:outputtext value="{!firstexistrow.Duration__c}"/> 
+                                   </apex:column> 
+                               </apex:pageblocktable> 
+                               <apex:repeat value="{!existFinal}" var="secexistrow">
+                                   <table>  
+                                       <tr>
+                                           <td><b>Questions</b></td>
+                                           <td><b>Notes</b></td>
+                                           <td colspan="2"></td>
+                                      </tr>
+                                      <tr>
+                                          <td width="45%">
+                                              <apex:outputField value="{!secexistrow.AE_Questions__c}"/> 
+                                          </td> 
+                                          <td width="55%">
+                                              <apex:inputTextarea cols="100" rows="6" value="{!secexistrow.AE_Notes__c}"/>
+                                          </td>
+                                      </tr>
+                                   </table>
+                               </apex:repeat> 
+                               <apex:repeat value="{!existFinal}" var="thirdexistrow"> 
+                                   <table>  
+                                       <tr>
+                                           <td>
+                                               <b>Analyst Questions</b>
+                                           </td>
+                                           <td>
+                                               <b>Analyst Notes</b>
+                                           </td>
+                                           <td colspan="2"></td>
+                                       </tr>
+                                       <tr>
+                                           <td width="45%">
+                                               <apex:outputField value="{!thirdexistrow.Analyst_Questions__c}"/> 
+                                           </td>
+                                           <td width="55%">
+                                               <apex:inputTextarea cols="100" rows="6" value="{!thirdexistrow.Analyst_Notes__c}"/>
+                                           </td>
+                                       </tr>
+                                   </table>
+                               </apex:repeat>
+                           </apex:repeat>          
+                       </apex:outputpanel>                          
+                   </apex:column>
+               </apex:pageblocktable>
+               <apex:commandButton value="Save" action="{!save}" /> 
+               <apex:commandButton value="Cancel" action="{!cancel}" /> 
+           </apex:pageblock>
+      </apex:form>
+</apex:page>

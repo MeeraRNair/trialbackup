@@ -1,0 +1,33 @@
+<apex:page showHeader="false" id="SalesCentralTemplate">
+ 
+ <!-- This is the standard SalesCentral template, which can be used as standard template for the Site pages -->
+ 
+<head>
+    <link rel="stylesheet" type="text/css" href="http://salescentral.us.dell.com/sites/sales/Style%20Library/en-US/Core%20Styles/controls.css"/>
+    <link rel="stylesheet" type="text/css" href="http://salescentral.us.dell.com/sites/sales/Style%20Library/en-US/Core%20Styles/DellBand.css"/>
+    <link rel="stylesheet" type="text/css" href="http://salescentral.us.dell.com/sites/sales/Style%20Library/en-US/Core%20Styles/DellTabs.css"/>
+    <link rel="stylesheet" type="text/css" href="http://salescentral.us.dell.com/sites/sales/Style%20Library/Dell/InsideStyle.css"/>
+    <link rel="stylesheet" type="text/css" href="http://salescentral.us.dell.com/sites/sales/Style%20Library/Dell/miniMain.css"/>
+    <link rel="stylesheet" type="text/css" href="http://salescentral.us.dell.com/sites/sales/Style%20Library/zz1_blue.css"/>
+    <link rel="stylesheet" type="text/css" href="http://salescentral.us.dell.com/_layouts/1033/styles/core.css?rev=5msmprmeONfN6lJ3wtbAlA%3D%3D"/>
+
+    <script src="http://salescentral.us.dell.com/sites/sales/branding/pages/sc.aspx?f=0&session_id={!$Api.SESSION_ID}&server_url={!$Api.Enterprise_Server_URL_170}" type="text/javascript"></script>   
+</head>
+
+<body>
+
+<apex:form >
+<script type="text/javascript" language="javascript">
+    RenderHeader();
+</script>
+  
+<apex:insert name="body"/>
+ 
+<script type="text/javascript" language="javascript">
+    RenderFooter();
+</script>    
+</apex:form>
+
+</body>    
+
+</apex:page>

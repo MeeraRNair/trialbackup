@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sales_Status</fullName>
+    <active>false</active>
+    <errorConditionFormula>AND($User.Title==&quot;OEM_PM&quot;,Request_Rejected__c == False, OR(ISPICKVAL(OEM_Status__c, &quot;New&quot;),ISPICKVAL(OEM_Status__c, &quot;Closed&quot;)))</errorConditionFormula>
+    <errorMessage>Rapid Response team can only change the status to &quot;In Progress&quot;</errorMessage>
+</ValidationRule>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>gdm_vre_002_Cant_Modified_ClosedRequest</fullName>
+    <active>true</active>
+    <description>A request with Status equal to &apos;Closed&apos; cannot be modified</description>
+    <errorConditionFormula>TEXT( Request_Status__c ) = &apos;Closed&apos; ||
+TEXT( Request_Status__c ) = &apos;Cancelled&apos; || 
+CONTAINS( TEXT(Request_Status__c) , &apos;Rejected&apos;)</errorConditionFormula>
+    <errorMessage>(002) This request is already Closed, Cancelled, or Rejected.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SFDC_PIM_Integration</fullName>
+    <columns>NAME</columns>
+    <columns>OWNER.FIRST_NAME</columns>
+    <columns>OWNER.LAST_NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Process_Name__c</field>
+        <operation>contains</operation>
+        <value>PIM</value>
+    </filters>
+    <label>SFDC_PIM_Integration</label>
+    <language>en_US</language>
+</ListView>

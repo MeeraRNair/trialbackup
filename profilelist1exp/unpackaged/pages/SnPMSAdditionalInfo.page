@@ -1,0 +1,1102 @@
+<apex:page standardController="S_P_Vendors__c" extensions="SnP_MSAdditionalInfoController">
+
+<style type = "text/css">
+
+
+.main{font: 120% "Lucida Grande", "Lucida Sans Unicode", "Trebuchet MS", sans-serif;padding: 0; margin: 0; border-collapse: collapse; color: #333; background: #F3F5F7;}
+
+
+.head{background: #0099CC; padding: 15px 10px; color: #FFFFFF; text-align: left; font-weight: normal; font-style: bold;}
+
+.activeTab{background: #FFFFFF; color: #000000; font-weight: normal;}
+
+.tabHead{background: #FFFFFF; color: #000000; font-weight: normal;}
+
+.tabHead:hover {background: #E6F6F6; color: #111;}
+
+.cols{padding: 10px; text-align: left;  border-bottom: 1px solid #E6E6E6; }
+
+.rows{background: #FFFFFF;}
+
+.rows:hover {background: #E6F6F6; color: #111;}
+
+.panelCenter { margin-left:auto; margin-right:auto;}
+
+.customPopup {
+    background-color: white;
+    border-style: solid;
+    border-width: 2px;
+    left: 20%;
+    padding: 10px;
+    position: absolute;
+    z-index: 9999;
+    /* These are the 3 css properties you will need to tweak so the pop 
+                            up displays in the center of the screen. First set the width. Then set 
+                            margin-left to negative half of what the width is. You can also add 
+                            the height property for a fixed size pop up.*/
+    
+    top: 20%;
+}
+
+
+
+</style>
+<div id = "066Z00000000RwB"> 
+<apex:tabPanel id="MSAdditionalInfoTabs" width="1" contentStyle="background: #FFFFFF;" activeTabClass="activeTab" inactiveTabClass="tabHead" style="panelCenter" rendered="{!isThisEaNotBlank}">
+    
+    <apex:tab label="EA Detail" rendered="{!isThisEa}" >
+        <apex:form >
+            <apex:pageMessages ></apex:pageMessages>
+            <apex:dataTable value="{!addlInfoQuery}" var="ea" id="EATableDisplay" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" rendered="{!(!checkEaProductsEmpty)}" >
+                <apex:column >
+                    <apex:facet name="header" >EA Type</apex:facet>
+                    <apex:outputField value="{!ea.EA_Type__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Agreement Level</apex:facet>
+                    <apex:outputField value="{!ea.Agreement_Level__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >EA Year 1 Total</apex:facet>
+                    <apex:outputField value="{!ea.Total__c}" />
+                </apex:column>
+            </apex:dataTable>
+            
+            <apex:dataTable value="{!addlInfoQuery}" var="ea" id="EATable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" rendered="{!checkEaProductsEmpty}" >
+                <apex:column >
+                    <apex:facet name="header" >EA Type</apex:facet>
+                    <apex:inputField value="{!ea.EA_Type__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Agreement Level</apex:facet>
+                    <apex:inputField value="{!ea.Agreement_Level__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >EA Year 1 Total</apex:facet>
+                    <apex:inputField value="{!ea.Total__c}" />
+                </apex:column>
+            </apex:dataTable>
+            
+            <br/><br/><apex:commandButton action="{!wizardStart}" value=" Next " rendered="{!checkEaProductsEmpty}"/>
+                      <apex:commandButton action="{!showNewSipPage}" value=" Edit " rendered="{!checkEaProductsEmptyEdit}" />
+                      <apex:commandButton action="{!showPopup}" value=" Show Complete Form " rendered="{!(!checkEaProductsEmpty)}" />
+                      <!--<apex:commandButton value=" Export " action="{!exportPage}" />-->
+        
+        <apex:outputPanel id="popup">
+        
+        <apex:outputPanel styleClass="customPopup" layout="block" rendered="{!displayPopUp}">
+
+            <apex:dataTable value="{!addlInfoQuery}" var="ea" id="EaCompleteForm" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" >
+                <apex:column >
+                    <apex:facet name="header" >EA Type</apex:facet>
+                    <apex:outputField value="{!ea.EA_Type__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Agreement Level</apex:facet>
+                    <apex:outputField value="{!ea.Agreement_Level__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >EA Year 1 Total</apex:facet>
+                    <apex:outputField value="{!ea.Total__c}" />
+                </apex:column>
+            </apex:dataTable>
+            
+            <br/>
+            
+            <apex:dataTable value="{!eaProducts}" var="eaProd" id="eaWizardTable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" rendered="{!eaProductsNotEmpty}">
+                <apex:column >
+                    <apex:facet name="header" >EA Type</apex:facet>
+                    <apex:outputField value="{!eaProd.Type__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >EA Enterprise Product</apex:facet>
+                    <apex:outputField value="{!eaProd.EA_Enterprise_Product__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Quantity</apex:facet>
+                    <apex:outputField value="{!eaProd.Quantity__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Unit Price</apex:facet>
+                    <apex:outputField value="{!eaProd.Unit_Price__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Total</apex:facet>
+                    <apex:outputField value="{!eaProd.Total__c}" />
+                </apex:column>
+            </apex:dataTable>
+            
+            <apex:dataTable value="{!eaAddlProductsToDisplay}" var="eaProd" id="eaAddlProductsTable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols"  rendered="{!eaAddlProductsNotEmpty}">
+                <apex:column >
+                    <apex:facet name="header" >EA Type</apex:facet>
+                    <apex:outputField value="{!eaProd.Type__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Additional Product Type</apex:facet>
+                    <apex:outputField value="{!eaProd.Additional_Product_Type__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >New Products Only</apex:facet>
+                    <apex:outputField value="{!eaProd.New_Products_Only__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Quantity</apex:facet>
+                    <apex:outputField value="{!eaProd.Quantity__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Unit Price</apex:facet>
+                    <apex:outputField value="{!eaProd.Unit_Price__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Total</apex:facet>
+                    <apex:outputField value="{!eaProd.Total__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SIP Incentive</apex:facet>
+                    <apex:outputField value="{!eaProd.SIP_Incentive__c}" />
+                </apex:column>
+            </apex:dataTable>
+            
+            <br/>
+            
+            <apex:dataTable value="{!easProducts}" var="easProd" id="easWizardTable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" rendered="{!easProductsNotEmpty}">
+                <apex:column >
+                    <apex:facet name="header" >EA Type</apex:facet>
+                    <apex:outputField value="{!easProd.Type__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >EA Enterprise Product</apex:facet>
+                    <apex:outputField value="{!easProd.EA_Enterprise_Product__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Quantity</apex:facet>
+                    <apex:outputField value="{!easProd.Quantity__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Unit Price</apex:facet>
+                    <apex:outputField value="{!easProd.Unit_Price__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Total</apex:facet>
+                    <apex:outputField value="{!easProd.Total__c}" />
+                </apex:column>
+            </apex:dataTable>
+            
+            <apex:dataTable value="{!easAddlProductsToDisplay}" var="easProd" id="easAddlProductsTable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols"  rendered="{!easAddlProductsNotEmpty}">
+                <apex:column >
+                    <apex:facet name="header" >EA Type</apex:facet>
+                    <apex:outputField value="{!easProd.Type__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Additional Product Type</apex:facet>
+                    <apex:outputField value="{!easProd.Additional_Product_Type__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >New Products Only</apex:facet>
+                    <apex:outputField value="{!easProd.New_Products_Only__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Quantity</apex:facet>
+                    <apex:outputField value="{!easProd.Quantity__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Unit Price</apex:facet>
+                    <apex:outputField value="{!easProd.Unit_Price__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Total</apex:facet>
+                    <apex:outputField value="{!easProd.Total__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SIP Incentive</apex:facet>
+                    <apex:outputField value="{!easProd.SIP_Incentive__c}" />
+                </apex:column>
+            </apex:dataTable>
+            
+            <br/>
+            
+            <apex:dataTable value="{!eapProducts}" var="eapProd" id="eapWizardTable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" rendered="{!eapProductsNotEmpty}">
+                <apex:column >
+                    <apex:facet name="header" >EA Type</apex:facet>
+                    <apex:outputField value="{!eapProd.Type__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >EA Enterprise Product</apex:facet>
+                    <apex:outputField value="{!eapProd.EA_Enterprise_Product__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Quantity</apex:facet>
+                    <apex:outputField value="{!eapProd.Quantity__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Unit Price</apex:facet>
+                    <apex:outputField value="{!eapProd.Unit_Price__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Total</apex:facet>
+                    <apex:outputField value="{!eapProd.Total__c}" />
+                </apex:column>
+            </apex:dataTable>
+            
+            <apex:dataTable value="{!eapAddlProductsToDisplay}" var="eapProd" id="eapAddlProductsTable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols"  rendered="{!eapAddlProductsNotEmpty}">
+                <apex:column >
+                    <apex:facet name="header" >EA Type</apex:facet>
+                    <apex:outputField value="{!eapProd.Type__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Additional Product Type</apex:facet>
+                    <apex:outputField value="{!eapProd.Additional_Product_Type__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >New Products Only</apex:facet>
+                    <apex:outputField value="{!eapProd.New_Products_Only__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Quantity</apex:facet>
+                    <apex:outputField value="{!eapProd.Quantity__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Unit Price</apex:facet>
+                    <apex:outputField value="{!eapProd.Unit_Price__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Total</apex:facet>
+                    <apex:outputField value="{!eapProd.Total__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SIP Incentive</apex:facet>
+                    <apex:outputField value="{!eapProd.SIP_Incentive__c}" />
+                </apex:column>
+            </apex:dataTable>
+            
+            
+            <br/>
+            
+            <apex:dataTable value="{!eciProducts}" var="eciProd" id="eciWizardTable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" rendered="{!eciProductsNotEmpty}">
+                <apex:column >
+                    <apex:facet name="header" >EA Type</apex:facet>
+                    <apex:outputField value="{!eciProd.Type__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >EA Enterprise Product</apex:facet>
+                    <apex:outputField value="{!eciProd.EA_Enterprise_Product__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Quantity</apex:facet>
+                    <apex:outputField value="{!eciProd.Quantity__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Unit Price</apex:facet>
+                    <apex:outputField value="{!eciProd.Unit_Price__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Total</apex:facet>
+                    <apex:outputField value="{!eciProd.Total__c}" />
+                </apex:column>
+            </apex:dataTable>
+            
+            <apex:dataTable value="{!eciAddlProductsToDisplay}" var="eciProd" id="eciAddlProductsTable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" rendered="{!eciAddlProductsNotEmpty}">
+                <apex:column >
+                    <apex:facet name="header" >EA Type</apex:facet>
+                        <apex:outputField value="{!eciProd.Type__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Additional Product Type</apex:facet>
+                        <apex:outputField value="{!eciProd.Additional_Product_Type__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >New Products Only</apex:facet>
+                        <apex:outputField value="{!eciProd.New_Products_Only__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Quantity</apex:facet>
+                        <apex:outputField value="{!eciProd.Quantity__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Unit Price</apex:facet>
+                        <apex:outputField value="{!eciProd.Unit_Price__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Total</apex:facet>
+                        <apex:outputField value="{!eciProd.Total__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SIP Incentive</apex:facet>
+                        <apex:outputField value="{!eciProd.SIP_Incentive__c}" />
+                </apex:column>
+            </apex:dataTable>
+            
+            <br/>
+            
+            <apex:dataTable value="{!sceProducts}" var="sceProd" id="sceWizardTable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" rendered="{!sceProductsNotEmpty}">
+                <apex:column >
+                    <apex:facet name="header" >EA Type</apex:facet>
+                    <apex:outputField value="{!sceProd.Type__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >EA Enterprise Product</apex:facet>
+                    <apex:outputField value="{!sceProd.EA_Enterprise_Product__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Quantity</apex:facet>
+                    <apex:outputField value="{!sceProd.Quantity__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Unit Price</apex:facet>
+                    <apex:outputField value="{!sceProd.Unit_Price__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Total</apex:facet>
+                    <apex:outputField value="{!sceProd.Total__c}" />
+                </apex:column>
+            </apex:dataTable>
+            
+            <apex:dataTable value="{!sceAddlProductsToDisplay}" var="sceProd" id="sceAddlProductsTable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" rendered="{!sceAddlProductsNotEmpty}">
+                <apex:column >
+                    <apex:facet name="header" >EA Type</apex:facet>
+                        <apex:outputField value="{!sceProd.Type__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Additional Product Type</apex:facet>
+                        <apex:outputField value="{!sceProd.Additional_Product_Type__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >New Products Only</apex:facet>
+                        <apex:outputField value="{!sceProd.New_Products_Only__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Quantity</apex:facet>
+                        <apex:outputField value="{!sceProd.Quantity__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Unit Price</apex:facet>
+                        <apex:outputField value="{!sceProd.Unit_Price__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Total</apex:facet>
+                        <apex:outputField value="{!sceProd.Total__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SIP Incentive</apex:facet>
+                        <apex:outputField value="{!sceProd.SIP_Incentive__c}" />
+                </apex:column>
+            </apex:dataTable>
+            
+            <br/><br/>
+            <apex:dataTable value="{!addlInfoProdEa}" var="eaProd" id="eaThrshTable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" rendered="{!eaThreshNotEmpty}">
+                <apex:column >
+                    <apex:facet name="header" >Contract</apex:facet>
+                    {!eaProd.contract}              
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SIP Products</apex:facet>
+                    {!eaProd.sipProducts}  
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Total</apex:facet>
+                    <!-- USD&nbsp;{!eaProd.total} -->
+                    <apex:outputText value="{0, number, {!S_P_Vendors__c.Opportunity__r.CurrencyIsoCode} ###,###,###,###,##0.00}">
+                    <apex:param value="{!eaProd.total}"/>
+                    </apex:outputText><br/>
+                    <apex:outputText value="({0, number, {!userCurrency} ###,###,###,###,##0.00})" rendered="{!currencyCheck}">
+                    <apex:param value="{!eaProd.convertedTotal}"/>
+                    </apex:outputText>  
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SIP Threshold Met?</apex:facet>
+                    {!eaProd.sipThrshldMet}  
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Minimum Threshold</apex:facet>
+                    <apex:outputText value="{0, number, {!S_P_Vendors__c.Opportunity__r.CurrencyIsoCode} ###,###,###,###,##0.00}">
+                    <apex:param value="{!eaProd.minimumRev}"/>
+                    </apex:outputText>  
+                </apex:column>
+
+            </apex:dataTable>
+            
+            <apex:dataTable value="{!addlInfoProdEas}" var="easProd" id="easThrshTable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" rendered="{!easThreshNotEmpty}">
+                <apex:column >
+                    <apex:facet name="header" >Contract</apex:facet>
+                    {!easProd.contract}              
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SIP Products</apex:facet>
+                    {!easProd.sipProducts}  
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Total</apex:facet>
+                    <!-- USD&nbsp;{!eaProd.total} -->
+                    <apex:outputText value="{0, number, {!S_P_Vendors__c.Opportunity__r.CurrencyIsoCode} ###,###,###,###,##0.00}">
+                    <apex:param value="{!easProd.total}"/>
+                    </apex:outputText><br/>
+                    <apex:outputText value="({0, number, {!userCurrency} ###,###,###,###,##0.00})" rendered="{!currencyCheck}">
+                    <apex:param value="{!easProd.convertedTotal}"/>
+                    </apex:outputText>  
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SIP Threshold Met?</apex:facet>
+                    {!easProd.sipThrshldMet}  
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Minimum Threshold</apex:facet>
+                    <apex:outputText value="{0, number, {!S_P_Vendors__c.Opportunity__r.CurrencyIsoCode} ###,###,###,###,##0.00}">
+                    <apex:param value="{!easProd.minimumRev}"/>
+                    </apex:outputText>  
+                </apex:column>
+
+            </apex:dataTable>
+            
+            <apex:dataTable value="{!addlInfoProdEap}" var="eaProd" id="eapThrshTable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" rendered="{!eapThreshNotEmpty}">
+                <apex:column >
+                    <apex:facet name="header" >Contract</apex:facet>
+                    {!eaProd.contract}              
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SIP Products</apex:facet>
+                    {!eaProd.sipProducts}  
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Total</apex:facet>
+                    <!-- USD&nbsp;{!eaProd.total} -->
+                    <apex:outputText value="{0, number, {!S_P_Vendors__c.Opportunity__r.CurrencyIsoCode} ###,###,###,###,##0.00}">
+                    <apex:param value="{!eaProd.total}"/>
+                    </apex:outputText><br/>
+                    <apex:outputText value="({0, number, {!userCurrency} ###,###,###,###,##0.00})" rendered="{!currencyCheck}">
+                    <apex:param value="{!eaProd.convertedTotal}"/>
+                    </apex:outputText>     
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SIP Threshold Met?</apex:facet>
+                    {!eaProd.sipThrshldMet}  
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Minimum Threshold</apex:facet>
+                    <apex:outputText value="{0, number, {!S_P_Vendors__c.Opportunity__r.CurrencyIsoCode} ###,###,###,###,##0.00}">
+                    <apex:param value="{!eaProd.minimumRev}"/>
+                    </apex:outputText>
+                </apex:column>
+            </apex:dataTable>
+            
+            <apex:dataTable value="{!addlInfoProdEci}" var="eaProd" id="eciThrshTable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" rendered="{!eciThreshNotEmpty}">
+                <apex:column >
+                    <apex:facet name="header" >Contract</apex:facet>
+                    {!eaProd.contract}              
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SIP Products</apex:facet>
+                    {!eaProd.sipProducts}  
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Total</apex:facet>
+                    <!-- USD&nbsp;{!eaProd.total} -->
+                    <apex:outputText value="{0, number, {!S_P_Vendors__c.Opportunity__r.CurrencyIsoCode} ###,###,###,###,##0.00}">
+                    <apex:param value="{!eaProd.total}"/>
+                    </apex:outputText><br/>
+                    <apex:outputText value="({0, number, {!userCurrency} ###,###,###,###,##0.00})" rendered="{!currencyCheck}">
+                    <apex:param value="{!eaProd.convertedTotal}"/>
+                    </apex:outputText>     
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SIP Threshold Met?</apex:facet>
+                    {!eaProd.sipThrshldMet}  
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Minimum Threshold</apex:facet>
+                    <apex:outputText value="{0, number, {!S_P_Vendors__c.Opportunity__r.CurrencyIsoCode} ###,###,###,###,##0.00}">
+                    <apex:param value="{!eaProd.minimumRev}"/>
+                    </apex:outputText>  
+                </apex:column>
+            </apex:dataTable>
+            
+            <apex:dataTable value="{!addlInfoProdSce}" var="eaProd" id="sceThrshTable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" rendered="{!sceThreshNotEmpty}">
+                <apex:column >
+                    <apex:facet name="header" >Contract</apex:facet>
+                    {!eaProd.contract}              
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SIP Products</apex:facet>
+                    {!eaProd.sipProducts}  
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Total</apex:facet>
+                    <!-- USD&nbsp;{!eaProd.total} -->
+                    <apex:outputText value="{0, number, {!S_P_Vendors__c.Opportunity__r.CurrencyIsoCode} ###,###,###,###,##0.00}">
+                    <apex:param value="{!eaProd.total}"/>
+                    </apex:outputText><br/>
+                    <apex:outputText value="({0, number, {!userCurrency} ###,###,###,###,##0.00})" rendered="{!currencyCheck}">
+                    <apex:param value="{!eaProd.convertedTotal}"/>
+                    </apex:outputText>     
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SIP Threshold Met?</apex:facet>
+                    {!eaProd.sipThrshldMet}  
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Minimum Threshold</apex:facet>
+                    <apex:outputText value="{0, number, {!S_P_Vendors__c.Opportunity__r.CurrencyIsoCode} ###,###,###,###,##0.00}">
+                    <apex:param value="{!eaProd.minimumRev}"/>
+                    </apex:outputText>  
+                </apex:column>
+            </apex:dataTable>
+            
+            <br/><br/><apex:commandButton value=" Close " action="{!closePopup}" rerender="popup" />
+            
+                        
+                        
+
+
+</apex:outputPanel>
+</apex:outputPanel>
+        
+        </apex:form>
+    </apex:tab>
+    
+    <apex:tab label="Product Detail" rendered="{!isThisNotEa}">
+        
+        <apex:form >
+            <apex:pageMessages ></apex:pageMessages>
+            <!-------------------------------- Display mode ---------------------------------------->
+            <apex:dataTable value="{!prodSelQuery}" var="sipProdSelQuery" id="sipTableDisplay" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" rendered="{!(!checkSipProductsEmpty)}">
+                <apex:column rendered="true">
+                    <apex:facet name="header" >SIP Type</apex:facet>
+                    <apex:outputText value="SIP" />
+                    <apex:inputField style="display: none;" value="{!sipProdSelQuery.Type__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SIP Deal Reg Type</apex:facet>
+                    <apex:outputField value="{!sipProdSelQuery.Additional_Product_Type__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >New Products Only</apex:facet>
+                    <apex:outputField value="{!sipProdSelQuery.New_Products_Only__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Quantity</apex:facet>
+                    <apex:outputField value="{!sipProdSelQuery.Quantity__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Unit Price</apex:facet>
+                    <apex:outputField value="{!sipProdSelQuery.Unit_Price__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Total</apex:facet>
+                    <apex:outputField value="{!sipProdSelQuery.Total__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SIP Incentive</apex:facet>
+                    <apex:outputField value="{!sipProdSelQuery.SIP_Incentive__c}" />
+                </apex:column>
+                
+            </apex:dataTable>
+            <!-------------------------------- End display mode ------------------------------------>
+            <!-- <apex:dataTable value="{!prodSelQuery}" var="sipProdSelQuery" id="sipTable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" rendered="{!checkSipProductsEmpty}" >-->
+            <apex:dataTable value="{!sipProducts}" var="sipProdSelQuery" id="sipTable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" rendered="{!checkSipProductsEmpty}" >
+               <apex:column rendered="true">
+                    <apex:facet name="header" >SIP Type</apex:facet>
+                    <apex:outputText value="SIP" />
+                    <apex:inputField style="display: none;" value="{!sipProdSelQuery.Type__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SIP Deal Reg Type</apex:facet>
+                    <apex:inputField value="{!sipProdSelQuery.Additional_Product_Type__c}" onchange="testProductsTextSip()" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >New Products Only</apex:facet>
+                    <apex:inputField value="{!sipProdSelQuery.New_Products_Only__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Quantity</apex:facet>
+                    <apex:inputField value="{!sipProdSelQuery.Quantity__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Unit Price</apex:facet>
+                    <apex:inputField value="{!sipProdSelQuery.Unit_Price__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Total</apex:facet>
+                    <apex:outputField value="{!sipProdSelQuery.Total__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SIP Incentive</apex:facet>
+                    <apex:outputField value="{!sipProdSelQuery.SIP_Incentive__c}" />
+                </apex:column>
+                
+            </apex:dataTable>
+            
+            <!-- <br/><apex:commandButton value=" Add more products? " action="{!showPopup}" rerender="popup"/> -->
+            
+            <apex:outputPanel rendered="{!checkSipProductsEmpty}">
+                <apex:outputpanel id="addTextSip">
+                    <apex:outputpanel id="outTextSip" rendered="{!closeAddProductsTextSip}">
+                        Do you have more products for this Opportunity? Please enter number of rows to add and click OK:  
+                        <apex:inputText id="noOfProductsTest" value="{!moreProd}" size="10" />
+                        <a href="javascript:if (window.confirm('Are you sure?')) testSip();" style="font-weight:bold; font-size: 120%">OK</a>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+            </apex:outputPanel>     
+            <apex:actionFunction name="testProductsTextSip" action="{!openAddProductsTextSip}" reRender="addTextSip, addButton"/>
+            
+            <apex:outputpanel id="addSip">
+                <apex:outputpanel id="outSip" rendered="{!closeMoreProductSip}">
+                    <apex:dataTable value="{!sipAddlProducts}" var="sip" id="sipAddlTable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" >
+                        <apex:column rendered="true">
+                            <apex:facet name="header" >SIP Type</apex:facet>
+                            <apex:outputText value="SIP" />
+                            <apex:inputField style="display: none;" value="{!sip.Type__c}"/>
+                        </apex:column>
+                        <apex:column rendered="false">
+                            <apex:facet name="header" >SIP Type</apex:facet>
+                            <apex:inputField value="{!sip.Type__c}"/>
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >SIP Deal Reg Type</apex:facet>
+                            <apex:inputField value="{!sip.Additional_Product_Type__c}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >New Products Only</apex:facet>
+                            <apex:inputField value="{!sip.New_Products_Only__c}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >Quantity</apex:facet>
+                            <apex:inputField value="{!sip.Quantity__c}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >Unit Price</apex:facet>
+                            <apex:inputField value="{!sip.Unit_Price__c}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >Total</apex:facet>
+                            <apex:outputField value="{!sip.Total__c}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >SIP Incentive</apex:facet>
+                            <apex:outputField value="{!sip.SIP_Incentive__c}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >Delete Product?</apex:facet>
+                            <apex:inputField value="{!sip.Remove__c}"  />
+                        </apex:column>
+                        
+                    </apex:dataTable>
+                </apex:outputpanel>
+            </apex:outputpanel>
+            <apex:actionFunction name="testSip" action="{!openMoreProductSip}" reRender="addSip, addButton" />
+            
+            <!-- <br/><br/>
+            <apex:dataTable value="{!sipThresholdSummary}" var="sipThrsh" id="sipThrshTable" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" rendered="{!(!checkSipProductsEmpty)}" >
+                
+                <apex:column >
+                    <apex:facet name="header" >SIP Products</apex:facet>
+                    <apex:outputField value="{!sipThrsh.SIP_Incentive__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Total</apex:facet>
+                    <apex:outputField value="{!sipThrsh.Total__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SIP Threshold Met?</apex:facet>
+                    <apex:outputField value="{!sipThrsh.SIP_Threshold_Met__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Minimum Threshold</apex:facet>
+                    <apex:outputText value="{0, number, {!S_P_Vendors__c.Opportunity__r.CurrencyIsoCode} ###,###,###,###,##0.00}">
+                    <apex:param value="{!sipThrsh.minimumRev}"/>
+                    </apex:outputText>  
+                </apex:column>
+            
+            </apex:dataTable> -->
+            
+            <br/><br/><apex:commandButton action="{!showFinalSIP}" value=" Next " rendered="{!checkSipProductsEmpty}"/>
+            <apex:commandButton action="{!showNewSipPage}" value=" Edit " rendered="{!checkSipProductsEmptyEdit}" />
+            <apex:commandButton action="{!showPopup}" value=" Show Complete Form " rendered="{!(!checkSipProductsEmpty)}" />
+            <apex:outputpanel id="addButton">
+                <apex:outputpanel id="outButton" rendered="{!closeMoreProductSip}">
+                    <apex:commandButton value=" Delete Selected Products " onclick="return confirmRemoveAll();"/>
+                </apex:outputpanel>
+            </apex:outputpanel>
+            <apex:actionFunction name="deleteProd" action="{!deleteAddlProductsSip}" reRender="addSip"/>
+            <apex:actionFunction name="checkDeleteProd"  action="{!checkDeleteAddlProductsSip}" reRender="add" oncomplete="checkDel({!deleteCheck})"  />
+            <script type="text/javascript">
+                function checkDel(deleteCheck){
+                    var d = deleteCheck;
+                    
+                    if(d == 0){
+                        alert('Please select additional products to delete first.');
+                        return false;
+                    }    
+                        
+                    else{
+                        if(confirm('Are you sure?')) {
+                            deleteProd();
+                            return false;
+                        }
+                        return false;
+                    }  
+                }
+                function confirmRemoveAll() {
+                    <!--checkDeleteProd();-->
+                    checkDeleteProd();
+                    return false;
+                      
+                    
+                        
+                }
+            </script>
+            <!-- <apex:outputpanel id="showDelButton">
+                <apex:outputPanel id="hideDelButton" rendered="{!closeDelButtonSip }">
+                    <apex:commandButton value=" Delete Selected Products " onclick="return confirmRemoveAll();"/>
+                </apex:outputPanel>
+            </apex:outputpanel>
+            <apex:actionFunction name="showDelete" action="{!openDelButtonSip}" reRender="showDelButton"/> -->
+            
+            
+            <apex:outputPanel id="popup1">
+        
+            <apex:outputPanel styleClass="customPopup" layout="block" rendered="{!displayPopUp}">
+                
+                <apex:dataTable value="{!prodSelQuery}" var="sip" id="sipAddlTable1" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" >
+                        <apex:column rendered="true">
+                            <apex:facet name="header" >SIP Type</apex:facet>
+                            <apex:outputField value="{!sip.Type__c}"/>
+                        </apex:column>
+                        <apex:column rendered="false">
+                            <apex:facet name="header" >SIP Type</apex:facet>
+                            <apex:outputField value="{!sip.Type__c}"/>
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >SIP Deal Reg Type</apex:facet>
+                            <apex:outputField value="{!sip.Additional_Product_Type__c}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >New Products Only</apex:facet>
+                            <apex:outputField value="{!sip.New_Products_Only__c}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >Quantity</apex:facet>
+                            <apex:outputField value="{!sip.Quantity__c}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >Unit Price</apex:facet>
+                            <apex:outputField value="{!sip.Unit_Price__c}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >Total</apex:facet>
+                            <apex:outputField value="{!sip.Total__c}" />
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header" >SIP Incentive</apex:facet>
+                            <apex:outputField value="{!sip.SIP_Incentive__c}" />
+                        </apex:column>
+                        
+                    </apex:dataTable>
+            
+            
+            <br/><br/>
+            <apex:dataTable value="{!sipThresholdSummary}" var="sipThresh" id="sipThresh" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" rendered="{!sipThreshNotEmpty}">
+                
+                <apex:column >
+                    <apex:facet name="header" >SIP Products</apex:facet>
+                    {!sipThresh.sipProducts}  
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Total</apex:facet>
+                    <!-- USD&nbsp;{!sipThresh.total} -->
+                    <apex:outputText value="{0, number, {!S_P_Vendors__c.Opportunity__r.CurrencyIsoCode} ###,###,###,###,##0.00}">
+                    <apex:param value="{!sipThresh.total}"/>
+                    </apex:outputText><br/>
+                    <apex:outputText value="({0, number, {!userCurrency} ###,###,###,###,##0.00})" rendered="{!currencyCheck}">
+                    <apex:param value="{!sipThresh.convertedTotal}"/>
+                    </apex:outputText>    
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SIP Threshold Met?</apex:facet>
+                    {!sipThresh.sipThrshldMet}  
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Minimum Threshold</apex:facet>
+                    <apex:outputText value="{0, number, {!S_P_Vendors__c.Opportunity__r.CurrencyIsoCode} ###,###,###,###,##0.00}">
+                    <apex:param value="{!sipThresh.minimumRev}"/>
+                    </apex:outputText>  
+                </apex:column>
+
+            </apex:dataTable>
+            
+            
+            <br/><br/><apex:commandButton value=" Close " action="{!closePopup}" rerender="popup1" />
+                        
+                        
+
+
+</apex:outputPanel>
+</apex:outputPanel>     
+            
+        </apex:form>
+        
+    </apex:tab>
+    
+    <apex:tab label="Additional SV Screen">
+    <apex:form >
+        <apex:dataTable value="{!eaDisplaySV}" var="ea" id="eaDisplaySV" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" rendered="{!isThisEa}">
+                <apex:column width="400px">
+                    <apex:facet name="header" >Opportunity Name</apex:facet>
+                    <apex:outputField value="{!ea.Opportunity_Name__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >SnP Vendor ID</apex:facet>
+                    <apex:outputField value="{!ea.SnP_Vendor_ID__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Deal Reg Status</apex:facet>
+                    <apex:outputField value="{!ea.Deal_Reg_Status__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Approval #</apex:facet>
+                    <apex:outputField value="{!ea.Approval_Number__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Expiry Date</apex:facet>
+                    <apex:outputField value="{!ea.Expiry_Date__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Comments</apex:facet>
+                    <apex:outputField value="{!ea.Comments__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Total</apex:facet>
+                    <apex:outputField value="{!ea.Total__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Products Included</apex:facet>
+                    <apex:outputField value="{!ea.Products_Included__c}" />
+                </apex:column>
+                
+            </apex:dataTable>
+            
+        <apex:dataTable value="{!sipDisplaySV}" var="sip" id="sipDisplaySV" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" rendered="{!isThisNotEa}">
+                <apex:column style="width:150px" rendered="true">
+                    <apex:facet name="header" >Opportunity Name</apex:facet>
+                    <apex:outputField value="{!sip.Opportunity_Name__c}"/>
+                </apex:column>
+                <apex:column style="width:100px">
+                    <apex:facet name="header" >SnP Vendor ID</apex:facet>
+                    <apex:outputField value="{!sip.SnP_Vendor_ID__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Deal Reg Status</apex:facet>
+                    <apex:outputField value="{!sip.Deal_Reg_Status__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Approval #</apex:facet>
+                    <apex:outputField value="{!sip.Approval_Number__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Expiry Date</apex:facet>
+                    <apex:outputField value="{!sip.Expiry_Date__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Comments</apex:facet>
+                    <apex:outputField value="{!sip.Comments__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Total</apex:facet>
+                    <apex:outputField value="{!sip.Total__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header" >Products Included</apex:facet>
+                    <apex:outputField value="{!sip.Products_Included__c}" />
+                </apex:column>
+                
+            </apex:dataTable>
+            <br/><br/>
+            <apex:commandButton action="{!showEditSVPage}" value=" Edit " rendered="{!isProdManagerEa}" />
+    </apex:form>
+    
+    
+    
+    </apex:tab>
+    
+    <apex:tab label="SIP & Corp Fee Summary">
+        
+        <apex:form >
+                    
+                    <apex:outputPanel rendered="{!isThisEa}">
+                        <table>
+                        <tr >
+                        <td valign="top" style="text-align: left; padding: 15px;">
+                        <apex:dataTable value="{!addlInfoQuery}" var="ea" id="EATableSummary" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" >
+                            <apex:column >
+                                <apex:facet name="header" >EA Type</apex:facet>
+                                <apex:outputField value="{!ea.EA_Type__c}"/>
+                            </apex:column>
+                            <apex:column >
+                                <apex:facet name="header" >EA Fees Total</apex:facet>
+                                <apex:outputField value="{!ea.EA_Fees_Total__c}" />
+                            </apex:column>
+                            
+                        </apex:dataTable>
+                        </td>
+                        <td valign="top" style=" text-align: left; padding: 15px;">
+                        <apex:dataTable value="{!sipSumDisplay}" var="ea" id="SIPTableSummary" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" >
+                            <apex:column >
+                                <apex:facet name="header" >SIP Products</apex:facet>
+                                {!ea.sipProducts}
+                            </apex:column>
+                            <apex:column >
+                                <apex:facet name="header" >SnP SIP Est. Fees</apex:facet>
+                                <!-- USD&nbsp;{!ea.total} -->
+                                <apex:outputText value="{0, number, {!S_P_Vendors__c.Opportunity__r.CurrencyIsoCode} ###,###,###,###,##0.00}">
+                                <apex:param value="{!ea.total}"/>
+                                </apex:outputText><br/>
+                                <apex:outputText value="({0, number, {!userCurrency} ###,###,###,###,##0.00})" rendered="{!currencyCheck}">
+                                <apex:param value="{!ea.convertedTotal}"/>
+                                </apex:outputText>
+                            </apex:column>
+                            
+                        </apex:dataTable>
+                        </td>
+                        </tr>
+                        <tr >
+                        <td valign="top" style=" text-align: left; padding: 15px;">
+                        <apex:outputText style="font-family:Verdana; font-size: small;" value="EA Sell Fee Total = "  />
+                        <!-- <b>USD&nbsp;<apex:outputText style="font-family:Verdana; font-size: xsmall;" value="{!totalEa}"  /></b> -->
+                        <b><apex:outputText style="font-family:Verdana; font-size: small;" value="{0, number, {!S_P_Vendors__c.Opportunity__r.CurrencyIsoCode} ###,###,###,###,##0.00}">
+                        <apex:param value="{!totalEa}"/>
+                        </apex:outputText></b><br/>
+                        <b><apex:outputText style="font-family:Verdana; font-size: small;" value="({0, number, {!userCurrency} ###,###,###,###,##0.00})" rendered="{!currencyCheck}">
+                        <apex:param value="{!convertedTotalEa}"/>
+                        </apex:outputText></b>
+                        
+                        </td>
+                        <td valign="top" style=" text-align: left; padding: 15px;">
+                        <apex:outputText style="font-family:Verdana; font-size: small;" value="SIP Fee Total = "  />
+                        <!-- <b>USD&nbsp;<apex:outputText style="font-family:Verdana; font-size: xsmall;" value="{!totalProd}"  /></b> -->
+                        <b><apex:outputText style="font-family:Verdana; font-size: small;" value="{0, number, {!S_P_Vendors__c.Opportunity__r.CurrencyIsoCode} ###,###,###,###,##0.00}">
+                        <apex:param value="{!totalProd}"/>
+                        </apex:outputText></b><br/>
+                        <b><apex:outputText style="font-family:Verdana; font-size: small;" value="({0, number, {!userCurrency} ###,###,###,###,##0.00})" rendered="{!currencyCheck}">
+                        <apex:param value="{!convertedTotalProd}"/>
+                        </apex:outputText></b>
+                        
+                        </td>
+                        </tr>
+                        <tr >
+                        <td valign="top" style=" text-align: left; padding: 15px;">
+                        <apex:outputText style="font-family:Verdana; font-size: small;" value="Total for SIP and Sell Fees = "  />
+                        <!-- <b>USD&nbsp;<apex:outputText style="font-family:Verdana; font-size: xsmall;" value="{!totalAll}"  /></b> -->
+                        <b><apex:outputText style="font-family:Verdana; font-size: small;" value="{0, number, {!S_P_Vendors__c.Opportunity__r.CurrencyIsoCode} ###,###,###,###,##0.00}">
+                        <apex:param value="{!totalAll}"/>
+                        </apex:outputText></b><br/>
+                        <b><apex:outputText style="font-family:Verdana; font-size: small;" value="({0, number, {!userCurrency} ###,###,###,###,##0.00})" rendered="{!currencyCheck}">
+                        <apex:param value="{!convertedTotalAll}"/>
+                        </apex:outputText></b>
+                        
+                        </td>
+                        </tr>
+                        </table>
+                        
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel rendered="{!isThisNotEa}">
+                        <br/><br/>
+                    
+                    <table>
+                        <tr>
+                        <td valign="top" style="text-align: left; padding: 15px;">      
+                        <apex:dataTable value="{!addlInfoQuery}" var="ea" id="EATableSummarySIP" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" >
+                            <apex:column >
+                                <apex:facet name="header" >EA Type</apex:facet>
+                                
+                            </apex:column>
+                            <apex:column >
+                                <apex:facet name="header" >EA Fees Total</apex:facet>
+                                
+                            </apex:column>
+                            
+                        </apex:dataTable>
+                        
+                        
+                        
+                        </td>
+                        <td valign="top" style="text-align: left; padding: 15px;">
+                        <apex:dataTable value="{!sipSumDisplay}" var="ea" id="SIPTableSummarySIP" styleClass="main" headerClass="head" rowClasses="rows" columnClasses="cols" >
+                            <apex:column >
+                                <apex:facet name="header" >SIP Products</apex:facet>
+                                {!ea.sipProducts}
+                            </apex:column>
+                            <apex:column >
+                                <apex:facet name="header" >SnP SIP Est. Fees</apex:facet>
+                                <!-- USD&nbsp;{!ea.total} -->
+                                <apex:outputText value="{0, number, {!S_P_Vendors__c.Opportunity__r.CurrencyIsoCode} ###,###,###,###,##0.00}">
+                                <apex:param value="{!ea.total}"/>
+                                </apex:outputText><br/>
+                                <apex:outputText value="{0, number, {!userCurrency} ###,###,###,###,##0.00}" rendered="{!currencyCheck}">
+                                <apex:param value="{!ea.convertedTotal}"/>
+                                </apex:outputText>
+                            </apex:column>
+                            
+                        </apex:dataTable>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td valign="top" style="text-align: left; padding: 15px;">
+                        <apex:outputText style="font-family:Verdana; font-size: small;" value="EA Sell Fee Total = "  />
+                        <!-- <b>USD&nbsp;<apex:outputText style="font-family:Verdana; font-size: xsmall;" value="{!totalEa}"  /></b> -->
+                        <b><apex:outputText style="font-family:Verdana; font-size: small;" value="{0, number, {!S_P_Vendors__c.Opportunity__r.CurrencyIsoCode} ###,###,###,###,##0.00}">
+                        <apex:param value="{!totalEa}"/>
+                        </apex:outputText></b><br/>
+                        <b><apex:outputText style="font-family:Verdana; font-size: small;" value="({0, number, {!userCurrency} ###,###,###,###,##0.00})" rendered="{!currencyCheck}">
+                        <apex:param value="{!convertedTotalEa}"/>
+                        </apex:outputText></b>
+                        
+                        </td>
+                        <td valign="top" style=" text-align: left; padding: 15px;">
+                        <apex:outputText style="font-family:Verdana; font-size: small;" value="SIP Fee Total = "  />
+                        <!-- <b>USD&nbsp;<apex:outputText style="font-family:Verdana; font-size: xsmall;" value="{!totalProd}"  /></b> -->
+                        <b><apex:outputText style="font-family:Verdana; font-size: small;" value="{0, number, {!S_P_Vendors__c.Opportunity__r.CurrencyIsoCode} ###,###,###,###,##0.00}">
+                        <apex:param value="{!totalProd}"/>
+                        </apex:outputText></b><br/>
+                        <b><apex:outputText style="font-family:Verdana; font-size: small;" value="({0, number, {!userCurrency} ###,###,###,###,##0.00})" rendered="{!currencyCheck}">
+                        <apex:param value="{!convertedTotalProd}"/>
+                        </apex:outputText></b>
+                        
+                        </td>
+                        </tr>
+                        <tr >
+                        <td valign="top" style=" text-align: left; padding: 15px;">
+                        <apex:outputText style="font-family:Verdana; font-size: small;" value="Total for SIP and Sell Fees = "  />
+                        <!-- <b>USD&nbsp;<apex:outputText style="font-family:Verdana; font-size: xsmall;" value="{!totalAll}"  /></b> -->
+                        <b><apex:outputText style="font-family:Verdana; font-size: small;" value="{0, number, {!S_P_Vendors__c.Opportunity__r.CurrencyIsoCode} ###,###,###,###,##0.00}">
+                        <apex:param value="{!totalAll}"/>
+                        </apex:outputText></b><br/>
+                        <b><apex:outputText style="font-family:Verdana; font-size: small;" value="({0, number, {!userCurrency} ###,###,###,###,##0.00})" rendered="{!currencyCheck}">
+                        <apex:param value="{!convertedTotalAll}"/>
+                        </apex:outputText></b>
+                        
+                        </td>
+                        </tr>
+                    </table>
+                            
+                    </apex:outputPanel>
+                    
+    </apex:form>
+    </apex:tab>
+
+</apex:tabPanel>
+
+
+
+
+<apex:outputPanel rendered="False">
+        {!S_P_Vendors__c.Opportunity__r.Name}
+        {!S_P_Vendors__c.Name}
+        {!S_P_Vendors__c.Is_this_an_Enterprise_Agreement__c}
+        
+        
+        <!--{!S_P_Vendors__c.S_P_Vendor_Additional_Information__r.S_P_Vendor_Product_Selection__c.S_P_Vendor_Product_Threshold__r.Percentage__c} 
+         {!S_P_Vendors__c.S_P_Vendor_Additional_Information__r.S_P_Vendor_Product_Selection__c.S_P_Vendor_Product_Threshold__r.Minimum_Revenue__c}-->
+</apex:outputPanel>
+</div>
+
+
+</apex:page>

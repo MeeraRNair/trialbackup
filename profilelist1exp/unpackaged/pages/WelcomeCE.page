@@ -1,0 +1,14 @@
+<apex:page standardController="Customer_Engagement__c" extensions="CERecordTypecntrler" standardStylesheets="True">
+    <apex:form id="formId" style="background-color: lightgrey;">
+        <apex:pageBlock id="pgblkId" >
+        <apex:pageBlockSection collapsible="false" columns="1">       
+       
+            <apex:outputLabel style="font-family:Verdana;font-size:16pt;" value="Do more with Dell Solution Centers"/>
+            <apex:outputLabel style="font-family:Verdana;font-size:10pt;" value="Dell Solution Centers (DSC) are a global network of solution labs with extensive customer engagement capabilities.A key component of our BVS strategy, the DSC team offers a wide range of services, including workshops, design sessions, demos and proof of concept (POC) engagements for your customers.
+            To learn more about our locations and services, visit"/>
+            <apex:outputLink style="font-family:Verdana;color:blue;font-size:10pt;" value="http://dsc.dell.com" id="theLink">http://dsc.dell.com</apex:outputLink>
+            <apex:commandButton action="{!redirect}" value="Schedule an Engagement"/>
+        </apex:pageBlockSection>
+        </apex:pageBlock>       
+    </apex:form>
+</apex:page>

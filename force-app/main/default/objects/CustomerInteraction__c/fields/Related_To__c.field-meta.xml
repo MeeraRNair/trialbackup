@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Related_To__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Related_Account_Plans__c != &quot;&quot; , Hyperlink(&quot;/&quot; + Related_Account_Plans__c, Related_Account_Plans__r.Name, &quot;_self&quot; ), 
+IF( Related_Strategy__c != &quot;&quot; , Hyperlink(&quot;/&quot; + Related_Strategy__c, Related_Strategy__r.Name, &quot;_self&quot; ), 
+IF( Related_Opportunity__c != &quot;&quot; , Hyperlink(&quot;/&quot; + Related_Opportunity__c, Related_Opportunity__r.Name, &quot;_self&quot; ), &apos;&apos;)))</formula>
+    <label>Related To</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

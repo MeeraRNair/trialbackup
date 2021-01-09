@@ -1,0 +1,76 @@
+<apex:page standardController="S_P_Vendors__c" extensions="SnP_ContactSelectionCntrlr">
+    <apex:pageMessages id="msgs" />
+    <apex:form >
+        <apex:pageBlock title="Contact Search">
+            <apex:pageblockbuttons location="bottom">
+                <apex:commandButton action="{!doSearch}" value=" Search ">
+                    <apex:param name="p1" value="ContactSelection"/>
+                </apex:commandButton>
+                <apex:commandButton value=" Back " action="{!cancel}" rendered="{!(!showResults)}"/>
+            </apex:pageblockbuttons>
+            <apex:pageblockSection >
+                <apex:inputText value="{!searchString}" label="Contact Name" title="Leave the field blank to display all contacts."/>
+            </apex:pageblockSection>
+        </apex:pageBlock>
+        <apex:outputPanel id="contactsTable" rendered="{!showResults}">
+            <apex:pageBlock title="Please select contact:">
+                <apex:pageBlockButtons location="bottom">
+                    <apex:commandButton action="{!doSelect}" value=" Select "/>
+                        <!--<apex:param name="p1" value="ContactSelection" >
+                    </apex:commandButton>-->
+                    <apex:commandButton value=" Back " action="{!cancel}"/>
+                </apex:pageBlockButtons>
+                <apex:outputPanel id="contactstable">
+                    <apex:pageBlockTable value="{!contactWrapperList}" var="c" id="pubTable">
+                        <apex:column >
+                            <input type="radio" name="contactRadio" value="{!c.contWrap}" onclick="changeValue(this,'{!$Component.RadioButtonValue}');"/>
+                        </apex:column> 
+                        <apex:column headerValue="Contact Name" value="{!c.contWrap.Name}"/>
+                        <apex:column headerValue="Phone Number" value="{!c.contWrap.Phone}"/>
+                        <apex:column headerValue="Email Address" value="{!c.contWrap.Email}"/>
+                        <apex:column headerValue="Contact Role" value="{!c.contWrap.Job_Function_Role__c}"/>
+                    </apex:pageBlockTable>
+                </apex:outputPanel>
+                
+                <!-- pagination -->
+                <apex:outputPanel style="margin-top: 5px"  id="pageNavBottom"> 
+                <div style="float: left;font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: right; width: 52%;">
+                    Page {!currentPage} of {!lastPage}
+                </div>
+                
+                <div style="float: right; font-size: 90%; font-weight: normal; text-decoration: underlined; text-align: right; width: 48%;">                
+                    <apex:commandLink action="{!previous}" rendered="{!hasPrevious}" rerender="pubTable,pageNavBottom" status="searchStatus">
+                        &lt; Previous Page
+                    </apex:commandLink>                 
+                    <apex:outputText rendered="{!hasPreviousAndNext}">&nbsp;|&nbsp;</apex:outputText>
+                    <apex:commandLink action="{!next}" rendered="{!hasNext}" rerender="pubTable,pageNavBottom" status="searchStatus">
+                        Next Page &gt;
+                    </apex:commandLink>
+                </div>                      
+                </apex:outputPanel>
+                <!-- pagination end -->
+                
+           </apex:pageBlock>
+           <apex:inputHidden value="{!contactInfo}" id="RadioButtonValue" />
+       </apex:outputPanel>
+       
+    </apex:form>
+    
+    
+    <apex:outputPanel id="hiddenfields" rendered="false">
+        {!S_P_Vendors__c.Opportunity__r.AccountId} 
+        {!S_P_Vendors__c.Contact_Name__c}
+        {!S_P_Vendors__c.Phone__c}
+        {!S_P_Vendors__c.Email__c}
+    </apex:outputPanel>
+     
+     
+       
+    
+    <script>
+        function changeValue(input, textid) {
+            document.getElementById(textid).value = input.value;
+        }
+    </script>  
+    
+</apex:page>

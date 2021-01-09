@@ -1,0 +1,124 @@
+<apex:page controller="UploadOldAllianceApprovalsController" lightningStylesheets="true">
+ <apex:form >
+    <apex:actionRegion >   
+        <apex:pagemessages id="errormsgId"/>
+        <apex:pageBlock title="Add Existing Alliance Rebate Approvals">
+        <table>
+                <tr>
+                    <td>
+                        <strong>1.</strong>
+                    </td>
+                    <td>
+                        <strong>Select the File</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>Click the Choose File button to upload the file.</td>
+                </tr>
+                <tr style=" background-color: white;">
+                    <td>&nbsp;</td>
+                    <td style="padding-bottom: 1em">
+                       <apex:inputFile value="{!blbcsvFileBody}"  filename="{!strcsvAs}" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>2.</strong>
+                    </td>
+                    <td>
+                        <strong>Click the "Add Existing Alliance Approvals" button.</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        <apex:commandButton value="Add Existing Alliance Approvals" action="{!uploadCSVFile}" />
+                    </td>
+                </tr>
+            </table>    
+        </apex:pageBlock>
+        </apex:actionRegion> 
+    </apex:form>
+   <!-- <apex:form id="tableFormId">
+        <apex:actionRegion >
+            <apex:outputPanel id="tableId" > 
+                    <apex:pageBlock rendered="{!uploadedCount > 0}" >
+                        <apex:outputText rendered="{!uploadedCount > 1000}" > 
+                            Below results display 1000 records out of {!uploadedCount}, All the records are uploaded successfully.
+                        </apex:outputText>
+                        <apex:pageBlockSection columns="1" >
+                            
+                            <apex:stylesheet value="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'css/jquery.dataTables.css')}"/>
+                            <style type="text/css">
+                                .sorting {
+                                    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_both.png') }') no-repeat center right !important;
+                                    padding-right: 20px !important;
+                                }
+                                .sorting_asc {
+                                    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_asc.png') }') no-repeat center right !important;
+                                    padding-right: 20px !important;
+                                }
+                                .sorting_desc {
+                                    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_desc.png') }') no-repeat center right !important;
+                                    padding-right: 20px !important;
+                                }
+                                .sorting_asc_disabled {
+                                    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_asc_disabled.png') }') no-repeat center right !important;
+                                    padding-right: 20px !important;
+                                }
+                                .sorting_desc_disabled {
+                                    background: #f2f3f3 url('{! URLFOR($Resource.PageBlockTableEnhanceResources, 'images/sort_desc_disabled.png') }') no-repeat center right !important;
+                                    padding-right: 20px !important;
+                                }
+                                table.dataTablee tr.odd { background-color: white;border-bottom-width:1px }
+                                table.dataTablee tr.even { background-color: white;border-bottom-width:1px }
+                                .bPageBlock .list .last>td { border-bottom-width:1px }
+                                .apexp .bPageBlock .detailList .list .last td { border-bottom-width:1px }
+                                table.dataTablee tr.odd td.sorting_1 { background-color: white; }
+                                table.dataTablee tr.odd td.sorting_2 { background-color: white; }
+                                table.dataTablee tr.odd td.sorting_3 { background-color: white; }
+                                table.dataTablee tr.even td.sorting_1 { background-color: white; }
+                                table.dataTablee tr.even td.sorting_2 { background-color: white; }
+                                table.dataTablee tr.even td.sorting_3 { background-color: white; }
+                                .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate {
+                                    padding: 3px;
+                                }
+                             </style>
+             
+                            <apex:pageBlockTable value="{!rebateReqProds}" var="prod" id="prodResultId" styleClass="dataTablee">
+                                <apex:column value="{!prod.Alliance_Rebate_Request__r.Sales_Force_Deal_ID__c }"/>
+                                <apex:column value="{!prod.Alliance_Rebate_Request__r.Region__c }"/>
+                                <apex:column value="{!prod.Alliance_Rebate_Request__r.Dell_Standard_CPU_text__c}"/>
+                                <apex:column value="{!prod.Alliance_Rebate_Request__r.Dell_Standard_CPU_Currency__c}"/>
+                                <apex:column value="{!prod.Part_Name_Part_Number__c}"/>
+                                <apex:column value="{!prod.Start_Date__c }"/>
+                                <apex:column value="{!prod.End_Date__c }"/>
+                                <apex:column value="{!prod.Approved_Price_per_unit__c }"/>
+                                <apex:column value="{!prod.Quantity_Claimed__c }"/>
+                                 <apex:column value="{!prod.Quantity_Approved__c }"/>
+                                <apex:column value="{!prod.Alliance_Rebate_Request__r.Team_Member1__c }"/>
+                                <apex:column value="{!prod.Alliance_Rebate_Request__r.Team_Member2__c }"/>
+                                <apex:column value="{!prod.Alliance_Rebate_Request__r.Discount_percentage__c }"/>
+                                <apex:column value="{!prod.Alliance_Rebate_Request__r.Total_Rebate_Amount__c }"/>
+                                <apex:column value="{!prod.Alliance_Rebate_Request__r.Business_Case_Information__c }"/>
+                            </apex:pageBlockTable>
+                            
+                            <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'js/jquery.js')}"></script>
+                            <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.PageBlockTableEnhanceResources, 'js/jquery.dataTables.js')}"></script>
+                            <script type="text/javascript" language="javascript">
+                              var j$ = jQuery.noConflict();
+                                j$('table.dataTablee').dataTable({
+                                  sPaginationType: "full_numbers"
+                              }); 
+                            </script>
+                
+                         </apex:pageBlockSection>
+                    </apex:pageBlock>
+               </apex:outputPanel>
+        </apex:actionRegion>
+    </apex:form> -->
+</apex:page>

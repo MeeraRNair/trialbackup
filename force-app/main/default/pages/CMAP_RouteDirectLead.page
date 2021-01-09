@@ -1,0 +1,19 @@
+<apex:page standardController="Lead" extensions="CMAP_RouteDirectLeadsController" action="{!redirect}">
+    <apex:form >
+         <apex:pagemessages />
+          
+         <apex:pageBlock title="Please Enter the Comments" rendered="{!ShowSecondBlock}">
+            <apex:pageBlockSection columns="1">
+                <apex:inputField value="{!clRecord.Questions_Comments__c}" required="TRUE" style="Width:60%"/>
+                <apex:inputField value="{!clRecord.Sales_Comments__c}" required="TRUE" style="Width:60%"/>               
+                <apex:inputField value="{!clRecord.Marketing_Comments__c}" required="TRUE" style="Width:60%"/>                
+            </apex:pageBlockSection>
+             <apex:pageblockButtons location="bottom">
+                 <apex:commandButton value="Save" action="{!saveButton}"/>
+                 <!--Code Start: CRQ 0797: Remove Cancel button from PL
+                 <apex:commandButton value="Cancel" action="{!cancelButton}"/> 
+                 Code End: CRQ 0797: Remove Cancel button from PL -->
+             </apex:pageblockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

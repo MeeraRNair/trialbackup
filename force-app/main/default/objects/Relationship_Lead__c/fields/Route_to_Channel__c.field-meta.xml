@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Route_to_Channel__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( 
+AND( 
+OR(ISPICKVAL(Status__c, &apos;Requires Follow-Up&apos;),
+ISPICKVAL(Status__c, &apos;Accepted - Completed Follow-Up&apos;),
+ISPICKVAL(Status__c, &apos;Attempted to Contact - Awaiting Response&apos;),
+ISPICKVAL(Status__c, &apos;Rejected - Completed Follow-Up&apos;),
+ISPICKVAL(Status__c, &apos;Cancelled - Sales Inactivity&apos;),
+ISPICKVAL(Status__c, &apos;Opportunity not Created&apos;)
+), 
+ISBLANK(Channel_Lead__c), 
+$User.Id = Relationship_Lead_Owner__c
+), 
+HYPERLINK(&apos;/apex/CMAP_RouteToChannel?rlId=&apos;+Id, 
+IMAGE(&apos;resource/1362106041000/CMAP_RouteToChannel&apos;, &apos;RouteToChannelButton&apos;),&apos;_parent&apos;), 
+&quot;&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Route to Channel</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

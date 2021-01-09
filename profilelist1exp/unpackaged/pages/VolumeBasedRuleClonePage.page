@@ -1,0 +1,21 @@
+<apex:page standardController="Volume_Based_Rule_Header__c" extensions="VBRH_CloneWithItemsVFController" standardStylesheets="true" lightningStylesheets="true">
+
+    <apex:form > 
+        <apex:pageMessage severity="info" strength="3"  title="Vendor is inactive.Volume based rule cannot be cloned.Activate vendor to clone." rendered="{!displayerr}" /> <br/>                                                              
+        <apex:commandButton action="{!Cancel}" value="Back" rendered="{!displayerr}" />
+    
+        <apex:pageMessage severity="info" strength="3"  title="Enter Fiscal year different from the original record and click clone." rendered="{!fiscalyrerr}" /> <br/>
+        <apex:pageMessage severity="info" strength="3"  title="Duplicate record exists. Please enter a different fiscal quarter." rendered="{!duprecordexist}" /> <br/>
+    
+            
+    <apex:pageBlock title="Please specify the Fiscal year for the new clone record" mode="edit"  rendered="{!newfiscalyr}" >
+         <apex:pageBlockSection columns="2">
+             <apex:inputField value="{!new_VBH.Fiscal_Quarter__c}" required="True" />
+         </apex:pageBlockSection> 
+    </apex:pageBlock>
+    
+    <apex:commandButton value="Clone" action="{!VBRCloneWithItems}"  rendered="{!newfiscalyr}"/>
+    <apex:commandButton value="Cancel" action="{!Cancel}" rendered="{!fiscalyrerr}"  />
+    
+    </apex:form>
+</apex:page>

@@ -1,0 +1,146 @@
+<apex:page controller="UploadSTFPriceController" lightningStylesheets="true" >
+    
+    
+    <apex:stylesheet value="/sCSS/21.0/sprites/1297816277000/Theme3/default/gc/versioning.css" />   
+    <apex:stylesheet value="/sCSS/21.0/sprites/1297816277000/Theme3/default/gc/extended.css" />
+    <style>
+        .activeTab {background-color: #236FBD; color:white; background-image:none}
+        .inactiveTab { background-color: lightgrey; color:black; background-image:none}
+    </style>
+    
+     <!-- Create Tab panel -->
+    <apex:tabPanel switchType="client" selectedTab="upsertTab" id="AccountTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab" styleClass="theTabPanel" > 
+        
+        <!-- Add/Remove STF Prices -->
+        <apex:tab label="Add/Remove STF Prices" name="upsertTab" id="tabUpsert">
+            <apex:form >
+                <apex:actionRegion >
+                <apex:pagemessages />
+                    <apex:pageBlock title="Download STF Prices">
+                        <table>
+                            <tr>
+                                <td>
+                                    <strong>Click Download button to download all available STF Prices</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <apex:commandButton value="Download" action="{!downloadSTFPriceResults}" /> 
+                                </td>
+                            </tr>
+                        </table>    
+                    </apex:pageBlock>
+                    
+                    <apex:pageBlock title="Add/Update STF Prices">
+                       <table>
+                           <tr>
+                               <td>
+                                   <strong>1.</strong>
+                               </td>
+                               <td>
+                                   <strong>Select the File</strong>
+                               </td>
+                           </tr>
+                           <tr>
+                               <td>&nbsp;</td>
+                               <td>Click the Choose File button to upload the file.</td>
+                           </tr>
+                           <tr style=" background-color: white;">
+                               <td>&nbsp;</td>
+                               <td style="padding-bottom: 1em">
+                                   <apex:inputFile value="{!csvFileBody}"  filename="{!csvAsString}" />
+                               </td>
+                           </tr>
+                           <tr>
+                               <td>
+                                   <strong>2.</strong>
+                               </td>
+                               <td>
+                                   <strong>Click the "Update Rebate Request Products" button.</strong>
+                               </td>
+                           </tr>
+                           <tr>
+                               <td>&nbsp;</td>
+                           </tr>
+                           <tr>
+                               <td>&nbsp;</td>
+                               <td>
+                                   <apex:commandButton value="Update Rebate Request Products" action="{!uploadCSVFile}" />
+                               </td>
+                           </tr>
+                    </table>
+                </apex:pageBlock>
+                 </apex:actionRegion>
+            </apex:form>
+        </apex:tab>
+            
+        <!-- Delete STF Prices -->
+        <apex:tab label="Delete STF Prices" name="deleteTab" id="tabDelete">
+            <apex:form >
+                <apex:actionRegion >
+                <apex:pagemessages id="errormsgId"/>
+                    <apex:pageBlock title="Download STF Prices">
+                        <table>
+                            <tr>
+                                <td>
+                                    <strong>Click Download button to download all available STF Prices</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <apex:commandButton value="Download" action="{!downloadSTFPriceResults}" /> 
+                                </td>
+                            </tr>
+                        </table>    
+                    </apex:pageBlock>
+                    
+                    <apex:pageBlock title="Delete STF Prices">
+                       <table>
+                           <tr>
+                               <td>
+                                   <strong>1.</strong>
+                               </td>
+                               <td>
+                                   <strong>Select the File</strong>
+                               </td>
+                           </tr>
+                           <tr>
+                               <td>&nbsp;</td>
+                               <td>Click the Choose File button to upload the file for deletion.</td>
+                           </tr>
+                           <tr style=" background-color: white;">
+                               <td>&nbsp;</td>
+                               <td style="padding-bottom: 1em">
+                                   <apex:inputFile value="{!csvFileBodyToDelete}"  filename="{!csvAsStringToDelete}" />
+                               </td>
+                           </tr>
+                           <tr>
+                               <td>
+                                   <strong>2.</strong>
+                               </td>
+                               <td>
+                                   <strong>Click the "Delete Rebate Request Products" button.</strong>
+                               </td>
+                           </tr>
+                           <tr>
+                               <td>&nbsp;</td>
+                           </tr>
+                           <tr>
+                               <td>&nbsp;</td>
+                               <td>
+                                   <apex:commandButton value="Delete Rebate Request Products" action="{!deleteUploadedFiles}" />
+                               </td>
+                           </tr>
+                    </table>
+                </apex:pageBlock>
+                </apex:actionRegion>
+            </apex:form>
+        </apex:tab> 
+    </apex:tabPanel>
+</apex:page>

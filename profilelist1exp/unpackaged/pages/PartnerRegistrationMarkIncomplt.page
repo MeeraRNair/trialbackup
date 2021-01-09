@@ -1,0 +1,21 @@
+<apex:page standardController="Partner_Request__c"
+	extensions="PartnerRegistrationMarkIncompltCtrlExt"
+    tabStyle="Partner_Request__c">
+    <apex:form > 
+	    <apex:sectionHeader title="Partner Registration, Mark Registration as Incomplete" 
+	    	 subtitle="{!registration.Name}"/>
+    	<apex:pageMessages />
+		<apex:pageBlock title="" tabStyle="Partner_Request__c">
+			<apex:pageBlockButtons >
+    			<apex:commandButton value="Save" action="{!doSave}"/>
+    			<apex:commandButton value="Cancel" action="{!doCancel}"/>
+  	  	  	</apex:pageBlockButtons>
+			<apex:pageBlockSection collapsible="false" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Message to Partner explaining what is incomplete:"/>
+					<apex:inputTextarea cols="80" rows="4" value="{!registration.Incomplete_Description__c}"/>
+				</apex:pageBlockSectionItem>
+    		</apex:pageBlockSection>
+    	</apex:pageBlock>
+    </apex:form>	
+</apex:page>

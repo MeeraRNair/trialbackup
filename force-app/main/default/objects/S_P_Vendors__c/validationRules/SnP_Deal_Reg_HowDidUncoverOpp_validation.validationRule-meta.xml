@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SnP_Deal_Reg_HowDidUncoverOpp_validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF( AND( Other_adobe__c =&quot;&quot;, ISPICKVAL( How_did_you_uncover_this_opportunity__c , &quot;Other (Rep to fill in own comments)&quot;) ) , TRUE, FALSE)</errorConditionFormula>
+    <errorDisplayField>Other_adobe__c</errorDisplayField>
+    <errorMessage>If &quot;How did you uncover this opportunity?&quot; is Other, then the Other field must be specified.</errorMessage>
+</ValidationRule>

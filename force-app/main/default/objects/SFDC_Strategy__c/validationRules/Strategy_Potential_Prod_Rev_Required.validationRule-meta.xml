@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Strategy_Potential_Prod_Rev_Required</fullName>
+    <active>false</active>
+    <description>Ensure “Strategy Potential Product Revenue” field is populated when “What Domain are you offering?” field are having any of these values–Networking, NGEU (Next Gen End User), NGDC (Next Gen Data Center), IDM (Intelligent Data Mgmt) or Other.</description>
+    <errorConditionFormula>IF( AND(OR(INCLUDES( Which_LOB_will_you_offer__c , &quot;Client&quot;), INCLUDES( Which_LOB_will_you_offer__c , &quot;Printers&quot;), INCLUDES( Which_LOB_will_you_offer__c , &quot;Software &amp; Peripherals&quot;), INCLUDES( Which_LOB_will_you_offer__c , &quot;Servers&quot;), INCLUDES( Which_LOB_will_you_offer__c , &quot;Storage&quot;)), ISBLANK(Strategy_Potential_Product_Revenue__c )), TRUE, FALSE)</errorConditionFormula>
+    <errorDisplayField>Strategy_Potential_Product_Revenue__c</errorDisplayField>
+    <errorMessage>If Domain is either any of these values - Networking, NGEU (Next Gen End User),  NGDC (Next Gen Data Center), IDM (Intelligent Data Mgmt) or Other, Strategy Potential Product Revenue is mandatory.</errorMessage>
+</ValidationRule>

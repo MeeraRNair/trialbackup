@@ -1,0 +1,105 @@
+<apex:page controller="SalesMotion_MultiEditPageController">
+  <apex:form > 
+  <apex:sectionHeader subtitle="Multi-Edit Display"/>
+  <apex:pageblock Id="block">
+      <apex:repeat value="{!SMtoSMPageList}"  var="SMElt"> 
+          <table>
+              <tr>
+                  <td style="display:{!SMElt.displayShow}">
+                      <apex:commandLink action="{!ShowPageRecs}" rerender="block" status="SalesMotionStatus">
+                          <apex:image url="{!$Resource.Expand}"/>
+                          <apex:param name="smid" value="{!SMElt.SMName.Id}"/>
+                      </apex:commandLink>
+                  </td>
+                  <td style="display:{!SMElt.displayHide}">
+                  <apex:commandLink action="{!HidePageRecs}" rerender="block" status="SalesMotionStatus">                          
+                            <apex:image url="{!$Resource.Collapse}"/>
+                          <apex:param name="smid2" value="{!SMElt.SMName.Id}"/>
+                      </apex:commandLink>
+                  </td>
+                  <td>
+                      <apex:commandLink action="/{!SMElt.SMName.Id}/e?retURL=%2F{!SMElt.SMName.Id}" target="_blank" value="Edit" style="color:#4169E1;text-decoration:none"/>
+                          
+                  </td>
+                  <td><b>{!SMElt.SMName.name}</b>
+                      <div style="text-align: center; vertical-align: middle; height: 15px; padding: 5px 0px;">
+                        <apex:actionStatus id="SalesMotionStatus">
+                            <apex:facet name="start"><apex:image url="{!$Resource.loading}"/></apex:facet>
+                        </apex:actionStatus>            
+                    </div>
+                  
+                  </td>                  
+                  <td style="display:{!SMElt.display}"> 
+                     <br></br>
+                      <apex:repeat value="{!SMElt.SMPageList}"  var="SMPageElt">
+                          <table>
+                              <tr>
+                                  <td style="display:{!SMPageElt.displayShow}">
+                                      <apex:commandLink action="{!ShowSectionRecs}" rerender="block" status="SalesSectionStatus">
+                                          <apex:image url="{!$Resource.Expand}"/>
+                                          <apex:param name="smid3" value="{!SMElt.SMName.Id}"/>
+                                          <apex:param name="smpageid" value="{!SMPageElt.SMPage.Id}"/>
+                                      </apex:commandLink>
+                                  </td>
+                                  <td style="display:{!SMPageElt.displayHide}">
+                                      <apex:commandLink action="{!HideSectionRecs}" rerender="block" status="SalesSectionStatus">
+                                          <apex:image url="{!$Resource.Collapse}"/>
+                                          <apex:param name="smid4" value="{!SMElt.SMName.Id}"/>
+                                          <apex:param name="smpageid2" value="{!SMPageElt.SMPage.Id}"/>
+                                      </apex:commandLink>
+                                  </td>
+                                  <td>
+                                      <apex:commandLink action="/{!SMPageElt.SMPage.Id}/e?retURL=%2F{!SMPageElt.SMPage.Id}" target="_blank"  value="Edit" style="color:#4169E1;text-decoration:none"/>
+                                          
+                                  </td>
+                                  <td><b>{!SMPageElt.SMPage.Name}</b> 
+                                      <div style="text-align: center; vertical-align: middle; height: 15px; padding: 5px 0px;">
+                                            <apex:actionStatus id="SalesSectionStatus">
+                                                <apex:facet name="start"><apex:image url="{!$Resource.loading}"/></apex:facet>
+                                            </apex:actionStatus>            
+                                        </div>
+                                  </td>
+                                  
+                                  <td style="display:{!SMPageElt.display}">
+                                      
+                                      <br></br>
+                                      <table>
+                                       
+                                        <apex:repeat value="{!SMPageElt.SMPageSectionList}"  var="SMPageSectionElt">
+                                        
+                                            <tr>
+                                                                                           
+                                           <td>   
+                                           <apex:commandLink action="/{!SMPageSectionElt.Id}/e?retURL=%2F{!SMPageSectionElt.Id}" target="_blank"   value="Edit" style="color:#4169E1;text-decoration:none"/>
+                                              
+                                           </td>
+                                           
+                                            <td> 
+                                                <apex:commandLink action="{!GoToPreviewPage}"  target="_blank" style="color:#4169E1;text-decoration:none">Preview
+                                                   <apex:param name="salesMotionId" value="{!SMElt.SMName.Id}"/>
+                                                  <apex:param name="sectionId" value="{!SMPageSectionElt.Id}"/>
+                                               </apex:commandLink>  
+                                            </td>
+                                           <td>{!SMPageSectionElt.Stage__c} </td>
+                                            <td>{!SMPageSectionElt.name}  </td>  
+                                           </tr>
+                                        </apex:repeat>  
+                                       </table>
+                                  </td>
+                              </tr>
+                          </table>
+                      </apex:repeat>
+                  
+                  </td>
+              </tr>
+          </table>
+      </apex:repeat>
+      
+      <apex:pageblockbuttons location="bottom">
+          <apex:commandButton value="Previous" action="{!PreviousPage6}"/>
+          <apex:commandButton value="Cancel" action="{!CancelPage6}"/>
+      </apex:pageblockbuttons>
+  </apex:pageblock>
+  
+  </apex:form>
+</apex:page>

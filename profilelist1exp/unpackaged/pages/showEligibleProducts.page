@@ -1,0 +1,56 @@
+<apex:page standardController="Custom_Products__c" lightningStylesheets="true" extensions="showEligibleProducts" readOnly="true" tabstyle="Product2" docType="html-5.0"> 
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
+     <script src="https://code.jquery.com/jquery-1.12.4.js"/>
+     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"/>
+     <apex:includeScript value="//code.jquery.com/jquery-1.11.3.min.js"/>
+   
+       <apex:outputText rendered="{!Errmsg}"><strong style="color: red; font-size:150%;">
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       Displaying only 10000 products</strong></apex:outputText>
+
+    <apex:form id="fm">
+        <apex:pageBlock title="Eligible Product List" id="Product_list">
+        <apex:pageBlockButtons location="top">
+        <input type="button" onclick="ExportToExcel()" class="btn" value="Export to Excel" />
+        <apex:commandButton Value="Back" action="{!back}"/>
+        </apex:pageBlockButtons>
+
+        <table id="example">
+            <thead><tr>
+                <apex:repeat value="{! fieldLabels }" var="f">
+                <th> {!f} </th>  
+                </apex:repeat>
+            </tr></thead>
+
+            <tbody>
+            <apex:repeat value="{! EligibleProducts }" var="Pro">
+                 <tr>
+                <apex:repeat value="{! fields }" var="f">
+                <td> {!Pro[f]} </td>  
+                </apex:repeat>
+            </tr>                            
+            </apex:repeat>
+            </tbody>
+       </table>
+      </apex:pageBlock>
+    </apex:form>
+    <script>
+         function ExportToExcel(){
+          window.open('/apex/ProductExport?Did={!Did}', '_blank');
+         }
+     </script>
+      <script>
+
+            $(document).ready(function() {
+            $('#example').DataTable( {
+            
+                "language": {
+              "emptyTable": "no records for above selection  Or No Data  available",
+            }
+            } );
+            } );
+            </script>  
+
+</apex:page>

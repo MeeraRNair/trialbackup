@@ -1,0 +1,38 @@
+<apex:page standardController="SFDC_Acct_Plan__c" >
+
+   <apex:pageblock >
+    <apex:pageblockSection >
+        
+        <apex:pageBlockTable value="{!SFDC_Acct_Plan__c}" var="ap" >
+            
+            <apex:column headerValue="Financial Year">
+              <apex:outputLabel value="AGL Status"></apex:outputLabel>
+            </apex:column>
+            
+             <apex:column headerValue="FY19">
+              <apex:outputLabel value="{!SFDC_Acct_Plan__c.AGL_Status_FY19__c}"></apex:outputLabel>
+              </apex:column>  
+              
+               <apex:column headerValue="FY20">
+              <apex:outputLabel value="{!SFDC_Acct_Plan__c.AGL_Status_FY20__c}"></apex:outputLabel>
+              </apex:column>  
+              
+               <apex:column headerValue="FY21">
+              <apex:outputLabel value="{!SFDC_Acct_Plan__c.AGL_Status_FY21__c}"></apex:outputLabel>
+              </apex:column>  
+              
+               <apex:column headerValue="FY22">
+              <apex:outputLabel value="{!SFDC_Acct_Plan__c.AGL_Status_FY22__c}"></apex:outputLabel>
+              </apex:column>  
+              
+               <apex:column headerValue="FY23">
+              <apex:outputLabel value="{!SFDC_Acct_Plan__c.AGL_Status_FY23__c}"></apex:outputLabel>
+              </apex:column>  
+           
+        </apex:pageBlockTable>
+    
+    
+    </apex:pageblockSection>
+
+</apex:pageblock>
+</apex:page>

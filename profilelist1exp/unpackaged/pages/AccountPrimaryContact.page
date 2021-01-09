@@ -1,0 +1,85 @@
+<apex:page standardController="Account" extensions="VFCntrlr_SelectAccountprimaryContact" title="Select Primary Contact" id="thePage" showChat="{!showHeader_SideBar}" showHeader="{!showHeader_SideBar}" sidebar="{!showHeader_SideBar}">     
+
+<script>          
+    var selectedChkbox;
+    var tableIdCount = 0;
+    
+    function deselectOther(chkBox) {
+        if (chkBox.checked) {     
+            if ((chkBox != selectedChkbox) && (selectedChkbox!= null)) {
+                selectedChkbox.checked = false;
+            }
+                selectedChkbox = chkBox;
+            }            
+        }
+</script>  
+
+<!-- Throw exception error here-->
+<br>
+    <Center>
+        <apex:Messages style="color:red; font-weight:bold; font-size:small" />     
+    </center>  
+</br>
+
+<apex:form id="theForm">  
+    <table align="center" cellpadding="0" border="0" width="60%" id="AccountName2">  
+        <tr><td>
+            <!-- Display Account Name-->                
+            <apex:pageblock id="AccountNames" mode="maindetail">  
+                <p style="font-size:large;"><b> Account : {!Account.Name}</b></p>
+            </apex:pageblock>                
+        </td></tr>   
+        
+        <tr><td>      
+            <!-- Display Message if no Contact is found for the Account-->          
+            <apex:pageblock id="AccountContact2" mode="maindetail"  rendered="{!!reShowContact}">  
+                <apex:pageMessage severity="info" strength="3" title="No Contact Found" detail="Kindly add Contact to this account before change the Primary Contact."> 
+                </apex:pageMessage> 
+                <apex:commandButton value="Back" title="Back" action="{!doCancel}"/>                     
+            </apex:pageblock>                
+        </td></tr>                   
+
+        <tr><td> 
+            <!-- Display Existing primary Contact-->                   
+            <apex:pageblock title="Existing Primary Contact" id="ExistingPrimaryPageBlock" rendered="{!!reExistingPrimaryContact}" >  
+                <apex:pageBlockTable id="ListOfExtContact" value="{!ExistingPrimaryContact}" var="ExtAccCon" title="Existing Primary Contact" >
+                    <apex:column headerValue="Primary">
+                        <apex:inputCheckbox id="selectChkBox" value="{!ExtAccCon.selected}" onclick="deselectOther(this)"> 
+                        </apex:inputcheckbox>   
+                    </apex:column>
+                    <apex:column headerValue="Contact" width="70%">{!ExtAccCon.Con.FirstName+' '}{!ExtAccCon.Con.LastName}</apex:column> 
+                    <apex:column headerValue="Email" width="30%">{!ExtAccCon.Con.Email}&nbsp;</apex:column>                      
+                </apex:pageBlockTable>            
+            </apex:pageblock>                
+        </td></tr>
+        
+        <tr><td>
+            <!-- Display Other Contact-->                   
+            <apex:pageblock title="List of Other Contacts" id="ListOfOtherContactPageBlock" rendered="{!!reListOfOtherContact}"> 
+                 Note: Does not show Contacts with Invalid Contact Status values <br/><br/>
+                <apex:pageBlockTable id="ListOfOtrContact" value="{!ListOfOtherContact}" var="OtherAccCon" title="All Account's Contact">
+                    <apex:column headerValue="Primary">
+                        <apex:inputCheckbox id="selectChkBox" value="{!OtherAccCon.selected}" onclick="deselectOther(this)"> 
+                        </apex:inputcheckbox>                          
+                    </apex:column>
+                    <apex:column headerValue="Contact" width="70%">{!OtherAccCon.Con.FirstName+' '}{!OtherAccCon.Con.LastName}</apex:column> 
+                    <apex:column headerValue="Email" width="30%">{!OtherAccCon.Con.Email}&nbsp;</apex:column>                     
+                </apex:pageBlockTable>            
+            </apex:pageblock>                
+        </td></tr>                
+
+        <tr><td>
+            <!-- Buttons--> 
+            <apex:commandButton action="{!doSave}" dir="LTR" value="Save" rendered="{!reShowContact}"/>
+            <apex:commandButton value="Cancel" title="Cancel" action="{!doCancel}" rendered="{!reShowContact}"/>
+        </td></tr>           
+    </table> 
+             
+    <script>
+        //Initialize selectChkBox with existing primary contact checkbox
+        selectedChkbox = document.getElementById('thePage:theForm:ExistingPrimaryPageBlock:ListOfExtContact:0:selectChkBox');
+    </script> 
+</apex:form>          
+
+
+</apex:page>

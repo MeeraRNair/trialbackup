@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>New_Custom</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>New Disti Relationship</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <requireRowSelection>false</requireRowSelection>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/20.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/20.0/apex.js&quot;)}
+
+var id =  sforce.apex.execute(&quot;DistiRelationshipOverrideController&quot;,&quot;navigateNewEditPage&quot;,
+                             { partnerType: &quot;{!Account.Partner_Type__c}&quot;,
+                              partnerRelationship: &quot;{!Account.Partner_Relationship__c}&quot;
+ });
+
+
+if(id == &apos;distributor&apos;){
+
+window.location=&quot;/a7d/e?CF00N4B000000hMXo={!Account.Name}&amp;CF00N4B000000hMXo_lkid={!Account.Id}&amp;retURL=%2F0013B000007FKQ7&quot;;
+
+}else if(id == &apos;reseller&apos;) {
+  window.location=&quot;/a7d/e?CF00N4B000000hMXu={!Account.Name}&amp;CF00N4B000000hMXu_lkid={!Account.Id}&amp;retURL=%2F0013B000007FKQ7&quot;;
+}</url>
+</WebLink>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Stage_Propose1__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(Stage__c = $Setup.OWD__c.Oppty_Stage60__c, Days_Spent_Current_Stage__c, Stage_Propose__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>No. of days spent per Stage-Propose</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

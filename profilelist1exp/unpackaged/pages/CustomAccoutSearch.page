@@ -1,0 +1,104 @@
+<apex:page standardcontroller="Deal_Program__c" readOnly="true" extensions="CustomAccoutSearchCntrl" docType="html-5.0"  >
+     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
+     <script src="https://code.jquery.com/jquery-1.12.4.js"/>
+     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"/>
+     <apex:includeScript value="//code.jquery.com/jquery-1.11.3.min.js"/>
+     
+    <apex:form id="frm">
+    <apex:pageblock title="Custom {!AccountTypeString} Account Search">
+        <apex:pageBlockButtons location="bottom">
+        
+          <apex:commandButton value="Search" action="{!search}" reRender="frm"/>
+        
+        </apex:pageBlockButtons>
+         <apex:pageblockSection >
+           <apex:pageblockSectionItem >
+         
+                      <apex:outputLabel value="Search {!AccountTypeString} Account By"/>             
+               <apex:selectList value="{!accName}" size="1" multiselect="false" id="id1">
+                                            <apex:selectOption itemLabel="Account Name"  itemValue="Name"/>                                             
+                                            <apex:selectOption itemLabel="Affinity Id" itemValue="Affinity"/>                        
+                                        </apex:selectList>
+               </apex:pageblockSectionItem>   
+                                
+            <apex:pageblocksectionitem >
+                    <apex:outputLabel value="{!$Label.Keyword}" >
+                            <img src="/s.gif" Class="imgclass" title= "To refine search when search result is more than 1000"/>
+                        </apex:outputLabel>                                 
+                        <apex:inputText value="{!searchstring}"/>  
+                    </apex:pageblocksectionitem> 
+        
+        </apex:pageblockSection>   
+    </apex:pageblock>
+     <apex:pageBlock > 
+             <apex:pageMessages id="errorMsg" escape="false" rendered="{!errorbool}"/>
+           <apex:outputPanel rendered="{!showPartnerAccountDetails  }" id="PartnerAccountPanel">  
+           <apex:dataTable value="{!PartnerAcc}" var="a" styleClass="dataTable">
+      <!--<apex:pageblockTable value="{!PartnerAcc}" var="a" styleClass="dataTable" > --> 
+                <apex:column headervalue="Name" ><apex:commandlink target="_blank" action="{!URLFOR($Action.Custom_Partner_Accounts__c.View,a.Id)}"  value="{!a.Name}" id="EditCommandLink" /></apex:column>
+                <apex:column headervalue="Include" ><apex:outputField value="{!a.Include__c}" /></apex:column>
+                <apex:column headervalue="Exclude" ><apex:outputField value="{!a.Exclude__c}" /></apex:column>
+                <apex:column headervalue="Affinity Id" ><apex:outputField value="{!a.Affinity_Id__c}" /></apex:column>
+                <apex:column headervalue="Account Name" ><apex:outputField value="{!a.Account_Name__c}" /></apex:column>
+                <apex:column headervalue="Partner Type" ><apex:outputField value="{!a.Partner_Type__c}" /></apex:column>
+                <apex:column headervalue="Partner Tier" ><apex:outputField value="{!a.Partner_Tier__c}" /></apex:column>
+                <apex:column headervalue="Partner Relationship" ><apex:outputField value="{!a.Partner_Relationship__c}" /></apex:column>
+                <apex:column headervalue="Account Country" ><apex:outputField value="{!a.Account_Country__c}" /></apex:column>
+                
+         </apex:dataTable>       
+     <!--</apex:pageblockTable>-->
+     </apex:outputPanel>
+  
+     <apex:outputPanel rendered="{!showEndUserAccountDetails}" id="EndUserAccoutPanel">  
+        <apex:dataTable value="{!EndUserAcc}" var="a" styleClass="dataTable"  >
+      <!--<apex:pageblockTable value="{!EndUserAcc}" var="a" styleClass="dataTable" > --> 
+                <apex:column headervalue="Name" ><apex:commandlink target="_blank" action="{!URLFOR($Action.Custom_End_User_Accounts__c.View,a.Id)}"  value="{!a.Name}" id="EditCommandLink" /></apex:column>
+                <apex:column headervalue="Include" ><apex:outputField value="{!a.Include__c}" /></apex:column>
+                <apex:column headervalue="Exclude" ><apex:outputField value="{!a.Exclude__c}" /></apex:column>
+                <apex:column headervalue="Affinity Id" ><apex:outputField value="{!a.Affinity_Id__c}" /></apex:column>
+                <apex:column headervalue="Account Name" ><apex:outputField value="{!a.Account_Name__c}" /></apex:column>
+                <apex:column headervalue="Account Country" ><apex:outputField value="{!a.Account_Country__c}" /></apex:column>
+                <apex:column headervalue="Account Classification" ><apex:outputField value="{!a.Account_Classification__c}" /></apex:column>
+                <apex:column headervalue="Unassigned End User" ><apex:outputField value="{!a.Unassigned_End_user_account__c}" /></apex:column>
+                <apex:column headervalue="Account Sales Channel" ><apex:outputField value="{!a.Sales_Channel__c}" /></apex:column>
+                <apex:column headervalue="Coverage" ><apex:outputField value="{!a.Coverage__c}" /></apex:column>
+         </apex:dataTable>       
+     <!--</apex:pageblockTable>-->
+           </apex:outputPanel>
+     
+     <!-- ## Adding DistributorReseller Account search  logic for existing Code ##-->
+         
+       <apex:outputPanel rendered="{!showDistribitorResellerAccountDetails  }" id="DistribitorResellerAccountPanel">  
+           <apex:dataTable value="{!DistributorReseller}" var="a" styleClass="dataTable"> 
+                <apex:column headervalue="Name" ><apex:commandlink target="_blank" action="{!URLFOR($Action.Custom_Distributor_Reseller_Accounts__c.View,a.Id)}"  value="{!a.Name}" id="EditCommandLink" /></apex:column>
+                <apex:column headervalue="Include" ><apex:outputField value="{!a.Include__c}" /></apex:column>
+                <apex:column headervalue="Exclude" ><apex:outputField value="{!a.Exclude__c}" /></apex:column>
+                <apex:column headervalue="Affinity Id" ><apex:outputField value="{!a.Affinity_Id__c}" /></apex:column>
+                <apex:column headervalue="Distributor/Reseller Account Name" ><apex:outputField value="{!a.Distributor_Reseller_Account_Name__c}" /></apex:column>
+                <apex:column headervalue="Partner Type" ><apex:outputField value="{!a.Partner_Type__c}" /></apex:column>
+                <apex:column headervalue="Partner Tier" ><apex:outputField value="{!a.Partner_Tier__c}" /></apex:column>
+                <apex:column headervalue="Partner Relationship" ><apex:outputField value="{!a.Partner_Relationship__c}" /></apex:column>
+                <apex:column headervalue="Account Country" ><apex:outputField value="{!a.Account_Country__c}" /></apex:column>
+                
+         </apex:dataTable>       
+     
+     </apex:outputPanel>
+
+        
+        </apex:pageBlock>
+        
+        
+           </apex:form>
+           
+           <script>
+            $(document).ready(function() {
+            $('#example').DataTable( {
+            
+                "language": {
+              "emptyTable": "no records for above selection  Or No Data  available",
+            }
+            } );
+            } );
+            </script>  
+        
+</apex:page>

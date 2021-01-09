@@ -1,0 +1,46 @@
+<apex:page showheader="false" language="{!LanguageCode}" controller="PartnerUtils" title="{!$Label.T2D_Thank_You}">
+   
+    <title> {!$Label.T2D_Thank_You}</title> 
+
+    <!-- Inserting the Dell template -->
+
+    <apex:composition template="DellSiteTemplate">
+    
+        <apex:define name="body"> 
+                       
+            <div style="padding-left: 50px;">
+            
+                <p align="left" style="font-size:9pt;">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <p>
+                                        <font size="6" style="font-family:arial,helvetica;">{!$Label.T2D_Thank_You}.</font>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><hr/> </td>    
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 0in; direction: ltr; unicode-bidi: embed; text-align: left;">
+                                        <span style="font-size: 12pt; color: black; font-family: Arial;">
+                                            {!$Label.T2D_Thank_you_for_submitting}
+                                        </span>
+                                    </p>    
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </p>
+            </div>
+           
+        </apex:define>
+  
+  </apex:composition>
+        
+
+</apex:page>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>If_PC_Job_Category_is_Others_Validation</fullName>
+    <active>true</active>
+    <description>Validation rule that requires a value in the Primary Contact Other Job Category field if the Primary Contact Job Category field is &quot;Other&quot;.</description>
+    <errorConditionFormula>IF(AND( Primary_Contact_Other_Job_Category__c=&quot;&quot;, ISPICKVAL( Primary_Contact_Job_Category__c , &quot;Other&quot;) ) , TRUE, FALSE)</errorConditionFormula>
+    <errorDisplayField>Primary_Contact_Other_Job_Category__c</errorDisplayField>
+    <errorMessage>If Primary Contact Job Category is Other, then the Primary Contact Other Job Category field must be specified</errorMessage>
+</ValidationRule>

@@ -1,0 +1,33 @@
+<apex:page standardController="Rebate_Rule_Header__c" extensions="RR_CloneWithItemsVFController" standardStylesheets="true" docType="html-5.0" lightningStylesheets="true">
+<apex:form > 
+
+    <apex:pageMessage severity="info" strength="3" title="Vendor is inactive. Rebate rule header cannot be cloned. Activate vendor to clone." rendered="{!displayerr}" /> <br/>                                                     
+    <apex:commandButton value="Back" action="{!Cancel}" rendered="{!displayerr}"  />
+
+    <apex:pageMessage severity="info" strength="3"  title="Enter Fiscal year different from the original record and click clone." rendered="{!fiscalyrerr}" /> <br/>
+    <apex:pageMessage severity="info" strength="3"  title="Duplicate record exists. Please enter a different fiscal quarter." rendered="{!duprecordexist}" /> <br/>
+    <apex:pageMessage severity="info" strength="3"  title="Please enter valid From and To dates that falls in the Fiscal Quarter of the Rebate Rule Header" rendered="{!datesError}" /> <br/>
+
+    <apex:pageBlock title="Please specify the Fiscal year for the new clone record" mode="edit" rendered="{!newfiscalyr}" >
+        <apex:pageBlockSection columns="1">
+            <apex:inputField value="{!new_RRH.Fiscal_Quarter__c}" required="True" />
+            <apex:pageBlockSectionItem rendered="{!Showdates==true}">
+                <apex:outputLabel value="Effective Date (From)"> </apex:outputLabel>
+                <apex:outputPanel >
+                    <apex:inputField value="{!rrli.Effective_Date_From__c}" />
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+             <apex:pageBlockSectionItem rendered="{!Showdates==true}">
+                <apex:outputLabel value="Effective Date (To)"> </apex:outputLabel>
+                <apex:outputPanel >
+                    <apex:inputField value="{!rrli.Effective_Date_To__c}" />
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>  
+        </apex:pageBlockSection>   
+         
+    </apex:pageBlock>
+    
+    <apex:commandButton value="Clone" action="{!RRCloneWithItems}" rendered="{!newfiscalyr}"  />
+    <apex:commandButton value="Cancel" action="{!Cancel}" rendered="{!If(fiscalyrerr==true || datesError==true,true,false)}"  />
+</apex:form>
+</apex:page>

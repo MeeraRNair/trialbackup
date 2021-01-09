@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DSC_Proof_of_Concept_Required_Fields_VR</fullName>
+    <active>true</active>
+    <description>validation for required fields when event type is DSC proof of concept</description>
+    <errorConditionFormula>AND( OR( ISPICKVAL( Event_Type__c , &quot;Proof of Concept&quot;)), ISBLANK( Description_of_Proposed_Solution__c ), ISBLANK( When_will_the_proposed_Solution_go_live__c ))</errorConditionFormula>
+    <errorMessage>You have requested a Proof of Concept event. Please complete the additional Proof of Concept section below.</errorMessage>
+</ValidationRule>

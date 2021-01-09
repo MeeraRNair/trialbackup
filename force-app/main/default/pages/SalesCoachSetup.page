@@ -1,0 +1,122 @@
+<apex:page standardcontroller="Sales_Coach_Setup__c" extensions="SalesCoachSetup" > 
+    <script type="text/javascript">
+        function showBox() {
+        
+             var box = new parent.SimpleDialog("hersh"+Math.random(), true);
+             parent.box = box;
+        
+             box.setTitle("Sales Coach Alert");
+        
+             box.createDialog();
+             box.setWidth(500);
+             box.setContentInnerHTML("<p>Changes Saved Successfully.</p><br/><a href=\"#\" onclick=\"box.hide();\">Close</a>");
+
+             box.setupDefaultButtons();
+             
+             box.show();
+             
+             setTimeout("box.hide();",2000);
+        }
+    </script>   
+    <style type="text/css">     
+        .saveButton{
+                    font-size:11px;
+                padding:5px 9px;
+            }
+        ul {
+         list-style-image:none;  
+         font-family:arial;
+         list-style-type:none;
+         font-size: 14px;
+        }
+        
+        .leftDiv {
+            float: left;
+            width: 48%;
+            margin-right: 5px;
+        }
+        
+        .rightDiv {
+            float: left;
+            width: 48%;
+            margin-left: 5px;
+        }
+    </style>
+    
+    <apex:pageMessages />
+        
+    <apex:sectionheader title="Sales Coach Setup" />
+    
+    <apex:form id="topform">
+        <apex:pageblock title="Select Stage">
+            <apex:pageblocksection showheader="false" columns="5">
+                
+                <apex:pageblocksectionitem rendered="{!NOT(flag)}" >
+                    <apex:outputlabel for="stage" value="Stage Name" />
+                     <apex:selectList id="stage" value="{!stage}" size="1" multiselect="false" >
+                        <apex:selectOptions value="{!OpptyStages}" />
+                        <apex:actionsupport event="onchange" action="{!getSections}" rerender="sectionform" />
+                    </apex:selectList>
+                </apex:pageblocksectionitem>
+                <apex:pageblocksectionitem rendered="{!NOT(flag)}" >
+                    <apex:outputlabel for="language" value="Language" />
+                    <apex:selectList id="language" value="{!language}"
+                             size="1" required="true">
+                      <apex:selectOptions value="{!Languages}"/>
+                      <apex:actionsupport event="onchange" action="{!getSections}" rerender="sectionform" />
+                    </apex:selectList>
+                </apex:pageblocksectionitem>   
+                <apex:pageblocksectionitem rendered="{!(flag)}" >
+                    <apex:outputlabel for="stage" value="Stage Name" />
+                    <apex:outputText value="{!stage}" id="stage"/>
+                </apex:pageblocksectionitem>
+                <apex:pageblocksectionitem rendered="{!(flag)}" >
+                    <apex:outputlabel for="language" value="Language" />
+                    <apex:outputText value="{!lang}" id="language"/>
+                </apex:pageblocksectionitem>                    
+            </apex:pageblocksection>
+        </apex:pageblock>
+    </apex:form>
+    
+    <apex:form id="sectionform">
+        <center>
+            <apex:commandButton action="{!saveActivities}" value="Save" id="saveButton" rendered="{!showSections}" styleClass="saveButton"/>
+            <apex:commandButton action="{!saveClose}" value="Save & Close" id="saveCloseButton" rendered="{!showSections}" styleClass="saveButton"/>
+            <apex:commandButton action="{!btncancel}" value="Cancel" id="cancelButton" rendered="{!showSections}" styleClass="saveButton"/>
+  
+        </center>
+    <br></br>
+    <apex:pageblock title="Edit Stage Settings" id="sectionprefs" rendered="{!showSections}">
+      <apex:pageblocksection showheader="false" columns="1">
+        <apex:inputfield value="{!scstage.Goal_Stage__c}" />
+      </apex:pageblocksection>  
+    </apex:pageblock>
+    
+        <apex:pageblock title="Edit Stage Activities" id="activities" rendered="{!showSections}" >
+            
+            <apex:pageblocktable value="{!scActivities}" var="a">
+                <apex:column >
+                    <strong><apex:commandlink value="Delete" action="{!deleteActivity}" rerender="activities" rendered="{!if( a.Activity_Details__c != '', true, false ) }" >
+                        <apex:param assignto="{!toDelete}" name="toDelete" value="{!a.id}" />
+                    </apex:commandlink></strong>
+                </apex:column>
+                <apex:column headervalue="Activity Details">
+                    <apex:inputfield value="{!a.Activity_Details__c}" style="width: 400px; height: 40px"/>
+                </apex:column>
+                <apex:column headervalue="Activity Ordering">
+                    <apex:inputfield value="{!a.Ordering_Number__c}" style="width: 40px"/>
+                </apex:column>
+            </apex:pageblocktable>
+        </apex:pageblock>
+ 
+         <center>
+        <apex:commandButton action="{!saveActivities}" value="Save" id="saveButton2" rendered="{!showSections}" styleClass="saveButton"/>
+        <apex:commandButton action="{!saveClose}" value="Save & Close" id="saveCloseButton2" rendered="{!showSections}" styleClass="saveButton"/>
+        <apex:commandButton action="{!btncancel}" value="Cancel" id="cancelButton2" rendered="{!showSections}" styleClass="saveButton"/>
+  
+    </center>
+    <br></br>
+    </apex:form>
+    
+    
+</apex:page>

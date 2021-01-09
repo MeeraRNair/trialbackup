@@ -1,0 +1,51 @@
+<apex:page controller="VFCntrlr_CMIXML" title="CMI XML Lookup" action="{!sendHttpRequest}" lightningStylesheets="true">
+
+    <script type="text/javascript">
+        function processOnClick(){
+            document.getElementById('ProcessNote').style.display='block';
+            
+            document.getElementById('{!$Component.result}').style.display='none';
+    
+        }
+        function processOnComplete(){
+            document.getElementById('ProcessNote').style.display='none';
+            //document.getElementById('{!$Component.result}').style.display='none';
+        }
+
+    </script>
+ 
+     <apex:sectionHeader title="Get the XML from CMI" subtitle="CMI XML" />
+    
+     <apex:form >
+     <apex:pageBlock mode="Edit" id="form">
+     
+     
+     <apex:pageBlockSection collapsible="false" columns="1" title="Please enter 'Partner My Account GUID' or 'SFDC Contact Id' or 'Email' information">
+     <apex:pageMessages ></apex:pageMessages>
+        
+        <apex:inputText value="{!inputValue}" label="Partner My Account GUID / SFDC Contact Id / Email:" size="50"/>
+                       
+        </apex:pageBlockSection> 
+        <apex:pageBlockButtons location="bottom"  >
+            <apex:commandButton value="Get CMI Data" action="{!sendHttpRequest}" reRender="result,form" onclick="processOnClick();" oncomplete="processOnComplete();"/>
+        <div id="ProcessNote" style="display:none">Processing... Please wait </div>
+        </apex:pageBlockButtons>
+     </apex:pageBlock>     
+     </apex:form>
+     <apex:outputPanel id="result">
+     <div style="width:100%;overflow-x:auto;overflow-y:auto;word-wrap:break-word;word-break:break-all">
+     <apex:pageBlock title="CMI Response XML" rendered="{!hasResult}" id="response">
+     <apex:outputText value="{!response}" styleClass="prettyprint-xml"> </apex:outputText>
+     
+     
+     </apex:pageBlock>
+     
+    
+      <apex:pageBlock title="Request XML" rendered="{!hasResult}" id="request">
+     <apex:outputText value="{!Request}"> </apex:outputText>
+     
+     </apex:pageBlock>
+     </div>
+     </apex:outputPanel>
+  
+</apex:page>

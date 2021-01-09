@@ -1,0 +1,10 @@
+<apex:page standardController="Lead" extensions="CMAP_overrideNewController" tabStyle="Lead" action="{!redirect}" lightningStylesheets="true">
+    <apex:form >
+        <apex:pageBlock rendered="{!okbutton}">
+            <apex:pagemessages ></apex:pagemessages>
+            <apex:pageBlockButtons location="Bottom">
+                <apex:commandButton immediate="TRUE" action="{!okbuttonAction}" value="OK"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

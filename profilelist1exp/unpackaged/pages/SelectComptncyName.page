@@ -1,0 +1,247 @@
+<apex:page controller="SelectComptncyNameControler" showHeader="false" sidebar="false" id="thePage" lightningStylesheets="true" >
+
+
+<div align="center">
+<apex:form id="theForm">
+
+<apex:actionFunction name="savenclose" action="{!saveandclose}" onComplete="closeChild()" reRender="thePage" />
+
+<div align="left">  
+<apex:pageMessages />
+</div>
+
+ <div style="width:440px;">
+   <apex:tabPanel switchType="server"  id="theTabPanel"  rendered="{!renderPanel}"  selectedTab="{!selectedTab}">
+   <apex:tab label="Add" name="add" id="tab1"  immediate="true"    >
+   <div style="width:400px;text-align:center">
+   <apex:pageBlock id="thePbTab1">    
+    <apex:pageBlockButtons >    
+     <apex:commandButton value="Add" action="{!add}" />
+     <apex:commandButton value="Save" action="{!save}" />
+     <apex:commandButton id="close" value="Save & Close" action="{!save}" onComplete="closeChild()" />
+     <apex:commandButton value="Cancel" onClick="HideModalWindow()" />
+    </apex:pageBlockButtons>
+  <apex:pageBlocksection title="Selected Competency Name" collapsible="false" rendered="{!IF(competencyAdd.size>0,true,false)}"></apex:pageBlocksection>
+    <div style="width:350px;">
+       <apex:variable value="{!0}" var="counter"/>
+         <table class="list" cellpadding="0" cellspacing="0">
+           
+           <apex:repeat value="{!competencyAdd}" var="comAddRecords">
+               <apex:variable value="{!counter+1}" var="counter"/> 
+             <tr style="text-align:left">          
+                   <td> {!comAddRecords.competencyName}</td>
+             </tr>
+            <tr style="text-align:left">
+              <td style="{!IF(counter=competencyAdd.size,'display:none;','')}" >     
+                  <apex:selectList value="{!comAddRecords.operator}" size="1" multiselect="false">
+                      <apex:selectOptions value="{!competencyOperator}" />
+                  </apex:selectList>
+              </td>
+             </tr>
+          </apex:repeat> 
+       </table>
+     </div>  
+    
+    <apex:pageBlocksection title="Competency Name" collapsible="false"></apex:pageBlocksection>
+    <div style="height:200px;width:350px;overflow:scroll;overflow-x: hidden;">
+        <apex:pageBlockTable value="{!competencyList}" var="compRec" id="thetableTab1">
+        <apex:column style="width:50px;" >
+            <apex:facet name="header">
+                   <!-- <input type="checkbox" id="compListSelectAll" onchange="javascript:selectAll(this.checked);" /> // --> SELECT
+            </apex:facet>
+            <apex:inputCheckbox value="{!compRec.selected}" id="tab1Chkbox" onchange="javascript:unSelectSelectAll(this.checked,'compListSelectAll');" />
+        </apex:column> 
+         <apex:column headerValue="COMPETENCY NAME" style="text-align:left" >
+             {!compRec.competencyName}
+         </apex:column>
+        </apex:pageBlockTable> 
+    </div>
+    
+   </apex:pageBlock>
+  
+  </div>
+  </apex:tab>
+  <apex:tab label="Modify" name="modify" id="tab2" rendered="{!selectedTab=='modify'}" immediate="true">
+   <div style="width:350px;">
+   <apex:pageBlock id="thePbTab2" >
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Modify" action="{!doReplace}" />
+            <apex:commandButton value="Save" action="{!save}" />
+            <apex:commandButton value="Save & Close" action="{!save}" onComplete="closeChild()" />
+            <apex:commandButton value="Cancel" onClick="HideModalWindow()" />
+    </apex:pageBlockButtons>
+   <apex:pageBlocksection title="Selected Competency Name" collapsible="false" rendered="{!IF(competencyAdd.size>0,true,false)}"></apex:pageBlocksection>
+   <div style="{!IF(competencyAdd.size>0,'','display:none;width:350px;')}">
+        
+       <apex:variable value="{!0}" var="counterUpdate"/>
+        <table class="list" cellpadding="0" cellspacing="0" width="350">
+             <tr>
+                <td style="font-face:bold;">SELECT</td>
+                <td style="text-align:left;font-face:bold;">COMPETENCY NAME</td>
+            </tr>
+            
+           <apex:repeat value="{!competencyAdd}" var="comAddRecords" id="compAddedTable">
+               <apex:variable value="{!counterUpdate+1}" var="counterUpdate"/> 
+             <tr> 
+                    <td> <apex:inputCheckbox value="{!comAddRecords.isSelected}" id="updateChkbox" onchange="javascript:toggleChkboxMdfyCompetency(this.id,'added');"/></td>          
+                   <td style="text-align:left"> {!comAddRecords.competencyName}</td>
+             </tr>
+            <tr style="text-align:left;width:350px;">
+              <td> </td>
+              <td style="{!IF(counterUpdate=competencyAdd.size,'display:none;','')}">     
+                  <apex:selectList value="{!comAddRecords.operator}" size="1" multiselect="false" >
+                      <apex:selectOptions value="{!competencyOperator}"/>
+                  </apex:selectList>
+             </td>
+             </tr>
+          </apex:repeat> 
+       </table>
+     </div>  
+    
+   <apex:pageBlocksection title="Competency Name" collapsible="false" ></apex:pageBlocksection>
+    <div style="height:200px;width:350px;overflow:scroll;overflow-x: hidden;">
+    
+        <apex:pageBlockTable value="{!competencyList}" var="compRec" id="thetableModifyTab2">
+         <apex:column style="width:50px;" >
+            <apex:facet name="header">SELECT</apex:facet>
+            <apex:inputCheckbox value="{!compRec.selected}" id="tab1ModifyChkbox" onchange="javascript:toggleChkboxMdfyCompetency(this.id,'competencyList');"  />
+         </apex:column> 
+         <apex:column headerValue="COMPETENCY NAME" style="text-align:left">{!compRec.competencyName}</apex:column>
+        </apex:pageBlockTable> 
+    </div>
+   </apex:pageBlock>
+    </div>
+  </apex:tab>
+  
+  <apex:tab label="Delete" name="delete" id="tab3" rendered="{!selectedTab=='modify'}" immediate="true">
+   <div style="width:350px;">
+  <apex:pageBlock id="thePBTab3">
+       
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Delete" action="{!dodelete}" />
+            <apex:commandButton value="Save" action="{!save}" />
+            <apex:commandButton value="Save & Close" action="{!save}" onComplete="closeChild()" />
+            <apex:commandButton value="Cancel" onClick="HideModalWindow()" />
+        </apex:pageBlockButtons>
+    <apex:pageBlocksection title="Selected Competency Name" collapsible="false" rendered="{!IF(competencyAdd.size>0,true,false)}"></apex:pageBlocksection>
+       <div  style="{!IF(competencyAdd.size>0,'','display:none;width:250px;')}">
+           <apex:variable value="{!0}" var="counterDelete"/>
+            <table class="list" cellpadding="0" cellspacing="0">
+                 <tr>
+                    <!-- <td> <input type="checkbox" onchange="javascript:selectAllDelete(this.checked);" id="comAddedDeleteSection" />Select All </td> -->
+                    <td>SELECT</td>
+                    <td style="text-align:left">COMPETENCY NAME</td>
+                </tr>
+               <apex:repeat value="{!competencyAdd}" var="comAddRecords" id="deleteTable">
+                   <apex:variable value="{!counterDelete+1}" var="counterDelete"/> 
+                 <tr> 
+                        <td> <apex:inputCheckbox value="{!comAddRecords.isSelected}" id="deleteChkbox" onchange="javascript:unSelectSelectAll(this.checked,'comAddedDeleteSection');" /></td>         
+                       <td style="text-align:left"> {!comAddRecords.competencyName}</td>
+                 </tr>
+                <tr style="text-align:left">
+                  <td> </td>
+
+                  <td style="{!IF(counterDelete=competencyAdd.size,'display:none;','')}" >     
+                   <apex:selectList value="{!comAddRecords.operator}" size="1" multiselect="false" disabled="false" style="text-decoration:none;">
+                      <apex:selectOptions value="{!competencyOperator}"/>
+                   </apex:selectList>
+                  </td>
+                  
+                  <!--
+                  <td style="{!IF(counterDelete=competencyAdd.size,'display:none;','')}">     
+                      {!comAddRecords.operator}
+                  </td>
+                  //-->
+                  
+                 </tr>
+              </apex:repeat> 
+           </table>
+     </div>  
+  
+  
+  </apex:pageBlock>
+   </div>
+  </apex:tab>
+  <apex:actionFunction name="refreshList1" action="{!refreshList}"/>
+
+ </apex:tabPanel>
+  </div> 
+
+ 
+ </apex:form>
+ 
+ <script>
+     function refreshList(){
+        alert('hi....')
+     }
+     
+     function selectAll(chkd){
+         var size='{!competencyList.size}';
+        
+         for(var i=0;i<size;i++){
+             document.getElementById('thePage:theForm:thePbTab1:thetableTab1:'+i+':tab1Chkbox').checked=chkd;
+         }
+     }
+     
+     function selectAllDelete(chkd){
+         var size='{!competencyAdd.size}';
+         for(var i=0;i<size;i++){                            
+             document.getElementById('thePage:theForm:thePBTab3:deleteTable:'+i+':deleteChkbox').checked=chkd;
+         }
+     }
+     
+     function unSelectSelectAll(chkd,mode){
+        if(!chkd){
+            document.getElementById(mode).checked=chkd;
+        }         
+     }
+     
+     function toggleChkboxMdfyCompetency(id,list){
+        // Validate user to select only checkbox to replace the competency from added to available.
+        if(list=='competencyList'){
+            var size='{!competencyList.size}';
+            for(var i=0;i<size;i++){
+                var eleId='thePage:theForm:thePbTab2:thetableModifyTab2:'+i+':tab1ModifyChkbox';
+                if(eleId!=id)
+                    document.getElementById(eleId).checked=false;            
+            }
+        }
+        else{
+            var size='{!competencyAdd.size}';
+            for(var i=0;i<size;i++){
+                var eleId='thePage:theForm:thePbTab2:compAddedTable:'+i+':updateChkbox';
+                if(eleId!=id)
+                    document.getElementById(eleId).checked=false;
+            }
+        }
+     }
+ </script>
+ 
+ <script language="javascript">
+        function getQueryStringValue(key, default_){
+            if (default_==null) default_="";
+            key = key.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+            var regex = new RegExp("[\\?&]"+key+"=([^&#]*)");
+            var qs = regex.exec(window.location.href);
+            if(qs == null)
+                return default_;
+            else
+                return qs[1];
+        }
+
+        function closeChild(){
+            //savenclose();
+            //window.parent.location.href = "/apex/MasterProgramSetup?id=a3AK0000000Cj8kMAC";
+            var id = getQueryStringValue('id');
+            window.parent.location.href = "/apex/MasterProgramSetup?id=" + id;
+        }
+
+        function HideModalWindow(){
+            window.parent.modalWin.HideModalPopUp();
+        }
+ </script>
+
+
+
+</div>
+</apex:page>

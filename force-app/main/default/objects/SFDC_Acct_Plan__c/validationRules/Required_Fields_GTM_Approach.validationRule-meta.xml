@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Required_Fields_GTM_Approach</fullName>
+    <active>true</active>
+    <description>When GTM Approach = Partner OR Direct &amp; Partner Strategic Partner 1, Partner Value Proposition are required</description>
+    <errorConditionFormula>AND(
+NOT($Setup.System_Behavior_Bypasser__c.Bypass_Account_Plan_VRs__c),
+RecordType.DeveloperName = &apos;Direct_Relationship_Account_Plan&apos;, 
+OR(ISNEW(),DATEVALUE(CreatedDate) &gt; DATE(2019,11,16)),
+OR(ISPICKVAL(Go_To_Market_Approach__c,&apos;Partner&apos;),
+ISPICKVAL(Go_To_Market_Approach__c,&apos;Direct &amp; Partner&apos;)),
+OR(ISBLANK(Strategic_Partner_1__c),isblank(Go_To_Market_Approach_Comments__c))
+)</errorConditionFormula>
+    <errorMessage>Strategic Partner 1 and Partner Value Proposition are required. Please enter value.</errorMessage>
+</ValidationRule>

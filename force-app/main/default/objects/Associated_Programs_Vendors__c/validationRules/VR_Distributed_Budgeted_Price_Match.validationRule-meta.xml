@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR_Distributed_Budgeted_Price_Match</fullName>
+    <active>true</active>
+    <description>System will need to show an error message if sum of Distributed Budgeted Price and Budgeted Price is different.</description>
+    <errorConditionFormula>Budgeted_Price__c &lt;&gt; ( LE__c + SMB__c + PUB__c + CSMR__c )</errorConditionFormula>
+    <errorMessage>The sum of the Distributed Budgeted Prices (LE + CSMR + PUB + SMB) must equal the Budgeted Price of the APV record. Record not saved.</errorMessage>
+</ValidationRule>

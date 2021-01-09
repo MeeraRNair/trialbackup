@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>R12_10_Solution_CRM_Resource_Assigned</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND ( 
+ISPICKVAL (Support_Status__c , &quot;Resource Assigned&quot;), 
+ISBLANK( Assigned_System_Engineer_1__c ), 
+ISBLANK( Assigned_System_Engineer_2__c ) , 
+CONTAINS ($RecordType.Name, &quot;Request Pre-Sales Product Technologist Support&quot;) 
+)</errorConditionFormula>
+    <errorDisplayField>Support_Status__c</errorDisplayField>
+    <errorMessage>This record is in &apos;Resource Assigned&apos; status. Please assign at least one System Engineer to the request.</errorMessage>
+</ValidationRule>

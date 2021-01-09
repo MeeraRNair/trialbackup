@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Strategy_Potential_Serv_Rev_Required_2</fullName>
+    <active>false</active>
+    <description>Ensure What Dell Services will you offer? field are populated when “What Domain are you Offering?” field are having the following value – Services</description>
+    <errorConditionFormula>AND(
+INCLUDES( Which_LOB_will_you_offer__c ,&quot;Services&quot;),
+ISNULL(What_Dell_Services_will_you_offer__c))</errorConditionFormula>
+    <errorDisplayField>What_Dell_Services_will_you_offer__c</errorDisplayField>
+    <errorMessage>If Domain is Services, What Dell Services will you offer? is mandatory</errorMessage>
+</ValidationRule>

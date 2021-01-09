@@ -1,0 +1,177 @@
+<apex:page standardController="contact" extensions="OpportunityShareAccessForContacts"  standardStylesheets="true" showHeader="false" sidebar="false">
+   <meta charset="utf-8"/>
+   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <style>
+      .badge {
+      display: inline-block;
+      min-width: 10px;
+      padding: 3px 7px;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+      color: #fff;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      background-color: #777;
+      border-radius: 10px;
+      }
+      .col-lg-6 {
+      width: 47%;
+      float: left;
+      }
+      .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+      position: relative;
+      min-height: 1px;
+      padding-right: 15px;
+      padding-left: 15px;
+      }
+      .row {
+      margin-right: -15px;
+      margin-left: -15px;
+      width:100%;
+      }
+      .container {
+      width: 1170px;
+      }
+      .container {
+      padding-right: 15px;
+      padding-left: 15px;
+      margin-right: auto;
+      margin-left: auto;
+      }
+      .multiSelectPicklistTable{
+      padding-left: 11% !important;
+      }
+   </style>
+   <apex:outputPanel rendered="{!!previousActionUnderProcesss}">
+      <div class="container">
+		<apex:form id="trackfrm">
+			<!---------Start--->
+			<b> <apex:CommandLink value="Back To Contact Page" action="{!goBack}"/></b><br/><br/>
+			<apex:outputText >
+				<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please select the partner Program Track and related account for enabling deal access</b></apex:outputText><br/>
+                  <table width="100%">
+                      <tr>
+						<td width="50%">
+                           <apex:outputText ><b>Partner Program Track:</b></apex:outputText>&nbsp;
+							<apex:selectList value="{!selectedtrack}" title="PartnerTrack" size="1" id="PartnerTracks">
+								<apex:selectOptions value="{!alleligibletracks}" />
+								<apex:actionSupport event="onchange" action="{!getAccounts}" reRender="trackfrm,aa,suggestionForm,opty_chart1,stg,opty_count,btns,opty_chart"/>
+                         </apex:selectList>
+                        </td>
+              			<td width="50%">
+                          <apex:outputText ><b>Account:</b></apex:outputText>
+							<apex:outputText id="aa">
+							<apex:selectList value="{!selectedaccount}" title="PartnerTrack" size="1" disabled="{!NOT(showaccounts)}" >
+								<apex:selectOption itemValue="--None--" itemLabel="--None--" />
+								<apex:selectOptions value="{!alleligibleAccounts}"  />  
+								<apex:actionSupport action="{!conoppstages}" event="onchange" reRender="suggestionForm,opty_chart1,opty_chart,opty_count"/>                                                
+							</apex:selectList>
+						  </apex:outputText>
+						</td>
+					</tr>
+				 </table>
+			<!-------END--->
+		</apex:form>
+        <div class="row">
+            <div class="col-lg-6" style="  ">
+             <apex:form id="opty_chart1">
+               <apex:outputPanel id="opty_chart" title="" rendered="{!showChart}">
+                  <div style="font-weight: 700;padding:15px;padding-left:100px">
+                     <h3 style="text-alighn:center"> Opportunity Count by Stage</h3>
+                  </div>
+                  <apex:chart height="350" width="450" data="{!pieData}" >
+                     <apex:pieSeries dataField="data" labelField="name"/>
+                     <apex:legend position="right"/>
+                  </apex:chart>
+               </apex:outputPanel>
+            </apex:form>
+            </div>
+            <div class="col-lg-6" style="  margin-top: 8%;">
+               <table width="600px" cellpadding="0" cellspacing="0" align="center" border="0">
+                  <tr>
+                    <td>
+                    
+                        <apex:form id="suggestionForm">
+							<apex:outputPanel id="opty_count" rendered="{!showChart}">
+                              <div style="font-weight: 700;padding:15px;padding-left:100px">
+								Opportunity Share Count :  <span class="badge"> {!OpptyShareCount}</span>
+                              </div>
+                           </apex:outputPanel>                           
+                           <apex:actionFunction name="change_count" action="{!getChangeData}" rerender="opty_count,act_panel"/>
+                           <apex:outputText rendered="{!showChart}"><b>Select Stage :</b></apex:outputText>   
+                           <apex:inputField value="{!conopplist.Opportunity_Stage__c }" onchange="change_count()" rendered="{!showChart}"  id="stg"/>
+                             
+                           <apex:outputPanel id="act_panel" rendered="{!Deal_access_feature}">
+                             <apex:commandButton value="Remove Access" rendered="{!Removebtn}" action="{!removealrt}" Rerender="trackfrm,suggestionForm"/>
+                              <apex:outputPanel rendered="{!showAction}" style="margin-top:20px" id="btns">
+                                 <apex:pageMessage severity="confirm" strength="2" title="Submit Request to  {!dealAccessRequest} " detail="" />
+                                 <table align="center">
+                                    <tr>
+                                       <td>
+                                          <apex:commandButton value="Ok" action="{!processRequest}" reRender="trackfrm,suggestionForm" rendered="{!addbool}"/>
+                                          <apex:commandButton value="Ok" action="{!removeAccess}" reRender="trackfrm,suggestionForm" rendered="{!removebool}"/>
+                                          <apex:commandButton value="Cancel" action="{!goBack}"/>
+                                       </td>
+                                    </tr>
+                                 </table>
+                                 <hr/>
+                              </apex:outputPanel>
+                           </apex:outputPanel>
+                           <apex:outputPanel rendered="{!!Deal_access_feature}">
+								<div class="container" style="">
+									<div class="row">
+										<div class="col-lg-6" style="    margin-left: -30%;  ">
+											<marquee><h2 style="font-weight: 700;">This feature is disabled ...!!!</h2></marquee>
+											<div style="padding-left: 45%;padding-top:15px">
+												<apex:commandButton value="Back" action="{!goBack}"/>
+											</div>
+										</div>
+									</div>
+								</div>
+                            </apex:outputPanel>
+                        </apex:form>
+                    </td>
+                  </tr>
+               </table>
+            </div>
+        </div>
+		
+	  </div>
+   </apex:outputPanel>
+   <apex:outputPanel rendered="{!previousActionUnderProcesss}">
+      <apex:form >
+          <apex:pageblock >
+            <apex:selectList value="{!partnertrackId}" title="Partner Program Track" size="1" id="PartnerTracks" multiselect="true">
+             <apex:selectOptions value="{!PartnerTrackList}" />
+            </apex:selectList>
+         </apex:pageblock>
+     <div class="container" style="margin-left: 32%;margin-top: 5%;">
+        <div class="row">
+            <div class="col-lg-6" style="  ">
+			<table width="600px" cellpadding="0" cellspacing="0" align="center" border="0" >
+				<tr>
+				   <apex:outputPanel >
+					  <marquee><h2 style="font-weight: 700;">Previous request is under process please try after some time ...!!!</h2></marquee>
+					  <img src="{!$Resource.dealShareAccessStatus}" style="    margin-left: 98px;padding-top:15px"/>
+					 
+				   </apex:outputPanel>
+				</tr>
+            
+			</table>
+			<div style="padding-left: 45%;padding-top:15px">
+                 <apex:commandButton value="Back" action="{!goBack}"/>
+            </div>
+			</div>
+        </div>
+     </div>
+    </apex:form>
+   </apex:outputPanel>
+   <script>
+      function go_back(){
+		window.location="/{!con.id}";
+      }
+   </script>
+</apex:page>

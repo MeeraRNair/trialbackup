@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Delete_Selected_Certification</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Deleted Selected Competency</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+    <url>// Include and initialize the AJAX Toolkit javascript library
+{!REQUIRESCRIPT(&quot;/soap/ajax/10.0/connection.js&quot;)}
+ 
+var idsToDelete = {!GETRECORDIDS( $ObjectType.Certification__c )};
+var deleteWarning = &apos;Are you sure you wish to delete &apos; +
+                    idsToDelete.length +&apos; Competency records?&apos;;
+ 
+if (idsToDelete.length &amp;&amp; (window.confirm(deleteWarning))) {
+ 
+   sforce.connection.deleteIds(idsToDelete,
+          function() {navigateToUrl(window.location.href);});
+ 
+} else if (idsToDelete.length == 0) {
+   alert(&quot;Please select the records you wish to delete.&quot;);
+}</url>
+</WebLink>
